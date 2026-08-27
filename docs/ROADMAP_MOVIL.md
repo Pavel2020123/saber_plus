@@ -36,9 +36,10 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 
 ## Etapa 3 - Diagnóstico y aprendizaje
 
-- Bootstrap móvil y convocatoria activa.
-- Diagnóstico de las cinco áreas.
-- Resultado por área y plan semanal.
+- [x] Inicio académico móvil con convocatoria activa, XP y plan semanal real.
+- [x] Estados, inicio y resumen del diagnóstico conectados con el backend.
+- [ ] Sesión móvil de las 15 preguntas, borrador local y finalización.
+- [x] Resultado por área y área prioritaria disponibles en la app.
 - Árbol de áreas, temas, subtemas y lecciones.
 - Recursos Markdown, imágenes, video y PDF.
 

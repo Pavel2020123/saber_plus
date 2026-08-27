@@ -13,6 +13,7 @@ import '../features/auth/presentation/session_loading_page.dart';
 import '../features/auth/presentation/verify_email_page.dart';
 import '../features/auth/presentation/verify_pending_page.dart';
 import '../features/auth/presentation/welcome_page.dart';
+import '../features/academic/presentation/diagnostic_overview_page.dart';
 import '../features/dashboard/presentation/more_page.dart';
 import '../features/dashboard/presentation/student_dashboard_page.dart';
 import '../features/dashboard/presentation/teacher_dashboard_page.dart';
@@ -110,6 +111,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/change-initial-password',
         builder: (context, state) => const ChangeInitialPasswordPage(),
+      ),
+      GoRoute(
+        path: '/student/diagnostic',
+        builder: (context, state) => const DiagnosticOverviewPage(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
