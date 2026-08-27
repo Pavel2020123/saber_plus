@@ -9,8 +9,9 @@ Este plan traduce el informe técnico a entregas pequeñas y verificables. El ba
 - [x] Configuración `dev`, `staging` y `prod` mediante `dart-define`.
 - [x] Cliente HTTP y frontera de sesión preparados.
 - [x] Prototipo navegable de estudiante y profesor con datos demostrativos.
-- [x] Cliente móvil de autenticación, sesión segura y deep links personalizados.
-- [ ] Contrato OpenAPI `/v1`, dominio de universal links y backend disponibles en este repositorio.
+- [x] Cliente móvil de autenticación adaptado al contrato real y deep links personalizados.
+- [x] Contrato de autenticación auditado contra `Pavel2020123/Icfes_Vida`.
+- [ ] URL HTTPS desplegada, OpenAPI y dominio de universal links.
 
 ## Etapa 1 - Cimientos móviles
 
@@ -23,15 +24,15 @@ Objetivo: una aplicación ejecutable con arquitectura modular, navegación acces
 
 ## Etapa 2 - Identidad real
 
-Requiere el contrato del backend y las decisiones ADR-001/ADR-004.
+El cliente ya está adaptado al contrato actual del backend NestJS.
 
-- [x] Registro y captura de consentimiento versionado en el cliente.
+- [x] Registro con los campos actualmente admitidos por el backend.
 - [x] Verificación de correo mediante deep link personalizado.
-- [x] Login con access token en memoria y refresh token cifrado.
-- [x] Recuperación, cambio inicial y cierre de sesión.
-- [x] Renovación coordinada y retry único ante `401`.
-- [ ] Validación de integración contra el backend real.
-- [ ] Universal Links/App Links HTTPS, revocación por dispositivo y perfil completo.
+- [x] Login, perfil y restauración local con access token cifrado.
+- [x] Recuperación, cambio inicial y cierre de sesión local.
+- [x] DTO, roles, contraseña y errores alineados con la API existente.
+- [ ] Prueba de extremo a extremo contra una instancia ejecutándose.
+- [ ] Consentimiento versionado, refresh token, Universal Links/App Links HTTPS y revocación por dispositivo.
 
 ## Etapa 3 - Diagnóstico y aprendizaje
 
@@ -80,8 +81,8 @@ Requiere el contrato del backend y las decisiones ADR-001/ADR-004.
 
 ## Decisiones pendientes que no debe inventar Flutter
 
-1. Contrato OpenAPI versionado y formato de errores.
+1. Contrato OpenAPI versionado y formato uniforme de errores.
 2. Refresh rotation, sesiones y revocación de dispositivos.
-3. Consentimiento y tratamiento de datos de menores.
+3. Consentimiento versionado y tratamiento de datos de menores en el backend.
 4. Estrategia de compra compatible con cada tienda.
 5. Política offline para intentos y contenido protegido.

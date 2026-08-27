@@ -13,12 +13,22 @@ class ApiError implements Exception {
   final Object? details;
   final String? traceId;
 
-  factory ApiError.fromJson(Map<String, dynamic> json) => ApiError(
-    code: json['code'] as String? ?? 'unknown_error',
-    message: json['message'] as String? ?? 'Ocurrió un error inesperado.',
-    details: json['details'],
-    traceId: json['traceId'] as String?,
-  );
+  factory ApiError.fromJson(Map<String, dynamic> json) {
+    final rawMessage = json['message'] ?? json['mensaje'];
+    final message = switch (rawMessage) {
+      String value when value.isNotEmpty => value,
+      List values when values.isNotEmpty => values.join('\n'),
+      _ => 'Ocurrió un error inesperado.',
+    };
+    final rawCode = json['code'] ?? json['codigo'] ?? json['statusCode'];
+
+    return ApiError(
+      code: rawCode?.toString() ?? 'unknown_error',
+      message: message,
+      details: json['details'],
+      traceId: json['traceId'] as String?,
+    );
+  }
 
   factory ApiError.fromDioException(DioException exception) {
     final body = exception.response?.data;

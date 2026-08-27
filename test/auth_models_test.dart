@@ -6,39 +6,36 @@ void main() {
   test('interpreta la respuesta de login móvil', () {
     final result = LoginResult.fromJson({
       'accessToken': 'access-token',
-      'refreshToken': 'refresh-token',
-      'user': {
+      'usuario': {
         'id': 'user-1',
-        'firstName': 'Laura',
-        'email': 'laura@example.com',
-        'role': 'teacher',
-        'emailVerified': true,
-        'mustChangePassword': false,
+        'nombre': 'Laura Gómez',
+        'correo': 'laura@example.com',
+        'rol': 'PROFESOR',
+        'debeCambiarContrasena': false,
       },
     });
 
     expect(result.tokens.accessToken, 'access-token');
-    expect(result.tokens.refreshToken, 'refresh-token');
     expect(result.user.role, AppRole.teacher);
-    expect(result.user.emailVerified, isTrue);
+    expect(result.user.firstName, 'Laura Gómez');
+    expect(result.user.emailVerified, isFalse);
   });
 
-  test('registro omite un referido vacío y conserva consentimiento', () {
+  test('registro genera exactamente los campos aceptados por el backend', () {
     const request = RegistrationRequest(
       firstName: 'Ana',
       lastName: 'Pérez',
       email: 'ana@example.com',
-      password: 'password123',
-      grade: '11',
-      acceptedPolicyVersion: '2026-08-26',
-      guardianConsent: true,
+      password: 'Password123',
       referralCode: '',
     );
 
-    final json = request.toJson();
+    final json = request.toBackendJson();
 
-    expect(json, isNot(contains('referralCode')));
-    expect(json['guardianConsent'], isTrue);
-    expect(json['acceptedPolicyVersion'], '2026-08-26');
+    expect(json, {
+      'nombre': 'Ana Pérez',
+      'correo': 'ana@example.com',
+      'contrasena': 'Password123',
+    });
   });
 }

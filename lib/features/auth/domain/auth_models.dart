@@ -1,15 +1,12 @@
 import 'session.dart';
 
 class AuthTokens {
-  const AuthTokens({required this.accessToken, required this.refreshToken});
+  const AuthTokens({required this.accessToken});
 
   final String accessToken;
-  final String refreshToken;
 
-  factory AuthTokens.fromJson(Map<String, dynamic> json) => AuthTokens(
-    accessToken: json['accessToken'] as String,
-    refreshToken: json['refreshToken'] as String,
-  );
+  factory AuthTokens.fromJson(Map<String, dynamic> json) =>
+      AuthTokens(accessToken: json['accessToken'] as String);
 }
 
 class LoginResult {
@@ -19,7 +16,9 @@ class LoginResult {
   final AuthTokens tokens;
 
   factory LoginResult.fromJson(Map<String, dynamic> json) => LoginResult(
-    user: UserSession.fromJson(json['user'] as Map<String, dynamic>),
+    user: UserSession.fromBackendJson(
+      Map<String, dynamic>.from(json['usuario'] as Map),
+    ),
     tokens: AuthTokens.fromJson(json),
   );
 }
@@ -30,9 +29,6 @@ class RegistrationRequest {
     required this.lastName,
     required this.email,
     required this.password,
-    required this.grade,
-    required this.acceptedPolicyVersion,
-    required this.guardianConsent,
     this.referralCode,
   });
 
@@ -40,36 +36,25 @@ class RegistrationRequest {
   final String lastName;
   final String email;
   final String password;
-  final String grade;
-  final String acceptedPolicyVersion;
-  final bool guardianConsent;
   final String? referralCode;
 
-  Map<String, dynamic> toJson() => {
-    'firstName': firstName,
-    'lastName': lastName,
-    'email': email,
-    'password': password,
-    'grade': grade,
-    'acceptedPolicyVersion': acceptedPolicyVersion,
-    'guardianConsent': guardianConsent,
+  Map<String, dynamic> toBackendJson() => {
+    'nombre': '$firstName $lastName'.trim(),
+    'correo': email,
+    'contrasena': password,
     if (referralCode case final code? when code.isNotEmpty)
-      'referralCode': code,
+      'codigoReferido': code,
   };
 }
 
 class RegistrationResult {
-  const RegistrationResult({
-    required this.email,
-    required this.verificationRequired,
-  });
+  const RegistrationResult({required this.email, required this.userId});
 
   final String email;
-  final bool verificationRequired;
+  final String userId;
 
-  factory RegistrationResult.fromJson(Map<String, dynamic> json) =>
-      RegistrationResult(
-        email: json['email'] as String,
-        verificationRequired: json['verificationRequired'] as bool? ?? true,
-      );
+  factory RegistrationResult.fromJson(
+    Map<String, dynamic> json, {
+    required String email,
+  }) => RegistrationResult(email: email, userId: json['usuarioId'] as String);
 }

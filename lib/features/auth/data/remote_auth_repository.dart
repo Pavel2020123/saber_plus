@@ -21,7 +21,7 @@ class RemoteAuthRepository implements AuthRepository {
     final data = await _post(
       _publicDio,
       '/auth/login',
-      body: {'email': email, 'password': password},
+      body: {'correo': email, 'contrasena': password},
     );
     return LoginResult.fromJson(data);
   }
@@ -31,9 +31,9 @@ class RemoteAuthRepository implements AuthRepository {
     final data = await _post(
       _publicDio,
       '/auth/registro',
-      body: request.toJson(),
+      body: request.toBackendJson(),
     );
-    return RegistrationResult.fromJson(data);
+    return RegistrationResult.fromJson(data, email: request.email);
   }
 
   @override
@@ -42,11 +42,14 @@ class RemoteAuthRepository implements AuthRepository {
 
   @override
   Future<void> resendVerification(String email) =>
-      _post(_publicDio, '/auth/reenviar-verificacion', body: {'email': email});
+      _post(_publicDio, '/auth/reenviar-verificacion', body: {'correo': email});
 
   @override
-  Future<void> requestPasswordReset(String email) =>
-      _post(_publicDio, '/auth/solicitar-recuperacion', body: {'email': email});
+  Future<void> requestPasswordReset(String email) => _post(
+    _publicDio,
+    '/auth/solicitar-recuperacion',
+    body: {'correo': email},
+  );
 
   @override
   Future<void> resetPassword({
@@ -55,14 +58,14 @@ class RemoteAuthRepository implements AuthRepository {
   }) => _post(
     _publicDio,
     '/auth/restablecer-contrasena',
-    body: {'token': token, 'password': password},
+    body: {'token': token, 'nuevaContrasena': password},
   );
 
   @override
   Future<void> changeInitialPassword(String password) => _patch(
     _authenticatedDio,
     '/auth/cambiar-contrasena-inicial',
-    body: {'password': password},
+    body: {'nuevaContrasena': password},
   );
 
   @override
@@ -71,25 +74,11 @@ class RemoteAuthRepository implements AuthRepository {
       final response = await _authenticatedDio.get<Map<String, dynamic>>(
         '/auth/perfil',
       );
-      return UserSession.fromJson(_unwrap(response.data));
+      return UserSession.fromBackendJson(_unwrap(response.data));
     } on DioException catch (error) {
       throw ApiError.fromDioException(error);
     }
   }
-
-  @override
-  Future<LoginResult> restore(String refreshToken) async {
-    final data = await _post(
-      _publicDio,
-      '/auth/refresh',
-      body: {'refreshToken': refreshToken},
-    );
-    return LoginResult.fromJson(data);
-  }
-
-  @override
-  Future<void> logout(String? refreshToken) =>
-      _post(_publicDio, '/auth/logout', body: {'refreshToken': ?refreshToken});
 
   Future<Map<String, dynamic>> _post(
     Dio dio,

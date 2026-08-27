@@ -88,6 +88,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             PasswordField(
               controller: _passwordController,
               textInputAction: TextInputAction.done,
+              validator: (value) =>
+                  (value?.length ?? 0) < 6 ? 'Usa al menos 6 caracteres' : null,
             ),
             Align(
               alignment: Alignment.centerRight,

@@ -11,16 +11,16 @@ flutter run
 
 La aplicación inicia en modo demostración para poder revisar navegación y diseño sin enviar credenciales a un servidor.
 
-El contrato esperado para conectar el backend está documentado en [docs/AUTH_CONTRACT.md](docs/AUTH_CONTRACT.md).
+El contrato auditado contra el backend existente está documentado en [docs/AUTH_CONTRACT.md](docs/AUTH_CONTRACT.md).
 
 ## Configuración por ambiente
 
 ```powershell
-flutter run --dart-define=APP_ENV=dev --dart-define=API_BASE_URL=http://10.0.2.2:3000/v1 --dart-define=DEMO_MODE=true
+flutter run --dart-define=APP_ENV=dev --dart-define=API_BASE_URL=http://10.0.2.2:3000 --dart-define=DEMO_MODE=true
 ```
 
 - `APP_ENV`: `dev`, `staging` o `prod`.
-- `API_BASE_URL`: URL del contrato móvil `/v1`.
+- `API_BASE_URL`: raíz del backend NestJS, sin `/v1`.
 - `DEMO_MODE`: habilita los accesos demostrativos mientras se conecta autenticación real.
 
 ## Calidad

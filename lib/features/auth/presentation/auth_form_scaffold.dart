@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../domain/password_policy.dart';
+
 class AuthFormScaffold extends StatelessWidget {
   const AuthFormScaffold({
     required this.title,
@@ -118,9 +120,6 @@ class _PasswordFieldState extends State<PasswordField> {
         ),
       ),
     ),
-    validator:
-        widget.validator ??
-        (value) =>
-            (value?.length ?? 0) < 8 ? 'Usa al menos 8 caracteres' : null,
+    validator: widget.validator ?? validateStrongPassword,
   );
 }

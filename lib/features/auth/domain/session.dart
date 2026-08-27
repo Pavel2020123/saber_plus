@@ -21,16 +21,21 @@ class UserSession {
   final bool mustChangePassword;
   final bool isDemo;
 
-  factory UserSession.fromJson(Map<String, dynamic> json) => UserSession(
+  factory UserSession.fromBackendJson(Map<String, dynamic> json) => UserSession(
     id: json['id'] as String,
-    firstName: json['firstName'] as String,
-    email: json['email'] as String?,
-    role: AppRole.values.firstWhere(
-      (role) => role.name == (json['role'] as String).toLowerCase(),
-    ),
-    emailVerified: json['emailVerified'] as bool? ?? false,
-    mustChangePassword: json['mustChangePassword'] as bool? ?? false,
+    firstName: json['nombre'] as String,
+    email: json['correo'] as String?,
+    role: _roleFromBackend(json['rol'] as String),
+    emailVerified: json['correoVerificado'] as bool? ?? false,
+    mustChangePassword: json['debeCambiarContrasena'] as bool? ?? false,
   );
+
+  static AppRole _roleFromBackend(String role) => switch (role.toUpperCase()) {
+    'ESTUDIANTE' => AppRole.student,
+    'PROFESOR' => AppRole.teacher,
+    'ADMIN' => AppRole.admin,
+    _ => throw FormatException('Rol de usuario no reconocido: $role'),
+  };
 }
 
 class SessionState {

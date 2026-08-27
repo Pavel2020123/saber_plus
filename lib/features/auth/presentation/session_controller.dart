@@ -22,19 +22,17 @@ class SessionController extends Notifier<SessionState> {
 
   Future<void> _restoreSession() async {
     final secureStore = ref.read(secureSessionStoreProvider);
-    final refreshToken = await secureStore.readRefreshToken();
+    final accessToken = await secureStore.readAccessToken();
     if (_disposed) return;
-    if (refreshToken == null || refreshToken.isEmpty) {
+    if (accessToken == null || accessToken.isEmpty) {
       state = const SessionState.unauthenticated();
       return;
     }
 
     try {
-      final result = await ref
-          .read(authRepositoryProvider)
-          .restore(refreshToken);
-      await _persist(result);
-      if (!_disposed) state = SessionState.authenticated(result.user);
+      ref.read(accessTokenStoreProvider).set(accessToken);
+      final user = await ref.read(authRepositoryProvider).profile();
+      if (!_disposed) state = SessionState.authenticated(user);
     } on Object {
       await _clearTokens();
       if (!_disposed) state = const SessionState.unauthenticated();
@@ -48,12 +46,15 @@ class SessionController extends Notifier<SessionState> {
           .read(authRepositoryProvider)
           .login(email: email.trim().toLowerCase(), password: password);
       await _persist(result);
-      state = SessionState.authenticated(result.user);
+      final user = await ref.read(authRepositoryProvider).profile();
+      state = SessionState.authenticated(user);
       return true;
     } on ApiError catch (error) {
+      await _clearTokens();
       _setError(error);
       return false;
     } on Object {
+      await _clearTokens();
       _setError(
         const ApiError(
           code: 'invalid_response',
@@ -119,6 +120,14 @@ class SessionController extends Notifier<SessionState> {
     } on ApiError catch (error) {
       _setError(error);
       return false;
+    } on Object {
+      _setError(
+        const ApiError(
+          code: 'invalid_response',
+          message: 'El servidor respondió con un formato no compatible.',
+        ),
+      );
+      return false;
     }
   }
 
@@ -136,21 +145,8 @@ class SessionController extends Notifier<SessionState> {
   void clearError() => state = state.copyWith(clearError: true);
 
   Future<void> signOut() async {
-    final refreshToken = await ref
-        .read(secureSessionStoreProvider)
-        .readRefreshToken();
-    final wasDemo = state.user?.isDemo ?? false;
-
     await _clearTokens();
     state = const SessionState.unauthenticated();
-
-    if (!wasDemo && refreshToken != null) {
-      try {
-        await ref.read(authRepositoryProvider).logout(refreshToken);
-      } on Object {
-        // El cierre local siempre prevalece aunque el servidor no responda.
-      }
-    }
   }
 
   Future<bool> _runUnauthenticatedAction(Future<void> Function() action) async {
@@ -162,6 +158,14 @@ class SessionController extends Notifier<SessionState> {
     } on ApiError catch (error) {
       _setError(error);
       return false;
+    } on Object {
+      _setError(
+        const ApiError(
+          code: 'invalid_response',
+          message: 'El servidor respondió con un formato no compatible.',
+        ),
+      );
+      return false;
     }
   }
 
@@ -169,7 +173,7 @@ class SessionController extends Notifier<SessionState> {
     ref.read(accessTokenStoreProvider).set(result.tokens.accessToken);
     await ref
         .read(secureSessionStoreProvider)
-        .saveRefreshToken(result.tokens.refreshToken);
+        .saveAccessToken(result.tokens.accessToken);
   }
 
   Future<void> _clearTokens() async {

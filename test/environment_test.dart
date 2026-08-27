@@ -5,7 +5,7 @@ void main() {
   test('producción rechaza una API sin HTTPS', () {
     const config = AppConfig(
       environment: AppEnvironment.prod,
-      apiBaseUrl: 'http://api.example.com/v1',
+      apiBaseUrl: 'http://api.example.com',
       demoMode: false,
     );
 
@@ -15,7 +15,7 @@ void main() {
   test('producción acepta una API HTTPS válida', () {
     const config = AppConfig(
       environment: AppEnvironment.prod,
-      apiBaseUrl: 'https://api.example.com/v1',
+      apiBaseUrl: 'https://api.example.com',
       demoMode: false,
     );
 

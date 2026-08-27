@@ -5,16 +5,16 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class SecureSessionStore {
   SecureSessionStore(this._storage);
 
-  static const _refreshTokenKey = 'saberplus_refresh_token';
+  static const _accessTokenKey = 'saberplus_access_token';
   final FlutterSecureStorage _storage;
 
-  Future<void> saveRefreshToken(String token) async {
-    await _storage.write(key: _refreshTokenKey, value: token);
+  Future<void> saveAccessToken(String token) async {
+    await _storage.write(key: _accessTokenKey, value: token);
   }
 
-  Future<String?> readRefreshToken() async {
+  Future<String?> readAccessToken() async {
     try {
-      return await _storage.read(key: _refreshTokenKey);
+      return await _storage.read(key: _accessTokenKey);
     } on MissingPluginException {
       return null;
     }
@@ -22,7 +22,7 @@ class SecureSessionStore {
 
   Future<void> clear() async {
     try {
-      await _storage.delete(key: _refreshTokenKey);
+      await _storage.delete(key: _accessTokenKey);
     } on MissingPluginException {
       // Los widget tests no cargan los plugins nativos.
     }

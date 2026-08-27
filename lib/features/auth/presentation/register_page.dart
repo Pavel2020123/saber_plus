@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../domain/auth_models.dart';
+import '../domain/password_policy.dart';
 import 'auth_form_scaffold.dart';
 import 'session_controller.dart';
 
@@ -21,9 +22,6 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
   final _password = TextEditingController();
   final _confirmPassword = TextEditingController();
   final _referralCode = TextEditingController();
-  String? _grade;
-  bool _acceptedPolicies = false;
-  bool _guardianConsent = false;
 
   @override
   void dispose() {
@@ -38,15 +36,6 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
-    if (!_acceptedPolicies || !_guardianConsent) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Debes confirmar las autorizaciones para continuar.'),
-        ),
-      );
-      return;
-    }
-
     final result = await ref
         .read(sessionControllerProvider.notifier)
         .register(
@@ -55,9 +44,6 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
             lastName: _lastName.text.trim(),
             email: _email.text.trim().toLowerCase(),
             password: _password.text,
-            grade: _grade!,
-            acceptedPolicyVersion: '2026-08-26',
-            guardianConsent: _guardianConsent,
             referralCode: _referralCode.text.trim(),
           ),
         );
@@ -112,26 +98,6 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                   : 'Escribe un correo válido',
             ),
             const SizedBox(height: 16),
-            DropdownButtonFormField<String>(
-              initialValue: _grade,
-              decoration: const InputDecoration(
-                labelText: 'Grado',
-                prefixIcon: Icon(Icons.school_outlined),
-              ),
-              items: const [
-                DropdownMenuItem(value: '9', child: Text('Noveno')),
-                DropdownMenuItem(value: '10', child: Text('Décimo')),
-                DropdownMenuItem(value: '11', child: Text('Once')),
-                DropdownMenuItem(
-                  value: 'graduate',
-                  child: Text('Ya me gradué'),
-                ),
-              ],
-              onChanged: (value) => setState(() => _grade = value),
-              validator: (value) =>
-                  value == null ? 'Selecciona tu grado' : null,
-            ),
-            const SizedBox(height: 16),
             PasswordField(
               controller: _password,
               textInputAction: TextInputAction.next,
@@ -141,9 +107,8 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
               controller: _confirmPassword,
               label: 'Confirmar contraseña',
               validator: (value) {
-                if ((value?.length ?? 0) < 8) {
-                  return 'Usa al menos 8 caracteres';
-                }
+                final policyError = validateStrongPassword(value);
+                if (policyError != null) return policyError;
                 if (value != _password.text) {
                   return 'Las contraseñas no coinciden';
                 }
@@ -158,30 +123,6 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                 labelText: 'Código de referido (opcional)',
                 prefixIcon: Icon(Icons.card_giftcard_rounded),
               ),
-            ),
-            const SizedBox(height: 18),
-            CheckboxListTile(
-              value: _acceptedPolicies,
-              contentPadding: EdgeInsets.zero,
-              controlAffinity: ListTileControlAffinity.leading,
-              title: const Text(
-                'Acepto los términos y la política de privacidad vigentes.',
-              ),
-              onChanged: (value) =>
-                  setState(() => _acceptedPolicies = value ?? false),
-            ),
-            CheckboxListTile(
-              value: _guardianConsent,
-              contentPadding: EdgeInsets.zero,
-              controlAffinity: ListTileControlAffinity.leading,
-              title: const Text(
-                'Confirmo la autorización de mi acudiente o institución cuando aplica.',
-              ),
-              subtitle: const Text(
-                'El servidor debe registrar la versión, fecha y responsable.',
-              ),
-              onChanged: (value) =>
-                  setState(() => _guardianConsent = value ?? false),
             ),
             const SizedBox(height: 18),
             FilledButton(

@@ -30,7 +30,7 @@ class AppConfig {
     );
     const apiBaseUrl = String.fromEnvironment(
       'API_BASE_URL',
-      defaultValue: 'http://10.0.2.2:3000/v1',
+      defaultValue: 'http://10.0.2.2:3000',
     );
     const demoMode = bool.fromEnvironment('DEMO_MODE', defaultValue: true);
 

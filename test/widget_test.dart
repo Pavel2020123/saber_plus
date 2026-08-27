@@ -9,10 +9,10 @@ class _FakeSecureSessionStore extends SecureSessionStore {
   _FakeSecureSessionStore() : super(const FlutterSecureStorage());
 
   @override
-  Future<String?> readRefreshToken() async => null;
+  Future<String?> readAccessToken() async => null;
 
   @override
-  Future<void> saveRefreshToken(String token) async {}
+  Future<void> saveAccessToken(String token) async {}
 
   @override
   Future<void> clear() async {}

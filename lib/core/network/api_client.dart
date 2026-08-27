@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../config/environment.dart';
-import '../storage/secure_session_store.dart';
 import 'access_token_store.dart';
 import 'auth_interceptor.dart';
 
@@ -38,13 +37,6 @@ final publicDioProvider = Provider<Dio>((ref) {
 final dioProvider = Provider<Dio>((ref) {
   final config = ref.watch(appConfigProvider);
   final dio = _createDio(config);
-  dio.interceptors.add(
-    AuthInterceptor(
-      dio,
-      ref.watch(publicDioProvider),
-      ref.watch(accessTokenStoreProvider),
-      ref.watch(secureSessionStoreProvider),
-    ),
-  );
+  dio.interceptors.add(AuthInterceptor(ref.watch(accessTokenStoreProvider)));
   return dio;
 });
