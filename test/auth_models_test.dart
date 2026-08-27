@@ -11,6 +11,7 @@ void main() {
         'nombre': 'Laura Gómez',
         'correo': 'laura@example.com',
         'rol': 'PROFESOR',
+        'requiereVerificacionCorreo': false,
         'debeCambiarContrasena': false,
       },
     });
@@ -19,6 +20,7 @@ void main() {
     expect(result.user.role, AppRole.teacher);
     expect(result.user.firstName, 'Laura Gómez');
     expect(result.user.emailVerified, isFalse);
+    expect(result.user.requiresEmailVerification, isFalse);
   });
 
   test('registro genera exactamente los campos aceptados por el backend', () {
@@ -37,5 +39,20 @@ void main() {
       'correo': 'ana@example.com',
       'contrasena': 'Password123',
     });
+  });
+
+  test('perfil identifica que un estudiante debe verificar su correo', () {
+    final user = UserSession.fromBackendJson({
+      'id': 'user-2',
+      'nombre': 'Ana Pérez',
+      'correo': 'ana@example.com',
+      'rol': 'ESTUDIANTE',
+      'correoVerificado': false,
+      'requiereVerificacionCorreo': true,
+      'debeCambiarContrasena': false,
+    });
+
+    expect(user.emailVerified, isFalse);
+    expect(user.requiresEmailVerification, isTrue);
   });
 }

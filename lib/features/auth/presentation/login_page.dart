@@ -28,13 +28,24 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
-    final success = await ref
+    final result = await ref
         .read(sessionControllerProvider.notifier)
         .signIn(
           email: _emailController.text,
           password: _passwordController.text,
         );
-    if (!success || !mounted) return;
+    if (!mounted || result == SignInResult.failed) return;
+    if (result == SignInResult.verificationRequired) {
+      context.go(
+        Uri(
+          path: '/verify-pending',
+          queryParameters: {
+            'email': _emailController.text.trim().toLowerCase(),
+          },
+        ).toString(),
+      );
+      return;
+    }
 
     final user = ref.read(sessionControllerProvider).user;
     if (user?.mustChangePassword ?? false) {

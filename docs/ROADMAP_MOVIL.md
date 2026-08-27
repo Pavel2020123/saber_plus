@@ -31,7 +31,7 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Login, perfil y restauración local con access token cifrado.
 - [x] Recuperación, cambio inicial y cierre de sesión local.
 - [x] DTO, roles, contraseña y errores alineados con la API existente.
-- [ ] Prueba de extremo a extremo contra una instancia ejecutándose.
+- [x] Prueba de extremo a extremo contra una instancia ejecutándose.
 - [ ] Consentimiento versionado, refresh token, Universal Links/App Links HTTPS y revocación por dispositivo.
 
 ## Etapa 3 - Diagnóstico y aprendizaje

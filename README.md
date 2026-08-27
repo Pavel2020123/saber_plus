@@ -30,4 +30,16 @@ flutter analyze
 flutter test
 ```
 
+## Validación real de autenticación
+
+Con el backend, PostgreSQL y sus migraciones ejecutándose, se puede validar el flujo completo y el repositorio Dart de Flutter:
+
+```powershell
+.\tool\verify_auth_api.ps1 `
+  -ApiBaseUrl http://127.0.0.1:3000 `
+  -DatabaseUrl "postgresql://usuario:clave@127.0.0.1:5432/base?schema=public"
+```
+
+El script crea una cuenta E2E única. Debe ejecutarse solamente contra una base de desarrollo o pruebas, ya que consulta los tokens de verificación y recuperación directamente en PostgreSQL.
+
 Consulta el avance y las siguientes entregas en [docs/ROADMAP_MOVIL.md](docs/ROADMAP_MOVIL.md).

@@ -39,6 +39,8 @@ El login devuelve:
 
 Los roles aceptados son `ESTUDIANTE`, `PROFESOR` y `ADMIN`. Después del login la app consulta `/auth/perfil` para obtener el estado completo de correo y contraseña inicial.
 
+La API permite obtener un JWT antes de verificar el correo. El perfil informa `requiereVerificacionCorreo`; cuando es `true`, Flutter elimina el token local y dirige al usuario a la pantalla de verificación en vez de abrir el dashboard.
+
 El registro devuelve `mensaje` y `usuarioId`. Como no devuelve el correo, la app conserva el correo enviado para mostrar la pantalla de verificación.
 
 ## Sesión y errores
@@ -58,3 +60,7 @@ NestJS puede devolver `statusCode`, `error` y `message`; algunos guards usan `co
 - Los correos generan enlaces hacia `FRONTEND_URL`; los deep links `saberplus://auth/...` ya existen en la app, pero el backend todavía no los entrega en sus correos.
 - No existe OpenAPI versionado, refresh rotation, sesiones por dispositivo ni revocación remota.
 - Para probar contra un servidor externo falta definir su URL HTTPS en `API_BASE_URL`.
+
+## Evidencia de integración
+
+El flujo fue validado el 27 de agosto de 2026 contra una instancia local limpia con las 31 migraciones del backend. Pasaron registro, verificación, login, perfil, recuperación, cambio de contraseña, respuestas `401` y una prueba del repositorio Dart contra la API real. El procedimiento reproducible está en `tool/verify_auth_api.ps1`.

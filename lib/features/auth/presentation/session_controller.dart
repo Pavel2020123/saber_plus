@@ -9,6 +9,8 @@ import '../data/remote_auth_repository.dart';
 import '../domain/auth_models.dart';
 import '../domain/session.dart';
 
+enum SignInResult { authenticated, verificationRequired, failed }
+
 class SessionController extends Notifier<SessionState> {
   var _disposed = false;
 
@@ -32,6 +34,11 @@ class SessionController extends Notifier<SessionState> {
     try {
       ref.read(accessTokenStoreProvider).set(accessToken);
       final user = await ref.read(authRepositoryProvider).profile();
+      if (user.requiresEmailVerification) {
+        await _clearTokens();
+        if (!_disposed) state = const SessionState.unauthenticated();
+        return;
+      }
       if (!_disposed) state = SessionState.authenticated(user);
     } on Object {
       await _clearTokens();
@@ -39,7 +46,10 @@ class SessionController extends Notifier<SessionState> {
     }
   }
 
-  Future<bool> signIn({required String email, required String password}) async {
+  Future<SignInResult> signIn({
+    required String email,
+    required String password,
+  }) async {
     state = state.copyWith(isLoading: true, clearError: true);
     try {
       final result = await ref
@@ -47,12 +57,17 @@ class SessionController extends Notifier<SessionState> {
           .login(email: email.trim().toLowerCase(), password: password);
       await _persist(result);
       final user = await ref.read(authRepositoryProvider).profile();
+      if (user.requiresEmailVerification) {
+        await _clearTokens();
+        state = const SessionState.unauthenticated();
+        return SignInResult.verificationRequired;
+      }
       state = SessionState.authenticated(user);
-      return true;
+      return SignInResult.authenticated;
     } on ApiError catch (error) {
       await _clearTokens();
       _setError(error);
-      return false;
+      return SignInResult.failed;
     } on Object {
       await _clearTokens();
       _setError(
@@ -61,7 +76,7 @@ class SessionController extends Notifier<SessionState> {
           message: 'El servidor respondió con un formato no compatible.',
         ),
       );
-      return false;
+      return SignInResult.failed;
     }
   }
 

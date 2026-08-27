@@ -9,6 +9,7 @@ class UserSession {
     required this.role,
     this.email,
     this.emailVerified = true,
+    this.requiresEmailVerification = false,
     this.mustChangePassword = false,
     this.isDemo = false,
   });
@@ -18,6 +19,7 @@ class UserSession {
   final AppRole role;
   final String? email;
   final bool emailVerified;
+  final bool requiresEmailVerification;
   final bool mustChangePassword;
   final bool isDemo;
 
@@ -27,6 +29,8 @@ class UserSession {
     email: json['correo'] as String?,
     role: _roleFromBackend(json['rol'] as String),
     emailVerified: json['correoVerificado'] as bool? ?? false,
+    requiresEmailVerification:
+        json['requiereVerificacionCorreo'] as bool? ?? false,
     mustChangePassword: json['debeCambiarContrasena'] as bool? ?? false,
   );
 
