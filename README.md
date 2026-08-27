@@ -11,6 +11,8 @@ flutter run
 
 La aplicación inicia en modo demostración para poder revisar navegación y diseño sin enviar credenciales a un servidor.
 
+El contrato esperado para conectar el backend está documentado en [docs/AUTH_CONTRACT.md](docs/AUTH_CONTRACT.md).
+
 ## Configuración por ambiente
 
 ```powershell

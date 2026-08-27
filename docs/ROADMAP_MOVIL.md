@@ -9,7 +9,8 @@ Este plan traduce el informe técnico a entregas pequeñas y verificables. El ba
 - [x] Configuración `dev`, `staging` y `prod` mediante `dart-define`.
 - [x] Cliente HTTP y frontera de sesión preparados.
 - [x] Prototipo navegable de estudiante y profesor con datos demostrativos.
-- [ ] Contrato OpenAPI `/v1` y URL del backend disponibles en este repositorio.
+- [x] Cliente móvil de autenticación, sesión segura y deep links personalizados.
+- [ ] Contrato OpenAPI `/v1`, dominio de universal links y backend disponibles en este repositorio.
 
 ## Etapa 1 - Cimientos móviles
 
@@ -24,11 +25,13 @@ Objetivo: una aplicación ejecutable con arquitectura modular, navegación acces
 
 Requiere el contrato del backend y las decisiones ADR-001/ADR-004.
 
-- Registro y consentimiento versionado.
-- Verificación de correo mediante deep link.
-- Login con access token corto y refresh token rotativo.
-- Recuperación, cierre de sesión y revocación por dispositivo.
-- Perfil, derechos de acceso y tutorial inicial.
+- [x] Registro y captura de consentimiento versionado en el cliente.
+- [x] Verificación de correo mediante deep link personalizado.
+- [x] Login con access token en memoria y refresh token cifrado.
+- [x] Recuperación, cambio inicial y cierre de sesión.
+- [x] Renovación coordinada y retry único ante `401`.
+- [ ] Validación de integración contra el backend real.
+- [ ] Universal Links/App Links HTTPS, revocación por dispositivo y perfil completo.
 
 ## Etapa 3 - Diagnóstico y aprendizaje
 

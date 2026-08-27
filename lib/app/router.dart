@@ -4,7 +4,14 @@ import 'package:go_router/go_router.dart';
 
 import '../features/auth/domain/session.dart';
 import '../features/auth/presentation/login_page.dart';
+import '../features/auth/presentation/change_initial_password_page.dart';
+import '../features/auth/presentation/forgot_password_page.dart';
+import '../features/auth/presentation/register_page.dart';
+import '../features/auth/presentation/reset_password_page.dart';
 import '../features/auth/presentation/session_controller.dart';
+import '../features/auth/presentation/session_loading_page.dart';
+import '../features/auth/presentation/verify_email_page.dart';
+import '../features/auth/presentation/verify_pending_page.dart';
 import '../features/auth/presentation/welcome_page.dart';
 import '../features/dashboard/presentation/more_page.dart';
 import '../features/dashboard/presentation/student_dashboard_page.dart';
@@ -16,15 +23,46 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   final session = ref.watch(sessionControllerProvider);
 
   return GoRouter(
-    initialLocation: '/welcome',
+    initialLocation: '/session-loading',
     redirect: (context, state) {
-      final isPublic =
-          state.matchedLocation == '/welcome' ||
-          state.matchedLocation == '/login';
+      const publicRoutes = {
+        '/welcome',
+        '/login',
+        '/register',
+        '/forgot-password',
+        '/reset-password',
+        '/verify-email',
+        '/verify-pending',
+      };
+      final isPublic = publicRoutes.contains(state.matchedLocation);
       final isAuthenticated = session.status == SessionStatus.authenticated;
+
+      if (session.status == SessionStatus.restoring) {
+        return state.matchedLocation == '/session-loading'
+            ? null
+            : '/session-loading';
+      }
+      if (state.matchedLocation == '/session-loading') {
+        if (!isAuthenticated) return '/welcome';
+        return session.user?.role == AppRole.teacher
+            ? '/teacher'
+            : '/student/home';
+      }
 
       if (!isAuthenticated && !isPublic) return '/login';
       if (isAuthenticated && isPublic) {
+        return session.user?.role == AppRole.teacher
+            ? '/teacher'
+            : '/student/home';
+      }
+      if (isAuthenticated &&
+          (session.user?.mustChangePassword ?? false) &&
+          state.matchedLocation != '/change-initial-password') {
+        return '/change-initial-password';
+      }
+      if (isAuthenticated &&
+          !(session.user?.mustChangePassword ?? false) &&
+          state.matchedLocation == '/change-initial-password') {
         return session.user?.role == AppRole.teacher
             ? '/teacher'
             : '/student/home';
@@ -38,10 +76,41 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     },
     routes: [
       GoRoute(
+        path: '/session-loading',
+        builder: (context, state) => const SessionLoadingPage(),
+      ),
+      GoRoute(
         path: '/welcome',
         builder: (context, state) => const WelcomePage(),
       ),
       GoRoute(path: '/login', builder: (context, state) => const LoginPage()),
+      GoRoute(
+        path: '/register',
+        builder: (context, state) => const RegisterPage(),
+      ),
+      GoRoute(
+        path: '/forgot-password',
+        builder: (context, state) => const ForgotPasswordPage(),
+      ),
+      GoRoute(
+        path: '/reset-password',
+        builder: (context, state) =>
+            ResetPasswordPage(token: state.uri.queryParameters['token'] ?? ''),
+      ),
+      GoRoute(
+        path: '/verify-pending',
+        builder: (context, state) =>
+            VerifyPendingPage(email: state.uri.queryParameters['email'] ?? ''),
+      ),
+      GoRoute(
+        path: '/verify-email',
+        builder: (context, state) =>
+            VerifyEmailPage(token: state.uri.queryParameters['token'] ?? ''),
+      ),
+      GoRoute(
+        path: '/change-initial-password',
+        builder: (context, state) => const ChangeInitialPasswordPage(),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
             StudentShell(navigationShell: navigationShell),
