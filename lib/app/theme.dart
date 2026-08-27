@@ -5,7 +5,7 @@ abstract final class SaberPlusColors {
   static const secondary = Color(0xFF007C70);
   static const accent = Color(0xFFFFB020);
   static const success = Color(0xFF16845B);
-  static const surfaceLight = Color(0xFFF5F7FB);
+  static const surfaceLight = Colors.white;
   static const surfaceDark = Color(0xFF10141C);
 }
 
@@ -35,6 +35,11 @@ abstract final class SaberPlusTheme {
     );
 
     return base.copyWith(
+      scaffoldBackgroundColor: surface,
+      appBarTheme: AppBarTheme(
+        backgroundColor: surface,
+        surfaceTintColor: Colors.transparent,
+      ),
       textTheme: base.textTheme.copyWith(
         displaySmall: base.textTheme.displaySmall?.copyWith(
           fontWeight: FontWeight.w800,
@@ -54,8 +59,13 @@ abstract final class SaberPlusTheme {
       cardTheme: CardThemeData(
         elevation: 0,
         margin: EdgeInsets.zero,
-        color: scheme.surfaceContainerLowest,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        color: brightness == Brightness.light
+            ? Colors.white
+            : scheme.surfaceContainerLowest,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+          side: BorderSide(color: scheme.outlineVariant),
+        ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
@@ -89,7 +99,7 @@ abstract final class SaberPlusTheme {
       navigationBarTheme: NavigationBarThemeData(
         elevation: 0,
         height: 72,
-        backgroundColor: scheme.surface,
+        backgroundColor: surface,
         indicatorColor: scheme.primaryContainer,
         labelTextStyle: WidgetStatePropertyAll(
           base.textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w700),

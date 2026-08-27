@@ -96,6 +96,119 @@ class AreaDiagnosticResult {
       );
 }
 
+class DiagnosticCaseContent {
+  const DiagnosticCaseContent({
+    required this.id,
+    required this.title,
+    required this.context,
+    this.imageUrl,
+  });
+
+  final String id;
+  final String title;
+  final String context;
+  final String? imageUrl;
+
+  factory DiagnosticCaseContent.fromJson(Map<String, dynamic> json) =>
+      DiagnosticCaseContent(
+        id: json['id'] as String,
+        title: json['titulo'] as String? ?? '',
+        context: json['contexto'] as String? ?? '',
+        imageUrl: json['imagenUrl'] as String?,
+      );
+}
+
+class DiagnosticOption {
+  const DiagnosticOption({required this.id, required this.text});
+
+  final String id;
+  final String text;
+
+  factory DiagnosticOption.fromJson(Map<String, dynamic> json) =>
+      DiagnosticOption(id: json['id'] as String, text: json['texto'] as String);
+}
+
+class DiagnosticQuestion {
+  const DiagnosticQuestion({
+    required this.id,
+    required this.statement,
+    required this.difficulty,
+    required this.options,
+    required this.subtopicName,
+    required this.themeName,
+    required this.area,
+    this.imageUrl,
+    this.caseContent,
+  });
+
+  final String id;
+  final String statement;
+  final String difficulty;
+  final String? imageUrl;
+  final DiagnosticCaseContent? caseContent;
+  final List<DiagnosticOption> options;
+  final String subtopicName;
+  final String themeName;
+  final AcademicArea area;
+
+  factory DiagnosticQuestion.fromJson(Map<String, dynamic> json) {
+    final subtopic = Map<String, dynamic>.from(json['subtema'] as Map);
+    final theme = Map<String, dynamic>.from(subtopic['tema'] as Map);
+    final caseJson = json['caso'];
+    return DiagnosticQuestion(
+      id: json['id'] as String,
+      statement: json['enunciado'] as String,
+      difficulty: json['dificultad'] as String? ?? '',
+      imageUrl: json['imagenUrl'] as String?,
+      caseContent: caseJson is Map
+          ? DiagnosticCaseContent.fromJson(Map<String, dynamic>.from(caseJson))
+          : null,
+      options: (json['respuestas'] as List<dynamic>)
+          .map(
+            (item) => DiagnosticOption.fromJson(
+              Map<String, dynamic>.from(item as Map),
+            ),
+          )
+          .toList(growable: false),
+      subtopicName: subtopic['nombre'] as String,
+      themeName: theme['nombre'] as String,
+      area: AcademicArea.fromBackend(theme['area'] as String),
+    );
+  }
+}
+
+class DiagnosticAnswer {
+  const DiagnosticAnswer({
+    required this.questionId,
+    required this.answerId,
+    required this.responseTimeSeconds,
+  });
+
+  final String questionId;
+  final String answerId;
+  final int responseTimeSeconds;
+
+  Map<String, dynamic> toJson() => {
+    'preguntaId': questionId,
+    'respuestaId': answerId,
+    'tiempoRespuestaSegundos': responseTimeSeconds.clamp(0, 7200),
+  };
+}
+
+class WeakTopic {
+  const WeakTopic({
+    required this.area,
+    required this.theme,
+    required this.subtopic,
+    required this.failedQuestions,
+  });
+
+  final AcademicArea area;
+  final String theme;
+  final String subtopic;
+  final int failedQuestions;
+}
+
 class DiagnosticSummary {
   const DiagnosticSummary({
     required this.status,
@@ -107,6 +220,8 @@ class DiagnosticSummary {
     this.percentage = 0,
     this.level,
     this.resultsByArea = const [],
+    this.questions = const [],
+    this.weakTopics = const [],
     this.priorityArea,
     this.strengthArea,
   });
@@ -120,6 +235,8 @@ class DiagnosticSummary {
   final double percentage;
   final DiagnosticLevel? level;
   final List<AreaDiagnosticResult> resultsByArea;
+  final List<DiagnosticQuestion> questions;
+  final List<WeakTopic> weakTopics;
   final AcademicArea? priorityArea;
   final AcademicArea? strengthArea;
 
@@ -150,10 +267,49 @@ class DiagnosticSummary {
               )
               .toList() ??
           const [],
+      questions:
+          (json['preguntas'] as List<dynamic>?)
+              ?.map(
+                (item) => DiagnosticQuestion.fromJson(
+                  Map<String, dynamic>.from(item as Map),
+                ),
+              )
+              .toList(growable: false) ??
+          const [],
       priorityArea: _optionalAcademicArea(json['areaPrioritaria']),
       strengthArea: _optionalAcademicArea(json['areaFortaleza']),
     );
   }
+
+  DiagnosticSummary copyWith({
+    DiagnosticStatus? status,
+    String? id,
+    DateTime? startedAt,
+    DateTime? completedAt,
+    int? totalQuestions,
+    int? correctAnswers,
+    double? percentage,
+    DiagnosticLevel? level,
+    List<AreaDiagnosticResult>? resultsByArea,
+    List<DiagnosticQuestion>? questions,
+    List<WeakTopic>? weakTopics,
+    AcademicArea? priorityArea,
+    AcademicArea? strengthArea,
+  }) => DiagnosticSummary(
+    status: status ?? this.status,
+    id: id ?? this.id,
+    startedAt: startedAt ?? this.startedAt,
+    completedAt: completedAt ?? this.completedAt,
+    totalQuestions: totalQuestions ?? this.totalQuestions,
+    correctAnswers: correctAnswers ?? this.correctAnswers,
+    percentage: percentage ?? this.percentage,
+    level: level ?? this.level,
+    resultsByArea: resultsByArea ?? this.resultsByArea,
+    questions: questions ?? this.questions,
+    weakTopics: weakTopics ?? this.weakTopics,
+    priorityArea: priorityArea ?? this.priorityArea,
+    strengthArea: strengthArea ?? this.strengthArea,
+  );
 }
 
 enum StudyPlanStatus {

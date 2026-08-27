@@ -81,4 +81,96 @@ void main() {
     expect(diagnostic.status, DiagnosticStatus.inProgress);
     expect(diagnostic.totalQuestions, 15);
   });
+
+  test('finaliza enviando cada respuesta y su tiempo al backend', () async {
+    late RequestOptions captured;
+    final dio = Dio(BaseOptions(baseUrl: 'http://localhost:3000'));
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          captured = options;
+          handler.resolve(
+            Response<Map<String, dynamic>>(
+              requestOptions: options,
+              statusCode: 201,
+              data: {
+                'estado': 'COMPLETADO',
+                'diagnosticoId': 'diagnostic-1',
+                'totalPreguntas': 1,
+                'respuestasCorrectas': 1,
+                'porcentaje': 100,
+                'nivel': 'FORTALEZA',
+                'resultadosPorArea': <Object>[],
+              },
+            ),
+          );
+        },
+      ),
+    );
+
+    final result = await RemoteAcademicRepository(dio).finishDiagnostic(const [
+      DiagnosticAnswer(
+        questionId: 'question-1',
+        answerId: 'answer-1',
+        responseTimeSeconds: 17,
+      ),
+    ]);
+
+    expect(captured.method, 'POST');
+    expect(captured.path, '/diagnostico-inicial/finalizar');
+    expect(captured.data, {
+      'respuestas': [
+        {
+          'preguntaId': 'question-1',
+          'respuestaId': 'answer-1',
+          'tiempoRespuestaSegundos': 17,
+        },
+      ],
+    });
+    expect(result.status, DiagnosticStatus.completed);
+  });
+
+  test('agrupa las falencias del cuaderno por tema y subtema', () async {
+    final dio = Dio(BaseOptions(baseUrl: 'http://localhost:3000'));
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          handler.resolve(
+            Response<Map<String, dynamic>>(
+              requestOptions: options,
+              statusCode: 200,
+              data: {
+                'resumen': {
+                  'total': 2,
+                  'pendientes': 2,
+                  'repasando': 0,
+                  'dominados': 0,
+                },
+                'errores': [
+                  {
+                    'preguntaId': 'question-1',
+                    'area': 'MATEMATICAS',
+                    'tema': 'Razones y proporciones',
+                    'subtema': 'Regla de tres',
+                  },
+                  {
+                    'preguntaId': 'question-2',
+                    'area': 'MATEMATICAS',
+                    'tema': 'Razones y proporciones',
+                    'subtema': 'Regla de tres',
+                  },
+                ],
+              },
+            ),
+          );
+        },
+      ),
+    );
+
+    final topics = await RemoteAcademicRepository(dio).loadWeakTopics();
+
+    expect(topics, hasLength(1));
+    expect(topics.single.subtopic, 'Regla de tres');
+    expect(topics.single.failedQuestions, 2);
+  });
 }

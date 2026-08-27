@@ -30,6 +30,9 @@ void main() {
     await tester.pumpWidget(_testApp());
     await tester.pumpAndSettle();
 
+    final app = tester.widget<MaterialApp>(find.byType(MaterialApp));
+    expect(app.themeMode, ThemeMode.light);
+    expect(app.theme?.scaffoldBackgroundColor, Colors.white);
     expect(find.text('SaberPlus'), findsOneWidget);
     expect(find.text('Comenzar'), findsOneWidget);
     expect(find.textContaining('Tu preparación ICFES'), findsOneWidget);

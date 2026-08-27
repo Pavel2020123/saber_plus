@@ -4,4 +4,8 @@ abstract interface class AcademicRepository {
   Future<AcademicHomeData> loadHome();
 
   Future<DiagnosticSummary> startDiagnostic();
+
+  Future<DiagnosticSummary> finishDiagnostic(List<DiagnosticAnswer> answers);
+
+  Future<List<WeakTopic>> loadWeakTopics();
 }

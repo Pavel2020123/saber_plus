@@ -155,6 +155,14 @@ try {
   if ($LASTEXITCODE -ne 0) {
     throw 'El repositorio Flutter no superó la prueba contra la API real.'
   }
+
+  & flutter test test/diagnostic_api_live_test.dart `
+    "--dart-define=AUTH_E2E_API_BASE_URL=$apiRoot" `
+    "--dart-define=AUTH_E2E_EMAIL=$email" `
+    "--dart-define=AUTH_E2E_PASSWORD=$newPassword"
+  if ($LASTEXITCODE -ne 0) {
+    throw 'El diagnóstico Flutter no superó la prueba contra la API real.'
+  }
 } finally {
   Pop-Location
 }

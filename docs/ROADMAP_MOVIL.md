@@ -38,8 +38,9 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 
 - [x] Inicio académico móvil con convocatoria activa, XP y plan semanal real.
 - [x] Estados, inicio y resumen del diagnóstico conectados con el backend.
-- [ ] Sesión móvil de las 15 preguntas, borrador local y finalización.
+- [x] Sesión móvil de las 15 preguntas, borrador local y finalización.
 - [x] Resultado por área y área prioritaria disponibles en la app.
+- [x] Falencias por tema y subtema consultadas desde el cuaderno de errores.
 - Árbol de áreas, temas, subtemas y lecciones.
 - Recursos Markdown, imágenes, video y PDF.
 
@@ -58,6 +59,7 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - Drift/SQLite, contenido descargable y gestión de espacio.
 - Outbox de operaciones seguras y resolución de conflictos.
 - Notificaciones y preferencias.
+- Elección del estudiante entre tema claro y oscuro; hasta entonces la app usa fondo blanco fijo.
 
 ## Etapa 6 - Comunidad y gamificación
 

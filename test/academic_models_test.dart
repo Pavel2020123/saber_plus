@@ -80,4 +80,34 @@ void main() {
 
     expect(exam.daysRemaining(DateTime(2026, 8, 27, 23)), 10);
   });
+
+  test('interpreta preguntas públicas sin necesitar la respuesta correcta', () {
+    final diagnostic = DiagnosticSummary.fromJson({
+      'estado': 'EN_PROGRESO',
+      'diagnosticoId': 'diagnostic-1',
+      'totalPreguntas': 1,
+      'preguntas': [
+        {
+          'id': 'question-1',
+          'enunciado': 'Resuelve la proporción.',
+          'dificultad': 'MEDIA',
+          'imagenUrl': null,
+          'caso': null,
+          'respuestas': [
+            {'id': 'answer-1', 'texto': '10'},
+            {'id': 'answer-2', 'texto': '20'},
+          ],
+          'subtema': {
+            'nombre': 'Regla de tres',
+            'tema': {'nombre': 'Razones y proporciones', 'area': 'MATEMATICAS'},
+          },
+        },
+      ],
+    });
+
+    expect(diagnostic.questions, hasLength(1));
+    expect(diagnostic.questions.single.subtopicName, 'Regla de tres');
+    expect(diagnostic.questions.single.options, hasLength(2));
+    expect(diagnostic.questions.single.area, AcademicArea.mathematics);
+  });
 }

@@ -15,8 +15,7 @@ class SaberPlusApp extends ConsumerWidget {
       title: 'SaberPlus',
       debugShowCheckedModeBanner: false,
       theme: SaberPlusTheme.light,
-      darkTheme: SaberPlusTheme.dark,
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.light,
       routerConfig: router,
     );
   }

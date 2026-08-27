@@ -22,6 +22,10 @@ Estados devueltos por `GET /diagnostico-inicial`:
 
 `POST /diagnostico-inicial/iniciar` crea una sesión con tres preguntas de cada una de las cinco áreas. Es idempotente para el estudiante: si ya existe, devuelve el estado actual.
 
+Flutter conserva localmente, en almacenamiento cifrado, las opciones elegidas, el tiempo acumulado por pregunta y la posición actual. El borrador se elimina solamente después de que el servidor confirma la finalización.
+
+`POST /diagnostico-inicial/finalizar` recibe exactamente las 15 parejas `preguntaId`/`respuestaId` con su tiempo opcional. La app hace un único envío, mantiene ocultas las respuestas correctas durante la sesión y conserva el resultado aun si la consulta complementaria del cuaderno falla.
+
 Los niveles se calculan en servidor: menos de 50 es `POR_REFORZAR`, entre 50 y 69.9 es `EN_PROCESO`, y desde 70 es `FORTALEZA`.
 
 ## Plan semanal
@@ -39,4 +43,4 @@ Flutter no recalcula prioridades ni resultados: el backend continúa siendo la a
 
 ## Alcance de recomendaciones
 
-El diagnóstico inicial actual clasifica falencias por **área**, no por tema o subtema individual. La identificación fina se construye con el historial de respuestas, el cuaderno de errores, el progreso y el repaso adaptativo, que sí prioriza áreas y subtemas débiles. Por ejemplo, recomendar “regla de tres” requiere que las preguntas estén asociadas a ese subtema y que los errores lleguen al historial/adaptativo.
+El diagnóstico inicial clasifica el resultado principal por **área**. Al finalizar, cada respuesta incorrecta entra al historial con origen `DIAGNOSTICO`; Flutter consulta `GET /cuaderno-errores` y agrupa esos registros por tema y subtema. Así puede mostrar una recomendación concreta como “Regla de tres — Razones y proporciones — Matemáticas” cuando la pregunta está etiquetada con ese subtema.

@@ -43,9 +43,44 @@ class AcademicHomeController
       return false;
     }
   }
+
+  Future<DiagnosticSummary> finishDiagnostic(
+    List<DiagnosticAnswer> answers,
+  ) async {
+    final repository = ref.read(academicRepositoryProvider);
+    var completed = await repository.finishDiagnostic(answers);
+
+    // La calificación ya quedó guardada. Si falla el cuaderno, conservamos el
+    // resultado para evitar que la interfaz sugiera enviar el intento otra vez.
+    try {
+      final weakTopics = await repository.loadWeakTopics();
+      completed = completed.copyWith(weakTopics: weakTopics);
+    } on Object {
+      // El resultado por área sigue disponible aunque este complemento falle.
+    }
+    return completed;
+  }
+
+  void acceptDiagnosticResult(DiagnosticSummary diagnostic) {
+    _replaceDiagnostic(diagnostic);
+  }
+
+  void _replaceDiagnostic(DiagnosticSummary diagnostic) {
+    final current = state.valueOrNull;
+    if (current != null) {
+      state = AsyncData(current.copyWith(diagnostic: diagnostic));
+    }
+  }
 }
 
 final academicHomeControllerProvider =
     AutoDisposeAsyncNotifierProvider<AcademicHomeController, AcademicHomeData>(
       AcademicHomeController.new,
     );
+
+final diagnosticWeakTopicsProvider =
+    FutureProvider.autoDispose<List<WeakTopic>>((ref) async {
+      final user = ref.watch(sessionControllerProvider).user;
+      if (user?.isDemo ?? false) return const [];
+      return ref.watch(academicRepositoryProvider).loadWeakTopics();
+    });

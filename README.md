@@ -11,6 +11,8 @@ flutter run
 
 La aplicación inicia en modo demostración para poder revisar navegación y diseño sin enviar credenciales a un servidor.
 
+Por ahora la interfaz usa tema claro fijo y fondo blanco. La preferencia del estudiante entre modo claro y oscuro se habilitará en la etapa de preferencias.
+
 El contrato auditado contra el backend existente está documentado en [docs/AUTH_CONTRACT.md](docs/AUTH_CONTRACT.md).
 El contrato de convocatoria, diagnóstico y plan semanal está en [docs/ACADEMIC_CONTRACT.md](docs/ACADEMIC_CONTRACT.md).
 
