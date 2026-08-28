@@ -7,9 +7,10 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../core/config/environment.dart';
 import '../../../core/config/resource_url.dart';
 import '../../../core/network/api_error.dart';
+import '../../../core/sync/drift_safe_sync_repository.dart';
+import '../../../core/sync/safe_sync_models.dart';
 import '../../academic/domain/academic_models.dart';
 import '../../auth/presentation/session_controller.dart';
-import '../data/remote_study_repository.dart';
 import '../domain/study_models.dart';
 import 'study_providers.dart';
 
@@ -38,17 +39,31 @@ class _StudyLessonPageState extends ConsumerState<StudyLessonPage> {
     setState(() => _saving = true);
     try {
       final isDemo = ref.read(sessionControllerProvider).user?.isDemo ?? false;
+      var message = 'Lección marcada como completada.';
       if (!isDemo) {
-        await ref
-            .read(studyRepositoryProvider)
-            .updateSubtopicProgress(widget.subtopicId, 100);
-        ref.invalidate(studyProgressProvider);
+        final userId = ref.read(sessionControllerProvider).user!.id;
+        final result = await ref
+            .read(safeSyncRepositoryProvider)
+            .saveStudyProgress(
+              userId: userId,
+              subtopicId: widget.subtopicId,
+              percentage: 100,
+            );
+        if (result.isSynced) {
+          ref.invalidate(studyProgressProvider);
+        } else if (result.disposition == SafeWriteDisposition.queued) {
+          message =
+              'Lección guardada. Se sincronizará cuando vuelva la conexión.';
+        } else {
+          message =
+              'Lección guardada, pero el cambio requiere revisión en Sincronización.';
+        }
       }
       if (!mounted) return;
       setState(() => _completedLocally = true);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Lección marcada como completada.')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(message)));
     } on Object catch (error) {
       if (!mounted) return;
       ScaffoldMessenger.of(

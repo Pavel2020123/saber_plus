@@ -20,6 +20,7 @@ El contrato de práctica protegida por subtema está en [docs/PRACTICE_CONTRACT.
 El contrato del panel de progreso y cuaderno de errores está en [docs/PROGRESS_CONTRACT.md](docs/PROGRESS_CONTRACT.md).
 La fuente y actualización de fórmulas, glosario y estrategia están en [docs/REFERENCE_LIBRARY.md](docs/REFERENCE_LIBRARY.md).
 La persistencia y gestión de contenido descargado están en [docs/OFFLINE_CONTENT.md](docs/OFFLINE_CONTENT.md).
+La cola de operaciones seguras y sus conflictos está en [docs/OFFLINE_SYNC.md](docs/OFFLINE_SYNC.md).
 
 ## Configuración por ambiente
 

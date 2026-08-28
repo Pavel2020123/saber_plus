@@ -21,7 +21,8 @@ Las eliminaciones operan sobre rutas exactas previamente registradas. La limpiez
 
 - Primero se necesita conexión y una sesión real para descargar el PDF.
 - Los videos y enlaces externos no se descargan.
-- El envío diferido de progreso, notas o intentos no forma parte de esta entrega. Las operaciones seguras y los conflictos se tratarán en la siguiente etapa.
+- El envío diferido se limita al progreso de lecciones y a las notas/estados del cuaderno. Su política está en [OFFLINE_SYNC.md](OFFLINE_SYNC.md).
+- Los intentos, calificaciones, XP y pagos siempre requieren conexión.
 - La API sigue siendo la fuente de verdad del contenido y los resultados.
 
 Este almacenamiento local es complementario al backend. Si PostgreSQL se aloja en Supabase, la app continuará accediendo a los datos remotos mediante la API NestJS y conservará Drift para funcionar sin conexión.

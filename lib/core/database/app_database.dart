@@ -25,14 +25,47 @@ class OfflineDownloads extends Table {
   Set<Column<Object>> get primaryKey => {userId, themeId};
 }
 
-@DriftDatabase(tables: [OfflineDownloads])
+class PendingOperations extends Table {
+  TextColumn get id => text()();
+
+  TextColumn get userId => text()();
+
+  TextColumn get kind => text()();
+
+  TextColumn get entityId => text()();
+
+  TextColumn get payloadJson => text()();
+
+  TextColumn get status => text().withDefault(const Constant('pending'))();
+
+  IntColumn get attempts => integer().withDefault(const Constant(0))();
+
+  TextColumn get lastError => text().nullable()();
+
+  DateTimeColumn get createdAt => dateTime()();
+
+  DateTimeColumn get updatedAt => dateTime()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}
+
+@DriftDatabase(tables: [OfflineDownloads, PendingOperations])
 class AppDatabase extends _$AppDatabase {
   AppDatabase(super.executor);
 
   AppDatabase.defaults() : super(driftDatabase(name: 'saber_plus'));
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+    onCreate: (migrator) => migrator.createAll(),
+    onUpgrade: (migrator, from, to) async {
+      if (from < 2) await migrator.createTable(pendingOperations);
+    },
+  );
 
   Stream<List<OfflineDownload>> watchOfflineDownloads(String userId) =>
       (select(offlineDownloads)
@@ -58,6 +91,28 @@ class AppDatabase extends _$AppDatabase {
   Future<void> removeAllOfflineDownloads(String userId) => (delete(
     offlineDownloads,
   )..where((row) => row.userId.equals(userId))).go();
+
+  Stream<List<PendingOperation>> watchPendingOperations(String userId) =>
+      (select(pendingOperations)
+            ..where((row) => row.userId.equals(userId))
+            ..orderBy([(row) => OrderingTerm.desc(row.updatedAt)]))
+          .watch();
+
+  Future<List<PendingOperation>> getPendingOperations(String userId) =>
+      (select(pendingOperations)
+            ..where((row) => row.userId.equals(userId))
+            ..orderBy([(row) => OrderingTerm.asc(row.createdAt)]))
+          .get();
+
+  Future<PendingOperation?> findPendingOperation(String id) => (select(
+    pendingOperations,
+  )..where((row) => row.id.equals(id))).getSingleOrNull();
+
+  Future<void> savePendingOperation(PendingOperationsCompanion operation) =>
+      into(pendingOperations).insertOnConflictUpdate(operation);
+
+  Future<void> removePendingOperation(String id) =>
+      (delete(pendingOperations)..where((row) => row.id.equals(id))).go();
 }
 
 final appDatabaseProvider = Provider<AppDatabase>((ref) {

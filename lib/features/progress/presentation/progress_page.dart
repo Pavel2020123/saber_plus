@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../../app/theme.dart';
 import '../../../core/network/api_error.dart';
+import '../../../core/sync/drift_safe_sync_repository.dart';
+import '../../../core/sync/safe_sync_models.dart';
 import '../../academic/domain/academic_models.dart';
 import '../../auth/presentation/session_controller.dart';
 import '../../practice/domain/practice_history_models.dart';
@@ -96,18 +98,38 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
     NotebookStatus status,
   ) async {
     try {
-      await ref
-          .read(progressRepositoryProvider)
-          .updateNotebookEntry(
-            questionId: item.questionId,
-            note: note,
-            status: status,
-          );
+      final user = ref.read(sessionControllerProvider).user;
+      SafeWriteResult? result;
+      if (user?.isDemo ?? false) {
+        await ref
+            .read(progressRepositoryProvider)
+            .updateNotebookEntry(
+              questionId: item.questionId,
+              note: note,
+              status: status,
+            );
+      } else if (user != null) {
+        result = await ref
+            .read(safeSyncRepositoryProvider)
+            .saveNotebookEntry(
+              userId: user.id,
+              questionId: item.questionId,
+              note: note,
+              status: status.backendValue,
+            );
+      }
       if (!mounted) return true;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Cambio guardado en tu cuaderno.')),
-      );
-      _reloadNotebook();
+      final message = switch (result?.disposition) {
+        SafeWriteDisposition.queued =>
+          'Cambio guardado. Se sincronizará cuando vuelva la conexión.',
+        SafeWriteDisposition.blocked =>
+          'Cambio guardado, pero requiere revisión en Sincronización.',
+        _ => 'Cambio guardado en tu cuaderno.',
+      };
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(message)));
+      if (result == null || result.isSynced) _reloadNotebook();
       return true;
     } on Object catch (error) {
       if (mounted) {

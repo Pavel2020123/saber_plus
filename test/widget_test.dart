@@ -359,6 +359,27 @@ void main() {
     await tester.pump();
     expect(find.text('264 segundos por pregunta'), findsOneWidget);
   });
+
+  testWidgets('abre el estado de sincronización desde Más', (tester) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Más'));
+    await tester.pumpAndSettle();
+    expect(find.text('Sin cambios pendientes'), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('open-sync-queue')));
+    await tester.pumpAndSettle();
+    expect(find.text('Sincronización'), findsOneWidget);
+    expect(find.text('No tienes cambios pendientes.'), findsOneWidget);
+  });
 }
 
 class _FakePracticeDraftStore extends PracticeDraftStore {

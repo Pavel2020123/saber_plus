@@ -7,10 +7,10 @@ import 'package:go_router/go_router.dart';
 import '../../../core/config/environment.dart';
 import '../../../core/config/resource_url.dart';
 import '../../../core/network/api_error.dart';
+import '../../../core/sync/drift_safe_sync_repository.dart';
 import '../../academic/domain/academic_models.dart';
 import '../../auth/presentation/session_controller.dart';
 import '../../progress/presentation/progress_providers.dart';
-import '../../study/data/remote_study_repository.dart';
 import '../../study/presentation/study_providers.dart';
 import '../data/practice_draft_store.dart';
 import '../domain/practice_models.dart';
@@ -469,12 +469,17 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
   }
 
   Future<void> _syncProgress(int percentage) async {
-    if (ref.read(sessionControllerProvider).user?.isDemo ?? false) return;
+    final user = ref.read(sessionControllerProvider).user;
+    if (user == null || user.isDemo) return;
     try {
-      await ref
-          .read(studyRepositoryProvider)
-          .updateSubtopicProgress(widget.subtopicId!, percentage);
-      ref.invalidate(studyProgressProvider);
+      final result = await ref
+          .read(safeSyncRepositoryProvider)
+          .saveStudyProgress(
+            userId: user.id,
+            subtopicId: widget.subtopicId!,
+            percentage: percentage,
+          );
+      if (result.isSynced) ref.invalidate(studyProgressProvider);
     } on Object {
       // La calificación ya es válida aunque falle esta actualización secundaria.
     }

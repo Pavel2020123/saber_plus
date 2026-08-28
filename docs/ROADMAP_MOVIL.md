@@ -63,7 +63,7 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Repaso adaptativo con perfil, sesión protegida y recalibración.
 - [x] Fórmulas, glosario y estrategia disponibles sin conexión.
 - [x] Drift/SQLite, contenido descargable y gestión de espacio.
-- Outbox de operaciones seguras y resolución de conflictos.
+- [x] Outbox de operaciones seguras y resolución de conflictos.
 - Notificaciones y preferencias.
 - Elección del estudiante entre tema claro y oscuro; hasta entonces la app usa fondo blanco fijo.
 

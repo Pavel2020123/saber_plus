@@ -42,6 +42,12 @@ La nota admite hasta 1600 caracteres. Solo pueden modificarse preguntas que real
 - Revisión de la respuesta seleccionada, la correcta y la explicación.
 - Notas personales y flujo pendiente/en repaso/dominado persistidos en la API.
 
+## Etapa 5E: escritura aplazada segura
+
+El progreso de lecciones y las ediciones del cuaderno pueden guardarse primero en Drift cuando la API no está disponible. Las políticas de agrupación, sincronización y conflictos están documentadas en [OFFLINE_SYNC.md](OFFLINE_SYNC.md).
+
+El backend sigue siendo la fuente de verdad. Los intentos, resultados y XP no forman parte de esta cola.
+
 ## Etapa 5B: repaso adaptativo
 
 `GET /repaso-adaptativo/perfil`
