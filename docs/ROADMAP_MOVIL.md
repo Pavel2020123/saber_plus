@@ -49,12 +49,12 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Componente móvil de pregunta, opciones y contexto de caso.
 - [x] Práctica por subtema con intento protegido y registro de tiempos.
 - [x] Sesión aleatoria personalizada por áreas, cantidad y dificultad.
-- [ ] Simulacro completo por área.
+- [x] Simulacro completo por área con borrador y revisión.
 - [x] Temporizador visible y bloqueo de envíos duplicados en la app.
 - [x] Borrador local cifrado y reanudación de intentos vigentes.
 - [ ] Recuperación idempotente respaldada por API.
 - [x] Resultado inmediato y revisión con explicación.
-- [ ] Historial de resultados.
+- [x] Historial de resultados y respuestas con filtros.
 
 ## Etapa 5 - Progreso y modo sin conexión
 
@@ -81,15 +81,23 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 
 ## Etapa 8 - Comercio y publicación
 
-- Compra aprobada para Apple/Google y derechos neutrales.
+- Wompi para pagos web y flujos externos permitidos; ePayco queda descartado.
+- Google Play Billing y StoreKit para bienes digitales dentro de la app cuando las tiendas lo exijan.
+- Derechos de acceso neutrales en el backend, sin depender del proveedor de pago.
 - Restauración, reembolso y cambio de cuenta.
 - Accesibilidad, seguridad, rendimiento y observabilidad.
 - Beta, fichas de tienda, privacidad y plan de rollback.
+
+## Decisiones comerciales confirmadas
+
+- La pasarela externa del proyecto será Wompi; no se implementará ePayco.
+- El backend deberá validar webhooks de Wompi y convertir pagos aprobados en derechos de acceso.
+- La aplicación móvil respetará la facturación obligatoria de cada tienda para contenido digital.
 
 ## Decisiones pendientes que no debe inventar Flutter
 
 1. Contrato OpenAPI versionado y formato uniforme de errores.
 2. Refresh rotation, sesiones y revocación de dispositivos.
 3. Consentimiento versionado y tratamiento de datos de menores en el backend.
-4. Estrategia de compra compatible con cada tienda.
+4. Catálogo, precios y correspondencia entre productos de Wompi, Play Billing y StoreKit.
 5. Política offline para intentos y contenido protegido.

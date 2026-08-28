@@ -19,9 +19,11 @@ import '../features/dashboard/presentation/more_page.dart';
 import '../features/dashboard/presentation/student_dashboard_page.dart';
 import '../features/dashboard/presentation/teacher_dashboard_page.dart';
 import '../features/practice/domain/practice_models.dart';
+import '../features/practice/presentation/practice_history_page.dart';
 import '../features/practice/presentation/practice_hub_page.dart';
 import '../features/practice/presentation/random_practice_setup_page.dart';
 import '../features/practice/presentation/practice_session_page.dart';
+import '../features/practice/presentation/simulation_setup_page.dart';
 import '../features/shared/presentation/feature_placeholder_page.dart';
 import '../features/shared/presentation/student_shell.dart';
 import '../features/study/presentation/study_area_page.dart';
@@ -175,6 +177,25 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 pageBuilder: (context, state) =>
                     const NoTransitionPage(child: PracticeHubPage()),
                 routes: [
+                  GoRoute(
+                    path: 'simulation',
+                    builder: (context, state) => const SimulationSetupPage(),
+                    routes: [
+                      GoRoute(
+                        path: ':area',
+                        builder: (context, state) =>
+                            PracticeSessionPage.simulation(
+                              area: AcademicArea.fromSlug(
+                                state.pathParameters['area']!,
+                              ),
+                            ),
+                      ),
+                    ],
+                  ),
+                  GoRoute(
+                    path: 'history',
+                    builder: (context, state) => const PracticeHistoryPage(),
+                  ),
                   GoRoute(
                     path: 'random',
                     builder: (context, state) =>

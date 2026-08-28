@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 
 import '../../../core/network/api_error.dart';
 import '../../academic/domain/academic_models.dart';
+import '../domain/practice_history_models.dart';
 import '../domain/practice_models.dart';
 import '../domain/practice_repository.dart';
 
@@ -117,6 +118,89 @@ class RemotePracticeRepository implements PracticeRepository {
         },
       );
       return PracticeResult.fromJson(_body(response.data));
+    } on DioException catch (error) {
+      throw ApiError.fromDioException(error);
+    }
+  }
+
+  @override
+  Future<PracticeSession> startAreaSimulation(AcademicArea area) async {
+    try {
+      final response = await _dio.get<Map<String, dynamic>>(
+        '/simulacros/generar',
+        queryParameters: {'area': area.backendValue},
+      );
+      final session = PracticeSession.fromSimulationJson(
+        _body(response.data),
+        area: area,
+      );
+      if (session.questions.isEmpty) {
+        throw const ApiError(
+          code: 'empty_simulation',
+          message: 'Esta área todavía no tiene preguntas para el simulacro.',
+        );
+      }
+      if (session.questions.any((question) => question.area != area)) {
+        throw const ApiError(
+          code: 'simulation_area_mismatch',
+          message: 'El simulacro contiene preguntas de otra área.',
+        );
+      }
+      return session;
+    } on DioException catch (error) {
+      throw ApiError.fromDioException(error);
+    }
+  }
+
+  @override
+  Future<PracticeResult> gradeAreaSimulation({
+    required String attemptId,
+    required AcademicArea area,
+    required List<PracticeAnswer> answers,
+  }) async {
+    try {
+      final response = await _dio.post<Map<String, dynamic>>(
+        '/simulacros/calificar',
+        data: {
+          'intentoId': attemptId,
+          'area': area.backendValue,
+          'origen': 'SIMULACRO',
+          'respuestas': answers.map((answer) => answer.toJson()).toList(),
+        },
+      );
+      return PracticeResult.fromJson(_body(response.data));
+    } on DioException catch (error) {
+      throw ApiError.fromDioException(error);
+    }
+  }
+
+  @override
+  Future<SimulationHistory> loadSimulationHistory() async {
+    try {
+      final response = await _dio.get<Map<String, dynamic>>(
+        '/simulacros/historial',
+      );
+      return SimulationHistory.fromJson(_body(response.data));
+    } on DioException catch (error) {
+      throw ApiError.fromDioException(error);
+    }
+  }
+
+  @override
+  Future<AnswerHistory> loadAnswerHistory(AnswerHistoryFilter filter) async {
+    try {
+      final response = await _dio.get<Map<String, dynamic>>(
+        '/simulacros/historial-respuestas',
+        queryParameters: {
+          if (filter.area case final area?) 'area': area.backendValue,
+          if (filter.outcome == AnswerOutcomeFilter.correct)
+            'resultado': 'correctas',
+          if (filter.outcome == AnswerOutcomeFilter.incorrect)
+            'resultado': 'incorrectas',
+          'limite': filter.limit.clamp(1, 100),
+        },
+      );
+      return AnswerHistory.fromJson(_body(response.data));
     } on DioException catch (error) {
       throw ApiError.fromDioException(error);
     }

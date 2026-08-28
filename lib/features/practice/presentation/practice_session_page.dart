@@ -20,15 +20,23 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
     super.key,
     required this.area,
     required this.subtopicId,
-  }) : randomConfig = null;
+  }) : randomConfig = null,
+       isSimulation = false;
 
   const PracticeSessionPage.random({super.key, required this.randomConfig})
     : area = null,
-      subtopicId = null;
+      subtopicId = null,
+      isSimulation = false;
+
+  const PracticeSessionPage.simulation({super.key, required this.area})
+    : subtopicId = null,
+      randomConfig = null,
+      isSimulation = true;
 
   final AcademicArea? area;
   final String? subtopicId;
   final RandomPracticeConfig? randomConfig;
+  final bool isSimulation;
 
   @override
   ConsumerState<PracticeSessionPage> createState() =>
@@ -51,8 +59,13 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
   Timer? _clock;
 
   bool get _isRandom => widget.randomConfig != null;
-  String get _draftId =>
-      _isRandom ? 'random' : 'subtopic:${widget.subtopicId!}';
+  bool get _isSimulation => widget.isSimulation;
+  bool get _isSubtopic => !_isRandom && !_isSimulation;
+  String get _draftId => _isRandom
+      ? 'random'
+      : _isSimulation
+      ? 'simulation:${widget.area!.backendValue}'
+      : 'subtopic:${widget.subtopicId!}';
   String? get _userId => ref.read(sessionControllerProvider).user?.id;
 
   @override
@@ -102,6 +115,8 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
       final repository = ref.read(practiceRepositoryProvider);
       final session = _isRandom
           ? await repository.startRandomPractice(widget.randomConfig!)
+          : _isSimulation
+          ? await repository.startAreaSimulation(widget.area!)
           : await repository.startSubtopicPractice(
               area: widget.area!,
               subtopicId: widget.subtopicId!,
@@ -131,8 +146,12 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
     if (draft.isExpiredAt(DateTime.now()) || draft.session.questions.isEmpty) {
       return false;
     }
-    if (_isRandom != draft.session.isRandom) return false;
-    if (!_isRandom) return draft.session.subtopicId == widget.subtopicId;
+    if (_isRandom != draft.session.isRandom ||
+        _isSimulation != draft.session.isSimulation) {
+      return false;
+    }
+    if (_isSimulation) return draft.session.area == widget.area;
+    if (_isSubtopic) return draft.session.subtopicId == widget.subtopicId;
     final expected = widget.randomConfig!.areas.toSet();
     final stored = draft.session.areas.toSet();
     return expected.length == stored.length && expected.containsAll(stored);
@@ -295,7 +314,9 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Finalizar práctica'),
+        title: Text(
+          _isSimulation ? 'Finalizar simulacro' : 'Finalizar práctica',
+        ),
         content: const Text(
           'Después de enviar, este intento quedará cerrado y podrás revisar las respuestas correctas.',
         ),
@@ -336,6 +357,12 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
               attemptId: session.attemptId,
               answers: answers,
             )
+          : _isSimulation
+          ? await repository.gradeAreaSimulation(
+              attemptId: session.attemptId,
+              area: session.area,
+              answers: answers,
+            )
           : await repository.gradePractice(
               attemptId: session.attemptId,
               area: session.area,
@@ -349,7 +376,7 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
         _result = result;
         _submitting = false;
       });
-      if (!_isRandom) {
+      if (_isSubtopic) {
         unawaited(_syncProgress(result.summary.percentage.round()));
       }
     } on Object catch (error) {
@@ -373,7 +400,7 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
           builder: (context) => AlertDialog(
             title: const Text('Envío por confirmar'),
             content: const Text(
-              'Se perdió la conexión mientras se calificaba. Para evitar un envío duplicado, la app no repetirá este intento automáticamente. Regresa a la lección e inicia una práctica nueva cuando tengas conexión.',
+              'Se perdió la conexión mientras se calificaba. Para evitar un envío duplicado, la app no repetirá este intento automáticamente. Regresa e inicia una sesión nueva cuando tengas conexión.',
             ),
             actions: [
               FilledButton(
@@ -412,7 +439,11 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
           result == null
               ? _isRandom
                     ? 'Preguntas aleatorias'
+                    : _isSimulation
+                    ? 'Simulacro por área'
                     : 'Práctica'
+              : _isSimulation
+              ? 'Resultado del simulacro'
               : 'Resultado de práctica',
         ),
         actions: [
@@ -435,7 +466,11 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
           result: value,
           onRetry: _loadPractice,
           onExit: () => context.pop(),
-          exitLabel: _isRandom ? 'Volver a configurar' : 'Volver a la lección',
+          exitLabel: _isRandom
+              ? 'Volver a configurar'
+              : _isSimulation
+              ? 'Volver a simulacros'
+              : 'Volver a la lección',
         ),
         (false, _, _, final session?) => _buildSession(session),
         _ => const SizedBox.shrink(),

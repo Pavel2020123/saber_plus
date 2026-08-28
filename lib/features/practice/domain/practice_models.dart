@@ -7,6 +7,7 @@ class PracticeSession {
     required this.subtopicId,
     required this.questions,
     this.isRandom = false,
+    this.isSimulation = false,
     this.selectedAreas = const [],
   });
 
@@ -15,6 +16,7 @@ class PracticeSession {
   final String subtopicId;
   final List<PracticeQuestion> questions;
   final bool isRandom;
+  final bool isSimulation;
   final List<AcademicArea> selectedAreas;
 
   List<AcademicArea> get areas =>
@@ -53,6 +55,22 @@ class PracticeSession {
         .toList(growable: false),
   );
 
+  factory PracticeSession.fromSimulationJson(
+    Map<String, dynamic> json, {
+    required AcademicArea area,
+  }) => PracticeSession(
+    attemptId: json['intentoId'] as String,
+    area: area,
+    subtopicId: '',
+    isSimulation: true,
+    questions: (json['preguntas'] as List<dynamic>? ?? const [])
+        .map(
+          (item) =>
+              PracticeQuestion.fromJson(Map<String, dynamic>.from(item as Map)),
+        )
+        .toList(growable: false),
+  );
+
   factory PracticeSession.fromStoredJson(
     Map<String, dynamic> json,
   ) => PracticeSession(
@@ -60,6 +78,7 @@ class PracticeSession {
     area: AcademicArea.fromBackend(json['area'] as String),
     subtopicId: json['subtopicId'] as String? ?? '',
     isRandom: json['isRandom'] as bool? ?? false,
+    isSimulation: json['isSimulation'] as bool? ?? false,
     selectedAreas: (json['selectedAreas'] as List<dynamic>? ?? const [])
         .whereType<String>()
         .map(AcademicArea.fromBackend)
@@ -77,6 +96,7 @@ class PracticeSession {
     'area': area.backendValue,
     'subtopicId': subtopicId,
     'isRandom': isRandom,
+    'isSimulation': isSimulation,
     'selectedAreas': areas.map((item) => item.backendValue).toList(),
     'questions': questions.map((item) => item.toJson()).toList(),
   };

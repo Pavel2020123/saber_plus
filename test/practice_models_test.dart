@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:saber_plus/features/academic/domain/academic_models.dart';
 import 'package:saber_plus/features/practice/data/practice_draft_store.dart';
+import 'package:saber_plus/features/practice/domain/practice_history_models.dart';
 import 'package:saber_plus/features/practice/domain/practice_models.dart';
 
 void main() {
@@ -143,5 +144,67 @@ void main() {
     expect(restored?.areas, [AcademicArea.mathematics, AcademicArea.english]);
     expect(restored?.questionCount, 20);
     expect(restored?.difficulty, PracticeDifficulty.hard);
+  });
+
+  test('interpreta resultados recientes y fechas del historial', () {
+    final history = SimulationHistory.fromJson({
+      'totalSimulacros': 1,
+      'resultados': [
+        {
+          'id': 'result-1',
+          'area': 'MATEMATICAS',
+          'totalPreguntas': 25,
+          'respuestasCorrectas': 20,
+          'puntaje': 80.0,
+          'xpGanado': 250,
+          'fechaRealizado': '2026-08-28T15:30:00.000Z',
+        },
+      ],
+    });
+
+    expect(history.total, 1);
+    expect(history.results.single.area, AcademicArea.mathematics);
+    expect(history.results.single.percentage, 80);
+    expect(history.results.single.completedAt.isUtc, isFalse);
+  });
+
+  test('interpreta la revisión histórica de una respuesta', () {
+    final history = AnswerHistory.fromJson({
+      'resumen': {
+        'total': 1,
+        'correctas': 0,
+        'incorrectas': 1,
+        'porcentajeAciertos': 0,
+      },
+      'respuestas': [
+        {
+          'id': 'history-1',
+          'sesionId': 'session-1',
+          'preguntaId': 'question-1',
+          'enunciado': '¿Cuál es el resultado?',
+          'explicacion': 'Divide y multiplica.',
+          'dificultad': 'MEDIO',
+          'area': 'MATEMATICAS',
+          'origen': 'SIMULACRO',
+          'esCorrecta': false,
+          'tiempoRespuestaSegundos': 25,
+          'fechaRespuesta': '2026-08-28T15:31:00.000Z',
+          'respuestaSeleccionada': {'id': 'answer-b', 'texto': '15'},
+          'respuestaCorrecta': {
+            'id': 'answer-a',
+            'texto': '20',
+            'explicacion': 'Correcta',
+          },
+          'tema': 'Proporciones',
+          'subtema': 'Regla de tres',
+          'caso': {'id': 'case-1', 'titulo': 'Compra escolar'},
+        },
+      ],
+    });
+
+    final answer = history.answers.single;
+    expect(answer.origin, PracticeOrigin.simulation);
+    expect(answer.correctAnswer?.text, '20');
+    expect(answer.caseTitle, 'Compra escolar');
   });
 }

@@ -111,4 +111,29 @@ Si la conexión se pierde durante la calificación, Flutter deja el envío como 
 - Reanudación de respuestas, posición, duración y tiempos por pregunta.
 - Vencimiento, descarte manual y sustitución confirmada de intentos.
 
-El simulacro completo, el historial y la recuperación idempotente respaldada por API quedan para las siguientes partes de la Etapa 4.
+## Alcance de la Etapa 4C
+
+### Simulacro completo por área
+
+`GET /simulacros/generar?area=MATEMATICAS`
+
+- Genera normalmente 25 preguntas de una sola área.
+- Crea un intento protegido con origen `SIMULACRO` y vencimiento de dos horas.
+- Conserva juntas las preguntas que pertenecen al mismo caso.
+- No entrega respuestas correctas ni explicaciones antes de calificar.
+
+La calificación usa `POST /simulacros/calificar` con el área elegida, todas las respuestas y `origen: SIMULACRO`. Flutter reutiliza el temporizador, borrador cifrado, reanudación, protección de envío y revisión de las etapas anteriores.
+
+### Historial
+
+`GET /simulacros/historial`
+
+- Devuelve hasta los 20 resultados más recientes.
+- Cada resultado contiene área, total, respuestas correctas, porcentaje, XP y fecha.
+
+`GET /simulacros/historial-respuestas`
+
+- Acepta filtros opcionales `area`, `resultado=correctas|incorrectas` y `limite` de 1 a 100.
+- Devuelve el resumen global del filtro y cada respuesta con origen, tiempo, tema, subtema, opción seleccionada, opción correcta y explicación.
+
+El historial es de solo lectura. La aplicación no reconstruye ni modifica resultados calculados por el backend.

@@ -1,4 +1,5 @@
 import '../../academic/domain/academic_models.dart';
+import '../domain/practice_history_models.dart';
 import '../domain/practice_models.dart';
 import '../domain/practice_repository.dart';
 
@@ -192,6 +193,136 @@ class DemoPracticeRepository implements PracticeRepository {
                 : 0),
       ),
       review: review,
+    );
+  }
+
+  @override
+  Future<PracticeSession> startAreaSimulation(AcademicArea area) async {
+    final source = await startSubtopicPractice(
+      area: area,
+      subtopicId: 'demo-simulation-${area.name}',
+    );
+    return PracticeSession(
+      attemptId: 'demo-simulation-${DateTime.now().microsecondsSinceEpoch}',
+      area: area,
+      subtopicId: '',
+      isSimulation: true,
+      questions: source.questions,
+    );
+  }
+
+  @override
+  Future<PracticeResult> gradeAreaSimulation({
+    required String attemptId,
+    required AcademicArea area,
+    required List<PracticeAnswer> answers,
+  }) => gradePractice(attemptId: attemptId, area: area, answers: answers);
+
+  @override
+  Future<SimulationHistory> loadSimulationHistory() async => SimulationHistory(
+    total: 3,
+    results: [
+      SimulationHistoryResult(
+        id: 'demo-result-1',
+        area: AcademicArea.mathematics,
+        totalQuestions: 25,
+        correctAnswers: 18,
+        percentage: 72,
+        earnedXp: 205,
+        completedAt: DateTime.now().subtract(const Duration(days: 1)),
+      ),
+      SimulationHistoryResult(
+        id: 'demo-result-2',
+        area: AcademicArea.criticalReading,
+        totalQuestions: 25,
+        correctAnswers: 21,
+        percentage: 84,
+        earnedXp: 260,
+        completedAt: DateTime.now().subtract(const Duration(days: 4)),
+      ),
+      SimulationHistoryResult(
+        id: 'demo-result-3',
+        area: AcademicArea.naturalSciences,
+        totalQuestions: 25,
+        correctAnswers: 15,
+        percentage: 60,
+        earnedXp: 175,
+        completedAt: DateTime.now().subtract(const Duration(days: 8)),
+      ),
+    ],
+  );
+
+  @override
+  Future<AnswerHistory> loadAnswerHistory(AnswerHistoryFilter filter) async {
+    final items = <AnswerHistoryItem>[
+      AnswerHistoryItem(
+        id: 'demo-history-1',
+        sessionId: 'demo-session-1',
+        questionId: 'demo-question-mathematics-1',
+        statement: 'Si 3 cuadernos cuestan 12.000 pesos, ¿cuánto cuestan 5?',
+        explanation: 'Cada cuaderno cuesta 4.000 pesos; cinco cuestan 20.000.',
+        difficulty: 'MEDIO',
+        area: AcademicArea.mathematics,
+        origin: PracticeOrigin.simulation,
+        isCorrect: false,
+        responseTimeSeconds: 42,
+        answeredAt: DateTime.now().subtract(const Duration(days: 1)),
+        selectedAnswer: const HistoryAnswer(
+          id: 'answer-b',
+          text: '15.000 pesos',
+        ),
+        correctAnswer: const HistoryAnswer(
+          id: 'answer-a',
+          text: '20.000 pesos',
+        ),
+        theme: 'Razones y proporciones',
+        subtopic: 'Regla de tres',
+      ),
+      AnswerHistoryItem(
+        id: 'demo-history-2',
+        sessionId: 'demo-session-2',
+        questionId: 'demo-question-criticalReading-1',
+        statement: '¿Cuál es la idea principal del texto?',
+        explanation: 'Resume el propósito general del texto.',
+        difficulty: 'MEDIO',
+        area: AcademicArea.criticalReading,
+        origin: PracticeOrigin.random,
+        isCorrect: true,
+        responseTimeSeconds: 28,
+        answeredAt: DateTime.now().subtract(const Duration(days: 2)),
+        selectedAnswer: const HistoryAnswer(
+          id: 'answer-a',
+          text: 'La opción que resume el texto',
+        ),
+        correctAnswer: const HistoryAnswer(
+          id: 'answer-a',
+          text: 'La opción que resume el texto',
+        ),
+        theme: 'Comprensión textual',
+        subtopic: 'Idea principal',
+      ),
+    ];
+    final filtered = items
+        .where((item) {
+          if (filter.area != null && item.area != filter.area) return false;
+          return switch (filter.outcome) {
+            AnswerOutcomeFilter.all => true,
+            AnswerOutcomeFilter.correct => item.isCorrect,
+            AnswerOutcomeFilter.incorrect => !item.isCorrect,
+          };
+        })
+        .toList(growable: false);
+    final correct = filtered.where((item) => item.isCorrect).length;
+    return AnswerHistory(
+      summary: AnswerHistorySummary(
+        total: filtered.length,
+        correct: correct,
+        incorrect: filtered.length - correct,
+        successPercentage: filtered.isEmpty
+            ? 0
+            : correct * 100 / filtered.length,
+      ),
+      answers: filtered,
     );
   }
 }

@@ -154,6 +154,82 @@ void main() {
     expect(find.text('Pregunta 1 de 2'), findsOneWidget);
     expect(find.textContaining('3 cuadernos'), findsOneWidget);
   });
+
+  testWidgets('configura y abre un simulacro completo demostrativo', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Practicar'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('open-area-simulation')));
+    await tester.pumpAndSettle();
+    expect(find.text('Elige un área'), findsOneWidget);
+
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('start-area-simulation-button')),
+      300,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.tap(find.byKey(const Key('start-area-simulation-button')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Simulacro por área'), findsOneWidget);
+    expect(find.text('Pregunta 1 de 2'), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('practice-answer-answer-a')));
+    await tester.pump();
+    await tester.tap(find.byKey(const Key('next-practice-question-button')));
+    await tester.pump();
+    await tester.tap(find.byKey(const Key('practice-answer-answer-e')));
+    await tester.pump();
+    await tester.tap(find.byKey(const Key('submit-practice-button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('confirm-submit-practice-button')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Resultado del simulacro'), findsOneWidget);
+    expect(find.byKey(const Key('practice-result-view')), findsOneWidget);
+  });
+
+  testWidgets('abre el historial demostrativo y revisa una respuesta', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Practicar'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('open-practice-history')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Resultados recientes'), findsOneWidget);
+    expect(find.text('72%'), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('history-answer-demo-history-1')),
+      300,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.tap(find.byKey(const Key('history-answer-demo-history-1')));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Respuesta correcta:'), findsOneWidget);
+    expect(find.textContaining('20.000 pesos'), findsOneWidget);
+  });
 }
 
 class _FakePracticeDraftStore extends PracticeDraftStore {

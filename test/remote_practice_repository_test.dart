@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:saber_plus/features/academic/domain/academic_models.dart';
 import 'package:saber_plus/features/practice/data/remote_practice_repository.dart';
+import 'package:saber_plus/features/practice/domain/practice_history_models.dart';
 import 'package:saber_plus/features/practice/domain/practice_models.dart';
 
 void main() {
@@ -209,6 +210,153 @@ void main() {
     expect(captured.data.containsKey('area'), isFalse);
     expect(captured.data.containsKey('origen'), isFalse);
   });
+
+  test('genera el simulacro completo para una sola área', () async {
+    late RequestOptions captured;
+    final dio = Dio(BaseOptions(baseUrl: 'http://localhost:3000'));
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          captured = options;
+          handler.resolve(
+            Response<Map<String, dynamic>>(
+              requestOptions: options,
+              statusCode: 200,
+              data: {
+                'intentoId': 'simulation-attempt-1',
+                'totalPreguntas': 1,
+                'preguntas': [_questionJson],
+              },
+            ),
+          );
+        },
+      ),
+    );
+
+    final session = await RemotePracticeRepository(
+      dio,
+    ).startAreaSimulation(AcademicArea.mathematics);
+
+    expect(captured.path, '/simulacros/generar');
+    expect(captured.queryParameters, {'area': 'MATEMATICAS'});
+    expect(session.isSimulation, isTrue);
+    expect(session.attemptId, 'simulation-attempt-1');
+  });
+
+  test('califica el simulacro completo con origen SIMULACRO', () async {
+    late RequestOptions captured;
+    final dio = Dio(BaseOptions(baseUrl: 'http://localhost:3000'));
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          captured = options;
+          handler.resolve(
+            Response<Map<String, dynamic>>(
+              requestOptions: options,
+              statusCode: 201,
+              data: _gradedResponse,
+            ),
+          );
+        },
+      ),
+    );
+
+    await RemotePracticeRepository(dio).gradeAreaSimulation(
+      attemptId: 'simulation-attempt-1',
+      area: AcademicArea.mathematics,
+      answers: const [
+        PracticeAnswer(
+          questionId: 'question-1',
+          answerId: 'answer-a',
+          responseTimeSeconds: 30,
+        ),
+      ],
+    );
+
+    expect(captured.path, '/simulacros/calificar');
+    expect(captured.data['area'], 'MATEMATICAS');
+    expect(captured.data['origen'], 'SIMULACRO');
+  });
+
+  test('consulta historial de respuestas con filtros reales', () async {
+    late RequestOptions captured;
+    final dio = Dio(BaseOptions(baseUrl: 'http://localhost:3000'));
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          captured = options;
+          handler.resolve(
+            Response<Map<String, dynamic>>(
+              requestOptions: options,
+              statusCode: 200,
+              data: {
+                'resumen': {
+                  'total': 1,
+                  'correctas': 0,
+                  'incorrectas': 1,
+                  'porcentajeAciertos': 0,
+                },
+                'respuestas': [_historyAnswerJson],
+              },
+            ),
+          );
+        },
+      ),
+    );
+
+    final history = await RemotePracticeRepository(dio).loadAnswerHistory(
+      const AnswerHistoryFilter(
+        area: AcademicArea.mathematics,
+        outcome: AnswerOutcomeFilter.incorrect,
+        limit: 100,
+      ),
+    );
+
+    expect(captured.path, '/simulacros/historial-respuestas');
+    expect(captured.queryParameters, {
+      'area': 'MATEMATICAS',
+      'resultado': 'incorrectas',
+      'limite': 100,
+    });
+    expect(history.answers.single.subtopic, 'Regla de tres');
+  });
+
+  test('consulta los últimos resultados de simulacro', () async {
+    late RequestOptions captured;
+    final dio = Dio(BaseOptions(baseUrl: 'http://localhost:3000'));
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          captured = options;
+          handler.resolve(
+            Response<Map<String, dynamic>>(
+              requestOptions: options,
+              statusCode: 200,
+              data: {
+                'totalSimulacros': 1,
+                'resultados': [
+                  {
+                    'id': 'result-1',
+                    'area': 'MATEMATICAS',
+                    'totalPreguntas': 25,
+                    'respuestasCorrectas': 20,
+                    'puntaje': 80,
+                    'xpGanado': 250,
+                    'fechaRealizado': '2026-08-28T15:30:00.000Z',
+                  },
+                ],
+              },
+            ),
+          );
+        },
+      ),
+    );
+
+    final history = await RemotePracticeRepository(dio).loadSimulationHistory();
+
+    expect(captured.path, '/simulacros/historial');
+    expect(history.results.single.percentage, 80);
+  });
 }
 
 const _questionJson = {
@@ -234,4 +382,45 @@ Map<String, dynamic> _questionJsonForArea({
     'nombre': 'Subtema',
     'tema': {'nombre': 'Tema', 'area': area},
   },
+};
+
+const _gradedResponse = {
+  'resumen': {
+    'totalPreguntas': 1,
+    'respuestasCorrectas': 1,
+    'respuestasIncorrectas': 0,
+    'puntaje': '100%',
+    'xpGanado': 60,
+  },
+  'detalle': [
+    {
+      'preguntaId': 'question-1',
+      'enunciado': '¿Cuánto cuesta?',
+      'esCorrecto': true,
+      'respuestaSeleccionadaId': 'answer-a',
+      'respuestaCorrectaId': 'answer-a',
+      'respuestas': [
+        {'id': 'answer-a', 'texto': '20', 'esCorrecta': true},
+      ],
+    },
+  ],
+};
+
+const _historyAnswerJson = {
+  'id': 'history-1',
+  'sesionId': 'session-1',
+  'preguntaId': 'question-1',
+  'enunciado': '¿Cuánto cuesta?',
+  'explicacion': 'Divide y multiplica.',
+  'dificultad': 'MEDIO',
+  'area': 'MATEMATICAS',
+  'origen': 'SIMULACRO',
+  'esCorrecta': false,
+  'tiempoRespuestaSegundos': 30,
+  'fechaRespuesta': '2026-08-28T15:31:00.000Z',
+  'respuestaSeleccionada': {'id': 'answer-b', 'texto': '15'},
+  'respuestaCorrecta': {'id': 'answer-a', 'texto': '20', 'explicacion': null},
+  'tema': 'Proporciones',
+  'subtema': 'Regla de tres',
+  'caso': null,
 };
