@@ -8,6 +8,7 @@ class PracticeSession {
     required this.questions,
     this.isRandom = false,
     this.isSimulation = false,
+    this.isAdaptive = false,
     this.selectedAreas = const [],
   });
 
@@ -17,6 +18,7 @@ class PracticeSession {
   final List<PracticeQuestion> questions;
   final bool isRandom;
   final bool isSimulation;
+  final bool isAdaptive;
   final List<AcademicArea> selectedAreas;
 
   List<AcademicArea> get areas =>
@@ -71,6 +73,27 @@ class PracticeSession {
         .toList(growable: false),
   );
 
+  factory PracticeSession.fromAdaptiveJson(Map<String, dynamic> json) {
+    final questions = (json['preguntas'] as List<dynamic>? ?? const [])
+        .map(
+          (item) =>
+              PracticeQuestion.fromJson(Map<String, dynamic>.from(item as Map)),
+        )
+        .toList(growable: false);
+    final areas = questions
+        .map((question) => question.area)
+        .toSet()
+        .toList(growable: false);
+    return PracticeSession(
+      attemptId: json['intentoId'] as String,
+      area: areas.isEmpty ? AcademicArea.mathematics : areas.first,
+      subtopicId: '',
+      isAdaptive: true,
+      selectedAreas: areas,
+      questions: questions,
+    );
+  }
+
   factory PracticeSession.fromStoredJson(
     Map<String, dynamic> json,
   ) => PracticeSession(
@@ -79,6 +102,7 @@ class PracticeSession {
     subtopicId: json['subtopicId'] as String? ?? '',
     isRandom: json['isRandom'] as bool? ?? false,
     isSimulation: json['isSimulation'] as bool? ?? false,
+    isAdaptive: json['isAdaptive'] as bool? ?? false,
     selectedAreas: (json['selectedAreas'] as List<dynamic>? ?? const [])
         .whereType<String>()
         .map(AcademicArea.fromBackend)
@@ -97,6 +121,7 @@ class PracticeSession {
     'subtopicId': subtopicId,
     'isRandom': isRandom,
     'isSimulation': isSimulation,
+    'isAdaptive': isAdaptive,
     'selectedAreas': areas.map((item) => item.backendValue).toList(),
     'questions': questions.map((item) => item.toJson()).toList(),
   };

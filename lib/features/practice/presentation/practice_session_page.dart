@@ -9,6 +9,7 @@ import '../../../core/config/resource_url.dart';
 import '../../../core/network/api_error.dart';
 import '../../academic/domain/academic_models.dart';
 import '../../auth/presentation/session_controller.dart';
+import '../../progress/presentation/progress_providers.dart';
 import '../../study/data/remote_study_repository.dart';
 import '../../study/presentation/study_providers.dart';
 import '../data/practice_draft_store.dart';
@@ -21,22 +22,33 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
     required this.area,
     required this.subtopicId,
   }) : randomConfig = null,
-       isSimulation = false;
+       isSimulation = false,
+       adaptiveQuestionCount = null;
 
   const PracticeSessionPage.random({super.key, required this.randomConfig})
     : area = null,
       subtopicId = null,
-      isSimulation = false;
+      isSimulation = false,
+      adaptiveQuestionCount = null;
 
   const PracticeSessionPage.simulation({super.key, required this.area})
     : subtopicId = null,
       randomConfig = null,
-      isSimulation = true;
+      isSimulation = true,
+      adaptiveQuestionCount = null;
+
+  const PracticeSessionPage.adaptive({super.key, required int questionCount})
+    : area = null,
+      subtopicId = null,
+      randomConfig = null,
+      isSimulation = false,
+      adaptiveQuestionCount = questionCount;
 
   final AcademicArea? area;
   final String? subtopicId;
   final RandomPracticeConfig? randomConfig;
   final bool isSimulation;
+  final int? adaptiveQuestionCount;
 
   @override
   ConsumerState<PracticeSessionPage> createState() =>
@@ -60,8 +72,11 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
 
   bool get _isRandom => widget.randomConfig != null;
   bool get _isSimulation => widget.isSimulation;
-  bool get _isSubtopic => !_isRandom && !_isSimulation;
-  String get _draftId => _isRandom
+  bool get _isAdaptive => widget.adaptiveQuestionCount != null;
+  bool get _isSubtopic => !_isRandom && !_isSimulation && !_isAdaptive;
+  String get _draftId => _isAdaptive
+      ? 'adaptive:${widget.adaptiveQuestionCount}'
+      : _isRandom
       ? 'random'
       : _isSimulation
       ? 'simulation:${widget.area!.backendValue}'
@@ -112,15 +127,12 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
         if (draft != null) await store.clear(userId, _draftId);
       }
 
-      final repository = ref.read(practiceRepositoryProvider);
-      final session = _isRandom
-          ? await repository.startRandomPractice(widget.randomConfig!)
-          : _isSimulation
-          ? await repository.startAreaSimulation(widget.area!)
-          : await repository.startSubtopicPractice(
-              area: widget.area!,
-              subtopicId: widget.subtopicId!,
-            );
+      final session = _isAdaptive
+          ? (await ref
+                    .read(progressRepositoryProvider)
+                    .startAdaptiveSession(widget.adaptiveQuestionCount!))
+                .session
+          : await _startRegularPractice();
       if (!mounted) return;
       final now = DateTime.now();
       setState(() {
@@ -142,14 +154,30 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
     }
   }
 
+  Future<PracticeSession> _startRegularPractice() {
+    final repository = ref.read(practiceRepositoryProvider);
+    if (_isRandom) {
+      return repository.startRandomPractice(widget.randomConfig!);
+    }
+    if (_isSimulation) {
+      return repository.startAreaSimulation(widget.area!);
+    }
+    return repository.startSubtopicPractice(
+      area: widget.area!,
+      subtopicId: widget.subtopicId!,
+    );
+  }
+
   bool _canRestore(PracticeDraft draft) {
     if (draft.isExpiredAt(DateTime.now()) || draft.session.questions.isEmpty) {
       return false;
     }
     if (_isRandom != draft.session.isRandom ||
-        _isSimulation != draft.session.isSimulation) {
+        _isSimulation != draft.session.isSimulation ||
+        _isAdaptive != draft.session.isAdaptive) {
       return false;
     }
+    if (_isAdaptive) return true;
     if (_isSimulation) return draft.session.area == widget.area;
     if (_isSubtopic) return draft.session.subtopicId == widget.subtopicId;
     final expected = widget.randomConfig!.areas.toSet();
@@ -315,7 +343,11 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(
-          _isSimulation ? 'Finalizar simulacro' : 'Finalizar práctica',
+          _isSimulation
+              ? 'Finalizar simulacro'
+              : _isAdaptive
+              ? 'Finalizar repaso'
+              : 'Finalizar práctica',
         ),
         content: const Text(
           'Después de enviar, este intento quedará cerrado y podrás revisar las respuestas correctas.',
@@ -351,23 +383,15 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
         )
         .toList(growable: false);
     try {
-      final repository = ref.read(practiceRepositoryProvider);
-      final result = _isRandom
-          ? await repository.gradeRandomPractice(
-              attemptId: session.attemptId,
-              answers: answers,
-            )
-          : _isSimulation
-          ? await repository.gradeAreaSimulation(
-              attemptId: session.attemptId,
-              area: session.area,
-              answers: answers,
-            )
-          : await repository.gradePractice(
-              attemptId: session.attemptId,
-              area: session.area,
-              answers: answers,
-            );
+      final result = _isAdaptive
+          ? (await ref
+                    .read(progressRepositoryProvider)
+                    .gradeAdaptiveSession(
+                      attemptId: session.attemptId,
+                      answers: answers,
+                    ))
+                .result
+          : await _gradeRegularPractice(session, answers);
       if (!mounted) return;
       _clock?.cancel();
       await _clearDraft();
@@ -379,6 +403,7 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
       if (_isSubtopic) {
         unawaited(_syncProgress(result.summary.percentage.round()));
       }
+      if (_isAdaptive) ref.invalidate(adaptiveProfileProvider);
     } on Object catch (error) {
       if (!mounted) return;
       final uncertain =
@@ -418,6 +443,31 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
     }
   }
 
+  Future<PracticeResult> _gradeRegularPractice(
+    PracticeSession session,
+    List<PracticeAnswer> answers,
+  ) {
+    final repository = ref.read(practiceRepositoryProvider);
+    if (_isRandom) {
+      return repository.gradeRandomPractice(
+        attemptId: session.attemptId,
+        answers: answers,
+      );
+    }
+    if (_isSimulation) {
+      return repository.gradeAreaSimulation(
+        attemptId: session.attemptId,
+        area: session.area,
+        answers: answers,
+      );
+    }
+    return repository.gradePractice(
+      attemptId: session.attemptId,
+      area: session.area,
+      answers: answers,
+    );
+  }
+
   Future<void> _syncProgress(int percentage) async {
     if (ref.read(sessionControllerProvider).user?.isDemo ?? false) return;
     try {
@@ -439,11 +489,15 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
           result == null
               ? _isRandom
                     ? 'Preguntas aleatorias'
+                    : _isAdaptive
+                    ? 'Repaso inteligente'
                     : _isSimulation
                     ? 'Simulacro por área'
                     : 'Práctica'
               : _isSimulation
               ? 'Resultado del simulacro'
+              : _isAdaptive
+              ? 'Resultado del repaso'
               : 'Resultado de práctica',
         ),
         actions: [
@@ -468,6 +522,8 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
           onExit: () => context.pop(),
           exitLabel: _isRandom
               ? 'Volver a configurar'
+              : _isAdaptive
+              ? 'Volver a mi perfil'
               : _isSimulation
               ? 'Volver a simulacros'
               : 'Volver a la lección',

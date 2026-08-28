@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import '../../../core/network/api_error.dart';
 import '../../academic/domain/academic_models.dart';
 import '../../practice/domain/practice_history_models.dart';
+import '../../practice/domain/practice_models.dart';
 import '../../study/domain/study_models.dart';
 import '../domain/progress_models.dart';
 import '../domain/progress_repository.dart';
@@ -76,6 +77,57 @@ class RemoteProgressRepository implements ProgressRepository {
         '/cuaderno-errores/${Uri.encodeComponent(questionId)}',
         data: {'nota': note.trim(), 'estado': status.backendValue},
       );
+    } on DioException catch (error) {
+      throw ApiError.fromDioException(error);
+    }
+  }
+
+  @override
+  Future<AdaptiveProfile> loadAdaptiveProfile() async {
+    try {
+      final response = await _dio.get<Map<String, dynamic>>(
+        '/repaso-adaptativo/perfil',
+      );
+      return AdaptiveProfile.fromJson(_body(response.data));
+    } on DioException catch (error) {
+      throw ApiError.fromDioException(error);
+    }
+  }
+
+  @override
+  Future<AdaptiveSessionStart> startAdaptiveSession(int questionCount) async {
+    try {
+      final response = await _dio.post<Map<String, dynamic>>(
+        '/repaso-adaptativo/generar',
+        queryParameters: {'cantidad': questionCount.clamp(5, 30)},
+      );
+      final session = AdaptiveSessionStart.fromJson(_body(response.data));
+      if (session.session.questions.isEmpty) {
+        throw const ApiError(
+          code: 'empty_adaptive_review',
+          message: 'No hay preguntas disponibles para el repaso inteligente.',
+        );
+      }
+      return session;
+    } on DioException catch (error) {
+      throw ApiError.fromDioException(error);
+    }
+  }
+
+  @override
+  Future<AdaptiveGradeResult> gradeAdaptiveSession({
+    required String attemptId,
+    required List<PracticeAnswer> answers,
+  }) async {
+    try {
+      final response = await _dio.post<Map<String, dynamic>>(
+        '/repaso-adaptativo/calificar',
+        data: {
+          'intentoId': attemptId,
+          'respuestas': answers.map((answer) => answer.toJson()).toList(),
+        },
+      );
+      return AdaptiveGradeResult.fromJson(_body(response.data));
     } on DioException catch (error) {
       throw ApiError.fromDioException(error);
     }

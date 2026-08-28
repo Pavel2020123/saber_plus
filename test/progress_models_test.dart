@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:saber_plus/features/academic/domain/academic_models.dart';
 import 'package:saber_plus/features/progress/domain/progress_models.dart';
+import 'package:saber_plus/features/practice/domain/practice_models.dart';
 
 void main() {
   test('interpreta el resumen y detalle completo del cuaderno', () {
@@ -43,5 +44,29 @@ void main() {
     expect(NotebookStatus.reviewing.backendValue, 'REPASANDO');
     expect(NotebookStatus.mastered.backendValue, 'DOMINADO');
     expect(NotebookStatus.fromBackend('DOMINADO'), NotebookStatus.mastered);
+  });
+
+  test('interpreta el perfil y la mezcla del repaso adaptativo', () {
+    final profile = AdaptiveProfile.fromJson({
+      'intentosAnalizados': 20,
+      'precisionReciente': 72.5,
+      'nivelObjetivo': 'MEDIO',
+      'rendimientoPorArea': [
+        {
+          'area': 'MATEMATICAS',
+          'intentos': 8,
+          'precision': 50,
+          'prioridad': 50,
+        },
+      ],
+      'areasPrioritarias': ['MATEMATICAS', 'CIENCIAS_NATURALES'],
+      'mezclaRecomendada': {'BASICO': 25, 'MEDIO': 60, 'AVANZADO': 15},
+    });
+
+    expect(profile.targetLevel, PracticeDifficulty.medium);
+    expect(profile.recentAccuracy, 72.5);
+    expect(profile.priorityAreas.first, AcademicArea.mathematics);
+    expect(profile.recommendedMix.medium, 60);
+    expect(profile.areaPerformance.single.priority, 50);
   });
 }

@@ -1,5 +1,6 @@
 import '../../academic/domain/academic_models.dart';
 import '../../practice/domain/practice_history_models.dart';
+import '../../practice/domain/practice_models.dart';
 import '../../study/domain/study_models.dart';
 
 class ProgressDashboard {
@@ -188,4 +189,148 @@ class NotebookAnswer {
 String? _optionalText(Object? value) {
   if (value is! String || value.trim().isEmpty) return null;
   return value.trim();
+}
+
+class AdaptiveProfile {
+  const AdaptiveProfile({
+    required this.analyzedAttempts,
+    required this.targetLevel,
+    required this.areaPerformance,
+    required this.priorityAreas,
+    required this.recommendedMix,
+    this.recentAccuracy,
+  });
+
+  final int analyzedAttempts;
+  final double? recentAccuracy;
+  final PracticeDifficulty targetLevel;
+  final List<AdaptiveAreaPerformance> areaPerformance;
+  final List<AcademicArea> priorityAreas;
+  final AdaptiveDifficultyMix recommendedMix;
+
+  factory AdaptiveProfile.fromJson(
+    Map<String, dynamic> json,
+  ) => AdaptiveProfile(
+    analyzedAttempts: json['intentosAnalizados'] as int? ?? 0,
+    recentAccuracy: (json['precisionReciente'] as num?)?.toDouble(),
+    targetLevel: PracticeDifficulty.fromBackend(
+      json['nivelObjetivo'] as String,
+    ),
+    areaPerformance: (json['rendimientoPorArea'] as List<dynamic>? ?? const [])
+        .map(
+          (item) => AdaptiveAreaPerformance.fromJson(
+            Map<String, dynamic>.from(item as Map),
+          ),
+        )
+        .toList(growable: false),
+    priorityAreas: (json['areasPrioritarias'] as List<dynamic>? ?? const [])
+        .whereType<String>()
+        .map(AcademicArea.fromBackend)
+        .toList(growable: false),
+    recommendedMix: AdaptiveDifficultyMix.fromJson(
+      Map<String, dynamic>.from(json['mezclaRecomendada'] as Map? ?? const {}),
+    ),
+  );
+}
+
+class AdaptiveAreaPerformance {
+  const AdaptiveAreaPerformance({
+    required this.area,
+    required this.attempts,
+    required this.priority,
+    this.accuracy,
+  });
+
+  final AcademicArea area;
+  final int attempts;
+  final double? accuracy;
+  final int priority;
+
+  factory AdaptiveAreaPerformance.fromJson(Map<String, dynamic> json) =>
+      AdaptiveAreaPerformance(
+        area: AcademicArea.fromBackend(json['area'] as String),
+        attempts: json['intentos'] as int? ?? 0,
+        accuracy: (json['precision'] as num?)?.toDouble(),
+        priority: json['prioridad'] as int? ?? 0,
+      );
+}
+
+class AdaptiveDifficultyMix {
+  const AdaptiveDifficultyMix({
+    required this.basic,
+    required this.medium,
+    required this.advanced,
+  });
+
+  final int basic;
+  final int medium;
+  final int advanced;
+
+  factory AdaptiveDifficultyMix.fromJson(Map<String, dynamic> json) =>
+      AdaptiveDifficultyMix(
+        basic: json['BASICO'] as int? ?? 0,
+        medium: json['MEDIO'] as int? ?? 0,
+        advanced: json['AVANZADO'] as int? ?? 0,
+      );
+}
+
+class AdaptiveSessionStart {
+  const AdaptiveSessionStart({required this.session, required this.plan});
+
+  final PracticeSession session;
+  final AdaptiveSessionPlan plan;
+
+  factory AdaptiveSessionStart.fromJson(Map<String, dynamic> json) =>
+      AdaptiveSessionStart(
+        session: PracticeSession.fromAdaptiveJson(json),
+        plan: AdaptiveSessionPlan.fromJson(
+          Map<String, dynamic>.from(json['adaptacion'] as Map? ?? const {}),
+        ),
+      );
+}
+
+class AdaptiveSessionPlan {
+  const AdaptiveSessionPlan({
+    required this.targetLevel,
+    required this.priorityAreas,
+    required this.questionMix,
+    this.recentAccuracy,
+  });
+
+  final PracticeDifficulty targetLevel;
+  final double? recentAccuracy;
+  final List<AcademicArea> priorityAreas;
+  final AdaptiveDifficultyMix questionMix;
+
+  factory AdaptiveSessionPlan.fromJson(Map<String, dynamic> json) =>
+      AdaptiveSessionPlan(
+        targetLevel: PracticeDifficulty.fromBackend(
+          json['nivelObjetivo'] as String,
+        ),
+        recentAccuracy: (json['precisionReciente'] as num?)?.toDouble(),
+        priorityAreas: (json['areasPrioritarias'] as List<dynamic>? ?? const [])
+            .whereType<String>()
+            .map(AcademicArea.fromBackend)
+            .toList(growable: false),
+        questionMix: AdaptiveDifficultyMix.fromJson(
+          Map<String, dynamic>.from(json['mezcla'] as Map? ?? const {}),
+        ),
+      );
+}
+
+class AdaptiveGradeResult {
+  const AdaptiveGradeResult({required this.result, required this.nextProfile});
+
+  final PracticeResult result;
+  final AdaptiveProfile nextProfile;
+
+  factory AdaptiveGradeResult.fromJson(Map<String, dynamic> json) =>
+      AdaptiveGradeResult(
+        result: PracticeResult.fromJson(json),
+        nextProfile: AdaptiveProfile.fromJson(
+          Map<String, dynamic>.from(
+            json['perfilSiguiente'] as Map? ?? const {},
+          ),
+        ),
+      );
 }

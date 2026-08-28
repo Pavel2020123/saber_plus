@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../app/theme.dart';
 import '../../../core/network/api_error.dart';
@@ -163,6 +164,38 @@ class _DashboardContent extends StatelessWidget {
       ),
       const SizedBox(height: 18),
       _LearningProgressCard(progress: data.study),
+      const SizedBox(height: 14),
+      Card(
+        child: Padding(
+          padding: const EdgeInsets.all(18),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Icon(Icons.auto_awesome_rounded),
+                  const SizedBox(width: 10),
+                  Text(
+                    'Repaso inteligente',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Practica con una sesión que prioriza tus áreas y dificultades actuales.',
+              ),
+              const SizedBox(height: 14),
+              FilledButton.tonalIcon(
+                key: const Key('open-adaptive-review'),
+                onPressed: () => context.push('/student/progress/adaptive'),
+                icon: const Icon(Icons.play_arrow_rounded),
+                label: const Text('Preparar mi repaso'),
+              ),
+            ],
+          ),
+        ),
+      ),
       const SizedBox(height: 14),
       GridView.count(
         crossAxisCount: 2,

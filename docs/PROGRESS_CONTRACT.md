@@ -42,4 +42,33 @@ La nota admite hasta 1600 caracteres. Solo pueden modificarse preguntas que real
 - Revisión de la respuesta seleccionada, la correcta y la explicación.
 - Notas personales y flujo pendiente/en repaso/dominado persistidos en la API.
 
-El repaso adaptativo que propone una nueva sesión a partir del perfil del estudiante se implementará en la Etapa 5B.
+## Etapa 5B: repaso adaptativo
+
+`GET /repaso-adaptativo/perfil`
+
+- Analiza hasta las 300 respuestas más recientes del estudiante.
+- Entrega precisión reciente, nivel objetivo, rendimiento por área, tres áreas prioritarias y mezcla recomendada de dificultad.
+- Con menos de ocho respuestas utiliza nivel medio; después ajusta el nivel entre básico, medio y avanzado.
+
+`POST /repaso-adaptativo/generar?cantidad=15`
+
+- Acepta entre 5 y 30 preguntas.
+- Prioriza áreas, subtemas y preguntas con menor rendimiento.
+- Evita repetir de inmediato preguntas respondidas correctamente.
+- Mantiene unidos los grupos de preguntas que pertenecen a un mismo caso.
+- Crea un intento protegido de dos horas con origen `ADAPTATIVO`.
+- No entrega respuestas correctas ni explicaciones antes de calificar.
+
+`POST /repaso-adaptativo/calificar`
+
+Reutiliza el formato de respuestas temporizadas de las prácticas. El backend valida y consume el intento, calcula resultado, XP y revisión, y devuelve `perfilSiguiente` ya recalculado.
+
+Flutter reutiliza el temporizador, el borrador local cifrado, la reanudación y la protección contra envíos duplicados de las sesiones de práctica.
+
+### Alcance completado de la Etapa 5B
+
+- Perfil adaptativo explicado al estudiante.
+- Áreas prioritarias y mezcla recomendada de dificultad.
+- Elección de cantidad y generación del intento real.
+- Sesión completa, calificación, XP y revisión de respuestas.
+- Actualización del perfil después de finalizar.

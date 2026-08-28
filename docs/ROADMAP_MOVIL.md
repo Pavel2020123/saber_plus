@@ -60,7 +60,7 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 
 - [x] Panel de progreso académico y rendimiento por área.
 - [x] Cuaderno de errores con filtros, notas y estados de repaso.
-- [ ] Repaso adaptativo.
+- [x] Repaso adaptativo con perfil, sesión protegida y recalibración.
 - [ ] Fórmulas, glosario y estrategia.
 - Drift/SQLite, contenido descargable y gestión de espacio.
 - Outbox de operaciones seguras y resolución de conflictos.

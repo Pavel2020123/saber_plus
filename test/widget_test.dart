@@ -249,12 +249,49 @@ void main() {
 
     expect(find.text('Tu progreso'), findsOneWidget);
     expect(find.text('Así vas en SaberPlus'), findsOneWidget);
-    expect(find.text('63%'), findsOneWidget);
+    expect(find.byKey(const Key('open-adaptive-review')), findsOneWidget);
 
     await tester.tap(find.text('Cuaderno'));
     await tester.pumpAndSettle();
     expect(find.text('Cuaderno de errores'), findsOneWidget);
     expect(find.text('0 errores'), findsOneWidget);
+  });
+
+  testWidgets('prepara y abre un repaso inteligente demostrativo', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Progreso'));
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('open-adaptive-review')),
+      250,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.tap(find.byKey(const Key('open-adaptive-review')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Una sesión hecha para ti'), findsOneWidget);
+    expect(find.text('Nivel objetivo: Media'), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('start-adaptive-review-button')),
+      250,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.tap(find.byKey(const Key('start-adaptive-review-button')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Repaso inteligente'), findsOneWidget);
+    expect(find.textContaining('Pregunta 1 de'), findsOneWidget);
   });
 }
 

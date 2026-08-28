@@ -23,6 +23,7 @@ import '../features/practice/presentation/practice_hub_page.dart';
 import '../features/practice/presentation/random_practice_setup_page.dart';
 import '../features/practice/presentation/practice_session_page.dart';
 import '../features/practice/presentation/simulation_setup_page.dart';
+import '../features/progress/presentation/adaptive_review_page.dart';
 import '../features/progress/presentation/progress_page.dart';
 import '../features/shared/presentation/student_shell.dart';
 import '../features/study/presentation/study_area_page.dart';
@@ -235,6 +236,29 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 path: '/student/progress',
                 pageBuilder: (context, state) =>
                     const NoTransitionPage(child: ProgressPage()),
+                routes: [
+                  GoRoute(
+                    path: 'adaptive',
+                    builder: (context, state) => const AdaptiveReviewPage(),
+                    routes: [
+                      GoRoute(
+                        path: 'session',
+                        builder: (context, state) {
+                          final value = int.tryParse(
+                            state.uri.queryParameters['cantidad'] ?? '',
+                          );
+                          final count =
+                              value != null && value >= 5 && value <= 30
+                              ? value
+                              : 15;
+                          return PracticeSessionPage.adaptive(
+                            questionCount: count,
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),
