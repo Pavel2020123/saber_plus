@@ -12,4 +12,11 @@ abstract interface class PracticeRepository {
     required AcademicArea area,
     required List<PracticeAnswer> answers,
   });
+
+  Future<PracticeSession> startRandomPractice(RandomPracticeConfig config);
+
+  Future<PracticeResult> gradeRandomPractice({
+    required String attemptId,
+    required List<PracticeAnswer> answers,
+  });
 }

@@ -106,6 +106,109 @@ void main() {
     expect(result.summary.percentage, 100);
     expect(result.summary.earnedXp, 60);
   });
+
+  test(
+    'genera preguntas aleatorias con áreas, cantidad y dificultad',
+    () async {
+      late RequestOptions captured;
+      final dio = Dio(BaseOptions(baseUrl: 'http://localhost:3000'));
+      dio.interceptors.add(
+        InterceptorsWrapper(
+          onRequest: (options, handler) {
+            captured = options;
+            handler.resolve(
+              Response<Map<String, dynamic>>(
+                requestOptions: options,
+                statusCode: 200,
+                data: {
+                  'intentoId': 'random-attempt-1',
+                  'preguntas': [
+                    _questionJson,
+                    _questionJsonForArea(
+                      id: 'question-2',
+                      area: 'LECTURA_CRITICA',
+                    ),
+                  ],
+                },
+              ),
+            );
+          },
+        ),
+      );
+
+      final session = await RemotePracticeRepository(dio).startRandomPractice(
+        const RandomPracticeConfig(
+          areas: [AcademicArea.mathematics, AcademicArea.criticalReading],
+          questionCount: 10,
+          difficulty: PracticeDifficulty.medium,
+        ),
+      );
+
+      expect(captured.path, '/simulacros/generar-personalizado');
+      expect(captured.queryParameters, {
+        'areas': 'MATEMATICAS,LECTURA_CRITICA',
+        'cantidad': 10,
+        'dificultad': 'MEDIO',
+      });
+      expect(session.isRandom, isTrue);
+      expect(session.questions, hasLength(2));
+    },
+  );
+
+  test('califica el intento aleatorio sin inventar un área única', () async {
+    late RequestOptions captured;
+    final dio = Dio(BaseOptions(baseUrl: 'http://localhost:3000'));
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          captured = options;
+          handler.resolve(
+            Response<Map<String, dynamic>>(
+              requestOptions: options,
+              statusCode: 201,
+              data: {
+                'resumen': {
+                  'totalPreguntas': 1,
+                  'respuestasCorrectas': 1,
+                  'respuestasIncorrectas': 0,
+                  'puntaje': '100%',
+                  'xpGanado': 60,
+                },
+                'detalle': [
+                  {
+                    'preguntaId': 'question-1',
+                    'enunciado': '¿Cuánto cuesta?',
+                    'esCorrecto': true,
+                    'respuestaSeleccionadaId': 'answer-a',
+                    'respuestaCorrectaId': 'answer-a',
+                    'respuestas': [
+                      {'id': 'answer-a', 'texto': '20', 'esCorrecta': true},
+                    ],
+                  },
+                ],
+              },
+            ),
+          );
+        },
+      ),
+    );
+
+    await RemotePracticeRepository(dio).gradeRandomPractice(
+      attemptId: 'random-attempt-1',
+      answers: const [
+        PracticeAnswer(
+          questionId: 'question-1',
+          answerId: 'answer-a',
+          responseTimeSeconds: 9,
+        ),
+      ],
+    );
+
+    expect(captured.path, '/simulacros/calificar-personalizado');
+    expect(captured.data.keys, containsAll(['intentoId', 'respuestas']));
+    expect(captured.data.containsKey('area'), isFalse);
+    expect(captured.data.containsKey('origen'), isFalse);
+  });
 }
 
 const _questionJson = {
@@ -118,5 +221,17 @@ const _questionJson = {
   'subtema': {
     'nombre': 'Regla de tres',
     'tema': {'nombre': 'Proporciones', 'area': 'MATEMATICAS'},
+  },
+};
+
+Map<String, dynamic> _questionJsonForArea({
+  required String id,
+  required String area,
+}) => {
+  ..._questionJson,
+  'id': id,
+  'subtema': {
+    'nombre': 'Subtema',
+    'tema': {'nombre': 'Tema', 'area': area},
   },
 };

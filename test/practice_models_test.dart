@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:saber_plus/features/academic/domain/academic_models.dart';
+import 'package:saber_plus/features/practice/data/practice_draft_store.dart';
 import 'package:saber_plus/features/practice/domain/practice_models.dart';
 
 void main() {
@@ -79,5 +80,68 @@ void main() {
     expect(result.review.single.isCorrect, isFalse);
     expect(result.review.single.correctAnswerId, 'answer-a');
     expect(result.review.single.options.first.isCorrect, isTrue);
+  });
+
+  test(
+    'serializa el intento público para reanudarlo sin respuestas correctas',
+    () {
+      final now = DateTime.utc(2026, 8, 27, 15);
+      final session = PracticeSession.fromJson(
+        {
+          'intentoId': 'attempt-1',
+          'preguntas': [
+            {
+              'id': 'question-1',
+              'enunciado': 'Pregunta',
+              'dificultad': 'MEDIA',
+              'respuestas': [
+                {'id': 'answer-a', 'texto': 'Opción pública'},
+              ],
+              'subtema': {
+                'nombre': 'Subtema',
+                'tema': {'nombre': 'Tema', 'area': 'MATEMATICAS'},
+              },
+            },
+          ],
+        },
+        area: AcademicArea.mathematics,
+        subtopicId: 'subtopic-1',
+      );
+      final draft = PracticeDraft(
+        session: session,
+        selectedAnswers: const {'question-1': 'answer-a'},
+        responseTimesSeconds: const {'question-1': 14},
+        currentIndex: 0,
+        startedAt: now,
+        expiresAt: now.add(const Duration(minutes: 115)),
+      );
+
+      final restored = PracticeDraft.fromJson(draft.toJson());
+
+      expect(restored.session.attemptId, 'attempt-1');
+      expect(restored.selectedAnswers['question-1'], 'answer-a');
+      expect(restored.responseTimesSeconds['question-1'], 14);
+      expect(
+        restored.session.questions.single.options.single.text,
+        'Opción pública',
+      );
+      expect(draft.toJson().toString(), isNot(contains('esCorrecta')));
+    },
+  );
+
+  test('construye y recupera la ruta de una sesión aleatoria', () {
+    const config = RandomPracticeConfig(
+      areas: [AcademicArea.mathematics, AcademicArea.english],
+      questionCount: 20,
+      difficulty: PracticeDifficulty.hard,
+    );
+
+    final restored = RandomPracticeConfig.tryFromUri(
+      Uri.parse(config.routeLocation),
+    );
+
+    expect(restored?.areas, [AcademicArea.mathematics, AcademicArea.english]);
+    expect(restored?.questionCount, 20);
+    expect(restored?.difficulty, PracticeDifficulty.hard);
   });
 }

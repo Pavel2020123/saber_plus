@@ -4,6 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:saber_plus/app/app.dart';
 import 'package:saber_plus/core/storage/secure_session_store.dart';
+import 'package:saber_plus/features/practice/data/practice_draft_store.dart';
 
 class _FakeSecureSessionStore extends SecureSessionStore {
   _FakeSecureSessionStore() : super(const FlutterSecureStorage());
@@ -21,6 +22,7 @@ class _FakeSecureSessionStore extends SecureSessionStore {
 Widget _testApp() => ProviderScope(
   overrides: [
     secureSessionStoreProvider.overrideWithValue(_FakeSecureSessionStore()),
+    practiceDraftStoreProvider.overrideWithValue(_FakePracticeDraftStore()),
   ],
   child: const SaberPlusApp(),
 );
@@ -120,4 +122,49 @@ void main() {
     expect(find.text('Pregunta 1 de 2'), findsOneWidget);
     expect(find.textContaining('3 cuadernos'), findsOneWidget);
   });
+
+  testWidgets('configura y abre una sesión aleatoria demostrativa', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Practicar'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('open-random-practice')));
+    await tester.pumpAndSettle();
+    expect(find.text('Configura tu sesión'), findsOneWidget);
+
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('start-random-practice-button')),
+      300,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.tap(find.byKey(const Key('start-random-practice-button')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Preguntas aleatorias'), findsOneWidget);
+    expect(find.text('Pregunta 1 de 2'), findsOneWidget);
+    expect(find.textContaining('3 cuadernos'), findsOneWidget);
+  });
+}
+
+class _FakePracticeDraftStore extends PracticeDraftStore {
+  _FakePracticeDraftStore() : super(const FlutterSecureStorage());
+
+  @override
+  Future<PracticeDraft?> read(String userId, String draftId) async => null;
+
+  @override
+  Future<void> save(String userId, String draftId, PracticeDraft draft) async {}
+
+  @override
+  Future<void> clear(String userId, String draftId) async {}
 }

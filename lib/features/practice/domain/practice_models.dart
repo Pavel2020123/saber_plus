@@ -6,12 +6,19 @@ class PracticeSession {
     required this.area,
     required this.subtopicId,
     required this.questions,
+    this.isRandom = false,
+    this.selectedAreas = const [],
   });
 
   final String attemptId;
   final AcademicArea area;
   final String subtopicId;
   final List<PracticeQuestion> questions;
+  final bool isRandom;
+  final List<AcademicArea> selectedAreas;
+
+  List<AcademicArea> get areas =>
+      selectedAreas.isEmpty ? [area] : selectedAreas;
 
   factory PracticeSession.fromJson(
     Map<String, dynamic> json, {
@@ -28,6 +35,117 @@ class PracticeSession {
         )
         .toList(growable: false),
   );
+
+  factory PracticeSession.fromRandomJson(
+    Map<String, dynamic> json, {
+    required List<AcademicArea> areas,
+  }) => PracticeSession(
+    attemptId: json['intentoId'] as String,
+    area: areas.first,
+    subtopicId: '',
+    isRandom: true,
+    selectedAreas: List.unmodifiable(areas),
+    questions: (json['preguntas'] as List<dynamic>? ?? const [])
+        .map(
+          (item) =>
+              PracticeQuestion.fromJson(Map<String, dynamic>.from(item as Map)),
+        )
+        .toList(growable: false),
+  );
+
+  factory PracticeSession.fromStoredJson(
+    Map<String, dynamic> json,
+  ) => PracticeSession(
+    attemptId: json['attemptId'] as String,
+    area: AcademicArea.fromBackend(json['area'] as String),
+    subtopicId: json['subtopicId'] as String? ?? '',
+    isRandom: json['isRandom'] as bool? ?? false,
+    selectedAreas: (json['selectedAreas'] as List<dynamic>? ?? const [])
+        .whereType<String>()
+        .map(AcademicArea.fromBackend)
+        .toList(growable: false),
+    questions: (json['questions'] as List<dynamic>? ?? const [])
+        .map(
+          (item) =>
+              PracticeQuestion.fromJson(Map<String, dynamic>.from(item as Map)),
+        )
+        .toList(growable: false),
+  );
+
+  Map<String, dynamic> toStoredJson() => {
+    'attemptId': attemptId,
+    'area': area.backendValue,
+    'subtopicId': subtopicId,
+    'isRandom': isRandom,
+    'selectedAreas': areas.map((item) => item.backendValue).toList(),
+    'questions': questions.map((item) => item.toJson()).toList(),
+  };
+}
+
+enum PracticeDifficulty {
+  easy('BASICO', 'Básica'),
+  medium('MEDIO', 'Media'),
+  hard('AVANZADO', 'Avanzada');
+
+  const PracticeDifficulty(this.backendValue, this.label);
+
+  final String backendValue;
+  final String label;
+
+  factory PracticeDifficulty.fromBackend(String value) => PracticeDifficulty
+      .values
+      .firstWhere((difficulty) => difficulty.backendValue == value);
+}
+
+class RandomPracticeConfig {
+  const RandomPracticeConfig({
+    required this.areas,
+    required this.questionCount,
+    this.difficulty,
+  });
+
+  final List<AcademicArea> areas;
+  final int questionCount;
+  final PracticeDifficulty? difficulty;
+
+  String get routeLocation {
+    final query = <String, String>{
+      'areas': areas.map((area) => area.backendValue).join(','),
+      'cantidad': questionCount.toString(),
+      if (difficulty case final value?) 'dificultad': value.backendValue,
+    };
+    return Uri(
+      path: '/student/practice/random/session',
+      queryParameters: query,
+    ).toString();
+  }
+
+  static RandomPracticeConfig? tryFromUri(Uri uri) {
+    final rawAreas = uri.queryParameters['areas'];
+    if (rawAreas == null) return null;
+    try {
+      final areas = rawAreas
+          .split(',')
+          .where((value) => value.isNotEmpty)
+          .map(AcademicArea.fromBackend)
+          .toSet()
+          .toList(growable: false);
+      final count = int.tryParse(uri.queryParameters['cantidad'] ?? '10');
+      final difficultyValue = uri.queryParameters['dificultad'];
+      if (areas.isEmpty || count == null || count < 1 || count > 100) {
+        return null;
+      }
+      return RandomPracticeConfig(
+        areas: areas,
+        questionCount: count,
+        difficulty: difficultyValue == null
+            ? null
+            : PracticeDifficulty.fromBackend(difficultyValue),
+      );
+    } on Object {
+      return null;
+    }
+  }
 }
 
 class PracticeQuestion {
@@ -79,6 +197,20 @@ class PracticeQuestion {
       area: AcademicArea.fromBackend(theme['area'] as String),
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'enunciado': statement,
+    'dificultad': difficulty,
+    'imagenUrl': imageUrl,
+    'ordenEnCaso': orderInCase,
+    'caso': caseContent?.toJson(),
+    'respuestas': options.map((option) => option.toJson()).toList(),
+    'subtema': {
+      'nombre': subtopicName,
+      'tema': {'nombre': themeName, 'area': area.backendValue},
+    },
+  };
 }
 
 class PracticeCase {
@@ -100,6 +232,13 @@ class PracticeCase {
     context: json['contexto'] as String? ?? '',
     imageUrl: _optionalText(json['imagenUrl']),
   );
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'titulo': title,
+    'contexto': context,
+    'imagenUrl': imageUrl,
+  };
 }
 
 class PracticeOption {
@@ -110,6 +249,8 @@ class PracticeOption {
 
   factory PracticeOption.fromJson(Map<String, dynamic> json) =>
       PracticeOption(id: json['id'] as String, text: json['texto'] as String);
+
+  Map<String, dynamic> toJson() => {'id': id, 'texto': text};
 }
 
 class PracticeAnswer {

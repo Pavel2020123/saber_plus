@@ -11,6 +11,7 @@ import '../../academic/domain/academic_models.dart';
 import '../../auth/presentation/session_controller.dart';
 import '../../study/data/remote_study_repository.dart';
 import '../../study/presentation/study_providers.dart';
+import '../data/practice_draft_store.dart';
 import '../domain/practice_models.dart';
 import 'practice_providers.dart';
 
@@ -19,10 +20,15 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
     super.key,
     required this.area,
     required this.subtopicId,
-  });
+  }) : randomConfig = null;
 
-  final AcademicArea area;
-  final String subtopicId;
+  const PracticeSessionPage.random({super.key, required this.randomConfig})
+    : area = null,
+      subtopicId = null;
+
+  final AcademicArea? area;
+  final String? subtopicId;
+  final RandomPracticeConfig? randomConfig;
 
   @override
   ConsumerState<PracticeSessionPage> createState() =>
@@ -41,7 +47,13 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
   var _submissionUncertain = false;
   DateTime? _questionEnteredAt;
   DateTime? _sessionStartedAt;
+  DateTime? _expiresAt;
   Timer? _clock;
+
+  bool get _isRandom => widget.randomConfig != null;
+  String get _draftId =>
+      _isRandom ? 'random' : 'subtopic:${widget.subtopicId!}';
+  String? get _userId => ref.read(sessionControllerProvider).user?.id;
 
   @override
   void initState() {
@@ -65,14 +77,35 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
       _selections.clear();
       _responseSeconds.clear();
       _currentIndex = 0;
+      _session = null;
     });
     try {
-      final session = await ref
-          .read(practiceRepositoryProvider)
-          .startSubtopicPractice(
-            area: widget.area,
-            subtopicId: widget.subtopicId,
-          );
+      final userId = _userId;
+      final store = ref.read(practiceDraftStoreProvider);
+      if (userId != null) {
+        final draft = await store.read(userId, _draftId);
+        if (draft != null && _canRestore(draft)) {
+          if (!mounted) return;
+          _restoreDraft(draft);
+          _startClock();
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (!mounted) return;
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(const SnackBar(content: Text('Intento reanudado.')));
+          });
+          return;
+        }
+        if (draft != null) await store.clear(userId, _draftId);
+      }
+
+      final repository = ref.read(practiceRepositoryProvider);
+      final session = _isRandom
+          ? await repository.startRandomPractice(widget.randomConfig!)
+          : await repository.startSubtopicPractice(
+              area: widget.area!,
+              subtopicId: widget.subtopicId!,
+            );
       if (!mounted) return;
       final now = DateTime.now();
       setState(() {
@@ -80,10 +113,11 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
         _loading = false;
         _sessionStartedAt = now;
         _questionEnteredAt = now;
+        // El backend vence a las 2 horas. Se reservan 5 minutos de margen.
+        _expiresAt = now.add(const Duration(minutes: 115));
       });
-      _clock = Timer.periodic(const Duration(seconds: 1), (_) {
-        if (mounted && _result == null) setState(() {});
-      });
+      await _persistDraft();
+      _startClock();
     } on Object catch (error) {
       if (!mounted) return;
       setState(() {
@@ -91,6 +125,132 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
         _loading = false;
       });
     }
+  }
+
+  bool _canRestore(PracticeDraft draft) {
+    if (draft.isExpiredAt(DateTime.now()) || draft.session.questions.isEmpty) {
+      return false;
+    }
+    if (_isRandom != draft.session.isRandom) return false;
+    if (!_isRandom) return draft.session.subtopicId == widget.subtopicId;
+    final expected = widget.randomConfig!.areas.toSet();
+    final stored = draft.session.areas.toSet();
+    return expected.length == stored.length && expected.containsAll(stored);
+  }
+
+  void _restoreDraft(PracticeDraft draft) {
+    final lastIndex = draft.session.questions.length - 1;
+    final validSelections = <String, String>{};
+    final validTimes = <String, int>{};
+    for (final question in draft.session.questions) {
+      final answerId = draft.selectedAnswers[question.id];
+      if (answerId != null &&
+          question.options.any((option) => option.id == answerId)) {
+        validSelections[question.id] = answerId;
+      }
+      final seconds = draft.responseTimesSeconds[question.id];
+      if (seconds != null) validTimes[question.id] = seconds.clamp(0, 7200);
+    }
+    setState(() {
+      _session = draft.session;
+      _selections
+        ..clear()
+        ..addAll(validSelections);
+      _responseSeconds
+        ..clear()
+        ..addAll(validTimes);
+      _currentIndex = draft.currentIndex.clamp(0, lastIndex);
+      _sessionStartedAt = draft.startedAt;
+      _expiresAt = draft.expiresAt;
+      _questionEnteredAt = DateTime.now();
+      _loading = false;
+    });
+  }
+
+  void _startClock() {
+    _clock?.cancel();
+    _clock = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (!mounted || _result != null) return;
+      final now = DateTime.now();
+      if (!(_expiresAt?.isAfter(now) ?? true)) {
+        _clock?.cancel();
+        unawaited(_clearDraft());
+        setState(() {
+          _session = null;
+          _loadError = const ApiError(
+            code: 'practice_expired',
+            message: 'Este intento venció. Inicia una práctica nueva.',
+          );
+        });
+        return;
+      }
+      if (now.second % 10 == 0) {
+        _recordCurrentTime();
+        unawaited(_persistDraft());
+      }
+      setState(() {});
+    });
+  }
+
+  Future<void> _persistDraft() async {
+    final userId = _userId;
+    final session = _session;
+    final startedAt = _sessionStartedAt;
+    final expiresAt = _expiresAt;
+    if (userId == null ||
+        session == null ||
+        startedAt == null ||
+        expiresAt == null ||
+        _result != null ||
+        _submissionUncertain) {
+      return;
+    }
+    await ref
+        .read(practiceDraftStoreProvider)
+        .save(
+          userId,
+          _draftId,
+          PracticeDraft(
+            session: session,
+            selectedAnswers: Map.unmodifiable(_selections),
+            responseTimesSeconds: Map.unmodifiable(_responseSeconds),
+            currentIndex: _currentIndex,
+            startedAt: startedAt,
+            expiresAt: expiresAt,
+          ),
+        );
+  }
+
+  Future<void> _clearDraft() async {
+    final userId = _userId;
+    if (userId == null) return;
+    await ref.read(practiceDraftStoreProvider).clear(userId, _draftId);
+  }
+
+  Future<void> _discardAndRestart() async {
+    final discard = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Descartar intento'),
+        content: const Text(
+          'Se eliminarán las respuestas guardadas y se abrirá un intento nuevo.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancelar'),
+          ),
+          FilledButton(
+            key: const Key('confirm-discard-practice-button'),
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Descartar'),
+          ),
+        ],
+      ),
+    );
+    if (discard != true || !mounted) return;
+    await _clearDraft();
+    if (mounted) await _loadPractice();
   }
 
   void _recordCurrentTime() {
@@ -113,6 +273,13 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
     }
     _recordCurrentTime();
     setState(() => _currentIndex = index);
+    unawaited(_persistDraft());
+  }
+
+  void _selectAnswer(String questionId, String answerId) {
+    _recordCurrentTime();
+    setState(() => _selections[questionId] = answerId);
+    unawaited(_persistDraft());
   }
 
   Future<void> _requestSubmit() async {
@@ -163,20 +330,28 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
         )
         .toList(growable: false);
     try {
-      final result = await ref
-          .read(practiceRepositoryProvider)
-          .gradePractice(
-            attemptId: session.attemptId,
-            area: session.area,
-            answers: answers,
-          );
+      final repository = ref.read(practiceRepositoryProvider);
+      final result = _isRandom
+          ? await repository.gradeRandomPractice(
+              attemptId: session.attemptId,
+              answers: answers,
+            )
+          : await repository.gradePractice(
+              attemptId: session.attemptId,
+              area: session.area,
+              answers: answers,
+            );
       if (!mounted) return;
       _clock?.cancel();
+      await _clearDraft();
+      if (!mounted) return;
       setState(() {
         _result = result;
         _submitting = false;
       });
-      unawaited(_syncProgress(result.summary.percentage.round()));
+      if (!_isRandom) {
+        unawaited(_syncProgress(result.summary.percentage.round()));
+      }
     } on Object catch (error) {
       if (!mounted) return;
       final uncertain =
@@ -191,6 +366,8 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
         _submissionUncertain = uncertain;
       });
       if (uncertain) {
+        await _clearDraft();
+        if (!mounted) return;
         await showDialog<void>(
           context: context,
           builder: (context) => AlertDialog(
@@ -219,7 +396,7 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
     try {
       await ref
           .read(studyRepositoryProvider)
-          .updateSubtopicProgress(widget.subtopicId, percentage);
+          .updateSubtopicProgress(widget.subtopicId!, percentage);
       ref.invalidate(studyProgressProvider);
     } on Object {
       // La calificación ya es válida aunque falle esta actualización secundaria.
@@ -231,7 +408,22 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
     final result = _result;
     return Scaffold(
       appBar: AppBar(
-        title: Text(result == null ? 'Práctica' : 'Resultado de práctica'),
+        title: Text(
+          result == null
+              ? _isRandom
+                    ? 'Preguntas aleatorias'
+                    : 'Práctica'
+              : 'Resultado de práctica',
+        ),
+        actions: [
+          if (result == null && _session != null)
+            IconButton(
+              key: const Key('discard-practice-button'),
+              tooltip: 'Descartar intento',
+              onPressed: _submitting ? null : _discardAndRestart,
+              icon: const Icon(Icons.restart_alt_rounded),
+            ),
+        ],
       ),
       body: switch ((_loading, _loadError, result, _session)) {
         (true, _, _, _) => const Center(child: CircularProgressIndicator()),
@@ -243,6 +435,7 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
           result: value,
           onRetry: _loadPractice,
           onExit: () => context.pop(),
+          exitLabel: _isRandom ? 'Volver a configurar' : 'Volver a la lección',
         ),
         (false, _, _, final session?) => _buildSession(session),
         _ => const SizedBox.shrink(),
@@ -301,9 +494,8 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
                   option: question.options[index],
                   selected: selected == question.options[index].id,
                   enabled: !_submitting && !_submissionUncertain,
-                  onTap: () => setState(
-                    () => _selections[question.id] = question.options[index].id,
-                  ),
+                  onTap: () =>
+                      _selectAnswer(question.id, question.options[index].id),
                 ),
                 const SizedBox(height: 9),
               ],
@@ -476,11 +668,13 @@ class _PracticeResultView extends StatelessWidget {
     required this.result,
     required this.onRetry,
     required this.onExit,
+    required this.exitLabel,
   });
 
   final PracticeResult result;
   final VoidCallback onRetry;
   final VoidCallback onExit;
+  final String exitLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -523,7 +717,7 @@ class _PracticeResultView extends StatelessWidget {
           label: const Text('Practicar de nuevo'),
         ),
         const SizedBox(height: 8),
-        TextButton(onPressed: onExit, child: const Text('Volver a la lección')),
+        TextButton(onPressed: onExit, child: Text(exitLabel)),
       ],
     );
   }

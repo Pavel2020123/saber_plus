@@ -64,6 +64,64 @@ class RemotePracticeRepository implements PracticeRepository {
     }
   }
 
+  @override
+  Future<PracticeSession> startRandomPractice(
+    RandomPracticeConfig config,
+  ) async {
+    try {
+      final response = await _dio.get<Map<String, dynamic>>(
+        '/simulacros/generar-personalizado',
+        queryParameters: {
+          'areas': config.areas.map((area) => area.backendValue).join(','),
+          'cantidad': config.questionCount,
+          if (config.difficulty case final difficulty?)
+            'dificultad': difficulty.backendValue,
+        },
+      );
+      final session = PracticeSession.fromRandomJson(
+        _body(response.data),
+        areas: config.areas,
+      );
+      if (session.questions.isEmpty) {
+        throw const ApiError(
+          code: 'empty_random_practice',
+          message: 'No hay preguntas para esta combinación de áreas.',
+        );
+      }
+      final allowed = config.areas.toSet();
+      if (session.questions.any(
+        (question) => !allowed.contains(question.area),
+      )) {
+        throw const ApiError(
+          code: 'random_practice_area_mismatch',
+          message: 'La sesión contiene un área que no fue seleccionada.',
+        );
+      }
+      return session;
+    } on DioException catch (error) {
+      throw ApiError.fromDioException(error);
+    }
+  }
+
+  @override
+  Future<PracticeResult> gradeRandomPractice({
+    required String attemptId,
+    required List<PracticeAnswer> answers,
+  }) async {
+    try {
+      final response = await _dio.post<Map<String, dynamic>>(
+        '/simulacros/calificar-personalizado',
+        data: {
+          'intentoId': attemptId,
+          'respuestas': answers.map((answer) => answer.toJson()).toList(),
+        },
+      );
+      return PracticeResult.fromJson(_body(response.data));
+    } on DioException catch (error) {
+      throw ApiError.fromDioException(error);
+    }
+  }
+
   Map<String, dynamic> _body(Map<String, dynamic>? body) {
     if (body == null) return const {};
     final data = body['data'];

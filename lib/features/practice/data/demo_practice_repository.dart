@@ -134,6 +134,66 @@ class DemoPracticeRepository implements PracticeRepository {
       review: review,
     );
   }
+
+  @override
+  Future<PracticeSession> startRandomPractice(
+    RandomPracticeConfig config,
+  ) async {
+    final questions = <PracticeQuestion>[];
+    for (final area in config.areas) {
+      final session = await startSubtopicPractice(
+        area: area,
+        subtopicId: 'demo-random-${area.name}',
+      );
+      questions.addAll(session.questions);
+    }
+    return PracticeSession(
+      attemptId: 'demo-random-${DateTime.now().microsecondsSinceEpoch}',
+      area: config.areas.first,
+      subtopicId: '',
+      isRandom: true,
+      selectedAreas: List.unmodifiable(config.areas),
+      questions: questions.take(config.questionCount).toList(growable: false),
+    );
+  }
+
+  @override
+  Future<PracticeResult> gradeRandomPractice({
+    required String attemptId,
+    required List<PracticeAnswer> answers,
+  }) async {
+    final review = <PracticeReviewQuestion>[];
+    for (final area in AcademicArea.values) {
+      final areaAnswers = answers
+          .where((answer) => answer.questionId.contains(area.name))
+          .toList(growable: false);
+      if (areaAnswers.isEmpty) continue;
+      final areaResult = await gradePractice(
+        attemptId: attemptId,
+        area: area,
+        answers: areaAnswers,
+      );
+      review.addAll(areaResult.review);
+    }
+    final correct = review.where((question) => question.isCorrect).length;
+    final percentage = answers.isEmpty ? 0.0 : correct * 100 / answers.length;
+    return PracticeResult(
+      summary: PracticeResultSummary(
+        totalQuestions: answers.length,
+        correctAnswers: correct,
+        incorrectAnswers: answers.length - correct,
+        percentage: percentage,
+        earnedXp:
+            correct * 10 +
+            (percentage >= 80
+                ? 50
+                : percentage >= 60
+                ? 25
+                : 0),
+      ),
+      review: review,
+    );
+  }
 }
 
 typedef _DemoContent = ({

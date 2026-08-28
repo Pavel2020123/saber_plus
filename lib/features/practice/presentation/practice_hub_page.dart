@@ -13,6 +13,26 @@ class PracticeHubPage extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(20, 12, 20, 36),
       children: [
         Text(
+          'Sesión aleatoria',
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+        const SizedBox(height: 8),
+        const Text(
+          'Combina áreas, cantidad y dificultad en un intento protegido.',
+        ),
+        const SizedBox(height: 14),
+        Card(
+          child: ListTile(
+            key: const Key('open-random-practice'),
+            leading: const CircleAvatar(child: Icon(Icons.shuffle_rounded)),
+            title: const Text('Configurar preguntas aleatorias'),
+            subtitle: const Text('Una o varias áreas'),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            onTap: () => context.push('/student/practice/random'),
+          ),
+        ),
+        const SizedBox(height: 26),
+        Text(
           'Práctica por subtema',
           style: Theme.of(context).textTheme.headlineSmall,
         ),
@@ -38,9 +58,9 @@ class PracticeHubPage extends StatelessWidget {
         const Card(
           child: ListTile(
             leading: CircleAvatar(child: Icon(Icons.lock_clock_rounded)),
-            title: Text('Siguientes modalidades'),
+            title: Text('Próxima modalidad'),
             subtitle: Text(
-              'La sesión aleatoria y el simulacro completo llegarán en las próximas partes de la Etapa 4.',
+              'El simulacro completo llegará en la siguiente parte de la Etapa 4.',
             ),
           ),
         ),

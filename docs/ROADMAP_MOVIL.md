@@ -48,10 +48,11 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 
 - [x] Componente móvil de pregunta, opciones y contexto de caso.
 - [x] Práctica por subtema con intento protegido y registro de tiempos.
-- [ ] Sesión aleatoria.
-- Simulacro completo y personalizado.
+- [x] Sesión aleatoria personalizada por áreas, cantidad y dificultad.
+- [ ] Simulacro completo por área.
 - [x] Temporizador visible y bloqueo de envíos duplicados en la app.
-- [ ] Borrador local, reanudación y recuperación idempotente respaldada por API.
+- [x] Borrador local cifrado y reanudación de intentos vigentes.
+- [ ] Recuperación idempotente respaldada por API.
 - [x] Resultado inmediato y revisión con explicación.
 - [ ] Historial de resultados.
 
