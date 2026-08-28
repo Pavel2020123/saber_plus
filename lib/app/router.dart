@@ -19,6 +19,7 @@ import '../features/academic/presentation/diagnostic_overview_page.dart';
 import '../features/dashboard/presentation/more_page.dart';
 import '../features/dashboard/presentation/student_dashboard_page.dart';
 import '../features/dashboard/presentation/teacher_dashboard_page.dart';
+import '../features/gamification/presentation/gamification_page.dart';
 import '../features/library/presentation/reference_library_page.dart';
 import '../features/practice/domain/practice_models.dart';
 import '../features/practice/presentation/practice_history_page.dart';
@@ -35,7 +36,15 @@ import '../features/study/presentation/study_lesson_page.dart';
 import '../features/study/presentation/offline_downloads_page.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
-  final session = ref.watch(sessionControllerProvider);
+  final session = ref.watch(
+    sessionControllerProvider.select(
+      (state) => (
+        status: state.status,
+        role: state.user?.role,
+        mustChangePassword: state.user?.mustChangePassword ?? false,
+      ),
+    ),
+  );
 
   return GoRouter(
     initialLocation: '/session-loading',
@@ -59,31 +68,25 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       }
       if (state.matchedLocation == '/session-loading') {
         if (!isAuthenticated) return '/welcome';
-        return session.user?.role == AppRole.teacher
-            ? '/teacher'
-            : '/student/home';
+        return session.role == AppRole.teacher ? '/teacher' : '/student/home';
       }
 
       if (!isAuthenticated && !isPublic) return '/login';
       if (isAuthenticated && isPublic) {
-        return session.user?.role == AppRole.teacher
-            ? '/teacher'
-            : '/student/home';
+        return session.role == AppRole.teacher ? '/teacher' : '/student/home';
       }
       if (isAuthenticated &&
-          (session.user?.mustChangePassword ?? false) &&
+          session.mustChangePassword &&
           state.matchedLocation != '/change-initial-password') {
         return '/change-initial-password';
       }
       if (isAuthenticated &&
-          !(session.user?.mustChangePassword ?? false) &&
+          !session.mustChangePassword &&
           state.matchedLocation == '/change-initial-password') {
-        return session.user?.role == AppRole.teacher
-            ? '/teacher'
-            : '/student/home';
+        return session.role == AppRole.teacher ? '/teacher' : '/student/home';
       }
       if (isAuthenticated &&
-          session.user?.role == AppRole.teacher &&
+          session.role == AppRole.teacher &&
           state.matchedLocation.startsWith('/student')) {
         return '/teacher';
       }
@@ -281,6 +284,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 pageBuilder: (context, state) =>
                     const NoTransitionPage(child: MorePage()),
                 routes: [
+                  GoRoute(
+                    path: 'gamification',
+                    builder: (context, state) => const GamificationPage(),
+                  ),
                   GoRoute(
                     path: 'preferences',
                     builder: (context, state) => const PreferencesPage(),

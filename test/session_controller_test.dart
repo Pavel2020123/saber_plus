@@ -10,6 +10,25 @@ import 'package:saber_plus/features/auth/domain/session.dart';
 import 'package:saber_plus/features/auth/presentation/session_controller.dart';
 
 void main() {
+  test('acumula el XP ganado en una sesión demostrativa', () async {
+    final secureStore = _MemorySecureSessionStore();
+    final container = ProviderContainer(
+      overrides: [
+        secureSessionStoreProvider.overrideWithValue(secureStore),
+        accessTokenStoreProvider.overrideWithValue(AccessTokenStore()),
+      ],
+    );
+    addTearDown(container.dispose);
+
+    container.read(sessionControllerProvider);
+    await Future<void>.delayed(Duration.zero);
+    final controller = container.read(sessionControllerProvider.notifier);
+    controller.enterDemo();
+    await controller.registerEarnedXp(60);
+
+    expect(container.read(sessionControllerProvider).user?.xpTotal, 1300);
+  });
+
   test(
     'no conserva sesión cuando el perfil exige verificar el correo',
     () async {

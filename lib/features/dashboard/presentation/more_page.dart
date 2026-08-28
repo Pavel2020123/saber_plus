@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/sync/sync_providers.dart';
 import '../../auth/presentation/session_controller.dart';
+import '../../gamification/presentation/gamification_providers.dart';
 
 class MorePage extends ConsumerWidget {
   const MorePage({super.key});
@@ -11,6 +12,7 @@ class MorePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final pending = ref.watch(syncOperationsProvider).valueOrNull ?? const [];
+    final gamification = ref.watch(gamificationSummaryProvider).valueOrNull;
     return Scaffold(
       appBar: AppBar(title: const Text('Más')),
       body: ListView(
@@ -20,9 +22,15 @@ class MorePage extends ConsumerWidget {
             icon: Icons.person_outline_rounded,
             title: 'Mi perfil',
           ),
-          const _MenuTile(
+          _MenuTile(
+            key: const Key('open-gamification'),
             icon: Icons.emoji_events_outlined,
             title: 'Logros e insignias',
+            subtitle: gamification == null
+                ? 'XP, racha y actividad'
+                : '${gamification.streak.current} días de racha · '
+                      '${gamification.totals.unlocked}/${gamification.totals.total} logros',
+            onTap: () => context.push('/student/more/gamification'),
           ),
           const _MenuTile(icon: Icons.leaderboard_outlined, title: 'Ranking'),
           const _MenuTile(icon: Icons.campaign_outlined, title: 'Anuncios'),

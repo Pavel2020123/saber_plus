@@ -119,9 +119,11 @@ class _AcademicDashboard extends StatelessWidget {
             const SizedBox(width: 12),
             Expanded(
               child: _MetricCard(
+                key: const Key('open-gamification-from-home'),
                 icon: Icons.bolt_rounded,
                 value: _formatInteger(xpTotal),
                 label: 'XP total',
+                onTap: () => context.push('/student/more/gamification'),
               ),
             ),
           ],
@@ -256,39 +258,46 @@ class _PrimaryActionCard extends StatelessWidget {
 
 class _MetricCard extends StatelessWidget {
   const _MetricCard({
+    super.key,
     required this.icon,
     required this.value,
     required this.label,
+    this.onTap,
   });
 
   final IconData icon;
   final String value;
   final String label;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          children: [
-            CircleAvatar(
-              backgroundColor: colors.primaryContainer,
-              foregroundColor: colors.primary,
-              child: Icon(icon),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(value, style: Theme.of(context).textTheme.titleMedium),
-                  Text(label, style: Theme.of(context).textTheme.bodySmall),
-                ],
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: colors.primaryContainer,
+                foregroundColor: colors.primary,
+                child: Icon(icon),
               ),
-            ),
-          ],
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(value, style: Theme.of(context).textTheme.titleMedium),
+                    Text(label, style: Theme.of(context).textTheme.bodySmall),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

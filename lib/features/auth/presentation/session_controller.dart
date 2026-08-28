@@ -152,9 +152,33 @@ class SessionController extends Notifier<SessionState> {
         id: 'demo-${role.name}',
         firstName: role == AppRole.teacher ? 'Profe Andrea' : 'Santiago',
         role: role,
+        xpTotal: role == AppRole.student ? 1240 : 0,
         isDemo: true,
       ),
     );
+  }
+
+  Future<void> refreshProfile() async {
+    final current = state.user;
+    if (current == null || current.isDemo) return;
+    try {
+      final user = await ref.read(authRepositoryProvider).profile();
+      if (!_disposed) state = SessionState.authenticated(user);
+    } on Object {
+      // La gamificación sigue disponible aunque falle esta actualización de XP.
+    }
+  }
+
+  Future<void> registerEarnedXp(int earnedXp) async {
+    final current = state.user;
+    if (current == null) return;
+    if (current.isDemo) {
+      state = SessionState.authenticated(
+        current.copyWith(xpTotal: current.xpTotal + earnedXp),
+      );
+      return;
+    }
+    await refreshProfile();
   }
 
   void clearError() => state = state.copyWith(clearError: true);

@@ -25,6 +25,18 @@ class UserSession {
   final bool mustChangePassword;
   final bool isDemo;
 
+  UserSession copyWith({int? xpTotal}) => UserSession(
+    id: id,
+    firstName: firstName,
+    role: role,
+    email: email,
+    xpTotal: xpTotal ?? this.xpTotal,
+    emailVerified: emailVerified,
+    requiresEmailVerification: requiresEmailVerification,
+    mustChangePassword: mustChangePassword,
+    isDemo: isDemo,
+  );
+
   factory UserSession.fromBackendJson(Map<String, dynamic> json) => UserSession(
     id: json['id'] as String,
     firstName: json['nombre'] as String,

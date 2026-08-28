@@ -409,6 +409,39 @@ void main() {
     final app = tester.widget<MaterialApp>(find.byType(MaterialApp));
     expect(app.themeMode, ThemeMode.dark);
   });
+
+  testWidgets('muestra XP, racha y logros demostrativos', (tester) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(const Key('open-gamification-from-home')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Logros y actividad'), findsOneWidget);
+    expect(find.text('4 días de racha'), findsOneWidget);
+    expect(find.text('1.240'), findsOneWidget);
+    await tester.drag(
+      find.byKey(const Key('gamification-list')),
+      const Offset(0, -450),
+    );
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('achievement-total-progress')), findsOneWidget);
+    await tester.drag(
+      find.byKey(const Key('gamification-list')),
+      const Offset(0, -250),
+    );
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('achievement-PRIMER_PASO')), findsOneWidget);
+    expect(find.text('Primer paso'), findsOneWidget);
+    expect(find.text('Desbloqueado'), findsWidgets);
+  });
 }
 
 class _FakePracticeDraftStore extends PracticeDraftStore {

@@ -400,6 +400,11 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
         _result = result;
         _submitting = false;
       });
+      unawaited(
+        ref
+            .read(sessionControllerProvider.notifier)
+            .registerEarnedXp(result.summary.earnedXp),
+      );
       if (_isSubtopic) {
         unawaited(_syncProgress(result.summary.percentage.round()));
       }
