@@ -151,6 +151,7 @@ class _DashboardContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListView(
+    key: const Key('progress-dashboard-list'),
     padding: const EdgeInsets.fromLTRB(18, 20, 18, 28),
     children: [
       Text(
@@ -191,6 +192,38 @@ class _DashboardContent extends StatelessWidget {
                 onPressed: () => context.push('/student/progress/adaptive'),
                 icon: const Icon(Icons.play_arrow_rounded),
                 label: const Text('Preparar mi repaso'),
+              ),
+            ],
+          ),
+        ),
+      ),
+      const SizedBox(height: 14),
+      Card(
+        child: Padding(
+          padding: const EdgeInsets.all(18),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Icon(Icons.local_library_outlined),
+                  const SizedBox(width: 10),
+                  Text(
+                    'Biblioteca académica',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Consulta fórmulas, conceptos y estrategias incluso sin conexión.',
+              ),
+              const SizedBox(height: 14),
+              FilledButton.tonalIcon(
+                key: const Key('open-reference-library'),
+                onPressed: () => context.push('/student/progress/library'),
+                icon: const Icon(Icons.arrow_forward_rounded),
+                label: const Text('Abrir biblioteca'),
               ),
             ],
           ),

@@ -17,6 +17,7 @@ import '../features/academic/presentation/diagnostic_overview_page.dart';
 import '../features/dashboard/presentation/more_page.dart';
 import '../features/dashboard/presentation/student_dashboard_page.dart';
 import '../features/dashboard/presentation/teacher_dashboard_page.dart';
+import '../features/library/presentation/reference_library_page.dart';
 import '../features/practice/domain/practice_models.dart';
 import '../features/practice/presentation/practice_history_page.dart';
 import '../features/practice/presentation/practice_hub_page.dart';
@@ -237,6 +238,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 pageBuilder: (context, state) =>
                     const NoTransitionPage(child: ProgressPage()),
                 routes: [
+                  GoRoute(
+                    path: 'library',
+                    builder: (context, state) => const ReferenceLibraryPage(),
+                  ),
                   GoRoute(
                     path: 'adaptive',
                     builder: (context, state) => const AdaptiveReviewPage(),

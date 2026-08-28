@@ -275,7 +275,10 @@ void main() {
     await tester.scrollUntilVisible(
       find.byKey(const Key('open-adaptive-review')),
       250,
-      scrollable: find.byType(Scrollable).last,
+      scrollable: find.descendant(
+        of: find.byKey(const Key('progress-dashboard-list')),
+        matching: find.byType(Scrollable),
+      ),
     );
     await tester.tap(find.byKey(const Key('open-adaptive-review')));
     await tester.pumpAndSettle();
@@ -292,6 +295,62 @@ void main() {
 
     expect(find.text('Repaso inteligente'), findsOneWidget);
     expect(find.textContaining('Pregunta 1 de'), findsOneWidget);
+  });
+
+  testWidgets('consulta fórmulas, glosario y estrategia sin conexión', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Progreso'));
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('open-reference-library')),
+      250,
+      scrollable: find.descendant(
+        of: find.byKey(const Key('progress-dashboard-list')),
+        matching: find.byType(Scrollable),
+      ),
+    );
+    await tester.tap(find.byKey(const Key('open-reference-library')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Biblioteca académica'), findsOneWidget);
+    expect(find.text('Formulario por área'), findsOneWidget);
+    await tester.enterText(
+      find.byKey(const Key('formula-search-field')),
+      'Pitágoras',
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('Teorema de Pitágoras'), findsOneWidget);
+
+    await tester.tap(find.text('Glosario'));
+    await tester.pumpAndSettle();
+    await tester.enterText(
+      find.byKey(const Key('glossary-search-field')),
+      'Homeostasis',
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('Homeostasis'), findsWidgets);
+
+    await tester.tap(find.text('Estrategia'));
+    await tester.pumpAndSettle();
+    expect(find.text('132 segundos por pregunta'), findsOneWidget);
+    expect(find.text('Las cuatro fases'), findsOneWidget);
+    await tester.enterText(
+      find.byKey(const Key('strategy-question-count')),
+      '50',
+    );
+    await tester.pump();
+    expect(find.text('264 segundos por pregunta'), findsOneWidget);
   });
 }
 
