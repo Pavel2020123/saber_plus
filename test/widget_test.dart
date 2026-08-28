@@ -230,6 +230,32 @@ void main() {
     expect(find.textContaining('Respuesta correcta:'), findsOneWidget);
     expect(find.textContaining('20.000 pesos'), findsOneWidget);
   });
+
+  testWidgets('abre el panel de progreso y el cuaderno de errores', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Progreso'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Tu progreso'), findsOneWidget);
+    expect(find.text('Así vas en SaberPlus'), findsOneWidget);
+    expect(find.text('63%'), findsOneWidget);
+
+    await tester.tap(find.text('Cuaderno'));
+    await tester.pumpAndSettle();
+    expect(find.text('Cuaderno de errores'), findsOneWidget);
+    expect(find.text('0 errores'), findsOneWidget);
+  });
 }
 
 class _FakePracticeDraftStore extends PracticeDraftStore {

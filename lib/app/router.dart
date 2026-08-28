@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -24,7 +23,7 @@ import '../features/practice/presentation/practice_hub_page.dart';
 import '../features/practice/presentation/random_practice_setup_page.dart';
 import '../features/practice/presentation/practice_session_page.dart';
 import '../features/practice/presentation/simulation_setup_page.dart';
-import '../features/shared/presentation/feature_placeholder_page.dart';
+import '../features/progress/presentation/progress_page.dart';
 import '../features/shared/presentation/student_shell.dart';
 import '../features/study/presentation/study_area_page.dart';
 import '../features/study/presentation/study_areas_page.dart';
@@ -234,15 +233,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/student/progress',
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: FeaturePlaceholderPage(
-                    title: 'Progreso',
-                    description:
-                        'Resultados, historial, cuaderno de errores y repaso inteligente.',
-                    icon: Icons.insights_rounded,
-                    stage: 'Etapa 5 · Progreso y repaso',
-                  ),
-                ),
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: ProgressPage()),
               ),
             ],
           ),

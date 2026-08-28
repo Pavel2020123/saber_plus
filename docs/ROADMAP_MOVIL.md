@@ -58,8 +58,10 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 
 ## Etapa 5 - Progreso y modo sin conexión
 
-- Cuaderno de errores y repaso adaptativo.
-- Progreso, fórmulas, glosario y estrategia.
+- [x] Panel de progreso académico y rendimiento por área.
+- [x] Cuaderno de errores con filtros, notas y estados de repaso.
+- [ ] Repaso adaptativo.
+- [ ] Fórmulas, glosario y estrategia.
 - Drift/SQLite, contenido descargable y gestión de espacio.
 - Outbox de operaciones seguras y resolución de conflictos.
 - Notificaciones y preferencias.
