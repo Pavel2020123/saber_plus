@@ -1,0 +1,664 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../core/config/environment.dart';
+import '../../../core/config/resource_url.dart';
+import '../../../core/network/api_error.dart';
+import '../../academic/domain/academic_models.dart';
+import '../../auth/presentation/session_controller.dart';
+import '../../study/data/remote_study_repository.dart';
+import '../../study/presentation/study_providers.dart';
+import '../domain/practice_models.dart';
+import 'practice_providers.dart';
+
+class PracticeSessionPage extends ConsumerStatefulWidget {
+  const PracticeSessionPage({
+    super.key,
+    required this.area,
+    required this.subtopicId,
+  });
+
+  final AcademicArea area;
+  final String subtopicId;
+
+  @override
+  ConsumerState<PracticeSessionPage> createState() =>
+      _PracticeSessionPageState();
+}
+
+class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
+  PracticeSession? _session;
+  PracticeResult? _result;
+  Object? _loadError;
+  final _selections = <String, String>{};
+  final _responseSeconds = <String, int>{};
+  var _currentIndex = 0;
+  var _loading = true;
+  var _submitting = false;
+  var _submissionUncertain = false;
+  DateTime? _questionEnteredAt;
+  DateTime? _sessionStartedAt;
+  Timer? _clock;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPractice();
+  }
+
+  @override
+  void dispose() {
+    _clock?.cancel();
+    super.dispose();
+  }
+
+  Future<void> _loadPractice() async {
+    _clock?.cancel();
+    setState(() {
+      _loading = true;
+      _loadError = null;
+      _result = null;
+      _submissionUncertain = false;
+      _selections.clear();
+      _responseSeconds.clear();
+      _currentIndex = 0;
+    });
+    try {
+      final session = await ref
+          .read(practiceRepositoryProvider)
+          .startSubtopicPractice(
+            area: widget.area,
+            subtopicId: widget.subtopicId,
+          );
+      if (!mounted) return;
+      final now = DateTime.now();
+      setState(() {
+        _session = session;
+        _loading = false;
+        _sessionStartedAt = now;
+        _questionEnteredAt = now;
+      });
+      _clock = Timer.periodic(const Duration(seconds: 1), (_) {
+        if (mounted && _result == null) setState(() {});
+      });
+    } on Object catch (error) {
+      if (!mounted) return;
+      setState(() {
+        _loadError = error;
+        _loading = false;
+      });
+    }
+  }
+
+  void _recordCurrentTime() {
+    final session = _session;
+    final enteredAt = _questionEnteredAt;
+    if (session == null || enteredAt == null || session.questions.isEmpty) {
+      return;
+    }
+    final questionId = session.questions[_currentIndex].id;
+    final elapsed = DateTime.now().difference(enteredAt).inSeconds;
+    _responseSeconds[questionId] =
+        ((_responseSeconds[questionId] ?? 0) + elapsed).clamp(0, 7200);
+    _questionEnteredAt = DateTime.now();
+  }
+
+  void _goTo(int index) {
+    final session = _session;
+    if (session == null || index < 0 || index >= session.questions.length) {
+      return;
+    }
+    _recordCurrentTime();
+    setState(() => _currentIndex = index);
+  }
+
+  Future<void> _requestSubmit() async {
+    final session = _session;
+    if (session == null || _submitting || _submissionUncertain) return;
+    if (_selections.length != session.questions.length) {
+      final missing = session.questions.length - _selections.length;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Faltan $missing preguntas por responder.')),
+      );
+      return;
+    }
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Finalizar práctica'),
+        content: const Text(
+          'Después de enviar, este intento quedará cerrado y podrás revisar las respuestas correctas.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Seguir revisando'),
+          ),
+          FilledButton(
+            key: const Key('confirm-submit-practice-button'),
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Enviar'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true || !mounted) return;
+    await _submit();
+  }
+
+  Future<void> _submit() async {
+    final session = _session!;
+    _recordCurrentTime();
+    setState(() => _submitting = true);
+    final answers = session.questions
+        .map(
+          (question) => PracticeAnswer(
+            questionId: question.id,
+            answerId: _selections[question.id]!,
+            responseTimeSeconds: _responseSeconds[question.id] ?? 0,
+          ),
+        )
+        .toList(growable: false);
+    try {
+      final result = await ref
+          .read(practiceRepositoryProvider)
+          .gradePractice(
+            attemptId: session.attemptId,
+            area: session.area,
+            answers: answers,
+          );
+      if (!mounted) return;
+      _clock?.cancel();
+      setState(() {
+        _result = result;
+        _submitting = false;
+      });
+      unawaited(_syncProgress(result.summary.percentage.round()));
+    } on Object catch (error) {
+      if (!mounted) return;
+      final uncertain =
+          error is ApiError &&
+          const {
+            'network_timeout',
+            'network_unavailable',
+            'unexpected_error',
+          }.contains(error.code);
+      setState(() {
+        _submitting = false;
+        _submissionUncertain = uncertain;
+      });
+      if (uncertain) {
+        await showDialog<void>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Envío por confirmar'),
+            content: const Text(
+              'Se perdió la conexión mientras se calificaba. Para evitar un envío duplicado, la app no repetirá este intento automáticamente. Regresa a la lección e inicia una práctica nueva cuando tengas conexión.',
+            ),
+            actions: [
+              FilledButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Entendido'),
+              ),
+            ],
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(_messageFor(error))));
+      }
+    }
+  }
+
+  Future<void> _syncProgress(int percentage) async {
+    if (ref.read(sessionControllerProvider).user?.isDemo ?? false) return;
+    try {
+      await ref
+          .read(studyRepositoryProvider)
+          .updateSubtopicProgress(widget.subtopicId, percentage);
+      ref.invalidate(studyProgressProvider);
+    } on Object {
+      // La calificación ya es válida aunque falle esta actualización secundaria.
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final result = _result;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(result == null ? 'Práctica' : 'Resultado de práctica'),
+      ),
+      body: switch ((_loading, _loadError, result, _session)) {
+        (true, _, _, _) => const Center(child: CircularProgressIndicator()),
+        (false, final error?, _, _) => _LoadError(
+          message: _messageFor(error),
+          onRetry: _loadPractice,
+        ),
+        (false, _, final value?, _) => _PracticeResultView(
+          result: value,
+          onRetry: _loadPractice,
+          onExit: () => context.pop(),
+        ),
+        (false, _, _, final session?) => _buildSession(session),
+        _ => const SizedBox.shrink(),
+      },
+    );
+  }
+
+  Widget _buildSession(PracticeSession session) {
+    final question = session.questions[_currentIndex];
+    final selected = _selections[question.id];
+    final elapsed = _sessionStartedAt == null
+        ? Duration.zero
+        : DateTime.now().difference(_sessionStartedAt!);
+    return Column(
+      children: [
+        LinearProgressIndicator(
+          value: (_currentIndex + 1) / session.questions.length,
+        ),
+        Expanded(
+          child: ListView(
+            padding: const EdgeInsets.fromLTRB(20, 18, 20, 24),
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Pregunta ${_currentIndex + 1} de ${session.questions.length}',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ),
+                  const Icon(Icons.timer_outlined, size: 18),
+                  const SizedBox(width: 5),
+                  Text(_formatDuration(elapsed)),
+                ],
+              ),
+              const SizedBox(height: 6),
+              Text('${question.themeName} · ${question.subtopicName}'),
+              if (question.caseContent case final caseContent?) ...[
+                const SizedBox(height: 16),
+                _CaseCard(content: caseContent),
+              ],
+              const SizedBox(height: 20),
+              Text(
+                question.statement,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              if (question.imageUrl case final imageUrl?) ...[
+                const SizedBox(height: 14),
+                _NetworkResourceImage(value: imageUrl),
+              ],
+              const SizedBox(height: 18),
+              for (var index = 0; index < question.options.length; index++) ...[
+                _AnswerOption(
+                  key: Key('practice-answer-${question.options[index].id}'),
+                  letter: String.fromCharCode(65 + index),
+                  option: question.options[index],
+                  selected: selected == question.options[index].id,
+                  enabled: !_submitting && !_submissionUncertain,
+                  onTap: () => setState(
+                    () => _selections[question.id] = question.options[index].id,
+                  ),
+                ),
+                const SizedBox(height: 9),
+              ],
+              if (_submissionUncertain) ...[
+                const SizedBox(height: 12),
+                const Card(
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Text(
+                      'Este envío quedó por confirmar. No se volverá a enviar para proteger el intento.',
+                    ),
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+        SafeArea(
+          top: false,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 14),
+            child: Row(
+              children: [
+                IconButton.filledTonal(
+                  tooltip: 'Pregunta anterior',
+                  onPressed: _currentIndex > 0
+                      ? () => _goTo(_currentIndex - 1)
+                      : null,
+                  icon: const Icon(Icons.arrow_back_rounded),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: _currentIndex < session.questions.length - 1
+                      ? FilledButton(
+                          key: const Key('next-practice-question-button'),
+                          onPressed: selected == null || _submissionUncertain
+                              ? null
+                              : () => _goTo(_currentIndex + 1),
+                          child: const Text('Siguiente'),
+                        )
+                      : FilledButton.icon(
+                          key: const Key('submit-practice-button'),
+                          onPressed:
+                              selected == null ||
+                                  _submitting ||
+                                  _submissionUncertain
+                              ? null
+                              : _requestSubmit,
+                          icon: _submitting
+                              ? const SizedBox.square(
+                                  dimension: 18,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  ),
+                                )
+                              : const Icon(Icons.task_alt_rounded),
+                          label: Text(
+                            _submitting ? 'Calificando...' : 'Finalizar',
+                          ),
+                        ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _AnswerOption extends StatelessWidget {
+  const _AnswerOption({
+    super.key,
+    required this.letter,
+    required this.option,
+    required this.selected,
+    required this.enabled,
+    required this.onTap,
+  });
+
+  final String letter;
+  final PracticeOption option;
+  final bool selected;
+  final bool enabled;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) => Card(
+    elevation: 0,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(14),
+      side: BorderSide(
+        color: selected
+            ? Theme.of(context).colorScheme.primary
+            : Theme.of(context).colorScheme.outlineVariant,
+        width: selected ? 2 : 1,
+      ),
+    ),
+    child: InkWell(
+      borderRadius: BorderRadius.circular(14),
+      onTap: enabled ? onTap : null,
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Row(
+          children: [
+            CircleAvatar(radius: 18, child: Text(letter)),
+            const SizedBox(width: 13),
+            Expanded(child: Text(option.text)),
+            if (selected) const Icon(Icons.check_circle_rounded),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+class _CaseCard extends StatelessWidget {
+  const _CaseCard({required this.content});
+
+  final PracticeCase content;
+
+  @override
+  Widget build(BuildContext context) => Card(
+    child: Padding(
+      padding: const EdgeInsets.all(18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(content.title, style: Theme.of(context).textTheme.titleMedium),
+          const SizedBox(height: 8),
+          Text(content.context),
+          if (content.imageUrl case final imageUrl?) ...[
+            const SizedBox(height: 12),
+            _NetworkResourceImage(value: imageUrl),
+          ],
+        ],
+      ),
+    ),
+  );
+}
+
+class _NetworkResourceImage extends ConsumerWidget {
+  const _NetworkResourceImage({required this.value});
+
+  final String value;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => ClipRRect(
+    borderRadius: BorderRadius.circular(14),
+    child: Image.network(
+      resolveResourceUrl(ref.watch(appConfigProvider), value),
+      fit: BoxFit.contain,
+      errorBuilder: (context, error, stackTrace) => const Padding(
+        padding: EdgeInsets.all(18),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.broken_image_outlined),
+            SizedBox(width: 8),
+            Text('Imagen no disponible'),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+class _PracticeResultView extends StatelessWidget {
+  const _PracticeResultView({
+    required this.result,
+    required this.onRetry,
+    required this.onExit,
+  });
+
+  final PracticeResult result;
+  final VoidCallback onRetry;
+  final VoidCallback onExit;
+
+  @override
+  Widget build(BuildContext context) {
+    final summary = result.summary;
+    return ListView(
+      key: const Key('practice-result-view'),
+      padding: const EdgeInsets.fromLTRB(20, 16, 20, 36),
+      children: [
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(22),
+            child: Column(
+              children: [
+                const Icon(Icons.workspace_premium_rounded, size: 48),
+                const SizedBox(height: 10),
+                Text(
+                  '${summary.percentage.round()}%',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+                Text(
+                  '${summary.correctAnswers} correctas de ${summary.totalQuestions}',
+                ),
+                const SizedBox(height: 8),
+                Text('+${summary.earnedXp} XP'),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 20),
+        Text('Revisión', style: Theme.of(context).textTheme.headlineSmall),
+        const SizedBox(height: 10),
+        for (var index = 0; index < result.review.length; index++) ...[
+          _ReviewCard(index: index, question: result.review[index]),
+          const SizedBox(height: 10),
+        ],
+        const SizedBox(height: 10),
+        FilledButton.icon(
+          onPressed: onRetry,
+          icon: const Icon(Icons.replay_rounded),
+          label: const Text('Practicar de nuevo'),
+        ),
+        const SizedBox(height: 8),
+        TextButton(onPressed: onExit, child: const Text('Volver a la lección')),
+      ],
+    );
+  }
+}
+
+class _ReviewCard extends StatelessWidget {
+  const _ReviewCard({required this.index, required this.question});
+
+  final int index;
+  final PracticeReviewQuestion question;
+
+  @override
+  Widget build(BuildContext context) => Card(
+    child: ExpansionTile(
+      initiallyExpanded: !question.isCorrect,
+      leading: Icon(
+        question.isCorrect ? Icons.check_circle_rounded : Icons.cancel_rounded,
+        color: question.isCorrect ? Colors.green.shade700 : Colors.red.shade700,
+      ),
+      title: Text('Pregunta ${index + 1}'),
+      subtitle: Text(question.isCorrect ? 'Correcta' : 'Por reforzar'),
+      childrenPadding: const EdgeInsets.fromLTRB(18, 0, 18, 18),
+      expandedCrossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(question.statement),
+        const SizedBox(height: 14),
+        for (final option in question.options) ...[
+          _ReviewOption(question: question, option: option),
+          const SizedBox(height: 8),
+        ],
+        if (question.explanation case final explanation?) ...[
+          const SizedBox(height: 8),
+          Text(
+            'Cómo se resuelve',
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          const SizedBox(height: 5),
+          Text(explanation),
+        ],
+      ],
+    ),
+  );
+}
+
+class _ReviewOption extends StatelessWidget {
+  const _ReviewOption({required this.question, required this.option});
+
+  final PracticeReviewQuestion question;
+  final PracticeReviewOption option;
+
+  @override
+  Widget build(BuildContext context) {
+    final selected = option.id == question.selectedAnswerId;
+    final correct = option.isCorrect || option.id == question.correctAnswerId;
+    final icon = correct
+        ? Icons.check_circle_outline_rounded
+        : selected
+        ? Icons.cancel_outlined
+        : Icons.circle_outlined;
+    final color = correct
+        ? Colors.green.shade700
+        : selected
+        ? Colors.red.shade700
+        : Theme.of(context).colorScheme.outline;
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        border: Border.all(color: color),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(icon, color: color),
+              const SizedBox(width: 9),
+              Expanded(child: Text(option.text)),
+            ],
+          ),
+          if (selected || correct) ...[
+            const SizedBox(height: 6),
+            Text(
+              [
+                if (selected) 'Tu respuesta',
+                if (correct) 'Correcta',
+              ].join(' · '),
+              style: TextStyle(color: color, fontWeight: FontWeight.w600),
+            ),
+          ],
+          if (option.explanation case final explanation?) ...[
+            const SizedBox(height: 6),
+            Text(explanation),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _LoadError extends StatelessWidget {
+  const _LoadError({required this.message, required this.onRetry});
+
+  final String message;
+  final VoidCallback onRetry;
+
+  @override
+  Widget build(BuildContext context) => Center(
+    child: Padding(
+      padding: const EdgeInsets.all(28),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.quiz_outlined, size: 52),
+          const SizedBox(height: 14),
+          Text(message, textAlign: TextAlign.center),
+          const SizedBox(height: 16),
+          FilledButton.tonal(
+            onPressed: onRetry,
+            child: const Text('Reintentar'),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+String _formatDuration(Duration duration) {
+  final minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
+  final seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+  final hours = duration.inHours;
+  return hours > 0 ? '$hours:$minutes:$seconds' : '$minutes:$seconds';
+}
+
+String _messageFor(Object error) => error is ApiError
+    ? error.message
+    : 'No pudimos cargar esta práctica. Intenta nuevamente.';

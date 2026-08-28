@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/config/environment.dart';
+import '../../../core/config/resource_url.dart';
 import '../../../core/network/api_error.dart';
 import '../../academic/domain/academic_models.dart';
 import '../../auth/presentation/session_controller.dart';
@@ -149,7 +151,7 @@ class _LessonContent extends ConsumerWidget {
                     if (href != null) _openExternal(context, href);
                   },
                   imageBuilder: (uri, title, alt) => _LessonImage(
-                    url: _resolveResourceUrl(config, uri.toString()),
+                    url: resolveResourceUrl(config, uri.toString()),
                   ),
                 ),
               ),
@@ -170,7 +172,7 @@ class _LessonContent extends ConsumerWidget {
           ],
           if (subtopic.imageUrl case final imageUrl?) ...[
             const SizedBox(height: 14),
-            _LessonImage(url: _resolveResourceUrl(config, imageUrl)),
+            _LessonImage(url: resolveResourceUrl(config, imageUrl)),
           ],
           if (subtopic.clozeActivity case final activity?) ...[
             const SizedBox(height: 18),
@@ -197,9 +199,13 @@ class _LessonContent extends ConsumerWidget {
         ),
         if (subtopic.totalQuestions > 0) ...[
           const SizedBox(height: 12),
-          const Text(
-            'La práctica con preguntas se habilitará en la Etapa 4.',
-            textAlign: TextAlign.center,
+          FilledButton.tonalIcon(
+            key: const Key('start-subtopic-practice-button'),
+            onPressed: () => context.push(
+              '/student/practice/subtopic/${area.slug}/${subtopic.id}',
+            ),
+            icon: const Icon(Icons.quiz_rounded),
+            label: Text('Practicar ${subtopic.totalQuestions} preguntas'),
           ),
         ],
       ],
@@ -401,15 +407,6 @@ class _LessonError extends StatelessWidget {
       ),
     ),
   );
-}
-
-String _resolveResourceUrl(AppConfig config, String value) {
-  final uri = Uri.tryParse(value);
-  if (uri?.hasScheme ?? false) return value;
-  final clean = value.replaceFirst(RegExp(r'^/+'), '');
-  if (clean.startsWith('uploads/')) return '${config.apiBaseUrl}/$clean';
-  if (clean.startsWith('imagenes/')) return '${config.contentRoot}/$clean';
-  return '${config.contentRoot}/imagenes/$clean';
 }
 
 Future<void> _openExternal(BuildContext context, String value) async {

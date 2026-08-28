@@ -18,6 +18,8 @@ import '../features/academic/presentation/diagnostic_overview_page.dart';
 import '../features/dashboard/presentation/more_page.dart';
 import '../features/dashboard/presentation/student_dashboard_page.dart';
 import '../features/dashboard/presentation/teacher_dashboard_page.dart';
+import '../features/practice/presentation/practice_hub_page.dart';
+import '../features/practice/presentation/practice_session_page.dart';
 import '../features/shared/presentation/feature_placeholder_page.dart';
 import '../features/shared/presentation/student_shell.dart';
 import '../features/study/presentation/study_area_page.dart';
@@ -168,15 +170,19 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/student/practice',
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: FeaturePlaceholderPage(
-                    title: 'Practicar',
-                    description:
-                        'Prácticas por tema, preguntas aleatorias y simulacros protegidos.',
-                    icon: Icons.quiz_rounded,
-                    stage: 'Etapa 4 · Práctica y simulacros',
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: PracticeHubPage()),
+                routes: [
+                  GoRoute(
+                    path: 'subtopic/:area/:subtopicId',
+                    builder: (context, state) => PracticeSessionPage(
+                      area: AcademicArea.fromSlug(
+                        state.pathParameters['area']!,
+                      ),
+                      subtopicId: state.pathParameters['subtopicId']!,
+                    ),
                   ),
-                ),
+                ],
               ),
             ],
           ),

@@ -111,5 +111,13 @@ void main() {
     await tester.tap(find.byKey(const Key('complete-study-lesson-button')));
     await tester.pumpAndSettle();
     expect(find.text('Lección completada'), findsOneWidget);
+
+    await tester.ensureVisible(
+      find.byKey(const Key('start-subtopic-practice-button')),
+    );
+    await tester.tap(find.byKey(const Key('start-subtopic-practice-button')));
+    await tester.pumpAndSettle();
+    expect(find.text('Pregunta 1 de 2'), findsOneWidget);
+    expect(find.textContaining('3 cuadernos'), findsOneWidget);
   });
 }

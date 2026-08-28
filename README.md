@@ -16,6 +16,7 @@ Por ahora la interfaz usa tema claro fijo y fondo blanco. La preferencia del est
 El contrato auditado contra el backend existente está documentado en [docs/AUTH_CONTRACT.md](docs/AUTH_CONTRACT.md).
 El contrato de convocatoria, diagnóstico y plan semanal está en [docs/ACADEMIC_CONTRACT.md](docs/ACADEMIC_CONTRACT.md).
 El contrato del árbol de contenido y sus recursos está en [docs/STUDY_CONTRACT.md](docs/STUDY_CONTRACT.md).
+El contrato de práctica protegida por subtema está en [docs/PRACTICE_CONTRACT.md](docs/PRACTICE_CONTRACT.md).
 
 ## Configuración por ambiente
 

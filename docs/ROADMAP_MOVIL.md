@@ -46,11 +46,14 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 
 ## Etapa 4 - Práctica y simulacros
 
-- Componente de pregunta, opciones y contexto compartido.
-- Práctica por subtema y sesión aleatoria.
+- [x] Componente móvil de pregunta, opciones y contexto de caso.
+- [x] Práctica por subtema con intento protegido y registro de tiempos.
+- [ ] Sesión aleatoria.
 - Simulacro completo y personalizado.
-- Temporizador, borrador local, reanudación e idempotencia.
-- Resultados, explicación e historial.
+- [x] Temporizador visible y bloqueo de envíos duplicados en la app.
+- [ ] Borrador local, reanudación y recuperación idempotente respaldada por API.
+- [x] Resultado inmediato y revisión con explicación.
+- [ ] Historial de resultados.
 
 ## Etapa 5 - Progreso y modo sin conexión
 
