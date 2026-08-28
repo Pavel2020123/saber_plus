@@ -41,8 +41,8 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Sesión móvil de las 15 preguntas, borrador local y finalización.
 - [x] Resultado por área y área prioritaria disponibles en la app.
 - [x] Falencias por tema y subtema consultadas desde el cuaderno de errores.
-- Árbol de áreas, temas, subtemas y lecciones.
-- Recursos Markdown, imágenes, video y PDF.
+- [x] Árbol de áreas, temas, subtemas y lecciones.
+- [x] Recursos Markdown, imágenes, video, actividad interactiva y PDF autenticado.
 
 ## Etapa 4 - Práctica y simulacros
 

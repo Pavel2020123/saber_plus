@@ -76,4 +76,40 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Recupera tu cuenta'), findsOneWidget);
   });
+
+  testWidgets('navega por área, tema, subtema y lección demostrativa', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Estudiar'));
+    await tester.pumpAndSettle();
+    expect(find.text('Contenido por área'), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('study-area-matematicas')));
+    await tester.pumpAndSettle();
+    expect(find.text('Razones y proporciones'), findsOneWidget);
+
+    await tester.tap(
+      find.byKey(const Key('study-subtopic-demo-mathematics-subtopic')),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('Regla de tres'), findsWidgets);
+    expect(find.text('Marcar como completada'), findsOneWidget);
+
+    await tester.ensureVisible(
+      find.byKey(const Key('complete-study-lesson-button')),
+    );
+    await tester.tap(find.byKey(const Key('complete-study-lesson-button')));
+    await tester.pumpAndSettle();
+    expect(find.text('Lección completada'), findsOneWidget);
+  });
 }

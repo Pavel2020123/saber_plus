@@ -163,8 +163,16 @@ try {
   if ($LASTEXITCODE -ne 0) {
     throw 'El diagnóstico Flutter no superó la prueba contra la API real.'
   }
+
+  & flutter test test/study_api_live_test.dart `
+    "--dart-define=AUTH_E2E_API_BASE_URL=$apiRoot" `
+    "--dart-define=AUTH_E2E_EMAIL=$email" `
+    "--dart-define=AUTH_E2E_PASSWORD=$newPassword"
+  if ($LASTEXITCODE -ne 0) {
+    throw 'El contenido académico Flutter no superó la prueba contra la API real.'
+  }
 } finally {
   Pop-Location
 }
 
-Write-Host 'Flujo E2E de autenticación completado correctamente.'
+Write-Host 'Flujo E2E móvil completado correctamente.'

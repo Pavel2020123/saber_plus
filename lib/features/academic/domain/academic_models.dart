@@ -21,6 +21,27 @@ enum AcademicArea {
     AcademicArea.socialSciences => 'Sociales y ciudadanas',
     AcademicArea.english => 'Inglés',
   };
+
+  String get backendValue => switch (this) {
+    AcademicArea.criticalReading => 'LECTURA_CRITICA',
+    AcademicArea.mathematics => 'MATEMATICAS',
+    AcademicArea.naturalSciences => 'CIENCIAS_NATURALES',
+    AcademicArea.socialSciences => 'SOCIALES_CIUDADANAS',
+    AcademicArea.english => 'INGLES',
+  };
+
+  String get slug => switch (this) {
+    AcademicArea.criticalReading => 'lectura-critica',
+    AcademicArea.mathematics => 'matematicas',
+    AcademicArea.naturalSciences => 'ciencias-naturales',
+    AcademicArea.socialSciences => 'sociales-ciudadanas',
+    AcademicArea.english => 'ingles',
+  };
+
+  factory AcademicArea.fromSlug(String value) => AcademicArea.values.firstWhere(
+    (area) => area.slug == value,
+    orElse: () => throw FormatException('Área no reconocida: $value'),
+  );
 }
 
 enum DiagnosticStatus { notStarted, inProgress, completed }

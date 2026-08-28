@@ -13,12 +13,16 @@ import '../features/auth/presentation/session_loading_page.dart';
 import '../features/auth/presentation/verify_email_page.dart';
 import '../features/auth/presentation/verify_pending_page.dart';
 import '../features/auth/presentation/welcome_page.dart';
+import '../features/academic/domain/academic_models.dart';
 import '../features/academic/presentation/diagnostic_overview_page.dart';
 import '../features/dashboard/presentation/more_page.dart';
 import '../features/dashboard/presentation/student_dashboard_page.dart';
 import '../features/dashboard/presentation/teacher_dashboard_page.dart';
 import '../features/shared/presentation/feature_placeholder_page.dart';
 import '../features/shared/presentation/student_shell.dart';
+import '../features/study/presentation/study_area_page.dart';
+import '../features/study/presentation/study_areas_page.dart';
+import '../features/study/presentation/study_lesson_page.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final session = ref.watch(sessionControllerProvider);
@@ -133,15 +137,30 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/student/study',
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: FeaturePlaceholderPage(
-                    title: 'Estudiar',
-                    description:
-                        'Aquí aparecerán las áreas, temas, lecciones y recursos descargables.',
-                    icon: Icons.menu_book_rounded,
-                    stage: 'Etapa 3 · Contenido académico',
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: StudyAreasPage()),
+                routes: [
+                  GoRoute(
+                    path: ':area',
+                    builder: (context, state) => StudyAreaPage(
+                      area: AcademicArea.fromSlug(
+                        state.pathParameters['area']!,
+                      ),
+                    ),
+                    routes: [
+                      GoRoute(
+                        path: ':themeId/:subtopicId',
+                        builder: (context, state) => StudyLessonPage(
+                          area: AcademicArea.fromSlug(
+                            state.pathParameters['area']!,
+                          ),
+                          themeId: state.pathParameters['themeId']!,
+                          subtopicId: state.pathParameters['subtopicId']!,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
+                ],
               ),
             ],
           ),

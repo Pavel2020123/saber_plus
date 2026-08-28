@@ -21,4 +21,15 @@ void main() {
 
     expect(config.validate, returnsNormally);
   });
+
+  test('producción exige HTTPS para los recursos académicos', () {
+    const config = AppConfig(
+      environment: AppEnvironment.prod,
+      apiBaseUrl: 'https://api.example.com',
+      contentBaseUrl: 'http://content.example.com',
+      demoMode: false,
+    );
+
+    expect(config.validate, throwsStateError);
+  });
 }

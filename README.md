@@ -15,15 +15,17 @@ Por ahora la interfaz usa tema claro fijo y fondo blanco. La preferencia del est
 
 El contrato auditado contra el backend existente está documentado en [docs/AUTH_CONTRACT.md](docs/AUTH_CONTRACT.md).
 El contrato de convocatoria, diagnóstico y plan semanal está en [docs/ACADEMIC_CONTRACT.md](docs/ACADEMIC_CONTRACT.md).
+El contrato del árbol de contenido y sus recursos está en [docs/STUDY_CONTRACT.md](docs/STUDY_CONTRACT.md).
 
 ## Configuración por ambiente
 
 ```powershell
-flutter run --dart-define=APP_ENV=dev --dart-define=API_BASE_URL=http://10.0.2.2:3000 --dart-define=DEMO_MODE=true
+flutter run --dart-define=APP_ENV=dev --dart-define=API_BASE_URL=http://10.0.2.2:3000 --dart-define=CONTENT_BASE_URL=http://10.0.2.2:3001 --dart-define=DEMO_MODE=true
 ```
 
 - `APP_ENV`: `dev`, `staging` o `prod`.
 - `API_BASE_URL`: raíz del backend NestJS, sin `/v1`.
+- `CONTENT_BASE_URL`: origen opcional que publica las imágenes legadas bajo `/imagenes`; si se omite, usa el origen de la API.
 - `DEMO_MODE`: habilita los accesos demostrativos mientras se conecta autenticación real.
 
 ## Calidad
