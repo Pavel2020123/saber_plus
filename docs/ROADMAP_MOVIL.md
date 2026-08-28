@@ -64,8 +64,8 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Fórmulas, glosario y estrategia disponibles sin conexión.
 - [x] Drift/SQLite, contenido descargable y gestión de espacio.
 - [x] Outbox de operaciones seguras y resolución de conflictos.
-- Notificaciones y preferencias.
-- Elección del estudiante entre tema claro y oscuro; hasta entonces la app usa fondo blanco fijo.
+- [x] Recordatorio diario local, permiso bajo demanda y preferencias persistentes.
+- [x] Elección del estudiante entre tema claro y oscuro; el valor inicial continúa siendo claro.
 
 ## Etapa 6 - Comunidad y gamificación
 

@@ -11,7 +11,7 @@ flutter run
 
 La aplicación inicia en modo demostración para poder revisar navegación y diseño sin enviar credenciales a un servidor.
 
-Por ahora la interfaz usa tema claro fijo y fondo blanco. La preferencia del estudiante entre modo claro y oscuro se habilitará en la etapa de preferencias.
+La interfaz inicia con fondo blanco y permite que el estudiante elija entre modo claro y oscuro desde `Más > Preferencias`.
 
 El contrato auditado contra el backend existente está documentado en [docs/AUTH_CONTRACT.md](docs/AUTH_CONTRACT.md).
 El contrato de convocatoria, diagnóstico y plan semanal está en [docs/ACADEMIC_CONTRACT.md](docs/ACADEMIC_CONTRACT.md).
@@ -21,6 +21,7 @@ El contrato del panel de progreso y cuaderno de errores está en [docs/PROGRESS_
 La fuente y actualización de fórmulas, glosario y estrategia están en [docs/REFERENCE_LIBRARY.md](docs/REFERENCE_LIBRARY.md).
 La persistencia y gestión de contenido descargado están en [docs/OFFLINE_CONTENT.md](docs/OFFLINE_CONTENT.md).
 La cola de operaciones seguras y sus conflictos está en [docs/OFFLINE_SYNC.md](docs/OFFLINE_SYNC.md).
+Las preferencias persistentes y el recordatorio diario local están documentados en [docs/PREFERENCES_NOTIFICATIONS.md](docs/PREFERENCES_NOTIFICATIONS.md).
 
 ## Configuración por ambiente
 

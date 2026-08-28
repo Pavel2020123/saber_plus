@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'router.dart';
 import 'theme.dart';
+import '../core/preferences/app_preferences.dart';
+import '../core/preferences/app_preferences_controller.dart';
 
 class SaberPlusApp extends ConsumerWidget {
   const SaberPlusApp({super.key});
@@ -10,12 +12,19 @@ class SaberPlusApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(appRouterProvider);
+    final theme = ref
+        .watch(appPreferencesControllerProvider)
+        .valueOrNull
+        ?.theme;
 
     return MaterialApp.router(
       title: 'SaberPlus',
       debugShowCheckedModeBanner: false,
       theme: SaberPlusTheme.light,
-      themeMode: ThemeMode.light,
+      darkTheme: SaberPlusTheme.dark,
+      themeMode: theme == ThemePreference.dark
+          ? ThemeMode.dark
+          : ThemeMode.light,
       routerConfig: router,
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../core/sync/sync_queue_page.dart';
+import '../core/preferences/preferences_page.dart';
 import '../features/auth/domain/session.dart';
 import '../features/auth/presentation/login_page.dart';
 import '../features/auth/presentation/change_initial_password_page.dart';
@@ -280,6 +281,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 pageBuilder: (context, state) =>
                     const NoTransitionPage(child: MorePage()),
                 routes: [
+                  GoRoute(
+                    path: 'preferences',
+                    builder: (context, state) => const PreferencesPage(),
+                  ),
                   GoRoute(
                     path: 'sync',
                     builder: (context, state) => const SyncQueuePage(),

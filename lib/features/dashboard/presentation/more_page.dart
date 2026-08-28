@@ -28,6 +28,13 @@ class MorePage extends ConsumerWidget {
           const _MenuTile(icon: Icons.campaign_outlined, title: 'Anuncios'),
           const _MenuTile(icon: Icons.help_outline_rounded, title: 'Soporte'),
           _MenuTile(
+            key: const Key('open-preferences'),
+            icon: Icons.tune_rounded,
+            title: 'Preferencias',
+            subtitle: 'Apariencia y recordatorio diario',
+            onTap: () => context.push('/student/more/preferences'),
+          ),
+          _MenuTile(
             key: const Key('open-sync-queue'),
             icon: pending.isEmpty
                 ? Icons.cloud_done_outlined

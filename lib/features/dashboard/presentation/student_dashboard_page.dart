@@ -82,7 +82,7 @@ class _Header extends StatelessWidget {
           ),
         ),
         IconButton.filledTonal(
-          onPressed: () {},
+          onPressed: () => context.push('/student/more/preferences'),
           tooltip: 'Notificaciones',
           icon: const Icon(Icons.notifications_none_rounded),
         ),

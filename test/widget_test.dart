@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:saber_plus/app/app.dart';
+import 'package:saber_plus/core/notifications/study_reminder_service.dart';
+import 'package:saber_plus/core/preferences/app_preferences.dart';
+import 'package:saber_plus/core/preferences/app_preferences_store.dart';
 import 'package:saber_plus/core/storage/secure_session_store.dart';
 import 'package:saber_plus/features/practice/data/practice_draft_store.dart';
 
@@ -23,6 +26,8 @@ Widget _testApp() => ProviderScope(
   overrides: [
     secureSessionStoreProvider.overrideWithValue(_FakeSecureSessionStore()),
     practiceDraftStoreProvider.overrideWithValue(_FakePracticeDraftStore()),
+    appPreferencesStoreProvider.overrideWithValue(_FakePreferencesStore()),
+    studyReminderServiceProvider.overrideWithValue(_FakeReminderService()),
   ],
   child: const SaberPlusApp(),
 );
@@ -380,6 +385,30 @@ void main() {
     expect(find.text('Sincronización'), findsOneWidget);
     expect(find.text('No tienes cambios pendientes.'), findsOneWidget);
   });
+
+  testWidgets('cambia la apariencia desde Preferencias', (tester) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Más'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('open-preferences')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Preferencias'), findsOneWidget);
+    expect(find.text('Recordatorio diario'), findsOneWidget);
+    await tester.tap(find.text('Oscuro'));
+    await tester.pumpAndSettle();
+
+    final app = tester.widget<MaterialApp>(find.byType(MaterialApp));
+    expect(app.themeMode, ThemeMode.dark);
+  });
 }
 
 class _FakePracticeDraftStore extends PracticeDraftStore {
@@ -393,4 +422,27 @@ class _FakePracticeDraftStore extends PracticeDraftStore {
 
   @override
   Future<void> clear(String userId, String draftId) async {}
+}
+
+class _FakePreferencesStore implements AppPreferencesStore {
+  AppPreferences value = const AppPreferences();
+
+  @override
+  Future<AppPreferences> load() async => value;
+
+  @override
+  Future<void> save(AppPreferences preferences) async {
+    value = preferences;
+  }
+}
+
+class _FakeReminderService implements StudyReminderService {
+  @override
+  Future<bool> requestPermission() async => true;
+
+  @override
+  Future<void> scheduleDaily({required int hour, required int minute}) async {}
+
+  @override
+  Future<void> cancel() async {}
 }
