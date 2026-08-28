@@ -1,7 +1,24 @@
+import '../../../core/network/api_error.dart';
 import '../domain/gamification_models.dart';
 import '../domain/gamification_repository.dart';
 
 class DemoGamificationRepository implements GamificationRepository {
+  @override
+  Future<AchievementCertificate> downloadCertificate({
+    required String userId,
+    required Achievement achievement,
+  }) => throw const ApiError(
+    code: 'demo_certificate',
+    message:
+        'Los certificados personales están disponibles al ingresar con una cuenta real.',
+  );
+
+  @override
+  Future<AchievementCertificate?> findCertificate({
+    required String userId,
+    required Achievement achievement,
+  }) async => null;
+
   @override
   Future<GamificationSummary> loadSummary() async {
     final today = DateTime.now();

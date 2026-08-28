@@ -70,7 +70,7 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 ## Etapa 6 - Comunidad y gamificación
 
 - [x] XP confirmado por perfil, rachas, actividad y progreso de logros.
-- [ ] Descarga y gestión móvil de certificados de logros desbloqueados.
+- [x] Descarga y apertura segura de certificados de logros desbloqueados.
 - Ranking con privacidad por defecto.
 - Batallas asíncronas, bloqueo y reporte.
 - Anuncios, referidos, soporte y calculadora de puntaje.

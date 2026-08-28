@@ -164,6 +164,22 @@ class GamificationSummary {
   );
 }
 
+class AchievementCertificate {
+  const AchievementCertificate({
+    required this.achievementId,
+    required this.fileName,
+    required this.localPath,
+    required this.byteSize,
+    required this.downloadedAt,
+  });
+
+  final String achievementId;
+  final String fileName;
+  final String localPath;
+  final int byteSize;
+  final DateTime downloadedAt;
+}
+
 Map<String, dynamic> _map(Object? value) =>
     Map<String, dynamic>.from(value as Map? ?? const {});
 

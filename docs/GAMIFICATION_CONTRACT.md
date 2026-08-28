@@ -26,6 +26,16 @@ El XP total procede de `GET /auth/perfil`. Después de una calificación, la app
 - El contenido puede actualizarse con gesto de recarga o con el botón del encabezado.
 - Los errores de red no se sustituyen por datos falsos cuando existe una sesión real.
 
-## Siguiente subetapa
+## Certificados de logros
 
-El backend ya expone `GET /gamificacion/logros/:logroId/certificado` y valida que el logro esté desbloqueado. La descarga y apertura segura de esos PDF se implementará en la Etapa 6B junto con la experiencia completa de certificados.
+`GET /gamificacion/logros/:logroId/certificado`
+
+- El servidor vuelve a comprobar que el logro pertenezca al estudiante y esté desbloqueado.
+- Flutter acepta el archivo únicamente si contiene la firma de un PDF y no supera 20 MB.
+- El nombre recibido se sanitiza y nunca se utiliza para construir rutas del dispositivo.
+- Los archivos se guardan en el almacenamiento privado de la app, separados por usuario.
+- Una descarga existente se reutiliza y se puede abrir nuevamente sin descargarla.
+- Los logros bloqueados no muestran ninguna acción de certificado.
+- El modo demostrativo no genera certificados personales falsos; la descarga requiere una cuenta real.
+
+El certificado especial por completar el 100% de una materia requiere un nuevo contrato del backend y permanece pendiente dentro de las mejoras académicas posteriores.

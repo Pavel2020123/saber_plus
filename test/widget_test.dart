@@ -441,6 +441,10 @@ void main() {
     expect(find.byKey(const Key('achievement-PRIMER_PASO')), findsOneWidget);
     expect(find.text('Primer paso'), findsOneWidget);
     expect(find.text('Desbloqueado'), findsWidgets);
+    expect(find.byKey(const Key('certificate-PRIMER_PASO')), findsOneWidget);
+    await tester.tap(find.byKey(const Key('certificate-PRIMER_PASO')));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('cuenta real'), findsOneWidget);
   });
 }
 
