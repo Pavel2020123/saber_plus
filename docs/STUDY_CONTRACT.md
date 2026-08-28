@@ -17,12 +17,14 @@ Flutter no modifica ni duplica el contenido académico: la API continúa siendo 
 
 - El contenido textual se representa como Markdown seleccionable.
 - Los enlaces y videos HTTP/HTTPS se abren con la aplicación disponible en el dispositivo.
-- `GET /simulacros/temas/:temaId/pdf` se descarga con el token del estudiante, se guarda temporalmente y se abre con el lector PDF instalado.
+- `GET /simulacros/temas/:temaId/pdf` se descarga con el token del estudiante, se conserva en el espacio privado de la app y se abre con el lector PDF instalado.
 - Las imágenes aceptan una URL absoluta, una ruta `/uploads` servida por la API o un nombre legado bajo `/imagenes`.
 
 ## Limitación detectada en imágenes legadas
 
 El backend sirve `/uploads`, pero no sirve la carpeta `frontend/public/imagenes`. Para una instalación móvil real hay que mover esos archivos a almacenamiento accesible o configurar `CONTENT_BASE_URL` con el origen HTTPS que publique `/imagenes`. La app muestra un estado controlado si el recurso no existe.
+
+La persistencia, separación por usuario y administración de los PDF descargados se documentan en [OFFLINE_CONTENT.md](OFFLINE_CONTENT.md).
 
 ## Alcance de la Etapa 3C
 

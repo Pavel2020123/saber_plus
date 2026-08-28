@@ -13,7 +13,17 @@ class StudyAreasPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final progress = ref.watch(studyProgressProvider);
     return Scaffold(
-      appBar: AppBar(title: const Text('Estudiar')),
+      appBar: AppBar(
+        title: const Text('Estudiar'),
+        actions: [
+          IconButton(
+            key: const Key('open-offline-downloads'),
+            tooltip: 'Descargas',
+            onPressed: () => context.push('/student/study/downloads'),
+            icon: const Icon(Icons.download_done_rounded),
+          ),
+        ],
+      ),
       body: RefreshIndicator(
         onRefresh: () => ref.refresh(studyProgressProvider.future),
         child: ListView(

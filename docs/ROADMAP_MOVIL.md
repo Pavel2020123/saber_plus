@@ -62,7 +62,7 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Cuaderno de errores con filtros, notas y estados de repaso.
 - [x] Repaso adaptativo con perfil, sesión protegida y recalibración.
 - [x] Fórmulas, glosario y estrategia disponibles sin conexión.
-- Drift/SQLite, contenido descargable y gestión de espacio.
+- [x] Drift/SQLite, contenido descargable y gestión de espacio.
 - Outbox de operaciones seguras y resolución de conflictos.
 - Notificaciones y preferencias.
 - Elección del estudiante entre tema claro y oscuro; hasta entonces la app usa fondo blanco fijo.
@@ -95,6 +95,12 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - La pasarela externa del proyecto será Wompi; no se implementará ePayco.
 - El backend deberá validar webhooks de Wompi y convertir pagos aprobados en derechos de acceso.
 - La aplicación móvil respetará la facturación obligatoria de cada tienda para contenido digital.
+
+## Decisión de infraestructura
+
+- Supabase podrá utilizarse como alojamiento administrado de PostgreSQL al preparar los ambientes desplegados.
+- El backend NestJS seguirá concentrando permisos, autenticación, calificación, XP y reglas de negocio; Flutter no se conectará directamente a las tablas.
+- Drift/SQLite seguirá siendo el almacenamiento local del dispositivo para descargas y modo sin conexión. No reemplaza la base PostgreSQL alojada en la nube.
 
 ## Decisiones pendientes que no debe inventar Flutter
 

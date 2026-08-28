@@ -6,8 +6,10 @@ import 'package:open_filex/open_filex.dart';
 import '../../../core/network/api_error.dart';
 import '../../academic/domain/academic_models.dart';
 import '../../auth/presentation/session_controller.dart';
-import '../data/remote_study_repository.dart';
+import '../data/local_offline_content_repository.dart';
+import '../domain/offline_content_models.dart';
 import '../domain/study_models.dart';
+import 'offline_content_providers.dart';
 import 'study_providers.dart';
 
 class StudyAreaPage extends ConsumerStatefulWidget {
@@ -24,18 +26,23 @@ class _StudyAreaPageState extends ConsumerState<StudyAreaPage> {
 
   Future<void> _downloadTheme(StudyTheme theme) async {
     if (_downloadingThemeId != null) return;
+    final userId = ref.read(sessionControllerProvider).user?.id;
+    if (userId == null) return;
     setState(() => _downloadingThemeId = theme.id);
     try {
-      final pdf = await ref
-          .read(studyRepositoryProvider)
-          .downloadThemePdf(theme);
-      final result = await OpenFilex.open(pdf.path, type: 'application/pdf');
+      final download = await ref
+          .read(offlineContentRepositoryProvider)
+          .downloadTheme(userId: userId, area: widget.area, theme: theme);
+      final result = await OpenFilex.open(
+        download.localPath,
+        type: 'application/pdf',
+      );
       if (!mounted) return;
       if (result.type != ResultType.done) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'El PDF se guardó como ${pdf.fileName}, pero no encontramos una aplicación para abrirlo.',
+              'El PDF se guardó como ${download.fileName}, pero no encontramos una aplicación para abrirlo.',
             ),
           ),
         );
@@ -50,10 +57,41 @@ class _StudyAreaPageState extends ConsumerState<StudyAreaPage> {
     }
   }
 
+  Future<void> _openTheme(OfflineThemeDownload download) async {
+    final available = await ref
+        .read(offlineContentRepositoryProvider)
+        .findDownload(download.userId, download.themeId);
+    if (!mounted) return;
+    if (available == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('El archivo ya no estaba en el dispositivo.'),
+        ),
+      );
+      return;
+    }
+    final result = await OpenFilex.open(
+      available.localPath,
+      type: 'application/pdf',
+    );
+    if (mounted && result.type != ResultType.done) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('No encontramos una aplicación para abrir el PDF.'),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final catalog = ref.watch(studyCatalogProvider(widget.area));
     final progress = ref.watch(studyProgressProvider).valueOrNull;
+    final downloads =
+        ref.watch(offlineDownloadsProvider).valueOrNull ?? const [];
+    final downloadsByTheme = {
+      for (final download in downloads) download.themeId: download,
+    };
     final demo = ref.watch(sessionControllerProvider).user?.isDemo ?? false;
     return Scaffold(
       appBar: AppBar(title: Text(widget.area.label)),
@@ -82,7 +120,17 @@ class _StudyAreaPageState extends ConsumerState<StudyAreaPage> {
                     theme: theme,
                     progress: progress,
                     downloading: _downloadingThemeId == theme.id,
-                    onDownload: demo ? null : () => _downloadTheme(theme),
+                    downloaded: downloadsByTheme.containsKey(theme.id),
+                    onDownload: demo
+                        ? null
+                        : () {
+                            final download = downloadsByTheme[theme.id];
+                            if (download == null) {
+                              _downloadTheme(theme);
+                            } else {
+                              _openTheme(download);
+                            }
+                          },
                   ),
                   const SizedBox(height: 12),
                 ],
@@ -105,6 +153,7 @@ class _ThemeCard extends StatelessWidget {
     required this.theme,
     required this.progress,
     required this.downloading,
+    required this.downloaded,
     required this.onDownload,
   });
 
@@ -112,6 +161,7 @@ class _ThemeCard extends StatelessWidget {
   final StudyTheme theme;
   final StudyProgress? progress;
   final bool downloading;
+  final bool downloaded;
   final VoidCallback? onDownload;
 
   @override
@@ -127,14 +177,20 @@ class _ThemeCard extends StatelessWidget {
           ? null
           : IconButton(
               key: Key('download-theme-${theme.id}'),
-              tooltip: 'Descargar tema en PDF',
+              tooltip: downloaded
+                  ? 'Abrir PDF descargado'
+                  : 'Descargar tema en PDF',
               onPressed: downloading ? null : onDownload,
               icon: downloading
                   ? const SizedBox.square(
                       dimension: 20,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : const Icon(Icons.download_rounded),
+                  : Icon(
+                      downloaded
+                          ? Icons.download_done_rounded
+                          : Icons.download_rounded,
+                    ),
             ),
       children: [
         if (theme.subtopics.isEmpty)

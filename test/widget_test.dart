@@ -96,6 +96,13 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Contenido por área'), findsOneWidget);
 
+    await tester.tap(find.byKey(const Key('open-offline-downloads')));
+    await tester.pumpAndSettle();
+    expect(find.text('Descargas'), findsOneWidget);
+    expect(find.text('Aún no tienes temas descargados.'), findsOneWidget);
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+
     await tester.tap(find.byKey(const Key('study-area-matematicas')));
     await tester.pumpAndSettle();
     expect(find.text('Razones y proporciones'), findsOneWidget);

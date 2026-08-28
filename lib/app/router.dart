@@ -30,6 +30,7 @@ import '../features/shared/presentation/student_shell.dart';
 import '../features/study/presentation/study_area_page.dart';
 import '../features/study/presentation/study_areas_page.dart';
 import '../features/study/presentation/study_lesson_page.dart';
+import '../features/study/presentation/offline_downloads_page.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final session = ref.watch(sessionControllerProvider);
@@ -147,6 +148,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 pageBuilder: (context, state) =>
                     const NoTransitionPage(child: StudyAreasPage()),
                 routes: [
+                  GoRoute(
+                    path: 'downloads',
+                    builder: (context, state) => const OfflineDownloadsPage(),
+                  ),
                   GoRoute(
                     path: ':area',
                     builder: (context, state) => StudyAreaPage(
