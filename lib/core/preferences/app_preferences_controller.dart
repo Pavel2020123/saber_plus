@@ -116,6 +116,34 @@ class AppPreferencesController extends AsyncNotifier<AppPreferences> {
       rethrow;
     }
   }
+
+  Future<void> setAnswerStreakVibrationEnabled(bool enabled) async {
+    final current = state.valueOrNull;
+    if (current == null || current.answerStreakVibrationEnabled == enabled) {
+      return;
+    }
+    final updated = current.copyWith(answerStreakVibrationEnabled: enabled);
+    state = AsyncData(updated);
+    try {
+      await ref.read(appPreferencesStoreProvider).save(updated);
+    } on Object {
+      state = AsyncData(current);
+      rethrow;
+    }
+  }
+
+  Future<void> setAnswerStreakSoundEnabled(bool enabled) async {
+    final current = state.valueOrNull;
+    if (current == null || current.answerStreakSoundEnabled == enabled) return;
+    final updated = current.copyWith(answerStreakSoundEnabled: enabled);
+    state = AsyncData(updated);
+    try {
+      await ref.read(appPreferencesStoreProvider).save(updated);
+    } on Object {
+      state = AsyncData(current);
+      rethrow;
+    }
+  }
 }
 
 final appPreferencesControllerProvider =

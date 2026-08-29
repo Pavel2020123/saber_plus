@@ -102,6 +102,49 @@ class PreferencesPage extends ConsumerWidget {
               'La hora se guarda en este dispositivo y puedes desactivarla cuando quieras.',
               style: Theme.of(context).textTheme.bodySmall,
             ),
+            const SizedBox(height: 32),
+            Text(
+              'Feedback de aciertos',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 8),
+            Card(
+              child: Column(
+                children: [
+                  SwitchListTile(
+                    key: const Key('answer-streak-sound-switch'),
+                    secondary: const Icon(Icons.volume_up_outlined),
+                    title: const Text('Sonido en rachas'),
+                    subtitle: const Text(
+                      'Reproduce un sonido breve al confirmar el logro.',
+                    ),
+                    value: value.answerStreakSoundEnabled,
+                    onChanged: (enabled) => _run(
+                      context,
+                      () => ref
+                          .read(appPreferencesControllerProvider.notifier)
+                          .setAnswerStreakSoundEnabled(enabled),
+                    ),
+                  ),
+                  const Divider(height: 1),
+                  SwitchListTile(
+                    key: const Key('answer-streak-vibration-switch'),
+                    secondary: const Icon(Icons.vibration_rounded),
+                    title: const Text('Vibración en rachas'),
+                    subtitle: const Text(
+                      'Una vibración corta al conseguir 3 o más respuestas correctas seguidas.',
+                    ),
+                    value: value.answerStreakVibrationEnabled,
+                    onChanged: (enabled) => _run(
+                      context,
+                      () => ref
+                          .read(appPreferencesControllerProvider.notifier)
+                          .setAnswerStreakVibrationEnabled(enabled),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

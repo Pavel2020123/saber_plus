@@ -20,6 +20,8 @@ class AppPreferences {
     this.reminderHour = 18,
     this.reminderMinute = 0,
     this.examCountdownMinimized = true,
+    this.answerStreakVibrationEnabled = true,
+    this.answerStreakSoundEnabled = true,
   });
 
   final ThemePreference theme;
@@ -27,6 +29,8 @@ class AppPreferences {
   final int reminderHour;
   final int reminderMinute;
   final bool examCountdownMinimized;
+  final bool answerStreakVibrationEnabled;
+  final bool answerStreakSoundEnabled;
 
   AppPreferences copyWith({
     ThemePreference? theme,
@@ -34,6 +38,8 @@ class AppPreferences {
     int? reminderHour,
     int? reminderMinute,
     bool? examCountdownMinimized,
+    bool? answerStreakVibrationEnabled,
+    bool? answerStreakSoundEnabled,
   }) => AppPreferences(
     theme: theme ?? this.theme,
     reminderEnabled: reminderEnabled ?? this.reminderEnabled,
@@ -41,5 +47,9 @@ class AppPreferences {
     reminderMinute: reminderMinute ?? this.reminderMinute,
     examCountdownMinimized:
         examCountdownMinimized ?? this.examCountdownMinimized,
+    answerStreakVibrationEnabled:
+        answerStreakVibrationEnabled ?? this.answerStreakVibrationEnabled,
+    answerStreakSoundEnabled:
+        answerStreakSoundEnabled ?? this.answerStreakSoundEnabled,
   );
 }

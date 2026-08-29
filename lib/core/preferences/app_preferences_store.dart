@@ -19,6 +19,10 @@ class SharedPreferencesAppPreferencesStore implements AppPreferencesStore {
   static const _reminderMinuteKey = 'saberplus.reminder.minute';
   static const _examCountdownMinimizedKey =
       'saberplus.exam-countdown.minimized';
+  static const _answerStreakVibrationEnabledKey =
+      'saberplus.answer-streak.vibration-enabled';
+  static const _answerStreakSoundEnabledKey =
+      'saberplus.answer-streak.sound-enabled';
 
   final SharedPreferencesAsync _preferences;
 
@@ -30,6 +34,8 @@ class SharedPreferencesAppPreferencesStore implements AppPreferencesStore {
       _preferences.getInt(_reminderHourKey),
       _preferences.getInt(_reminderMinuteKey),
       _preferences.getBool(_examCountdownMinimizedKey),
+      _preferences.getBool(_answerStreakVibrationEnabledKey),
+      _preferences.getBool(_answerStreakSoundEnabledKey),
     ]);
     final hour = values[2] as int?;
     final minute = values[3] as int?;
@@ -42,6 +48,8 @@ class SharedPreferencesAppPreferencesStore implements AppPreferencesStore {
           ? minute
           : 0,
       examCountdownMinimized: values[4] as bool? ?? true,
+      answerStreakVibrationEnabled: values[5] as bool? ?? true,
+      answerStreakSoundEnabled: values[6] as bool? ?? true,
     );
   }
 
@@ -55,6 +63,14 @@ class SharedPreferencesAppPreferencesStore implements AppPreferencesStore {
       _preferences.setBool(
         _examCountdownMinimizedKey,
         preferences.examCountdownMinimized,
+      ),
+      _preferences.setBool(
+        _answerStreakVibrationEnabledKey,
+        preferences.answerStreakVibrationEnabled,
+      ),
+      _preferences.setBool(
+        _answerStreakSoundEnabledKey,
+        preferences.answerStreakSoundEnabled,
       ),
     ]);
   }

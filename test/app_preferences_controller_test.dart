@@ -47,6 +47,48 @@ void main() {
     expect(store.value.examCountdownMinimized, isFalse);
   });
 
+  test('guarda la preferencia de vibración para rachas', () async {
+    final store = _MemoryPreferencesStore();
+    final reminders = _FakeReminderService();
+    final container = _container(store, reminders);
+    addTearDown(container.dispose);
+
+    await container.read(appPreferencesControllerProvider.future);
+    await container
+        .read(appPreferencesControllerProvider.notifier)
+        .setAnswerStreakVibrationEnabled(false);
+
+    expect(
+      container
+          .read(appPreferencesControllerProvider)
+          .valueOrNull
+          ?.answerStreakVibrationEnabled,
+      isFalse,
+    );
+    expect(store.value.answerStreakVibrationEnabled, isFalse);
+  });
+
+  test('guarda la preferencia de sonido para rachas', () async {
+    final store = _MemoryPreferencesStore();
+    final reminders = _FakeReminderService();
+    final container = _container(store, reminders);
+    addTearDown(container.dispose);
+
+    await container.read(appPreferencesControllerProvider.future);
+    await container
+        .read(appPreferencesControllerProvider.notifier)
+        .setAnswerStreakSoundEnabled(false);
+
+    expect(
+      container
+          .read(appPreferencesControllerProvider)
+          .valueOrNull
+          ?.answerStreakSoundEnabled,
+      isFalse,
+    );
+    expect(store.value.answerStreakSoundEnabled, isFalse);
+  });
+
   test('no activa el recordatorio si el permiso es rechazado', () async {
     final store = _MemoryPreferencesStore();
     final reminders = _FakeReminderService(permissionGranted: false);

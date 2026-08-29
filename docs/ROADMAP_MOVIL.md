@@ -80,6 +80,7 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Pomodoro opcional de 25 minutos compartido entre estudio y práctica.
 - [x] Flashcards de fórmulas y glosario con sesiones filtrables y progreso local por estudiante.
 - [x] Contador de días para el examen visible en toda la experiencia del estudiante y minimizable.
+- [x] Feedback visual, sonido y vibración corta al lograr tres o más aciertos consecutivos, configurables por el estudiante.
 - Ranking con privacidad por defecto.
 - Batallas asíncronas, bloqueo y reporte.
 - Anuncios, referidos, soporte y calculadora de puntaje.

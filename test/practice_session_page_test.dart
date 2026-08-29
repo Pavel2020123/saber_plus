@@ -9,6 +9,7 @@ import 'package:saber_plus/features/practice/data/practice_draft_store.dart';
 import 'package:saber_plus/features/practice/domain/practice_history_models.dart';
 import 'package:saber_plus/features/practice/domain/practice_models.dart';
 import 'package:saber_plus/features/practice/domain/practice_repository.dart';
+import 'package:saber_plus/features/practice/presentation/answer_streak_feedback.dart';
 import 'package:saber_plus/features/practice/presentation/practice_providers.dart';
 import 'package:saber_plus/features/practice/presentation/practice_session_page.dart';
 import 'package:saber_plus/features/progress/domain/progress_models.dart';
@@ -56,6 +57,50 @@ const _adaptiveSession = PracticeSession(
       subtopicName: 'Regla de tres',
       themeName: 'Proporciones',
       area: AcademicArea.mathematics,
+    ),
+  ],
+);
+
+const _streakSession = PracticeSession(
+  attemptId: 'streak-attempt-1',
+  area: AcademicArea.mathematics,
+  subtopicId: 'subtopic-1',
+  questions: [
+    PracticeQuestion(
+      id: 'streak-question-1',
+      statement: 'Pregunta de racha 1',
+      difficulty: 'BÁSICO',
+      subtopicName: 'Regla de tres',
+      themeName: 'Proporciones',
+      area: AcademicArea.mathematics,
+      options: [
+        PracticeOption(id: 'answer-a', text: 'A'),
+        PracticeOption(id: 'answer-b', text: 'B'),
+      ],
+    ),
+    PracticeQuestion(
+      id: 'streak-question-2',
+      statement: 'Pregunta de racha 2',
+      difficulty: 'BÁSICO',
+      subtopicName: 'Regla de tres',
+      themeName: 'Proporciones',
+      area: AcademicArea.mathematics,
+      options: [
+        PracticeOption(id: 'answer-a', text: 'A'),
+        PracticeOption(id: 'answer-b', text: 'B'),
+      ],
+    ),
+    PracticeQuestion(
+      id: 'streak-question-3',
+      statement: 'Pregunta de racha 3',
+      difficulty: 'BÁSICO',
+      subtopicName: 'Regla de tres',
+      themeName: 'Proporciones',
+      area: AcademicArea.mathematics,
+      options: [
+        PracticeOption(id: 'answer-a', text: 'A'),
+        PracticeOption(id: 'answer-b', text: 'B'),
+      ],
     ),
   ],
 );
@@ -142,6 +187,54 @@ void main() {
       find.byKey(const Key('submit-practice-button')),
     );
     expect(submit.onPressed, isNotNull);
+  });
+
+  testWidgets('confirma una racha y reproduce el feedback una sola vez', (
+    tester,
+  ) async {
+    final feedback = _FakeAnswerStreakFeedback();
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          practiceRepositoryProvider.overrideWithValue(
+            _StreakPracticeRepository(),
+          ),
+          studyRepositoryProvider.overrideWithValue(_FakeStudyRepository()),
+          answerStreakFeedbackProvider.overrideWithValue(feedback),
+        ],
+        child: const MaterialApp(
+          home: PracticeSessionPage(
+            area: AcademicArea.mathematics,
+            subtopicId: 'subtopic-1',
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    for (var index = 0; index < 3; index++) {
+      await tester.tap(find.byKey(const Key('practice-answer-answer-a')));
+      await tester.pump();
+      if (index < 2) {
+        await tester.tap(
+          find.byKey(const Key('next-practice-question-button')),
+        );
+        await tester.pump();
+      }
+    }
+    expect(feedback.calls, 0);
+
+    await tester.tap(find.byKey(const Key('submit-practice-button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('confirm-submit-practice-button')));
+    await tester.pumpAndSettle();
+
+    expect(feedback.calls, 1);
+    expect(
+      find.byKey(const Key('correct-answer-streak-feedback')),
+      findsOneWidget,
+    );
+    expect(find.text('¡Racha de 3 aciertos!'), findsOneWidget);
   });
 
   testWidgets('completa y califica una sesión de repaso adaptativo', (
@@ -272,6 +365,56 @@ class _FakeStudyRepository implements StudyRepository {
     String subtopicId,
     int percentage,
   ) async {}
+}
+
+class _StreakPracticeRepository extends _FakePracticeRepository {
+  @override
+  Future<PracticeSession> startSubtopicPractice({
+    required AcademicArea area,
+    required String subtopicId,
+  }) async => _streakSession;
+
+  @override
+  Future<PracticeResult> gradePractice({
+    required String attemptId,
+    required AcademicArea area,
+    required List<PracticeAnswer> answers,
+  }) async {
+    expect(answers, hasLength(3));
+    expect(answers.every((answer) => answer.answerId == 'answer-a'), isTrue);
+    return PracticeResult(
+      summary: const PracticeResultSummary(
+        totalQuestions: 3,
+        correctAnswers: 3,
+        incorrectAnswers: 0,
+        percentage: 100,
+        earnedXp: 30,
+      ),
+      review: List.generate(
+        3,
+        (index) => PracticeReviewQuestion(
+          id: 'streak-question-${index + 1}',
+          statement: 'Pregunta de racha ${index + 1}',
+          isCorrect: true,
+          selectedAnswerId: 'answer-a',
+          correctAnswerId: 'answer-a',
+          options: const [
+            PracticeReviewOption(id: 'answer-a', text: 'A', isCorrect: true),
+            PracticeReviewOption(id: 'answer-b', text: 'B', isCorrect: false),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _FakeAnswerStreakFeedback implements AnswerStreakFeedback {
+  var calls = 0;
+
+  @override
+  Future<void> play() async {
+    calls++;
+  }
 }
 
 class _FakeProgressRepository implements ProgressRepository {

@@ -14,7 +14,9 @@ import '../../focus/presentation/pomodoro_card.dart';
 import '../../progress/presentation/progress_providers.dart';
 import '../../study/presentation/study_providers.dart';
 import '../data/practice_draft_store.dart';
+import '../domain/correct_answer_streak.dart';
 import '../domain/practice_models.dart';
+import 'answer_streak_feedback.dart';
 import 'practice_providers.dart';
 
 class PracticeSessionPage extends ConsumerStatefulWidget {
@@ -401,6 +403,10 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
         _result = result;
         _submitting = false;
       });
+      final answerStreak = CorrectAnswerStreak.fromReview(result.review);
+      if (answerStreak.earnsFeedback) {
+        unawaited(ref.read(answerStreakFeedbackProvider).play());
+      }
       unawaited(
         ref
             .read(sessionControllerProvider.notifier)
@@ -786,6 +792,7 @@ class _PracticeResultView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final summary = result.summary;
+    final answerStreak = CorrectAnswerStreak.fromReview(result.review);
     return ListView(
       key: const Key('practice-result-view'),
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 36),
@@ -810,6 +817,19 @@ class _PracticeResultView extends StatelessWidget {
             ),
           ),
         ),
+        if (answerStreak.earnsFeedback) ...[
+          const SizedBox(height: 12),
+          Card(
+            key: const Key('correct-answer-streak-feedback'),
+            child: ListTile(
+              leading: const Icon(Icons.bolt_rounded),
+              title: Text('¡Racha de ${answerStreak.longestRun} aciertos!'),
+              subtitle: const Text(
+                'Mantuviste tres o más respuestas correctas consecutivas.',
+              ),
+            ),
+          ),
+        ],
         const SizedBox(height: 20),
         Text('Revisión', style: Theme.of(context).textTheme.headlineSmall),
         const SizedBox(height: 10),

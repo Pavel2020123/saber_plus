@@ -15,4 +15,4 @@ Los simulacros no muestran el Pomodoro porque su tiempo pertenece a la evaluaci�
 
 El temporizador no se restaura después de cerrar completamente la aplicación y todavía no suma minutos al tiempo total estudiado; esa acumulación corresponde al punto 101.
 
-No se reproduce sonido ni vibración al finalizar. Antes de implementar el punto 82 se definirán con el equipo los eventos, archivos, duración, formato y licencia de los recursos sonoros.
+El Pomodoro no reproduce sonido ni vibración al finalizar. La Etapa 6C-G limita el feedback háptico a las rachas de respuestas correctas; ampliar ese comportamiento al temporizador requiere una decisión independiente.

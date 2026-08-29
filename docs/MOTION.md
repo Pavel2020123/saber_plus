@@ -25,4 +25,4 @@ El sistema está centralizado en `lib/app/page_transitions.dart`; las nuevas rut
 
 ## Sonido y vibración
 
-Esta etapa no incorpora audio ni respuesta háptica. Esos recursos se definirán antes de la etapa de feedback de respuestas y rachas, incluyendo evento, duración, formato y licencia de cada archivo.
+La Etapa 6C-G incorpora un sonido de éxito y una vibración corta al confirmar una racha de tres o más aciertos. Ambos pueden configurarse por separado; el detalle está en `ANSWER_STREAK_FEEDBACK.md`.

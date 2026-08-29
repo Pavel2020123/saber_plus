@@ -30,6 +30,7 @@ La reanudación local de la última lección está documentada en [docs/CONTINUE
 El temporizador Pomodoro compartido está documentado en [docs/POMODORO.md](docs/POMODORO.md).
 Las flashcards académicas y su progreso local están documentados en [docs/FLASHCARDS.md](docs/FLASHCARDS.md).
 El contador global de días para el examen está documentado en [docs/EXAM_COUNTDOWN.md](docs/EXAM_COUNTDOWN.md).
+El feedback visual y háptico de rachas de aciertos está documentado en [docs/ANSWER_STREAK_FEEDBACK.md](docs/ANSWER_STREAK_FEEDBACK.md).
 
 ## Configuración por ambiente
 
