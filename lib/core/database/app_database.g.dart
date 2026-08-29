@@ -1638,6 +1638,525 @@ class FavoriteEntriesCompanion extends UpdateCompanion<FavoriteEntry> {
   }
 }
 
+class $LearningResumeEntriesTable extends LearningResumeEntries
+    with TableInfo<$LearningResumeEntriesTable, LearningResumeEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $LearningResumeEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+    'user_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _kindMeta = const VerificationMeta('kind');
+  @override
+  late final GeneratedColumn<String> kind = GeneratedColumn<String>(
+    'kind',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _areaMeta = const VerificationMeta('area');
+  @override
+  late final GeneratedColumn<String> area = GeneratedColumn<String>(
+    'area',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _parentIdMeta = const VerificationMeta(
+    'parentId',
+  );
+  @override
+  late final GeneratedColumn<String> parentId = GeneratedColumn<String>(
+    'parent_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _itemIdMeta = const VerificationMeta('itemId');
+  @override
+  late final GeneratedColumn<String> itemId = GeneratedColumn<String>(
+    'item_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+    'title',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _parentTitleMeta = const VerificationMeta(
+    'parentTitle',
+  );
+  @override
+  late final GeneratedColumn<String> parentTitle = GeneratedColumn<String>(
+    'parent_title',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _lastOpenedAtMeta = const VerificationMeta(
+    'lastOpenedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> lastOpenedAt = GeneratedColumn<DateTime>(
+    'last_opened_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    userId,
+    kind,
+    area,
+    parentId,
+    itemId,
+    title,
+    parentTitle,
+    lastOpenedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'learning_resume_entries';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<LearningResumeEntry> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('user_id')) {
+      context.handle(
+        _userIdMeta,
+        userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('kind')) {
+      context.handle(
+        _kindMeta,
+        kind.isAcceptableOrUnknown(data['kind']!, _kindMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_kindMeta);
+    }
+    if (data.containsKey('area')) {
+      context.handle(
+        _areaMeta,
+        area.isAcceptableOrUnknown(data['area']!, _areaMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_areaMeta);
+    }
+    if (data.containsKey('parent_id')) {
+      context.handle(
+        _parentIdMeta,
+        parentId.isAcceptableOrUnknown(data['parent_id']!, _parentIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_parentIdMeta);
+    }
+    if (data.containsKey('item_id')) {
+      context.handle(
+        _itemIdMeta,
+        itemId.isAcceptableOrUnknown(data['item_id']!, _itemIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_itemIdMeta);
+    }
+    if (data.containsKey('title')) {
+      context.handle(
+        _titleMeta,
+        title.isAcceptableOrUnknown(data['title']!, _titleMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_titleMeta);
+    }
+    if (data.containsKey('parent_title')) {
+      context.handle(
+        _parentTitleMeta,
+        parentTitle.isAcceptableOrUnknown(
+          data['parent_title']!,
+          _parentTitleMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_parentTitleMeta);
+    }
+    if (data.containsKey('last_opened_at')) {
+      context.handle(
+        _lastOpenedAtMeta,
+        lastOpenedAt.isAcceptableOrUnknown(
+          data['last_opened_at']!,
+          _lastOpenedAtMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_lastOpenedAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {userId};
+  @override
+  LearningResumeEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return LearningResumeEntry(
+      userId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}user_id'],
+      )!,
+      kind: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}kind'],
+      )!,
+      area: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}area'],
+      )!,
+      parentId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}parent_id'],
+      )!,
+      itemId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}item_id'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      )!,
+      parentTitle: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}parent_title'],
+      )!,
+      lastOpenedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}last_opened_at'],
+      )!,
+    );
+  }
+
+  @override
+  $LearningResumeEntriesTable createAlias(String alias) {
+    return $LearningResumeEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class LearningResumeEntry extends DataClass
+    implements Insertable<LearningResumeEntry> {
+  final String userId;
+  final String kind;
+  final String area;
+  final String parentId;
+  final String itemId;
+  final String title;
+  final String parentTitle;
+  final DateTime lastOpenedAt;
+  const LearningResumeEntry({
+    required this.userId,
+    required this.kind,
+    required this.area,
+    required this.parentId,
+    required this.itemId,
+    required this.title,
+    required this.parentTitle,
+    required this.lastOpenedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['user_id'] = Variable<String>(userId);
+    map['kind'] = Variable<String>(kind);
+    map['area'] = Variable<String>(area);
+    map['parent_id'] = Variable<String>(parentId);
+    map['item_id'] = Variable<String>(itemId);
+    map['title'] = Variable<String>(title);
+    map['parent_title'] = Variable<String>(parentTitle);
+    map['last_opened_at'] = Variable<DateTime>(lastOpenedAt);
+    return map;
+  }
+
+  LearningResumeEntriesCompanion toCompanion(bool nullToAbsent) {
+    return LearningResumeEntriesCompanion(
+      userId: Value(userId),
+      kind: Value(kind),
+      area: Value(area),
+      parentId: Value(parentId),
+      itemId: Value(itemId),
+      title: Value(title),
+      parentTitle: Value(parentTitle),
+      lastOpenedAt: Value(lastOpenedAt),
+    );
+  }
+
+  factory LearningResumeEntry.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return LearningResumeEntry(
+      userId: serializer.fromJson<String>(json['userId']),
+      kind: serializer.fromJson<String>(json['kind']),
+      area: serializer.fromJson<String>(json['area']),
+      parentId: serializer.fromJson<String>(json['parentId']),
+      itemId: serializer.fromJson<String>(json['itemId']),
+      title: serializer.fromJson<String>(json['title']),
+      parentTitle: serializer.fromJson<String>(json['parentTitle']),
+      lastOpenedAt: serializer.fromJson<DateTime>(json['lastOpenedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'userId': serializer.toJson<String>(userId),
+      'kind': serializer.toJson<String>(kind),
+      'area': serializer.toJson<String>(area),
+      'parentId': serializer.toJson<String>(parentId),
+      'itemId': serializer.toJson<String>(itemId),
+      'title': serializer.toJson<String>(title),
+      'parentTitle': serializer.toJson<String>(parentTitle),
+      'lastOpenedAt': serializer.toJson<DateTime>(lastOpenedAt),
+    };
+  }
+
+  LearningResumeEntry copyWith({
+    String? userId,
+    String? kind,
+    String? area,
+    String? parentId,
+    String? itemId,
+    String? title,
+    String? parentTitle,
+    DateTime? lastOpenedAt,
+  }) => LearningResumeEntry(
+    userId: userId ?? this.userId,
+    kind: kind ?? this.kind,
+    area: area ?? this.area,
+    parentId: parentId ?? this.parentId,
+    itemId: itemId ?? this.itemId,
+    title: title ?? this.title,
+    parentTitle: parentTitle ?? this.parentTitle,
+    lastOpenedAt: lastOpenedAt ?? this.lastOpenedAt,
+  );
+  LearningResumeEntry copyWithCompanion(LearningResumeEntriesCompanion data) {
+    return LearningResumeEntry(
+      userId: data.userId.present ? data.userId.value : this.userId,
+      kind: data.kind.present ? data.kind.value : this.kind,
+      area: data.area.present ? data.area.value : this.area,
+      parentId: data.parentId.present ? data.parentId.value : this.parentId,
+      itemId: data.itemId.present ? data.itemId.value : this.itemId,
+      title: data.title.present ? data.title.value : this.title,
+      parentTitle: data.parentTitle.present
+          ? data.parentTitle.value
+          : this.parentTitle,
+      lastOpenedAt: data.lastOpenedAt.present
+          ? data.lastOpenedAt.value
+          : this.lastOpenedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('LearningResumeEntry(')
+          ..write('userId: $userId, ')
+          ..write('kind: $kind, ')
+          ..write('area: $area, ')
+          ..write('parentId: $parentId, ')
+          ..write('itemId: $itemId, ')
+          ..write('title: $title, ')
+          ..write('parentTitle: $parentTitle, ')
+          ..write('lastOpenedAt: $lastOpenedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    userId,
+    kind,
+    area,
+    parentId,
+    itemId,
+    title,
+    parentTitle,
+    lastOpenedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is LearningResumeEntry &&
+          other.userId == this.userId &&
+          other.kind == this.kind &&
+          other.area == this.area &&
+          other.parentId == this.parentId &&
+          other.itemId == this.itemId &&
+          other.title == this.title &&
+          other.parentTitle == this.parentTitle &&
+          other.lastOpenedAt == this.lastOpenedAt);
+}
+
+class LearningResumeEntriesCompanion
+    extends UpdateCompanion<LearningResumeEntry> {
+  final Value<String> userId;
+  final Value<String> kind;
+  final Value<String> area;
+  final Value<String> parentId;
+  final Value<String> itemId;
+  final Value<String> title;
+  final Value<String> parentTitle;
+  final Value<DateTime> lastOpenedAt;
+  final Value<int> rowid;
+  const LearningResumeEntriesCompanion({
+    this.userId = const Value.absent(),
+    this.kind = const Value.absent(),
+    this.area = const Value.absent(),
+    this.parentId = const Value.absent(),
+    this.itemId = const Value.absent(),
+    this.title = const Value.absent(),
+    this.parentTitle = const Value.absent(),
+    this.lastOpenedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  LearningResumeEntriesCompanion.insert({
+    required String userId,
+    required String kind,
+    required String area,
+    required String parentId,
+    required String itemId,
+    required String title,
+    required String parentTitle,
+    required DateTime lastOpenedAt,
+    this.rowid = const Value.absent(),
+  }) : userId = Value(userId),
+       kind = Value(kind),
+       area = Value(area),
+       parentId = Value(parentId),
+       itemId = Value(itemId),
+       title = Value(title),
+       parentTitle = Value(parentTitle),
+       lastOpenedAt = Value(lastOpenedAt);
+  static Insertable<LearningResumeEntry> custom({
+    Expression<String>? userId,
+    Expression<String>? kind,
+    Expression<String>? area,
+    Expression<String>? parentId,
+    Expression<String>? itemId,
+    Expression<String>? title,
+    Expression<String>? parentTitle,
+    Expression<DateTime>? lastOpenedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (userId != null) 'user_id': userId,
+      if (kind != null) 'kind': kind,
+      if (area != null) 'area': area,
+      if (parentId != null) 'parent_id': parentId,
+      if (itemId != null) 'item_id': itemId,
+      if (title != null) 'title': title,
+      if (parentTitle != null) 'parent_title': parentTitle,
+      if (lastOpenedAt != null) 'last_opened_at': lastOpenedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  LearningResumeEntriesCompanion copyWith({
+    Value<String>? userId,
+    Value<String>? kind,
+    Value<String>? area,
+    Value<String>? parentId,
+    Value<String>? itemId,
+    Value<String>? title,
+    Value<String>? parentTitle,
+    Value<DateTime>? lastOpenedAt,
+    Value<int>? rowid,
+  }) {
+    return LearningResumeEntriesCompanion(
+      userId: userId ?? this.userId,
+      kind: kind ?? this.kind,
+      area: area ?? this.area,
+      parentId: parentId ?? this.parentId,
+      itemId: itemId ?? this.itemId,
+      title: title ?? this.title,
+      parentTitle: parentTitle ?? this.parentTitle,
+      lastOpenedAt: lastOpenedAt ?? this.lastOpenedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (kind.present) {
+      map['kind'] = Variable<String>(kind.value);
+    }
+    if (area.present) {
+      map['area'] = Variable<String>(area.value);
+    }
+    if (parentId.present) {
+      map['parent_id'] = Variable<String>(parentId.value);
+    }
+    if (itemId.present) {
+      map['item_id'] = Variable<String>(itemId.value);
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (parentTitle.present) {
+      map['parent_title'] = Variable<String>(parentTitle.value);
+    }
+    if (lastOpenedAt.present) {
+      map['last_opened_at'] = Variable<DateTime>(lastOpenedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('LearningResumeEntriesCompanion(')
+          ..write('userId: $userId, ')
+          ..write('kind: $kind, ')
+          ..write('area: $area, ')
+          ..write('parentId: $parentId, ')
+          ..write('itemId: $itemId, ')
+          ..write('title: $title, ')
+          ..write('parentTitle: $parentTitle, ')
+          ..write('lastOpenedAt: $lastOpenedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -1649,6 +2168,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $FavoriteEntriesTable favoriteEntries = $FavoriteEntriesTable(
     this,
   );
+  late final $LearningResumeEntriesTable learningResumeEntries =
+      $LearningResumeEntriesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -1657,6 +2178,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     offlineDownloads,
     pendingOperations,
     favoriteEntries,
+    learningResumeEntries,
   ];
 }
 
@@ -2496,6 +3018,286 @@ typedef $$FavoriteEntriesTableProcessedTableManager =
       FavoriteEntry,
       PrefetchHooks Function()
     >;
+typedef $$LearningResumeEntriesTableCreateCompanionBuilder =
+    LearningResumeEntriesCompanion Function({
+      required String userId,
+      required String kind,
+      required String area,
+      required String parentId,
+      required String itemId,
+      required String title,
+      required String parentTitle,
+      required DateTime lastOpenedAt,
+      Value<int> rowid,
+    });
+typedef $$LearningResumeEntriesTableUpdateCompanionBuilder =
+    LearningResumeEntriesCompanion Function({
+      Value<String> userId,
+      Value<String> kind,
+      Value<String> area,
+      Value<String> parentId,
+      Value<String> itemId,
+      Value<String> title,
+      Value<String> parentTitle,
+      Value<DateTime> lastOpenedAt,
+      Value<int> rowid,
+    });
+
+class $$LearningResumeEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $LearningResumeEntriesTable> {
+  $$LearningResumeEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get userId => $composableBuilder(
+    column: $table.userId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get kind => $composableBuilder(
+    column: $table.kind,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get area => $composableBuilder(
+    column: $table.area,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get parentId => $composableBuilder(
+    column: $table.parentId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get itemId => $composableBuilder(
+    column: $table.itemId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get parentTitle => $composableBuilder(
+    column: $table.parentTitle,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get lastOpenedAt => $composableBuilder(
+    column: $table.lastOpenedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$LearningResumeEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $LearningResumeEntriesTable> {
+  $$LearningResumeEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get userId => $composableBuilder(
+    column: $table.userId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get kind => $composableBuilder(
+    column: $table.kind,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get area => $composableBuilder(
+    column: $table.area,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get parentId => $composableBuilder(
+    column: $table.parentId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get itemId => $composableBuilder(
+    column: $table.itemId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get parentTitle => $composableBuilder(
+    column: $table.parentTitle,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get lastOpenedAt => $composableBuilder(
+    column: $table.lastOpenedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$LearningResumeEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $LearningResumeEntriesTable> {
+  $$LearningResumeEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<String> get kind =>
+      $composableBuilder(column: $table.kind, builder: (column) => column);
+
+  GeneratedColumn<String> get area =>
+      $composableBuilder(column: $table.area, builder: (column) => column);
+
+  GeneratedColumn<String> get parentId =>
+      $composableBuilder(column: $table.parentId, builder: (column) => column);
+
+  GeneratedColumn<String> get itemId =>
+      $composableBuilder(column: $table.itemId, builder: (column) => column);
+
+  GeneratedColumn<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => column);
+
+  GeneratedColumn<String> get parentTitle => $composableBuilder(
+    column: $table.parentTitle,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get lastOpenedAt => $composableBuilder(
+    column: $table.lastOpenedAt,
+    builder: (column) => column,
+  );
+}
+
+class $$LearningResumeEntriesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $LearningResumeEntriesTable,
+          LearningResumeEntry,
+          $$LearningResumeEntriesTableFilterComposer,
+          $$LearningResumeEntriesTableOrderingComposer,
+          $$LearningResumeEntriesTableAnnotationComposer,
+          $$LearningResumeEntriesTableCreateCompanionBuilder,
+          $$LearningResumeEntriesTableUpdateCompanionBuilder,
+          (
+            LearningResumeEntry,
+            BaseReferences<
+              _$AppDatabase,
+              $LearningResumeEntriesTable,
+              LearningResumeEntry
+            >,
+          ),
+          LearningResumeEntry,
+          PrefetchHooks Function()
+        > {
+  $$LearningResumeEntriesTableTableManager(
+    _$AppDatabase db,
+    $LearningResumeEntriesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$LearningResumeEntriesTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer: () =>
+              $$LearningResumeEntriesTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$LearningResumeEntriesTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> userId = const Value.absent(),
+                Value<String> kind = const Value.absent(),
+                Value<String> area = const Value.absent(),
+                Value<String> parentId = const Value.absent(),
+                Value<String> itemId = const Value.absent(),
+                Value<String> title = const Value.absent(),
+                Value<String> parentTitle = const Value.absent(),
+                Value<DateTime> lastOpenedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => LearningResumeEntriesCompanion(
+                userId: userId,
+                kind: kind,
+                area: area,
+                parentId: parentId,
+                itemId: itemId,
+                title: title,
+                parentTitle: parentTitle,
+                lastOpenedAt: lastOpenedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String userId,
+                required String kind,
+                required String area,
+                required String parentId,
+                required String itemId,
+                required String title,
+                required String parentTitle,
+                required DateTime lastOpenedAt,
+                Value<int> rowid = const Value.absent(),
+              }) => LearningResumeEntriesCompanion.insert(
+                userId: userId,
+                kind: kind,
+                area: area,
+                parentId: parentId,
+                itemId: itemId,
+                title: title,
+                parentTitle: parentTitle,
+                lastOpenedAt: lastOpenedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$LearningResumeEntriesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $LearningResumeEntriesTable,
+      LearningResumeEntry,
+      $$LearningResumeEntriesTableFilterComposer,
+      $$LearningResumeEntriesTableOrderingComposer,
+      $$LearningResumeEntriesTableAnnotationComposer,
+      $$LearningResumeEntriesTableCreateCompanionBuilder,
+      $$LearningResumeEntriesTableUpdateCompanionBuilder,
+      (
+        LearningResumeEntry,
+        BaseReferences<
+          _$AppDatabase,
+          $LearningResumeEntriesTable,
+          LearningResumeEntry
+        >,
+      ),
+      LearningResumeEntry,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -2506,4 +3308,6 @@ class $AppDatabaseManager {
       $$PendingOperationsTableTableManager(_db, _db.pendingOperations);
   $$FavoriteEntriesTableTableManager get favoriteEntries =>
       $$FavoriteEntriesTableTableManager(_db, _db.favoriteEntries);
+  $$LearningResumeEntriesTableTableManager get learningResumeEntries =>
+      $$LearningResumeEntriesTableTableManager(_db, _db.learningResumeEntries);
 }

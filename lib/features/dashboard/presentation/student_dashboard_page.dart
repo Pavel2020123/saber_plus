@@ -6,6 +6,8 @@ import '../../../core/network/api_error.dart';
 import '../../academic/domain/academic_models.dart';
 import '../../academic/presentation/academic_home_controller.dart';
 import '../../auth/presentation/session_controller.dart';
+import '../../resume/domain/learning_resume_models.dart';
+import '../../resume/presentation/learning_resume_providers.dart';
 
 class StudentDashboardPage extends ConsumerWidget {
   const StudentDashboardPage({super.key});
@@ -14,6 +16,7 @@ class StudentDashboardPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(sessionControllerProvider).user;
     final academic = ref.watch(academicHomeControllerProvider);
+    final resume = ref.watch(learningResumeProvider).valueOrNull;
 
     return Scaffold(
       body: SafeArea(
@@ -33,6 +36,7 @@ class StudentDashboardPage extends ConsumerWidget {
                       data: (data) => _AcademicDashboard(
                         data: data,
                         xpTotal: user?.xpTotal ?? 0,
+                        resume: resume,
                       ),
                       loading: () => const _LoadingDashboard(),
                       error: (error, _) => _ErrorDashboard(
@@ -92,10 +96,15 @@ class _Header extends StatelessWidget {
 }
 
 class _AcademicDashboard extends StatelessWidget {
-  const _AcademicDashboard({required this.data, required this.xpTotal});
+  const _AcademicDashboard({
+    required this.data,
+    required this.xpTotal,
+    required this.resume,
+  });
 
   final AcademicHomeData data;
   final int xpTotal;
+  final LearningResume? resume;
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +113,10 @@ class _AcademicDashboard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _PrimaryActionCard(data: data),
+        if (resume case final entry?) ...[
+          const SizedBox(height: 12),
+          _ContinueCard(entry: entry),
+        ],
         const SizedBox(height: 18),
         Row(
           children: [
@@ -143,6 +156,61 @@ class _AcademicDashboard extends StatelessWidget {
           _DiagnosticResultCard(diagnostic: data.diagnostic),
         ],
       ],
+    );
+  }
+}
+
+class _ContinueCard extends StatelessWidget {
+  const _ContinueCard({required this.entry});
+
+  final LearningResume entry;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    return Card(
+      color: colors.secondaryContainer.withValues(alpha: 0.55),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        key: const Key('continue-last-lesson'),
+        onTap: () => context.go(entry.route),
+        child: Padding(
+          padding: const EdgeInsets.all(18),
+          child: Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: colors.secondaryContainer,
+                foregroundColor: colors.onSecondaryContainer,
+                child: const Icon(Icons.play_arrow_rounded),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'CONTINÚA DONDE QUEDASTE',
+                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                        color: colors.secondary,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      entry.title,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 2),
+                    Text('${entry.area.label} · ${entry.parentTitle}'),
+                  ],
+                ),
+              ),
+              const Icon(Icons.chevron_right_rounded),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

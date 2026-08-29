@@ -14,6 +14,9 @@ import 'package:saber_plus/features/practice/data/practice_draft_store.dart';
 import 'package:saber_plus/features/favorites/data/drift_favorite_repository.dart';
 import 'package:saber_plus/features/favorites/domain/favorite_models.dart';
 import 'package:saber_plus/features/favorites/domain/favorite_repository.dart';
+import 'package:saber_plus/features/resume/data/drift_learning_resume_repository.dart';
+import 'package:saber_plus/features/resume/domain/learning_resume_models.dart';
+import 'package:saber_plus/features/resume/domain/learning_resume_repository.dart';
 
 class _FakeSecureSessionStore extends SecureSessionStore {
   _FakeSecureSessionStore() : super(const FlutterSecureStorage());
@@ -36,6 +39,11 @@ Widget _testApp() => ProviderScope(
     studyReminderServiceProvider.overrideWithValue(_FakeReminderService()),
     favoriteRepositoryProvider.overrideWith((ref) {
       final repository = _FakeFavoriteRepository();
+      ref.onDispose(repository.dispose);
+      return repository;
+    }),
+    learningResumeRepositoryProvider.overrideWith((ref) {
+      final repository = _FakeLearningResumeRepository();
       ref.onDispose(repository.dispose);
       return repository;
     }),
@@ -539,6 +547,41 @@ void main() {
     );
     expect(find.text('Regla de tres'), findsOneWidget);
   });
+
+  testWidgets('continúa desde Inicio en la última lección visitada', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('continue-last-lesson')), findsNothing);
+
+    await tester.tap(find.text('Estudiar'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('study-area-matematicas')));
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byKey(const Key('study-subtopic-demo-mathematics-subtopic')),
+    );
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Inicio'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('continue-last-lesson')), findsOneWidget);
+    expect(find.text('CONTINÚA DONDE QUEDASTE'), findsOneWidget);
+    expect(find.text('Regla de tres'), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('continue-last-lesson')));
+    await tester.pumpAndSettle();
+    expect(find.text('Lección'), findsOneWidget);
+    expect(find.text('Regla de tres'), findsWidgets);
+  });
 }
 
 class _FakePracticeDraftStore extends PracticeDraftStore {
@@ -622,6 +665,31 @@ class _FakeFavoriteRepository implements FavoriteRepository {
 
   bool _contains(String userId, FavoriteIdentity identity) =>
       _items.any((item) => item.userId == userId && item.identity == identity);
+
+  void dispose() => _changes.close();
+}
+
+class _FakeLearningResumeRepository implements LearningResumeRepository {
+  final Map<String, LearningResume> _entries = {};
+  final StreamController<void> _changes = StreamController.broadcast();
+
+  @override
+  Stream<LearningResume?> watch(String userId) async* {
+    yield _entries[userId];
+    yield* _changes.stream.map((_) => _entries[userId]);
+  }
+
+  @override
+  Future<void> save(LearningResume entry) async {
+    _entries[entry.userId] = entry;
+    _changes.add(null);
+  }
+
+  @override
+  Future<void> clear(String userId) async {
+    _entries.remove(userId);
+    _changes.add(null);
+  }
 
   void dispose() => _changes.close();
 }

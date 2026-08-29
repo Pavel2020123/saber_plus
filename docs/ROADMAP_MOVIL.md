@@ -76,6 +76,7 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Búsqueda académica de lecciones y prácticas por área, tema, subtema o concepto.
 - [x] Acceso seguro al banco por subtema, sin descargar preguntas ni respuestas fuera de un intento.
 - [x] Transiciones breves y consistentes entre pantallas, con reducción de movimiento accesible.
+- [x] “Continúa donde quedaste” con acceso en un clic a la última lección del estudiante.
 - Ranking con privacidad por defecto.
 - Batallas asíncronas, bloqueo y reporte.
 - Anuncios, referidos, soporte y calculadora de puntaje.

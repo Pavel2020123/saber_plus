@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,6 +16,8 @@ import '../../auth/presentation/session_controller.dart';
 import '../../favorites/data/drift_favorite_repository.dart';
 import '../../favorites/domain/favorite_models.dart';
 import '../../favorites/presentation/favorite_providers.dart';
+import '../../resume/data/drift_learning_resume_repository.dart';
+import '../../resume/domain/learning_resume_models.dart';
 import '../domain/study_models.dart';
 import 'study_providers.dart';
 
@@ -37,6 +41,42 @@ class _StudyLessonPageState extends ConsumerState<StudyLessonPage> {
   var _saving = false;
   var _savingFavorite = false;
   var _completedLocally = false;
+  var _resumeRecorded = false;
+
+  @override
+  void didUpdateWidget(covariant StudyLessonPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.subtopicId != widget.subtopicId) {
+      _resumeRecorded = false;
+    }
+  }
+
+  void _rememberLesson(StudyTheme theme, StudySubtopic subtopic) {
+    if (_resumeRecorded) return;
+    _resumeRecorded = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final userId = ref.read(sessionControllerProvider).user?.id;
+      if (userId == null) return;
+      unawaited(
+        ref
+            .read(learningResumeRepositoryProvider)
+            .save(
+              LearningResume(
+                userId: userId,
+                kind: LearningResumeKind.lesson,
+                area: widget.area,
+                parentId: theme.id,
+                itemId: subtopic.id,
+                title: subtopic.name,
+                parentTitle: theme.name,
+                lastOpenedAt: DateTime.now().toUtc(),
+              ),
+            )
+            .catchError((_) {}),
+      );
+    });
+  }
 
   Future<void> _toggleFavorite(StudyTheme theme, StudySubtopic subtopic) async {
     final userId = ref.read(sessionControllerProvider).user?.id;
@@ -148,6 +188,7 @@ class _StudyLessonPageState extends ConsumerState<StudyLessonPage> {
           if (theme == null || subtopic == null) {
             return const _MissingLesson();
           }
+          _rememberLesson(theme, subtopic);
           return _LessonContent(
             area: widget.area,
             theme: theme,

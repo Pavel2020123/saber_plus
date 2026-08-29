@@ -71,14 +71,42 @@ class FavoriteEntries extends Table {
   Set<Column<Object>> get primaryKey => {userId, kind, itemId};
 }
 
-@DriftDatabase(tables: [OfflineDownloads, PendingOperations, FavoriteEntries])
+class LearningResumeEntries extends Table {
+  TextColumn get userId => text()();
+
+  TextColumn get kind => text()();
+
+  TextColumn get area => text()();
+
+  TextColumn get parentId => text()();
+
+  TextColumn get itemId => text()();
+
+  TextColumn get title => text()();
+
+  TextColumn get parentTitle => text()();
+
+  DateTimeColumn get lastOpenedAt => dateTime()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {userId};
+}
+
+@DriftDatabase(
+  tables: [
+    OfflineDownloads,
+    PendingOperations,
+    FavoriteEntries,
+    LearningResumeEntries,
+  ],
+)
 class AppDatabase extends _$AppDatabase {
   AppDatabase(super.executor);
 
   AppDatabase.defaults() : super(driftDatabase(name: 'saber_plus'));
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -86,6 +114,7 @@ class AppDatabase extends _$AppDatabase {
     onUpgrade: (migrator, from, to) async {
       if (from < 2) await migrator.createTable(pendingOperations);
       if (from < 3) await migrator.createTable(favoriteEntries);
+      if (from < 4) await migrator.createTable(learningResumeEntries);
     },
   );
 
@@ -176,6 +205,17 @@ class AppDatabase extends _$AppDatabase {
                 row.itemId.equals(itemId),
           ))
           .go();
+
+  Stream<LearningResumeEntry?> watchLearningResume(String userId) => (select(
+    learningResumeEntries,
+  )..where((row) => row.userId.equals(userId))).watchSingleOrNull();
+
+  Future<void> saveLearningResume(LearningResumeEntriesCompanion entry) =>
+      into(learningResumeEntries).insertOnConflictUpdate(entry);
+
+  Future<void> clearLearningResume(String userId) => (delete(
+    learningResumeEntries,
+  )..where((row) => row.userId.equals(userId))).go();
 }
 
 final appDatabaseProvider = Provider<AppDatabase>((ref) {

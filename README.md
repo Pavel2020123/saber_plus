@@ -26,6 +26,7 @@ El contrato de XP, rachas, actividad y logros está en [docs/GAMIFICATION_CONTRA
 El alcance y la persistencia local de favoritos están en [docs/FAVORITES.md](docs/FAVORITES.md).
 La búsqueda académica y la protección del banco de preguntas están documentadas en [docs/ACADEMIC_SEARCH.md](docs/ACADEMIC_SEARCH.md).
 Las transiciones y su comportamiento de accesibilidad están en [docs/MOTION.md](docs/MOTION.md).
+La reanudación local de la última lección está documentada en [docs/CONTINUE_LEARNING.md](docs/CONTINUE_LEARNING.md).
 
 ## Configuración por ambiente
 
