@@ -109,6 +109,27 @@ class FlashcardProgressEntries extends Table {
   Set<Column<Object>> get primaryKey => {userId, cardId};
 }
 
+class DifficultQuestionEntries extends Table {
+  TextColumn get userId => text()();
+
+  TextColumn get questionId => text()();
+
+  TextColumn get area => text()();
+
+  TextColumn get subtopicId => text().nullable()();
+
+  TextColumn get subtopicName => text()();
+
+  TextColumn get themeName => text()();
+
+  TextColumn get difficulty => text()();
+
+  DateTimeColumn get markedAt => dateTime()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {userId, questionId};
+}
+
 @DriftDatabase(
   tables: [
     OfflineDownloads,
@@ -116,6 +137,7 @@ class FlashcardProgressEntries extends Table {
     FavoriteEntries,
     LearningResumeEntries,
     FlashcardProgressEntries,
+    DifficultQuestionEntries,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -124,7 +146,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.defaults() : super(driftDatabase(name: 'saber_plus'));
 
   @override
-  int get schemaVersion => 5;
+  int get schemaVersion => 6;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -134,6 +156,7 @@ class AppDatabase extends _$AppDatabase {
       if (from < 3) await migrator.createTable(favoriteEntries);
       if (from < 4) await migrator.createTable(learningResumeEntries);
       if (from < 5) await migrator.createTable(flashcardProgressEntries);
+      if (from < 6) await migrator.createTable(difficultQuestionEntries);
     },
   );
 
@@ -254,6 +277,40 @@ class AppDatabase extends _$AppDatabase {
   Future<void> saveFlashcardProgress(
     FlashcardProgressEntriesCompanion progress,
   ) => into(flashcardProgressEntries).insertOnConflictUpdate(progress);
+
+  Stream<List<DifficultQuestionEntry>> watchDifficultQuestions(String userId) =>
+      (select(difficultQuestionEntries)
+            ..where((row) => row.userId.equals(userId))
+            ..orderBy([(row) => OrderingTerm.desc(row.markedAt)]))
+          .watch();
+
+  Stream<bool> watchDifficultQuestion(String userId, String questionId) =>
+      (select(difficultQuestionEntries)..where(
+            (row) =>
+                row.userId.equals(userId) & row.questionId.equals(questionId),
+          ))
+          .watchSingleOrNull()
+          .map((row) => row != null);
+
+  Future<DifficultQuestionEntry?> findDifficultQuestion(
+    String userId,
+    String questionId,
+  ) =>
+      (select(difficultQuestionEntries)..where(
+            (row) =>
+                row.userId.equals(userId) & row.questionId.equals(questionId),
+          ))
+          .getSingleOrNull();
+
+  Future<void> saveDifficultQuestion(DifficultQuestionEntriesCompanion entry) =>
+      into(difficultQuestionEntries).insertOnConflictUpdate(entry);
+
+  Future<void> removeDifficultQuestion(String userId, String questionId) =>
+      (delete(difficultQuestionEntries)..where(
+            (row) =>
+                row.userId.equals(userId) & row.questionId.equals(questionId),
+          ))
+          .go();
 }
 
 final appDatabaseProvider = Provider<AppDatabase>((ref) {

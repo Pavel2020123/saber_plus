@@ -202,6 +202,7 @@ class PracticeQuestion {
     required this.subtopicName,
     required this.themeName,
     required this.area,
+    this.subtopicId,
     this.imageUrl,
     this.orderInCase,
     this.caseContent,
@@ -214,6 +215,7 @@ class PracticeQuestion {
   final int? orderInCase;
   final PracticeCase? caseContent;
   final List<PracticeOption> options;
+  final String? subtopicId;
   final String subtopicName;
   final String themeName;
   final AcademicArea area;
@@ -237,6 +239,7 @@ class PracticeQuestion {
                 PracticeOption.fromJson(Map<String, dynamic>.from(item as Map)),
           )
           .toList(growable: false),
+      subtopicId: _optionalText(subtopic['id']),
       subtopicName: subtopic['nombre'] as String? ?? '',
       themeName: theme['nombre'] as String? ?? '',
       area: AcademicArea.fromBackend(theme['area'] as String),
@@ -252,6 +255,7 @@ class PracticeQuestion {
     'caso': caseContent?.toJson(),
     'respuestas': options.map((option) => option.toJson()).toList(),
     'subtema': {
+      'id': subtopicId,
       'nombre': subtopicName,
       'tema': {'nombre': themeName, 'area': area.backendValue},
     },

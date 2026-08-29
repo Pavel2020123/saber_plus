@@ -31,6 +31,7 @@ El temporizador Pomodoro compartido está documentado en [docs/POMODORO.md](docs
 Las flashcards académicas y su progreso local están documentados en [docs/FLASHCARDS.md](docs/FLASHCARDS.md).
 El contador global de días para el examen está documentado en [docs/EXAM_COUNTDOWN.md](docs/EXAM_COUNTDOWN.md).
 El feedback visual y háptico de rachas de aciertos está documentado en [docs/ANSWER_STREAK_FEEDBACK.md](docs/ANSWER_STREAK_FEEDBACK.md).
+Las marcas locales y protegidas de preguntas difíciles están documentadas en [docs/DIFFICULT_QUESTIONS.md](docs/DIFFICULT_QUESTIONS.md).
 
 ## Configuración por ambiente
 

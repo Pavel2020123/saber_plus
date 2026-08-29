@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -6,6 +8,9 @@ import 'package:saber_plus/features/academic/domain/academic_models.dart';
 import 'package:saber_plus/features/auth/domain/session.dart';
 import 'package:saber_plus/features/auth/presentation/session_controller.dart';
 import 'package:saber_plus/core/feedback/answer_streak_feedback.dart';
+import 'package:saber_plus/features/difficult_questions/data/drift_difficult_question_repository.dart';
+import 'package:saber_plus/features/difficult_questions/domain/difficult_question_models.dart';
+import 'package:saber_plus/features/difficult_questions/domain/difficult_question_repository.dart';
 import 'package:saber_plus/features/practice/data/practice_draft_store.dart';
 import 'package:saber_plus/features/practice/domain/practice_history_models.dart';
 import 'package:saber_plus/features/practice/domain/practice_models.dart';
@@ -170,6 +175,9 @@ void main() {
           ),
           practiceRepositoryProvider.overrideWithValue(repository),
           practiceDraftStoreProvider.overrideWithValue(drafts),
+          difficultQuestionRepositoryProvider.overrideWithValue(
+            _MemoryDifficultQuestionRepository(),
+          ),
         ],
         child: const MaterialApp(
           home: PracticeSessionPage(
@@ -187,6 +195,51 @@ void main() {
       find.byKey(const Key('submit-practice-button')),
     );
     expect(submit.onPressed, isNotNull);
+  });
+
+  testWidgets('marca una pregunta difícil sin copiar su contenido', (
+    tester,
+  ) async {
+    final difficultQuestions = _MemoryDifficultQuestionRepository();
+    addTearDown(difficultQuestions.close);
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          sessionControllerProvider.overrideWith(
+            _AuthenticatedSessionController.new,
+          ),
+          practiceRepositoryProvider.overrideWithValue(
+            _FakePracticeRepository(),
+          ),
+          practiceDraftStoreProvider.overrideWithValue(
+            _MemoryPracticeDraftStore(),
+          ),
+          difficultQuestionRepositoryProvider.overrideWithValue(
+            difficultQuestions,
+          ),
+        ],
+        child: const MaterialApp(
+          home: PracticeSessionPage(
+            area: AcademicArea.mathematics,
+            subtopicId: 'subtopic-1',
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    await tester.tap(
+      find.byKey(const Key('toggle-difficult-question-question-1')),
+    );
+    await tester.pumpAndSettle();
+
+    expect(difficultQuestions.marks, hasLength(1));
+    final mark = difficultQuestions.marks.single;
+    expect(mark.userId, 'user-1');
+    expect(mark.questionId, 'question-1');
+    expect(mark.subtopicId, 'subtopic-1');
+    expect(mark.subtopicName, 'Regla de tres');
+    expect(find.byTooltip('Marcada como difícil'), findsOneWidget);
   });
 
   testWidgets('confirma una racha y reproduce el feedback una sola vez', (
@@ -527,4 +580,46 @@ class _AuthenticatedSessionController extends SessionController {
   SessionState build() => const SessionState.authenticated(
     UserSession(id: 'user-1', firstName: 'Ana', role: AppRole.student),
   );
+}
+
+class _MemoryDifficultQuestionRepository
+    implements DifficultQuestionRepository {
+  final _marks = <String, DifficultQuestionMark>{};
+  final _changes = StreamController<void>.broadcast(sync: true);
+
+  List<DifficultQuestionMark> get marks =>
+      _marks.values.toList(growable: false);
+
+  @override
+  Stream<List<DifficultQuestionMark>> watchAll(String userId) async* {
+    List<DifficultQuestionMark> current() => _marks.values
+        .where((mark) => mark.userId == userId)
+        .toList(growable: false);
+    yield current();
+    yield* _changes.stream.map((_) => current());
+  }
+
+  @override
+  Stream<bool> watchContains(String userId, String questionId) async* {
+    bool current() => _marks['$userId:$questionId'] != null;
+    yield current();
+    yield* _changes.stream.map((_) => current());
+  }
+
+  @override
+  Future<bool> toggle(DifficultQuestionMark mark) async {
+    final key = '${mark.userId}:${mark.questionId}';
+    final removed = _marks.remove(key) != null;
+    if (!removed) _marks[key] = mark;
+    _changes.add(null);
+    return !removed;
+  }
+
+  @override
+  Future<void> remove(String userId, String questionId) async {
+    _marks.remove('$userId:$questionId');
+    _changes.add(null);
+  }
+
+  Future<void> close() => _changes.close();
 }

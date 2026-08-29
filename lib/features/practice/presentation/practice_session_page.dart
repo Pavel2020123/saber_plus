@@ -12,6 +12,9 @@ import '../../../core/sync/drift_safe_sync_repository.dart';
 import '../../../core/widgets/animated_streak_flame.dart';
 import '../../academic/domain/academic_models.dart';
 import '../../auth/presentation/session_controller.dart';
+import '../../difficult_questions/data/drift_difficult_question_repository.dart';
+import '../../difficult_questions/domain/difficult_question_models.dart';
+import '../../difficult_questions/presentation/difficult_question_providers.dart';
 import '../../focus/presentation/pomodoro_card.dart';
 import '../../progress/presentation/progress_providers.dart';
 import '../../study/presentation/study_providers.dart';
@@ -534,8 +537,9 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
           message: _messageFor(error),
           onRetry: _loadPractice,
         ),
-        (false, _, final value?, _) => _PracticeResultView(
+        (false, _, final value?, final session?) => _PracticeResultView(
           result: value,
+          session: session,
           onRetry: _loadPractice,
           onExit: () => context.pop(),
           exitLabel: _isRandom
@@ -579,6 +583,10 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
                       'Pregunta ${_currentIndex + 1} de ${session.questions.length}',
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
+                  ),
+                  _DifficultQuestionButton(
+                    question: question,
+                    fallbackSubtopicId: session.subtopicId,
                   ),
                   const Icon(Icons.timer_outlined, size: 18),
                   const SizedBox(width: 5),
@@ -780,12 +788,14 @@ class _NetworkResourceImage extends ConsumerWidget {
 class _PracticeResultView extends StatelessWidget {
   const _PracticeResultView({
     required this.result,
+    required this.session,
     required this.onRetry,
     required this.onExit,
     required this.exitLabel,
   });
 
   final PracticeResult result;
+  final PracticeSession session;
   final VoidCallback onRetry;
   final VoidCallback onExit;
   final String exitLabel;
@@ -794,6 +804,9 @@ class _PracticeResultView extends StatelessWidget {
   Widget build(BuildContext context) {
     final summary = result.summary;
     final answerStreak = CorrectAnswerStreak.fromReview(result.review);
+    final sourceQuestions = {
+      for (final question in session.questions) question.id: question,
+    };
     return ListView(
       key: const Key('practice-result-view'),
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 36),
@@ -839,7 +852,12 @@ class _PracticeResultView extends StatelessWidget {
         Text('Revisión', style: Theme.of(context).textTheme.headlineSmall),
         const SizedBox(height: 10),
         for (var index = 0; index < result.review.length; index++) ...[
-          _ReviewCard(index: index, question: result.review[index]),
+          _ReviewCard(
+            index: index,
+            question: result.review[index],
+            sourceQuestion: sourceQuestions[result.review[index].id],
+            fallbackSubtopicId: session.subtopicId,
+          ),
           const SizedBox(height: 10),
         ],
         const SizedBox(height: 10),
@@ -856,10 +874,17 @@ class _PracticeResultView extends StatelessWidget {
 }
 
 class _ReviewCard extends StatelessWidget {
-  const _ReviewCard({required this.index, required this.question});
+  const _ReviewCard({
+    required this.index,
+    required this.question,
+    required this.sourceQuestion,
+    required this.fallbackSubtopicId,
+  });
 
   final int index;
   final PracticeReviewQuestion question;
+  final PracticeQuestion? sourceQuestion;
+  final String fallbackSubtopicId;
 
   @override
   Widget build(BuildContext context) => Card(
@@ -875,6 +900,17 @@ class _ReviewCard extends StatelessWidget {
       expandedCrossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(question.statement),
+        if (sourceQuestion case final source?) ...[
+          const SizedBox(height: 8),
+          Align(
+            alignment: Alignment.centerRight,
+            child: _DifficultQuestionButton(
+              question: source,
+              fallbackSubtopicId: fallbackSubtopicId,
+              showLabel: true,
+            ),
+          ),
+        ],
         const SizedBox(height: 14),
         for (final option in question.options) ...[
           _ReviewOption(question: question, option: option),
@@ -892,6 +928,105 @@ class _ReviewCard extends StatelessWidget {
       ],
     ),
   );
+}
+
+class _DifficultQuestionButton extends ConsumerStatefulWidget {
+  const _DifficultQuestionButton({
+    required this.question,
+    required this.fallbackSubtopicId,
+    this.showLabel = false,
+  });
+
+  final PracticeQuestion question;
+  final String fallbackSubtopicId;
+  final bool showLabel;
+
+  @override
+  ConsumerState<_DifficultQuestionButton> createState() =>
+      _DifficultQuestionButtonState();
+}
+
+class _DifficultQuestionButtonState
+    extends ConsumerState<_DifficultQuestionButton> {
+  var _saving = false;
+
+  Future<void> _toggle() async {
+    final userId = ref.read(sessionControllerProvider).user?.id;
+    if (userId == null || _saving) return;
+    setState(() => _saving = true);
+    try {
+      final fallback = widget.fallbackSubtopicId.trim();
+      final marked = await ref
+          .read(difficultQuestionRepositoryProvider)
+          .toggle(
+            DifficultQuestionMark(
+              userId: userId,
+              questionId: widget.question.id,
+              area: widget.question.area,
+              subtopicId:
+                  widget.question.subtopicId ??
+                  (fallback.isEmpty ? null : fallback),
+              subtopicName: widget.question.subtopicName,
+              themeName: widget.question.themeName,
+              difficulty: widget.question.difficulty,
+              markedAt: DateTime.now(),
+            ),
+          );
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            marked
+                ? 'Pregunta marcada como difícil.'
+                : 'Se quitó de preguntas difíciles.',
+          ),
+        ),
+      );
+    } on Object {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('No pudimos actualizar la marca.')),
+      );
+    } finally {
+      if (mounted) setState(() => _saving = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final userId = ref.watch(
+      sessionControllerProvider.select((session) => session.user?.id),
+    );
+    final marked = ref
+        .watch(difficultQuestionStatusProvider(widget.question.id))
+        .valueOrNull;
+    final isMarked = marked ?? false;
+    final onPressed = userId == null || _saving || marked == null
+        ? null
+        : _toggle;
+    final icon = _saving
+        ? const SizedBox.square(
+            dimension: 18,
+            child: CircularProgressIndicator(strokeWidth: 2),
+          )
+        : Icon(isMarked ? Icons.flag_rounded : Icons.outlined_flag_rounded);
+    final label = isMarked ? 'Marcada como difícil' : 'Marcar como difícil';
+
+    if (widget.showLabel) {
+      return TextButton.icon(
+        key: Key('toggle-difficult-question-${widget.question.id}-review'),
+        onPressed: onPressed,
+        icon: icon,
+        label: Text(label),
+      );
+    }
+    return IconButton(
+      key: Key('toggle-difficult-question-${widget.question.id}'),
+      tooltip: label,
+      onPressed: onPressed,
+      icon: icon,
+    );
+  }
 }
 
 class _ReviewOption extends StatelessWidget {

@@ -11,6 +11,9 @@ import 'package:saber_plus/core/notifications/study_reminder_service.dart';
 import 'package:saber_plus/core/preferences/app_preferences.dart';
 import 'package:saber_plus/core/preferences/app_preferences_store.dart';
 import 'package:saber_plus/core/storage/secure_session_store.dart';
+import 'package:saber_plus/features/difficult_questions/data/drift_difficult_question_repository.dart';
+import 'package:saber_plus/features/difficult_questions/domain/difficult_question_models.dart';
+import 'package:saber_plus/features/difficult_questions/domain/difficult_question_repository.dart';
 import 'package:saber_plus/features/practice/data/practice_draft_store.dart';
 import 'package:saber_plus/features/favorites/data/drift_favorite_repository.dart';
 import 'package:saber_plus/features/favorites/domain/favorite_models.dart';
@@ -41,6 +44,11 @@ Widget _testApp() => ProviderScope(
     answerStreakFeedbackProvider.overrideWithValue(_FakeAnswerStreakFeedback()),
     favoriteRepositoryProvider.overrideWith((ref) {
       final repository = _FakeFavoriteRepository();
+      ref.onDispose(repository.dispose);
+      return repository;
+    }),
+    difficultQuestionRepositoryProvider.overrideWith((ref) {
+      final repository = _FakeDifficultQuestionRepository();
       ref.onDispose(repository.dispose);
       return repository;
     }),
@@ -439,6 +447,9 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Más'));
     await tester.pumpAndSettle();
+    await tester.drag(find.byType(ListView).last, const Offset(0, -250));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('open-preferences')));
     await tester.tap(find.byKey(const Key('open-preferences')));
     await tester.pumpAndSettle();
 
@@ -594,6 +605,26 @@ void main() {
       findsOneWidget,
     );
     expect(find.text('Regla de tres'), findsOneWidget);
+  });
+
+  testWidgets('abre la colección de preguntas difíciles', (tester) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Más'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('open-difficult-questions')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Preguntas difíciles'), findsOneWidget);
+    expect(find.text('No has marcado preguntas difíciles'), findsOneWidget);
+    expect(find.text('Ir a practicar'), findsOneWidget);
   });
 
   testWidgets('continúa desde Inicio en la última lección visitada', (
@@ -786,6 +817,49 @@ class _FakeLearningResumeRepository implements LearningResumeRepository {
     _entries.remove(userId);
     _changes.add(null);
   }
+
+  void dispose() => _changes.close();
+}
+
+class _FakeDifficultQuestionRepository implements DifficultQuestionRepository {
+  final Map<String, DifficultQuestionMark> _items = {};
+  final StreamController<void> _changes = StreamController.broadcast();
+
+  @override
+  Stream<List<DifficultQuestionMark>> watchAll(String userId) async* {
+    yield _forUser(userId);
+    yield* _changes.stream.map((_) => _forUser(userId));
+  }
+
+  @override
+  Stream<bool> watchContains(String userId, String questionId) async* {
+    yield _items.containsKey('$userId:$questionId');
+    yield* _changes.stream.map(
+      (_) => _items.containsKey('$userId:$questionId'),
+    );
+  }
+
+  @override
+  Future<bool> toggle(DifficultQuestionMark mark) async {
+    final key = '${mark.userId}:${mark.questionId}';
+    if (_items.remove(key) != null) {
+      _changes.add(null);
+      return false;
+    }
+    _items[key] = mark;
+    _changes.add(null);
+    return true;
+  }
+
+  @override
+  Future<void> remove(String userId, String questionId) async {
+    _items.remove('$userId:$questionId');
+    _changes.add(null);
+  }
+
+  List<DifficultQuestionMark> _forUser(String userId) => _items.values
+      .where((item) => item.userId == userId)
+      .toList(growable: false);
 
   void dispose() => _changes.close();
 }

@@ -26,6 +26,7 @@ void main() {
               {'id': 'answer-b', 'texto': '20'},
             ],
             'subtema': {
+              'id': 'subtopic-1',
               'nombre': 'Regla de tres',
               'tema': {'nombre': 'Proporciones', 'area': 'MATEMATICAS'},
             },
@@ -40,6 +41,7 @@ void main() {
     expect(session.questions.single.options, hasLength(2));
     expect(session.questions.single.caseContent?.title, 'Situación');
     expect(session.questions.single.area, AcademicArea.mathematics);
+    expect(session.questions.single.subtopicId, 'subtopic-1');
   });
 
   test('interpreta puntaje, XP y revisión después de calificar', () {
@@ -99,6 +101,7 @@ void main() {
                 {'id': 'answer-a', 'texto': 'Opción pública'},
               ],
               'subtema': {
+                'id': 'subtopic-1',
                 'nombre': 'Subtema',
                 'tema': {'nombre': 'Tema', 'area': 'MATEMATICAS'},
               },
@@ -126,6 +129,7 @@ void main() {
         restored.session.questions.single.options.single.text,
         'Opción pública',
       );
+      expect(restored.session.questions.single.subtopicId, 'subtopic-1');
       expect(draft.toJson().toString(), isNot(contains('esCorrecta')));
     },
   );

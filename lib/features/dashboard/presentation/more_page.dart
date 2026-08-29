@@ -30,6 +30,13 @@ class MorePage extends ConsumerWidget {
             onTap: () => context.push('/student/more/favorites'),
           ),
           _MenuTile(
+            key: const Key('open-difficult-questions'),
+            icon: Icons.outlined_flag_rounded,
+            title: 'Preguntas difíciles',
+            subtitle: 'Subtemas marcados para reforzar',
+            onTap: () => context.push('/student/more/difficult-questions'),
+          ),
+          _MenuTile(
             key: const Key('open-gamification'),
             icon: Icons.emoji_events_outlined,
             title: 'Logros e insignias',

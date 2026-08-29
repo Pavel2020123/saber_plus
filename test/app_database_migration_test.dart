@@ -60,6 +60,9 @@ void main() {
       final flashcards = await database
           .watchFlashcardProgress('student-1')
           .first;
+      final difficultQuestions = await database
+          .watchDifficultQuestions('student-1')
+          .first;
 
       expect(downloads, hasLength(1));
       expect(downloads.single.themeName, 'Álgebra');
@@ -67,6 +70,7 @@ void main() {
       expect(favorites, isEmpty);
       expect(resume, isNull);
       expect(flashcards, isEmpty);
+      expect(difficultQuestions, isEmpty);
     },
   );
 }

@@ -2591,6 +2591,535 @@ class FlashcardProgressEntriesCompanion
   }
 }
 
+class $DifficultQuestionEntriesTable extends DifficultQuestionEntries
+    with TableInfo<$DifficultQuestionEntriesTable, DifficultQuestionEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DifficultQuestionEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+    'user_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _questionIdMeta = const VerificationMeta(
+    'questionId',
+  );
+  @override
+  late final GeneratedColumn<String> questionId = GeneratedColumn<String>(
+    'question_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _areaMeta = const VerificationMeta('area');
+  @override
+  late final GeneratedColumn<String> area = GeneratedColumn<String>(
+    'area',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _subtopicIdMeta = const VerificationMeta(
+    'subtopicId',
+  );
+  @override
+  late final GeneratedColumn<String> subtopicId = GeneratedColumn<String>(
+    'subtopic_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _subtopicNameMeta = const VerificationMeta(
+    'subtopicName',
+  );
+  @override
+  late final GeneratedColumn<String> subtopicName = GeneratedColumn<String>(
+    'subtopic_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _themeNameMeta = const VerificationMeta(
+    'themeName',
+  );
+  @override
+  late final GeneratedColumn<String> themeName = GeneratedColumn<String>(
+    'theme_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _difficultyMeta = const VerificationMeta(
+    'difficulty',
+  );
+  @override
+  late final GeneratedColumn<String> difficulty = GeneratedColumn<String>(
+    'difficulty',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _markedAtMeta = const VerificationMeta(
+    'markedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> markedAt = GeneratedColumn<DateTime>(
+    'marked_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    userId,
+    questionId,
+    area,
+    subtopicId,
+    subtopicName,
+    themeName,
+    difficulty,
+    markedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'difficult_question_entries';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<DifficultQuestionEntry> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('user_id')) {
+      context.handle(
+        _userIdMeta,
+        userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('question_id')) {
+      context.handle(
+        _questionIdMeta,
+        questionId.isAcceptableOrUnknown(data['question_id']!, _questionIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_questionIdMeta);
+    }
+    if (data.containsKey('area')) {
+      context.handle(
+        _areaMeta,
+        area.isAcceptableOrUnknown(data['area']!, _areaMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_areaMeta);
+    }
+    if (data.containsKey('subtopic_id')) {
+      context.handle(
+        _subtopicIdMeta,
+        subtopicId.isAcceptableOrUnknown(data['subtopic_id']!, _subtopicIdMeta),
+      );
+    }
+    if (data.containsKey('subtopic_name')) {
+      context.handle(
+        _subtopicNameMeta,
+        subtopicName.isAcceptableOrUnknown(
+          data['subtopic_name']!,
+          _subtopicNameMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_subtopicNameMeta);
+    }
+    if (data.containsKey('theme_name')) {
+      context.handle(
+        _themeNameMeta,
+        themeName.isAcceptableOrUnknown(data['theme_name']!, _themeNameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_themeNameMeta);
+    }
+    if (data.containsKey('difficulty')) {
+      context.handle(
+        _difficultyMeta,
+        difficulty.isAcceptableOrUnknown(data['difficulty']!, _difficultyMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_difficultyMeta);
+    }
+    if (data.containsKey('marked_at')) {
+      context.handle(
+        _markedAtMeta,
+        markedAt.isAcceptableOrUnknown(data['marked_at']!, _markedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_markedAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {userId, questionId};
+  @override
+  DifficultQuestionEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DifficultQuestionEntry(
+      userId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}user_id'],
+      )!,
+      questionId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}question_id'],
+      )!,
+      area: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}area'],
+      )!,
+      subtopicId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}subtopic_id'],
+      ),
+      subtopicName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}subtopic_name'],
+      )!,
+      themeName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}theme_name'],
+      )!,
+      difficulty: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}difficulty'],
+      )!,
+      markedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}marked_at'],
+      )!,
+    );
+  }
+
+  @override
+  $DifficultQuestionEntriesTable createAlias(String alias) {
+    return $DifficultQuestionEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class DifficultQuestionEntry extends DataClass
+    implements Insertable<DifficultQuestionEntry> {
+  final String userId;
+  final String questionId;
+  final String area;
+  final String? subtopicId;
+  final String subtopicName;
+  final String themeName;
+  final String difficulty;
+  final DateTime markedAt;
+  const DifficultQuestionEntry({
+    required this.userId,
+    required this.questionId,
+    required this.area,
+    this.subtopicId,
+    required this.subtopicName,
+    required this.themeName,
+    required this.difficulty,
+    required this.markedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['user_id'] = Variable<String>(userId);
+    map['question_id'] = Variable<String>(questionId);
+    map['area'] = Variable<String>(area);
+    if (!nullToAbsent || subtopicId != null) {
+      map['subtopic_id'] = Variable<String>(subtopicId);
+    }
+    map['subtopic_name'] = Variable<String>(subtopicName);
+    map['theme_name'] = Variable<String>(themeName);
+    map['difficulty'] = Variable<String>(difficulty);
+    map['marked_at'] = Variable<DateTime>(markedAt);
+    return map;
+  }
+
+  DifficultQuestionEntriesCompanion toCompanion(bool nullToAbsent) {
+    return DifficultQuestionEntriesCompanion(
+      userId: Value(userId),
+      questionId: Value(questionId),
+      area: Value(area),
+      subtopicId: subtopicId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(subtopicId),
+      subtopicName: Value(subtopicName),
+      themeName: Value(themeName),
+      difficulty: Value(difficulty),
+      markedAt: Value(markedAt),
+    );
+  }
+
+  factory DifficultQuestionEntry.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DifficultQuestionEntry(
+      userId: serializer.fromJson<String>(json['userId']),
+      questionId: serializer.fromJson<String>(json['questionId']),
+      area: serializer.fromJson<String>(json['area']),
+      subtopicId: serializer.fromJson<String?>(json['subtopicId']),
+      subtopicName: serializer.fromJson<String>(json['subtopicName']),
+      themeName: serializer.fromJson<String>(json['themeName']),
+      difficulty: serializer.fromJson<String>(json['difficulty']),
+      markedAt: serializer.fromJson<DateTime>(json['markedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'userId': serializer.toJson<String>(userId),
+      'questionId': serializer.toJson<String>(questionId),
+      'area': serializer.toJson<String>(area),
+      'subtopicId': serializer.toJson<String?>(subtopicId),
+      'subtopicName': serializer.toJson<String>(subtopicName),
+      'themeName': serializer.toJson<String>(themeName),
+      'difficulty': serializer.toJson<String>(difficulty),
+      'markedAt': serializer.toJson<DateTime>(markedAt),
+    };
+  }
+
+  DifficultQuestionEntry copyWith({
+    String? userId,
+    String? questionId,
+    String? area,
+    Value<String?> subtopicId = const Value.absent(),
+    String? subtopicName,
+    String? themeName,
+    String? difficulty,
+    DateTime? markedAt,
+  }) => DifficultQuestionEntry(
+    userId: userId ?? this.userId,
+    questionId: questionId ?? this.questionId,
+    area: area ?? this.area,
+    subtopicId: subtopicId.present ? subtopicId.value : this.subtopicId,
+    subtopicName: subtopicName ?? this.subtopicName,
+    themeName: themeName ?? this.themeName,
+    difficulty: difficulty ?? this.difficulty,
+    markedAt: markedAt ?? this.markedAt,
+  );
+  DifficultQuestionEntry copyWithCompanion(
+    DifficultQuestionEntriesCompanion data,
+  ) {
+    return DifficultQuestionEntry(
+      userId: data.userId.present ? data.userId.value : this.userId,
+      questionId: data.questionId.present
+          ? data.questionId.value
+          : this.questionId,
+      area: data.area.present ? data.area.value : this.area,
+      subtopicId: data.subtopicId.present
+          ? data.subtopicId.value
+          : this.subtopicId,
+      subtopicName: data.subtopicName.present
+          ? data.subtopicName.value
+          : this.subtopicName,
+      themeName: data.themeName.present ? data.themeName.value : this.themeName,
+      difficulty: data.difficulty.present
+          ? data.difficulty.value
+          : this.difficulty,
+      markedAt: data.markedAt.present ? data.markedAt.value : this.markedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DifficultQuestionEntry(')
+          ..write('userId: $userId, ')
+          ..write('questionId: $questionId, ')
+          ..write('area: $area, ')
+          ..write('subtopicId: $subtopicId, ')
+          ..write('subtopicName: $subtopicName, ')
+          ..write('themeName: $themeName, ')
+          ..write('difficulty: $difficulty, ')
+          ..write('markedAt: $markedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    userId,
+    questionId,
+    area,
+    subtopicId,
+    subtopicName,
+    themeName,
+    difficulty,
+    markedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DifficultQuestionEntry &&
+          other.userId == this.userId &&
+          other.questionId == this.questionId &&
+          other.area == this.area &&
+          other.subtopicId == this.subtopicId &&
+          other.subtopicName == this.subtopicName &&
+          other.themeName == this.themeName &&
+          other.difficulty == this.difficulty &&
+          other.markedAt == this.markedAt);
+}
+
+class DifficultQuestionEntriesCompanion
+    extends UpdateCompanion<DifficultQuestionEntry> {
+  final Value<String> userId;
+  final Value<String> questionId;
+  final Value<String> area;
+  final Value<String?> subtopicId;
+  final Value<String> subtopicName;
+  final Value<String> themeName;
+  final Value<String> difficulty;
+  final Value<DateTime> markedAt;
+  final Value<int> rowid;
+  const DifficultQuestionEntriesCompanion({
+    this.userId = const Value.absent(),
+    this.questionId = const Value.absent(),
+    this.area = const Value.absent(),
+    this.subtopicId = const Value.absent(),
+    this.subtopicName = const Value.absent(),
+    this.themeName = const Value.absent(),
+    this.difficulty = const Value.absent(),
+    this.markedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  DifficultQuestionEntriesCompanion.insert({
+    required String userId,
+    required String questionId,
+    required String area,
+    this.subtopicId = const Value.absent(),
+    required String subtopicName,
+    required String themeName,
+    required String difficulty,
+    required DateTime markedAt,
+    this.rowid = const Value.absent(),
+  }) : userId = Value(userId),
+       questionId = Value(questionId),
+       area = Value(area),
+       subtopicName = Value(subtopicName),
+       themeName = Value(themeName),
+       difficulty = Value(difficulty),
+       markedAt = Value(markedAt);
+  static Insertable<DifficultQuestionEntry> custom({
+    Expression<String>? userId,
+    Expression<String>? questionId,
+    Expression<String>? area,
+    Expression<String>? subtopicId,
+    Expression<String>? subtopicName,
+    Expression<String>? themeName,
+    Expression<String>? difficulty,
+    Expression<DateTime>? markedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (userId != null) 'user_id': userId,
+      if (questionId != null) 'question_id': questionId,
+      if (area != null) 'area': area,
+      if (subtopicId != null) 'subtopic_id': subtopicId,
+      if (subtopicName != null) 'subtopic_name': subtopicName,
+      if (themeName != null) 'theme_name': themeName,
+      if (difficulty != null) 'difficulty': difficulty,
+      if (markedAt != null) 'marked_at': markedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  DifficultQuestionEntriesCompanion copyWith({
+    Value<String>? userId,
+    Value<String>? questionId,
+    Value<String>? area,
+    Value<String?>? subtopicId,
+    Value<String>? subtopicName,
+    Value<String>? themeName,
+    Value<String>? difficulty,
+    Value<DateTime>? markedAt,
+    Value<int>? rowid,
+  }) {
+    return DifficultQuestionEntriesCompanion(
+      userId: userId ?? this.userId,
+      questionId: questionId ?? this.questionId,
+      area: area ?? this.area,
+      subtopicId: subtopicId ?? this.subtopicId,
+      subtopicName: subtopicName ?? this.subtopicName,
+      themeName: themeName ?? this.themeName,
+      difficulty: difficulty ?? this.difficulty,
+      markedAt: markedAt ?? this.markedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (questionId.present) {
+      map['question_id'] = Variable<String>(questionId.value);
+    }
+    if (area.present) {
+      map['area'] = Variable<String>(area.value);
+    }
+    if (subtopicId.present) {
+      map['subtopic_id'] = Variable<String>(subtopicId.value);
+    }
+    if (subtopicName.present) {
+      map['subtopic_name'] = Variable<String>(subtopicName.value);
+    }
+    if (themeName.present) {
+      map['theme_name'] = Variable<String>(themeName.value);
+    }
+    if (difficulty.present) {
+      map['difficulty'] = Variable<String>(difficulty.value);
+    }
+    if (markedAt.present) {
+      map['marked_at'] = Variable<DateTime>(markedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DifficultQuestionEntriesCompanion(')
+          ..write('userId: $userId, ')
+          ..write('questionId: $questionId, ')
+          ..write('area: $area, ')
+          ..write('subtopicId: $subtopicId, ')
+          ..write('subtopicName: $subtopicName, ')
+          ..write('themeName: $themeName, ')
+          ..write('difficulty: $difficulty, ')
+          ..write('markedAt: $markedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -2606,6 +3135,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $LearningResumeEntriesTable(this);
   late final $FlashcardProgressEntriesTable flashcardProgressEntries =
       $FlashcardProgressEntriesTable(this);
+  late final $DifficultQuestionEntriesTable difficultQuestionEntries =
+      $DifficultQuestionEntriesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -2616,6 +3147,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     favoriteEntries,
     learningResumeEntries,
     flashcardProgressEntries,
+    difficultQuestionEntries,
   ];
 }
 
@@ -3979,6 +4511,290 @@ typedef $$FlashcardProgressEntriesTableProcessedTableManager =
       FlashcardProgressEntry,
       PrefetchHooks Function()
     >;
+typedef $$DifficultQuestionEntriesTableCreateCompanionBuilder =
+    DifficultQuestionEntriesCompanion Function({
+      required String userId,
+      required String questionId,
+      required String area,
+      Value<String?> subtopicId,
+      required String subtopicName,
+      required String themeName,
+      required String difficulty,
+      required DateTime markedAt,
+      Value<int> rowid,
+    });
+typedef $$DifficultQuestionEntriesTableUpdateCompanionBuilder =
+    DifficultQuestionEntriesCompanion Function({
+      Value<String> userId,
+      Value<String> questionId,
+      Value<String> area,
+      Value<String?> subtopicId,
+      Value<String> subtopicName,
+      Value<String> themeName,
+      Value<String> difficulty,
+      Value<DateTime> markedAt,
+      Value<int> rowid,
+    });
+
+class $$DifficultQuestionEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $DifficultQuestionEntriesTable> {
+  $$DifficultQuestionEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get userId => $composableBuilder(
+    column: $table.userId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get questionId => $composableBuilder(
+    column: $table.questionId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get area => $composableBuilder(
+    column: $table.area,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get subtopicId => $composableBuilder(
+    column: $table.subtopicId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get subtopicName => $composableBuilder(
+    column: $table.subtopicName,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get themeName => $composableBuilder(
+    column: $table.themeName,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get difficulty => $composableBuilder(
+    column: $table.difficulty,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get markedAt => $composableBuilder(
+    column: $table.markedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$DifficultQuestionEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $DifficultQuestionEntriesTable> {
+  $$DifficultQuestionEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get userId => $composableBuilder(
+    column: $table.userId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get questionId => $composableBuilder(
+    column: $table.questionId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get area => $composableBuilder(
+    column: $table.area,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get subtopicId => $composableBuilder(
+    column: $table.subtopicId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get subtopicName => $composableBuilder(
+    column: $table.subtopicName,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get themeName => $composableBuilder(
+    column: $table.themeName,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get difficulty => $composableBuilder(
+    column: $table.difficulty,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get markedAt => $composableBuilder(
+    column: $table.markedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$DifficultQuestionEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $DifficultQuestionEntriesTable> {
+  $$DifficultQuestionEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<String> get questionId => $composableBuilder(
+    column: $table.questionId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get area =>
+      $composableBuilder(column: $table.area, builder: (column) => column);
+
+  GeneratedColumn<String> get subtopicId => $composableBuilder(
+    column: $table.subtopicId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get subtopicName => $composableBuilder(
+    column: $table.subtopicName,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get themeName =>
+      $composableBuilder(column: $table.themeName, builder: (column) => column);
+
+  GeneratedColumn<String> get difficulty => $composableBuilder(
+    column: $table.difficulty,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get markedAt =>
+      $composableBuilder(column: $table.markedAt, builder: (column) => column);
+}
+
+class $$DifficultQuestionEntriesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $DifficultQuestionEntriesTable,
+          DifficultQuestionEntry,
+          $$DifficultQuestionEntriesTableFilterComposer,
+          $$DifficultQuestionEntriesTableOrderingComposer,
+          $$DifficultQuestionEntriesTableAnnotationComposer,
+          $$DifficultQuestionEntriesTableCreateCompanionBuilder,
+          $$DifficultQuestionEntriesTableUpdateCompanionBuilder,
+          (
+            DifficultQuestionEntry,
+            BaseReferences<
+              _$AppDatabase,
+              $DifficultQuestionEntriesTable,
+              DifficultQuestionEntry
+            >,
+          ),
+          DifficultQuestionEntry,
+          PrefetchHooks Function()
+        > {
+  $$DifficultQuestionEntriesTableTableManager(
+    _$AppDatabase db,
+    $DifficultQuestionEntriesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$DifficultQuestionEntriesTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer: () =>
+              $$DifficultQuestionEntriesTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$DifficultQuestionEntriesTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> userId = const Value.absent(),
+                Value<String> questionId = const Value.absent(),
+                Value<String> area = const Value.absent(),
+                Value<String?> subtopicId = const Value.absent(),
+                Value<String> subtopicName = const Value.absent(),
+                Value<String> themeName = const Value.absent(),
+                Value<String> difficulty = const Value.absent(),
+                Value<DateTime> markedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => DifficultQuestionEntriesCompanion(
+                userId: userId,
+                questionId: questionId,
+                area: area,
+                subtopicId: subtopicId,
+                subtopicName: subtopicName,
+                themeName: themeName,
+                difficulty: difficulty,
+                markedAt: markedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String userId,
+                required String questionId,
+                required String area,
+                Value<String?> subtopicId = const Value.absent(),
+                required String subtopicName,
+                required String themeName,
+                required String difficulty,
+                required DateTime markedAt,
+                Value<int> rowid = const Value.absent(),
+              }) => DifficultQuestionEntriesCompanion.insert(
+                userId: userId,
+                questionId: questionId,
+                area: area,
+                subtopicId: subtopicId,
+                subtopicName: subtopicName,
+                themeName: themeName,
+                difficulty: difficulty,
+                markedAt: markedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$DifficultQuestionEntriesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $DifficultQuestionEntriesTable,
+      DifficultQuestionEntry,
+      $$DifficultQuestionEntriesTableFilterComposer,
+      $$DifficultQuestionEntriesTableOrderingComposer,
+      $$DifficultQuestionEntriesTableAnnotationComposer,
+      $$DifficultQuestionEntriesTableCreateCompanionBuilder,
+      $$DifficultQuestionEntriesTableUpdateCompanionBuilder,
+      (
+        DifficultQuestionEntry,
+        BaseReferences<
+          _$AppDatabase,
+          $DifficultQuestionEntriesTable,
+          DifficultQuestionEntry
+        >,
+      ),
+      DifficultQuestionEntry,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -3995,5 +4811,10 @@ class $AppDatabaseManager {
       $$FlashcardProgressEntriesTableTableManager(
         _db,
         _db.flashcardProgressEntries,
+      );
+  $$DifficultQuestionEntriesTableTableManager get difficultQuestionEntries =>
+      $$DifficultQuestionEntriesTableTableManager(
+        _db,
+        _db.difficultQuestionEntries,
       );
 }

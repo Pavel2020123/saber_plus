@@ -19,6 +19,7 @@ import '../features/academic/presentation/diagnostic_overview_page.dart';
 import '../features/dashboard/presentation/more_page.dart';
 import '../features/dashboard/presentation/student_dashboard_page.dart';
 import '../features/dashboard/presentation/teacher_dashboard_page.dart';
+import '../features/difficult_questions/presentation/difficult_questions_page.dart';
 import '../features/gamification/presentation/gamification_page.dart';
 import '../features/favorites/presentation/favorites_page.dart';
 import '../features/flashcards/domain/flashcard_models.dart';
@@ -312,6 +313,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   _animatedRoute(
                     path: 'favorites',
                     builder: (context, state) => const FavoritesPage(),
+                  ),
+                  _animatedRoute(
+                    path: 'difficult-questions',
+                    builder: (context, state) => const DifficultQuestionsPage(),
                   ),
                   _animatedRoute(
                     path: 'gamification',
