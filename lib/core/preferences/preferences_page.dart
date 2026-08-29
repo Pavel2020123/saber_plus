@@ -36,6 +36,11 @@ class PreferencesPage extends ConsumerWidget {
                 key: const Key('theme-selector'),
                 segments: const [
                   ButtonSegment(
+                    value: ThemePreference.system,
+                    icon: Icon(Icons.settings_suggest_outlined),
+                    label: Text('Sistema'),
+                  ),
+                  ButtonSegment(
                     value: ThemePreference.light,
                     icon: Icon(Icons.light_mode_outlined),
                     label: Text('Claro'),
@@ -54,6 +59,14 @@ class PreferencesPage extends ConsumerWidget {
                       .setTheme(selection.first),
                 ),
               ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              value.theme == ThemePreference.system
+                  ? 'SaberPlus cambiará automáticamente cuando el teléfono use modo claro u oscuro.'
+                  : 'Esta elección se mantendrá aunque cambie la apariencia del teléfono.',
+              key: const Key('theme-preference-description'),
+              style: Theme.of(context).textTheme.bodySmall,
             ),
             const SizedBox(height: 32),
             Text(

@@ -482,6 +482,8 @@ void main() {
   });
 
   testWidgets('cambia la apariencia desde Preferencias', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(360, 800));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
     await tester.pumpWidget(_testApp());
     await tester.pumpAndSettle();
 
@@ -506,7 +508,14 @@ void main() {
 
     final app = tester.widget<MaterialApp>(find.byType(MaterialApp));
     expect(app.themeMode, ThemeMode.dark);
-    await tester.drag(find.byType(ListView).last, const Offset(0, -500));
+
+    await tester.tap(find.text('Sistema'));
+    await tester.pumpAndSettle();
+    final automaticApp = tester.widget<MaterialApp>(find.byType(MaterialApp));
+    expect(automaticApp.themeMode, ThemeMode.system);
+    expect(find.textContaining('cambiará automáticamente'), findsOneWidget);
+
+    await tester.drag(find.byType(ListView).last, const Offset(0, -700));
     await tester.pumpAndSettle();
     expect(
       find.byKey(const Key('preview-answer-streak-feedback')),

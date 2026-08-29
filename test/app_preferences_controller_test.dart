@@ -24,6 +24,24 @@ void main() {
       ThemePreference.dark,
     );
     expect(store.value.theme, ThemePreference.dark);
+
+    await container
+        .read(appPreferencesControllerProvider.notifier)
+        .setTheme(ThemePreference.system);
+
+    expect(
+      container.read(appPreferencesControllerProvider).valueOrNull?.theme,
+      ThemePreference.system,
+    );
+    expect(store.value.theme, ThemePreference.system);
+  });
+
+  test('restaura el modo automático y conserva claro como valor seguro', () {
+    expect(ThemePreference.fromStorage('system'), ThemePreference.system);
+    expect(ThemePreference.fromStorage('dark'), ThemePreference.dark);
+    expect(ThemePreference.fromStorage(null), ThemePreference.light);
+    expect(ThemePreference.fromStorage('desconocido'), ThemePreference.light);
+    expect(const AppPreferences().theme, ThemePreference.light);
   });
 
   test('guarda si el contador del examen está expandido', () async {

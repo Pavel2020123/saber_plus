@@ -85,6 +85,7 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Preguntas difíciles por estudiante, disponibles sin conexión y sin almacenar el contenido protegido del banco.
 - [ ] Sincronización de preguntas difíciles entre dispositivos cuando el backend publique el contrato correspondiente.
 - [x] Repaso de errores del día con explicaciones, progreso temporal y acceso al repaso inteligente.
+- [x] Modo oscuro automático que sigue la configuración del dispositivo, sin cambiar el inicio claro por defecto.
 - Ranking con privacidad por defecto.
 - Batallas asíncronas, bloqueo y reporte.
 - Anuncios, referidos, soporte y calculadora de puntaje.

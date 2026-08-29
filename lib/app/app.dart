@@ -22,9 +22,11 @@ class SaberPlusApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       theme: SaberPlusTheme.light,
       darkTheme: SaberPlusTheme.dark,
-      themeMode: theme == ThemePreference.dark
-          ? ThemeMode.dark
-          : ThemeMode.light,
+      themeMode: switch (theme) {
+        ThemePreference.dark => ThemeMode.dark,
+        ThemePreference.system => ThemeMode.system,
+        ThemePreference.light || null => ThemeMode.light,
+      },
       routerConfig: router,
     );
   }

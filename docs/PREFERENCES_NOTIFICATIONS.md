@@ -5,7 +5,8 @@ Esta etapa incorpora preferencias persistentes del dispositivo y un recordatorio
 ## Apariencia
 
 - La app inicia en tema claro para usuarios nuevos.
-- El estudiante puede elegir entre tema claro y oscuro desde `Más > Preferencias`.
+- El estudiante puede elegir entre tema claro, oscuro o automático desde `Más > Preferencias`.
+- El modo automático sigue los cambios de apariencia del sistema operativo mientras la app está abierta.
 - La elección se guarda localmente con `SharedPreferencesAsync` y se restaura al abrir la app.
 - No se almacena información sensible en estas preferencias.
 

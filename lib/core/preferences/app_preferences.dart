@@ -1,6 +1,7 @@
 enum ThemePreference {
   light('light', 'Claro'),
-  dark('dark', 'Oscuro');
+  dark('dark', 'Oscuro'),
+  system('system', 'Automático');
 
   const ThemePreference(this.storageValue, this.label);
 
