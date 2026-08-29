@@ -103,6 +103,19 @@ class AppPreferencesController extends AsyncNotifier<AppPreferences> {
       rethrow;
     }
   }
+
+  Future<void> setExamCountdownMinimized(bool minimized) async {
+    final current = state.valueOrNull;
+    if (current == null || current.examCountdownMinimized == minimized) return;
+    final updated = current.copyWith(examCountdownMinimized: minimized);
+    state = AsyncData(updated);
+    try {
+      await ref.read(appPreferencesStoreProvider).save(updated);
+    } on Object {
+      state = AsyncData(current);
+      rethrow;
+    }
+  }
 }
 
 final appPreferencesControllerProvider =

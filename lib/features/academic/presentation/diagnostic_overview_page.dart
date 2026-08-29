@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/config/environment.dart';
 import '../../../core/network/api_error.dart';
+import '../../exam_countdown/presentation/exam_countdown_banner.dart';
 import '../data/diagnostic_draft_store.dart';
 import '../domain/academic_models.dart';
 import 'academic_home_controller.dart';
@@ -28,6 +29,9 @@ class DiagnosticOverviewPage extends ConsumerWidget {
                 ref.read(academicHomeControllerProvider.notifier).reload(),
           ),
         ),
+      ),
+      bottomNavigationBar: const ExamCountdownBanner(
+        includeBottomSafeArea: true,
       ),
     );
   }

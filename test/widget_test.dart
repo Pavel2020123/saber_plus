@@ -80,6 +80,21 @@ void main() {
     expect(find.textContaining('Hola, Santiago'), findsOneWidget);
     expect(find.text('Refuerzo de matemáticas'), findsOneWidget);
     expect(find.text('Inicio'), findsOneWidget);
+    expect(find.byKey(const Key('exam-countdown-banner')), findsOneWidget);
+    expect(find.byKey(const Key('expand-exam-countdown')), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('expand-exam-countdown')));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('exam-countdown-headline')), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('minimize-exam-countdown')));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('expand-exam-countdown')), findsOneWidget);
+
+    await tester.tap(find.text('Estudiar'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('exam-countdown-banner')), findsOneWidget);
+    expect(find.byKey(const Key('expand-exam-countdown')), findsOneWidget);
   });
 
   testWidgets('abre registro y recuperación desde el ingreso', (tester) async {
@@ -310,7 +325,10 @@ void main() {
         matching: find.byType(Scrollable),
       ),
     );
-    await tester.tap(find.byKey(const Key('open-adaptive-review')));
+    final adaptiveButton = tester.widget<FilledButton>(
+      find.byKey(const Key('open-adaptive-review')),
+    );
+    adaptiveButton.onPressed!();
     await tester.pumpAndSettle();
 
     expect(find.text('Una sesión hecha para ti'), findsOneWidget);
@@ -374,13 +392,15 @@ void main() {
     await tester.tap(find.text('Estrategia'));
     await tester.pumpAndSettle();
     expect(find.text('132 segundos por pregunta'), findsOneWidget);
-    expect(find.text('Las cuatro fases'), findsOneWidget);
     await tester.enterText(
       find.byKey(const Key('strategy-question-count')),
       '50',
     );
     await tester.pump();
     expect(find.text('264 segundos por pregunta'), findsOneWidget);
+    await tester.drag(find.byType(ListView).last, const Offset(0, -320));
+    await tester.pumpAndSettle();
+    expect(find.text('Las cuatro fases'), findsOneWidget);
   });
 
   testWidgets('abre el estado de sincronización desde Más', (tester) async {
@@ -396,10 +416,9 @@ void main() {
 
     await tester.tap(find.text('Más'));
     await tester.pumpAndSettle();
-    expect(find.text('Sin cambios pendientes'), findsOneWidget);
-
     await tester.drag(find.byType(ListView).last, const Offset(0, -180));
     await tester.pumpAndSettle();
+    expect(find.text('Sin cambios pendientes'), findsOneWidget);
     await tester.tap(find.byKey(const Key('open-sync-queue')));
     await tester.pumpAndSettle();
     expect(find.text('Sincronización'), findsOneWidget);

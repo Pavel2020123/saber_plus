@@ -29,6 +29,7 @@ Las transiciones y su comportamiento de accesibilidad están en [docs/MOTION.md]
 La reanudación local de la última lección está documentada en [docs/CONTINUE_LEARNING.md](docs/CONTINUE_LEARNING.md).
 El temporizador Pomodoro compartido está documentado en [docs/POMODORO.md](docs/POMODORO.md).
 Las flashcards académicas y su progreso local están documentados en [docs/FLASHCARDS.md](docs/FLASHCARDS.md).
+El contador global de días para el examen está documentado en [docs/EXAM_COUNTDOWN.md](docs/EXAM_COUNTDOWN.md).
 
 ## Configuración por ambiente
 

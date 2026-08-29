@@ -17,6 +17,8 @@ class SharedPreferencesAppPreferencesStore implements AppPreferencesStore {
   static const _reminderEnabledKey = 'saberplus.reminder.enabled';
   static const _reminderHourKey = 'saberplus.reminder.hour';
   static const _reminderMinuteKey = 'saberplus.reminder.minute';
+  static const _examCountdownMinimizedKey =
+      'saberplus.exam-countdown.minimized';
 
   final SharedPreferencesAsync _preferences;
 
@@ -27,6 +29,7 @@ class SharedPreferencesAppPreferencesStore implements AppPreferencesStore {
       _preferences.getBool(_reminderEnabledKey),
       _preferences.getInt(_reminderHourKey),
       _preferences.getInt(_reminderMinuteKey),
+      _preferences.getBool(_examCountdownMinimizedKey),
     ]);
     final hour = values[2] as int?;
     final minute = values[3] as int?;
@@ -38,6 +41,7 @@ class SharedPreferencesAppPreferencesStore implements AppPreferencesStore {
       reminderMinute: minute != null && minute >= 0 && minute <= 59
           ? minute
           : 0,
+      examCountdownMinimized: values[4] as bool? ?? true,
     );
   }
 
@@ -48,6 +52,10 @@ class SharedPreferencesAppPreferencesStore implements AppPreferencesStore {
       _preferences.setBool(_reminderEnabledKey, preferences.reminderEnabled),
       _preferences.setInt(_reminderHourKey, preferences.reminderHour),
       _preferences.setInt(_reminderMinuteKey, preferences.reminderMinute),
+      _preferences.setBool(
+        _examCountdownMinimizedKey,
+        preferences.examCountdownMinimized,
+      ),
     ]);
   }
 }

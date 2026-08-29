@@ -21,6 +21,8 @@ Esta etapa incorpora preferencias persistentes del dispositivo y un recordatorio
 
 ## Alcance actual
 
+La preferencia visual del contador global del examen también se guarda en el dispositivo. Minimizarlo no elimina la fecha ni desactiva recordatorios; únicamente reduce la franja visible.
+
 El backend auditado no ofrece un módulo de notificaciones para estudiantes. Por eso esta entrega no inventa endpoints ni registra tokens push. Anuncios remotos, mensajes institucionales y notificaciones enviadas por servidor quedan pendientes de un contrato backend futuro.
 
 ## Publicación

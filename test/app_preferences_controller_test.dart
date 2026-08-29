@@ -26,6 +26,27 @@ void main() {
     expect(store.value.theme, ThemePreference.dark);
   });
 
+  test('guarda si el contador del examen está expandido', () async {
+    final store = _MemoryPreferencesStore();
+    final reminders = _FakeReminderService();
+    final container = _container(store, reminders);
+    addTearDown(container.dispose);
+
+    await container.read(appPreferencesControllerProvider.future);
+    await container
+        .read(appPreferencesControllerProvider.notifier)
+        .setExamCountdownMinimized(false);
+
+    expect(
+      container
+          .read(appPreferencesControllerProvider)
+          .valueOrNull
+          ?.examCountdownMinimized,
+      isFalse,
+    );
+    expect(store.value.examCountdownMinimized, isFalse);
+  });
+
   test('no activa el recordatorio si el permiso es rechazado', () async {
     final store = _MemoryPreferencesStore();
     final reminders = _FakeReminderService(permissionGranted: false);
