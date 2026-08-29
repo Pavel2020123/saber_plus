@@ -20,6 +20,7 @@ import '../features/dashboard/presentation/more_page.dart';
 import '../features/dashboard/presentation/student_dashboard_page.dart';
 import '../features/dashboard/presentation/teacher_dashboard_page.dart';
 import '../features/gamification/presentation/gamification_page.dart';
+import '../features/favorites/presentation/favorites_page.dart';
 import '../features/library/presentation/reference_library_page.dart';
 import '../features/practice/domain/practice_models.dart';
 import '../features/practice/presentation/practice_history_page.dart';
@@ -284,6 +285,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 pageBuilder: (context, state) =>
                     const NoTransitionPage(child: MorePage()),
                 routes: [
+                  GoRoute(
+                    path: 'favorites',
+                    builder: (context, state) => const FavoritesPage(),
+                  ),
                   GoRoute(
                     path: 'gamification',
                     builder: (context, state) => const GamificationPage(),

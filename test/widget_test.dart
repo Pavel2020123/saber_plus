@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -8,6 +10,9 @@ import 'package:saber_plus/core/preferences/app_preferences.dart';
 import 'package:saber_plus/core/preferences/app_preferences_store.dart';
 import 'package:saber_plus/core/storage/secure_session_store.dart';
 import 'package:saber_plus/features/practice/data/practice_draft_store.dart';
+import 'package:saber_plus/features/favorites/data/drift_favorite_repository.dart';
+import 'package:saber_plus/features/favorites/domain/favorite_models.dart';
+import 'package:saber_plus/features/favorites/domain/favorite_repository.dart';
 
 class _FakeSecureSessionStore extends SecureSessionStore {
   _FakeSecureSessionStore() : super(const FlutterSecureStorage());
@@ -28,6 +33,11 @@ Widget _testApp() => ProviderScope(
     practiceDraftStoreProvider.overrideWithValue(_FakePracticeDraftStore()),
     appPreferencesStoreProvider.overrideWithValue(_FakePreferencesStore()),
     studyReminderServiceProvider.overrideWithValue(_FakeReminderService()),
+    favoriteRepositoryProvider.overrideWith((ref) {
+      final repository = _FakeFavoriteRepository();
+      ref.onDispose(repository.dispose);
+      return repository;
+    }),
   ],
   child: const SaberPlusApp(),
 );
@@ -380,6 +390,11 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Sin cambios pendientes'), findsOneWidget);
 
+    await tester.drag(
+      find.byType(ListView).last,
+      const Offset(0, -180),
+    );
+    await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('open-sync-queue')));
     await tester.pumpAndSettle();
     expect(find.text('Sincronización'), findsOneWidget);
@@ -446,6 +461,42 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.textContaining('cuenta real'), findsOneWidget);
   });
+
+  testWidgets('guarda y abre una lección favorita', (tester) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Estudiar'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('study-area-matematicas')));
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byKey(const Key('study-subtopic-demo-mathematics-subtopic')),
+    );
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(const Key('toggle-lesson-favorite')));
+    await tester.pumpAndSettle();
+    expect(find.text('Lección agregada a favoritos.'), findsOneWidget);
+    expect(find.byIcon(Icons.bookmark_rounded), findsOneWidget);
+
+    await tester.tap(find.text('Más'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('open-favorites')));
+    await tester.pumpAndSettle();
+    expect(find.text('Mis favoritos'), findsOneWidget);
+    expect(
+      find.byKey(const Key('favorite-demo-mathematics-subtopic')),
+      findsOneWidget,
+    );
+    expect(find.text('Regla de tres'), findsOneWidget);
+  });
 }
 
 class _FakePracticeDraftStore extends PracticeDraftStore {
@@ -482,4 +533,53 @@ class _FakeReminderService implements StudyReminderService {
 
   @override
   Future<void> cancel() async {}
+}
+
+class _FakeFavoriteRepository implements FavoriteRepository {
+  final List<AcademicFavorite> _items = [];
+  final StreamController<void> _changes = StreamController.broadcast();
+
+  @override
+  Stream<List<AcademicFavorite>> watchAll(String userId) async* {
+    yield _forUser(userId);
+    yield* _changes.stream.map((_) => _forUser(userId));
+  }
+
+  @override
+  Stream<bool> watchContains(String userId, FavoriteIdentity identity) async* {
+    yield _contains(userId, identity);
+    yield* _changes.stream.map((_) => _contains(userId, identity));
+  }
+
+  @override
+  Future<bool> toggle(AcademicFavorite favorite) async {
+    final index = _items.indexWhere(
+      (item) =>
+          item.userId == favorite.userId && item.identity == favorite.identity,
+    );
+    if (index >= 0) {
+      _items.removeAt(index);
+      _changes.add(null);
+      return false;
+    }
+    _items.add(favorite);
+    _changes.add(null);
+    return true;
+  }
+
+  @override
+  Future<void> remove(String userId, FavoriteIdentity identity) async {
+    _items.removeWhere(
+      (item) => item.userId == userId && item.identity == identity,
+    );
+    _changes.add(null);
+  }
+
+  List<AcademicFavorite> _forUser(String userId) =>
+      _items.where((item) => item.userId == userId).toList(growable: false);
+
+  bool _contains(String userId, FavoriteIdentity identity) =>
+      _items.any((item) => item.userId == userId && item.identity == identity);
+
+  void dispose() => _changes.close();
 }

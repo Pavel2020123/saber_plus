@@ -23,6 +23,13 @@ class MorePage extends ConsumerWidget {
             title: 'Mi perfil',
           ),
           _MenuTile(
+            key: const Key('open-favorites'),
+            icon: Icons.bookmarks_outlined,
+            title: 'Mis favoritos',
+            subtitle: 'Lecciones guardadas en este dispositivo',
+            onTap: () => context.push('/student/more/favorites'),
+          ),
+          _MenuTile(
             key: const Key('open-gamification'),
             icon: Icons.emoji_events_outlined,
             title: 'Logros e insignias',

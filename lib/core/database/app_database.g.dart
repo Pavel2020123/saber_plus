@@ -1126,6 +1126,518 @@ class PendingOperationsCompanion extends UpdateCompanion<PendingOperation> {
   }
 }
 
+class $FavoriteEntriesTable extends FavoriteEntries
+    with TableInfo<$FavoriteEntriesTable, FavoriteEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $FavoriteEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+    'user_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _kindMeta = const VerificationMeta('kind');
+  @override
+  late final GeneratedColumn<String> kind = GeneratedColumn<String>(
+    'kind',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _itemIdMeta = const VerificationMeta('itemId');
+  @override
+  late final GeneratedColumn<String> itemId = GeneratedColumn<String>(
+    'item_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _areaMeta = const VerificationMeta('area');
+  @override
+  late final GeneratedColumn<String> area = GeneratedColumn<String>(
+    'area',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _parentIdMeta = const VerificationMeta(
+    'parentId',
+  );
+  @override
+  late final GeneratedColumn<String> parentId = GeneratedColumn<String>(
+    'parent_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+    'title',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _parentTitleMeta = const VerificationMeta(
+    'parentTitle',
+  );
+  @override
+  late final GeneratedColumn<String> parentTitle = GeneratedColumn<String>(
+    'parent_title',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _savedAtMeta = const VerificationMeta(
+    'savedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> savedAt = GeneratedColumn<DateTime>(
+    'saved_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    userId,
+    kind,
+    itemId,
+    area,
+    parentId,
+    title,
+    parentTitle,
+    savedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'favorite_entries';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<FavoriteEntry> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('user_id')) {
+      context.handle(
+        _userIdMeta,
+        userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('kind')) {
+      context.handle(
+        _kindMeta,
+        kind.isAcceptableOrUnknown(data['kind']!, _kindMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_kindMeta);
+    }
+    if (data.containsKey('item_id')) {
+      context.handle(
+        _itemIdMeta,
+        itemId.isAcceptableOrUnknown(data['item_id']!, _itemIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_itemIdMeta);
+    }
+    if (data.containsKey('area')) {
+      context.handle(
+        _areaMeta,
+        area.isAcceptableOrUnknown(data['area']!, _areaMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_areaMeta);
+    }
+    if (data.containsKey('parent_id')) {
+      context.handle(
+        _parentIdMeta,
+        parentId.isAcceptableOrUnknown(data['parent_id']!, _parentIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_parentIdMeta);
+    }
+    if (data.containsKey('title')) {
+      context.handle(
+        _titleMeta,
+        title.isAcceptableOrUnknown(data['title']!, _titleMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_titleMeta);
+    }
+    if (data.containsKey('parent_title')) {
+      context.handle(
+        _parentTitleMeta,
+        parentTitle.isAcceptableOrUnknown(
+          data['parent_title']!,
+          _parentTitleMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_parentTitleMeta);
+    }
+    if (data.containsKey('saved_at')) {
+      context.handle(
+        _savedAtMeta,
+        savedAt.isAcceptableOrUnknown(data['saved_at']!, _savedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_savedAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {userId, kind, itemId};
+  @override
+  FavoriteEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return FavoriteEntry(
+      userId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}user_id'],
+      )!,
+      kind: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}kind'],
+      )!,
+      itemId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}item_id'],
+      )!,
+      area: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}area'],
+      )!,
+      parentId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}parent_id'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      )!,
+      parentTitle: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}parent_title'],
+      )!,
+      savedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}saved_at'],
+      )!,
+    );
+  }
+
+  @override
+  $FavoriteEntriesTable createAlias(String alias) {
+    return $FavoriteEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class FavoriteEntry extends DataClass implements Insertable<FavoriteEntry> {
+  final String userId;
+  final String kind;
+  final String itemId;
+  final String area;
+  final String parentId;
+  final String title;
+  final String parentTitle;
+  final DateTime savedAt;
+  const FavoriteEntry({
+    required this.userId,
+    required this.kind,
+    required this.itemId,
+    required this.area,
+    required this.parentId,
+    required this.title,
+    required this.parentTitle,
+    required this.savedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['user_id'] = Variable<String>(userId);
+    map['kind'] = Variable<String>(kind);
+    map['item_id'] = Variable<String>(itemId);
+    map['area'] = Variable<String>(area);
+    map['parent_id'] = Variable<String>(parentId);
+    map['title'] = Variable<String>(title);
+    map['parent_title'] = Variable<String>(parentTitle);
+    map['saved_at'] = Variable<DateTime>(savedAt);
+    return map;
+  }
+
+  FavoriteEntriesCompanion toCompanion(bool nullToAbsent) {
+    return FavoriteEntriesCompanion(
+      userId: Value(userId),
+      kind: Value(kind),
+      itemId: Value(itemId),
+      area: Value(area),
+      parentId: Value(parentId),
+      title: Value(title),
+      parentTitle: Value(parentTitle),
+      savedAt: Value(savedAt),
+    );
+  }
+
+  factory FavoriteEntry.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return FavoriteEntry(
+      userId: serializer.fromJson<String>(json['userId']),
+      kind: serializer.fromJson<String>(json['kind']),
+      itemId: serializer.fromJson<String>(json['itemId']),
+      area: serializer.fromJson<String>(json['area']),
+      parentId: serializer.fromJson<String>(json['parentId']),
+      title: serializer.fromJson<String>(json['title']),
+      parentTitle: serializer.fromJson<String>(json['parentTitle']),
+      savedAt: serializer.fromJson<DateTime>(json['savedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'userId': serializer.toJson<String>(userId),
+      'kind': serializer.toJson<String>(kind),
+      'itemId': serializer.toJson<String>(itemId),
+      'area': serializer.toJson<String>(area),
+      'parentId': serializer.toJson<String>(parentId),
+      'title': serializer.toJson<String>(title),
+      'parentTitle': serializer.toJson<String>(parentTitle),
+      'savedAt': serializer.toJson<DateTime>(savedAt),
+    };
+  }
+
+  FavoriteEntry copyWith({
+    String? userId,
+    String? kind,
+    String? itemId,
+    String? area,
+    String? parentId,
+    String? title,
+    String? parentTitle,
+    DateTime? savedAt,
+  }) => FavoriteEntry(
+    userId: userId ?? this.userId,
+    kind: kind ?? this.kind,
+    itemId: itemId ?? this.itemId,
+    area: area ?? this.area,
+    parentId: parentId ?? this.parentId,
+    title: title ?? this.title,
+    parentTitle: parentTitle ?? this.parentTitle,
+    savedAt: savedAt ?? this.savedAt,
+  );
+  FavoriteEntry copyWithCompanion(FavoriteEntriesCompanion data) {
+    return FavoriteEntry(
+      userId: data.userId.present ? data.userId.value : this.userId,
+      kind: data.kind.present ? data.kind.value : this.kind,
+      itemId: data.itemId.present ? data.itemId.value : this.itemId,
+      area: data.area.present ? data.area.value : this.area,
+      parentId: data.parentId.present ? data.parentId.value : this.parentId,
+      title: data.title.present ? data.title.value : this.title,
+      parentTitle: data.parentTitle.present
+          ? data.parentTitle.value
+          : this.parentTitle,
+      savedAt: data.savedAt.present ? data.savedAt.value : this.savedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FavoriteEntry(')
+          ..write('userId: $userId, ')
+          ..write('kind: $kind, ')
+          ..write('itemId: $itemId, ')
+          ..write('area: $area, ')
+          ..write('parentId: $parentId, ')
+          ..write('title: $title, ')
+          ..write('parentTitle: $parentTitle, ')
+          ..write('savedAt: $savedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    userId,
+    kind,
+    itemId,
+    area,
+    parentId,
+    title,
+    parentTitle,
+    savedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is FavoriteEntry &&
+          other.userId == this.userId &&
+          other.kind == this.kind &&
+          other.itemId == this.itemId &&
+          other.area == this.area &&
+          other.parentId == this.parentId &&
+          other.title == this.title &&
+          other.parentTitle == this.parentTitle &&
+          other.savedAt == this.savedAt);
+}
+
+class FavoriteEntriesCompanion extends UpdateCompanion<FavoriteEntry> {
+  final Value<String> userId;
+  final Value<String> kind;
+  final Value<String> itemId;
+  final Value<String> area;
+  final Value<String> parentId;
+  final Value<String> title;
+  final Value<String> parentTitle;
+  final Value<DateTime> savedAt;
+  final Value<int> rowid;
+  const FavoriteEntriesCompanion({
+    this.userId = const Value.absent(),
+    this.kind = const Value.absent(),
+    this.itemId = const Value.absent(),
+    this.area = const Value.absent(),
+    this.parentId = const Value.absent(),
+    this.title = const Value.absent(),
+    this.parentTitle = const Value.absent(),
+    this.savedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  FavoriteEntriesCompanion.insert({
+    required String userId,
+    required String kind,
+    required String itemId,
+    required String area,
+    required String parentId,
+    required String title,
+    required String parentTitle,
+    required DateTime savedAt,
+    this.rowid = const Value.absent(),
+  }) : userId = Value(userId),
+       kind = Value(kind),
+       itemId = Value(itemId),
+       area = Value(area),
+       parentId = Value(parentId),
+       title = Value(title),
+       parentTitle = Value(parentTitle),
+       savedAt = Value(savedAt);
+  static Insertable<FavoriteEntry> custom({
+    Expression<String>? userId,
+    Expression<String>? kind,
+    Expression<String>? itemId,
+    Expression<String>? area,
+    Expression<String>? parentId,
+    Expression<String>? title,
+    Expression<String>? parentTitle,
+    Expression<DateTime>? savedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (userId != null) 'user_id': userId,
+      if (kind != null) 'kind': kind,
+      if (itemId != null) 'item_id': itemId,
+      if (area != null) 'area': area,
+      if (parentId != null) 'parent_id': parentId,
+      if (title != null) 'title': title,
+      if (parentTitle != null) 'parent_title': parentTitle,
+      if (savedAt != null) 'saved_at': savedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  FavoriteEntriesCompanion copyWith({
+    Value<String>? userId,
+    Value<String>? kind,
+    Value<String>? itemId,
+    Value<String>? area,
+    Value<String>? parentId,
+    Value<String>? title,
+    Value<String>? parentTitle,
+    Value<DateTime>? savedAt,
+    Value<int>? rowid,
+  }) {
+    return FavoriteEntriesCompanion(
+      userId: userId ?? this.userId,
+      kind: kind ?? this.kind,
+      itemId: itemId ?? this.itemId,
+      area: area ?? this.area,
+      parentId: parentId ?? this.parentId,
+      title: title ?? this.title,
+      parentTitle: parentTitle ?? this.parentTitle,
+      savedAt: savedAt ?? this.savedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (kind.present) {
+      map['kind'] = Variable<String>(kind.value);
+    }
+    if (itemId.present) {
+      map['item_id'] = Variable<String>(itemId.value);
+    }
+    if (area.present) {
+      map['area'] = Variable<String>(area.value);
+    }
+    if (parentId.present) {
+      map['parent_id'] = Variable<String>(parentId.value);
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (parentTitle.present) {
+      map['parent_title'] = Variable<String>(parentTitle.value);
+    }
+    if (savedAt.present) {
+      map['saved_at'] = Variable<DateTime>(savedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FavoriteEntriesCompanion(')
+          ..write('userId: $userId, ')
+          ..write('kind: $kind, ')
+          ..write('itemId: $itemId, ')
+          ..write('area: $area, ')
+          ..write('parentId: $parentId, ')
+          ..write('title: $title, ')
+          ..write('parentTitle: $parentTitle, ')
+          ..write('savedAt: $savedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -1134,6 +1646,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   );
   late final $PendingOperationsTable pendingOperations =
       $PendingOperationsTable(this);
+  late final $FavoriteEntriesTable favoriteEntries = $FavoriteEntriesTable(
+    this,
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -1141,6 +1656,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   List<DatabaseSchemaEntity> get allSchemaEntities => [
     offlineDownloads,
     pendingOperations,
+    favoriteEntries,
   ];
 }
 
@@ -1719,6 +2235,267 @@ typedef $$PendingOperationsTableProcessedTableManager =
       PendingOperation,
       PrefetchHooks Function()
     >;
+typedef $$FavoriteEntriesTableCreateCompanionBuilder =
+    FavoriteEntriesCompanion Function({
+      required String userId,
+      required String kind,
+      required String itemId,
+      required String area,
+      required String parentId,
+      required String title,
+      required String parentTitle,
+      required DateTime savedAt,
+      Value<int> rowid,
+    });
+typedef $$FavoriteEntriesTableUpdateCompanionBuilder =
+    FavoriteEntriesCompanion Function({
+      Value<String> userId,
+      Value<String> kind,
+      Value<String> itemId,
+      Value<String> area,
+      Value<String> parentId,
+      Value<String> title,
+      Value<String> parentTitle,
+      Value<DateTime> savedAt,
+      Value<int> rowid,
+    });
+
+class $$FavoriteEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $FavoriteEntriesTable> {
+  $$FavoriteEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get userId => $composableBuilder(
+    column: $table.userId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get kind => $composableBuilder(
+    column: $table.kind,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get itemId => $composableBuilder(
+    column: $table.itemId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get area => $composableBuilder(
+    column: $table.area,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get parentId => $composableBuilder(
+    column: $table.parentId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get parentTitle => $composableBuilder(
+    column: $table.parentTitle,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get savedAt => $composableBuilder(
+    column: $table.savedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$FavoriteEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $FavoriteEntriesTable> {
+  $$FavoriteEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get userId => $composableBuilder(
+    column: $table.userId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get kind => $composableBuilder(
+    column: $table.kind,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get itemId => $composableBuilder(
+    column: $table.itemId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get area => $composableBuilder(
+    column: $table.area,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get parentId => $composableBuilder(
+    column: $table.parentId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get parentTitle => $composableBuilder(
+    column: $table.parentTitle,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get savedAt => $composableBuilder(
+    column: $table.savedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$FavoriteEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $FavoriteEntriesTable> {
+  $$FavoriteEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<String> get kind =>
+      $composableBuilder(column: $table.kind, builder: (column) => column);
+
+  GeneratedColumn<String> get itemId =>
+      $composableBuilder(column: $table.itemId, builder: (column) => column);
+
+  GeneratedColumn<String> get area =>
+      $composableBuilder(column: $table.area, builder: (column) => column);
+
+  GeneratedColumn<String> get parentId =>
+      $composableBuilder(column: $table.parentId, builder: (column) => column);
+
+  GeneratedColumn<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => column);
+
+  GeneratedColumn<String> get parentTitle => $composableBuilder(
+    column: $table.parentTitle,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get savedAt =>
+      $composableBuilder(column: $table.savedAt, builder: (column) => column);
+}
+
+class $$FavoriteEntriesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $FavoriteEntriesTable,
+          FavoriteEntry,
+          $$FavoriteEntriesTableFilterComposer,
+          $$FavoriteEntriesTableOrderingComposer,
+          $$FavoriteEntriesTableAnnotationComposer,
+          $$FavoriteEntriesTableCreateCompanionBuilder,
+          $$FavoriteEntriesTableUpdateCompanionBuilder,
+          (
+            FavoriteEntry,
+            BaseReferences<_$AppDatabase, $FavoriteEntriesTable, FavoriteEntry>,
+          ),
+          FavoriteEntry,
+          PrefetchHooks Function()
+        > {
+  $$FavoriteEntriesTableTableManager(
+    _$AppDatabase db,
+    $FavoriteEntriesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$FavoriteEntriesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$FavoriteEntriesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$FavoriteEntriesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> userId = const Value.absent(),
+                Value<String> kind = const Value.absent(),
+                Value<String> itemId = const Value.absent(),
+                Value<String> area = const Value.absent(),
+                Value<String> parentId = const Value.absent(),
+                Value<String> title = const Value.absent(),
+                Value<String> parentTitle = const Value.absent(),
+                Value<DateTime> savedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => FavoriteEntriesCompanion(
+                userId: userId,
+                kind: kind,
+                itemId: itemId,
+                area: area,
+                parentId: parentId,
+                title: title,
+                parentTitle: parentTitle,
+                savedAt: savedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String userId,
+                required String kind,
+                required String itemId,
+                required String area,
+                required String parentId,
+                required String title,
+                required String parentTitle,
+                required DateTime savedAt,
+                Value<int> rowid = const Value.absent(),
+              }) => FavoriteEntriesCompanion.insert(
+                userId: userId,
+                kind: kind,
+                itemId: itemId,
+                area: area,
+                parentId: parentId,
+                title: title,
+                parentTitle: parentTitle,
+                savedAt: savedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$FavoriteEntriesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $FavoriteEntriesTable,
+      FavoriteEntry,
+      $$FavoriteEntriesTableFilterComposer,
+      $$FavoriteEntriesTableOrderingComposer,
+      $$FavoriteEntriesTableAnnotationComposer,
+      $$FavoriteEntriesTableCreateCompanionBuilder,
+      $$FavoriteEntriesTableUpdateCompanionBuilder,
+      (
+        FavoriteEntry,
+        BaseReferences<_$AppDatabase, $FavoriteEntriesTable, FavoriteEntry>,
+      ),
+      FavoriteEntry,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -1727,4 +2504,6 @@ class $AppDatabaseManager {
       $$OfflineDownloadsTableTableManager(_db, _db.offlineDownloads);
   $$PendingOperationsTableTableManager get pendingOperations =>
       $$PendingOperationsTableTableManager(_db, _db.pendingOperations);
+  $$FavoriteEntriesTableTableManager get favoriteEntries =>
+      $$FavoriteEntriesTableTableManager(_db, _db.favoriteEntries);
 }

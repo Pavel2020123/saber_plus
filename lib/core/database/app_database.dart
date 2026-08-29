@@ -50,20 +50,42 @@ class PendingOperations extends Table {
   Set<Column<Object>> get primaryKey => {id};
 }
 
-@DriftDatabase(tables: [OfflineDownloads, PendingOperations])
+class FavoriteEntries extends Table {
+  TextColumn get userId => text()();
+
+  TextColumn get kind => text()();
+
+  TextColumn get itemId => text()();
+
+  TextColumn get area => text()();
+
+  TextColumn get parentId => text()();
+
+  TextColumn get title => text()();
+
+  TextColumn get parentTitle => text()();
+
+  DateTimeColumn get savedAt => dateTime()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {userId, kind, itemId};
+}
+
+@DriftDatabase(tables: [OfflineDownloads, PendingOperations, FavoriteEntries])
 class AppDatabase extends _$AppDatabase {
   AppDatabase(super.executor);
 
   AppDatabase.defaults() : super(driftDatabase(name: 'saber_plus'));
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
     onCreate: (migrator) => migrator.createAll(),
     onUpgrade: (migrator, from, to) async {
       if (from < 2) await migrator.createTable(pendingOperations);
+      if (from < 3) await migrator.createTable(favoriteEntries);
     },
   );
 
@@ -113,6 +135,47 @@ class AppDatabase extends _$AppDatabase {
 
   Future<void> removePendingOperation(String id) =>
       (delete(pendingOperations)..where((row) => row.id.equals(id))).go();
+
+  Stream<List<FavoriteEntry>> watchFavoriteEntries(String userId) =>
+      (select(favoriteEntries)
+            ..where((row) => row.userId.equals(userId))
+            ..orderBy([(row) => OrderingTerm.desc(row.savedAt)]))
+          .watch();
+
+  Stream<bool> watchFavoriteEntry(String userId, String kind, String itemId) =>
+      (select(favoriteEntries)..where(
+            (row) =>
+                row.userId.equals(userId) &
+                row.kind.equals(kind) &
+                row.itemId.equals(itemId),
+          ))
+          .watchSingleOrNull()
+          .map((row) => row != null);
+
+  Future<FavoriteEntry?> findFavoriteEntry(
+    String userId,
+    String kind,
+    String itemId,
+  ) =>
+      (select(favoriteEntries)..where(
+            (row) =>
+                row.userId.equals(userId) &
+                row.kind.equals(kind) &
+                row.itemId.equals(itemId),
+          ))
+          .getSingleOrNull();
+
+  Future<void> saveFavoriteEntry(FavoriteEntriesCompanion favorite) =>
+      into(favoriteEntries).insertOnConflictUpdate(favorite);
+
+  Future<void> removeFavoriteEntry(String userId, String kind, String itemId) =>
+      (delete(favoriteEntries)..where(
+            (row) =>
+                row.userId.equals(userId) &
+                row.kind.equals(kind) &
+                row.itemId.equals(itemId),
+          ))
+          .go();
 }
 
 final appDatabaseProvider = Provider<AppDatabase>((ref) {

@@ -71,6 +71,8 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 
 - [x] XP confirmado por perfil, rachas, actividad y progreso de logros.
 - [x] Descarga y apertura segura de certificados de logros desbloqueados.
+- [x] Favoritos de lecciones por estudiante, persistentes en el dispositivo y disponibles sin conexión.
+- [ ] Sincronización de favoritos entre dispositivos cuando el backend publique el contrato correspondiente.
 - Ranking con privacidad por defecto.
 - Batallas asíncronas, bloqueo y reporte.
 - Anuncios, referidos, soporte y calculadora de puntaje.

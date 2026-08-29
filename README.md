@@ -23,6 +23,7 @@ La persistencia y gestión de contenido descargado están en [docs/OFFLINE_CONTE
 La cola de operaciones seguras y sus conflictos está en [docs/OFFLINE_SYNC.md](docs/OFFLINE_SYNC.md).
 Las preferencias persistentes y el recordatorio diario local están documentados en [docs/PREFERENCES_NOTIFICATIONS.md](docs/PREFERENCES_NOTIFICATIONS.md).
 El contrato de XP, rachas, actividad y logros está en [docs/GAMIFICATION_CONTRACT.md](docs/GAMIFICATION_CONTRACT.md).
+El alcance y la persistencia local de favoritos están en [docs/FAVORITES.md](docs/FAVORITES.md).
 
 ## Configuración por ambiente
 

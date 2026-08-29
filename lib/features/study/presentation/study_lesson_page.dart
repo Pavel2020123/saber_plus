@@ -11,6 +11,9 @@ import '../../../core/sync/drift_safe_sync_repository.dart';
 import '../../../core/sync/safe_sync_models.dart';
 import '../../academic/domain/academic_models.dart';
 import '../../auth/presentation/session_controller.dart';
+import '../../favorites/data/drift_favorite_repository.dart';
+import '../../favorites/domain/favorite_models.dart';
+import '../../favorites/presentation/favorite_providers.dart';
 import '../domain/study_models.dart';
 import 'study_providers.dart';
 
@@ -32,7 +35,47 @@ class StudyLessonPage extends ConsumerStatefulWidget {
 
 class _StudyLessonPageState extends ConsumerState<StudyLessonPage> {
   var _saving = false;
+  var _savingFavorite = false;
   var _completedLocally = false;
+
+  Future<void> _toggleFavorite(StudyTheme theme, StudySubtopic subtopic) async {
+    final userId = ref.read(sessionControllerProvider).user?.id;
+    if (userId == null || _savingFavorite) return;
+    setState(() => _savingFavorite = true);
+    try {
+      final saved = await ref
+          .read(favoriteRepositoryProvider)
+          .toggle(
+            AcademicFavorite(
+              userId: userId,
+              kind: FavoriteKind.lesson,
+              itemId: subtopic.id,
+              area: widget.area,
+              parentId: theme.id,
+              title: subtopic.name,
+              parentTitle: theme.name,
+              savedAt: DateTime.now().toUtc(),
+            ),
+          );
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            saved
+                ? 'Lección agregada a favoritos.'
+                : 'Lección eliminada de favoritos.',
+          ),
+        ),
+      );
+    } on Object {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('No pudimos actualizar tus favoritos.')),
+      );
+    } finally {
+      if (mounted) setState(() => _savingFavorite = false);
+    }
+  }
 
   Future<void> _markComplete() async {
     if (_saving) return;
@@ -81,6 +124,18 @@ class _StudyLessonPageState extends ConsumerState<StudyLessonPage> {
         .watch(studyProgressProvider)
         .valueOrNull
         ?.percentageFor(widget.subtopicId);
+    final favorite =
+        ref
+            .watch(
+              favoriteStatusProvider(
+                FavoriteIdentity(
+                  kind: FavoriteKind.lesson,
+                  itemId: widget.subtopicId,
+                ),
+              ),
+            )
+            .valueOrNull ??
+        false;
     return Scaffold(
       appBar: AppBar(title: const Text('Lección')),
       body: catalog.when(
@@ -99,7 +154,10 @@ class _StudyLessonPageState extends ConsumerState<StudyLessonPage> {
             subtopic: subtopic,
             completed: _completedLocally || savedPercentage == 100,
             saving: _saving,
+            favorite: favorite,
+            savingFavorite: _savingFavorite,
             onMarkComplete: _markComplete,
+            onToggleFavorite: () => _toggleFavorite(theme, subtopic),
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
@@ -119,7 +177,10 @@ class _LessonContent extends ConsumerWidget {
     required this.subtopic,
     required this.completed,
     required this.saving,
+    required this.favorite,
+    required this.savingFavorite,
     required this.onMarkComplete,
+    required this.onToggleFavorite,
   });
 
   final AcademicArea area;
@@ -127,7 +188,10 @@ class _LessonContent extends ConsumerWidget {
   final StudySubtopic subtopic;
   final bool completed;
   final bool saving;
+  final bool favorite;
+  final bool savingFavorite;
   final VoidCallback onMarkComplete;
+  final VoidCallback onToggleFavorite;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -144,7 +208,34 @@ class _LessonContent extends ConsumerWidget {
           ],
         ),
         const SizedBox(height: 14),
-        Text(subtopic.name, style: Theme.of(context).textTheme.headlineSmall),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Text(
+                subtopic.name,
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+            ),
+            IconButton.filledTonal(
+              key: const Key('toggle-lesson-favorite'),
+              tooltip: favorite
+                  ? 'Eliminar de favoritos'
+                  : 'Agregar a favoritos',
+              onPressed: savingFavorite ? null : onToggleFavorite,
+              icon: savingFavorite
+                  ? const SizedBox.square(
+                      dimension: 19,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : Icon(
+                      favorite
+                          ? Icons.bookmark_rounded
+                          : Icons.bookmark_border_rounded,
+                    ),
+            ),
+          ],
+        ),
         const SizedBox(height: 8),
         Text(
           '${subtopic.totalQuestions} preguntas de práctica disponibles',
