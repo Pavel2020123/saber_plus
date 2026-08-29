@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:saber_plus/features/practice/presentation/answer_streak_feedback.dart';
+import 'package:saber_plus/core/feedback/answer_streak_feedback.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

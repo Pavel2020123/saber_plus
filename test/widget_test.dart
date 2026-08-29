@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:saber_plus/app/app.dart';
 import 'package:saber_plus/app/page_transitions.dart';
+import 'package:saber_plus/core/feedback/answer_streak_feedback.dart';
 import 'package:saber_plus/core/notifications/study_reminder_service.dart';
 import 'package:saber_plus/core/preferences/app_preferences.dart';
 import 'package:saber_plus/core/preferences/app_preferences_store.dart';
@@ -37,6 +38,7 @@ Widget _testApp() => ProviderScope(
     practiceDraftStoreProvider.overrideWithValue(_FakePracticeDraftStore()),
     appPreferencesStoreProvider.overrideWithValue(_FakePreferencesStore()),
     studyReminderServiceProvider.overrideWithValue(_FakeReminderService()),
+    answerStreakFeedbackProvider.overrideWithValue(_FakeAnswerStreakFeedback()),
     favoriteRepositoryProvider.overrideWith((ref) {
       final repository = _FakeFavoriteRepository();
       ref.onDispose(repository.dispose);
@@ -447,6 +449,15 @@ void main() {
 
     final app = tester.widget<MaterialApp>(find.byType(MaterialApp));
     expect(app.themeMode, ThemeMode.dark);
+    await tester.drag(find.byType(ListView).last, const Offset(0, -500));
+    await tester.pumpAndSettle();
+    expect(
+      find.byKey(const Key('preview-answer-streak-feedback')),
+      findsOneWidget,
+    );
+    await tester.tap(find.byKey(const Key('preview-answer-streak-feedback')));
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(find.text('Prueba de racha reproducida.'), findsOneWidget);
   });
 
   testWidgets('muestra XP, racha y logros demostrativos', (tester) async {
@@ -461,28 +472,48 @@ void main() {
     await tester.pumpAndSettle();
 
     await tester.tap(find.byKey(const Key('open-gamification-from-home')));
-    await tester.pumpAndSettle();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+    await tester.pump();
 
     expect(find.text('Logros y actividad'), findsOneWidget);
     expect(find.text('4 días de racha'), findsOneWidget);
     expect(find.text('1.240'), findsOneWidget);
+    expect(find.byKey(const Key('streak-preview-controls')), findsOneWidget);
+    expect(find.text('Llama naranja'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('advance-streak-preview')));
+    await tester.pump();
+    expect(find.text('14 días de racha'), findsOneWidget);
+    expect(find.text('Llama dorada'), findsOneWidget);
+    await tester.tap(find.text('Congelada'));
+    await tester.pump();
+    expect(find.text('Llama congelada'), findsOneWidget);
+    expect(find.byKey(const Key('frozen-streak-indicator')), findsOneWidget);
+    await tester.tap(find.text('Perdida'));
+    await tester.pump();
+    expect(find.text('0 días de racha'), findsOneWidget);
+    expect(find.text('Llama apagada'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('reset-streak-preview')));
+    await tester.pump();
+    expect(find.text('4 días de racha'), findsOneWidget);
     await tester.drag(
       find.byKey(const Key('gamification-list')),
       const Offset(0, -450),
     );
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(milliseconds: 300));
     expect(find.byKey(const Key('achievement-total-progress')), findsOneWidget);
     await tester.drag(
       find.byKey(const Key('gamification-list')),
       const Offset(0, -250),
     );
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(milliseconds: 300));
     expect(find.byKey(const Key('achievement-PRIMER_PASO')), findsOneWidget);
     expect(find.text('Primer paso'), findsOneWidget);
     expect(find.text('Desbloqueado'), findsWidgets);
     expect(find.byKey(const Key('certificate-PRIMER_PASO')), findsOneWidget);
     await tester.tap(find.byKey(const Key('certificate-PRIMER_PASO')));
-    await tester.pumpAndSettle();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
     expect(find.textContaining('cuenta real'), findsOneWidget);
   });
 
@@ -678,6 +709,11 @@ class _FakeReminderService implements StudyReminderService {
 
   @override
   Future<void> cancel() async {}
+}
+
+class _FakeAnswerStreakFeedback implements AnswerStreakFeedback {
+  @override
+  Future<void> play() async {}
 }
 
 class _FakeFavoriteRepository implements FavoriteRepository {

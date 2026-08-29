@@ -2,7 +2,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/preferences/app_preferences_controller.dart';
+import '../preferences/app_preferences_controller.dart';
 
 abstract interface class AnswerStreakFeedback {
   Future<void> play();

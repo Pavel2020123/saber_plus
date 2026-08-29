@@ -6,8 +6,10 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/config/environment.dart';
 import '../../../core/config/resource_url.dart';
+import '../../../core/feedback/answer_streak_feedback.dart';
 import '../../../core/network/api_error.dart';
 import '../../../core/sync/drift_safe_sync_repository.dart';
+import '../../../core/widgets/animated_streak_flame.dart';
 import '../../academic/domain/academic_models.dart';
 import '../../auth/presentation/session_controller.dart';
 import '../../focus/presentation/pomodoro_card.dart';
@@ -16,7 +18,6 @@ import '../../study/presentation/study_providers.dart';
 import '../data/practice_draft_store.dart';
 import '../domain/correct_answer_streak.dart';
 import '../domain/practice_models.dart';
-import 'answer_streak_feedback.dart';
 import 'practice_providers.dart';
 
 class PracticeSessionPage extends ConsumerStatefulWidget {
@@ -822,7 +823,11 @@ class _PracticeResultView extends StatelessWidget {
           Card(
             key: const Key('correct-answer-streak-feedback'),
             child: ListTile(
-              leading: const Icon(Icons.bolt_rounded),
+              leading: AnimatedStreakFlame(
+                key: const Key('answer-streak-flame'),
+                color: Theme.of(context).colorScheme.primary,
+                size: 30,
+              ),
               title: Text('¡Racha de ${answerStreak.longestRun} aciertos!'),
               subtitle: const Text(
                 'Mantuviste tres o más respuestas correctas consecutivas.',

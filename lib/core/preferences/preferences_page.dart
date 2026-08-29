@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../feedback/answer_streak_feedback.dart';
 import 'app_preferences.dart';
 import 'app_preferences_controller.dart';
 
@@ -142,6 +143,23 @@ class PreferencesPage extends ConsumerWidget {
                           .setAnswerStreakVibrationEnabled(enabled),
                     ),
                   ),
+                  const Divider(height: 1),
+                  ListTile(
+                    key: const Key('preview-answer-streak-feedback'),
+                    enabled:
+                        value.answerStreakSoundEnabled ||
+                        value.answerStreakVibrationEnabled,
+                    leading: const Icon(Icons.play_circle_outline_rounded),
+                    title: const Text('Probar feedback'),
+                    subtitle: const Text(
+                      'Escucha el sonido y comprueba la vibración ahora.',
+                    ),
+                    onTap:
+                        value.answerStreakSoundEnabled ||
+                            value.answerStreakVibrationEnabled
+                        ? () => _previewFeedback(context, ref)
+                        : null,
+                  ),
                 ],
               ),
             ),
@@ -173,6 +191,14 @@ class PreferencesPage extends ConsumerWidget {
       if (!context.mounted) return;
       _showSaveError(context);
     }
+  }
+
+  Future<void> _previewFeedback(BuildContext context, WidgetRef ref) async {
+    await ref.read(answerStreakFeedbackProvider).play();
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Prueba de racha reproducida.')),
+    );
   }
 
   Future<void> _pickTime(

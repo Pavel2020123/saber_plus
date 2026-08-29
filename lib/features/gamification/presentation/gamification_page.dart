@@ -6,9 +6,13 @@ import 'package:open_filex/open_filex.dart';
 
 import '../../../app/theme.dart';
 import '../../../core/network/api_error.dart';
+import '../../../core/widgets/animated_streak_flame.dart';
 import '../../auth/presentation/session_controller.dart';
 import '../domain/gamification_models.dart';
 import 'gamification_providers.dart';
+import 'streak_flame_style.dart';
+
+enum _StreakPreviewState { active, frozen, lost }
 
 class GamificationPage extends ConsumerStatefulWidget {
   const GamificationPage({super.key});
@@ -21,11 +25,14 @@ class _GamificationPageState extends ConsumerState<GamificationPage> {
   final Map<String, AchievementCertificate> _certificates = {};
   final Set<String> _checkedCertificates = {};
   final Set<String> _downloadingCertificates = {};
+  int? _previewStreakDays;
+  var _previewStreakState = _StreakPreviewState.active;
 
   @override
   Widget build(BuildContext context) {
     final summary = ref.watch(gamificationSummaryProvider);
-    final xp = ref.watch(sessionControllerProvider).user?.xpTotal ?? 0;
+    final session = ref.watch(sessionControllerProvider);
+    final xp = session.user?.xpTotal ?? 0;
 
     return Scaffold(
       appBar: AppBar(
@@ -46,11 +53,23 @@ class _GamificationPageState extends ConsumerState<GamificationPage> {
         ),
         data: (data) {
           _checkExistingCertificates(data.achievements);
+          final demoPreview = session.user?.isDemo ?? false;
+          final displayedStreak = demoPreview
+              ? _previewStreak(data.streak)
+              : data.streak;
           return RefreshIndicator(
             onRefresh: () => _refresh(ref),
             child: _GamificationContent(
               summary: data,
+              displayedStreak: displayedStreak,
               xp: xp,
+              previewEnabled: demoPreview,
+              previewDays: _previewStreakDays ?? data.streak.current,
+              previewState: _previewStreakState,
+              onAdvancePreview: () => _advancePreview(data.streak.current),
+              onPreviewState: (value) =>
+                  _changePreviewState(value, data.streak.current),
+              onResetPreview: _resetPreview,
               certificates: _certificates,
               downloadingCertificates: _downloadingCertificates,
               onCertificate: _downloadOrOpenCertificate,
@@ -59,6 +78,55 @@ class _GamificationPageState extends ConsumerState<GamificationPage> {
         },
       ),
     );
+  }
+
+  StudyStreak _previewStreak(StudyStreak source) {
+    if (_previewStreakDays == null &&
+        _previewStreakState == _StreakPreviewState.active) {
+      return source;
+    }
+    final days = _previewStreakDays ?? source.current;
+    return switch (_previewStreakState) {
+      _StreakPreviewState.active => StudyStreak(
+        current: days,
+        best: math.max(source.best, days),
+        activeToday: true,
+        lastActivity: DateTime.now(),
+      ),
+      _StreakPreviewState.frozen => StudyStreak(
+        current: days,
+        best: math.max(source.best, days),
+        activeToday: false,
+        lastActivity: DateTime.now().subtract(const Duration(days: 1)),
+      ),
+      _StreakPreviewState.lost => StudyStreak(
+        current: 0,
+        best: math.max(source.best, days),
+        activeToday: false,
+        lastActivity: DateTime.now().subtract(const Duration(days: 2)),
+      ),
+    };
+  }
+
+  void _advancePreview(int currentDays) {
+    setState(() {
+      _previewStreakDays = (_previewStreakDays ?? currentDays) + 10;
+      _previewStreakState = _StreakPreviewState.active;
+    });
+  }
+
+  void _changePreviewState(_StreakPreviewState state, int currentDays) {
+    setState(() {
+      _previewStreakDays ??= currentDays;
+      _previewStreakState = state;
+    });
+  }
+
+  void _resetPreview() {
+    setState(() {
+      _previewStreakDays = null;
+      _previewStreakState = _StreakPreviewState.active;
+    });
   }
 
   void _checkExistingCertificates(List<Achievement> achievements) {
@@ -140,14 +208,28 @@ class _GamificationPageState extends ConsumerState<GamificationPage> {
 class _GamificationContent extends StatelessWidget {
   const _GamificationContent({
     required this.summary,
+    required this.displayedStreak,
     required this.xp,
+    required this.previewEnabled,
+    required this.previewDays,
+    required this.previewState,
+    required this.onAdvancePreview,
+    required this.onPreviewState,
+    required this.onResetPreview,
     required this.certificates,
     required this.downloadingCertificates,
     required this.onCertificate,
   });
 
   final GamificationSummary summary;
+  final StudyStreak displayedStreak;
   final int xp;
+  final bool previewEnabled;
+  final int previewDays;
+  final _StreakPreviewState previewState;
+  final VoidCallback onAdvancePreview;
+  final ValueChanged<_StreakPreviewState> onPreviewState;
+  final VoidCallback onResetPreview;
   final Map<String, AchievementCertificate> certificates;
   final Set<String> downloadingCertificates;
   final ValueChanged<Achievement> onCertificate;
@@ -158,7 +240,17 @@ class _GamificationContent extends StatelessWidget {
     physics: const AlwaysScrollableScrollPhysics(),
     padding: const EdgeInsets.fromLTRB(18, 12, 18, 32),
     children: [
-      _StatusCard(streak: summary.streak, xp: xp),
+      _StatusCard(streak: displayedStreak, xp: xp),
+      if (previewEnabled) ...[
+        const SizedBox(height: 12),
+        _StreakPreviewControls(
+          days: previewDays,
+          state: previewState,
+          onAdvance: onAdvancePreview,
+          onStateChanged: onPreviewState,
+          onReset: onResetPreview,
+        ),
+      ],
       const SizedBox(height: 24),
       Text('Tu actividad', style: Theme.of(context).textTheme.titleLarge),
       const SizedBox(height: 4),
@@ -203,6 +295,7 @@ class _StatusCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+    final flame = StreakFlameStyle.fromStreak(streak);
     return Container(
       key: const Key('gamification-status-card'),
       padding: const EdgeInsets.all(22),
@@ -226,22 +319,70 @@ class _StatusCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(
-                Icons.local_fire_department_rounded,
-                color: Colors.white,
-                size: 34,
+              Container(
+                width: 56,
+                height: 56,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.96),
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: flame.color.withValues(alpha: 0.5),
+                      blurRadius: 14,
+                      spreadRadius: 1,
+                    ),
+                  ],
+                ),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    AnimatedStreakFlame(
+                      key: const Key('gamification-streak-flame'),
+                      color: flame.color,
+                      size: 39,
+                      animate: flame.burns,
+                      continuous: flame.burns,
+                      semanticLabel:
+                          '${flame.statusLabel}, ${streak.current} días',
+                    ),
+                    if (flame.state == StreakFlameState.frozen)
+                      const Positioned(
+                        right: 4,
+                        bottom: 4,
+                        child: Icon(
+                          Icons.ac_unit_rounded,
+                          key: Key('frozen-streak-indicator'),
+                          color: Color(0xFF0284C7),
+                          size: 17,
+                        ),
+                      ),
+                  ],
+                ),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 13),
               Expanded(
-                child: Text(
-                  streak.current == 1
-                      ? '1 día de racha'
-                      : '${streak.current} días de racha',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w800,
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      streak.current == 1
+                          ? '1 día de racha'
+                          : '${streak.current} días de racha',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    Text(
+                      flame.statusLabel,
+                      key: const Key('streak-flame-status'),
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.86),
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -276,12 +417,103 @@ class _StatusCard extends StatelessWidget {
 
   String _streakMessage(StudyStreak value) {
     if (value.activeToday) return 'Tu actividad de hoy ya protegió la racha.';
-    if (value.current > 0) return 'Haz una actividad hoy para mantenerla viva.';
+    if (value.current > 0) {
+      return 'Tu llama está congelada. Haz una actividad hoy para salvarla.';
+    }
     if (value.lastActivity != null) {
       return 'Empieza una nueva racha con una actividad hoy.';
     }
     return 'Tu primera actividad iniciará la racha.';
   }
+}
+
+class _StreakPreviewControls extends StatelessWidget {
+  const _StreakPreviewControls({
+    required this.days,
+    required this.state,
+    required this.onAdvance,
+    required this.onStateChanged,
+    required this.onReset,
+  });
+
+  final int days;
+  final _StreakPreviewState state;
+  final VoidCallback onAdvance;
+  final ValueChanged<_StreakPreviewState> onStateChanged;
+  final VoidCallback onReset;
+
+  @override
+  Widget build(BuildContext context) => Card(
+    key: const Key('streak-preview-controls'),
+    child: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Vista previa de la racha',
+                      style: TextStyle(fontWeight: FontWeight.w700),
+                    ),
+                    Text('Solo cambia la demostración visual.'),
+                  ],
+                ),
+              ),
+              IconButton(
+                key: const Key('reset-streak-preview'),
+                tooltip: 'Restablecer vista previa',
+                onPressed: onReset,
+                icon: const Icon(Icons.restart_alt_rounded),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(child: Text('$days días preparados')),
+              FilledButton.tonalIcon(
+                key: const Key('advance-streak-preview'),
+                style: FilledButton.styleFrom(minimumSize: const Size(116, 48)),
+                onPressed: onAdvance,
+                icon: const Icon(Icons.fast_forward_rounded),
+                label: const Text('+10 días'),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            child: SegmentedButton<_StreakPreviewState>(
+              key: const Key('streak-state-preview'),
+              segments: const [
+                ButtonSegment(
+                  value: _StreakPreviewState.active,
+                  label: Text('Activa'),
+                ),
+                ButtonSegment(
+                  value: _StreakPreviewState.frozen,
+                  label: Text('Congelada'),
+                ),
+                ButtonSegment(
+                  value: _StreakPreviewState.lost,
+                  label: Text('Perdida'),
+                ),
+              ],
+              selected: {state},
+              showSelectedIcon: false,
+              onSelectionChanged: (selection) =>
+                  onStateChanged(selection.first),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }
 
 class _StatusMetric extends StatelessWidget {

@@ -7,8 +7,10 @@ Alcance implementado en la Etapa 6C-G para Android y iOS.
 - La racha se calcula con el orden de la revisión que devuelve el servidor después de calificar el intento.
 - Tres o más respuestas correctas consecutivas desbloquean el feedback.
 - La pantalla de resultado muestra la racha más larga y reproduce una sola vez el sonido de éxito y la vibración corta.
+- La llama realiza un movimiento breve al mostrar una racha y queda estática si el sistema solicita reducir animaciones.
 - Una respuesta incorrecta reinicia el conteo consecutivo.
 - El estudiante puede desactivar por separado el sonido y la vibración en `Más > Preferencias`, sin ocultar la confirmación visual.
+- La opción `Probar feedback` permite escuchar y sentir la configuración sin completar una práctica.
 
 Flutter no revela ni infiere respuestas correctas mientras la práctica está abierta. Esto conserva la protección del banco y evita premiar una selección antes de que el backend la confirme.
 

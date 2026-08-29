@@ -26,6 +26,18 @@ El XP total procede de `GET /auth/perfil`. Después de una calificación, la app
 - El contenido puede actualizarse con gesto de recarga o con el botón del encabezado.
 - Los errores de red no se sustituyen por datos falsos cuando existe una sesión real.
 
+### Estados visuales de la racha
+
+- `actual > 0` y `activoHoy = true`: la llama está activa, crece al entrar y mantiene un movimiento suave.
+- `actual > 0` y `activoHoy = false`: la llama se muestra congelada y sin movimiento; el estudiante todavía debe realizar una actividad hoy.
+- `actual = 0`: la llama se muestra apagada y sin movimiento.
+
+El color activo cambia por hitos: naranja de 1 a 9 días, dorado de 10 a 19, rojo de 20 a 29, violeta de 30 a 39, azul de 40 a 49 y cian legendario desde 50 días.
+
+La pérdida real sigue siendo responsabilidad del backend. Para aplicar el día de gracia acordado, el servidor debe conservar `actual > 0` durante el día congelado y devolver `actual = 0` al superar el siguiente límite del día académico sin actividad. Flutter representa esos estados, pero no adelanta fechas ni concede días.
+
+Las cuentas demostrativas muestran controles para sumar diez días y alternar entre activa, congelada y perdida. Esos controles solo modifican la vista previa en memoria y nunca aparecen en una cuenta real ni llaman a la API.
+
 ## Certificados de logros
 
 `GET /gamificacion/logros/:logroId/certificado`

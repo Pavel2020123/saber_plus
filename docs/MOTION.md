@@ -26,3 +26,5 @@ El sistema está centralizado en `lib/app/page_transitions.dart`; las nuevas rut
 ## Sonido y vibración
 
 La Etapa 6C-G incorpora un sonido de éxito y una vibración corta al confirmar una racha de tres o más aciertos. Ambos pueden configurarse por separado; el detalle está en `ANSWER_STREAK_FEEDBACK.md`.
+
+La llama de la racha diaria crece al entrar en la pantalla y continúa con un movimiento suave mientras la actividad de hoy esté confirmada. Al congelarse o perderse queda estática. La llama de aciertos de una práctica conserva una animación breve de entrada. Todas permanecen estáticas cuando el sistema solicita reducir movimiento.
