@@ -32,6 +32,7 @@ Las flashcards académicas y su progreso local están documentados en [docs/FLAS
 El contador global de días para el examen está documentado en [docs/EXAM_COUNTDOWN.md](docs/EXAM_COUNTDOWN.md).
 El feedback visual y háptico de rachas de aciertos está documentado en [docs/ANSWER_STREAK_FEEDBACK.md](docs/ANSWER_STREAK_FEEDBACK.md).
 Las marcas locales y protegidas de preguntas difíciles están documentadas en [docs/DIFFICULT_QUESTIONS.md](docs/DIFFICULT_QUESTIONS.md).
+El repaso de las respuestas falladas durante el día está documentado en [docs/DAILY_MISTAKE_REVIEW.md](docs/DAILY_MISTAKE_REVIEW.md).
 
 ## Configuración por ambiente
 

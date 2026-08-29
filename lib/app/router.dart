@@ -29,6 +29,7 @@ import '../features/library/presentation/reference_library_page.dart';
 import '../features/practice/domain/practice_models.dart';
 import '../features/practice/presentation/practice_history_page.dart';
 import '../features/practice/presentation/practice_hub_page.dart';
+import '../features/practice/presentation/daily_mistakes_page.dart';
 import '../features/practice/presentation/random_practice_setup_page.dart';
 import '../features/practice/presentation/practice_session_page.dart';
 import '../features/practice/presentation/simulation_setup_page.dart';
@@ -220,6 +221,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   _animatedRoute(
                     path: 'history',
                     builder: (context, state) => const PracticeHistoryPage(),
+                  ),
+                  _animatedRoute(
+                    path: 'daily-review',
+                    builder: (context, state) => const DailyMistakesPage(),
                   ),
                   _animatedRoute(
                     path: 'random',

@@ -84,6 +84,7 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Llama diaria activa, congelada o apagada, con niveles de color cada diez días y vista previa segura en modo demostración.
 - [x] Preguntas difíciles por estudiante, disponibles sin conexión y sin almacenar el contenido protegido del banco.
 - [ ] Sincronización de preguntas difíciles entre dispositivos cuando el backend publique el contrato correspondiente.
+- [x] Repaso de errores del día con explicaciones, progreso temporal y acceso al repaso inteligente.
 - Ranking con privacidad por defecto.
 - Batallas asíncronas, bloqueo y reporte.
 - Anuncios, referidos, soporte y calculadora de puntaje.

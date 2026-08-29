@@ -137,3 +137,7 @@ La calificación usa `POST /simulacros/calificar` con el área elegida, todas la
 - Devuelve el resumen global del filtro y cada respuesta con origen, tiempo, tema, subtema, opción seleccionada, opción correcta y explicación.
 
 El historial es de solo lectura. La aplicación no reconstruye ni modifica resultados calculados por el backend.
+
+### Repaso de errores del día
+
+Flutter consulta el historial con `resultado=incorrectas&limite=100`, filtra por la fecha local actual y conserva el fallo más reciente de cada pregunta. La revisión usa únicamente respuestas ya calificadas y no reconstruye preguntas protegidas ni crea nuevos resultados. El progreso visual de lectura pertenece a la sesión de pantalla y el refuerzo posterior se genera mediante el flujo de repaso adaptativo.

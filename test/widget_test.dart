@@ -193,6 +193,11 @@ void main() {
 
     await tester.tap(find.text('Practicar'));
     await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('open-random-practice')),
+      200,
+      scrollable: find.byType(Scrollable).last,
+    );
     await tester.tap(find.byKey(const Key('open-random-practice')));
     await tester.pumpAndSettle();
     expect(find.text('Configura tu sesión'), findsOneWidget);
@@ -284,6 +289,47 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.textContaining('Respuesta correcta:'), findsOneWidget);
     expect(find.textContaining('20.000 pesos'), findsOneWidget);
+  });
+
+  testWidgets('repasa los errores del día y actualiza su progreso', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Practicar'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('open-daily-mistakes')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Repaso de hoy'), findsOneWidget);
+    expect(find.text('Regla de tres'), findsOneWidget);
+    expect(find.text('0 de 1 repasadas'), findsOneWidget);
+    final reviewButton = find.byKey(
+      const Key('review-daily-mistake-demo-question-mathematics-1'),
+    );
+    await tester.ensureVisible(reviewButton);
+    await tester.drag(
+      find.byKey(const Key('daily-mistakes-list')),
+      const Offset(0, -120),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(reviewButton);
+    await tester.pumpAndSettle();
+
+    expect(find.text('Marcar pendiente'), findsOneWidget);
+    await tester.drag(
+      find.byKey(const Key('daily-mistakes-list')),
+      const Offset(0, 800),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('1 de 1 repasadas'), findsOneWidget);
   });
 
   testWidgets('abre el panel de progreso y el cuaderno de errores', (

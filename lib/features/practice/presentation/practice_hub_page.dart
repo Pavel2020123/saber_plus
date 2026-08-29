@@ -50,6 +50,17 @@ class PracticeHubPage extends StatelessWidget {
             onTap: () => context.push('/student/practice/history'),
           ),
         ),
+        const SizedBox(height: 8),
+        Card(
+          child: ListTile(
+            key: const Key('open-daily-mistakes'),
+            leading: const CircleAvatar(child: Icon(Icons.fact_check_outlined)),
+            title: const Text('Repasar errores de hoy'),
+            subtitle: const Text('Explicaciones y progreso del día'),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            onTap: () => context.push('/student/practice/daily-review'),
+          ),
+        ),
         const SizedBox(height: 26),
         Text(
           'Sesión aleatoria',

@@ -268,7 +268,7 @@ class DemoPracticeRepository implements PracticeRepository {
         origin: PracticeOrigin.simulation,
         isCorrect: false,
         responseTimeSeconds: 42,
-        answeredAt: DateTime.now().subtract(const Duration(days: 1)),
+        answeredAt: DateTime.now().subtract(const Duration(hours: 2)),
         selectedAnswer: const HistoryAnswer(
           id: 'answer-b',
           text: '15.000 pesos',
