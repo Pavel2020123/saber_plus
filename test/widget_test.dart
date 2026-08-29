@@ -390,10 +390,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Sin cambios pendientes'), findsOneWidget);
 
-    await tester.drag(
-      find.byType(ListView).last,
-      const Offset(0, -180),
-    );
+    await tester.drag(find.byType(ListView).last, const Offset(0, -180));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('open-sync-queue')));
     await tester.pumpAndSettle();
@@ -460,6 +457,49 @@ void main() {
     await tester.tap(find.byKey(const Key('certificate-PRIMER_PASO')));
     await tester.pumpAndSettle();
     expect(find.textContaining('cuenta real'), findsOneWidget);
+  });
+
+  testWidgets('busca una lección y abre preguntas protegidas', (tester) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Estudiar'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('open-academic-search')));
+    await tester.pumpAndSettle();
+
+    await tester.enterText(
+      find.byKey(const Key('academic-search-field')),
+      'regla',
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('2 resultados'), findsOneWidget);
+    expect(find.text('Lección'), findsOneWidget);
+    expect(find.text('Banco de preguntas'), findsOneWidget);
+
+    await tester.tap(find.text('Preguntas'));
+    await tester.pumpAndSettle();
+    expect(find.text('1 resultado'), findsOneWidget);
+    expect(find.text('Lección'), findsNothing);
+    await tester.tap(
+      find.byKey(
+        const Key(
+          'academic-search-result-questionPractice-matematicas-demo-mathematics-subtopic',
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('Pregunta 1 de 2'), findsOneWidget);
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    expect(find.text('Buscar contenido'), findsOneWidget);
+    expect(find.text('1 resultado'), findsOneWidget);
   });
 
   testWidgets('guarda y abre una lección favorita', (tester) async {

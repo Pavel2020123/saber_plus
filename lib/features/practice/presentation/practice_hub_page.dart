@@ -8,7 +8,17 @@ class PracticeHubPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('Practicar')),
+    appBar: AppBar(
+      title: const Text('Practicar'),
+      actions: [
+        IconButton(
+          key: const Key('open-practice-search'),
+          tooltip: 'Buscar preguntas por tema',
+          onPressed: () => context.go('/student/study/search'),
+          icon: const Icon(Icons.search_rounded),
+        ),
+      ],
+    ),
     body: ListView(
       padding: const EdgeInsets.fromLTRB(20, 12, 20, 36),
       children: [

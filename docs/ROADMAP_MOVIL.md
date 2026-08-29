@@ -73,6 +73,8 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Descarga y apertura segura de certificados de logros desbloqueados.
 - [x] Favoritos de lecciones por estudiante, persistentes en el dispositivo y disponibles sin conexión.
 - [ ] Sincronización de favoritos entre dispositivos cuando el backend publique el contrato correspondiente.
+- [x] Búsqueda académica de lecciones y prácticas por área, tema, subtema o concepto.
+- [x] Acceso seguro al banco por subtema, sin descargar preguntas ni respuestas fuera de un intento.
 - Ranking con privacidad por defecto.
 - Batallas asíncronas, bloqueo y reporte.
 - Anuncios, referidos, soporte y calculadora de puntaje.

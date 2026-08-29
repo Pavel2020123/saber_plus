@@ -17,6 +17,12 @@ class StudyAreasPage extends ConsumerWidget {
         title: const Text('Estudiar'),
         actions: [
           IconButton(
+            key: const Key('open-academic-search'),
+            tooltip: 'Buscar contenido',
+            onPressed: () => context.push('/student/study/search'),
+            icon: const Icon(Icons.search_rounded),
+          ),
+          IconButton(
             key: const Key('open-offline-downloads'),
             tooltip: 'Descargas',
             onPressed: () => context.push('/student/study/downloads'),

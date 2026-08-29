@@ -30,6 +30,7 @@ import '../features/practice/presentation/practice_session_page.dart';
 import '../features/practice/presentation/simulation_setup_page.dart';
 import '../features/progress/presentation/adaptive_review_page.dart';
 import '../features/progress/presentation/progress_page.dart';
+import '../features/search/presentation/academic_search_page.dart';
 import '../features/shared/presentation/student_shell.dart';
 import '../features/study/presentation/study_area_page.dart';
 import '../features/study/presentation/study_areas_page.dart';
@@ -154,6 +155,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 pageBuilder: (context, state) =>
                     const NoTransitionPage(child: StudyAreasPage()),
                 routes: [
+                  GoRoute(
+                    path: 'search',
+                    builder: (context, state) => const AcademicSearchPage(),
+                  ),
                   GoRoute(
                     path: 'downloads',
                     builder: (context, state) => const OfflineDownloadsPage(),

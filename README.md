@@ -24,6 +24,7 @@ La cola de operaciones seguras y sus conflictos está en [docs/OFFLINE_SYNC.md](
 Las preferencias persistentes y el recordatorio diario local están documentados en [docs/PREFERENCES_NOTIFICATIONS.md](docs/PREFERENCES_NOTIFICATIONS.md).
 El contrato de XP, rachas, actividad y logros está en [docs/GAMIFICATION_CONTRACT.md](docs/GAMIFICATION_CONTRACT.md).
 El alcance y la persistencia local de favoritos están en [docs/FAVORITES.md](docs/FAVORITES.md).
+La búsqueda académica y la protección del banco de preguntas están documentadas en [docs/ACADEMIC_SEARCH.md](docs/ACADEMIC_SEARCH.md).
 
 ## Configuración por ambiente
 
