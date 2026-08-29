@@ -252,6 +252,38 @@ class _DashboardContent extends StatelessWidget {
         ),
       ),
       const SizedBox(height: 14),
+      Card(
+        child: Padding(
+          padding: const EdgeInsets.all(18),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Icon(Icons.style_outlined),
+                  const SizedBox(width: 10),
+                  Text(
+                    'Flashcards',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Memoriza fórmulas y conceptos; la app prioriza lo que necesitas repasar.',
+              ),
+              const SizedBox(height: 14),
+              FilledButton.tonalIcon(
+                key: const Key('open-flashcards'),
+                onPressed: () => context.push('/student/progress/flashcards'),
+                icon: const Icon(Icons.play_arrow_rounded),
+                label: const Text('Estudiar flashcards'),
+              ),
+            ],
+          ),
+        ),
+      ),
+      const SizedBox(height: 14),
       GridView.count(
         crossAxisCount: 2,
         shrinkWrap: true,

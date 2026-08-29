@@ -57,12 +57,16 @@ void main() {
       final outbox = await database.getPendingOperations('student-1');
       final favorites = await database.watchFavoriteEntries('student-1').first;
       final resume = await database.watchLearningResume('student-1').first;
+      final flashcards = await database
+          .watchFlashcardProgress('student-1')
+          .first;
 
       expect(downloads, hasLength(1));
       expect(downloads.single.themeName, 'Álgebra');
       expect(outbox, isEmpty);
       expect(favorites, isEmpty);
       expect(resume, isNull);
+      expect(flashcards, isEmpty);
     },
   );
 }

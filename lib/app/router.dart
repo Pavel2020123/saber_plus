@@ -21,6 +21,9 @@ import '../features/dashboard/presentation/student_dashboard_page.dart';
 import '../features/dashboard/presentation/teacher_dashboard_page.dart';
 import '../features/gamification/presentation/gamification_page.dart';
 import '../features/favorites/presentation/favorites_page.dart';
+import '../features/flashcards/domain/flashcard_models.dart';
+import '../features/flashcards/presentation/flashcard_session_page.dart';
+import '../features/flashcards/presentation/flashcards_page.dart';
 import '../features/library/presentation/reference_library_page.dart';
 import '../features/practice/domain/practice_models.dart';
 import '../features/practice/presentation/practice_history_page.dart';
@@ -261,6 +264,18 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   _animatedRoute(
                     path: 'library',
                     builder: (context, state) => const ReferenceLibraryPage(),
+                  ),
+                  _animatedRoute(
+                    path: 'flashcards',
+                    builder: (context, state) => const FlashcardsPage(),
+                    routes: [
+                      _animatedRoute(
+                        path: 'session',
+                        builder: (context, state) => FlashcardSessionPage(
+                          config: FlashcardSessionConfig.fromUri(state.uri),
+                        ),
+                      ),
+                    ],
                   ),
                   _animatedRoute(
                     path: 'adaptive',

@@ -92,12 +92,30 @@ class LearningResumeEntries extends Table {
   Set<Column<Object>> get primaryKey => {userId};
 }
 
+class FlashcardProgressEntries extends Table {
+  TextColumn get userId => text()();
+
+  TextColumn get cardId => text()();
+
+  BoolColumn get mastered => boolean().withDefault(const Constant(false))();
+
+  IntColumn get reviewCount => integer().withDefault(const Constant(0))();
+
+  IntColumn get correctCount => integer().withDefault(const Constant(0))();
+
+  DateTimeColumn get lastReviewedAt => dateTime()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {userId, cardId};
+}
+
 @DriftDatabase(
   tables: [
     OfflineDownloads,
     PendingOperations,
     FavoriteEntries,
     LearningResumeEntries,
+    FlashcardProgressEntries,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -106,7 +124,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.defaults() : super(driftDatabase(name: 'saber_plus'));
 
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 5;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -115,6 +133,7 @@ class AppDatabase extends _$AppDatabase {
       if (from < 2) await migrator.createTable(pendingOperations);
       if (from < 3) await migrator.createTable(favoriteEntries);
       if (from < 4) await migrator.createTable(learningResumeEntries);
+      if (from < 5) await migrator.createTable(flashcardProgressEntries);
     },
   );
 
@@ -216,6 +235,25 @@ class AppDatabase extends _$AppDatabase {
   Future<void> clearLearningResume(String userId) => (delete(
     learningResumeEntries,
   )..where((row) => row.userId.equals(userId))).go();
+
+  Stream<List<FlashcardProgressEntry>> watchFlashcardProgress(String userId) =>
+      (select(flashcardProgressEntries)
+            ..where((row) => row.userId.equals(userId))
+            ..orderBy([(row) => OrderingTerm.desc(row.lastReviewedAt)]))
+          .watch();
+
+  Future<FlashcardProgressEntry?> findFlashcardProgress(
+    String userId,
+    String cardId,
+  ) =>
+      (select(flashcardProgressEntries)..where(
+            (row) => row.userId.equals(userId) & row.cardId.equals(cardId),
+          ))
+          .getSingleOrNull();
+
+  Future<void> saveFlashcardProgress(
+    FlashcardProgressEntriesCompanion progress,
+  ) => into(flashcardProgressEntries).insertOnConflictUpdate(progress);
 }
 
 final appDatabaseProvider = Provider<AppDatabase>((ref) {

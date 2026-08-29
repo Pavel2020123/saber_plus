@@ -2157,6 +2157,440 @@ class LearningResumeEntriesCompanion
   }
 }
 
+class $FlashcardProgressEntriesTable extends FlashcardProgressEntries
+    with TableInfo<$FlashcardProgressEntriesTable, FlashcardProgressEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $FlashcardProgressEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+    'user_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _cardIdMeta = const VerificationMeta('cardId');
+  @override
+  late final GeneratedColumn<String> cardId = GeneratedColumn<String>(
+    'card_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _masteredMeta = const VerificationMeta(
+    'mastered',
+  );
+  @override
+  late final GeneratedColumn<bool> mastered = GeneratedColumn<bool>(
+    'mastered',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("mastered" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _reviewCountMeta = const VerificationMeta(
+    'reviewCount',
+  );
+  @override
+  late final GeneratedColumn<int> reviewCount = GeneratedColumn<int>(
+    'review_count',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _correctCountMeta = const VerificationMeta(
+    'correctCount',
+  );
+  @override
+  late final GeneratedColumn<int> correctCount = GeneratedColumn<int>(
+    'correct_count',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _lastReviewedAtMeta = const VerificationMeta(
+    'lastReviewedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> lastReviewedAt =
+      GeneratedColumn<DateTime>(
+        'last_reviewed_at',
+        aliasedName,
+        false,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: true,
+      );
+  @override
+  List<GeneratedColumn> get $columns => [
+    userId,
+    cardId,
+    mastered,
+    reviewCount,
+    correctCount,
+    lastReviewedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'flashcard_progress_entries';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<FlashcardProgressEntry> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('user_id')) {
+      context.handle(
+        _userIdMeta,
+        userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('card_id')) {
+      context.handle(
+        _cardIdMeta,
+        cardId.isAcceptableOrUnknown(data['card_id']!, _cardIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_cardIdMeta);
+    }
+    if (data.containsKey('mastered')) {
+      context.handle(
+        _masteredMeta,
+        mastered.isAcceptableOrUnknown(data['mastered']!, _masteredMeta),
+      );
+    }
+    if (data.containsKey('review_count')) {
+      context.handle(
+        _reviewCountMeta,
+        reviewCount.isAcceptableOrUnknown(
+          data['review_count']!,
+          _reviewCountMeta,
+        ),
+      );
+    }
+    if (data.containsKey('correct_count')) {
+      context.handle(
+        _correctCountMeta,
+        correctCount.isAcceptableOrUnknown(
+          data['correct_count']!,
+          _correctCountMeta,
+        ),
+      );
+    }
+    if (data.containsKey('last_reviewed_at')) {
+      context.handle(
+        _lastReviewedAtMeta,
+        lastReviewedAt.isAcceptableOrUnknown(
+          data['last_reviewed_at']!,
+          _lastReviewedAtMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_lastReviewedAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {userId, cardId};
+  @override
+  FlashcardProgressEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return FlashcardProgressEntry(
+      userId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}user_id'],
+      )!,
+      cardId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}card_id'],
+      )!,
+      mastered: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}mastered'],
+      )!,
+      reviewCount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}review_count'],
+      )!,
+      correctCount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}correct_count'],
+      )!,
+      lastReviewedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}last_reviewed_at'],
+      )!,
+    );
+  }
+
+  @override
+  $FlashcardProgressEntriesTable createAlias(String alias) {
+    return $FlashcardProgressEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class FlashcardProgressEntry extends DataClass
+    implements Insertable<FlashcardProgressEntry> {
+  final String userId;
+  final String cardId;
+  final bool mastered;
+  final int reviewCount;
+  final int correctCount;
+  final DateTime lastReviewedAt;
+  const FlashcardProgressEntry({
+    required this.userId,
+    required this.cardId,
+    required this.mastered,
+    required this.reviewCount,
+    required this.correctCount,
+    required this.lastReviewedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['user_id'] = Variable<String>(userId);
+    map['card_id'] = Variable<String>(cardId);
+    map['mastered'] = Variable<bool>(mastered);
+    map['review_count'] = Variable<int>(reviewCount);
+    map['correct_count'] = Variable<int>(correctCount);
+    map['last_reviewed_at'] = Variable<DateTime>(lastReviewedAt);
+    return map;
+  }
+
+  FlashcardProgressEntriesCompanion toCompanion(bool nullToAbsent) {
+    return FlashcardProgressEntriesCompanion(
+      userId: Value(userId),
+      cardId: Value(cardId),
+      mastered: Value(mastered),
+      reviewCount: Value(reviewCount),
+      correctCount: Value(correctCount),
+      lastReviewedAt: Value(lastReviewedAt),
+    );
+  }
+
+  factory FlashcardProgressEntry.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return FlashcardProgressEntry(
+      userId: serializer.fromJson<String>(json['userId']),
+      cardId: serializer.fromJson<String>(json['cardId']),
+      mastered: serializer.fromJson<bool>(json['mastered']),
+      reviewCount: serializer.fromJson<int>(json['reviewCount']),
+      correctCount: serializer.fromJson<int>(json['correctCount']),
+      lastReviewedAt: serializer.fromJson<DateTime>(json['lastReviewedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'userId': serializer.toJson<String>(userId),
+      'cardId': serializer.toJson<String>(cardId),
+      'mastered': serializer.toJson<bool>(mastered),
+      'reviewCount': serializer.toJson<int>(reviewCount),
+      'correctCount': serializer.toJson<int>(correctCount),
+      'lastReviewedAt': serializer.toJson<DateTime>(lastReviewedAt),
+    };
+  }
+
+  FlashcardProgressEntry copyWith({
+    String? userId,
+    String? cardId,
+    bool? mastered,
+    int? reviewCount,
+    int? correctCount,
+    DateTime? lastReviewedAt,
+  }) => FlashcardProgressEntry(
+    userId: userId ?? this.userId,
+    cardId: cardId ?? this.cardId,
+    mastered: mastered ?? this.mastered,
+    reviewCount: reviewCount ?? this.reviewCount,
+    correctCount: correctCount ?? this.correctCount,
+    lastReviewedAt: lastReviewedAt ?? this.lastReviewedAt,
+  );
+  FlashcardProgressEntry copyWithCompanion(
+    FlashcardProgressEntriesCompanion data,
+  ) {
+    return FlashcardProgressEntry(
+      userId: data.userId.present ? data.userId.value : this.userId,
+      cardId: data.cardId.present ? data.cardId.value : this.cardId,
+      mastered: data.mastered.present ? data.mastered.value : this.mastered,
+      reviewCount: data.reviewCount.present
+          ? data.reviewCount.value
+          : this.reviewCount,
+      correctCount: data.correctCount.present
+          ? data.correctCount.value
+          : this.correctCount,
+      lastReviewedAt: data.lastReviewedAt.present
+          ? data.lastReviewedAt.value
+          : this.lastReviewedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FlashcardProgressEntry(')
+          ..write('userId: $userId, ')
+          ..write('cardId: $cardId, ')
+          ..write('mastered: $mastered, ')
+          ..write('reviewCount: $reviewCount, ')
+          ..write('correctCount: $correctCount, ')
+          ..write('lastReviewedAt: $lastReviewedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    userId,
+    cardId,
+    mastered,
+    reviewCount,
+    correctCount,
+    lastReviewedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is FlashcardProgressEntry &&
+          other.userId == this.userId &&
+          other.cardId == this.cardId &&
+          other.mastered == this.mastered &&
+          other.reviewCount == this.reviewCount &&
+          other.correctCount == this.correctCount &&
+          other.lastReviewedAt == this.lastReviewedAt);
+}
+
+class FlashcardProgressEntriesCompanion
+    extends UpdateCompanion<FlashcardProgressEntry> {
+  final Value<String> userId;
+  final Value<String> cardId;
+  final Value<bool> mastered;
+  final Value<int> reviewCount;
+  final Value<int> correctCount;
+  final Value<DateTime> lastReviewedAt;
+  final Value<int> rowid;
+  const FlashcardProgressEntriesCompanion({
+    this.userId = const Value.absent(),
+    this.cardId = const Value.absent(),
+    this.mastered = const Value.absent(),
+    this.reviewCount = const Value.absent(),
+    this.correctCount = const Value.absent(),
+    this.lastReviewedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  FlashcardProgressEntriesCompanion.insert({
+    required String userId,
+    required String cardId,
+    this.mastered = const Value.absent(),
+    this.reviewCount = const Value.absent(),
+    this.correctCount = const Value.absent(),
+    required DateTime lastReviewedAt,
+    this.rowid = const Value.absent(),
+  }) : userId = Value(userId),
+       cardId = Value(cardId),
+       lastReviewedAt = Value(lastReviewedAt);
+  static Insertable<FlashcardProgressEntry> custom({
+    Expression<String>? userId,
+    Expression<String>? cardId,
+    Expression<bool>? mastered,
+    Expression<int>? reviewCount,
+    Expression<int>? correctCount,
+    Expression<DateTime>? lastReviewedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (userId != null) 'user_id': userId,
+      if (cardId != null) 'card_id': cardId,
+      if (mastered != null) 'mastered': mastered,
+      if (reviewCount != null) 'review_count': reviewCount,
+      if (correctCount != null) 'correct_count': correctCount,
+      if (lastReviewedAt != null) 'last_reviewed_at': lastReviewedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  FlashcardProgressEntriesCompanion copyWith({
+    Value<String>? userId,
+    Value<String>? cardId,
+    Value<bool>? mastered,
+    Value<int>? reviewCount,
+    Value<int>? correctCount,
+    Value<DateTime>? lastReviewedAt,
+    Value<int>? rowid,
+  }) {
+    return FlashcardProgressEntriesCompanion(
+      userId: userId ?? this.userId,
+      cardId: cardId ?? this.cardId,
+      mastered: mastered ?? this.mastered,
+      reviewCount: reviewCount ?? this.reviewCount,
+      correctCount: correctCount ?? this.correctCount,
+      lastReviewedAt: lastReviewedAt ?? this.lastReviewedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (cardId.present) {
+      map['card_id'] = Variable<String>(cardId.value);
+    }
+    if (mastered.present) {
+      map['mastered'] = Variable<bool>(mastered.value);
+    }
+    if (reviewCount.present) {
+      map['review_count'] = Variable<int>(reviewCount.value);
+    }
+    if (correctCount.present) {
+      map['correct_count'] = Variable<int>(correctCount.value);
+    }
+    if (lastReviewedAt.present) {
+      map['last_reviewed_at'] = Variable<DateTime>(lastReviewedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FlashcardProgressEntriesCompanion(')
+          ..write('userId: $userId, ')
+          ..write('cardId: $cardId, ')
+          ..write('mastered: $mastered, ')
+          ..write('reviewCount: $reviewCount, ')
+          ..write('correctCount: $correctCount, ')
+          ..write('lastReviewedAt: $lastReviewedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -2170,6 +2604,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   );
   late final $LearningResumeEntriesTable learningResumeEntries =
       $LearningResumeEntriesTable(this);
+  late final $FlashcardProgressEntriesTable flashcardProgressEntries =
+      $FlashcardProgressEntriesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -2179,6 +2615,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     pendingOperations,
     favoriteEntries,
     learningResumeEntries,
+    flashcardProgressEntries,
   ];
 }
 
@@ -3298,6 +3735,250 @@ typedef $$LearningResumeEntriesTableProcessedTableManager =
       LearningResumeEntry,
       PrefetchHooks Function()
     >;
+typedef $$FlashcardProgressEntriesTableCreateCompanionBuilder =
+    FlashcardProgressEntriesCompanion Function({
+      required String userId,
+      required String cardId,
+      Value<bool> mastered,
+      Value<int> reviewCount,
+      Value<int> correctCount,
+      required DateTime lastReviewedAt,
+      Value<int> rowid,
+    });
+typedef $$FlashcardProgressEntriesTableUpdateCompanionBuilder =
+    FlashcardProgressEntriesCompanion Function({
+      Value<String> userId,
+      Value<String> cardId,
+      Value<bool> mastered,
+      Value<int> reviewCount,
+      Value<int> correctCount,
+      Value<DateTime> lastReviewedAt,
+      Value<int> rowid,
+    });
+
+class $$FlashcardProgressEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $FlashcardProgressEntriesTable> {
+  $$FlashcardProgressEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get userId => $composableBuilder(
+    column: $table.userId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get cardId => $composableBuilder(
+    column: $table.cardId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get mastered => $composableBuilder(
+    column: $table.mastered,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get reviewCount => $composableBuilder(
+    column: $table.reviewCount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get correctCount => $composableBuilder(
+    column: $table.correctCount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get lastReviewedAt => $composableBuilder(
+    column: $table.lastReviewedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$FlashcardProgressEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $FlashcardProgressEntriesTable> {
+  $$FlashcardProgressEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get userId => $composableBuilder(
+    column: $table.userId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get cardId => $composableBuilder(
+    column: $table.cardId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get mastered => $composableBuilder(
+    column: $table.mastered,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get reviewCount => $composableBuilder(
+    column: $table.reviewCount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get correctCount => $composableBuilder(
+    column: $table.correctCount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get lastReviewedAt => $composableBuilder(
+    column: $table.lastReviewedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$FlashcardProgressEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $FlashcardProgressEntriesTable> {
+  $$FlashcardProgressEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<String> get cardId =>
+      $composableBuilder(column: $table.cardId, builder: (column) => column);
+
+  GeneratedColumn<bool> get mastered =>
+      $composableBuilder(column: $table.mastered, builder: (column) => column);
+
+  GeneratedColumn<int> get reviewCount => $composableBuilder(
+    column: $table.reviewCount,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get correctCount => $composableBuilder(
+    column: $table.correctCount,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get lastReviewedAt => $composableBuilder(
+    column: $table.lastReviewedAt,
+    builder: (column) => column,
+  );
+}
+
+class $$FlashcardProgressEntriesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $FlashcardProgressEntriesTable,
+          FlashcardProgressEntry,
+          $$FlashcardProgressEntriesTableFilterComposer,
+          $$FlashcardProgressEntriesTableOrderingComposer,
+          $$FlashcardProgressEntriesTableAnnotationComposer,
+          $$FlashcardProgressEntriesTableCreateCompanionBuilder,
+          $$FlashcardProgressEntriesTableUpdateCompanionBuilder,
+          (
+            FlashcardProgressEntry,
+            BaseReferences<
+              _$AppDatabase,
+              $FlashcardProgressEntriesTable,
+              FlashcardProgressEntry
+            >,
+          ),
+          FlashcardProgressEntry,
+          PrefetchHooks Function()
+        > {
+  $$FlashcardProgressEntriesTableTableManager(
+    _$AppDatabase db,
+    $FlashcardProgressEntriesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$FlashcardProgressEntriesTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer: () =>
+              $$FlashcardProgressEntriesTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$FlashcardProgressEntriesTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> userId = const Value.absent(),
+                Value<String> cardId = const Value.absent(),
+                Value<bool> mastered = const Value.absent(),
+                Value<int> reviewCount = const Value.absent(),
+                Value<int> correctCount = const Value.absent(),
+                Value<DateTime> lastReviewedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => FlashcardProgressEntriesCompanion(
+                userId: userId,
+                cardId: cardId,
+                mastered: mastered,
+                reviewCount: reviewCount,
+                correctCount: correctCount,
+                lastReviewedAt: lastReviewedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String userId,
+                required String cardId,
+                Value<bool> mastered = const Value.absent(),
+                Value<int> reviewCount = const Value.absent(),
+                Value<int> correctCount = const Value.absent(),
+                required DateTime lastReviewedAt,
+                Value<int> rowid = const Value.absent(),
+              }) => FlashcardProgressEntriesCompanion.insert(
+                userId: userId,
+                cardId: cardId,
+                mastered: mastered,
+                reviewCount: reviewCount,
+                correctCount: correctCount,
+                lastReviewedAt: lastReviewedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$FlashcardProgressEntriesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $FlashcardProgressEntriesTable,
+      FlashcardProgressEntry,
+      $$FlashcardProgressEntriesTableFilterComposer,
+      $$FlashcardProgressEntriesTableOrderingComposer,
+      $$FlashcardProgressEntriesTableAnnotationComposer,
+      $$FlashcardProgressEntriesTableCreateCompanionBuilder,
+      $$FlashcardProgressEntriesTableUpdateCompanionBuilder,
+      (
+        FlashcardProgressEntry,
+        BaseReferences<
+          _$AppDatabase,
+          $FlashcardProgressEntriesTable,
+          FlashcardProgressEntry
+        >,
+      ),
+      FlashcardProgressEntry,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -3310,4 +3991,9 @@ class $AppDatabaseManager {
       $$FavoriteEntriesTableTableManager(_db, _db.favoriteEntries);
   $$LearningResumeEntriesTableTableManager get learningResumeEntries =>
       $$LearningResumeEntriesTableTableManager(_db, _db.learningResumeEntries);
+  $$FlashcardProgressEntriesTableTableManager get flashcardProgressEntries =>
+      $$FlashcardProgressEntriesTableTableManager(
+        _db,
+        _db.flashcardProgressEntries,
+      );
 }

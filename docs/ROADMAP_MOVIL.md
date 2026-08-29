@@ -78,6 +78,7 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Transiciones breves y consistentes entre pantallas, con reducción de movimiento accesible.
 - [x] “Continúa donde quedaste” con acceso en un clic a la última lección del estudiante.
 - [x] Pomodoro opcional de 25 minutos compartido entre estudio y práctica.
+- [x] Flashcards de fórmulas y glosario con sesiones filtrables y progreso local por estudiante.
 - Ranking con privacidad por defecto.
 - Batallas asíncronas, bloqueo y reporte.
 - Anuncios, referidos, soporte y calculadora de puntaje.

@@ -28,6 +28,7 @@ La búsqueda académica y la protección del banco de preguntas están documenta
 Las transiciones y su comportamiento de accesibilidad están en [docs/MOTION.md](docs/MOTION.md).
 La reanudación local de la última lección está documentada en [docs/CONTINUE_LEARNING.md](docs/CONTINUE_LEARNING.md).
 El temporizador Pomodoro compartido está documentado en [docs/POMODORO.md](docs/POMODORO.md).
+Las flashcards académicas y su progreso local están documentados en [docs/FLASHCARDS.md](docs/FLASHCARDS.md).
 
 ## Configuración por ambiente
 
