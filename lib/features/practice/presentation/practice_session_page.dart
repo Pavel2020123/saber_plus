@@ -18,6 +18,8 @@ import '../../difficult_questions/presentation/difficult_question_providers.dart
 import '../../focus/presentation/pomodoro_card.dart';
 import '../../progress/presentation/progress_providers.dart';
 import '../../study/presentation/study_providers.dart';
+import '../../study_time/domain/study_time_models.dart';
+import '../../study_time/presentation/study_time_providers.dart';
 import '../data/practice_draft_store.dart';
 import '../domain/correct_answer_streak.dart';
 import '../domain/practice_models.dart';
@@ -401,6 +403,7 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
           : await _gradeRegularPractice(session, answers);
       if (!mounted) return;
       _clock?.cancel();
+      unawaited(_recordStudyTime(session, answers));
       await _clearDraft();
       if (!mounted) return;
       setState(() {
@@ -498,6 +501,33 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
       if (result.isSynced) ref.invalidate(studyProgressProvider);
     } on Object {
       // La calificación ya es válida aunque falle esta actualización secundaria.
+    }
+  }
+
+  Future<void> _recordStudyTime(
+    PracticeSession session,
+    List<PracticeAnswer> answers,
+  ) async {
+    final userId = ref.read(sessionControllerProvider).user?.id;
+    final seconds = answers.fold<int>(
+      0,
+      (total, answer) => total + answer.responseTimeSeconds,
+    );
+    if (userId == null || seconds <= 0) return;
+    try {
+      await ref
+          .read(studyTimeRepositoryProvider)
+          .record(
+            StudyTimeRecord(
+              userId: userId,
+              eventId: 'practice:${session.attemptId}',
+              source: StudyTimeSource.practice,
+              durationSeconds: seconds,
+              recordedAt: DateTime.now(),
+            ),
+          );
+    } on Object {
+      // La calificación confirmada no depende de la métrica local de tiempo.
     }
   }
 

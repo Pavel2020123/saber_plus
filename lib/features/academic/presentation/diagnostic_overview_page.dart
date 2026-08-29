@@ -5,7 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/config/environment.dart';
 import '../../../core/network/api_error.dart';
+import '../../auth/presentation/session_controller.dart';
 import '../../exam_countdown/presentation/exam_countdown_banner.dart';
+import '../../study_time/domain/study_time_models.dart';
+import '../../study_time/presentation/study_time_providers.dart';
 import '../data/diagnostic_draft_store.dart';
 import '../domain/academic_models.dart';
 import 'academic_home_controller.dart';
@@ -314,6 +317,7 @@ class _DiagnosticSessionState extends ConsumerState<_DiagnosticSession>
       final controller = ref.read(academicHomeControllerProvider.notifier);
       final result = await controller.finishDiagnostic(answers);
       _completed = true;
+      unawaited(_recordStudyTime(answers));
       await _draftStore.clear(_diagnosticId);
       if (!mounted) return;
       ref.invalidate(diagnosticWeakTopicsProvider);
@@ -324,6 +328,30 @@ class _DiagnosticSessionState extends ConsumerState<_DiagnosticSession>
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text(_messageFor(error))));
+    }
+  }
+
+  Future<void> _recordStudyTime(List<DiagnosticAnswer> answers) async {
+    final userId = ref.read(sessionControllerProvider).user?.id;
+    final seconds = answers.fold<int>(
+      0,
+      (total, answer) => total + answer.responseTimeSeconds,
+    );
+    if (userId == null || seconds <= 0) return;
+    try {
+      await ref
+          .read(studyTimeRepositoryProvider)
+          .record(
+            StudyTimeRecord(
+              userId: userId,
+              eventId: 'diagnostic:$_diagnosticId',
+              source: StudyTimeSource.diagnostic,
+              durationSeconds: seconds,
+              recordedAt: DateTime.now(),
+            ),
+          );
+    } on Object {
+      // El diagnóstico confirmado no depende de la métrica local de tiempo.
     }
   }
 

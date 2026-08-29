@@ -63,6 +63,7 @@ void main() {
       final difficultQuestions = await database
           .watchDifficultQuestions('student-1')
           .first;
+      final studyTime = await database.watchStudyTimeEntries('student-1').first;
 
       expect(downloads, hasLength(1));
       expect(downloads.single.themeName, 'Álgebra');
@@ -71,6 +72,7 @@ void main() {
       expect(resume, isNull);
       expect(flashcards, isEmpty);
       expect(difficultQuestions, isEmpty);
+      expect(studyTime, isEmpty);
     },
   );
 }

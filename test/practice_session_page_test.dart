@@ -23,6 +23,9 @@ import 'package:saber_plus/features/progress/presentation/progress_providers.dar
 import 'package:saber_plus/features/study/data/remote_study_repository.dart';
 import 'package:saber_plus/features/study/domain/study_models.dart';
 import 'package:saber_plus/features/study/domain/study_repository.dart';
+import 'package:saber_plus/features/study_time/domain/study_time_models.dart';
+import 'package:saber_plus/features/study_time/domain/study_time_repository.dart';
+import 'package:saber_plus/features/study_time/presentation/study_time_providers.dart';
 
 const _practiceSession = PracticeSession(
   attemptId: 'attempt-1',
@@ -152,10 +155,11 @@ void main() {
     expect(find.text('Correcta'), findsOneWidget);
   });
 
-  testWidgets('reanuda respuestas y tiempos sin crear otro intento', (
+  testWidgets('reanuda el intento y registra su tiempo al calificar', (
     tester,
   ) async {
     final repository = _FakePracticeRepository();
+    final studyTime = _MemoryStudyTimeRepository();
     final now = DateTime.now();
     final drafts = _MemoryPracticeDraftStore(
       initial: PracticeDraft(
@@ -178,6 +182,7 @@ void main() {
           difficultQuestionRepositoryProvider.overrideWithValue(
             _MemoryDifficultQuestionRepository(),
           ),
+          studyTimeRepositoryProvider.overrideWithValue(studyTime),
         ],
         child: const MaterialApp(
           home: PracticeSessionPage(
@@ -195,6 +200,20 @@ void main() {
       find.byKey(const Key('submit-practice-button')),
     );
     expect(submit.onPressed, isNotNull);
+
+    ScaffoldMessenger.of(
+      tester.element(find.byType(Scaffold)),
+    ).removeCurrentSnackBar();
+    await tester.pump();
+    await tester.tap(find.byKey(const Key('submit-practice-button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('confirm-submit-practice-button')));
+    await tester.pumpAndSettle();
+
+    expect(studyTime.records, hasLength(1));
+    expect(studyTime.records.single.eventId, 'practice:attempt-1');
+    expect(studyTime.records.single.source, StudyTimeSource.practice);
+    expect(studyTime.records.single.durationSeconds, greaterThanOrEqualTo(21));
   });
 
   testWidgets('marca una pregunta difícil sin copiar su contenido', (
@@ -578,7 +597,30 @@ class _MemoryPracticeDraftStore extends PracticeDraftStore {
 class _AuthenticatedSessionController extends SessionController {
   @override
   SessionState build() => const SessionState.authenticated(
-    UserSession(id: 'user-1', firstName: 'Ana', role: AppRole.student),
+    UserSession(
+      id: 'user-1',
+      firstName: 'Ana',
+      role: AppRole.student,
+      isDemo: true,
+    ),
+  );
+}
+
+class _MemoryStudyTimeRepository implements StudyTimeRepository {
+  final records = <StudyTimeRecord>[];
+
+  @override
+  Future<void> record(StudyTimeRecord entry) async {
+    final exists = records.any(
+      (record) =>
+          record.userId == entry.userId && record.eventId == entry.eventId,
+    );
+    if (!exists) records.add(entry);
+  }
+
+  @override
+  Stream<List<StudyTimeRecord>> watchAll(String userId) => Stream.value(
+    records.where((record) => record.userId == userId).toList(growable: false),
   );
 }
 

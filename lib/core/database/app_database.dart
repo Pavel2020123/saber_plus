@@ -130,6 +130,21 @@ class DifficultQuestionEntries extends Table {
   Set<Column<Object>> get primaryKey => {userId, questionId};
 }
 
+class StudyTimeEntries extends Table {
+  TextColumn get userId => text()();
+
+  TextColumn get eventId => text()();
+
+  TextColumn get source => text()();
+
+  IntColumn get durationSeconds => integer()();
+
+  DateTimeColumn get recordedAt => dateTime()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {userId, eventId};
+}
+
 @DriftDatabase(
   tables: [
     OfflineDownloads,
@@ -138,6 +153,7 @@ class DifficultQuestionEntries extends Table {
     LearningResumeEntries,
     FlashcardProgressEntries,
     DifficultQuestionEntries,
+    StudyTimeEntries,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -146,7 +162,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.defaults() : super(driftDatabase(name: 'saber_plus'));
 
   @override
-  int get schemaVersion => 6;
+  int get schemaVersion => 7;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -157,6 +173,7 @@ class AppDatabase extends _$AppDatabase {
       if (from < 4) await migrator.createTable(learningResumeEntries);
       if (from < 5) await migrator.createTable(flashcardProgressEntries);
       if (from < 6) await migrator.createTable(difficultQuestionEntries);
+      if (from < 7) await migrator.createTable(studyTimeEntries);
     },
   );
 
@@ -311,6 +328,15 @@ class AppDatabase extends _$AppDatabase {
                 row.userId.equals(userId) & row.questionId.equals(questionId),
           ))
           .go();
+
+  Stream<List<StudyTimeEntry>> watchStudyTimeEntries(String userId) =>
+      (select(studyTimeEntries)
+            ..where((row) => row.userId.equals(userId))
+            ..orderBy([(row) => OrderingTerm.desc(row.recordedAt)]))
+          .watch();
+
+  Future<void> saveStudyTimeEntry(StudyTimeEntriesCompanion entry) =>
+      into(studyTimeEntries).insert(entry, mode: InsertMode.insertOrIgnore);
 }
 
 final appDatabaseProvider = Provider<AppDatabase>((ref) {

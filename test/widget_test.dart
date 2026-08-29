@@ -472,7 +472,12 @@ void main() {
 
     await tester.tap(find.text('Más'));
     await tester.pumpAndSettle();
-    await tester.drag(find.byType(ListView).last, const Offset(0, -180));
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('open-sync-queue')),
+      180,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.drag(find.byType(ListView).last, const Offset(0, -120));
     await tester.pumpAndSettle();
     expect(find.text('Sin cambios pendientes'), findsOneWidget);
     await tester.tap(find.byKey(const Key('open-sync-queue')));
@@ -680,6 +685,39 @@ void main() {
     expect(find.text('Preguntas difíciles'), findsOneWidget);
     expect(find.text('No has marcado preguntas difíciles'), findsOneWidget);
     expect(find.text('Ir a practicar'), findsOneWidget);
+  });
+
+  testWidgets('muestra el tiempo total estudiado por actividad', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Más'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('open-study-time')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Tiempo estudiado'), findsOneWidget);
+    expect(find.byKey(const Key('study-time-total')), findsOneWidget);
+    expect(
+      tester.widget<Text>(find.byKey(const Key('study-time-total'))).data,
+      '1 h 45 min',
+    );
+    expect(find.text('Pomodoro'), findsOneWidget);
+    expect(find.text('Prácticas y simulacros'), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('study-time-source-diagnostic')),
+      180,
+      scrollable: find.byType(Scrollable).last,
+    );
+    expect(find.text('Diagnóstico'), findsOneWidget);
   });
 
   testWidgets('continúa desde Inicio en la última lección visitada', (

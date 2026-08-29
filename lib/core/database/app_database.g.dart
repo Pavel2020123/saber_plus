@@ -3120,6 +3120,377 @@ class DifficultQuestionEntriesCompanion
   }
 }
 
+class $StudyTimeEntriesTable extends StudyTimeEntries
+    with TableInfo<$StudyTimeEntriesTable, StudyTimeEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $StudyTimeEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+    'user_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _eventIdMeta = const VerificationMeta(
+    'eventId',
+  );
+  @override
+  late final GeneratedColumn<String> eventId = GeneratedColumn<String>(
+    'event_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _sourceMeta = const VerificationMeta('source');
+  @override
+  late final GeneratedColumn<String> source = GeneratedColumn<String>(
+    'source',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _durationSecondsMeta = const VerificationMeta(
+    'durationSeconds',
+  );
+  @override
+  late final GeneratedColumn<int> durationSeconds = GeneratedColumn<int>(
+    'duration_seconds',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _recordedAtMeta = const VerificationMeta(
+    'recordedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> recordedAt = GeneratedColumn<DateTime>(
+    'recorded_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    userId,
+    eventId,
+    source,
+    durationSeconds,
+    recordedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'study_time_entries';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<StudyTimeEntry> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('user_id')) {
+      context.handle(
+        _userIdMeta,
+        userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('event_id')) {
+      context.handle(
+        _eventIdMeta,
+        eventId.isAcceptableOrUnknown(data['event_id']!, _eventIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_eventIdMeta);
+    }
+    if (data.containsKey('source')) {
+      context.handle(
+        _sourceMeta,
+        source.isAcceptableOrUnknown(data['source']!, _sourceMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_sourceMeta);
+    }
+    if (data.containsKey('duration_seconds')) {
+      context.handle(
+        _durationSecondsMeta,
+        durationSeconds.isAcceptableOrUnknown(
+          data['duration_seconds']!,
+          _durationSecondsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_durationSecondsMeta);
+    }
+    if (data.containsKey('recorded_at')) {
+      context.handle(
+        _recordedAtMeta,
+        recordedAt.isAcceptableOrUnknown(data['recorded_at']!, _recordedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_recordedAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {userId, eventId};
+  @override
+  StudyTimeEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return StudyTimeEntry(
+      userId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}user_id'],
+      )!,
+      eventId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}event_id'],
+      )!,
+      source: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}source'],
+      )!,
+      durationSeconds: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}duration_seconds'],
+      )!,
+      recordedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}recorded_at'],
+      )!,
+    );
+  }
+
+  @override
+  $StudyTimeEntriesTable createAlias(String alias) {
+    return $StudyTimeEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class StudyTimeEntry extends DataClass implements Insertable<StudyTimeEntry> {
+  final String userId;
+  final String eventId;
+  final String source;
+  final int durationSeconds;
+  final DateTime recordedAt;
+  const StudyTimeEntry({
+    required this.userId,
+    required this.eventId,
+    required this.source,
+    required this.durationSeconds,
+    required this.recordedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['user_id'] = Variable<String>(userId);
+    map['event_id'] = Variable<String>(eventId);
+    map['source'] = Variable<String>(source);
+    map['duration_seconds'] = Variable<int>(durationSeconds);
+    map['recorded_at'] = Variable<DateTime>(recordedAt);
+    return map;
+  }
+
+  StudyTimeEntriesCompanion toCompanion(bool nullToAbsent) {
+    return StudyTimeEntriesCompanion(
+      userId: Value(userId),
+      eventId: Value(eventId),
+      source: Value(source),
+      durationSeconds: Value(durationSeconds),
+      recordedAt: Value(recordedAt),
+    );
+  }
+
+  factory StudyTimeEntry.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return StudyTimeEntry(
+      userId: serializer.fromJson<String>(json['userId']),
+      eventId: serializer.fromJson<String>(json['eventId']),
+      source: serializer.fromJson<String>(json['source']),
+      durationSeconds: serializer.fromJson<int>(json['durationSeconds']),
+      recordedAt: serializer.fromJson<DateTime>(json['recordedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'userId': serializer.toJson<String>(userId),
+      'eventId': serializer.toJson<String>(eventId),
+      'source': serializer.toJson<String>(source),
+      'durationSeconds': serializer.toJson<int>(durationSeconds),
+      'recordedAt': serializer.toJson<DateTime>(recordedAt),
+    };
+  }
+
+  StudyTimeEntry copyWith({
+    String? userId,
+    String? eventId,
+    String? source,
+    int? durationSeconds,
+    DateTime? recordedAt,
+  }) => StudyTimeEntry(
+    userId: userId ?? this.userId,
+    eventId: eventId ?? this.eventId,
+    source: source ?? this.source,
+    durationSeconds: durationSeconds ?? this.durationSeconds,
+    recordedAt: recordedAt ?? this.recordedAt,
+  );
+  StudyTimeEntry copyWithCompanion(StudyTimeEntriesCompanion data) {
+    return StudyTimeEntry(
+      userId: data.userId.present ? data.userId.value : this.userId,
+      eventId: data.eventId.present ? data.eventId.value : this.eventId,
+      source: data.source.present ? data.source.value : this.source,
+      durationSeconds: data.durationSeconds.present
+          ? data.durationSeconds.value
+          : this.durationSeconds,
+      recordedAt: data.recordedAt.present
+          ? data.recordedAt.value
+          : this.recordedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('StudyTimeEntry(')
+          ..write('userId: $userId, ')
+          ..write('eventId: $eventId, ')
+          ..write('source: $source, ')
+          ..write('durationSeconds: $durationSeconds, ')
+          ..write('recordedAt: $recordedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(userId, eventId, source, durationSeconds, recordedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is StudyTimeEntry &&
+          other.userId == this.userId &&
+          other.eventId == this.eventId &&
+          other.source == this.source &&
+          other.durationSeconds == this.durationSeconds &&
+          other.recordedAt == this.recordedAt);
+}
+
+class StudyTimeEntriesCompanion extends UpdateCompanion<StudyTimeEntry> {
+  final Value<String> userId;
+  final Value<String> eventId;
+  final Value<String> source;
+  final Value<int> durationSeconds;
+  final Value<DateTime> recordedAt;
+  final Value<int> rowid;
+  const StudyTimeEntriesCompanion({
+    this.userId = const Value.absent(),
+    this.eventId = const Value.absent(),
+    this.source = const Value.absent(),
+    this.durationSeconds = const Value.absent(),
+    this.recordedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  StudyTimeEntriesCompanion.insert({
+    required String userId,
+    required String eventId,
+    required String source,
+    required int durationSeconds,
+    required DateTime recordedAt,
+    this.rowid = const Value.absent(),
+  }) : userId = Value(userId),
+       eventId = Value(eventId),
+       source = Value(source),
+       durationSeconds = Value(durationSeconds),
+       recordedAt = Value(recordedAt);
+  static Insertable<StudyTimeEntry> custom({
+    Expression<String>? userId,
+    Expression<String>? eventId,
+    Expression<String>? source,
+    Expression<int>? durationSeconds,
+    Expression<DateTime>? recordedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (userId != null) 'user_id': userId,
+      if (eventId != null) 'event_id': eventId,
+      if (source != null) 'source': source,
+      if (durationSeconds != null) 'duration_seconds': durationSeconds,
+      if (recordedAt != null) 'recorded_at': recordedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  StudyTimeEntriesCompanion copyWith({
+    Value<String>? userId,
+    Value<String>? eventId,
+    Value<String>? source,
+    Value<int>? durationSeconds,
+    Value<DateTime>? recordedAt,
+    Value<int>? rowid,
+  }) {
+    return StudyTimeEntriesCompanion(
+      userId: userId ?? this.userId,
+      eventId: eventId ?? this.eventId,
+      source: source ?? this.source,
+      durationSeconds: durationSeconds ?? this.durationSeconds,
+      recordedAt: recordedAt ?? this.recordedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (eventId.present) {
+      map['event_id'] = Variable<String>(eventId.value);
+    }
+    if (source.present) {
+      map['source'] = Variable<String>(source.value);
+    }
+    if (durationSeconds.present) {
+      map['duration_seconds'] = Variable<int>(durationSeconds.value);
+    }
+    if (recordedAt.present) {
+      map['recorded_at'] = Variable<DateTime>(recordedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('StudyTimeEntriesCompanion(')
+          ..write('userId: $userId, ')
+          ..write('eventId: $eventId, ')
+          ..write('source: $source, ')
+          ..write('durationSeconds: $durationSeconds, ')
+          ..write('recordedAt: $recordedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -3137,6 +3508,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $FlashcardProgressEntriesTable(this);
   late final $DifficultQuestionEntriesTable difficultQuestionEntries =
       $DifficultQuestionEntriesTable(this);
+  late final $StudyTimeEntriesTable studyTimeEntries = $StudyTimeEntriesTable(
+    this,
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -3148,6 +3522,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     learningResumeEntries,
     flashcardProgressEntries,
     difficultQuestionEntries,
+    studyTimeEntries,
   ];
 }
 
@@ -4795,6 +5170,216 @@ typedef $$DifficultQuestionEntriesTableProcessedTableManager =
       DifficultQuestionEntry,
       PrefetchHooks Function()
     >;
+typedef $$StudyTimeEntriesTableCreateCompanionBuilder =
+    StudyTimeEntriesCompanion Function({
+      required String userId,
+      required String eventId,
+      required String source,
+      required int durationSeconds,
+      required DateTime recordedAt,
+      Value<int> rowid,
+    });
+typedef $$StudyTimeEntriesTableUpdateCompanionBuilder =
+    StudyTimeEntriesCompanion Function({
+      Value<String> userId,
+      Value<String> eventId,
+      Value<String> source,
+      Value<int> durationSeconds,
+      Value<DateTime> recordedAt,
+      Value<int> rowid,
+    });
+
+class $$StudyTimeEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $StudyTimeEntriesTable> {
+  $$StudyTimeEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get userId => $composableBuilder(
+    column: $table.userId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get eventId => $composableBuilder(
+    column: $table.eventId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get source => $composableBuilder(
+    column: $table.source,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get durationSeconds => $composableBuilder(
+    column: $table.durationSeconds,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get recordedAt => $composableBuilder(
+    column: $table.recordedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$StudyTimeEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $StudyTimeEntriesTable> {
+  $$StudyTimeEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get userId => $composableBuilder(
+    column: $table.userId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get eventId => $composableBuilder(
+    column: $table.eventId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get source => $composableBuilder(
+    column: $table.source,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get durationSeconds => $composableBuilder(
+    column: $table.durationSeconds,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get recordedAt => $composableBuilder(
+    column: $table.recordedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$StudyTimeEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $StudyTimeEntriesTable> {
+  $$StudyTimeEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<String> get eventId =>
+      $composableBuilder(column: $table.eventId, builder: (column) => column);
+
+  GeneratedColumn<String> get source =>
+      $composableBuilder(column: $table.source, builder: (column) => column);
+
+  GeneratedColumn<int> get durationSeconds => $composableBuilder(
+    column: $table.durationSeconds,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get recordedAt => $composableBuilder(
+    column: $table.recordedAt,
+    builder: (column) => column,
+  );
+}
+
+class $$StudyTimeEntriesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $StudyTimeEntriesTable,
+          StudyTimeEntry,
+          $$StudyTimeEntriesTableFilterComposer,
+          $$StudyTimeEntriesTableOrderingComposer,
+          $$StudyTimeEntriesTableAnnotationComposer,
+          $$StudyTimeEntriesTableCreateCompanionBuilder,
+          $$StudyTimeEntriesTableUpdateCompanionBuilder,
+          (
+            StudyTimeEntry,
+            BaseReferences<
+              _$AppDatabase,
+              $StudyTimeEntriesTable,
+              StudyTimeEntry
+            >,
+          ),
+          StudyTimeEntry,
+          PrefetchHooks Function()
+        > {
+  $$StudyTimeEntriesTableTableManager(
+    _$AppDatabase db,
+    $StudyTimeEntriesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$StudyTimeEntriesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$StudyTimeEntriesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$StudyTimeEntriesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> userId = const Value.absent(),
+                Value<String> eventId = const Value.absent(),
+                Value<String> source = const Value.absent(),
+                Value<int> durationSeconds = const Value.absent(),
+                Value<DateTime> recordedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => StudyTimeEntriesCompanion(
+                userId: userId,
+                eventId: eventId,
+                source: source,
+                durationSeconds: durationSeconds,
+                recordedAt: recordedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String userId,
+                required String eventId,
+                required String source,
+                required int durationSeconds,
+                required DateTime recordedAt,
+                Value<int> rowid = const Value.absent(),
+              }) => StudyTimeEntriesCompanion.insert(
+                userId: userId,
+                eventId: eventId,
+                source: source,
+                durationSeconds: durationSeconds,
+                recordedAt: recordedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$StudyTimeEntriesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $StudyTimeEntriesTable,
+      StudyTimeEntry,
+      $$StudyTimeEntriesTableFilterComposer,
+      $$StudyTimeEntriesTableOrderingComposer,
+      $$StudyTimeEntriesTableAnnotationComposer,
+      $$StudyTimeEntriesTableCreateCompanionBuilder,
+      $$StudyTimeEntriesTableUpdateCompanionBuilder,
+      (
+        StudyTimeEntry,
+        BaseReferences<_$AppDatabase, $StudyTimeEntriesTable, StudyTimeEntry>,
+      ),
+      StudyTimeEntry,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -4817,4 +5402,6 @@ class $AppDatabaseManager {
         _db,
         _db.difficultQuestionEntries,
       );
+  $$StudyTimeEntriesTableTableManager get studyTimeEntries =>
+      $$StudyTimeEntriesTableTableManager(_db, _db.studyTimeEntries);
 }

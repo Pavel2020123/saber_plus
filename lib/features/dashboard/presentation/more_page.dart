@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import '../../../core/sync/sync_providers.dart';
 import '../../auth/presentation/session_controller.dart';
 import '../../gamification/presentation/gamification_providers.dart';
+import '../../study_time/domain/study_time_models.dart';
+import '../../study_time/presentation/study_time_providers.dart';
 
 class MorePage extends ConsumerWidget {
   const MorePage({super.key});
@@ -13,6 +15,7 @@ class MorePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final pending = ref.watch(syncOperationsProvider).valueOrNull ?? const [];
     final gamification = ref.watch(gamificationSummaryProvider).valueOrNull;
+    final studyTime = ref.watch(studyTimeSummaryProvider).valueOrNull;
     return Scaffold(
       appBar: AppBar(title: const Text('Más')),
       body: ListView(
@@ -45,6 +48,15 @@ class MorePage extends ConsumerWidget {
                 : '${gamification.streak.current} días de racha · '
                       '${gamification.totals.unlocked}/${gamification.totals.total} logros',
             onTap: () => context.push('/student/more/gamification'),
+          ),
+          _MenuTile(
+            key: const Key('open-study-time'),
+            icon: Icons.schedule_rounded,
+            title: 'Tiempo estudiado',
+            subtitle: studyTime == null
+                ? 'Pomodoros y evaluaciones confirmadas'
+                : '${formatStudyDuration(studyTime.totalSeconds)} de estudio',
+            onTap: () => context.push('/student/more/study-time'),
           ),
           const _MenuTile(icon: Icons.leaderboard_outlined, title: 'Ranking'),
           const _MenuTile(icon: Icons.campaign_outlined, title: 'Anuncios'),

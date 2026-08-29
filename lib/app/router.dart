@@ -41,6 +41,7 @@ import '../features/study/presentation/study_area_page.dart';
 import '../features/study/presentation/study_areas_page.dart';
 import '../features/study/presentation/study_lesson_page.dart';
 import '../features/study/presentation/offline_downloads_page.dart';
+import '../features/study_time/presentation/study_time_page.dart';
 import 'page_transitions.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -326,6 +327,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   _animatedRoute(
                     path: 'gamification',
                     builder: (context, state) => const GamificationPage(),
+                  ),
+                  _animatedRoute(
+                    path: 'study-time',
+                    builder: (context, state) => const StudyTimePage(),
                   ),
                   _animatedRoute(
                     path: 'preferences',

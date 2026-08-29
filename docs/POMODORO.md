@@ -13,6 +13,6 @@ Los simulacros no muestran el Pomodoro porque su tiempo pertenece a la evaluaci�
 
 ## Límites de esta entrega
 
-El temporizador no se restaura después de cerrar completamente la aplicación y todavía no suma minutos al tiempo total estudiado; esa acumulación corresponde al punto 101.
+El temporizador no se restaura después de cerrar completamente la aplicación. Un bloque que llega realmente a cero suma 25 minutos al tiempo total estudiado; pausar, reiniciar o abandonar un bloque incompleto no agrega minutos.
 
 El Pomodoro no reproduce sonido ni vibración al finalizar. La Etapa 6C-G limita el feedback háptico a las rachas de respuestas correctas; ampliar ese comportamiento al temporizador requiere una decisión independiente.
