@@ -75,6 +75,7 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [ ] Sincronización de favoritos entre dispositivos cuando el backend publique el contrato correspondiente.
 - [x] Búsqueda académica de lecciones y prácticas por área, tema, subtema o concepto.
 - [x] Acceso seguro al banco por subtema, sin descargar preguntas ni respuestas fuera de un intento.
+- [x] Transiciones breves y consistentes entre pantallas, con reducción de movimiento accesible.
 - Ranking con privacidad por defecto.
 - Batallas asíncronas, bloqueo y reporte.
 - Anuncios, referidos, soporte y calculadora de puntaje.

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:saber_plus/app/app.dart';
+import 'package:saber_plus/app/page_transitions.dart';
 import 'package:saber_plus/core/notifications/study_reminder_service.dart';
 import 'package:saber_plus/core/preferences/app_preferences.dart';
 import 'package:saber_plus/core/preferences/app_preferences_store.dart';
@@ -85,6 +86,7 @@ void main() {
     await tester.tap(find.text('Crear una cuenta'));
     await tester.pumpAndSettle();
     expect(find.text('Crea tu cuenta'), findsOneWidget);
+    expect(find.byType(SaberPageTransition), findsWidgets);
 
     await tester.pageBack();
     await tester.pumpAndSettle();

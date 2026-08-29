@@ -36,6 +36,7 @@ import '../features/study/presentation/study_area_page.dart';
 import '../features/study/presentation/study_areas_page.dart';
 import '../features/study/presentation/study_lesson_page.dart';
 import '../features/study/presentation/offline_downloads_page.dart';
+import 'page_transitions.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final session = ref.watch(
@@ -103,35 +104,38 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/welcome',
         builder: (context, state) => const WelcomePage(),
       ),
-      GoRoute(path: '/login', builder: (context, state) => const LoginPage()),
-      GoRoute(
+      _animatedRoute(
+        path: '/login',
+        builder: (context, state) => const LoginPage(),
+      ),
+      _animatedRoute(
         path: '/register',
         builder: (context, state) => const RegisterPage(),
       ),
-      GoRoute(
+      _animatedRoute(
         path: '/forgot-password',
         builder: (context, state) => const ForgotPasswordPage(),
       ),
-      GoRoute(
+      _animatedRoute(
         path: '/reset-password',
         builder: (context, state) =>
             ResetPasswordPage(token: state.uri.queryParameters['token'] ?? ''),
       ),
-      GoRoute(
+      _animatedRoute(
         path: '/verify-pending',
         builder: (context, state) =>
             VerifyPendingPage(email: state.uri.queryParameters['email'] ?? ''),
       ),
-      GoRoute(
+      _animatedRoute(
         path: '/verify-email',
         builder: (context, state) =>
             VerifyEmailPage(token: state.uri.queryParameters['token'] ?? ''),
       ),
-      GoRoute(
+      _animatedRoute(
         path: '/change-initial-password',
         builder: (context, state) => const ChangeInitialPasswordPage(),
       ),
-      GoRoute(
+      _animatedRoute(
         path: '/student/diagnostic',
         builder: (context, state) => const DiagnosticOverviewPage(),
       ),
@@ -155,15 +159,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 pageBuilder: (context, state) =>
                     const NoTransitionPage(child: StudyAreasPage()),
                 routes: [
-                  GoRoute(
+                  _animatedRoute(
                     path: 'search',
                     builder: (context, state) => const AcademicSearchPage(),
                   ),
-                  GoRoute(
+                  _animatedRoute(
                     path: 'downloads',
                     builder: (context, state) => const OfflineDownloadsPage(),
                   ),
-                  GoRoute(
+                  _animatedRoute(
                     path: ':area',
                     builder: (context, state) => StudyAreaPage(
                       area: AcademicArea.fromSlug(
@@ -171,7 +175,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                       ),
                     ),
                     routes: [
-                      GoRoute(
+                      _animatedRoute(
                         path: ':themeId/:subtopicId',
                         builder: (context, state) => StudyLessonPage(
                           area: AcademicArea.fromSlug(
@@ -194,11 +198,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 pageBuilder: (context, state) =>
                     const NoTransitionPage(child: PracticeHubPage()),
                 routes: [
-                  GoRoute(
+                  _animatedRoute(
                     path: 'simulation',
                     builder: (context, state) => const SimulationSetupPage(),
                     routes: [
-                      GoRoute(
+                      _animatedRoute(
                         path: ':area',
                         builder: (context, state) =>
                             PracticeSessionPage.simulation(
@@ -209,16 +213,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                       ),
                     ],
                   ),
-                  GoRoute(
+                  _animatedRoute(
                     path: 'history',
                     builder: (context, state) => const PracticeHistoryPage(),
                   ),
-                  GoRoute(
+                  _animatedRoute(
                     path: 'random',
                     builder: (context, state) =>
                         const RandomPracticeSetupPage(),
                     routes: [
-                      GoRoute(
+                      _animatedRoute(
                         path: 'session',
                         builder: (context, state) {
                           final config = RandomPracticeConfig.tryFromUri(
@@ -234,7 +238,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                       ),
                     ],
                   ),
-                  GoRoute(
+                  _animatedRoute(
                     path: 'subtopic/:area/:subtopicId',
                     builder: (context, state) => PracticeSessionPage(
                       area: AcademicArea.fromSlug(
@@ -254,15 +258,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 pageBuilder: (context, state) =>
                     const NoTransitionPage(child: ProgressPage()),
                 routes: [
-                  GoRoute(
+                  _animatedRoute(
                     path: 'library',
                     builder: (context, state) => const ReferenceLibraryPage(),
                   ),
-                  GoRoute(
+                  _animatedRoute(
                     path: 'adaptive',
                     builder: (context, state) => const AdaptiveReviewPage(),
                     routes: [
-                      GoRoute(
+                      _animatedRoute(
                         path: 'session',
                         builder: (context, state) {
                           final value = int.tryParse(
@@ -290,19 +294,19 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 pageBuilder: (context, state) =>
                     const NoTransitionPage(child: MorePage()),
                 routes: [
-                  GoRoute(
+                  _animatedRoute(
                     path: 'favorites',
                     builder: (context, state) => const FavoritesPage(),
                   ),
-                  GoRoute(
+                  _animatedRoute(
                     path: 'gamification',
                     builder: (context, state) => const GamificationPage(),
                   ),
-                  GoRoute(
+                  _animatedRoute(
                     path: 'preferences',
                     builder: (context, state) => const PreferencesPage(),
                   ),
-                  GoRoute(
+                  _animatedRoute(
                     path: 'sync',
                     builder: (context, state) => const SyncQueuePage(),
                   ),
@@ -319,3 +323,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     ],
   );
 });
+
+GoRoute _animatedRoute({
+  required String path,
+  required GoRouterWidgetBuilder builder,
+  List<RouteBase> routes = const <RouteBase>[],
+}) => GoRoute(
+  path: path,
+  pageBuilder: (context, state) =>
+      saberPage(key: state.pageKey, child: builder(context, state)),
+  routes: routes,
+);
