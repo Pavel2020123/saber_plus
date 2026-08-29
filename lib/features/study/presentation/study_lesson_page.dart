@@ -16,6 +16,7 @@ import '../../auth/presentation/session_controller.dart';
 import '../../favorites/data/drift_favorite_repository.dart';
 import '../../favorites/domain/favorite_models.dart';
 import '../../favorites/presentation/favorite_providers.dart';
+import '../../focus/presentation/pomodoro_card.dart';
 import '../../resume/data/drift_learning_resume_repository.dart';
 import '../../resume/domain/learning_resume_models.dart';
 import '../domain/study_models.dart';
@@ -248,6 +249,8 @@ class _LessonContent extends ConsumerWidget {
             Chip(label: Text(theme.name)),
           ],
         ),
+        const SizedBox(height: 14),
+        const PomodoroCard(),
         const SizedBox(height: 14),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,

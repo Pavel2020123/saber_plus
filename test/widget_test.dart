@@ -137,18 +137,16 @@ void main() {
     );
     await tester.pumpAndSettle();
     expect(find.text('Regla de tres'), findsWidgets);
-    expect(find.text('Marcar como completada'), findsOneWidget);
 
-    await tester.ensureVisible(
-      find.byKey(const Key('complete-study-lesson-button')),
-    );
+    await tester.drag(find.byType(ListView).last, const Offset(0, -500));
+    await tester.pumpAndSettle();
+    expect(find.text('Marcar como completada'), findsOneWidget);
     await tester.tap(find.byKey(const Key('complete-study-lesson-button')));
     await tester.pumpAndSettle();
     expect(find.text('Lección completada'), findsOneWidget);
 
-    await tester.ensureVisible(
-      find.byKey(const Key('start-subtopic-practice-button')),
-    );
+    await tester.drag(find.byType(ListView).last, const Offset(0, -650));
+    await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('start-subtopic-practice-button')));
     await tester.pumpAndSettle();
     expect(find.text('Pregunta 1 de 2'), findsOneWidget);
@@ -581,6 +579,49 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Lección'), findsOneWidget);
     expect(find.text('Regla de tres'), findsWidgets);
+  });
+
+  testWidgets('mantiene el Pomodoro entre una lección y su práctica', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Estudiar'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('study-area-matematicas')));
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byKey(const Key('study-subtopic-demo-mathematics-subtopic')),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('pomodoro-card')), findsOneWidget);
+    expect(find.text('25:00'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('pomodoro-toggle')));
+    await tester.pump();
+    expect(find.byTooltip('Pausar Pomodoro'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('pomodoro-toggle')));
+    await tester.pump();
+    expect(find.byTooltip('Continuar Pomodoro'), findsOneWidget);
+
+    await tester.drag(find.byType(ListView).last, const Offset(0, -650));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('start-subtopic-practice-button')));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('pomodoro-card')), findsOneWidget);
+    expect(find.byTooltip('Continuar Pomodoro'), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('pomodoro-reset')));
+    await tester.pump();
+    expect(find.text('25:00'), findsOneWidget);
+    expect(find.byTooltip('Iniciar Pomodoro'), findsOneWidget);
   });
 }
 

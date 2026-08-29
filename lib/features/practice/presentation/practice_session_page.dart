@@ -10,6 +10,7 @@ import '../../../core/network/api_error.dart';
 import '../../../core/sync/drift_safe_sync_repository.dart';
 import '../../academic/domain/academic_models.dart';
 import '../../auth/presentation/session_controller.dart';
+import '../../focus/presentation/pomodoro_card.dart';
 import '../../progress/presentation/progress_providers.dart';
 import '../../study/presentation/study_providers.dart';
 import '../data/practice_draft_store.dart';
@@ -555,6 +556,11 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
         LinearProgressIndicator(
           value: (_currentIndex + 1) / session.questions.length,
         ),
+        if (!_isSimulation)
+          const Padding(
+            padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
+            child: PomodoroCard(compact: true),
+          ),
         Expanded(
           child: ListView(
             padding: const EdgeInsets.fromLTRB(20, 18, 20, 24),
