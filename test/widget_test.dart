@@ -257,6 +257,40 @@ void main() {
     expect(find.textContaining('quedó registrada'), findsOneWidget);
   });
 
+  testWidgets(
+    'consulta el catálogo histórico sin habilitar contenido no autorizado',
+    (tester) async {
+      await tester.pumpWidget(_testApp());
+      await tester.pumpAndSettle();
+
+      await tester.ensureVisible(find.text('Comenzar'));
+      await tester.tap(find.text('Comenzar'));
+      await tester.pumpAndSettle();
+      await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+      await tester.tap(find.byKey(const Key('student-demo-button')));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Practicar'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('open-historical-simulations')));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Banco con trazabilidad de derechos'), findsOneWidget);
+      expect(find.byKey(const Key('historical-year-filter')), findsOneWidget);
+      expect(find.text('Edición 2025'), findsOneWidget);
+      await tester.tap(find.byKey(const Key('historical-edition-demo-2025')));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Fuente y derechos'), findsOneWidget);
+      expect(find.text('No hay una autorización registrada.'), findsOneWidget);
+      expect(
+        find.byKey(const Key('historical-edition-locked')),
+        findsOneWidget,
+      );
+      expect(find.byKey(const Key('start-historical-am')), findsNothing);
+    },
+  );
+
   testWidgets('configura y abre un simulacro completo demostrativo', (
     tester,
   ) async {
@@ -346,6 +380,8 @@ void main() {
     await tester.tap(find.byKey(const Key('student-demo-button')));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Practicar'));
+    await tester.pumpAndSettle();
+    await tester.drag(find.byType(ListView).last, const Offset(0, -250));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('open-daily-mistakes')));
     await tester.pumpAndSettle();

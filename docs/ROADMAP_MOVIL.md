@@ -91,7 +91,8 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Cliente de integridad: identidad aleatoria por instalación, reacción a sesión reemplazada y registro cifrado de salidas durante AM/PM.
 - [ ] Backend de sesión única: revocación del dispositivo anterior y validación de sesión activa en cada solicitud protegida.
 - [x] Sugerencia de descanso saludable tras 50 minutos activos, con pausa opcional de tres minutos.
-- [ ] Banco autorizado de simulacros de años anteriores.
+- [x] Cliente del banco por año: catálogo filtrable, trazabilidad de derechos y jornadas protegidas AM/PM.
+- [ ] Carga de cuadernillos propios o autorizados y publicación del contrato histórico en el backend.
 - [ ] Pruebas contrarreloj, comparación de simulacros y countdown de temario por materia.
 - Ranking con privacidad por defecto.
 - Batallas asíncronas, bloqueo y reporte.

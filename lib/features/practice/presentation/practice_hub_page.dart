@@ -44,6 +44,19 @@ class PracticeHubPage extends StatelessWidget {
         const SizedBox(height: 8),
         Card(
           child: ListTile(
+            key: const Key('open-historical-simulations'),
+            leading: const CircleAvatar(
+              child: Icon(Icons.inventory_2_outlined),
+            ),
+            title: const Text('Simulacros por año'),
+            subtitle: const Text('Solo contenido propio o autorizado'),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            onTap: () => context.push('/student/practice/past'),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Card(
+          child: ListTile(
             key: const Key('open-area-simulation'),
             leading: const CircleAvatar(child: Icon(Icons.assignment_rounded)),
             title: const Text('Simulacro por área'),

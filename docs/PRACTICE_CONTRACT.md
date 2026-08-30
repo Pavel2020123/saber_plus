@@ -138,6 +138,8 @@ La calificación usa `POST /simulacros/calificar` con el área elegida, todas la
 
 El historial es de solo lectura. La aplicación no reconstruye ni modifica resultados calculados por el backend.
 
+El contrato propuesto para el banco autorizado por año, sus evidencias de derechos y las jornadas protegidas se documenta por separado en `HISTORICAL_SIMULATIONS.md`.
+
 ### Repaso de errores del día
 
 Flutter consulta el historial con `resultado=incorrectas&limite=100`, filtra por la fecha local actual y conserva el fallo más reciente de cada pregunta. La revisión usa únicamente respuestas ya calificadas y no reconstruye preguntas protegidas ni crea nuevos resultados. El progreso visual de lectura pertenece a la sesión de pantalla y el refuerzo posterior se genera mediante el flujo de repaso adaptativo.

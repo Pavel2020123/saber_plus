@@ -9,6 +9,9 @@ class PracticeSession {
     this.isRandom = false,
     this.isSimulation = false,
     this.isAdaptive = false,
+    this.isHistorical = false,
+    this.historicalEditionId,
+    this.historicalBlock,
     this.selectedAreas = const [],
   });
 
@@ -19,6 +22,9 @@ class PracticeSession {
   final bool isRandom;
   final bool isSimulation;
   final bool isAdaptive;
+  final bool isHistorical;
+  final String? historicalEditionId;
+  final OfficialSimulationBlock? historicalBlock;
   final List<AcademicArea> selectedAreas;
 
   List<AcademicArea> get areas =>
@@ -94,6 +100,33 @@ class PracticeSession {
     );
   }
 
+  factory PracticeSession.fromHistoricalJson(
+    Map<String, dynamic> json, {
+    required String editionId,
+    required OfficialSimulationBlock block,
+  }) {
+    final questions = (json['preguntas'] as List<dynamic>? ?? const [])
+        .map(
+          (item) =>
+              PracticeQuestion.fromJson(Map<String, dynamic>.from(item as Map)),
+        )
+        .toList(growable: false);
+    final areas = questions
+        .map((question) => question.area)
+        .toSet()
+        .toList(growable: false);
+    return PracticeSession(
+      attemptId: json['intentoId'] as String,
+      area: areas.isEmpty ? AcademicArea.mathematics : areas.first,
+      subtopicId: '',
+      isHistorical: true,
+      historicalEditionId: editionId,
+      historicalBlock: block,
+      selectedAreas: areas,
+      questions: questions,
+    );
+  }
+
   factory PracticeSession.fromStoredJson(
     Map<String, dynamic> json,
   ) => PracticeSession(
@@ -103,6 +136,11 @@ class PracticeSession {
     isRandom: json['isRandom'] as bool? ?? false,
     isSimulation: json['isSimulation'] as bool? ?? false,
     isAdaptive: json['isAdaptive'] as bool? ?? false,
+    isHistorical: json['isHistorical'] as bool? ?? false,
+    historicalEditionId: json['historicalEditionId'] as String?,
+    historicalBlock: OfficialSimulationBlock.tryFromSlug(
+      json['historicalBlock'] as String? ?? '',
+    ),
     selectedAreas: (json['selectedAreas'] as List<dynamic>? ?? const [])
         .whereType<String>()
         .map(AcademicArea.fromBackend)
@@ -122,6 +160,9 @@ class PracticeSession {
     'isRandom': isRandom,
     'isSimulation': isSimulation,
     'isAdaptive': isAdaptive,
+    'isHistorical': isHistorical,
+    'historicalEditionId': historicalEditionId,
+    'historicalBlock': historicalBlock?.slug,
     'selectedAreas': areas.map((item) => item.backendValue).toList(),
     'questions': questions.map((item) => item.toJson()).toList(),
   };

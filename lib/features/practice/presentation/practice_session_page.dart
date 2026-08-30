@@ -17,6 +17,7 @@ import '../../difficult_questions/data/drift_difficult_question_repository.dart'
 import '../../difficult_questions/domain/difficult_question_models.dart';
 import '../../difficult_questions/presentation/difficult_question_providers.dart';
 import '../../focus/presentation/pomodoro_card.dart';
+import '../../historical_simulations/presentation/historical_simulation_providers.dart';
 import '../../progress/presentation/progress_providers.dart';
 import '../../study/presentation/study_providers.dart';
 import '../../study_time/domain/study_time_models.dart';
@@ -34,21 +35,27 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
   }) : randomConfig = null,
        isSimulation = false,
        adaptiveQuestionCount = null,
-       officialBlock = null;
+       officialBlock = null,
+       historicalEditionId = null,
+       historicalBlock = null;
 
   const PracticeSessionPage.random({super.key, required this.randomConfig})
     : area = null,
       subtopicId = null,
       isSimulation = false,
       adaptiveQuestionCount = null,
-      officialBlock = null;
+      officialBlock = null,
+      historicalEditionId = null,
+      historicalBlock = null;
 
   const PracticeSessionPage.simulation({super.key, required this.area})
     : subtopicId = null,
       randomConfig = null,
       isSimulation = true,
       adaptiveQuestionCount = null,
-      officialBlock = null;
+      officialBlock = null,
+      historicalEditionId = null,
+      historicalBlock = null;
 
   const PracticeSessionPage.adaptive({super.key, required int questionCount})
     : area = null,
@@ -56,14 +63,29 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
       randomConfig = null,
       isSimulation = false,
       adaptiveQuestionCount = questionCount,
-      officialBlock = null;
+      officialBlock = null,
+      historicalEditionId = null,
+      historicalBlock = null;
 
   const PracticeSessionPage.official({super.key, required this.officialBlock})
     : area = null,
       subtopicId = null,
       randomConfig = null,
       isSimulation = false,
-      adaptiveQuestionCount = null;
+      adaptiveQuestionCount = null,
+      historicalEditionId = null,
+      historicalBlock = null;
+
+  const PracticeSessionPage.historical({
+    super.key,
+    required this.historicalEditionId,
+    required this.historicalBlock,
+  }) : area = null,
+       subtopicId = null,
+       randomConfig = null,
+       isSimulation = false,
+       adaptiveQuestionCount = null,
+       officialBlock = null;
 
   final AcademicArea? area;
   final String? subtopicId;
@@ -71,6 +93,8 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
   final bool isSimulation;
   final int? adaptiveQuestionCount;
   final OfficialSimulationBlock? officialBlock;
+  final String? historicalEditionId;
+  final OfficialSimulationBlock? historicalBlock;
 
   @override
   ConsumerState<PracticeSessionPage> createState() =>
@@ -99,11 +123,19 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
   bool get _isSimulation => widget.isSimulation;
   bool get _isAdaptive => widget.adaptiveQuestionCount != null;
   bool get _isOfficial => widget.officialBlock != null;
+  bool get _isHistorical => widget.historicalEditionId != null;
+  bool get _tracksIntegrity => _isOfficial || _isHistorical;
   bool get _usesRandomEndpoint => _isRandom || _isOfficial;
   bool get _isSubtopic =>
-      !_isRandom && !_isSimulation && !_isAdaptive && !_isOfficial;
+      !_isRandom &&
+      !_isSimulation &&
+      !_isAdaptive &&
+      !_isOfficial &&
+      !_isHistorical;
   String get _draftId => _isAdaptive
       ? 'adaptive:${widget.adaptiveQuestionCount}'
+      : _isHistorical
+      ? 'historical:${widget.historicalEditionId}:${widget.historicalBlock!.slug}'
       : _isOfficial
       ? 'official:${widget.officialBlock!.slug}'
       : _isRandom
@@ -129,7 +161,7 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (!_isOfficial || _session == null || _result != null) return;
+    if (!_tracksIntegrity || _session == null || _result != null) return;
     if ((state == AppLifecycleState.paused ||
             state == AppLifecycleState.hidden) &&
         !_outsideApp) {
@@ -214,6 +246,14 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
   }
 
   Future<PracticeSession> _startRegularPractice() {
+    if (_isHistorical) {
+      return ref
+          .read(historicalSimulationRepositoryProvider)
+          .startEdition(
+            editionId: widget.historicalEditionId!,
+            block: widget.historicalBlock!,
+          );
+    }
     final repository = ref.read(practiceRepositoryProvider);
     if (_isOfficial) {
       return repository
@@ -245,10 +285,18 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
     }
     if (_usesRandomEndpoint != draft.session.isRandom ||
         _isSimulation != draft.session.isSimulation ||
-        _isAdaptive != draft.session.isAdaptive) {
+        _isAdaptive != draft.session.isAdaptive ||
+        _isHistorical != draft.session.isHistorical) {
       return false;
     }
     if (_isAdaptive) return true;
+    if (_isHistorical) {
+      return draft.session.historicalEditionId == widget.historicalEditionId &&
+          draft.session.historicalBlock == widget.historicalBlock &&
+          draft.session.questions.length ==
+              OfficialSimulationBlock.questionCount &&
+          draft.session.areas.toSet().containsAll(AcademicArea.values);
+    }
     if (_isOfficial) return widget.officialBlock!.accepts(draft.session);
     if (_isSimulation) return draft.session.area == widget.area;
     if (_isSubtopic) return draft.session.subtopicId == widget.subtopicId;
@@ -417,7 +465,7 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
       context: context,
       builder: (context) => AlertDialog(
         title: Text(
-          _isSimulation || _isOfficial
+          _isSimulation || _isOfficial || _isHistorical
               ? 'Finalizar simulacro'
               : _isAdaptive
               ? 'Finalizar repaso'
@@ -531,6 +579,16 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
     PracticeSession session,
     List<PracticeAnswer> answers,
   ) {
+    if (_isHistorical) {
+      return ref
+          .read(historicalSimulationRepositoryProvider)
+          .gradeEdition(
+            editionId: widget.historicalEditionId!,
+            block: widget.historicalBlock!,
+            attemptId: session.attemptId,
+            answers: answers,
+          );
+    }
     final repository = ref.read(practiceRepositoryProvider);
     if (_usesRandomEndpoint) {
       return repository.gradeRandomPractice(
@@ -603,7 +661,9 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
       appBar: AppBar(
         title: Text(
           result == null
-              ? _isOfficial
+              ? _isHistorical
+                    ? 'Edición histórica · ${widget.historicalBlock!.label}'
+                    : _isOfficial
                     ? 'Simulacro 150 · ${widget.officialBlock!.label}'
                     : _isRandom
                     ? 'Preguntas aleatorias'
@@ -612,6 +672,8 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
                     : _isSimulation
                     ? 'Simulacro por área'
                     : 'Práctica'
+              : _isHistorical
+              ? 'Resultado histórico · ${widget.historicalBlock!.label}'
               : _isOfficial
               ? 'Resultado · ${widget.officialBlock!.label}'
               : _isSimulation
@@ -635,7 +697,7 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
             result == null &&
             _session != null &&
             !_isSimulation &&
-            !_isOfficial,
+            !_tracksIntegrity,
         onPromptOpening: _recordCurrentTime,
         onPromptClosed: () => _questionEnteredAt = DateTime.now(),
         child: switch ((_loading, _loadError, result, _session)) {
@@ -647,10 +709,12 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
           (false, _, final value?, final session?) => _PracticeResultView(
             result: value,
             session: session,
-            focusLossCount: _isOfficial ? _focusLossCount : 0,
+            focusLossCount: _tracksIntegrity ? _focusLossCount : 0,
             onRetry: _loadPractice,
             onExit: () => context.pop(),
-            exitLabel: _isOfficial
+            exitLabel: _isHistorical
+                ? 'Volver a la edición'
+                : _isOfficial
                 ? 'Volver a las jornadas'
                 : _isRandom
                 ? 'Volver a configurar'
@@ -678,12 +742,12 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
         LinearProgressIndicator(
           value: (_currentIndex + 1) / session.questions.length,
         ),
-        if (!_isSimulation && !_isOfficial)
+        if (!_isSimulation && !_tracksIntegrity)
           const Padding(
             padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
             child: PomodoroCard(compact: true),
           ),
-        if (_isOfficial)
+        if (_tracksIntegrity)
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
             child: _IntegrityStatusCard(focusLossCount: _focusLossCount),

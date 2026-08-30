@@ -36,6 +36,7 @@ El repaso de las respuestas falladas durante el día está documentado en [docs/
 El registro local del tiempo total estudiado está documentado en [docs/STUDY_TIME.md](docs/STUDY_TIME.md).
 El simulacro de 150 preguntas dividido en jornadas AM/PM está documentado en [docs/SIMULACRO_150.md](docs/SIMULACRO_150.md).
 La sesión por dispositivo, la integridad de simulacros y los descansos saludables están documentados en [docs/SESSION_SECURITY_WELLBEING.md](docs/SESSION_SECURITY_WELLBEING.md).
+El catálogo protegido de simulacros por año está documentado en [docs/HISTORICAL_SIMULATIONS.md](docs/HISTORICAL_SIMULATIONS.md).
 
 ## Configuración por ambiente
 

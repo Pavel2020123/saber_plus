@@ -21,6 +21,8 @@ import '../features/dashboard/presentation/student_dashboard_page.dart';
 import '../features/dashboard/presentation/teacher_dashboard_page.dart';
 import '../features/difficult_questions/presentation/difficult_questions_page.dart';
 import '../features/gamification/presentation/gamification_page.dart';
+import '../features/historical_simulations/presentation/historical_simulation_detail_page.dart';
+import '../features/historical_simulations/presentation/historical_simulations_page.dart';
 import '../features/favorites/presentation/favorites_page.dart';
 import '../features/flashcards/domain/flashcard_models.dart';
 import '../features/flashcards/presentation/flashcard_session_page.dart';
@@ -222,6 +224,40 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                             officialBlock: block,
                           );
                         },
+                      ),
+                    ],
+                  ),
+                  _animatedRoute(
+                    path: 'past',
+                    builder: (context, state) =>
+                        const HistoricalSimulationsPage(),
+                    routes: [
+                      _animatedRoute(
+                        path: ':editionId',
+                        builder: (context, state) =>
+                            HistoricalSimulationDetailPage(
+                              editionId: state.pathParameters['editionId']!,
+                            ),
+                        routes: [
+                          _animatedRoute(
+                            path: ':block',
+                            builder: (context, state) {
+                              final block = OfficialSimulationBlock.tryFromSlug(
+                                state.pathParameters['block'] ?? '',
+                              );
+                              if (block == null) {
+                                return HistoricalSimulationDetailPage(
+                                  editionId: state.pathParameters['editionId']!,
+                                );
+                              }
+                              return PracticeSessionPage.historical(
+                                historicalEditionId:
+                                    state.pathParameters['editionId']!,
+                                historicalBlock: block,
+                              );
+                            },
+                          ),
+                        ],
                       ),
                     ],
                   ),
