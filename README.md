@@ -77,3 +77,5 @@ La comparación segura de resultados y el historial unificado pendiente se descr
 El cálculo del temario pendiente por materia se documenta en [docs/SYLLABUS_COUNTDOWN.md](docs/SYLLABUS_COUNTDOWN.md).
 
 El panel central del estudiante y el origen de cada indicador se documentan en [docs/ACADEMIC_PROFILE.md](docs/ACADEMIC_PROFILE.md).
+
+El resumen semanal y el comparativo mensual se documentan en [docs/ACADEMIC_ACTIVITY_REPORT.md](docs/ACADEMIC_ACTIVITY_REPORT.md).

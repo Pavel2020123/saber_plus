@@ -101,6 +101,14 @@ class AcademicProfilePage extends ConsumerWidget {
                   ),
                   const Divider(height: 1, indent: 64),
                   _ProfileLink(
+                    key: const Key('profile-open-activity-report'),
+                    icon: Icons.calendar_view_month_rounded,
+                    title: 'Resumen semanal y mensual',
+                    subtitle: 'Compara tu tiempo, sesiones y días activos',
+                    onTap: () => context.push('/student/more/profile/activity'),
+                  ),
+                  const Divider(height: 1, indent: 64),
+                  _ProfileLink(
                     key: const Key('profile-open-gamification'),
                     icon: Icons.emoji_events_outlined,
                     title: 'Logros y racha',

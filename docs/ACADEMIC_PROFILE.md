@@ -18,4 +18,4 @@ El estudiante puede definir y modificar un objetivo entre 100 y 500 puntos, en i
 
 ## Límites de esta entrega
 
-El perfil funciona como punto central y enlaza a las pantallas detalladas existentes. El resumen semanal, los comparativos, la proyección de puntaje y la orientación académica se incorporan en las siguientes partes de la etapa 6E y requerirán contratos propios cuando los datos deban sincronizarse entre dispositivos.
+El perfil funciona como punto central y enlaza a las pantallas detalladas existentes. La proyección de puntaje y la orientación académica se incorporan en las siguientes partes de la etapa 6E y requerirán contratos propios cuando los datos deban sincronizarse entre dispositivos.

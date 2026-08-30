@@ -963,6 +963,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Objetivo: 350 puntos'), findsOneWidget);
     expect(find.text('Objetivo guardado para esta cuenta.'), findsOneWidget);
+    await tester.pump(const Duration(seconds: 5));
 
     await tester.scrollUntilVisible(
       find.byKey(const Key('academic-profile-area-insights')),
@@ -986,6 +987,44 @@ void main() {
         of: find.byKey(const Key('academic-profile-reinforcement')),
         matching: find.text('Matemáticas'),
       ),
+      findsOneWidget,
+    );
+
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('profile-open-activity-report')),
+      400,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.ensureVisible(find.text('Resumen semanal y mensual'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Resumen semanal y mensual'));
+    await tester.pumpAndSettle();
+    expect(find.text('Resumen de actividad'), findsOneWidget);
+    expect(find.byKey(const Key('weekly-activity-summary')), findsOneWidget);
+    expect(find.text('1 h 45 min'), findsWidgets);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('weekly-target-progress')),
+      180,
+      scrollable: find
+          .descendant(
+            of: find.byKey(const Key('academic-activity-list')),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
+    expect(find.byKey(const Key('weekly-target-progress')), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('monthly-activity-comparison')),
+      240,
+      scrollable: find
+          .descendant(
+            of: find.byKey(const Key('academic-activity-list')),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
+    expect(
+      find.byKey(const Key('monthly-activity-comparison')),
       findsOneWidget,
     );
   });

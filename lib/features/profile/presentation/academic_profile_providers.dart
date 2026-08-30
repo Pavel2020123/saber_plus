@@ -2,9 +2,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../academic/presentation/academic_home_controller.dart';
 import '../../auth/presentation/session_controller.dart';
+import '../../gamification/domain/gamification_models.dart';
+import '../../gamification/presentation/gamification_providers.dart';
 import '../../progress/domain/progress_models.dart';
 import '../../progress/presentation/progress_providers.dart';
+import '../../study_time/presentation/study_time_providers.dart';
 import '../data/shared_preferences_exam_goal_repository.dart';
+import '../domain/academic_activity_report.dart';
 import '../domain/academic_profile_models.dart';
 import '../domain/exam_goal_repository.dart';
 
@@ -25,6 +29,36 @@ final academicAreaInsightsProvider = Provider<AcademicAreaInsights>((ref) {
     diagnostic: diagnostic,
   );
 });
+
+final academicActivityReportProvider =
+    FutureProvider.autoDispose<AcademicActivityReport>((ref) async {
+      final records = await ref.watch(studyTimeRecordsProvider.future);
+
+      List<DailyActivity>? activity;
+      try {
+        activity = (await ref.watch(
+          gamificationSummaryProvider.future,
+        )).activity;
+      } on Object {
+        activity = null;
+      }
+
+      int? weeklyTargetMinutes;
+      try {
+        weeklyTargetMinutes = (await ref.watch(
+          academicHomeControllerProvider.future,
+        )).plan.targetMinutes;
+      } on Object {
+        weeklyTargetMinutes = null;
+      }
+
+      return AcademicActivityReport.fromSources(
+        now: ref.watch(studyTimeNowProvider)(),
+        studyRecords: records,
+        dailyActivity: activity,
+        weeklyTargetMinutes: weeklyTargetMinutes,
+      );
+    });
 
 final examGoalRepositoryProvider = Provider<ExamGoalRepository>(
   (ref) => SharedPreferencesExamGoalRepository(),
