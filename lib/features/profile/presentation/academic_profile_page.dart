@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../academic/presentation/academic_home_controller.dart';
 import '../../auth/domain/session.dart';
 import '../../auth/presentation/session_controller.dart';
 import '../../gamification/domain/gamification_models.dart';
@@ -9,6 +10,7 @@ import '../../gamification/presentation/gamification_providers.dart';
 import '../../progress/domain/progress_models.dart';
 import '../../study_time/domain/study_time_models.dart';
 import '../../study_time/presentation/study_time_providers.dart';
+import '../domain/academic_profile_models.dart';
 import 'academic_profile_providers.dart';
 
 class AcademicProfilePage extends ConsumerWidget {
@@ -20,6 +22,8 @@ class AcademicProfilePage extends ConsumerWidget {
     final progress = ref.watch(academicProfileProgressProvider);
     final gamification = ref.watch(gamificationSummaryProvider);
     final studyTime = ref.watch(studyTimeSummaryProvider);
+    final insights = ref.watch(academicAreaInsightsProvider);
+    final goal = ref.watch(examGoalControllerProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -51,6 +55,13 @@ class AcademicProfilePage extends ConsumerWidget {
             ),
             const SizedBox(height: 14),
             _StudyTimeCard(summary: studyTime.valueOrNull),
+            const SizedBox(height: 14),
+            _ExamGoalCard(
+              goal: goal,
+              onEdit: goal.isLoading
+                  ? null
+                  : () => _showGoalDialog(context, ref, goal.valueOrNull),
+            ),
             if (progress.hasError ||
                 gamification.hasError ||
                 studyTime.hasError)
@@ -65,6 +76,12 @@ class AcademicProfilePage extends ConsumerWidget {
             ),
             const SizedBox(height: 10),
             _AcademicSummaryCard(progress: progress),
+            const SizedBox(height: 14),
+            _AreaInsightsCard(
+              insights: insights,
+              loading: progress.isLoading,
+              onOpenDiagnostic: () => context.push('/student/diagnostic'),
+            ),
             const SizedBox(height: 22),
             Text(
               'Explora tus datos',
@@ -111,6 +128,7 @@ class AcademicProfilePage extends ConsumerWidget {
     ref.invalidate(academicProfileProgressProvider);
     ref.invalidate(gamificationSummaryProvider);
     ref.invalidate(studyTimeRecordsProvider);
+    await ref.read(academicHomeControllerProvider.notifier).reload();
     try {
       await Future.wait([
         ref.read(academicProfileProgressProvider.future),
@@ -120,6 +138,72 @@ class AcademicProfilePage extends ConsumerWidget {
     } on Object {
       // Cada sección conserva su propio estado de error y las demás siguen visibles.
     }
+  }
+
+  Future<void> _showGoalDialog(
+    BuildContext context,
+    WidgetRef ref,
+    PersonalExamGoal? current,
+  ) async {
+    var selected = (current?.targetScore ?? 350).toDouble();
+    final score = await showDialog<int>(
+      context: context,
+      builder: (dialogContext) => StatefulBuilder(
+        builder: (context, setDialogState) => AlertDialog(
+          title: const Text('Objetivo para el examen'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '${selected.round()} puntos',
+                key: const Key('exam-goal-dialog-score'),
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+              const SizedBox(height: 8),
+              Slider(
+                key: const Key('exam-goal-slider'),
+                value: selected,
+                min: 100,
+                max: 500,
+                divisions: 40,
+                label: selected.round().toString(),
+                onChanged: (value) => setDialogState(() => selected = value),
+              ),
+              const Text(
+                'Es una meta personal, no una predicción de tu resultado.',
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext),
+              child: const Text('Cancelar'),
+            ),
+            FilledButton(
+              key: const Key('save-exam-goal'),
+              onPressed: () => Navigator.pop(dialogContext, selected.round()),
+              child: const Text('Guardar objetivo'),
+            ),
+          ],
+        ),
+      ),
+    );
+    if (score == null || !context.mounted) return;
+
+    final saved = await ref
+        .read(examGoalControllerProvider.notifier)
+        .setTargetScore(score);
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          saved
+              ? 'Objetivo guardado para esta cuenta.'
+              : 'No pudimos guardar el objetivo. Inténtalo nuevamente.',
+        ),
+      ),
+    );
   }
 }
 
@@ -293,6 +377,62 @@ class _StudyTimeCard extends StatelessWidget {
   );
 }
 
+class _ExamGoalCard extends StatelessWidget {
+  const _ExamGoalCard({required this.goal, required this.onEdit});
+
+  final AsyncValue<PersonalExamGoal?> goal;
+  final VoidCallback? onEdit;
+
+  @override
+  Widget build(BuildContext context) {
+    final current = goal.valueOrNull;
+    return Card(
+      key: const Key('academic-profile-exam-goal'),
+      child: Padding(
+        padding: const EdgeInsets.all(18),
+        child: Row(
+          children: [
+            const Icon(Icons.flag_outlined),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    current == null
+                        ? 'Define tu objetivo de puntaje'
+                        : 'Objetivo: ${current.targetScore} puntos',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    goal.hasError
+                        ? 'No pudimos recuperar el objetivo guardado.'
+                        : 'Una meta personal para orientar tu preparación.',
+                  ),
+                ],
+              ),
+            ),
+            IconButton(
+              key: const Key('edit-exam-goal'),
+              tooltip: current == null ? 'Definir objetivo' : 'Editar objetivo',
+              onPressed: onEdit,
+              icon: goal.isLoading
+                  ? const SizedBox.square(
+                      dimension: 20,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : Icon(
+                      current == null ? Icons.add_rounded : Icons.edit_outlined,
+                    ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _AcademicSummaryCard extends StatelessWidget {
   const _AcademicSummaryCard({required this.progress});
 
@@ -346,6 +486,125 @@ class _AcademicSummaryCard extends StatelessWidget {
       ),
     ),
   );
+}
+
+class _AreaInsightsCard extends StatelessWidget {
+  const _AreaInsightsCard({
+    required this.insights,
+    required this.loading,
+    required this.onOpenDiagnostic,
+  });
+
+  final AcademicAreaInsights insights;
+  final bool loading;
+  final VoidCallback onOpenDiagnostic;
+
+  @override
+  Widget build(BuildContext context) => Card(
+    key: const Key('academic-profile-area-insights'),
+    child: Padding(
+      padding: const EdgeInsets.all(18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Fortalezas y prioridades',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          const SizedBox(height: 5),
+          const Text(
+            'Se actualizan con tu diagnóstico y las respuestas confirmadas por materia.',
+          ),
+          const SizedBox(height: 14),
+          if (loading)
+            const LinearProgressIndicator()
+          else if (insights.strongest == null &&
+              insights.needsReinforcement == null)
+            const Text(
+              'Completa el diagnóstico o responde preguntas para descubrir tus áreas.',
+            )
+          else ...[
+            if (insights.strongest case final strongest?)
+              _AreaInsightRow(
+                key: const Key('academic-profile-strength'),
+                icon: Icons.trending_up_rounded,
+                title: 'Tu fortaleza actual',
+                performance: strongest,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            if (insights.strongest != null &&
+                insights.needsReinforcement != null)
+              const Divider(height: 24),
+            if (insights.needsReinforcement case final reinforcement?)
+              _AreaInsightRow(
+                key: const Key('academic-profile-reinforcement'),
+                icon: Icons.fitness_center_rounded,
+                title: 'Prioridad de refuerzo',
+                performance: reinforcement,
+                color: Theme.of(context).colorScheme.tertiary,
+              ),
+          ],
+          const SizedBox(height: 12),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton.icon(
+              key: const Key('profile-open-diagnostic'),
+              onPressed: onOpenDiagnostic,
+              icon: const Icon(Icons.fact_check_outlined),
+              label: const Text('Ver diagnóstico'),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+class _AreaInsightRow extends StatelessWidget {
+  const _AreaInsightRow({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.performance,
+    required this.color,
+  });
+
+  final IconData icon;
+  final String title;
+  final ProfileAreaPerformance performance;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    final percentage = performance.percentage;
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(icon, color: color),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: Theme.of(context).textTheme.labelLarge),
+              const SizedBox(height: 2),
+              Text(
+                performance.area.label,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 2),
+              Text(
+                percentage == null
+                    ? 'Resultado detallado pendiente'
+                    : '${percentage.round()}% en ${performance.answers} respuestas',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
 }
 
 class _PartialDataNotice extends StatelessWidget {

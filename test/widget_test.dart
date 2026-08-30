@@ -15,6 +15,9 @@ import 'package:saber_plus/features/difficult_questions/data/drift_difficult_que
 import 'package:saber_plus/features/difficult_questions/domain/difficult_question_models.dart';
 import 'package:saber_plus/features/difficult_questions/domain/difficult_question_repository.dart';
 import 'package:saber_plus/features/practice/data/practice_draft_store.dart';
+import 'package:saber_plus/features/profile/domain/academic_profile_models.dart';
+import 'package:saber_plus/features/profile/domain/exam_goal_repository.dart';
+import 'package:saber_plus/features/profile/presentation/academic_profile_providers.dart';
 import 'package:saber_plus/features/favorites/data/drift_favorite_repository.dart';
 import 'package:saber_plus/features/favorites/domain/favorite_models.dart';
 import 'package:saber_plus/features/favorites/domain/favorite_repository.dart';
@@ -42,6 +45,7 @@ Widget _testApp() => ProviderScope(
     appPreferencesStoreProvider.overrideWithValue(_FakePreferencesStore()),
     studyReminderServiceProvider.overrideWithValue(_FakeReminderService()),
     answerStreakFeedbackProvider.overrideWithValue(_FakeAnswerStreakFeedback()),
+    examGoalRepositoryProvider.overrideWithValue(_MemoryExamGoalRepository()),
     favoriteRepositoryProvider.overrideWith((ref) {
       final repository = _FakeFavoriteRepository();
       ref.onDispose(repository.dispose);
@@ -945,6 +949,45 @@ void main() {
       scrollable: find.byType(Scrollable).last,
     );
     expect(find.byKey(const Key('academic-profile-summary')), findsOneWidget);
+
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('academic-profile-exam-goal')),
+      -180,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.tap(find.byKey(const Key('edit-exam-goal')));
+    await tester.pumpAndSettle();
+    expect(find.text('Objetivo para el examen'), findsOneWidget);
+    expect(find.text('350 puntos'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('save-exam-goal')));
+    await tester.pumpAndSettle();
+    expect(find.text('Objetivo: 350 puntos'), findsOneWidget);
+    expect(find.text('Objetivo guardado para esta cuenta.'), findsOneWidget);
+
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('academic-profile-area-insights')),
+      220,
+      scrollable: find.byType(Scrollable).last,
+    );
+    expect(find.byKey(const Key('academic-profile-strength')), findsOneWidget);
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('academic-profile-strength')),
+        matching: find.text('Lectura crítica'),
+      ),
+      findsOneWidget,
+    );
+    expect(
+      find.byKey(const Key('academic-profile-reinforcement')),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('academic-profile-reinforcement')),
+        matching: find.text('Matemáticas'),
+      ),
+      findsOneWidget,
+    );
   });
 
   testWidgets('continúa desde Inicio en la última lección visitada', (
@@ -1065,6 +1108,18 @@ class _FakeReminderService implements StudyReminderService {
 class _FakeAnswerStreakFeedback implements AnswerStreakFeedback {
   @override
   Future<void> play() async {}
+}
+
+class _MemoryExamGoalRepository implements ExamGoalRepository {
+  final Map<String, PersonalExamGoal> _goals = {};
+
+  @override
+  Future<PersonalExamGoal?> load(String userId) async => _goals[userId];
+
+  @override
+  Future<void> save(PersonalExamGoal goal) async {
+    _goals[goal.userId] = goal;
+  }
 }
 
 class _FakeFavoriteRepository implements FavoriteRepository {
