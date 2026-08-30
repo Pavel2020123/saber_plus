@@ -118,6 +118,15 @@ class AcademicProfilePage extends ConsumerWidget {
                   ),
                   const Divider(height: 1, indent: 64),
                   _ProfileLink(
+                    key: const Key('profile-open-career-orientation'),
+                    icon: Icons.explore_outlined,
+                    title: 'Carreras y universidades',
+                    subtitle: 'Explora afinidades y consulta la oferta oficial',
+                    onTap: () =>
+                        context.push('/student/more/profile/orientation'),
+                  ),
+                  const Divider(height: 1, indent: 64),
+                  _ProfileLink(
                     key: const Key('profile-open-gamification'),
                     icon: Icons.emoji_events_outlined,
                     title: 'Logros y racha',

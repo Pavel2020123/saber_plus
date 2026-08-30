@@ -16,6 +16,8 @@ Cada fuente tiene un estado independiente. Si una consulta falla, la pantalla co
 
 El estudiante puede definir y modificar un objetivo entre 100 y 500 puntos, en incrementos de 10. La interfaz lo presenta como una meta elegida por la persona y nunca como una predicción. Por ahora se guarda localmente con una clave separada por usuario; su sincronización entre dispositivos queda pendiente de un contrato del backend.
 
-## Límites de esta entrega
+## Orientación académica
 
-El perfil funciona como punto central y enlaza a las pantallas detalladas existentes. La orientación académica se incorpora en las siguientes partes de la etapa 6E y requerirá contratos propios y fuentes oficiales actualizables.
+El perfil funciona como punto central y enlaza a la orientación de carreras y universidades. Esa orientación utiliza afinidades entre las áreas estudiadas y familias amplias de formación; no reemplaza una prueba vocacional ni promete admisión. La oferta de programas e instituciones se consulta en las fuentes oficiales del SNIES, sin guardar datos que puedan quedar desactualizados dentro de la aplicación.
+
+Las próximas partes de la etapa 6E incorporarán becas y comparación con datos nacionales mediante fuentes oficiales y contratos actualizables.

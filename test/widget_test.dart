@@ -18,6 +18,7 @@ import 'package:saber_plus/features/practice/data/practice_draft_store.dart';
 import 'package:saber_plus/features/profile/domain/academic_profile_models.dart';
 import 'package:saber_plus/features/profile/domain/exam_goal_repository.dart';
 import 'package:saber_plus/features/profile/presentation/academic_profile_providers.dart';
+import 'package:saber_plus/features/profile/presentation/career_orientation_providers.dart';
 import 'package:saber_plus/features/favorites/data/drift_favorite_repository.dart';
 import 'package:saber_plus/features/favorites/domain/favorite_models.dart';
 import 'package:saber_plus/features/favorites/domain/favorite_repository.dart';
@@ -38,6 +39,8 @@ class _FakeSecureSessionStore extends SecureSessionStore {
   Future<void> clear() async {}
 }
 
+final _openedOfficialOrientationUris = <Uri>[];
+
 Widget _testApp() => ProviderScope(
   overrides: [
     secureSessionStoreProvider.overrideWithValue(_FakeSecureSessionStore()),
@@ -46,6 +49,10 @@ Widget _testApp() => ProviderScope(
     studyReminderServiceProvider.overrideWithValue(_FakeReminderService()),
     answerStreakFeedbackProvider.overrideWithValue(_FakeAnswerStreakFeedback()),
     examGoalRepositoryProvider.overrideWithValue(_MemoryExamGoalRepository()),
+    officialOrientationLinkOpenerProvider.overrideWithValue((uri) async {
+      _openedOfficialOrientationUris.add(uri);
+      return true;
+    }),
     favoriteRepositoryProvider.overrideWith((ref) {
       final repository = _FakeFavoriteRepository();
       ref.onDispose(repository.dispose);
@@ -1047,6 +1054,42 @@ void main() {
     expect(find.text('Rango orientativo: 317–387'), findsOneWidget);
     expect(find.text('Confianza media'), findsOneWidget);
     expect(find.text('Tu objetivo: 350 puntos'), findsOneWidget);
+
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('profile-open-career-orientation')),
+      220,
+      scrollable: find
+          .descendant(
+            of: find.byKey(const Key('academic-profile-list')),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
+    await tester.tap(find.text('Carreras y universidades'));
+    await tester.pumpAndSettle();
+    expect(find.text('Afinidades académicas'), findsOneWidget);
+    expect(find.byKey(const Key('career-path-law-society')), findsOneWidget);
+    expect(find.byKey(const Key('admission-safety-notice')), findsNothing);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('open-official-programs')),
+      300,
+      scrollable: find
+          .descendant(
+            of: find.byKey(const Key('career-orientation-list')),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
+    _openedOfficialOrientationUris.clear();
+    await tester.tap(find.byKey(const Key('open-official-programs')));
+    await tester.pumpAndSettle();
+    expect(_openedOfficialOrientationUris, hasLength(1));
+    expect(
+      _openedOfficialOrientationUris.single.host,
+      'hecaa.mineducacion.gov.co',
+    );
   });
 
   testWidgets('continúa desde Inicio en la última lección visitada', (
