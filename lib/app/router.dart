@@ -36,6 +36,7 @@ import '../features/practice/presentation/official_simulation_page.dart';
 import '../features/practice/presentation/random_practice_setup_page.dart';
 import '../features/practice/presentation/practice_session_page.dart';
 import '../features/practice/presentation/simulation_setup_page.dart';
+import '../features/practice/presentation/simulation_comparison_page.dart';
 import '../features/practice/presentation/time_trial_setup_page.dart';
 import '../features/progress/presentation/adaptive_review_page.dart';
 import '../features/progress/presentation/progress_page.dart';
@@ -298,6 +299,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   _animatedRoute(
                     path: 'history',
                     builder: (context, state) => const PracticeHistoryPage(),
+                  ),
+                  _animatedRoute(
+                    path: 'comparison',
+                    builder: (context, state) =>
+                        const SimulationComparisonPage(),
                   ),
                   _animatedRoute(
                     path: 'daily-review',

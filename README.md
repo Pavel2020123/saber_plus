@@ -71,3 +71,5 @@ El script crea una cuenta E2E única. Debe ejecutarse solamente contra una base 
 Consulta el avance y las siguientes entregas en [docs/ROADMAP_MOVIL.md](docs/ROADMAP_MOVIL.md).
 
 El comportamiento y contrato pendiente de las pruebas de velocidad se documenta en [docs/TIME_TRIALS.md](docs/TIME_TRIALS.md).
+
+La comparación segura de resultados y el historial unificado pendiente se describen en [docs/SIMULATION_COMPARISON.md](docs/SIMULATION_COMPARISON.md).

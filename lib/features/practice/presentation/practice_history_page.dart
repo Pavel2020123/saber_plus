@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/network/api_error.dart';
 import '../../academic/domain/academic_models.dart';
@@ -64,6 +65,13 @@ class _PracticeHistoryPageState extends ConsumerState<PracticeHistoryPage> {
           const SizedBox(height: 8),
           const Text(
             'Consulta tus simulacros y revisa cada respuesta para decidir qué reforzar.',
+          ),
+          const SizedBox(height: 14),
+          OutlinedButton.icon(
+            key: const Key('open-simulation-comparison'),
+            onPressed: () => context.push('/student/practice/comparison'),
+            icon: const Icon(Icons.compare_arrows_rounded),
+            label: const Text('Comparar simulacros'),
           ),
           const SizedBox(height: 18),
           FutureBuilder<SimulationHistory>(

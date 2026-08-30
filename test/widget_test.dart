@@ -198,6 +198,11 @@ void main() {
       200,
       scrollable: find.byType(Scrollable).last,
     );
+    await Scrollable.ensureVisible(
+      tester.element(find.byKey(const Key('open-random-practice'))),
+      alignment: 0.5,
+    );
+    await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('open-random-practice')));
     await tester.pumpAndSettle();
     expect(find.text('Configura tu sesión'), findsOneWidget);
@@ -400,10 +405,50 @@ void main() {
       300,
       scrollable: find.byType(Scrollable).last,
     );
+    await Scrollable.ensureVisible(
+      tester.element(find.byKey(const Key('history-answer-demo-history-1'))),
+      alignment: 0.3,
+    );
+    await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('history-answer-demo-history-1')));
     await tester.pumpAndSettle();
     expect(find.textContaining('Respuesta correcta:'), findsOneWidget);
     expect(find.textContaining('20.000 pesos'), findsOneWidget);
+  });
+
+  testWidgets('compara dos simulacros de la misma materia', (tester) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Practicar'));
+    await tester.pumpAndSettle();
+    await tester.drag(find.byType(ListView).last, const Offset(0, -300));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('open-practice-history')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('open-simulation-comparison')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Mide tu evolución'), findsOneWidget);
+    expect(find.byKey(const Key('comparison-area-filter')), findsOneWidget);
+    expect(
+      find.byKey(const Key('simulation-comparison-summary')),
+      findsOneWidget,
+    );
+    expect(find.text('Mejora clara'), findsOneWidget);
+    expect(find.text('+16.0 puntos'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('comparison-area-filter')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Matemáticas').last);
+    await tester.pumpAndSettle();
+    expect(find.text('56.0%'), findsOneWidget);
+    expect(find.text('72.0%'), findsOneWidget);
   });
 
   testWidgets('repasa los errores del día y actualiza su progreso', (

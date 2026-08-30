@@ -178,7 +178,7 @@ class DemoPracticeRepository implements PracticeRepository {
 
   @override
   Future<SimulationHistory> loadSimulationHistory() async => SimulationHistory(
-    total: 3,
+    total: 5,
     results: [
       SimulationHistoryResult(
         id: 'demo-result-1',
@@ -206,6 +206,24 @@ class DemoPracticeRepository implements PracticeRepository {
         percentage: 60,
         earnedXp: 175,
         completedAt: DateTime.now().subtract(const Duration(days: 8)),
+      ),
+      SimulationHistoryResult(
+        id: 'demo-result-4',
+        area: AcademicArea.mathematics,
+        totalQuestions: 25,
+        correctAnswers: 14,
+        percentage: 56,
+        earnedXp: 140,
+        completedAt: DateTime.now().subtract(const Duration(days: 12)),
+      ),
+      SimulationHistoryResult(
+        id: 'demo-result-5',
+        area: AcademicArea.criticalReading,
+        totalQuestions: 25,
+        correctAnswers: 17,
+        percentage: 68,
+        earnedXp: 170,
+        completedAt: DateTime.now().subtract(const Duration(days: 18)),
       ),
     ],
   );

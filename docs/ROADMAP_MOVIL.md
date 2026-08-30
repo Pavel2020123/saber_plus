@@ -95,7 +95,9 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [ ] Carga de cuadernillos propios o autorizados y publicación del contrato histórico en el backend.
 - [x] Pruebas contrarreloj con formatos de 5, 10 y 20 preguntas, reloj estricto, reanudación cifrada y cierre seguro.
 - [ ] Calificación de preguntas omitidas al vencer, pendiente del contrato contrarreloj autoritativo en el backend.
-- [ ] Comparación de simulacros y countdown de temario por materia.
+- [x] Comparación de simulacros por materia con evolución cronológica y diferencias sobre resultados confirmados.
+- [ ] Historial unificado de jornadas AM/PM, ediciones históricas y contrarreloj, pendiente del backend.
+- [ ] Countdown de temario por materia.
 - Ranking con privacidad por defecto.
 - Batallas asíncronas, bloqueo y reporte.
 - Anuncios, referidos, soporte y calculadora de puntaje.
