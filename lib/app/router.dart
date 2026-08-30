@@ -42,6 +42,7 @@ import '../features/progress/presentation/adaptive_review_page.dart';
 import '../features/progress/presentation/progress_page.dart';
 import '../features/profile/presentation/academic_profile_page.dart';
 import '../features/profile/presentation/academic_activity_report_page.dart';
+import '../features/profile/presentation/score_projection_page.dart';
 import '../features/search/presentation/academic_search_page.dart';
 import '../features/shared/presentation/student_shell.dart';
 import '../features/study/presentation/study_area_page.dart';
@@ -413,6 +414,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                         path: 'activity',
                         builder: (context, state) =>
                             const AcademicActivityReportPage(),
+                      ),
+                      _animatedRoute(
+                        path: 'projection',
+                        builder: (context, state) =>
+                            const ScoreProjectionPage(),
                       ),
                     ],
                   ),

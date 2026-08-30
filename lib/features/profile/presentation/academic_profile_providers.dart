@@ -1,16 +1,20 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../academic/domain/academic_models.dart';
 import '../../academic/presentation/academic_home_controller.dart';
 import '../../auth/presentation/session_controller.dart';
 import '../../gamification/domain/gamification_models.dart';
 import '../../gamification/presentation/gamification_providers.dart';
 import '../../progress/domain/progress_models.dart';
 import '../../progress/presentation/progress_providers.dart';
+import '../../practice/domain/practice_history_models.dart';
+import '../../practice/presentation/practice_providers.dart';
 import '../../study_time/presentation/study_time_providers.dart';
 import '../data/shared_preferences_exam_goal_repository.dart';
 import '../domain/academic_activity_report.dart';
 import '../domain/academic_profile_models.dart';
 import '../domain/exam_goal_repository.dart';
+import '../domain/score_projection.dart';
 
 final academicProfileProgressProvider =
     FutureProvider.autoDispose<ProgressDashboard>(
@@ -59,6 +63,36 @@ final academicActivityReportProvider =
         weeklyTargetMinutes: weeklyTargetMinutes,
       );
     });
+
+final scoreProjectionProvider = FutureProvider.autoDispose<ScoreProjection?>((
+  ref,
+) async {
+  final progress = await ref.watch(academicProfileProgressProvider.future);
+
+  var history = const SimulationHistory(total: 0, results: []);
+  try {
+    history = await ref
+        .watch(practiceRepositoryProvider)
+        .loadSimulationHistory();
+  } on Object {
+    // El historial general permite una estimación de confianza baja.
+  }
+
+  DiagnosticSummary? diagnostic;
+  try {
+    diagnostic = (await ref.watch(
+      academicHomeControllerProvider.future,
+    )).diagnostic;
+  } on Object {
+    diagnostic = null;
+  }
+
+  return ScoreProjection.calculate(
+    simulationHistory: history,
+    progress: progress,
+    diagnostic: diagnostic,
+  );
+});
 
 final examGoalRepositoryProvider = Provider<ExamGoalRepository>(
   (ref) => SharedPreferencesExamGoalRepository(),

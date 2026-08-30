@@ -109,6 +109,15 @@ class AcademicProfilePage extends ConsumerWidget {
                   ),
                   const Divider(height: 1, indent: 64),
                   _ProfileLink(
+                    key: const Key('profile-open-score-projection'),
+                    icon: Icons.query_stats_rounded,
+                    title: 'Puntaje proyectado',
+                    subtitle: 'Consulta una estimación y su nivel de confianza',
+                    onTap: () =>
+                        context.push('/student/more/profile/projection'),
+                  ),
+                  const Divider(height: 1, indent: 64),
+                  _ProfileLink(
                     key: const Key('profile-open-gamification'),
                     icon: Icons.emoji_events_outlined,
                     title: 'Logros y racha',

@@ -101,6 +101,7 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Perfil académico central con identidad, XP, avance, aciertos, racha, tiempo estudiado y accesos al detalle.
 - [x] Materias fuertes y por reforzar con objetivo personal de examen persistente por estudiante.
 - [x] Resumen semanal de tiempo y acciones, con comparativo mensual local de tiempo, sesiones y días activos.
+- [x] Puntaje proyectado orientativo con ponderación por materia, rango, confianza y advertencia metodológica.
 - Ranking con privacidad por defecto.
 - Batallas asíncronas, bloqueo y reporte.
 - Anuncios, referidos, soporte y calculadora de puntaje.

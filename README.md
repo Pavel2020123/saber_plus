@@ -79,3 +79,5 @@ El cálculo del temario pendiente por materia se documenta en [docs/SYLLABUS_COU
 El panel central del estudiante y el origen de cada indicador se documentan en [docs/ACADEMIC_PROFILE.md](docs/ACADEMIC_PROFILE.md).
 
 El resumen semanal y el comparativo mensual se documentan en [docs/ACADEMIC_ACTIVITY_REPORT.md](docs/ACADEMIC_ACTIVITY_REPORT.md).
+
+La estimación interna de puntaje y sus límites frente al resultado oficial se documentan en [docs/SCORE_PROJECTION.md](docs/SCORE_PROJECTION.md).

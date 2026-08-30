@@ -1027,6 +1027,26 @@ void main() {
       find.byKey(const Key('monthly-activity-comparison')),
       findsOneWidget,
     );
+
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('profile-open-score-projection')),
+      220,
+      scrollable: find
+          .descendant(
+            of: find.byKey(const Key('academic-profile-list')),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
+    await tester.tap(find.text('Puntaje proyectado'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('score-projection-result')), findsOneWidget);
+    expect(find.text('352'), findsOneWidget);
+    expect(find.text('Rango orientativo: 317–387'), findsOneWidget);
+    expect(find.text('Confianza media'), findsOneWidget);
+    expect(find.text('Tu objetivo: 350 puntos'), findsOneWidget);
   });
 
   testWidgets('continúa desde Inicio en la última lección visitada', (
