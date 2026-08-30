@@ -211,8 +211,41 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Preguntas aleatorias'), findsOneWidget);
-    expect(find.text('Pregunta 1 de 2'), findsOneWidget);
+    expect(find.text('Pregunta 1 de 10'), findsOneWidget);
     expect(find.textContaining('3 cuadernos'), findsOneWidget);
+  });
+
+  testWidgets('abre la jornada AM del simulacro de 150 preguntas', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Practicar'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('open-official-simulation')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Dos jornadas, una prueba completa'), findsOneWidget);
+    expect(find.text('150'), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('start-official-am')),
+      250,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.tap(find.byKey(const Key('start-official-am')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Simulacro 150 · Jornada AM'), findsOneWidget);
+    expect(find.text('Pregunta 1 de 75'), findsOneWidget);
+    expect(find.byType(LinearProgressIndicator), findsOneWidget);
   });
 
   testWidgets('configura y abre un simulacro completo demostrativo', (

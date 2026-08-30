@@ -27,13 +27,26 @@ class PracticeHubPage extends StatelessWidget {
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         const SizedBox(height: 8),
-        const Text('Resuelve una prueba completa enfocada en una sola área.'),
+        const Text(
+          'Entrena con el formato de 150 preguntas o enfócate en una sola área.',
+        ),
         const SizedBox(height: 14),
+        Card(
+          child: ListTile(
+            key: const Key('open-official-simulation'),
+            leading: const CircleAvatar(child: Icon(Icons.fact_check_outlined)),
+            title: const Text('Simulacro 150 · AM/PM'),
+            subtitle: const Text('Dos jornadas de 75 preguntas'),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            onTap: () => context.push('/student/practice/official'),
+          ),
+        ),
+        const SizedBox(height: 8),
         Card(
           child: ListTile(
             key: const Key('open-area-simulation'),
             leading: const CircleAvatar(child: Icon(Icons.assignment_rounded)),
-            title: const Text('Comenzar simulacro'),
+            title: const Text('Simulacro por área'),
             subtitle: const Text('Hasta 25 preguntas por área'),
             trailing: const Icon(Icons.chevron_right_rounded),
             onTap: () => context.push('/student/practice/simulation'),

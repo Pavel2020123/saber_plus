@@ -87,6 +87,10 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Repaso de errores del día con explicaciones, progreso temporal y acceso al repaso inteligente.
 - [x] Modo oscuro automático que sigue la configuración del dispositivo, sin cambiar el inicio claro por defecto.
 - [x] Tiempo total estudiado por estudiante con Pomodoros y evaluaciones confirmadas, disponible por día, semana y actividad.
+- [x] Simulacro de 150 preguntas dividido en jornadas AM/PM, con cinco áreas, borradores independientes y banco protegido.
+- [ ] Sistema antitrampas reforzado para simulacros avanzados.
+- [ ] Banco autorizado de simulacros de años anteriores.
+- [ ] Pruebas contrarreloj, comparación de simulacros y countdown de temario por materia.
 - Ranking con privacidad por defecto.
 - Batallas asíncronas, bloqueo y reporte.
 - Anuncios, referidos, soporte y calculadora de puntaje.

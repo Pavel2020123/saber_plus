@@ -193,6 +193,41 @@ class RandomPracticeConfig {
   }
 }
 
+enum OfficialSimulationBlock {
+  morning('am', 'Jornada AM', 'Primera jornada'),
+  afternoon('pm', 'Jornada PM', 'Segunda jornada');
+
+  const OfficialSimulationBlock(this.slug, this.label, this.description);
+
+  static const questionCount = 75;
+  static const totalQuestionCount = questionCount * 2;
+
+  final String slug;
+  final String label;
+  final String description;
+
+  RandomPracticeConfig get practiceConfig => const RandomPracticeConfig(
+    areas: AcademicArea.values,
+    questionCount: questionCount,
+  );
+
+  String get routeLocation => '/student/practice/official/$slug';
+
+  bool accepts(PracticeSession session) {
+    final areas = session.questions.map((question) => question.area).toSet();
+    return session.isRandom &&
+        session.questions.length == questionCount &&
+        areas.containsAll(AcademicArea.values);
+  }
+
+  static OfficialSimulationBlock? tryFromSlug(String value) {
+    for (final block in values) {
+      if (block.slug == value) return block;
+    }
+    return null;
+  }
+}
+
 class PracticeQuestion {
   const PracticeQuestion({
     required this.id,

@@ -32,32 +32,44 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
     required this.subtopicId,
   }) : randomConfig = null,
        isSimulation = false,
-       adaptiveQuestionCount = null;
+       adaptiveQuestionCount = null,
+       officialBlock = null;
 
   const PracticeSessionPage.random({super.key, required this.randomConfig})
     : area = null,
       subtopicId = null,
       isSimulation = false,
-      adaptiveQuestionCount = null;
+      adaptiveQuestionCount = null,
+      officialBlock = null;
 
   const PracticeSessionPage.simulation({super.key, required this.area})
     : subtopicId = null,
       randomConfig = null,
       isSimulation = true,
-      adaptiveQuestionCount = null;
+      adaptiveQuestionCount = null,
+      officialBlock = null;
 
   const PracticeSessionPage.adaptive({super.key, required int questionCount})
     : area = null,
       subtopicId = null,
       randomConfig = null,
       isSimulation = false,
-      adaptiveQuestionCount = questionCount;
+      adaptiveQuestionCount = questionCount,
+      officialBlock = null;
+
+  const PracticeSessionPage.official({super.key, required this.officialBlock})
+    : area = null,
+      subtopicId = null,
+      randomConfig = null,
+      isSimulation = false,
+      adaptiveQuestionCount = null;
 
   final AcademicArea? area;
   final String? subtopicId;
   final RandomPracticeConfig? randomConfig;
   final bool isSimulation;
   final int? adaptiveQuestionCount;
+  final OfficialSimulationBlock? officialBlock;
 
   @override
   ConsumerState<PracticeSessionPage> createState() =>
@@ -82,9 +94,14 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
   bool get _isRandom => widget.randomConfig != null;
   bool get _isSimulation => widget.isSimulation;
   bool get _isAdaptive => widget.adaptiveQuestionCount != null;
-  bool get _isSubtopic => !_isRandom && !_isSimulation && !_isAdaptive;
+  bool get _isOfficial => widget.officialBlock != null;
+  bool get _usesRandomEndpoint => _isRandom || _isOfficial;
+  bool get _isSubtopic =>
+      !_isRandom && !_isSimulation && !_isAdaptive && !_isOfficial;
   String get _draftId => _isAdaptive
       ? 'adaptive:${widget.adaptiveQuestionCount}'
+      : _isOfficial
+      ? 'official:${widget.officialBlock!.slug}'
       : _isRandom
       ? 'random'
       : _isSimulation
@@ -165,6 +182,18 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
 
   Future<PracticeSession> _startRegularPractice() {
     final repository = ref.read(practiceRepositoryProvider);
+    if (_isOfficial) {
+      return repository
+          .startRandomPractice(widget.officialBlock!.practiceConfig)
+          .then((session) {
+            if (widget.officialBlock!.accepts(session)) return session;
+            throw const ApiError(
+              code: 'official_simulation_incomplete',
+              message:
+                  'El banco todavía no puede entregar esta jornada completa de 75 preguntas en las cinco áreas.',
+            );
+          });
+    }
     if (_isRandom) {
       return repository.startRandomPractice(widget.randomConfig!);
     }
@@ -181,12 +210,13 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
     if (draft.isExpiredAt(DateTime.now()) || draft.session.questions.isEmpty) {
       return false;
     }
-    if (_isRandom != draft.session.isRandom ||
+    if (_usesRandomEndpoint != draft.session.isRandom ||
         _isSimulation != draft.session.isSimulation ||
         _isAdaptive != draft.session.isAdaptive) {
       return false;
     }
     if (_isAdaptive) return true;
+    if (_isOfficial) return widget.officialBlock!.accepts(draft.session);
     if (_isSimulation) return draft.session.area == widget.area;
     if (_isSubtopic) return draft.session.subtopicId == widget.subtopicId;
     final expected = widget.randomConfig!.areas.toSet();
@@ -352,7 +382,7 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(
-          _isSimulation
+          _isSimulation || _isOfficial
               ? 'Finalizar simulacro'
               : _isAdaptive
               ? 'Finalizar repaso'
@@ -467,7 +497,7 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
     List<PracticeAnswer> answers,
   ) {
     final repository = ref.read(practiceRepositoryProvider);
-    if (_isRandom) {
+    if (_usesRandomEndpoint) {
       return repository.gradeRandomPractice(
         attemptId: session.attemptId,
         answers: answers,
@@ -538,13 +568,17 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
       appBar: AppBar(
         title: Text(
           result == null
-              ? _isRandom
+              ? _isOfficial
+                    ? 'Simulacro 150 · ${widget.officialBlock!.label}'
+                    : _isRandom
                     ? 'Preguntas aleatorias'
                     : _isAdaptive
                     ? 'Repaso inteligente'
                     : _isSimulation
                     ? 'Simulacro por área'
                     : 'Práctica'
+              : _isOfficial
+              ? 'Resultado · ${widget.officialBlock!.label}'
               : _isSimulation
               ? 'Resultado del simulacro'
               : _isAdaptive
@@ -572,7 +606,9 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
           session: session,
           onRetry: _loadPractice,
           onExit: () => context.pop(),
-          exitLabel: _isRandom
+          exitLabel: _isOfficial
+              ? 'Volver a las jornadas'
+              : _isRandom
               ? 'Volver a configurar'
               : _isAdaptive
               ? 'Volver a mi perfil'
@@ -597,7 +633,7 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
         LinearProgressIndicator(
           value: (_currentIndex + 1) / session.questions.length,
         ),
-        if (!_isSimulation)
+        if (!_isSimulation && !_isOfficial)
           const Padding(
             padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
             child: PomodoroCard(compact: true),

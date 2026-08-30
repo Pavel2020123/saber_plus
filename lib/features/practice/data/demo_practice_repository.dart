@@ -9,46 +9,22 @@ class DemoPracticeRepository implements PracticeRepository {
     required AcademicArea area,
     required String subtopicId,
   }) async {
-    final content = _contentFor(area);
     return PracticeSession(
       attemptId: 'demo-${area.name}-${DateTime.now().microsecondsSinceEpoch}',
       area: area,
       subtopicId: subtopicId,
       questions: [
-        PracticeQuestion(
+        _demoQuestion(
+          area: area,
+          subtopicId: subtopicId,
           id: 'demo-question-${area.name}-1',
-          statement: content.statement,
-          difficulty: 'MEDIA',
-          options: [
-            for (var index = 0; index < content.options.length; index++)
-              PracticeOption(
-                id: 'answer-${String.fromCharCode(97 + index)}',
-                text: content.options[index],
-              ),
-          ],
-          subtopicId: subtopicId,
-          subtopicName: content.subtopic,
-          themeName: content.theme,
-          area: area,
+          variant: 1,
         ),
-        PracticeQuestion(
-          id: 'demo-question-${area.name}-2',
-          statement:
-              '¿Cuál es la mejor estrategia para comprobar la respuesta?',
-          difficulty: 'MEDIA',
-          options: const [
-            PracticeOption(
-              id: 'answer-e',
-              text: 'Revisar los datos y sustituir el resultado',
-            ),
-            PracticeOption(id: 'answer-f', text: 'Elegir la opción más larga'),
-            PracticeOption(id: 'answer-g', text: 'Ignorar las unidades'),
-            PracticeOption(id: 'answer-h', text: 'Responder sin verificar'),
-          ],
-          subtopicId: subtopicId,
-          subtopicName: content.subtopic,
-          themeName: content.theme,
+        _demoQuestion(
           area: area,
+          subtopicId: subtopicId,
+          id: 'demo-question-${area.name}-2',
+          variant: 2,
         ),
       ],
     );
@@ -61,60 +37,34 @@ class DemoPracticeRepository implements PracticeRepository {
     required List<PracticeAnswer> answers,
   }) async {
     final content = _contentFor(area);
-    final correctByQuestion = {
-      'demo-question-${area.name}-1': 'answer-a',
-      'demo-question-${area.name}-2': 'answer-e',
-    };
-    final statements = {
-      'demo-question-${area.name}-1': content.statement,
-      'demo-question-${area.name}-2':
-          '¿Cuál es la mejor estrategia para comprobar la respuesta?',
-    };
-    final allOptions = <String, List<PracticeReviewOption>>{
-      'demo-question-${area.name}-1': [
-        for (var index = 0; index < content.options.length; index++)
-          PracticeReviewOption(
-            id: 'answer-${String.fromCharCode(97 + index)}',
-            text: content.options[index],
-            isCorrect: index == 0,
-          ),
-      ],
-      'demo-question-${area.name}-2': const [
-        PracticeReviewOption(
-          id: 'answer-e',
-          text: 'Revisar los datos y sustituir el resultado',
-          isCorrect: true,
-        ),
-        PracticeReviewOption(
-          id: 'answer-f',
-          text: 'Elegir la opción más larga',
-          isCorrect: false,
-        ),
-        PracticeReviewOption(
-          id: 'answer-g',
-          text: 'Ignorar las unidades',
-          isCorrect: false,
-        ),
-        PracticeReviewOption(
-          id: 'answer-h',
-          text: 'Responder sin verificar',
-          isCorrect: false,
-        ),
-      ],
-    };
     final review = answers
         .map((answer) {
-          final correctId = correctByQuestion[answer.questionId]!;
+          final variant = answer.questionId.endsWith('-2') ? 2 : 1;
+          final correctId = variant == 1 ? 'answer-a' : 'answer-e';
+          final question = _demoQuestion(
+            area: area,
+            subtopicId: 'demo-${area.name}',
+            id: answer.questionId,
+            variant: variant,
+          );
           return PracticeReviewQuestion(
             id: answer.questionId,
-            statement: statements[answer.questionId]!,
+            statement: question.statement,
             isCorrect: answer.answerId == correctId,
             selectedAnswerId: answer.answerId,
             correctAnswerId: correctId,
-            explanation: answer.questionId.endsWith('-1')
+            explanation: variant == 1
                 ? content.explanation
                 : 'Comprobar significa volver a usar los datos originales con el resultado obtenido.',
-            options: allOptions[answer.questionId]!,
+            options: question.options
+                .map(
+                  (option) => PracticeReviewOption(
+                    id: option.id,
+                    text: option.text,
+                    isCorrect: option.id == correctId,
+                  ),
+                )
+                .toList(growable: false),
           );
         })
         .toList(growable: false);
@@ -143,12 +93,18 @@ class DemoPracticeRepository implements PracticeRepository {
     RandomPracticeConfig config,
   ) async {
     final questions = <PracticeQuestion>[];
-    for (final area in config.areas) {
-      final session = await startSubtopicPractice(
-        area: area,
-        subtopicId: 'demo-random-${area.name}',
+    for (var index = 0; index < config.questionCount; index++) {
+      final area = config.areas[index % config.areas.length];
+      final round = index ~/ config.areas.length;
+      final variant = round.isEven ? 1 : 2;
+      questions.add(
+        _demoQuestion(
+          area: area,
+          subtopicId: 'demo-random-${area.name}',
+          id: 'demo-question-${area.name}-random-${index + 1}-$variant',
+          variant: variant,
+        ),
       );
-      questions.addAll(session.questions);
     }
     return PracticeSession(
       attemptId: 'demo-random-${DateTime.now().microsecondsSinceEpoch}',
@@ -156,7 +112,7 @@ class DemoPracticeRepository implements PracticeRepository {
       subtopicId: '',
       isRandom: true,
       selectedAreas: List.unmodifiable(config.areas),
-      questions: questions.take(config.questionCount).toList(growable: false),
+      questions: List.unmodifiable(questions),
     );
   }
 
@@ -327,6 +283,44 @@ class DemoPracticeRepository implements PracticeRepository {
       answers: filtered,
     );
   }
+}
+
+PracticeQuestion _demoQuestion({
+  required AcademicArea area,
+  required String subtopicId,
+  required String id,
+  required int variant,
+}) {
+  final content = _contentFor(area);
+  final isConceptQuestion = variant == 1;
+  return PracticeQuestion(
+    id: id,
+    statement: isConceptQuestion
+        ? content.statement
+        : '¿Cuál es la mejor estrategia para comprobar la respuesta?',
+    difficulty: 'MEDIA',
+    options: isConceptQuestion
+        ? [
+            for (var index = 0; index < content.options.length; index++)
+              PracticeOption(
+                id: 'answer-${String.fromCharCode(97 + index)}',
+                text: content.options[index],
+              ),
+          ]
+        : const [
+            PracticeOption(
+              id: 'answer-e',
+              text: 'Revisar los datos y sustituir el resultado',
+            ),
+            PracticeOption(id: 'answer-f', text: 'Elegir la opción más larga'),
+            PracticeOption(id: 'answer-g', text: 'Ignorar las unidades'),
+            PracticeOption(id: 'answer-h', text: 'Responder sin verificar'),
+          ],
+    subtopicId: subtopicId,
+    subtopicName: content.subtopic,
+    themeName: content.theme,
+    area: area,
+  );
 }
 
 typedef _DemoContent = ({

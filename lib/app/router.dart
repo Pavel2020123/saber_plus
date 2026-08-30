@@ -30,6 +30,7 @@ import '../features/practice/domain/practice_models.dart';
 import '../features/practice/presentation/practice_history_page.dart';
 import '../features/practice/presentation/practice_hub_page.dart';
 import '../features/practice/presentation/daily_mistakes_page.dart';
+import '../features/practice/presentation/official_simulation_page.dart';
 import '../features/practice/presentation/random_practice_setup_page.dart';
 import '../features/practice/presentation/practice_session_page.dart';
 import '../features/practice/presentation/simulation_setup_page.dart';
@@ -204,6 +205,26 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 pageBuilder: (context, state) =>
                     const NoTransitionPage(child: PracticeHubPage()),
                 routes: [
+                  _animatedRoute(
+                    path: 'official',
+                    builder: (context, state) => const OfficialSimulationPage(),
+                    routes: [
+                      _animatedRoute(
+                        path: ':block',
+                        builder: (context, state) {
+                          final block = OfficialSimulationBlock.tryFromSlug(
+                            state.pathParameters['block'] ?? '',
+                          );
+                          if (block == null) {
+                            return const OfficialSimulationPage();
+                          }
+                          return PracticeSessionPage.official(
+                            officialBlock: block,
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                   _animatedRoute(
                     path: 'simulation',
                     builder: (context, state) => const SimulationSetupPage(),

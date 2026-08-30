@@ -34,6 +34,7 @@ El feedback visual y háptico de rachas de aciertos está documentado en [docs/A
 Las marcas locales y protegidas de preguntas difíciles están documentadas en [docs/DIFFICULT_QUESTIONS.md](docs/DIFFICULT_QUESTIONS.md).
 El repaso de las respuestas falladas durante el día está documentado en [docs/DAILY_MISTAKE_REVIEW.md](docs/DAILY_MISTAKE_REVIEW.md).
 El registro local del tiempo total estudiado está documentado en [docs/STUDY_TIME.md](docs/STUDY_TIME.md).
+El simulacro de 150 preguntas dividido en jornadas AM/PM está documentado en [docs/SIMULACRO_150.md](docs/SIMULACRO_150.md).
 
 ## Configuración por ambiente
 
