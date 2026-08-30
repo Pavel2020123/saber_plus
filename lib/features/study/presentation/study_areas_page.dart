@@ -66,36 +66,48 @@ class _OverallProgress extends StatelessWidget {
   @override
   Widget build(BuildContext context) => progress.when(
     data: (value) => Card(
-      child: Padding(
-        padding: const EdgeInsets.all(18),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const Icon(Icons.route_rounded),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    'Progreso de contenido',
-                    style: Theme.of(context).textTheme.titleMedium,
+      child: InkWell(
+        key: const Key('open-syllabus-countdown'),
+        borderRadius: BorderRadius.circular(24),
+        onTap: () => context.push('/student/study/countdown'),
+        child: Padding(
+          padding: const EdgeInsets.all(18),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Icon(Icons.route_rounded),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      'Progreso de contenido',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                   ),
-                ),
-                Text('${value.overallPercentage}%'),
-              ],
-            ),
-            const SizedBox(height: 12),
-            LinearProgressIndicator(
-              value: value.overallPercentage / 100,
-              minHeight: 8,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            const SizedBox(height: 9),
-            Text(
-              '${value.completedSubtopics} de ${value.totalSubtopics} subtemas completados',
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-          ],
+                  Text('${value.overallPercentage}%'),
+                  const SizedBox(width: 4),
+                  const Icon(Icons.chevron_right_rounded),
+                ],
+              ),
+              const SizedBox(height: 12),
+              LinearProgressIndicator(
+                value: value.overallPercentage / 100,
+                minHeight: 8,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              const SizedBox(height: 9),
+              Text(
+                '${value.completedSubtopics} de ${value.totalSubtopics} subtemas completados',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Ver countdown por materia',
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
+            ],
+          ),
         ),
       ),
     ),

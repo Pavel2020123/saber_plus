@@ -29,3 +29,5 @@ La persistencia, separación por usuario y administración de los PDF descargado
 ## Alcance de la Etapa 3C
 
 Esta etapa permite explorar y leer el contenido. Las preguntas que aparecen contabilizadas en cada subtema se resolverán en la Etapa 4, mediante los intentos protegidos de práctica y simulacro del backend.
+
+El countdown del temario combina este catálogo y progreso con la convocatoria activa. Sus cálculos y estados seguros se describen en `SYLLABUS_COUNTDOWN.md`.

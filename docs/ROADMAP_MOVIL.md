@@ -97,7 +97,7 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [ ] Calificación de preguntas omitidas al vencer, pendiente del contrato contrarreloj autoritativo en el backend.
 - [x] Comparación de simulacros por materia con evolución cronológica y diferencias sobre resultados confirmados.
 - [ ] Historial unificado de jornadas AM/PM, ediciones históricas y contrarreloj, pendiente del backend.
-- [ ] Countdown de temario por materia.
+- [x] Countdown de temario por materia con fecha oficial, avance por subtema, prioridades y ritmo semanal sugerido.
 - Ranking con privacidad por defecto.
 - Batallas asíncronas, bloqueo y reporte.
 - Anuncios, referidos, soporte y calculadora de puntaje.

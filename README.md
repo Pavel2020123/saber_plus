@@ -73,3 +73,5 @@ Consulta el avance y las siguientes entregas en [docs/ROADMAP_MOVIL.md](docs/ROA
 El comportamiento y contrato pendiente de las pruebas de velocidad se documenta en [docs/TIME_TRIALS.md](docs/TIME_TRIALS.md).
 
 La comparación segura de resultados y el historial unificado pendiente se describen en [docs/SIMULATION_COMPARISON.md](docs/SIMULATION_COMPARISON.md).
+
+El cálculo del temario pendiente por materia se documenta en [docs/SYLLABUS_COUNTDOWN.md](docs/SYLLABUS_COUNTDOWN.md).

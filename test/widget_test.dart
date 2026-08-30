@@ -178,6 +178,34 @@ void main() {
     expect(find.textContaining('3 cuadernos'), findsOneWidget);
   });
 
+  testWidgets('muestra el countdown del temario por materia', (tester) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Estudiar'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('open-syllabus-countdown')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Tu ruta antes del examen'), findsOneWidget);
+    expect(find.byKey(const Key('syllabus-countdown-summary')), findsOneWidget);
+    expect(find.text('5'), findsOneWidget);
+    expect(find.text('subtemas pendientes'), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('syllabus-area-matematicas')),
+      250,
+      scrollable: find.byType(Scrollable).last,
+    );
+    expect(find.byKey(const Key('syllabus-area-matematicas')), findsOneWidget);
+    expect(find.textContaining('Regla de tres'), findsOneWidget);
+  });
+
   testWidgets('configura y abre una sesión aleatoria demostrativa', (
     tester,
   ) async {

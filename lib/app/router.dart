@@ -46,6 +46,7 @@ import '../features/study/presentation/study_area_page.dart';
 import '../features/study/presentation/study_areas_page.dart';
 import '../features/study/presentation/study_lesson_page.dart';
 import '../features/study/presentation/offline_downloads_page.dart';
+import '../features/study/presentation/syllabus_countdown_page.dart';
 import '../features/study_time/presentation/study_time_page.dart';
 import 'page_transitions.dart';
 
@@ -177,6 +178,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   _animatedRoute(
                     path: 'downloads',
                     builder: (context, state) => const OfflineDownloadsPage(),
+                  ),
+                  _animatedRoute(
+                    path: 'countdown',
+                    builder: (context, state) => const SyllabusCountdownPage(),
                   ),
                   _animatedRoute(
                     path: ':area',
