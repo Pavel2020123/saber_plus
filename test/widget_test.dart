@@ -19,6 +19,7 @@ import 'package:saber_plus/features/profile/domain/academic_profile_models.dart'
 import 'package:saber_plus/features/profile/domain/exam_goal_repository.dart';
 import 'package:saber_plus/features/profile/presentation/academic_profile_providers.dart';
 import 'package:saber_plus/features/profile/presentation/career_orientation_providers.dart';
+import 'package:saber_plus/features/profile/presentation/official_opportunities_providers.dart';
 import 'package:saber_plus/features/favorites/data/drift_favorite_repository.dart';
 import 'package:saber_plus/features/favorites/domain/favorite_models.dart';
 import 'package:saber_plus/features/favorites/domain/favorite_repository.dart';
@@ -40,6 +41,7 @@ class _FakeSecureSessionStore extends SecureSessionStore {
 }
 
 final _openedOfficialOrientationUris = <Uri>[];
+final _openedOfficialOpportunityUris = <Uri>[];
 
 Widget _testApp() => ProviderScope(
   overrides: [
@@ -51,6 +53,10 @@ Widget _testApp() => ProviderScope(
     examGoalRepositoryProvider.overrideWithValue(_MemoryExamGoalRepository()),
     officialOrientationLinkOpenerProvider.overrideWithValue((uri) async {
       _openedOfficialOrientationUris.add(uri);
+      return true;
+    }),
+    officialOpportunityLinkOpenerProvider.overrideWithValue((uri) async {
+      _openedOfficialOpportunityUris.add(uri);
       return true;
     }),
     favoriteRepositoryProvider.overrideWith((ref) {
@@ -1090,6 +1096,51 @@ void main() {
       _openedOfficialOrientationUris.single.host,
       'hecaa.mineducacion.gov.co',
     );
+
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('profile-open-official-opportunities')),
+      220,
+      scrollable: find
+          .descendant(
+            of: find.byKey(const Key('academic-profile-list')),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
+    await tester.tap(find.text('Becas y oportunidades'));
+    await tester.pumpAndSettle();
+    expect(find.text('Encuentra apoyos oficiales'), findsOneWidget);
+    expect(
+      find.byKey(const Key('official-opportunity-best-saber-11-results')),
+      findsOneWidget,
+    );
+    await tester.tap(
+      find.byKey(const Key('official-opportunity-best-saber-11-results')),
+    );
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('open-official-opportunity-best-saber-11-results')),
+      200,
+      scrollable: find
+          .descendant(
+            of: find.byKey(const Key('official-opportunities-list')),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
+    await tester.ensureVisible(
+      find.byKey(const Key('open-official-opportunity-best-saber-11-results')),
+    );
+    await tester.pumpAndSettle();
+    _openedOfficialOpportunityUris.clear();
+    await tester.tap(
+      find.byKey(const Key('open-official-opportunity-best-saber-11-results')),
+    );
+    await tester.pumpAndSettle();
+    expect(_openedOfficialOpportunityUris, hasLength(1));
+    expect(_openedOfficialOpportunityUris.single.host, 'web.icetex.gov.co');
   });
 
   testWidgets('continúa desde Inicio en la última lección visitada', (

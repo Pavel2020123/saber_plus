@@ -103,6 +103,7 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Resumen semanal de tiempo y acciones, con comparativo mensual local de tiempo, sesiones y días activos.
 - [x] Puntaje proyectado orientativo con ponderación por materia, rango, confianza y advertencia metodológica.
 - [x] Afinidades de carrera y acceso seguro a las consultas oficiales de programas e instituciones del SNIES.
+- [x] Catálogo de becas, gratuidad y fondos con fuentes oficiales, fecha de verificación y límites de elegibilidad.
 - Ranking con privacidad por defecto.
 - Batallas asíncronas, bloqueo y reporte.
 - Anuncios, referidos, soporte y calculadora de puntaje.

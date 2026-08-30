@@ -83,3 +83,5 @@ El resumen semanal y el comparativo mensual se documentan en [docs/ACADEMIC_ACTI
 La estimación interna de puntaje y sus límites frente al resultado oficial se documentan en [docs/SCORE_PROJECTION.md](docs/SCORE_PROJECTION.md).
 
 La orientación de carreras y los accesos al catálogo oficial del SNIES se documentan en [docs/CAREER_ORIENTATION.md](docs/CAREER_ORIENTATION.md).
+
+El catálogo seguro de becas, gratuidad y fondos oficiales se documenta en [docs/OFFICIAL_OPPORTUNITIES.md](docs/OFFICIAL_OPPORTUNITIES.md).

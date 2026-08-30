@@ -127,6 +127,15 @@ class AcademicProfilePage extends ConsumerWidget {
                   ),
                   const Divider(height: 1, indent: 64),
                   _ProfileLink(
+                    key: const Key('profile-open-official-opportunities'),
+                    icon: Icons.volunteer_activism_outlined,
+                    title: 'Becas y oportunidades',
+                    subtitle: 'Consulta apoyos y convocatorias oficiales',
+                    onTap: () =>
+                        context.push('/student/more/profile/opportunities'),
+                  ),
+                  const Divider(height: 1, indent: 64),
+                  _ProfileLink(
                     key: const Key('profile-open-gamification'),
                     icon: Icons.emoji_events_outlined,
                     title: 'Logros y racha',
