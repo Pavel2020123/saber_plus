@@ -342,6 +342,80 @@ void main() {
     expect(find.text('Resultado del repaso'), findsOneWidget);
     expect(find.text('100%'), findsOneWidget);
   });
+
+  testWidgets('bloquea el contrarreloj vencido sin inventar respuestas', (
+    tester,
+  ) async {
+    final repository = _TimeTrialPracticeRepository();
+    var now = DateTime.utc(2026, 8, 30, 15);
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          practiceRepositoryProvider.overrideWithValue(repository),
+          practiceNowProvider.overrideWithValue(() => now),
+          practiceDraftStoreProvider.overrideWithValue(
+            _MemoryPracticeDraftStore(),
+          ),
+        ],
+        child: const MaterialApp(
+          home: PracticeSessionPage.timeTrial(
+            timeTrialConfig: TimeTrialConfig(
+              areas: [AcademicArea.mathematics],
+              questionCount: 1,
+              minutes: 1,
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('time-trial-countdown')), findsOneWidget);
+    now = now.add(const Duration(minutes: 1, seconds: 1));
+    await tester.pump(const Duration(seconds: 1));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('time-trial-expired')), findsOneWidget);
+    expect(find.text('Respondiste 0 de 1 preguntas.'), findsOneWidget);
+    expect(repository.gradeCalls, 0);
+  });
+
+  testWidgets('envía automáticamente el contrarreloj completo al vencer', (
+    tester,
+  ) async {
+    final repository = _TimeTrialPracticeRepository();
+    var now = DateTime.utc(2026, 8, 30, 15);
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          practiceRepositoryProvider.overrideWithValue(repository),
+          practiceNowProvider.overrideWithValue(() => now),
+          practiceDraftStoreProvider.overrideWithValue(
+            _MemoryPracticeDraftStore(),
+          ),
+        ],
+        child: const MaterialApp(
+          home: PracticeSessionPage.timeTrial(
+            timeTrialConfig: TimeTrialConfig(
+              areas: [AcademicArea.mathematics],
+              questionCount: 1,
+              minutes: 1,
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('practice-answer-answer-a')));
+    await tester.pump();
+    now = now.add(const Duration(minutes: 1, seconds: 1));
+    await tester.pump(const Duration(seconds: 1));
+    await tester.pumpAndSettle();
+
+    expect(repository.gradeCalls, 1);
+    expect(find.text('Resultado contrarreloj'), findsOneWidget);
+    expect(find.byKey(const Key('practice-result-view')), findsOneWidget);
+  });
 }
 
 class _FakePracticeRepository implements PracticeRepository {
@@ -476,6 +550,43 @@ class _StreakPracticeRepository extends _FakePracticeRepository {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _TimeTrialPracticeRepository extends _FakePracticeRepository {
+  @override
+  Future<PracticeSession> startRandomPractice(
+    RandomPracticeConfig config,
+  ) async => _practiceSession;
+
+  @override
+  Future<PracticeResult> gradeRandomPractice({
+    required String attemptId,
+    required List<PracticeAnswer> answers,
+  }) async {
+    gradeCalls++;
+    return const PracticeResult(
+      summary: PracticeResultSummary(
+        totalQuestions: 1,
+        correctAnswers: 1,
+        incorrectAnswers: 0,
+        percentage: 100,
+        earnedXp: 10,
+      ),
+      review: [
+        PracticeReviewQuestion(
+          id: 'question-1',
+          statement: '¿Cuánto cuesta?',
+          isCorrect: true,
+          selectedAnswerId: 'answer-a',
+          correctAnswerId: 'answer-a',
+          options: [
+            PracticeReviewOption(id: 'answer-a', text: '10', isCorrect: true),
+            PracticeReviewOption(id: 'answer-b', text: '20', isCorrect: false),
+          ],
+        ),
+      ],
     );
   }
 }

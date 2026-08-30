@@ -10,6 +10,8 @@ class PracticeSession {
     this.isSimulation = false,
     this.isAdaptive = false,
     this.isHistorical = false,
+    this.isTimeTrial = false,
+    this.timeTrialMinutes,
     this.historicalEditionId,
     this.historicalBlock,
     this.selectedAreas = const [],
@@ -23,12 +25,25 @@ class PracticeSession {
   final bool isSimulation;
   final bool isAdaptive;
   final bool isHistorical;
+  final bool isTimeTrial;
+  final int? timeTrialMinutes;
   final String? historicalEditionId;
   final OfficialSimulationBlock? historicalBlock;
   final List<AcademicArea> selectedAreas;
 
   List<AcademicArea> get areas =>
       selectedAreas.isEmpty ? [area] : selectedAreas;
+
+  PracticeSession asTimeTrial(int minutes) => PracticeSession(
+    attemptId: attemptId,
+    area: area,
+    subtopicId: subtopicId,
+    questions: questions,
+    isRandom: true,
+    isTimeTrial: true,
+    timeTrialMinutes: minutes,
+    selectedAreas: selectedAreas,
+  );
 
   factory PracticeSession.fromJson(
     Map<String, dynamic> json, {
@@ -137,6 +152,8 @@ class PracticeSession {
     isSimulation: json['isSimulation'] as bool? ?? false,
     isAdaptive: json['isAdaptive'] as bool? ?? false,
     isHistorical: json['isHistorical'] as bool? ?? false,
+    isTimeTrial: json['isTimeTrial'] as bool? ?? false,
+    timeTrialMinutes: json['timeTrialMinutes'] as int?,
     historicalEditionId: json['historicalEditionId'] as String?,
     historicalBlock: OfficialSimulationBlock.tryFromSlug(
       json['historicalBlock'] as String? ?? '',
@@ -161,6 +178,8 @@ class PracticeSession {
     'isSimulation': isSimulation,
     'isAdaptive': isAdaptive,
     'isHistorical': isHistorical,
+    'isTimeTrial': isTimeTrial,
+    'timeTrialMinutes': timeTrialMinutes,
     'historicalEditionId': historicalEditionId,
     'historicalBlock': historicalBlock?.slug,
     'selectedAreas': areas.map((item) => item.backendValue).toList(),
@@ -224,6 +243,92 @@ class RandomPracticeConfig {
       return RandomPracticeConfig(
         areas: areas,
         questionCount: count,
+        difficulty: difficultyValue == null
+            ? null
+            : PracticeDifficulty.fromBackend(difficultyValue),
+      );
+    } on Object {
+      return null;
+    }
+  }
+}
+
+enum TimeTrialPreset {
+  sprint(5, 5, 'Sprint', 'Una entrada rápida para ganar velocidad'),
+  challenge(10, 10, 'Desafío', 'Ritmo equilibrado y concentración'),
+  endurance(20, 20, 'Resistencia', 'Una sesión larga bajo presión');
+
+  const TimeTrialPreset(
+    this.questionCount,
+    this.minutes,
+    this.label,
+    this.description,
+  );
+
+  final int questionCount;
+  final int minutes;
+  final String label;
+  final String description;
+}
+
+class TimeTrialConfig {
+  const TimeTrialConfig({
+    required this.areas,
+    required this.questionCount,
+    required this.minutes,
+    this.difficulty,
+  });
+
+  final List<AcademicArea> areas;
+  final int questionCount;
+  final int minutes;
+  final PracticeDifficulty? difficulty;
+
+  RandomPracticeConfig get practiceConfig => RandomPracticeConfig(
+    areas: areas,
+    questionCount: questionCount,
+    difficulty: difficulty,
+  );
+
+  String get routeLocation {
+    final query = <String, String>{
+      'areas': areas.map((area) => area.backendValue).join(','),
+      'cantidad': questionCount.toString(),
+      'minutos': minutes.toString(),
+      if (difficulty case final value?) 'dificultad': value.backendValue,
+    };
+    return Uri(
+      path: '/student/practice/time-trial/session',
+      queryParameters: query,
+    ).toString();
+  }
+
+  static TimeTrialConfig? tryFromUri(Uri uri) {
+    final rawAreas = uri.queryParameters['areas'];
+    if (rawAreas == null) return null;
+    try {
+      final areas = rawAreas
+          .split(',')
+          .where((value) => value.isNotEmpty)
+          .map(AcademicArea.fromBackend)
+          .toSet()
+          .toList(growable: false);
+      final count = int.tryParse(uri.queryParameters['cantidad'] ?? '');
+      final minutes = int.tryParse(uri.queryParameters['minutos'] ?? '');
+      final difficultyValue = uri.queryParameters['dificultad'];
+      if (areas.isEmpty ||
+          count == null ||
+          count < 1 ||
+          count > 100 ||
+          minutes == null ||
+          minutes < 1 ||
+          minutes > 115) {
+        return null;
+      }
+      return TimeTrialConfig(
+        areas: areas,
+        questionCount: count,
+        minutes: minutes,
         difficulty: difficultyValue == null
             ? null
             : PracticeDifficulty.fromBackend(difficultyValue),

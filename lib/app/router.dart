@@ -36,6 +36,7 @@ import '../features/practice/presentation/official_simulation_page.dart';
 import '../features/practice/presentation/random_practice_setup_page.dart';
 import '../features/practice/presentation/practice_session_page.dart';
 import '../features/practice/presentation/simulation_setup_page.dart';
+import '../features/practice/presentation/time_trial_setup_page.dart';
 import '../features/progress/presentation/adaptive_review_page.dart';
 import '../features/progress/presentation/progress_page.dart';
 import '../features/search/presentation/academic_search_page.dart';
@@ -273,6 +274,24 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                                 state.pathParameters['area']!,
                               ),
                             ),
+                      ),
+                    ],
+                  ),
+                  _animatedRoute(
+                    path: 'time-trial',
+                    builder: (context, state) => const TimeTrialSetupPage(),
+                    routes: [
+                      _animatedRoute(
+                        path: 'session',
+                        builder: (context, state) {
+                          final config = TimeTrialConfig.tryFromUri(state.uri);
+                          if (config == null) {
+                            return const TimeTrialSetupPage();
+                          }
+                          return PracticeSessionPage.timeTrial(
+                            timeTrialConfig: config,
+                          );
+                        },
                       ),
                     ],
                   ),

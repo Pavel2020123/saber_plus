@@ -37,7 +37,8 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
        adaptiveQuestionCount = null,
        officialBlock = null,
        historicalEditionId = null,
-       historicalBlock = null;
+       historicalBlock = null,
+       timeTrialConfig = null;
 
   const PracticeSessionPage.random({super.key, required this.randomConfig})
     : area = null,
@@ -46,7 +47,8 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
       adaptiveQuestionCount = null,
       officialBlock = null,
       historicalEditionId = null,
-      historicalBlock = null;
+      historicalBlock = null,
+      timeTrialConfig = null;
 
   const PracticeSessionPage.simulation({super.key, required this.area})
     : subtopicId = null,
@@ -55,7 +57,8 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
       adaptiveQuestionCount = null,
       officialBlock = null,
       historicalEditionId = null,
-      historicalBlock = null;
+      historicalBlock = null,
+      timeTrialConfig = null;
 
   const PracticeSessionPage.adaptive({super.key, required int questionCount})
     : area = null,
@@ -65,7 +68,8 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
       adaptiveQuestionCount = questionCount,
       officialBlock = null,
       historicalEditionId = null,
-      historicalBlock = null;
+      historicalBlock = null,
+      timeTrialConfig = null;
 
   const PracticeSessionPage.official({super.key, required this.officialBlock})
     : area = null,
@@ -74,7 +78,8 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
       isSimulation = false,
       adaptiveQuestionCount = null,
       historicalEditionId = null,
-      historicalBlock = null;
+      historicalBlock = null,
+      timeTrialConfig = null;
 
   const PracticeSessionPage.historical({
     super.key,
@@ -85,7 +90,20 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
        randomConfig = null,
        isSimulation = false,
        adaptiveQuestionCount = null,
-       officialBlock = null;
+       officialBlock = null,
+       timeTrialConfig = null;
+
+  const PracticeSessionPage.timeTrial({
+    super.key,
+    required this.timeTrialConfig,
+  }) : area = null,
+       subtopicId = null,
+       randomConfig = null,
+       isSimulation = false,
+       adaptiveQuestionCount = null,
+       officialBlock = null,
+       historicalEditionId = null,
+       historicalBlock = null;
 
   final AcademicArea? area;
   final String? subtopicId;
@@ -95,6 +113,7 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
   final OfficialSimulationBlock? officialBlock;
   final String? historicalEditionId;
   final OfficialSimulationBlock? historicalBlock;
+  final TimeTrialConfig? timeTrialConfig;
 
   @override
   ConsumerState<PracticeSessionPage> createState() =>
@@ -118,22 +137,28 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
   Timer? _clock;
   var _focusLossCount = 0;
   var _outsideApp = false;
+  var _timeTrialExpired = false;
+  var _handlingTimeTrialExpiry = false;
 
   bool get _isRandom => widget.randomConfig != null;
   bool get _isSimulation => widget.isSimulation;
   bool get _isAdaptive => widget.adaptiveQuestionCount != null;
   bool get _isOfficial => widget.officialBlock != null;
   bool get _isHistorical => widget.historicalEditionId != null;
+  bool get _isTimeTrial => widget.timeTrialConfig != null;
   bool get _tracksIntegrity => _isOfficial || _isHistorical;
-  bool get _usesRandomEndpoint => _isRandom || _isOfficial;
+  bool get _usesRandomEndpoint => _isRandom || _isOfficial || _isTimeTrial;
   bool get _isSubtopic =>
       !_isRandom &&
       !_isSimulation &&
       !_isAdaptive &&
       !_isOfficial &&
-      !_isHistorical;
+      !_isHistorical &&
+      !_isTimeTrial;
   String get _draftId => _isAdaptive
       ? 'adaptive:${widget.adaptiveQuestionCount}'
+      : _isTimeTrial
+      ? 'time-trial'
       : _isHistorical
       ? 'historical:${widget.historicalEditionId}:${widget.historicalBlock!.slug}'
       : _isOfficial
@@ -144,6 +169,13 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
       ? 'simulation:${widget.area!.backendValue}'
       : 'subtopic:${widget.subtopicId!}';
   String? get _userId => ref.read(sessionControllerProvider).user?.id;
+  DateTime get _now => ref.read(practiceNowProvider)();
+  Duration get _remainingTime {
+    final expiresAt = _expiresAt;
+    if (expiresAt == null) return Duration.zero;
+    final remaining = expiresAt.difference(_now);
+    return remaining.isNegative ? Duration.zero : remaining;
+  }
 
   @override
   void initState() {
@@ -173,7 +205,7 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
     }
     if (state == AppLifecycleState.resumed && _outsideApp) {
       _outsideApp = false;
-      _questionEnteredAt = DateTime.now();
+      _questionEnteredAt = _now;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
@@ -197,6 +229,8 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
       _session = null;
       _focusLossCount = 0;
       _outsideApp = false;
+      _timeTrialExpired = false;
+      _handlingTimeTrialExpiry = false;
     });
     try {
       final userId = _userId;
@@ -225,14 +259,19 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
                 .session
           : await _startRegularPractice();
       if (!mounted) return;
-      final now = DateTime.now();
+      final now = _now;
       setState(() {
         _session = session;
         _loading = false;
         _sessionStartedAt = now;
         _questionEnteredAt = now;
-        // El backend vence a las 2 horas. Se reservan 5 minutos de margen.
-        _expiresAt = now.add(const Duration(minutes: 115));
+        // Los intentos comunes reservan cinco minutos frente al límite de API.
+        // El contrarreloj conserva su límite estricto aunque la app se cierre.
+        _expiresAt = now.add(
+          Duration(
+            minutes: _isTimeTrial ? widget.timeTrialConfig!.minutes : 115,
+          ),
+        );
       });
       await _persistDraft();
       _startClock();
@@ -255,6 +294,13 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
           );
     }
     final repository = ref.read(practiceRepositoryProvider);
+    if (_isTimeTrial) {
+      return repository
+          .startRandomPractice(widget.timeTrialConfig!.practiceConfig)
+          .then(
+            (session) => session.asTimeTrial(widget.timeTrialConfig!.minutes),
+          );
+    }
     if (_isOfficial) {
       return repository
           .startRandomPractice(widget.officialBlock!.practiceConfig)
@@ -280,16 +326,25 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
   }
 
   bool _canRestore(PracticeDraft draft) {
-    if (draft.isExpiredAt(DateTime.now()) || draft.session.questions.isEmpty) {
+    if (draft.isExpiredAt(_now) || draft.session.questions.isEmpty) {
       return false;
     }
     if (_usesRandomEndpoint != draft.session.isRandom ||
         _isSimulation != draft.session.isSimulation ||
         _isAdaptive != draft.session.isAdaptive ||
-        _isHistorical != draft.session.isHistorical) {
+        _isHistorical != draft.session.isHistorical ||
+        _isTimeTrial != draft.session.isTimeTrial) {
       return false;
     }
     if (_isAdaptive) return true;
+    if (_isTimeTrial) {
+      final expected = widget.timeTrialConfig!.areas.toSet();
+      final stored = draft.session.areas.toSet();
+      return draft.session.timeTrialMinutes ==
+              widget.timeTrialConfig!.minutes &&
+          expected.length == stored.length &&
+          expected.containsAll(stored);
+    }
     if (_isHistorical) {
       return draft.session.historicalEditionId == widget.historicalEditionId &&
           draft.session.historicalBlock == widget.historicalBlock &&
@@ -329,7 +384,7 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
       _currentIndex = draft.currentIndex.clamp(0, lastIndex);
       _sessionStartedAt = draft.startedAt;
       _expiresAt = draft.expiresAt;
-      _questionEnteredAt = DateTime.now();
+      _questionEnteredAt = _now;
       _loading = false;
       _focusLossCount = draft.focusLossCount;
     });
@@ -339,9 +394,13 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
     _clock?.cancel();
     _clock = Timer.periodic(const Duration(seconds: 1), (_) {
       if (!mounted || _result != null) return;
-      final now = DateTime.now();
+      final now = _now;
       if (!(_expiresAt?.isAfter(now) ?? true)) {
         _clock?.cancel();
+        if (_isTimeTrial) {
+          unawaited(_finishExpiredTimeTrial());
+          return;
+        }
         unawaited(_clearDraft());
         setState(() {
           _session = null;
@@ -358,6 +417,26 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
       }
       setState(() {});
     });
+  }
+
+  Future<void> _finishExpiredTimeTrial() async {
+    if (_handlingTimeTrialExpiry ||
+        _submitting ||
+        _result != null ||
+        !mounted) {
+      return;
+    }
+    _handlingTimeTrialExpiry = true;
+    _recordCurrentTime();
+    final session = _session;
+    if (session != null && _selections.length == session.questions.length) {
+      await _clearDraft();
+      if (mounted) await _submit();
+      return;
+    }
+    await _clearDraft();
+    if (!mounted) return;
+    setState(() => _timeTrialExpired = true);
   }
 
   Future<void> _persistDraft() async {
@@ -429,10 +508,10 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
       return;
     }
     final questionId = session.questions[_currentIndex].id;
-    final elapsed = DateTime.now().difference(enteredAt).inSeconds;
+    final elapsed = _now.difference(enteredAt).inSeconds;
     _responseSeconds[questionId] =
         ((_responseSeconds[questionId] ?? 0) + elapsed).clamp(0, 7200);
-    _questionEnteredAt = DateTime.now();
+    _questionEnteredAt = _now;
   }
 
   void _goTo(int index) {
@@ -465,7 +544,9 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
       context: context,
       builder: (context) => AlertDialog(
         title: Text(
-          _isSimulation || _isOfficial || _isHistorical
+          _isTimeTrial
+              ? 'Finalizar contrarreloj'
+              : _isSimulation || _isOfficial || _isHistorical
               ? 'Finalizar simulacro'
               : _isAdaptive
               ? 'Finalizar repaso'
@@ -661,7 +742,9 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
       appBar: AppBar(
         title: Text(
           result == null
-              ? _isHistorical
+              ? _isTimeTrial
+                    ? 'Prueba contrarreloj'
+                    : _isHistorical
                     ? 'Edición histórica · ${widget.historicalBlock!.label}'
                     : _isOfficial
                     ? 'Simulacro 150 · ${widget.officialBlock!.label}'
@@ -672,6 +755,8 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
                     : _isSimulation
                     ? 'Simulacro por área'
                     : 'Práctica'
+              : _isTimeTrial
+              ? 'Resultado contrarreloj'
               : _isHistorical
               ? 'Resultado histórico · ${widget.historicalBlock!.label}'
               : _isOfficial
@@ -697,9 +782,10 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
             result == null &&
             _session != null &&
             !_isSimulation &&
+            !_isTimeTrial &&
             !_tracksIntegrity,
         onPromptOpening: _recordCurrentTime,
-        onPromptClosed: () => _questionEnteredAt = DateTime.now(),
+        onPromptClosed: () => _questionEnteredAt = _now,
         child: switch ((_loading, _loadError, result, _session)) {
           (true, _, _, _) => const Center(child: CircularProgressIndicator()),
           (false, final error?, _, _) => _LoadError(
@@ -716,6 +802,8 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
                 ? 'Volver a la edición'
                 : _isOfficial
                 ? 'Volver a las jornadas'
+                : _isTimeTrial
+                ? 'Volver a contrarreloj'
                 : _isRandom
                 ? 'Volver a configurar'
                 : _isAdaptive
@@ -724,6 +812,13 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
                 ? 'Volver a simulacros'
                 : 'Volver a la lección',
           ),
+          (false, _, _, final session?) when _timeTrialExpired =>
+            _TimeTrialExpiredView(
+              answered: _selections.length,
+              total: session.questions.length,
+              onRetry: _loadPractice,
+              onExit: () => context.pop(),
+            ),
           (false, _, _, final session?) => _buildSession(session),
           _ => const SizedBox.shrink(),
         },
@@ -736,13 +831,13 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
     final selected = _selections[question.id];
     final elapsed = _sessionStartedAt == null
         ? Duration.zero
-        : DateTime.now().difference(_sessionStartedAt!);
+        : _now.difference(_sessionStartedAt!);
     return Column(
       children: [
         LinearProgressIndicator(
           value: (_currentIndex + 1) / session.questions.length,
         ),
-        if (!_isSimulation && !_tracksIntegrity)
+        if (!_isSimulation && !_tracksIntegrity && !_isTimeTrial)
           const Padding(
             padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
             child: PomodoroCard(compact: true),
@@ -768,9 +863,28 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
                     question: question,
                     fallbackSubtopicId: session.subtopicId,
                   ),
-                  const Icon(Icons.timer_outlined, size: 18),
+                  Icon(
+                    _isTimeTrial
+                        ? Icons.hourglass_bottom_rounded
+                        : Icons.timer_outlined,
+                    size: 18,
+                    color: _isTimeTrial
+                        ? _timeTrialColor(context, _remainingTime)
+                        : null,
+                  ),
                   const SizedBox(width: 5),
-                  Text(_formatDuration(elapsed)),
+                  Text(
+                    _formatDuration(_isTimeTrial ? _remainingTime : elapsed),
+                    key: _isTimeTrial
+                        ? const Key('time-trial-countdown')
+                        : null,
+                    style: _isTimeTrial
+                        ? TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: _timeTrialColor(context, _remainingTime),
+                          )
+                        : null,
+                  ),
                 ],
               ),
               const SizedBox(height: 6),
@@ -1324,6 +1438,72 @@ class _LoadError extends StatelessWidget {
       ),
     ),
   );
+}
+
+class _TimeTrialExpiredView extends StatelessWidget {
+  const _TimeTrialExpiredView({
+    required this.answered,
+    required this.total,
+    required this.onRetry,
+    required this.onExit,
+  });
+
+  final int answered;
+  final int total;
+  final VoidCallback onRetry;
+  final VoidCallback onExit;
+
+  @override
+  Widget build(BuildContext context) => Center(
+    child: SingleChildScrollView(
+      padding: const EdgeInsets.all(28),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            Icons.timer_off_outlined,
+            size: 64,
+            color: Theme.of(context).colorScheme.error,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'Tiempo agotado',
+            key: const Key('time-trial-expired'),
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          const SizedBox(height: 10),
+          Text(
+            'Respondiste $answered de $total preguntas.',
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            'Este intento no se calificó porque la API actual exige una respuesta para cada pregunta. La app no completará respuestas en tu nombre.',
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 22),
+          FilledButton.icon(
+            key: const Key('retry-time-trial-button'),
+            onPressed: onRetry,
+            icon: const Icon(Icons.replay_rounded),
+            label: const Text('Intentar de nuevo'),
+          ),
+          const SizedBox(height: 8),
+          TextButton(onPressed: onExit, child: const Text('Volver')),
+        ],
+      ),
+    ),
+  );
+}
+
+Color _timeTrialColor(BuildContext context, Duration remaining) {
+  if (remaining <= const Duration(minutes: 1)) {
+    return Theme.of(context).colorScheme.error;
+  }
+  if (remaining <= const Duration(minutes: 3)) {
+    return Colors.orange.shade800;
+  }
+  return Theme.of(context).colorScheme.primary;
 }
 
 String _formatDuration(Duration duration) {

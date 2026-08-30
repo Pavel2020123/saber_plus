@@ -93,7 +93,9 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Sugerencia de descanso saludable tras 50 minutos activos, con pausa opcional de tres minutos.
 - [x] Cliente del banco por año: catálogo filtrable, trazabilidad de derechos y jornadas protegidas AM/PM.
 - [ ] Carga de cuadernillos propios o autorizados y publicación del contrato histórico en el backend.
-- [ ] Pruebas contrarreloj, comparación de simulacros y countdown de temario por materia.
+- [x] Pruebas contrarreloj con formatos de 5, 10 y 20 preguntas, reloj estricto, reanudación cifrada y cierre seguro.
+- [ ] Calificación de preguntas omitidas al vencer, pendiente del contrato contrarreloj autoritativo en el backend.
+- [ ] Comparación de simulacros y countdown de temario por materia.
 - Ranking con privacidad por defecto.
 - Batallas asíncronas, bloqueo y reporte.
 - Anuncios, referidos, soporte y calculadora de puntaje.

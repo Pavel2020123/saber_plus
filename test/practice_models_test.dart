@@ -152,6 +152,43 @@ void main() {
     expect(restored?.difficulty, PracticeDifficulty.hard);
   });
 
+  test('valida y recupera la configuración contrarreloj', () {
+    const config = TimeTrialConfig(
+      areas: [AcademicArea.mathematics, AcademicArea.english],
+      questionCount: 10,
+      minutes: 10,
+      difficulty: PracticeDifficulty.medium,
+    );
+
+    final restored = TimeTrialConfig.tryFromUri(
+      Uri.parse(config.routeLocation),
+    );
+
+    expect(restored?.areas, [AcademicArea.mathematics, AcademicArea.english]);
+    expect(restored?.questionCount, 10);
+    expect(restored?.minutes, 10);
+    expect(restored?.difficulty, PracticeDifficulty.medium);
+    expect(
+      TimeTrialConfig.tryFromUri(
+        Uri.parse(
+          '/student/practice/time-trial/session?areas=MATEMATICAS&cantidad=10&minutos=0',
+        ),
+      ),
+      isNull,
+    );
+  });
+
+  test('conserva los metadatos contrarreloj en el borrador cifrado', () {
+    final session = _minimalRandomSession().asTimeTrial(5);
+
+    final restored = PracticeSession.fromStoredJson(session.toStoredJson());
+
+    expect(restored.isRandom, isTrue);
+    expect(restored.isTimeTrial, isTrue);
+    expect(restored.timeTrialMinutes, 5);
+    expect(restored.areas, [AcademicArea.mathematics]);
+  });
+
   test('interpreta resultados recientes y fechas del historial', () {
     final history = SimulationHistory.fromJson({
       'totalSimulacros': 1,
@@ -214,3 +251,22 @@ void main() {
     expect(answer.caseTitle, 'Compra escolar');
   });
 }
+
+PracticeSession _minimalRandomSession() => const PracticeSession(
+  attemptId: 'time-trial-attempt',
+  area: AcademicArea.mathematics,
+  subtopicId: '',
+  isRandom: true,
+  selectedAreas: [AcademicArea.mathematics],
+  questions: [
+    PracticeQuestion(
+      id: 'question-1',
+      statement: 'Pregunta',
+      difficulty: 'MEDIO',
+      options: [PracticeOption(id: 'answer-a', text: 'Respuesta')],
+      subtopicName: 'Subtema',
+      themeName: 'Tema',
+      area: AcademicArea.mathematics,
+    ),
+  ],
+);

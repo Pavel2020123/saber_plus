@@ -68,6 +68,17 @@ class PracticeHubPage extends StatelessWidget {
         const SizedBox(height: 8),
         Card(
           child: ListTile(
+            key: const Key('open-time-trial'),
+            leading: const CircleAvatar(child: Icon(Icons.bolt_rounded)),
+            title: const Text('Prueba contrarreloj'),
+            subtitle: const Text('5, 10 o 20 preguntas con tiempo estricto'),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            onTap: () => context.push('/student/practice/time-trial'),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Card(
+          child: ListTile(
             key: const Key('open-practice-history'),
             leading: const CircleAvatar(child: Icon(Icons.history_rounded)),
             title: const Text('Ver historial'),

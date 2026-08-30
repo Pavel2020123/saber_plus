@@ -69,3 +69,5 @@ Con el backend, PostgreSQL y sus migraciones ejecutándose, se puede validar el 
 El script crea una cuenta E2E única. Debe ejecutarse solamente contra una base de desarrollo o pruebas, ya que consulta los tokens de verificación y recuperación directamente en PostgreSQL.
 
 Consulta el avance y las siguientes entregas en [docs/ROADMAP_MOVIL.md](docs/ROADMAP_MOVIL.md).
+
+El comportamiento y contrato pendiente de las pruebas de velocidad se documenta en [docs/TIME_TRIALS.md](docs/TIME_TRIALS.md).

@@ -215,6 +215,43 @@ void main() {
     expect(find.textContaining('3 cuadernos'), findsOneWidget);
   });
 
+  testWidgets('configura y abre una prueba contrarreloj demostrativa', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Practicar'));
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('open-time-trial')),
+      200,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.tap(find.byKey(const Key('open-time-trial')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Entrena tu velocidad'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('time-trial-preset-sprint')));
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('start-time-trial-button')),
+      300,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.tap(find.byKey(const Key('start-time-trial-button')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Prueba contrarreloj'), findsOneWidget);
+    expect(find.text('Pregunta 1 de 5'), findsOneWidget);
+    expect(find.byKey(const Key('time-trial-countdown')), findsOneWidget);
+  });
+
   testWidgets('abre la jornada AM del simulacro de 150 preguntas', (
     tester,
   ) async {
@@ -350,6 +387,8 @@ void main() {
     await tester.pumpAndSettle();
 
     await tester.tap(find.text('Practicar'));
+    await tester.pumpAndSettle();
+    await tester.drag(find.byType(ListView).last, const Offset(0, -300));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('open-practice-history')));
     await tester.pumpAndSettle();
