@@ -910,6 +910,43 @@ void main() {
     expect(find.text('Diagnóstico'), findsOneWidget);
   });
 
+  testWidgets('abre el perfil académico central desde Más', (tester) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Más'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('open-academic-profile')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Mi perfil académico'), findsOneWidget);
+    expect(find.text('Santiago'), findsOneWidget);
+    expect(find.text('Perfil de demostración'), findsOneWidget);
+    expect(find.byKey(const Key('academic-profile-xp')), findsOneWidget);
+    expect(find.text('1.240'), findsOneWidget);
+    expect(find.byKey(const Key('academic-profile-progress')), findsOneWidget);
+    expect(find.text('48%'), findsWidgets);
+    expect(find.byKey(const Key('academic-profile-streak')), findsOneWidget);
+    expect(find.text('4 días'), findsOneWidget);
+    expect(
+      find.byKey(const Key('academic-profile-study-time')),
+      findsOneWidget,
+    );
+    expect(find.textContaining('1 h 45 min'), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('academic-profile-summary')),
+      220,
+      scrollable: find.byType(Scrollable).last,
+    );
+    expect(find.byKey(const Key('academic-profile-summary')), findsOneWidget);
+  });
+
   testWidgets('continúa desde Inicio en la última lección visitada', (
     tester,
   ) async {

@@ -21,9 +21,12 @@ class MorePage extends ConsumerWidget {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 28),
         children: [
-          const _MenuTile(
+          _MenuTile(
+            key: const Key('open-academic-profile'),
             icon: Icons.person_outline_rounded,
             title: 'Mi perfil',
+            subtitle: 'Tu panorama académico en un solo lugar',
+            onTap: () => context.push('/student/more/profile'),
           ),
           _MenuTile(
             key: const Key('open-favorites'),

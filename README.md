@@ -75,3 +75,5 @@ El comportamiento y contrato pendiente de las pruebas de velocidad se documenta 
 La comparación segura de resultados y el historial unificado pendiente se describen en [docs/SIMULATION_COMPARISON.md](docs/SIMULATION_COMPARISON.md).
 
 El cálculo del temario pendiente por materia se documenta en [docs/SYLLABUS_COUNTDOWN.md](docs/SYLLABUS_COUNTDOWN.md).
+
+El panel central del estudiante y el origen de cada indicador se documentan en [docs/ACADEMIC_PROFILE.md](docs/ACADEMIC_PROFILE.md).
