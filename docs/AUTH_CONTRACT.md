@@ -54,11 +54,13 @@ El backend emite un JWT con duración de 8 horas. No expone refresh token, logou
 
 NestJS puede devolver `statusCode`, `error` y `message`; algunos guards usan `codigo` y `mensaje`. La app interpreta ambos formatos y también listas de mensajes de validación.
 
+Flutter envía un identificador aleatorio de instalación mediante `X-Device-Id` y el encabezado `X-SaberPlus-Client: mobile`. No contiene datos de hardware. La app también está preparada para cerrar localmente la cuenta cuando el backend responda que la sesión fue reemplazada por otro dispositivo.
+
 ## Limitaciones pendientes del backend
 
 - El registro no acepta ni persiste grado, versión de términos o consentimiento del acudiente. El `ValidationPipe` rechaza campos adicionales, por lo que Flutter no debe enviarlos hasta ampliar el DTO y el modelo del servidor.
 - Los correos generan enlaces hacia `FRONTEND_URL`; los deep links `saberplus://auth/...` ya existen en la app, pero el backend todavía no los entrega en sus correos.
-- No existe OpenAPI versionado, refresh rotation, sesiones por dispositivo ni revocación remota.
+- No existe OpenAPI versionado, refresh rotation, sesiones por dispositivo ni revocación remota. Aunque Flutter ya identifica la instalación, el límite real de una sesión activa requiere persistencia y validación en el backend.
 - Para probar contra un servidor externo falta definir su URL HTTPS en `API_BASE_URL`.
 
 ## Evidencia de integración

@@ -118,6 +118,7 @@ void main() {
         currentIndex: 0,
         startedAt: now,
         expiresAt: now.add(const Duration(minutes: 115)),
+        focusLossCount: 2,
       );
 
       final restored = PracticeDraft.fromJson(draft.toJson());
@@ -125,6 +126,7 @@ void main() {
       expect(restored.session.attemptId, 'attempt-1');
       expect(restored.selectedAnswers['question-1'], 'answer-a');
       expect(restored.responseTimesSeconds['question-1'], 14);
+      expect(restored.focusLossCount, 2);
       expect(
         restored.session.questions.single.options.single.text,
         'Opción pública',

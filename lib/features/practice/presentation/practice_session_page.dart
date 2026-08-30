@@ -10,6 +10,7 @@ import '../../../core/feedback/answer_streak_feedback.dart';
 import '../../../core/network/api_error.dart';
 import '../../../core/sync/drift_safe_sync_repository.dart';
 import '../../../core/widgets/animated_streak_flame.dart';
+import '../../../core/wellbeing/study_break_reminder.dart';
 import '../../academic/domain/academic_models.dart';
 import '../../auth/presentation/session_controller.dart';
 import '../../difficult_questions/data/drift_difficult_question_repository.dart';
@@ -76,7 +77,8 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
       _PracticeSessionPageState();
 }
 
-class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
+class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
+    with WidgetsBindingObserver {
   PracticeSession? _session;
   PracticeResult? _result;
   Object? _loadError;
@@ -90,6 +92,8 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
   DateTime? _sessionStartedAt;
   DateTime? _expiresAt;
   Timer? _clock;
+  var _focusLossCount = 0;
+  var _outsideApp = false;
 
   bool get _isRandom => widget.randomConfig != null;
   bool get _isSimulation => widget.isSimulation;
@@ -112,13 +116,40 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _loadPractice();
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _clock?.cancel();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (!_isOfficial || _session == null || _result != null) return;
+    if ((state == AppLifecycleState.paused ||
+            state == AppLifecycleState.hidden) &&
+        !_outsideApp) {
+      _outsideApp = true;
+      _recordCurrentTime();
+      setState(() => _focusLossCount = (_focusLossCount + 1).clamp(0, 999));
+      unawaited(_persistDraft());
+      return;
+    }
+    if (state == AppLifecycleState.resumed && _outsideApp) {
+      _outsideApp = false;
+      _questionEnteredAt = DateTime.now();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Regresaste al simulacro. La salida de la app quedó registrada.',
+          ),
+        ),
+      );
+    }
   }
 
   Future<void> _loadPractice() async {
@@ -132,6 +163,8 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
       _responseSeconds.clear();
       _currentIndex = 0;
       _session = null;
+      _focusLossCount = 0;
+      _outsideApp = false;
     });
     try {
       final userId = _userId;
@@ -250,6 +283,7 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
       _expiresAt = draft.expiresAt;
       _questionEnteredAt = DateTime.now();
       _loading = false;
+      _focusLossCount = draft.focusLossCount;
     });
   }
 
@@ -303,6 +337,7 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
             currentIndex: _currentIndex,
             startedAt: startedAt,
             expiresAt: expiresAt,
+            focusLossCount: _focusLossCount,
           ),
         );
   }
@@ -595,30 +630,40 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
             ),
         ],
       ),
-      body: switch ((_loading, _loadError, result, _session)) {
-        (true, _, _, _) => const Center(child: CircularProgressIndicator()),
-        (false, final error?, _, _) => _LoadError(
-          message: _messageFor(error),
-          onRetry: _loadPractice,
-        ),
-        (false, _, final value?, final session?) => _PracticeResultView(
-          result: value,
-          session: session,
-          onRetry: _loadPractice,
-          onExit: () => context.pop(),
-          exitLabel: _isOfficial
-              ? 'Volver a las jornadas'
-              : _isRandom
-              ? 'Volver a configurar'
-              : _isAdaptive
-              ? 'Volver a mi perfil'
-              : _isSimulation
-              ? 'Volver a simulacros'
-              : 'Volver a la lección',
-        ),
-        (false, _, _, final session?) => _buildSession(session),
-        _ => const SizedBox.shrink(),
-      },
+      body: StudyBreakReminder(
+        enabled:
+            result == null &&
+            _session != null &&
+            !_isSimulation &&
+            !_isOfficial,
+        onPromptOpening: _recordCurrentTime,
+        onPromptClosed: () => _questionEnteredAt = DateTime.now(),
+        child: switch ((_loading, _loadError, result, _session)) {
+          (true, _, _, _) => const Center(child: CircularProgressIndicator()),
+          (false, final error?, _, _) => _LoadError(
+            message: _messageFor(error),
+            onRetry: _loadPractice,
+          ),
+          (false, _, final value?, final session?) => _PracticeResultView(
+            result: value,
+            session: session,
+            focusLossCount: _isOfficial ? _focusLossCount : 0,
+            onRetry: _loadPractice,
+            onExit: () => context.pop(),
+            exitLabel: _isOfficial
+                ? 'Volver a las jornadas'
+                : _isRandom
+                ? 'Volver a configurar'
+                : _isAdaptive
+                ? 'Volver a mi perfil'
+                : _isSimulation
+                ? 'Volver a simulacros'
+                : 'Volver a la lección',
+          ),
+          (false, _, _, final session?) => _buildSession(session),
+          _ => const SizedBox.shrink(),
+        },
+      ),
     );
   }
 
@@ -637,6 +682,11 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
           const Padding(
             padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
             child: PomodoroCard(compact: true),
+          ),
+        if (_isOfficial)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+            child: _IntegrityStatusCard(focusLossCount: _focusLossCount),
           ),
         Expanded(
           child: ListView(
@@ -754,6 +804,33 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage> {
   }
 }
 
+class _IntegrityStatusCard extends StatelessWidget {
+  const _IntegrityStatusCard({required this.focusLossCount});
+
+  final int focusLossCount;
+
+  @override
+  Widget build(BuildContext context) => Card(
+    key: const Key('simulation-integrity-status'),
+    child: ListTile(
+      dense: true,
+      leading: Icon(
+        focusLossCount == 0
+            ? Icons.verified_user_outlined
+            : Icons.phonelink_erase_outlined,
+      ),
+      title: Text(
+        focusLossCount == 0
+            ? 'Integridad activa'
+            : '$focusLossCount ${focusLossCount == 1 ? 'salida registrada' : 'salidas registradas'}',
+      ),
+      subtitle: const Text(
+        'Salir de la app no detiene el temporizador del simulacro.',
+      ),
+    ),
+  );
+}
+
 class _AnswerOption extends StatelessWidget {
   const _AnswerOption({
     super.key,
@@ -858,6 +935,7 @@ class _PracticeResultView extends StatelessWidget {
     required this.onRetry,
     required this.onExit,
     required this.exitLabel,
+    this.focusLossCount = 0,
   });
 
   final PracticeResult result;
@@ -865,6 +943,7 @@ class _PracticeResultView extends StatelessWidget {
   final VoidCallback onRetry;
   final VoidCallback onExit;
   final String exitLabel;
+  final int focusLossCount;
 
   @override
   Widget build(BuildContext context) {
@@ -897,6 +976,10 @@ class _PracticeResultView extends StatelessWidget {
             ),
           ),
         ),
+        if (focusLossCount > 0) ...[
+          const SizedBox(height: 12),
+          _IntegrityStatusCard(focusLossCount: focusLossCount),
+        ],
         if (answerStreak.earnsFeedback) ...[
           const SizedBox(height: 12),
           Card(

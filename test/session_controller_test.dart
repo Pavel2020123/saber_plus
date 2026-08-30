@@ -30,6 +30,39 @@ void main() {
   });
 
   test(
+    'cierra localmente una sesión reemplazada en otro dispositivo',
+    () async {
+      final secureStore = _MemorySecureSessionStore();
+      final tokenStore = AccessTokenStore();
+      final container = ProviderContainer(
+        overrides: [
+          secureSessionStoreProvider.overrideWithValue(secureStore),
+          accessTokenStoreProvider.overrideWithValue(tokenStore),
+        ],
+      );
+      addTearDown(container.dispose);
+
+      container.read(sessionControllerProvider);
+      await Future<void>.delayed(Duration.zero);
+      final controller = container.read(sessionControllerProvider.notifier);
+      secureStore.token = 'jwt';
+      tokenStore.set('jwt');
+      controller.enterDemo();
+
+      await controller.invalidateFromOtherDevice(
+        message: 'Tu sesión se abrió en otro dispositivo.',
+      );
+
+      final session = container.read(sessionControllerProvider);
+      expect(session.status, SessionStatus.unauthenticated);
+      expect(session.errorCode, 'device_session_conflict');
+      expect(session.errorMessage, contains('otro dispositivo'));
+      expect(tokenStore.accessToken, isNull);
+      expect(await secureStore.readAccessToken(), isNull);
+    },
+  );
+
+  test(
     'no conserva sesión cuando el perfil exige verificar el correo',
     () async {
       final secureStore = _MemorySecureSessionStore();

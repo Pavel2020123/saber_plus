@@ -188,6 +188,16 @@ class SessionController extends Notifier<SessionState> {
     state = const SessionState.unauthenticated();
   }
 
+  Future<void> invalidateFromOtherDevice({required String message}) async {
+    if (state.status != SessionStatus.authenticated) return;
+    await _clearTokens();
+    if (_disposed) return;
+    state = SessionState.unauthenticated(
+      errorCode: 'device_session_conflict',
+      errorMessage: message,
+    );
+  }
+
   Future<bool> _runUnauthenticatedAction(Future<void> Function() action) async {
     state = state.copyWith(isLoading: true, clearError: true);
     try {

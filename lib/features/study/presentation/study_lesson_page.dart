@@ -11,6 +11,7 @@ import '../../../core/config/resource_url.dart';
 import '../../../core/network/api_error.dart';
 import '../../../core/sync/drift_safe_sync_repository.dart';
 import '../../../core/sync/safe_sync_models.dart';
+import '../../../core/wellbeing/study_break_reminder.dart';
 import '../../academic/domain/academic_models.dart';
 import '../../auth/presentation/session_controller.dart';
 import '../../favorites/data/drift_favorite_repository.dart';
@@ -190,16 +191,18 @@ class _StudyLessonPageState extends ConsumerState<StudyLessonPage> {
             return const _MissingLesson();
           }
           _rememberLesson(theme, subtopic);
-          return _LessonContent(
-            area: widget.area,
-            theme: theme,
-            subtopic: subtopic,
-            completed: _completedLocally || savedPercentage == 100,
-            saving: _saving,
-            favorite: favorite,
-            savingFavorite: _savingFavorite,
-            onMarkComplete: _markComplete,
-            onToggleFavorite: () => _toggleFavorite(theme, subtopic),
+          return StudyBreakReminder(
+            child: _LessonContent(
+              area: widget.area,
+              theme: theme,
+              subtopic: subtopic,
+              completed: _completedLocally || savedPercentage == 100,
+              saving: _saving,
+              favorite: favorite,
+              savingFavorite: _savingFavorite,
+              onMarkComplete: _markComplete,
+              onToggleFavorite: () => _toggleFavorite(theme, subtopic),
+            ),
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),

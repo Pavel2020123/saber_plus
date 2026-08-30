@@ -17,6 +17,7 @@ El estudiante entra por `Practicar > Simulacro 150 · AM/PM` y elige la jornada.
 - el intento puede reanudarse desde el mismo dispositivo mientras siga vigente;
 - el envío se bloquea mientras se califica y no se repite automáticamente si su resultado queda incierto;
 - el tiempo confirmado se suma al registro personal de estudio.
+- las salidas de la app se cuentan, se conservan en el borrador cifrado y no detienen el temporizador.
 
 Los borradores usan identificadores diferentes (`official:am` y `official:pm`), por lo que una jornada nunca sobrescribe la otra.
 

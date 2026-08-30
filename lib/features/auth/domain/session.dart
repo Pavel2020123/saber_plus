@@ -68,8 +68,12 @@ class SessionState {
 
   const SessionState.restoring() : this._(status: SessionStatus.restoring);
 
-  const SessionState.unauthenticated()
-    : this._(status: SessionStatus.unauthenticated);
+  const SessionState.unauthenticated({String? errorCode, String? errorMessage})
+    : this._(
+        status: SessionStatus.unauthenticated,
+        errorCode: errorCode,
+        errorMessage: errorMessage,
+      );
 
   const SessionState.authenticated(UserSession user)
     : this._(status: SessionStatus.authenticated, user: user);

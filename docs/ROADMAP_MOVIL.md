@@ -88,7 +88,9 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Modo oscuro automático que sigue la configuración del dispositivo, sin cambiar el inicio claro por defecto.
 - [x] Tiempo total estudiado por estudiante con Pomodoros y evaluaciones confirmadas, disponible por día, semana y actividad.
 - [x] Simulacro de 150 preguntas dividido en jornadas AM/PM, con cinco áreas, borradores independientes y banco protegido.
-- [ ] Sistema antitrampas reforzado para simulacros avanzados.
+- [x] Cliente de integridad: identidad aleatoria por instalación, reacción a sesión reemplazada y registro cifrado de salidas durante AM/PM.
+- [ ] Backend de sesión única: revocación del dispositivo anterior y validación de sesión activa en cada solicitud protegida.
+- [x] Sugerencia de descanso saludable tras 50 minutos activos, con pausa opcional de tres minutos.
 - [ ] Banco autorizado de simulacros de años anteriores.
 - [ ] Pruebas contrarreloj, comparación de simulacros y countdown de temario por materia.
 - Ranking con privacidad por defecto.

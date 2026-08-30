@@ -246,6 +246,15 @@ void main() {
     expect(find.text('Simulacro 150 · Jornada AM'), findsOneWidget);
     expect(find.text('Pregunta 1 de 75'), findsOneWidget);
     expect(find.byType(LinearProgressIndicator), findsOneWidget);
+    expect(find.text('Integridad activa'), findsOneWidget);
+
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.hidden);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+    await tester.pump();
+
+    expect(find.text('1 salida registrada'), findsOneWidget);
+    expect(find.textContaining('quedó registrada'), findsOneWidget);
   });
 
   testWidgets('configura y abre un simulacro completo demostrativo', (

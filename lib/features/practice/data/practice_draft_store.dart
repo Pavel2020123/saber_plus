@@ -14,6 +14,7 @@ class PracticeDraft {
     required this.currentIndex,
     required this.startedAt,
     required this.expiresAt,
+    this.focusLossCount = 0,
   });
 
   final PracticeSession session;
@@ -22,6 +23,7 @@ class PracticeDraft {
   final int currentIndex;
   final DateTime startedAt;
   final DateTime expiresAt;
+  final int focusLossCount;
 
   bool isExpiredAt(DateTime now) => !expiresAt.isAfter(now);
 
@@ -42,6 +44,7 @@ class PracticeDraft {
     currentIndex: json['currentIndex'] as int? ?? 0,
     startedAt: DateTime.parse(json['startedAt'] as String),
     expiresAt: DateTime.parse(json['expiresAt'] as String),
+    focusLossCount: (json['focusLossCount'] as num? ?? 0).toInt().clamp(0, 999),
   );
 
   Map<String, dynamic> toJson() => {
@@ -51,6 +54,7 @@ class PracticeDraft {
     'currentIndex': currentIndex,
     'startedAt': startedAt.toUtc().toIso8601String(),
     'expiresAt': expiresAt.toUtc().toIso8601String(),
+    'focusLossCount': focusLossCount,
   };
 }
 
