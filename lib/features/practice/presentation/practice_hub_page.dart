@@ -187,6 +187,19 @@ class PracticeHubPage extends StatelessWidget {
             onTap: () => context.push('/student/practice/ghost-duel'),
           ),
         ),
+        const SizedBox(height: 8),
+        Card(
+          child: ListTile(
+            key: const Key('open-tug-of-war'),
+            leading: const CircleAvatar(
+              child: Icon(Icons.sports_kabaddi_rounded),
+            ),
+            title: const Text('Tira y afloja'),
+            subtitle: const Text('Preguntas rápidas contra un rival CPU'),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            onTap: () => context.push('/student/practice/tug-of-war'),
+          ),
+        ),
       ],
     ),
   );

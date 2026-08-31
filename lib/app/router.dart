@@ -29,6 +29,9 @@ import '../features/games/memory_match/presentation/memory_match_page.dart';
 import '../features/games/memory_match/presentation/memory_match_setup_page.dart';
 import '../features/games/ghost_duel/domain/ghost_duel_models.dart';
 import '../features/games/ghost_duel/presentation/ghost_duel_setup_page.dart';
+import '../features/games/tug_of_war/domain/tug_of_war_models.dart';
+import '../features/games/tug_of_war/presentation/tug_of_war_page.dart';
+import '../features/games/tug_of_war/presentation/tug_of_war_setup_page.dart';
 import '../features/historical_simulations/presentation/historical_simulation_detail_page.dart';
 import '../features/historical_simulations/presentation/historical_simulations_page.dart';
 import '../features/favorites/presentation/favorites_page.dart';
@@ -277,6 +280,22 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                             config: config.triviaConfig,
                             ghostMode: true,
                           );
+                        },
+                      ),
+                    ],
+                  ),
+                  _animatedRoute(
+                    path: 'tug-of-war',
+                    builder: (context, state) => const TugOfWarSetupPage(),
+                    routes: [
+                      _animatedRoute(
+                        path: 'play',
+                        builder: (context, state) {
+                          final config = TugOfWarConfig.tryFromUri(state.uri);
+                          if (config == null) {
+                            return const TugOfWarSetupPage();
+                          }
+                          return TugOfWarPage(config: config);
                         },
                       ),
                     ],

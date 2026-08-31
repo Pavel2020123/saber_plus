@@ -371,6 +371,42 @@ void main() {
     expect(find.byKey(const Key('start-ghost-duel')), findsOneWidget);
   });
 
+  testWidgets('abre la maqueta de Tira y afloja desde practicar', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Practicar'));
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('open-tug-of-war')),
+      300,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.tap(find.byKey(const Key('open-tug-of-war')));
+    await tester.pumpAndSettle();
+
+    expect(
+      find.text('Acertar importa; responder rápido también'),
+      findsOneWidget,
+    );
+    expect(find.byKey(const Key('tug-area-mixed')), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('start-tug-of-war')),
+      300,
+      scrollable: find.byType(Scrollable).last,
+    );
+    expect(find.byKey(const Key('start-tug-of-war')), findsOneWidget);
+  });
+
   testWidgets('configura y abre una prueba contrarreloj demostrativa', (
     tester,
   ) async {

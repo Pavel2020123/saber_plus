@@ -95,3 +95,5 @@ El juego individual de velocidad, sus potenciadores y el contrato seguro pendien
 El juego sin conexión de parejas entre fórmulas, términos y definiciones se documenta en [docs/MEMORY_MATCH.md](docs/MEMORY_MATCH.md).
 
 El duelo contra el récord personal se documenta en [docs/GHOST_DUEL.md](docs/GHOST_DUEL.md). Los audios, contenidos y contratos necesarios para producción están enumerados en [docs/GAMES_PRODUCTION_CHECKLIST.md](docs/GAMES_PRODUCTION_CHECKLIST.md).
+
+La maqueta funcional del juego de preguntas Tira y afloja se documenta en [docs/TUG_OF_WAR.md](docs/TUG_OF_WAR.md).
