@@ -31,6 +31,7 @@ import '../features/games/ghost_duel/domain/ghost_duel_models.dart';
 import '../features/games/ghost_duel/presentation/ghost_duel_setup_page.dart';
 import '../features/games/tug_of_war/domain/tug_of_war_models.dart';
 import '../features/games/tug_of_war/presentation/tug_of_war_page.dart';
+import '../features/games/tug_of_war/presentation/tug_online_page.dart';
 import '../features/games/tug_of_war/presentation/tug_of_war_setup_page.dart';
 import '../features/historical_simulations/presentation/historical_simulation_detail_page.dart';
 import '../features/historical_simulations/presentation/historical_simulations_page.dart';
@@ -288,6 +289,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                     path: 'tug-of-war',
                     builder: (context, state) => const TugOfWarSetupPage(),
                     routes: [
+                      _animatedRoute(
+                        path: 'online',
+                        builder: (context, state) => TugOnlinePage(
+                          config: TugOnlineConfig.tryFromUri(state.uri),
+                        ),
+                      ),
                       _animatedRoute(
                         path: 'play',
                         builder: (context, state) {

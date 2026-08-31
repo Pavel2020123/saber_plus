@@ -6,9 +6,9 @@ La etapa 6F-D-C se divide en tres entregas:
 
 - **6F-D-C-A, terminada:** esquema PostgreSQL, emparejamiento, reloj y rondas autoritativas, respuestas idempotentes, abandono y registro versionado de eventos.
 - **6F-D-C-B, terminada:** transporte Socket.IO autenticado, notificaciones inmediatas, presencia, reloj autonomo y protocolo de reconexion.
-- **6F-D-C-C, pendiente:** conexion de la arena Flutter con rivales reales, estados de red y regreso seguro al modo local.
+- **6F-D-C-C, terminada:** arena Flutter conectada a rivales reales, estados de red, sincronizacion HTTP de respaldo y regreso seguro al modo local.
 
-Mientras C no este terminada, la aplicacion conserva el duelo local contra CPU.
+El estudiante puede elegir entre la partida en linea y el entrenamiento local contra CPU. Las cuentas demo solo utilizan el entrenamiento local.
 
 ## Autenticacion
 
@@ -156,3 +156,20 @@ El backend cierra rondas vencidas mediante un reloj propio, aunque ningun telefo
 La consulta HTTP versionada permanece como respaldo si el canal en tiempo real no esta disponible. No se agregara chat libre entre jugadores.
 
 La publicacion actual funciona con una instancia de NestJS. Si el backend se replica horizontalmente, las salas de Socket.IO necesitaran un adaptador compartido, por ejemplo Redis, sin cambiar este contrato movil.
+
+## Cliente Flutter
+
+La aplicacion usa `socket_io_client` con transporte WebSocket, conexion nueva por partida y token enviado mediante `auth`. La interfaz incorpora:
+
+- Eleccion entre rival real y CPU.
+- Busqueda filtrada por materia o con banco mixto.
+- Confirmacion de ambos jugadores antes de comenzar.
+- Cuenta regresiva calculada con el reloj del servidor.
+- Respuestas con UUID de idempotencia generado por intento.
+- Animaciones basadas exclusivamente en eventos `RONDA_RESUELTA`.
+- Presencia del rival y aviso de reconexion.
+- Sincronizacion HTTP cada dos segundos mientras el socket intenta recuperarse.
+- Abandono por WebSocket o HTTP, para no dejar al rival esperando.
+- Modo CPU disponible cuando el estudiante prefiera practicar sin rival.
+
+La version correcta de la cuerda siempre reemplaza cualquier estado visual local al reconectar. Flutter no calcula aciertos, ganador ni movimiento en partidas en linea.

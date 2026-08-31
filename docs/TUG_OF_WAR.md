@@ -45,4 +45,4 @@ Los tres PNG de esta etapa viven en `assets/images/games/tug_of_war/`: fondo de 
 
 La etapa 6F-D-C-A ya incorporó al backend el esquema de partidas, emparejamiento, reloj de servidor, rondas idempotentes, abandono y eventos versionados. El contrato se detalla en [TUG_OF_WAR_BACKEND_CONTRACT.md](TUG_OF_WAR_BACKEND_CONTRACT.md).
 
-La etapa 6F-D-C-B también está terminada: el backend dispone de Socket.IO autenticado, salas privadas, presencia, avisos de actualización, reloj autónomo y recuperación versionada. Continúa pendiente 6F-D-C-C para conectar la arena Flutter. No se habilitará chat libre entre jugadores y, hasta terminar esa entrega, la partida visible seguirá siendo local contra CPU.
+Las etapas 6F-D-C-B y 6F-D-C-C también están terminadas: el backend dispone de Socket.IO autenticado, salas privadas, presencia, avisos de actualización, reloj autónomo y recuperación versionada; Flutter permite buscar un rival real y anima únicamente los resultados confirmados por el servidor. El modo CPU continúa disponible para entrenamiento y cuentas demo. No se habilita chat libre entre jugadores.

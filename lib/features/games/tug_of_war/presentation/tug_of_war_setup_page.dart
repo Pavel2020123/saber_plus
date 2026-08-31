@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../academic/domain/academic_models.dart';
+import '../../../auth/presentation/session_controller.dart';
 import '../domain/tug_of_war_models.dart';
 
-class TugOfWarSetupPage extends StatefulWidget {
+class TugOfWarSetupPage extends ConsumerStatefulWidget {
   const TugOfWarSetupPage({super.key});
 
   @override
-  State<TugOfWarSetupPage> createState() => _TugOfWarSetupPageState();
+  ConsumerState<TugOfWarSetupPage> createState() => _TugOfWarSetupPageState();
 }
 
-class _TugOfWarSetupPageState extends State<TugOfWarSetupPage> {
+class _TugOfWarSetupPageState extends ConsumerState<TugOfWarSetupPage> {
   AcademicArea? _area;
   TugCpuDifficulty _difficulty = TugCpuDifficulty.balanced;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isDemo = ref.watch(sessionControllerProvider).user?.isDemo ?? true;
     return Scaffold(
       appBar: AppBar(title: const Text('Tira y afloja')),
       body: ListView(
@@ -56,7 +59,7 @@ class _TugOfWarSetupPageState extends State<TugOfWarSetupPage> {
                   SizedBox(width: 12),
                   Expanded(
                     child: Text(
-                      'Duelo animado contra la CPU con tensión, tirones y celebración. El multijugador llegará con el backend autoritativo.',
+                      'Juega contra otra persona con un servidor que controla el reloj y la cuerda, o entrena sin conexión contra la CPU.',
                     ),
                   ),
                 ],
@@ -84,6 +87,47 @@ class _TugOfWarSetupPageState extends State<TugOfWarSetupPage> {
                   onSelected: (_) => setState(() => _area = area),
                 ),
             ],
+          ),
+          const SizedBox(height: 24),
+          Text('Rival en línea', style: theme.textTheme.titleLarge),
+          const SizedBox(height: 10),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Row(
+                    children: [
+                      Icon(Icons.public_rounded),
+                      SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          'Busca a otro estudiante y reconecta automáticamente si cambia la red.',
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (isDemo) ...[
+                    const SizedBox(height: 10),
+                    const Text(
+                      'El multijugador necesita una cuenta real con correo verificado.',
+                    ),
+                  ],
+                  const SizedBox(height: 14),
+                  FilledButton.icon(
+                    key: const Key('start-online-tug-of-war'),
+                    onPressed: isDemo
+                        ? null
+                        : () => context.push(
+                            TugOnlineConfig(area: _area).routeLocation,
+                          ),
+                    icon: const Icon(Icons.people_alt_outlined),
+                    label: const Text('Buscar rival'),
+                  ),
+                ],
+              ),
+            ),
           ),
           const SizedBox(height: 24),
           Text('Rival CPU', style: theme.textTheme.titleLarge),

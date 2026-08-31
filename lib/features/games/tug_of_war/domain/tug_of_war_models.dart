@@ -94,6 +94,27 @@ class TugOfWarConfig {
   }
 }
 
+class TugOnlineConfig {
+  const TugOnlineConfig({this.area});
+
+  final AcademicArea? area;
+
+  String get routeLocation => Uri(
+    path: '/student/practice/tug-of-war/online',
+    queryParameters: {if (area case final value?) 'area': value.backendValue},
+  ).toString();
+
+  static TugOnlineConfig tryFromUri(Uri uri) {
+    final rawArea = uri.queryParameters['area'];
+    if (rawArea == null || rawArea.isEmpty) return const TugOnlineConfig();
+    try {
+      return TugOnlineConfig(area: AcademicArea.fromBackend(rawArea));
+    } on Object {
+      return const TugOnlineConfig();
+    }
+  }
+}
+
 class TugCpuTurn {
   const TugCpuTurn({
     required this.isCorrect,
