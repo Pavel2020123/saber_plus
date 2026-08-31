@@ -95,6 +95,9 @@ flutter:
     - assets/audio/trivia_wrong.mp3
     - assets/audio/tug_pull.mp3
     - assets/audio/tug_rope_strain.mp3
+    - assets/images/games/tug_of_war/arena_background.png
+    - assets/images/games/tug_of_war/cpu_fighter.png
+    - assets/images/games/tug_of_war/player_fighter.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

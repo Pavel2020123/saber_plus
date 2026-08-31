@@ -112,8 +112,8 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Audio del juego de memoria para giro, pareja y victoria, con preferencia general y manejo seguro de fallos.
 - [x] Duelo fantasma local contra la evolución del mejor récord limpio, separado por estudiante, áreas y duración.
 - [x] Audio de victoria y derrota del duelo fantasma; paquete de audio preparado para el futuro juego de tira y afloja.
-- [x] Maqueta funcional de Tira y afloja contra CPU con preguntas compartidas, velocidad, tirones y personajes provisionales.
-- [ ] Arte y animaciones detalladas de Tira y afloja; se implementarán en una etapa separada sobre la maqueta validada.
+- [x] Juego local de Tira y afloja contra CPU con preguntas compartidas, velocidad y tirones de una o dos marcas.
+- [x] Arte y animaciones detalladas de Tira y afloja: entrada, espera, respuesta, tensión, empate, tirones, recuperación y cierre, con audio sincronizado y reducción de movimiento.
 - [ ] Tira y afloja multijugador autoritativo con emparejamiento, reconexión y protección contra trampas.
 - [ ] Récord fantasma autoritativo y sincronizado entre dispositivos cuando el backend publique el contrato de juegos.
 - Ranking con privacidad por defecto.

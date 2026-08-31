@@ -10,6 +10,8 @@ import '../../../practice/domain/practice_models.dart';
 import '../../trivia_rush/domain/trivia_rush_models.dart';
 import '../../trivia_rush/presentation/trivia_rush_providers.dart';
 import '../domain/tug_of_war_models.dart';
+import 'animation/tug_animation_cue.dart';
+import 'animation/tug_arena.dart';
 import 'tug_of_war_providers.dart';
 
 class TugOfWarPage extends ConsumerStatefulWidget {
@@ -21,17 +23,23 @@ class TugOfWarPage extends ConsumerStatefulWidget {
   ConsumerState<TugOfWarPage> createState() => _TugOfWarPageState();
 }
 
-class _TugOfWarPageState extends ConsumerState<TugOfWarPage> {
+class _TugOfWarPageState extends ConsumerState<TugOfWarPage>
+    with WidgetsBindingObserver {
   static const _questionSeconds = 10;
+  static const _clockRefreshInterval = Duration(milliseconds: 100);
 
   Timer? _countdownTimer;
   Timer? _cpuTimer;
   Stopwatch? _questionStopwatch;
+  DateTime? _roundDeadline;
+  DateTime? _cpuDeadline;
+  DateTime? _pauseBeganAt;
   TriviaRushSession? _session;
   Object? _error;
   TugMatchProgress _progress = const TugMatchProgress();
   TugCpuTurn? _cpuTurn;
   TugRoundResolution? _roundResolution;
+  TugAnimationCue? _animationCue;
   TugWinner? _pendingWinner;
   TugWinner? _winner;
   String? _selectedAnswerId;
@@ -41,8 +49,17 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage> {
   bool _cpuAnswered = false;
   bool _submitting = false;
   bool _finished = false;
+  bool _roundReady = false;
+  bool _animationInProgress = false;
+  bool _showRoundFeedback = false;
+  bool _appPaused = false;
+  bool _dialogOpen = false;
+  bool _competitionPaused = false;
+  int _animationCueId = 0;
   int _questionIndex = 0;
   int _secondsRemaining = _questionSeconds;
+
+  bool get _shouldPauseCompetition => _appPaused || _dialogOpen;
 
   PracticeQuestion? get _question {
     final questions = _session?.questions;
@@ -53,13 +70,23 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     Future<void>.microtask(_loadMatch);
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _cancelRoundTimers();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    final paused = state != AppLifecycleState.resumed;
+    if (_appPaused == paused || !mounted) return;
+    setState(() => _appPaused = paused);
+    _syncCompetitionPause();
   }
 
   Future<void> _loadMatch() async {
@@ -103,6 +130,7 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage> {
     setState(() {
       _cpuTurn = cpuTurn;
       _roundResolution = null;
+      _animationCue = null;
       _pendingWinner = null;
       _selectedAnswerId = null;
       _playerCorrect = null;
@@ -110,28 +138,91 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage> {
       _playerFinished = false;
       _cpuAnswered = false;
       _submitting = false;
+      _roundReady = false;
+      _animationInProgress = false;
+      _showRoundFeedback = false;
       _secondsRemaining = _questionSeconds;
-    });
-    _questionStopwatch = Stopwatch()..start();
-    if (cpuTurn.isCorrect != null) {
-      _cpuTimer = Timer(
-        Duration(milliseconds: cpuTurn.responseMilliseconds),
-        _markCpuAnswered,
-      );
-    }
-    _countdownTimer = Timer.periodic(const Duration(seconds: 1), (_) {
-      if (!mounted || _roundResolution != null || _finished) return;
-      if (_secondsRemaining <= 1) {
-        setState(() => _secondsRemaining = 0);
-        _finishDeadline();
-        return;
-      }
-      setState(() => _secondsRemaining--);
     });
   }
 
+  void _handleArenaReady(int roundId) {
+    if (!mounted ||
+        roundId != _questionIndex ||
+        _roundReady ||
+        _roundResolution != null ||
+        _finished) {
+      return;
+    }
+    final now = DateTime.now();
+    setState(() => _roundReady = true);
+    _questionStopwatch = Stopwatch();
+    _roundDeadline = now.add(const Duration(seconds: _questionSeconds));
+    final cpuTurn = _cpuTurn;
+    _cpuDeadline = cpuTurn?.isCorrect == null
+        ? null
+        : now.add(Duration(milliseconds: cpuTurn!.responseMilliseconds));
+    if (_shouldPauseCompetition) {
+      _competitionPaused = true;
+      _pauseBeganAt ??= now;
+      return;
+    }
+    _questionStopwatch!.start();
+    _scheduleRoundTimers();
+  }
+
+  void _scheduleRoundTimers() {
+    _cancelTimerHandles();
+    if (!mounted ||
+        !_roundReady ||
+        _competitionPaused ||
+        _roundResolution != null ||
+        _finished) {
+      return;
+    }
+    _refreshCountdown();
+    if (_roundResolution != null || _finished) return;
+    final cpuDeadline = _cpuDeadline;
+    if (!_cpuAnswered && cpuDeadline != null) {
+      final delay = cpuDeadline.difference(DateTime.now());
+      _cpuTimer = Timer(
+        delay.isNegative ? Duration.zero : delay,
+        _markCpuAnswered,
+      );
+    }
+    _countdownTimer = Timer.periodic(
+      _clockRefreshInterval,
+      (_) => _refreshCountdown(),
+    );
+  }
+
+  void _refreshCountdown() {
+    final deadline = _roundDeadline;
+    if (!mounted ||
+        deadline == null ||
+        _competitionPaused ||
+        _roundResolution != null ||
+        _finished) {
+      return;
+    }
+    final remainingMilliseconds = deadline
+        .difference(DateTime.now())
+        .inMilliseconds;
+    final seconds = remainingMilliseconds <= 0
+        ? 0
+        : ((remainingMilliseconds + 999) ~/ 1000).clamp(0, _questionSeconds);
+    if (seconds != _secondsRemaining) {
+      setState(() => _secondsRemaining = seconds);
+    }
+    if (remainingMilliseconds <= 0) _finishDeadline();
+  }
+
   void _markCpuAnswered() {
-    if (!mounted || _cpuAnswered || _roundResolution != null || _finished) {
+    if (!mounted ||
+        !_roundReady ||
+        _competitionPaused ||
+        _cpuAnswered ||
+        _roundResolution != null ||
+        _finished) {
       return;
     }
     setState(() => _cpuAnswered = true);
@@ -144,6 +235,9 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage> {
     if (session == null ||
         question == null ||
         _submitting ||
+        !_roundReady ||
+        _competitionPaused ||
+        _animationInProgress ||
         _playerFinished ||
         _roundResolution != null ||
         _finished) {
@@ -209,22 +303,50 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage> {
           ? null
           : cpuTurn.responseMilliseconds,
     );
+    final previousPosition = _progress.ropePosition;
     final updated = _progress.apply(
       resolution: resolution,
       playerCorrect: _playerCorrect,
       cpuCorrect: cpuTurn.isCorrect,
     );
+    final cue = TugAnimationCue(
+      id: ++_animationCueId,
+      fromPosition: previousPosition,
+      toPosition: updated.ropePosition,
+      outcome: resolution.outcome,
+      bothCorrect: _playerCorrect == true && cpuTurn.isCorrect == true,
+      winner: updated.winner,
+    );
     setState(() {
       _progress = updated;
       _roundResolution = resolution;
       _pendingWinner = updated.winner;
+      _animationCue = cue;
+      _animationInProgress = true;
+      _showRoundFeedback = false;
     });
-    if (resolution.ropeDelta != 0) {
-      unawaited(ref.read(gameAudioFeedbackProvider).play(GameSound.tugPull));
+  }
+
+  void _handleAnimationCompleted(int cueId) {
+    if (!mounted || _animationCue?.id != cueId || !_animationInProgress) {
+      return;
     }
+    setState(() {
+      _animationInProgress = false;
+      _showRoundFeedback = true;
+    });
+  }
+
+  void _handleArenaSound(TugArenaSoundCue cue) {
+    final sound = switch (cue) {
+      TugArenaSoundCue.ropeStrain => GameSound.tugRopeStrain,
+      TugArenaSoundCue.pull => GameSound.tugPull,
+    };
+    unawaited(ref.read(gameAudioFeedbackProvider).play(sound));
   }
 
   void _continueAfterRound() {
+    if (_animationInProgress || !_showRoundFeedback) return;
     final pendingWinner = _pendingWinner;
     if (pendingWinner != null) {
       _finishMatch(pendingWinner);
@@ -253,9 +375,45 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage> {
   }
 
   void _cancelRoundTimers() {
+    _cancelTimerHandles();
+    _questionStopwatch?.stop();
+    _roundDeadline = null;
+    _cpuDeadline = null;
+    _pauseBeganAt = null;
+  }
+
+  void _cancelTimerHandles() {
     _countdownTimer?.cancel();
     _cpuTimer?.cancel();
-    _questionStopwatch?.stop();
+    _countdownTimer = null;
+    _cpuTimer = null;
+  }
+
+  void _syncCompetitionPause() {
+    final shouldPause = _shouldPauseCompetition;
+    if (shouldPause == _competitionPaused) return;
+    final now = DateTime.now();
+    if (shouldPause) {
+      _competitionPaused = true;
+      _pauseBeganAt = now;
+      _cancelTimerHandles();
+      _questionStopwatch?.stop();
+      return;
+    }
+    final pausedFor = _pauseBeganAt == null
+        ? Duration.zero
+        : now.difference(_pauseBeganAt!);
+    _competitionPaused = false;
+    _pauseBeganAt = null;
+    if (!_roundReady || _roundResolution != null || _finished) return;
+    if (_roundDeadline case final deadline?) {
+      _roundDeadline = deadline.add(pausedFor);
+    }
+    if (_cpuDeadline case final deadline?) {
+      _cpuDeadline = deadline.add(pausedFor);
+    }
+    _questionStopwatch?.start();
+    _scheduleRoundTimers();
   }
 
   void _showMessage(String message) => ScaffoldMessenger.of(
@@ -288,6 +446,9 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage> {
     }
 
     final question = _question!;
+    final displayedRopePosition = _animationInProgress
+        ? _animationCue?.fromPosition ?? _progress.ropePosition
+        : _progress.ropePosition;
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, _) {
@@ -305,23 +466,31 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage> {
           child: ListView(
             padding: const EdgeInsets.fromLTRB(16, 6, 16, 32),
             children: [
-              const _PrototypeBanner(),
+              const _LocalMatchBanner(),
               const SizedBox(height: 10),
               _MatchHeader(
                 questionNumber: _questionIndex + 1,
                 secondsRemaining: _secondsRemaining,
-                progress: _progress,
+                ropePosition: displayedRopePosition,
               ),
               const SizedBox(height: 10),
-              TugArenaMockup(
+              TugArena(
+                roundId: _questionIndex,
                 ropePosition: _progress.ropePosition,
                 playerAnswered: _playerFinished,
                 cpuAnswered: _cpuAnswered,
+                animationCue: _animationCue,
+                paused: _shouldPauseCompetition,
+                onReady: _handleArenaReady,
+                onSequenceCompleted: _handleAnimationCompleted,
+                onSoundCue: _handleArenaSound,
               ),
               const SizedBox(height: 16),
-              if (_roundResolution case final resolution?)
+              if (_animationInProgress)
+                _ResolvingRoundCard(resolution: _roundResolution!)
+              else if (_showRoundFeedback)
                 _RoundFeedback(
-                  resolution: resolution,
+                  resolution: _roundResolution!,
                   playerCorrect: _playerCorrect,
                   playerResponseMilliseconds: _playerResponseMilliseconds,
                   cpuTurn: _cpuTurn!,
@@ -329,6 +498,10 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage> {
                   onContinue: _continueAfterRound,
                 )
               else ...[
+                if (!_roundReady) ...[
+                  const _ArenaPreparationCard(),
+                  const SizedBox(height: 10),
+                ],
                 Text(
                   '${question.area.label} · ${question.subtopicName}',
                   style: Theme.of(context).textTheme.labelLarge,
@@ -347,7 +520,11 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage> {
                 for (final option in question.options) ...[
                   OutlinedButton(
                     key: Key('tug-answer-${option.id}'),
-                    onPressed: _playerFinished || _submitting
+                    onPressed:
+                        !_roundReady ||
+                            _competitionPaused ||
+                            _playerFinished ||
+                            _submitting
                         ? null
                         : () => _answer(option.id),
                     style: OutlinedButton.styleFrom(
@@ -390,34 +567,45 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage> {
   }
 
   Future<void> _confirmExit() async {
-    final leave = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('¿Salir de la partida?'),
-        content: const Text('El duelo local actual no se conservará.'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text('Continuar'),
-          ),
-          FilledButton(
-            key: const Key('confirm-exit-tug'),
-            onPressed: () => Navigator.pop(context, true),
-            child: const Text('Salir'),
-          ),
-        ],
-      ),
-    );
+    if (_dialogOpen) return;
+    setState(() => _dialogOpen = true);
+    _syncCompetitionPause();
+    bool? leave;
+    try {
+      leave = await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('¿Salir de la partida?'),
+          content: const Text('El duelo local actual no se conservará.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: const Text('Continuar'),
+            ),
+            FilledButton(
+              key: const Key('confirm-exit-tug'),
+              onPressed: () => Navigator.pop(context, true),
+              child: const Text('Salir'),
+            ),
+          ],
+        ),
+      );
+    } finally {
+      if (mounted) {
+        setState(() => _dialogOpen = false);
+        _syncCompetitionPause();
+      }
+    }
     if (leave == true && mounted) context.pop();
   }
 }
 
-class _PrototypeBanner extends StatelessWidget {
-  const _PrototypeBanner();
+class _LocalMatchBanner extends StatelessWidget {
+  const _LocalMatchBanner();
 
   @override
   Widget build(BuildContext context) => Container(
-    key: const Key('tug-prototype-banner'),
+    key: const Key('tug-local-match-banner'),
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
     decoration: BoxDecoration(
       color: Theme.of(context).colorScheme.surfaceContainerHighest,
@@ -425,11 +613,9 @@ class _PrototypeBanner extends StatelessWidget {
     ),
     child: const Row(
       children: [
-        Icon(Icons.construction_rounded, size: 18),
+        Icon(Icons.smart_toy_outlined, size: 18),
         SizedBox(width: 8),
-        Expanded(
-          child: Text('Maqueta funcional · animaciones finales pendientes'),
-        ),
+        Expanded(child: Text('Duelo de práctica contra CPU · Sin anuncios')),
       ],
     ),
   );
@@ -439,12 +625,12 @@ class _MatchHeader extends StatelessWidget {
   const _MatchHeader({
     required this.questionNumber,
     required this.secondsRemaining,
-    required this.progress,
+    required this.ropePosition,
   });
 
   final int questionNumber;
   final int secondsRemaining;
-  final TugMatchProgress progress;
+  final int ropePosition;
 
   @override
   Widget build(BuildContext context) => Row(
@@ -467,8 +653,7 @@ class _MatchHeader extends StatelessWidget {
       Expanded(
         child: _TugMetric(
           icon: Icons.compare_arrows_rounded,
-          label:
-              '${progress.ropePosition > 0 ? '+' : ''}${progress.ropePosition}',
+          label: '${ropePosition > 0 ? '+' : ''}$ropePosition',
         ),
       ),
     ],
@@ -512,143 +697,63 @@ class _TugMetric extends StatelessWidget {
   );
 }
 
-class TugArenaMockup extends StatelessWidget {
-  const TugArenaMockup({
-    required this.ropePosition,
-    required this.playerAnswered,
-    required this.cpuAnswered,
-    super.key,
-  });
-
-  final int ropePosition;
-  final bool playerAnswered;
-  final bool cpuAnswered;
+class _ArenaPreparationCard extends StatelessWidget {
+  const _ArenaPreparationCard();
 
   @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    final knotAlignment =
-        -(ropePosition / TugMatchProgress.winningPosition) * 0.46;
-    final ropeDescription = switch (ropePosition) {
-      > 0 => '$ropePosition marcas a favor del jugador',
-      < 0 => '${ropePosition.abs()} marcas a favor de la CPU',
-      _ => 'en el centro',
-    };
-    return Semantics(
-      label: 'Arena provisional. Cuerda $ropeDescription.',
-      child: Container(
-        key: const Key('tug-arena-mockup'),
-        height: 190,
-        decoration: BoxDecoration(
-          color: scheme.surfaceContainerLow,
-          borderRadius: BorderRadius.circular(24),
-          border: Border.all(color: scheme.outlineVariant),
-        ),
-        clipBehavior: Clip.antiAlias,
-        child: Stack(
+  Widget build(BuildContext context) => Semantics(
+    liveRegion: true,
+    child: const Card(
+      key: Key('tug-arena-preparing'),
+      child: Padding(
+        padding: EdgeInsets.all(14),
+        child: Row(
           children: [
-            Positioned.fill(
-              child: Align(
-                alignment: Alignment.center,
-                child: Container(width: 2, color: scheme.outlineVariant),
-              ),
+            SizedBox.square(
+              dimension: 20,
+              child: CircularProgressIndicator(strokeWidth: 2.5),
             ),
-            Positioned(
-              left: 50,
-              right: 50,
-              top: 91,
-              child: Container(height: 5, color: scheme.tertiary),
-            ),
-            Positioned(
-              left: 50,
-              right: 50,
-              top: 108,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  for (var index = 0; index < 9; index++)
-                    Container(
-                      width: index == 4 ? 3 : 1,
-                      height: index == 4 ? 13 : 8,
-                      color: index == 4 ? scheme.primary : scheme.outline,
-                    ),
-                ],
-              ),
-            ),
-            Align(
-              alignment: Alignment(knotAlignment, 0.01),
-              child: Container(
-                key: const Key('tug-rope-knot'),
-                width: 18,
-                height: 24,
-                decoration: BoxDecoration(
-                  color: scheme.tertiaryContainer,
-                  border: Border.all(color: scheme.tertiary, width: 3),
-                  borderRadius: BorderRadius.circular(7),
-                ),
-              ),
-            ),
-            Positioned(
-              left: 12,
-              top: 34,
-              child: _PlaceholderFighter(
-                label: 'Tú',
-                answered: playerAnswered,
-                color: scheme.primaryContainer,
-              ),
-            ),
-            Positioned(
-              right: 12,
-              top: 34,
-              child: _PlaceholderFighter(
-                label: 'CPU',
-                answered: cpuAnswered,
-                color: scheme.errorContainer,
-              ),
-            ),
-            const Positioned(
-              left: 0,
-              right: 0,
-              bottom: 8,
+            SizedBox(width: 12),
+            Expanded(
               child: Text(
-                'Personajes provisionales',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 11),
+                'Los competidores están entrando. El tiempo aún no corre.',
               ),
             ),
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
 }
 
-class _PlaceholderFighter extends StatelessWidget {
-  const _PlaceholderFighter({
-    required this.label,
-    required this.answered,
-    required this.color,
-  });
+class _ResolvingRoundCard extends StatelessWidget {
+  const _ResolvingRoundCard({required this.resolution});
 
-  final String label;
-  final bool answered;
-  final Color color;
+  final TugRoundResolution resolution;
 
   @override
-  Widget build(BuildContext context) => Column(
-    children: [
-      CircleAvatar(
-        radius: 27,
-        backgroundColor: color,
-        child: const Icon(Icons.person_rounded, size: 34),
+  Widget build(BuildContext context) => Semantics(
+    liveRegion: true,
+    label: '${resolution.title}. La cuerda está en movimiento.',
+    child: Card(
+      key: const Key('tug-round-resolving'),
+      child: Padding(
+        padding: const EdgeInsets.all(18),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              resolution.title,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 8),
+            const Text('La cuerda está en movimiento…'),
+            const SizedBox(height: 14),
+            const LinearProgressIndicator(),
+          ],
+        ),
       ),
-      const SizedBox(height: 4),
-      Text(label, style: const TextStyle(fontWeight: FontWeight.w800)),
-      Text(
-        answered ? 'Respondió' : 'Pensando',
-        style: Theme.of(context).textTheme.labelSmall,
-      ),
-    ],
+    ),
   );
 }
 
@@ -670,50 +775,59 @@ class _RoundFeedback extends StatelessWidget {
   final VoidCallback onContinue;
 
   @override
-  Widget build(BuildContext context) => Card(
-    key: const Key('tug-round-feedback'),
-    child: Padding(
-      padding: const EdgeInsets.all(18),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(resolution.title, style: Theme.of(context).textTheme.titleLarge),
-          const SizedBox(height: 6),
-          Text(resolution.explanation),
-          const SizedBox(height: 14),
-          Row(
-            children: [
-              Expanded(
-                child: _AnswerStatus(
-                  label: 'Tú',
-                  isCorrect: playerCorrect,
-                  milliseconds: playerResponseMilliseconds,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: _AnswerStatus(
-                  label: 'CPU',
-                  isCorrect: cpuTurn.isCorrect,
-                  milliseconds: cpuTurn.isCorrect == null
-                      ? null
-                      : cpuTurn.responseMilliseconds,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          FilledButton.icon(
-            key: const Key('continue-tug-round'),
-            onPressed: onContinue,
-            icon: Icon(
-              isMatchPoint
-                  ? Icons.emoji_events_outlined
-                  : Icons.navigate_next_rounded,
+  Widget build(BuildContext context) => Semantics(
+    liveRegion: true,
+    label: '${resolution.title}. ${resolution.explanation}',
+    child: Card(
+      key: const Key('tug-round-feedback'),
+      child: Padding(
+        padding: const EdgeInsets.all(18),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              resolution.title,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
-            label: Text(isMatchPoint ? 'Ver resultado' : 'Siguiente pregunta'),
-          ),
-        ],
+            const SizedBox(height: 6),
+            Text(resolution.explanation),
+            const SizedBox(height: 14),
+            Row(
+              children: [
+                Expanded(
+                  child: _AnswerStatus(
+                    label: 'Tú',
+                    isCorrect: playerCorrect,
+                    milliseconds: playerResponseMilliseconds,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: _AnswerStatus(
+                    label: 'CPU',
+                    isCorrect: cpuTurn.isCorrect,
+                    milliseconds: cpuTurn.isCorrect == null
+                        ? null
+                        : cpuTurn.responseMilliseconds,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            FilledButton.icon(
+              key: const Key('continue-tug-round'),
+              onPressed: onContinue,
+              icon: Icon(
+                isMatchPoint
+                    ? Icons.emoji_events_outlined
+                    : Icons.navigate_next_rounded,
+              ),
+              label: Text(
+                isMatchPoint ? 'Ver resultado' : 'Siguiente pregunta',
+              ),
+            ),
+          ],
+        ),
       ),
     ),
   );
@@ -833,7 +947,7 @@ class _TugResultView extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(16),
               child: Text(
-                'Esta partida es una maqueta local: no afecta XP, rachas, estadísticas ni rankings.',
+                'Esta partida de práctica local no afecta XP, rachas, estadísticas ni rankings.',
               ),
             ),
           ),

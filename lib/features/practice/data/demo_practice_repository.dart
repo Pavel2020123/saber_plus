@@ -4,6 +4,11 @@ import '../domain/practice_models.dart';
 import '../domain/practice_repository.dart';
 
 class DemoPracticeRepository implements PracticeRepository {
+  DemoPracticeRepository({DateTime Function()? now})
+    : _now = now ?? DateTime.now;
+
+  final DateTime Function() _now;
+
   @override
   Future<PracticeSession> startSubtopicPractice({
     required AcademicArea area,
@@ -230,6 +235,7 @@ class DemoPracticeRepository implements PracticeRepository {
 
   @override
   Future<AnswerHistory> loadAnswerHistory(AnswerHistoryFilter filter) async {
+    final now = _now();
     final items = <AnswerHistoryItem>[
       AnswerHistoryItem(
         id: 'demo-history-1',
@@ -242,7 +248,9 @@ class DemoPracticeRepository implements PracticeRepository {
         origin: PracticeOrigin.simulation,
         isCorrect: false,
         responseTimeSeconds: 42,
-        answeredAt: DateTime.now().subtract(const Duration(hours: 2)),
+        // La demostración siempre debe conservar un error del día actual,
+        // incluso si se abre durante las primeras horas después de medianoche.
+        answeredAt: now,
         selectedAnswer: const HistoryAnswer(
           id: 'answer-b',
           text: '15.000 pesos',
@@ -265,7 +273,7 @@ class DemoPracticeRepository implements PracticeRepository {
         origin: PracticeOrigin.random,
         isCorrect: true,
         responseTimeSeconds: 28,
-        answeredAt: DateTime.now().subtract(const Duration(days: 2)),
+        answeredAt: now.subtract(const Duration(days: 2)),
         selectedAnswer: const HistoryAnswer(
           id: 'answer-a',
           text: 'La opción que resume el texto',

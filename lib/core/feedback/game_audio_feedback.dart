@@ -50,14 +50,24 @@ class DeviceGameAudioFeedback implements GameAudioFeedback {
 
 final gameAudioFeedbackProvider = Provider<GameAudioFeedback>((ref) {
   final preferences = ref.watch(appPreferencesControllerProvider).valueOrNull;
-  final player = AudioPlayer();
-  ref.onDispose(player.dispose);
+  final primaryPlayer = AudioPlayer();
+  final ropeStrainPlayer = AudioPlayer();
+  final tugPullPlayer = AudioPlayer();
+  ref
+    ..onDispose(primaryPlayer.dispose)
+    ..onDispose(ropeStrainPlayer.dispose)
+    ..onDispose(tugPullPlayer.dispose);
   return DeviceGameAudioFeedback(
     enabled: preferences?.gameSoundEnabled ?? true,
-    soundAction: (sound) => player.play(
-      AssetSource(sound.assetPath),
-      volume: 0.7,
-      mode: PlayerMode.lowLatency,
-    ),
+    soundAction: (sound) =>
+        switch (sound) {
+          GameSound.tugRopeStrain => ropeStrainPlayer,
+          GameSound.tugPull => tugPullPlayer,
+          _ => primaryPlayer,
+        }.play(
+          AssetSource(sound.assetPath),
+          volume: 0.7,
+          mode: PlayerMode.lowLatency,
+        ),
   );
 });

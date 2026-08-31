@@ -4,29 +4,31 @@ import '../domain/study_time_models.dart';
 import '../domain/study_time_repository.dart';
 
 class DemoStudyTimeRepository implements StudyTimeRepository {
-  DemoStudyTimeRepository() {
-    final now = DateTime.now();
+  DemoStudyTimeRepository({DateTime? now}) {
+    final recordedAt = now ?? DateTime.now();
     _records.addAll([
       StudyTimeRecord(
         userId: 'demo-student',
         eventId: 'demo-pomodoro-1',
         source: StudyTimeSource.pomodoro,
         durationSeconds: 25 * 60,
-        recordedAt: now.subtract(const Duration(hours: 1)),
+        recordedAt: recordedAt,
       ),
       StudyTimeRecord(
         userId: 'demo-student',
         eventId: 'demo-practice-1',
         source: StudyTimeSource.practice,
         durationSeconds: 42 * 60,
-        recordedAt: now.subtract(const Duration(hours: 3)),
+        recordedAt: recordedAt,
       ),
       StudyTimeRecord(
         userId: 'demo-student',
         eventId: 'demo-diagnostic-1',
         source: StudyTimeSource.diagnostic,
         durationSeconds: 38 * 60,
-        recordedAt: now.subtract(const Duration(days: 2)),
+        // Los tres registros pertenecen a la semana vigente para que la
+        // vista de demostración no cambie al abrirse un lunes de madrugada.
+        recordedAt: recordedAt,
       ),
     ]);
   }

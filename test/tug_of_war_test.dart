@@ -120,7 +120,7 @@ void main() {
     }
   });
 
-  testWidgets('resuelve una ronda local y mueve la cuerda sin animarla', (
+  testWidgets('anima el tirón antes de habilitar el resultado de la ronda', (
     tester,
   ) async {
     final audio = _RecordingGameAudioFeedback();
@@ -149,19 +149,123 @@ void main() {
     await tester.pump();
     await tester.pump();
 
-    expect(find.byKey(const Key('tug-arena-mockup')), findsOneWidget);
-    expect(find.byKey(const Key('tug-prototype-banner')), findsOneWidget);
-    await tester.tap(find.byKey(const Key('tug-answer-answer-a')));
+    expect(find.byKey(const Key('tug-arena')), findsOneWidget);
+    expect(find.byKey(const Key('tug-local-match-banner')), findsOneWidget);
+    expect(find.byKey(const Key('tug-arena-preparing')), findsOneWidget);
+
+    await _pumpUntil(
+      tester,
+      () => find.byKey(const Key('tug-arena-preparing')).evaluate().isEmpty,
+    );
+    final answer = find.byKey(const Key('tug-answer-answer-a'));
+    await tester.scrollUntilVisible(
+      answer,
+      120,
+      scrollable: find.byType(Scrollable).first,
+    );
+    expect(tester.widget<OutlinedButton>(answer).onPressed, isNotNull);
+    await tester.tap(answer);
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 120));
 
+    expect(find.byKey(const Key('tug-round-resolving')), findsOneWidget);
+    expect(find.byKey(const Key('tug-round-feedback')), findsNothing);
+    expect(find.byKey(const Key('continue-tug-round')), findsNothing);
+
+    await tester.pump(const Duration(milliseconds: 1100));
+
+    expect(find.byKey(const Key('tug-round-resolving')), findsNothing);
     expect(find.byKey(const Key('tug-round-feedback')), findsOneWidget);
     expect(find.text('¡Tirón fuerte para ti!'), findsOneWidget);
     expect(find.text('+2'), findsOneWidget);
-    expect(audio.played, [GameSound.matchFound, GameSound.tugPull]);
+    expect(audio.played, [
+      GameSound.matchFound,
+      GameSound.tugRopeStrain,
+      GameSound.tugPull,
+    ]);
 
     await tester.pumpWidget(const SizedBox());
   });
+
+  testWidgets('el diálogo de salida pausa el reloj y la respuesta de la CPU', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          triviaRushRepositoryProvider.overrideWithValue(
+            const _FakeTugQuestionRepository(),
+          ),
+          tugCpuPlannerProvider.overrideWithValue(
+            (_) =>
+                const TugCpuTurn(isCorrect: false, responseMilliseconds: 4000),
+          ),
+          gameAudioFeedbackProvider.overrideWithValue(
+            _RecordingGameAudioFeedback(),
+          ),
+        ],
+        child: const MaterialApp(
+          home: MediaQuery(
+            data: MediaQueryData(disableAnimations: true),
+            child: TugOfWarPage(
+              config: TugOfWarConfig(
+                areas: [AcademicArea.mathematics],
+                cpuDifficulty: TugCpuDifficulty.training,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pump();
+    await tester.pump();
+    await _pumpUntil(
+      tester,
+      () => find.byKey(const Key('tug-arena-preparing')).evaluate().isEmpty,
+    );
+
+    await tester.tap(find.byIcon(Icons.close_rounded));
+    await tester.pump();
+    expect(find.text('¿Salir de la partida?'), findsOneWidget);
+    expect(find.text('10 s'), findsOneWidget);
+
+    await tester.pump(const Duration(seconds: 5));
+    expect(find.text('10 s'), findsOneWidget);
+
+    await tester.tap(find.widgetWithText(TextButton, 'Continuar'));
+    await tester.pump();
+    final answer = find.byKey(const Key('tug-answer-answer-a'));
+    await tester.scrollUntilVisible(
+      answer,
+      120,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.tap(answer);
+    await tester.pump();
+
+    expect(find.textContaining('El rival sigue pensando'), findsOneWidget);
+    await tester.pump(const Duration(seconds: 3));
+    expect(find.textContaining('El rival sigue pensando'), findsOneWidget);
+    expect(find.byKey(const Key('tug-round-feedback')), findsNothing);
+
+    await tester.pump(const Duration(milliseconds: 1200));
+    await tester.pump();
+    expect(find.byKey(const Key('tug-round-feedback')), findsOneWidget);
+
+    await tester.pumpWidget(const SizedBox());
+  });
+}
+
+Future<void> _pumpUntil(
+  WidgetTester tester,
+  bool Function() condition, {
+  int maximumPumps = 30,
+}) async {
+  for (var index = 0; index < maximumPumps; index++) {
+    if (condition()) return;
+    await tester.pump(const Duration(milliseconds: 100));
+  }
+  fail('La condición esperada no ocurrió durante la animación.');
 }
 
 class _RecordingGameAudioFeedback implements GameAudioFeedback {

@@ -371,9 +371,7 @@ void main() {
     expect(find.byKey(const Key('start-ghost-duel')), findsOneWidget);
   });
 
-  testWidgets('abre la maqueta de Tira y afloja desde practicar', (
-    tester,
-  ) async {
+  testWidgets('abre Tira y afloja desde practicar', (tester) async {
     await tester.pumpWidget(_testApp());
     await tester.pumpAndSettle();
 

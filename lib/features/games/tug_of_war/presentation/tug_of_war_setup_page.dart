@@ -52,11 +52,11 @@ class _TugOfWarSetupPageState extends State<TugOfWarSetupPage> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.construction_rounded),
+                  Icon(Icons.animation_rounded),
                   SizedBox(width: 12),
                   Expanded(
                     child: Text(
-                      'Maqueta funcional contra la CPU. El arte y las animaciones definitivas se agregarán en la siguiente etapa.',
+                      'Duelo animado contra la CPU con tensión, tirones y celebración. El multijugador llegará con el backend autoritativo.',
                     ),
                   ),
                 ],
