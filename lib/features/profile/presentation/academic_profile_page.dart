@@ -136,6 +136,16 @@ class AcademicProfilePage extends ConsumerWidget {
                   ),
                   const Divider(height: 1, indent: 64),
                   _ProfileLink(
+                    key: const Key('profile-open-national-comparison'),
+                    icon: Icons.public_rounded,
+                    title: 'Referencia nacional',
+                    subtitle: 'Compara tu estimación con datos del ICFES',
+                    onTap: () => context.push(
+                      '/student/more/profile/national-comparison',
+                    ),
+                  ),
+                  const Divider(height: 1, indent: 64),
+                  _ProfileLink(
                     key: const Key('profile-open-gamification'),
                     icon: Icons.emoji_events_outlined,
                     title: 'Logros y racha',

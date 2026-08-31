@@ -20,4 +20,4 @@ El estudiante puede definir y modificar un objetivo entre 100 y 500 puntos, en i
 
 El perfil funciona como punto central y enlaza a la orientación de carreras y universidades. Esa orientación utiliza afinidades entre las áreas estudiadas y familias amplias de formación; no reemplaza una prueba vocacional ni promete admisión. La oferta de programas e instituciones se consulta en las fuentes oficiales del SNIES, sin guardar datos que puedan quedar desactualizados dentro de la aplicación.
 
-El perfil también enlaza al catálogo verificado de becas y oportunidades oficiales. La próxima parte de la etapa 6E incorporará la comparación con datos nacionales mediante fuentes oficiales y contratos actualizables.
+El perfil también enlaza al catálogo verificado de becas y oportunidades oficiales y a la comparación orientativa con promedios nacionales del ICFES separados por calendario. Ninguna de estas secciones convierte la estimación interna en un resultado oficial.

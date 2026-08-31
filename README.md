@@ -85,3 +85,7 @@ La estimación interna de puntaje y sus límites frente al resultado oficial se 
 La orientación de carreras y los accesos al catálogo oficial del SNIES se documentan en [docs/CAREER_ORIENTATION.md](docs/CAREER_ORIENTATION.md).
 
 El catálogo seguro de becas, gratuidad y fondos oficiales se documenta en [docs/OFFICIAL_OPPORTUNITIES.md](docs/OFFICIAL_OPPORTUNITIES.md).
+
+La comparación con promedios nacionales del ICFES se documenta en [docs/NATIONAL_SCORE_COMPARISON.md](docs/NATIONAL_SCORE_COMPARISON.md).
+
+El modelo gratuito con publicidad, planes individuales y espacios de institución se documenta en [docs/BUSINESS_MODEL.md](docs/BUSINESS_MODEL.md).

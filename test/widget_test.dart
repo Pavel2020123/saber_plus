@@ -20,6 +20,7 @@ import 'package:saber_plus/features/profile/domain/exam_goal_repository.dart';
 import 'package:saber_plus/features/profile/presentation/academic_profile_providers.dart';
 import 'package:saber_plus/features/profile/presentation/career_orientation_providers.dart';
 import 'package:saber_plus/features/profile/presentation/official_opportunities_providers.dart';
+import 'package:saber_plus/features/profile/presentation/national_score_comparison_providers.dart';
 import 'package:saber_plus/features/favorites/data/drift_favorite_repository.dart';
 import 'package:saber_plus/features/favorites/domain/favorite_models.dart';
 import 'package:saber_plus/features/favorites/domain/favorite_repository.dart';
@@ -42,6 +43,7 @@ class _FakeSecureSessionStore extends SecureSessionStore {
 
 final _openedOfficialOrientationUris = <Uri>[];
 final _openedOfficialOpportunityUris = <Uri>[];
+final _openedNationalStatisticsUris = <Uri>[];
 
 Widget _testApp() => ProviderScope(
   overrides: [
@@ -57,6 +59,10 @@ Widget _testApp() => ProviderScope(
     }),
     officialOpportunityLinkOpenerProvider.overrideWithValue((uri) async {
       _openedOfficialOpportunityUris.add(uri);
+      return true;
+    }),
+    nationalStatisticsLinkOpenerProvider.overrideWithValue((uri) async {
+      _openedNationalStatisticsUris.add(uri);
       return true;
     }),
     favoriteRepositoryProvider.overrideWith((ref) {
@@ -1141,6 +1147,59 @@ void main() {
     await tester.pumpAndSettle();
     expect(_openedOfficialOpportunityUris, hasLength(1));
     expect(_openedOfficialOpportunityUris.single.host, 'web.icetex.gov.co');
+
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('profile-open-national-comparison')),
+      220,
+      scrollable: find
+          .descendant(
+            of: find.byKey(const Key('academic-profile-list')),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
+    await tester.tap(find.text('Referencia nacional'));
+    await tester.pumpAndSettle();
+    expect(find.text('Pon tu avance en contexto'), findsOneWidget);
+    expect(find.byKey(const Key('national-score-reference')), findsOneWidget);
+    expect(find.text('263.5'), findsWidgets);
+    await tester.tap(find.byKey(const Key('national-calendar-calendarB')));
+    await tester.pumpAndSettle();
+    expect(find.text('318.6'), findsWidgets);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('national-score-comparison-result')),
+      180,
+      scrollable: find
+          .descendant(
+            of: find.byKey(const Key('national-score-comparison-list')),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
+    expect(
+      find.text('La estimación está 33.4 puntos por encima del referente.'),
+      findsOneWidget,
+    );
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('open-official-national-statistics')),
+      180,
+      scrollable: find
+          .descendant(
+            of: find.byKey(const Key('national-score-comparison-list')),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
+    await tester.pumpAndSettle();
+    _openedNationalStatisticsUris.clear();
+    await tester.tap(
+      find.byKey(const Key('open-official-national-statistics')),
+    );
+    await tester.pumpAndSettle();
+    expect(_openedNationalStatisticsUris, hasLength(1));
+    expect(_openedNationalStatisticsUris.single.host, 'www.icfes.gov.co');
   });
 
   testWidgets('continúa desde Inicio en la última lección visitada', (

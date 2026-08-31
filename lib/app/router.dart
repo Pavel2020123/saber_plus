@@ -45,6 +45,7 @@ import '../features/profile/presentation/academic_activity_report_page.dart';
 import '../features/profile/presentation/score_projection_page.dart';
 import '../features/profile/presentation/career_orientation_page.dart';
 import '../features/profile/presentation/official_opportunities_page.dart';
+import '../features/profile/presentation/national_score_comparison_page.dart';
 import '../features/search/presentation/academic_search_page.dart';
 import '../features/shared/presentation/student_shell.dart';
 import '../features/study/presentation/study_area_page.dart';
@@ -431,6 +432,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                         path: 'opportunities',
                         builder: (context, state) =>
                             const OfficialOpportunitiesPage(),
+                      ),
+                      _animatedRoute(
+                        path: 'national-comparison',
+                        builder: (context, state) =>
+                            const NationalScoreComparisonPage(),
                       ),
                     ],
                   ),

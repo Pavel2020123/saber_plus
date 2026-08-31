@@ -104,31 +104,42 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Puntaje proyectado orientativo con ponderación por materia, rango, confianza y advertencia metodológica.
 - [x] Afinidades de carrera y acceso seguro a las consultas oficiales de programas e instituciones del SNIES.
 - [x] Catálogo de becas, gratuidad y fondos con fuentes oficiales, fecha de verificación y límites de elegibilidad.
+- [x] Comparación orientativa con promedios globales oficiales del ICFES separados por calendario, año y fecha de verificación.
 - Ranking con privacidad por defecto.
 - Batallas asíncronas, bloqueo y reporte.
 - Anuncios, referidos, soporte y calculadora de puntaje.
 
 ## Etapa 7 - Profesor e institución
 
-- Resumen institucional, estudiantes y grupos.
-- Analítica resumida y alertas de riesgo.
-- Matrícula individual y anuncios institucionales.
+- Cuenta personal de profesor capaz de crear o solicitar ingreso a una institución; no habrá credenciales compartidas de institución.
+- Propietario, administradores y profesores con invitaciones, permisos auditables y transferencia de propiedad.
+- Grupos vinculados mediante códigos temporales y aceptación explícita del estudiante.
+- Profesor gratuito con un grupo, hasta 40 estudiantes, analítica básica y publicidad moderada.
+- Profesor con plan sin anuncios: hasta cinco grupos y 200 estudiantes, analítica detallada, alertas, prioridades y exportaciones.
+- No se ofrecerán tutores, chat de asesoría ni explicaciones personales de preguntas.
 - Importaciones y operaciones masivas permanecen en web/tablet.
 
 ## Etapa 8 - Comercio y publicación
 
-- Wompi para pagos web y flujos externos permitidos; ePayco queda descartado.
-- Google Play Billing y StoreKit para bienes digitales dentro de la app cuando las tiendas lo exijan.
+- Contenido académico completo y permanente para el estudiante gratuito, financiado con publicidad moderada.
+- AdMob con banners fuera de pantallas de concentración, intersticiales en pausas naturales y controles locales/remotos de frecuencia.
+- Anuncios recompensados voluntarios para recuperar el día anterior de una racha y obtener potenciadores ilimitados bajo demanda para juegos individuales.
+- Plan individual sin anuncios y con cosméticos: 9.900 COP mensual, 49.900 COP semestral, promoción de 39.900 COP y 69.900 COP anual.
+- Google Play Billing para compras móviles; Wompi permanece únicamente en la página web y fuera del alcance de Flutter.
 - Derechos de acceso neutrales en el backend, sin depender del proveedor de pago.
 - Restauración, reembolso y cambio de cuenta.
+- Publicación comercial inicial solo en Google Play; iOS continúa compilable y probado, sin publicación inicial ni cobros reales.
+- Frontera preparada para StoreKit si posteriormente se decide publicar en App Store.
 - Accesibilidad, seguridad, rendimiento y observabilidad.
 - Beta, fichas de tienda, privacidad y plan de rollback.
 
 ## Decisiones comerciales confirmadas
 
-- La pasarela externa del proyecto será Wompi; no se implementará ePayco.
-- El backend deberá validar webhooks de Wompi y convertir pagos aprobados en derechos de acceso.
-- La aplicación móvil respetará la facturación obligatoria de cada tienda para contenido digital.
+- La aplicación móvil no implementará Wompi ni ePayco; Android usará Google Play Billing.
+- Todas las funciones académicas del estudiante seguirán disponibles en el plan gratuito con anuncios.
+- El pago individual retira anuncios y entrega cosméticos; no compra ventajas académicas.
+- Los precios individuales serán iguales para estudiantes y profesores.
+- La publicación inicial será únicamente en Google Play, aunque el proyecto conservará soporte técnico para iOS.
 
 ## Decisión de infraestructura
 
@@ -141,5 +152,5 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 1. Contrato OpenAPI versionado y formato uniforme de errores.
 2. Refresh rotation, sesiones y revocación de dispositivos.
 3. Consentimiento versionado y tratamiento de datos de menores en el backend.
-4. Catálogo, precios y correspondencia entre productos de Wompi, Play Billing y StoreKit.
+4. Identificadores de productos, ofertas y reglas de restauración definitivas en Google Play Console.
 5. Política offline para intentos y contenido protegido.
