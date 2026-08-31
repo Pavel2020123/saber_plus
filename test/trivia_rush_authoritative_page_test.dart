@@ -3,6 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:saber_plus/core/feedback/game_audio_feedback.dart';
 import 'package:saber_plus/features/academic/domain/academic_models.dart';
+import 'package:saber_plus/features/games/ghost_duel/domain/ghost_duel_models.dart';
+import 'package:saber_plus/features/games/ghost_duel/domain/ghost_duel_repository.dart';
+import 'package:saber_plus/features/games/ghost_duel/presentation/ghost_duel_providers.dart';
 import 'package:saber_plus/features/games/trivia_rush/domain/trivia_rush_models.dart';
 import 'package:saber_plus/features/games/trivia_rush/domain/trivia_rush_repository.dart';
 import 'package:saber_plus/features/games/trivia_rush/presentation/trivia_rush_page.dart';
@@ -43,6 +46,61 @@ void main() {
     expect(find.text('700 puntos'), findsOneWidget);
     expect(audio.played, [GameSound.triviaCorrect, GameSound.triviaFinish]);
   });
+
+  testWidgets('el duelo vincula el récord con el intento confirmado', (
+    tester,
+  ) async {
+    final ghosts = _RecordingGhostRepository();
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          triviaRushRepositoryProvider.overrideWithValue(
+            _AuthoritativeRepository(),
+          ),
+          ghostDuelRepositoryProvider.overrideWithValue(ghosts),
+          ghostDuelUserIdProvider.overrideWithValue('student-1'),
+          gameAudioFeedbackProvider.overrideWithValue(_RecordingAudio()),
+        ],
+        child: const MaterialApp(
+          home: TriviaRushPage(
+            ghostMode: true,
+            config: TriviaRushConfig(
+              areas: [AcademicArea.mathematics],
+              duration: TriviaRushDuration.quick,
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pump();
+    await tester.pump();
+
+    await tester.tap(find.byKey(const Key('trivia-answer-answer-a')));
+    await tester.pump(const Duration(milliseconds: 600));
+    await tester.pump();
+
+    expect(
+      ghosts.saved?.sourceAttemptId,
+      '00000000-0000-4000-8000-000000000001',
+    );
+    expect(ghosts.saved?.score, 700);
+  });
+}
+
+class _RecordingGhostRepository implements GhostDuelRepository {
+  GhostRun? saved;
+
+  @override
+  Future<GhostRun?> loadBest({
+    required String userId,
+    required GhostDuelKey key,
+  }) async => null;
+
+  @override
+  Future<GhostSaveResult> saveIfBetter(GhostRun run) async {
+    saved = run;
+    return GhostSaveResult(outcome: GhostDuelOutcome.firstRecord, bestRun: run);
+  }
 }
 
 class _AuthoritativeRepository

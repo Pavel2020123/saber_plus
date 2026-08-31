@@ -119,7 +119,7 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Motor backend autoritativo de Tira y afloja: esquema, emparejamiento, reloj, rondas idempotentes, abandono y eventos versionados (6F-D-C-A).
 - [x] Transporte Socket.IO autenticado, presencia, reloj autónomo y reconexión versionada de Tira y afloja (6F-D-C-B).
 - [x] Arena Flutter conectada al multijugador real, con estados de red, respaldo HTTP y recuperación (6F-D-C-C).
-- [ ] Récord fantasma autoritativo y sincronizado entre dispositivos cuando el backend publique el contrato de juegos.
+- [x] Récord fantasma autoritativo reconstruido desde intentos limpios y sincronizado entre dispositivos (6G-C).
 - Ranking con privacidad por defecto.
 - Batallas asíncronas, bloqueo y reporte.
 - Anuncios, referidos, soporte y calculadora de puntaje.

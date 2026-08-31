@@ -1,6 +1,6 @@
 # Contrato backend de Trivia Rush
 
-La etapa 6G-A implementa el motor autoritativo en NestJS y PostgreSQL; la etapa 6G-B conecta el cliente Flutter. Todas las rutas requieren JWT, correo verificado y una cuenta de estudiante. Flutter anima el estado recibido, pero no calcula puntuación, combo, vencimiento ni respuestas correctas.
+La etapa 6G-A implementa el motor autoritativo en NestJS y PostgreSQL; la etapa 6G-B conecta el cliente Flutter y la etapa 6G-C sincroniza el récord fantasma. Todas las rutas requieren JWT, correo verificado y una cuenta de estudiante. Flutter anima el estado recibido, pero no calcula puntuación, combo, vencimiento ni respuestas correctas.
 
 ## Rutas
 
@@ -67,6 +67,14 @@ No hay límite artificial de potenciadores: cien recompensas válidas pueden pro
 - `POST /trivia-rush/intentos/:id/finalizar`: confirma un cierre decidido por el servidor; no permite terminar anticipadamente.
 - `POST /trivia-rush/intentos/:id/abandonar`: abandona voluntariamente la ronda.
 
+### Récord fantasma
+
+`GET /trivia-rush/fantasma?areas=MATEMATICAS,INGLES&duracionSegundos=60`
+
+Devuelve `fantasma: null` si aún no existe una ronda elegible. En caso contrario entrega el identificador del intento de origen, versión de reglas, configuración, puntaje, aciertos, mejor combo, fecha de finalización y checkpoints de tiempo/puntaje.
+
+Solo considera intentos propios en estado `FINALIZADO` o `EXPIRADO`, sin potenciadores y con la versión actual de reglas. El desempate usa puntaje, aciertos, mejor combo y fecha de finalización. Los checkpoints se reconstruyen con `respondidaEn` y `puntosOtorgados`; no existe una operación que acepte un récord calculado por Flutter.
+
 ## Estado público
 
 Cada respuesta contiene `servidorAhora` y un objeto `intento` con configuración, fechas, tiempo restante, marcador, progreso, potenciadores activos y solo la pregunta actual. La pregunta pública contiene identificadores, enunciado, contexto, imagen, dificultad, área, tema, subtema y opciones ordenadas.
@@ -79,4 +87,4 @@ La migración `20260831183000_add_trivia_rush_autoritativo` crea intentos, pregu
 
 Las reglas versión 1 conservan el puntaje actual: 100 puntos base y multiplicadores `x1`, `x2`, `x3` y `x4` desde combos 1, 3, 6 y 10. Cualquier potenciador marca la ronda como asistida. El diagnóstico final agrupa errores por tema y subtema.
 
-El récord fantasma autoritativo no forma parte de este contrato; se construirá en una etapa separada usando únicamente intentos finalizados y no asistidos.
+El récord fantasma autoritativo reutiliza esta persistencia y las respuestas calificadas. No necesita una tabla duplicada que pueda quedar desactualizada.

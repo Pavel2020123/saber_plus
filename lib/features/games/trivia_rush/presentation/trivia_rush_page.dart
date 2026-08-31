@@ -477,6 +477,7 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
           correctAnswers: _score.correctAnswers,
           completedAt: DateTime.now(),
           checkpoints: _ghostCheckpoints,
+          sourceAttemptId: _isAuthoritative ? _session?.attemptId : null,
         );
         _ghostSaveResult = await ref
             .read(ghostDuelRepositoryProvider)

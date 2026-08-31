@@ -46,14 +46,14 @@ El backend NestJS ofrece operaciones versionadas equivalentes a:
 2. entregar preguntas públicas sin la clave correcta;
 3. validar una respuesta individual, impedir duplicados y devolver el resultado después de responder;
 4. autorizar y consumir un potenciador una sola vez;
-5. finalizar por vencimiento y devolver puntaje, combo, diagnóstico y récord personal confirmado;
+5. finalizar por vencimiento y devolver puntaje, combo y diagnóstico confirmado;
 6. recuperar un intento vigente de manera idempotente.
 
 El reloj, la secuencia, el puntaje, los checkpoints y la finalización confiable se calculan en el servidor. El cliente puede animarlos, pero no debe convertirse en la fuente de verdad.
 
 ## 4. Récord fantasma en la nube
 
-El servidor debe guardar el mejor intento limpio por:
+La etapa 6G-C quedó implementada. El servidor consulta el mejor intento limpio por:
 
 - `userId`;
 - tipo de juego;
@@ -61,7 +61,9 @@ El servidor debe guardar el mejor intento limpio por:
 - áreas seleccionadas;
 - duración.
 
-Flutter solo consulta ese récord. El backend debe generarlo a partir de un intento de Trivia Rush ya calificado; no debe aceptar un puntaje arbitrario enviado por el teléfono. La respuesta necesita puntaje final, aciertos, mejor combo y checkpoints de tiempo/puntaje. Un cambio en las reglas de puntuación crea una versión nueva y no mezcla récords incompatibles.
+Flutter solo consulta ese récord mediante `GET /trivia-rush/fantasma`. El backend lo reconstruye a partir de respuestas finales de un intento ya calificado y nunca acepta un puntaje arbitrario enviado por el teléfono. La respuesta contiene intento de origen, puntaje final, aciertos, mejor combo y checkpoints de tiempo/puntaje. Un cambio en las reglas de puntuación crea una versión nueva y no mezcla récords incompatibles.
+
+No se creó una copia mutable del récord: la fuente de verdad continúa siendo `IntentoTriviaRush` y sus respuestas autoritativas. Esto evita inconsistencias y permite sincronizar automáticamente el fantasma entre dispositivos.
 
 ## 5. Persistencia sugerida
 

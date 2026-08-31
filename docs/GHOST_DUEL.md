@@ -8,10 +8,13 @@ El duelo fantasma es un modo individual construido sobre Trivia Rush. No conecta
 - La primera partida crea el fantasma y las siguientes muestran si el puntaje actual va delante, detrás o empatado en cada instante.
 - El récord se decide por puntaje; en empate se comparan aciertos y mejor combo.
 - Los potenciadores están desactivados y una partida asistida es rechazada por el repositorio.
-- El récord actual se guarda localmente y no se utiliza en rankings públicos.
+- En demostración el récord se guarda localmente; una cuenta real consulta el mejor intento confirmado por el backend.
+- El servidor reconstruye los checkpoints desde las respuestas finales y sus marcas de tiempo, sin aceptar puntajes enviados por el teléfono.
+- Solo compiten intentos finalizados o expirados, sin potenciadores, con la misma versión de reglas, áreas y duración.
+- El récord queda sincronizado entre dispositivos y no se utiliza en rankings públicos.
 - Los datos dañados, de otra cuenta o de otra configuración se descartan de forma segura.
 
-La implementación local permite probar todo el flujo sin inventar endpoints. Para sincronizar entre dispositivos o usar el resultado fuera del teléfono, el backend debe recalcular y firmar el intento.
+La ruta autenticada `GET /trivia-rush/fantasma` devuelve el mejor intento limpio del propio estudiante. Al cerrar un duelo, Flutter vuelve a consultarla para distinguir entre primer récord, nuevo récord o récord conservado. El cliente nunca publica checkpoints ni solicita reemplazar directamente el récord.
 
 ## Audio opcional pendiente
 

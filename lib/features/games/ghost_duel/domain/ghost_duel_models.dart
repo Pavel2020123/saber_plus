@@ -90,6 +90,7 @@ class GhostRun {
     required this.completedAt,
     required Iterable<GhostCheckpoint> checkpoints,
     this.assisted = false,
+    this.sourceAttemptId,
   }) : checkpoints = List.unmodifiable(
          [...checkpoints]..sort(
            (left, right) => left.elapsedSeconds.compareTo(right.elapsedSeconds),
@@ -104,6 +105,7 @@ class GhostRun {
   final DateTime completedAt;
   final List<GhostCheckpoint> checkpoints;
   final bool assisted;
+  final String? sourceAttemptId;
 
   int scoreAt(int elapsedSeconds) {
     var result = 0;
@@ -135,6 +137,7 @@ class GhostRun {
         .map((checkpoint) => checkpoint.toJson())
         .toList(growable: false),
     'assisted': assisted,
+    'sourceAttemptId': ?sourceAttemptId,
   };
 
   factory GhostRun.fromJson(Map<String, dynamic> json) {
@@ -161,6 +164,7 @@ class GhostRun {
             (item) => GhostCheckpoint.fromJson(Map<String, dynamic>.from(item)),
           ),
       assisted: json['assisted'] as bool? ?? false,
+      sourceAttemptId: json['sourceAttemptId'] as String?,
     );
   }
 }
