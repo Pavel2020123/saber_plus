@@ -41,6 +41,8 @@ Las animaciones respetan la opción de reducción de movimiento del sistema. Cua
 
 Los tres PNG de esta etapa viven en `assets/images/games/tug_of_war/`: fondo de arena, competidor del estudiante y rival CPU. La posición de la cuerda, las partículas y los estados de la ronda siguen siendo controlados por código para que el resultado visual coincida con el motor del juego.
 
-## Multijugador pendiente
+## Multijugador en construcción
 
-La etapa 6F-D-C continúa pendiente. El backend necesitará emparejamiento, WebSockets autenticados, reloj de servidor, rondas idempotentes, reconexión, abandono, control de versiones de reglas y detección básica de manipulación. No se habilitará chat libre entre jugadores. Hasta contar con ese contrato autoritativo, la partida disponible seguirá siendo local contra CPU.
+La etapa 6F-D-C-A ya incorporó al backend el esquema de partidas, emparejamiento, reloj de servidor, rondas idempotentes, abandono y eventos versionados. El contrato se detalla en [TUG_OF_WAR_BACKEND_CONTRACT.md](TUG_OF_WAR_BACKEND_CONTRACT.md).
+
+Continúan pendientes 6F-D-C-B, para el transporte autenticado en tiempo real y la reconexión, y 6F-D-C-C, para conectar la arena Flutter. No se habilitará chat libre entre jugadores. Hasta terminar esas dos entregas, la partida visible seguirá siendo local contra CPU.
