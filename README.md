@@ -89,3 +89,5 @@ El catálogo seguro de becas, gratuidad y fondos oficiales se documenta en [docs
 La comparación con promedios nacionales del ICFES se documenta en [docs/NATIONAL_SCORE_COMPARISON.md](docs/NATIONAL_SCORE_COMPARISON.md).
 
 El modelo gratuito con publicidad, planes individuales y espacios de institución se documenta en [docs/BUSINESS_MODEL.md](docs/BUSINESS_MODEL.md).
+
+El juego individual de velocidad, sus potenciadores y el contrato seguro pendiente se documentan en [docs/TRIVIA_RUSH.md](docs/TRIVIA_RUSH.md).

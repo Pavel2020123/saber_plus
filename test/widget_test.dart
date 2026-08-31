@@ -271,6 +271,39 @@ void main() {
     expect(find.textContaining('3 cuadernos'), findsOneWidget);
   });
 
+  testWidgets('abre la configuración de Trivia Rush desde practicar', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Practicar'));
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('open-trivia-rush')),
+      300,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.tap(find.byKey(const Key('open-trivia-rush')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Responde rápido, construye combos'), findsOneWidget);
+    expect(find.byKey(const Key('trivia-area-mixed')), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('start-trivia-rush')),
+      300,
+      scrollable: find.byType(Scrollable).last,
+    );
+    expect(find.byKey(const Key('start-trivia-rush')), findsOneWidget);
+  });
+
   testWidgets('configura y abre una prueba contrarreloj demostrativa', (
     tester,
   ) async {

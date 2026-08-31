@@ -21,6 +21,9 @@ import '../features/dashboard/presentation/student_dashboard_page.dart';
 import '../features/dashboard/presentation/teacher_dashboard_page.dart';
 import '../features/difficult_questions/presentation/difficult_questions_page.dart';
 import '../features/gamification/presentation/gamification_page.dart';
+import '../features/games/trivia_rush/domain/trivia_rush_models.dart';
+import '../features/games/trivia_rush/presentation/trivia_rush_page.dart';
+import '../features/games/trivia_rush/presentation/trivia_rush_setup_page.dart';
 import '../features/historical_simulations/presentation/historical_simulation_detail_page.dart';
 import '../features/historical_simulations/presentation/historical_simulations_page.dart';
 import '../features/favorites/presentation/favorites_page.dart';
@@ -220,6 +223,22 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 pageBuilder: (context, state) =>
                     const NoTransitionPage(child: PracticeHubPage()),
                 routes: [
+                  _animatedRoute(
+                    path: 'trivia-rush',
+                    builder: (context, state) => const TriviaRushSetupPage(),
+                    routes: [
+                      _animatedRoute(
+                        path: 'play',
+                        builder: (context, state) {
+                          final config = TriviaRushConfig.tryFromUri(state.uri);
+                          if (config == null) {
+                            return const TriviaRushSetupPage();
+                          }
+                          return TriviaRushPage(config: config);
+                        },
+                      ),
+                    ],
+                  ),
                   _animatedRoute(
                     path: 'official',
                     builder: (context, state) => const OfficialSimulationPage(),

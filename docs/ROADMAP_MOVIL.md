@@ -105,6 +105,11 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Afinidades de carrera y acceso seguro a las consultas oficiales de programas e instituciones del SNIES.
 - [x] Catálogo de becas, gratuidad y fondos con fuentes oficiales, fecha de verificación y límites de elegibilidad.
 - [x] Comparación orientativa con promedios globales oficiales del ICFES separados por calendario, año y fecha de verificación.
+- [x] Trivia Rush individual con rondas de 60/90/120 segundos, combos, potenciadores ilimitados bajo demanda y diagnóstico final por tema.
+- [ ] Validación autoritativa de Trivia Rush, recompensas verificadas y persistencia de partidas en el backend.
+- [ ] Audio de Trivia Rush cuando el equipo entregue los cinco recursos con su licencia.
+- [ ] Juego de memoria con fórmulas y glosario.
+- [ ] Duelo fantasma contra el récord personal.
 - Ranking con privacidad por defecto.
 - Batallas asíncronas, bloqueo y reporte.
 - Anuncios, referidos, soporte y calculadora de puntaje.

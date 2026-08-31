@@ -141,6 +141,28 @@ class PracticeHubPage extends StatelessWidget {
           ),
           const SizedBox(height: 8),
         ],
+        const SizedBox(height: 18),
+        Text(
+          'Juegos individuales',
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+        const SizedBox(height: 8),
+        const Text(
+          'Entrena velocidad y precisión sin afectar tu progreso académico.',
+        ),
+        const SizedBox(height: 14),
+        Card(
+          child: ListTile(
+            key: const Key('open-trivia-rush'),
+            leading: const CircleAvatar(
+              child: Icon(Icons.rocket_launch_rounded),
+            ),
+            title: const Text('Trivia Rush'),
+            subtitle: const Text('Tiempo, combos y potenciadores opcionales'),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            onTap: () => context.push('/student/practice/trivia-rush'),
+          ),
+        ),
       ],
     ),
   );
