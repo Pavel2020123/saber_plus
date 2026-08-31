@@ -7,7 +7,7 @@ Trivia Rush es un juego individual de velocidad. El estudiante elige una materia
 - Cada acierto entrega 100 puntos por el multiplicador activo.
 - Los combos 1–2 usan `x1`, 3–5 usan `x2`, 6–9 usan `x3` y desde 10 usan `x4`.
 - Un error reinicia el combo, salvo que haya una protección activa.
-- La demostración aumenta la dificultad cada diez preguntas; en producción el orden deberá decidirlo el servidor.
+- La demostración aumenta la dificultad cada diez preguntas; el backend real ya selecciona hasta diez preguntas básicas, diez medias y diez avanzadas.
 - La pantalla final informa aciertos, errores, preguntas saltadas, mejor combo y temas que conviene reforzar.
 - Las rondas con potenciadores quedan marcadas como asistidas y no podrán participar en rankings futuros.
 - No se muestran anuncios durante la partida.
@@ -16,9 +16,9 @@ Los potenciadores disponibles son diez segundos adicionales, descartar dos opcio
 
 ## Protección del banco
 
-La sesión solo contiene enunciados y opciones públicas. Nunca serializa `esCorrecta` ni otra clave de respuesta. La demostración usa un repositorio local aislado; una cuenta real recibe un mensaje explícito mientras se publica el contrato autoritativo.
+La sesión solo contiene enunciados y opciones públicas. Nunca serializa `esCorrecta` ni otra clave de respuesta. La demostración usa un repositorio local aislado; las cuentas reales quedaron conectadas al motor autoritativo en 6G-B y recuperan el intento vigente al volver a abrir la misma ronda.
 
-El backend debe exponer operaciones autenticadas e idempotentes para:
+El backend ya expone operaciones autenticadas e idempotentes para:
 
 1. crear un intento con áreas y duración;
 2. validar una respuesta individual y devolver su resultado únicamente después de responder;
@@ -28,9 +28,9 @@ El backend debe exponer operaciones autenticadas e idempotentes para:
 
 El servidor será la fuente de verdad para el orden de las preguntas, la calificación, el puntaje final y la validez de una recompensa. La aplicación no debe calcular un resultado competitivo confiable usando una clave descargada.
 
-## Audio pendiente de incorporar
+## Audio incorporado
 
-Los cinco recursos deben ser cortos, libres de regalías y contar con licencia conservada por el equipo:
+Los recursos están integrados y deben conservar su licencia dentro del proyecto:
 
 - `trivia_correct.mp3`: acierto, entre 0,2 y 0,5 segundos;
 - `trivia_wrong.mp3`: error suave, entre 0,2 y 0,5 segundos;
@@ -38,4 +38,4 @@ Los cinco recursos deben ser cortos, libres de regalías y contar con licencia c
 - `trivia_countdown.mp3`: tic muy breve para los últimos segundos;
 - `trivia_finish.mp3`: cierre de ronda, entre 1 y 2 segundos.
 
-Se ubicarán en `assets/audio/`. No se declara un archivo inexistente en `pubspec.yaml`: la conexión de audio se hará después de que el equipo entregue los recursos y confirme sus licencias.
+Se encuentran en `assets/audio/`, están declarados en `pubspec.yaml` y pueden activarse o desactivarse desde las preferencias de la app.

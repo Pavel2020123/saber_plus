@@ -106,7 +106,9 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Catálogo de becas, gratuidad y fondos con fuentes oficiales, fecha de verificación y límites de elegibilidad.
 - [x] Comparación orientativa con promedios globales oficiales del ICFES separados por calendario, año y fecha de verificación.
 - [x] Trivia Rush individual con rondas de 60/90/120 segundos, combos, potenciadores ilimitados bajo demanda y diagnóstico final por tema.
-- [ ] Validación autoritativa de Trivia Rush, recompensas verificadas y persistencia de partidas en el backend.
+- [x] Motor backend autoritativo de Trivia Rush: persistencia, reloj, secuencia, puntuación, respuestas y consumo único de concesiones (6G-A).
+- [x] Cliente Flutter de Trivia Rush conectado al motor autoritativo, con reloj sincronizado, recuperación de intentos y cierre confirmado (6G-B).
+- [ ] Emisión de concesiones mediante AdMob SSV y derechos de tienda cuando existan las cuentas comerciales.
 - [x] Audio de Trivia Rush para acierto, error, cuenta regresiva y cierre, con preferencia general y prueba manual desde ajustes.
 - [x] Juego de memoria sin conexión con fórmulas, glosario, tres niveles, pistas ilimitadas bajo demanda y repaso final.
 - [x] Audio del juego de memoria para giro, pareja y victoria, con preferencia general y manejo seguro de fallos.

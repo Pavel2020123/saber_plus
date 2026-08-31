@@ -78,10 +78,17 @@ enum TriviaRushBooster {
 }
 
 class TriviaRushSession {
-  const TriviaRushSession({required this.attemptId, required this.questions});
+  const TriviaRushSession({
+    required this.attemptId,
+    required this.questions,
+    this.serverState,
+  });
 
   final String attemptId;
   final List<PracticeQuestion> questions;
+  final TriviaRushServerState? serverState;
+
+  bool get isAuthoritative => serverState != null;
 }
 
 class TriviaRushAnswerEvaluation {
@@ -90,18 +97,28 @@ class TriviaRushAnswerEvaluation {
     required this.isCorrect,
     required this.correctAnswerId,
     required this.explanation,
+    this.isFinal = true,
+    this.canRetry = false,
+    this.serverState,
   });
 
   final String questionId;
   final bool isCorrect;
-  final String correctAnswerId;
+  final String? correctAnswerId;
   final String? explanation;
+  final bool isFinal;
+  final bool canRetry;
+  final TriviaRushServerState? serverState;
 }
 
 class TriviaRushBoosterActivation {
-  const TriviaRushBoosterActivation({this.eliminatedAnswerIds = const {}});
+  const TriviaRushBoosterActivation({
+    this.eliminatedAnswerIds = const {},
+    this.serverState,
+  });
 
   final Set<String> eliminatedAnswerIds;
+  final TriviaRushServerState? serverState;
 }
 
 class TriviaRushScore {
@@ -195,6 +212,189 @@ class TriviaRushWeakness {
     return '/student/practice/subtopic/${area.slug}/${Uri.encodeComponent(id)}';
   }
 }
+
+enum TriviaRushAttemptStatus {
+  active,
+  finished,
+  expired,
+  abandoned;
+
+  bool get isTerminal => this != active;
+
+  factory TriviaRushAttemptStatus.fromBackend(String value) => switch (value) {
+    'ACTIVO' => active,
+    'FINALIZADO' => finished,
+    'EXPIRADO' => expired,
+    'ABANDONADO' => abandoned,
+    _ => throw FormatException('Estado de Trivia Rush desconocido: $value'),
+  };
+}
+
+class TriviaRushServerState {
+  const TriviaRushServerState({
+    required this.attemptId,
+    required this.status,
+    required this.ruleVersion,
+    required this.areas,
+    required this.baseDurationSeconds,
+    required this.extraTimeSeconds,
+    required this.serverNow,
+    required this.receivedAt,
+    required this.startedAt,
+    required this.expiresAt,
+    required this.score,
+    required this.currentIndex,
+    required this.totalQuestions,
+    required this.assisted,
+    required this.comboShieldActive,
+    required this.secondChanceActive,
+    required this.eliminatedAnswerIds,
+    required this.weaknesses,
+    this.finishedAt,
+    this.currentQuestion,
+  });
+
+  final String attemptId;
+  final TriviaRushAttemptStatus status;
+  final int ruleVersion;
+  final List<AcademicArea> areas;
+  final int baseDurationSeconds;
+  final int extraTimeSeconds;
+  final DateTime serverNow;
+  final DateTime receivedAt;
+  final DateTime startedAt;
+  final DateTime expiresAt;
+  final DateTime? finishedAt;
+  final TriviaRushScore score;
+  final int currentIndex;
+  final int totalQuestions;
+  final bool assisted;
+  final bool comboShieldActive;
+  final bool secondChanceActive;
+  final Set<String> eliminatedAnswerIds;
+  final PracticeQuestion? currentQuestion;
+  final List<TriviaRushWeakness> weaknesses;
+
+  bool get isTerminal => status.isTerminal;
+
+  int secondsRemainingAt(DateTime deviceNow) {
+    if (isTerminal) return 0;
+    final authoritativeNow = _authoritativeNow(deviceNow);
+    final milliseconds = expiresAt.difference(authoritativeNow).inMilliseconds;
+    if (milliseconds <= 0) return 0;
+    return (milliseconds / 1000).ceil();
+  }
+
+  int elapsedSecondsAt(DateTime deviceNow) {
+    final authoritativeNow = isTerminal
+        ? (finishedAt ?? serverNow)
+        : _authoritativeNow(deviceNow);
+    return authoritativeNow
+        .difference(startedAt)
+        .inSeconds
+        .clamp(0, baseDurationSeconds + extraTimeSeconds);
+  }
+
+  DateTime _authoritativeNow(DateTime deviceNow) =>
+      deviceNow.add(serverNow.difference(receivedAt));
+
+  factory TriviaRushServerState.fromJson(
+    Map<String, dynamic> json, {
+    DateTime? receivedAt,
+  }) {
+    final received = receivedAt ?? DateTime.now();
+    final attempt = _jsonMap(json['intento']);
+    final marker = _jsonMap(attempt['marcador']);
+    final progress = _jsonMap(attempt['progreso']);
+    final activeBoosters = _jsonMap(attempt['potenciadoresActivos']);
+    final result = _jsonMap(attempt['resultado']);
+    final questionJson = attempt['pregunta'];
+    return TriviaRushServerState(
+      attemptId: attempt['id'] as String,
+      status: TriviaRushAttemptStatus.fromBackend(attempt['estado'] as String),
+      ruleVersion: _jsonInt(attempt['versionReglas']),
+      areas: (attempt['areas'] as List<dynamic>? ?? const [])
+          .whereType<String>()
+          .map(AcademicArea.fromBackend)
+          .toList(growable: false),
+      baseDurationSeconds: _jsonInt(attempt['duracionBaseSegundos']),
+      extraTimeSeconds: _jsonInt(attempt['tiempoExtraSegundos']),
+      serverNow: DateTime.parse(json['servidorAhora'] as String),
+      receivedAt: received,
+      startedAt: DateTime.parse(attempt['iniciadoEn'] as String),
+      expiresAt: DateTime.parse(attempt['venceEn'] as String),
+      finishedAt: _optionalDate(attempt['finalizadoEn']),
+      score: TriviaRushScore(
+        points: _jsonInt(marker['puntaje']),
+        combo: _jsonInt(marker['comboActual']),
+        bestCombo: _jsonInt(marker['mejorCombo']),
+        correctAnswers: _jsonInt(marker['respuestasCorrectas']),
+        incorrectAnswers: _jsonInt(marker['respuestasIncorrectas']),
+        skippedQuestions: _jsonInt(marker['preguntasSaltadas']),
+      ),
+      currentIndex: _jsonInt(progress['indiceActual']),
+      totalQuestions: _jsonInt(progress['totalPreguntas']),
+      assisted: attempt['asistido'] == true,
+      comboShieldActive: activeBoosters['escudoCombo'] == true,
+      secondChanceActive: activeBoosters['segundaOportunidad'] == true,
+      eliminatedAnswerIds:
+          (activeBoosters['opcionesEliminadas'] as List<dynamic>? ?? const [])
+              .whereType<String>()
+              .toSet(),
+      currentQuestion: questionJson is Map
+          ? _serverQuestion(Map<String, dynamic>.from(questionJson))
+          : null,
+      weaknesses: (result['diagnostico'] as List<dynamic>? ?? const [])
+          .whereType<Map>()
+          .map((item) => _serverWeakness(Map<String, dynamic>.from(item)))
+          .toList(growable: false),
+    );
+  }
+}
+
+PracticeQuestion _serverQuestion(Map<String, dynamic> json) {
+  final id = json['id'] as String;
+  final context = json['contexto'] as String?;
+  return PracticeQuestion(
+    id: id,
+    statement: json['enunciado'] as String,
+    difficulty: json['dificultad'] as String? ?? '',
+    imageUrl: json['imagenUrl'] as String?,
+    options: (json['opciones'] as List<dynamic>? ?? const [])
+        .whereType<Map>()
+        .map((item) => PracticeOption.fromJson(Map<String, dynamic>.from(item)))
+        .toList(growable: false),
+    subtopicId: json['subtemaId'] as String?,
+    subtopicName: json['subtema'] as String? ?? '',
+    themeName: json['tema'] as String? ?? '',
+    area: AcademicArea.fromBackend(json['area'] as String),
+    caseContent: context == null || context.trim().isEmpty
+        ? null
+        : PracticeCase(
+            id: 'trivia-context-$id',
+            title: '',
+            context: context,
+            imageUrl: json['imagenUrl'] as String?,
+          ),
+  );
+}
+
+TriviaRushWeakness _serverWeakness(Map<String, dynamic> json) =>
+    TriviaRushWeakness(
+      area: AcademicArea.fromBackend(json['area'] as String),
+      theme: json['tema'] as String? ?? '',
+      subtopic: json['subtema'] as String? ?? '',
+      subtopicId: json['subtemaId'] as String?,
+      errors: _jsonInt(json['errores']),
+    );
+
+Map<String, dynamic> _jsonMap(Object? value) =>
+    value is Map ? Map<String, dynamic>.from(value) : const {};
+
+int _jsonInt(Object? value) => value is num ? value.toInt() : 0;
+
+DateTime? _optionalDate(Object? value) =>
+    value is String && value.isNotEmpty ? DateTime.tryParse(value) : null;
 
 List<TriviaRushWeakness> triviaRushWeaknesses(
   Iterable<TriviaRushReviewEntry> review,

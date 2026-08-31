@@ -38,7 +38,9 @@ El juego de memoria ya dispone de 80 fórmulas y 50 términos locales. Antes de 
 
 ## 3. Contrato autoritativo de Trivia Rush
 
-El backend NestJS debe ofrecer operaciones versionadas equivalentes a:
+El motor, la persistencia y el consumo seguro de concesiones quedaron implementados en la etapa 6G-A. Flutter quedó conectado en 6G-B con reloj sincronizado, recuperación y resultados del servidor. El contrato exacto está en `docs/TRIVIA_RUSH_BACKEND_CONTRACT.md`. Falta emitir las concesiones reales mediante AdMob SSV o derechos validados de tienda cuando existan las cuentas comerciales.
+
+El backend NestJS ofrece operaciones versionadas equivalentes a:
 
 1. crear un intento con áreas y duración;
 2. entregar preguntas públicas sin la clave correcta;

@@ -10,6 +10,7 @@ import '../../ghost_duel/domain/ghost_duel_models.dart';
 import '../../ghost_duel/presentation/ghost_duel_providers.dart';
 import '../../../practice/domain/practice_models.dart';
 import '../domain/trivia_rush_models.dart';
+import '../domain/trivia_rush_repository.dart';
 import 'trivia_rush_providers.dart';
 
 class TriviaRushPage extends ConsumerStatefulWidget {
@@ -29,6 +30,7 @@ class TriviaRushPage extends ConsumerStatefulWidget {
 class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
   Timer? _timer;
   TriviaRushSession? _session;
+  TriviaRushServerState? _serverState;
   Object? _error;
   TriviaRushScore _score = const TriviaRushScore();
   final List<TriviaRushReviewEntry> _review = [];
@@ -50,13 +52,17 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
   bool? _lastAnswerCorrect;
   bool _countdownSoundPlayed = false;
 
+  bool get _isAuthoritative => _serverState != null;
+
   PracticeQuestion? get _question {
+    if (_serverState case final state?) return state.currentQuestion;
     final questions = _session?.questions;
     if (questions == null || _questionIndex >= questions.length) return null;
     return questions[_questionIndex];
   }
 
   int get _elapsedSeconds =>
+      _serverState?.elapsedSecondsAt(DateTime.now()) ??
       (widget.config.duration.seconds - _secondsRemaining).clamp(
         0,
         widget.config.duration.seconds,
@@ -79,6 +85,9 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
     _timer?.cancel();
     _secondsRemaining = widget.config.duration.seconds;
     _countdownSoundPlayed = false;
+    _finished = false;
+    _completing = false;
+    _error = null;
     try {
       if (widget.ghostMode) {
         final userId = ref.read(ghostDuelUserIdProvider);
@@ -101,32 +110,74 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
           .start(widget.config);
       if (!mounted) return;
       if (session.questions.isEmpty) {
+        if (session.serverState?.isTerminal == true) {
+          if (!mounted) return;
+          setState(() {
+            _session = session;
+            _applyServerState(session.serverState!);
+            _finished = true;
+          });
+          return;
+        }
         throw const ApiError(
           code: 'empty_trivia_rush',
           message: 'Todavía no hay preguntas disponibles para esta ronda.',
         );
       }
-      setState(() => _session = session);
-      _timer = Timer.periodic(const Duration(seconds: 1), (_) {
-        if (!mounted || _finished) return;
-        if (_secondsRemaining <= 1) {
-          setState(() => _secondsRemaining = 0);
-          _completeRound();
-          return;
-        }
-        setState(() {
-          _secondsRemaining--;
-          _questionElapsedSeconds++;
-        });
-        if (_secondsRemaining == 5 && !_countdownSoundPlayed) {
-          _countdownSoundPlayed = true;
-          unawaited(
-            ref.read(gameAudioFeedbackProvider).play(GameSound.triviaCountdown),
-          );
-        }
+      setState(() {
+        _session = session;
+        if (session.serverState case final state?) _applyServerState(state);
       });
+      _startTimer();
     } on Object catch (error) {
       if (mounted) setState(() => _error = error);
+    }
+  }
+
+  void _startTimer() {
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (!mounted || _finished) return;
+      final authoritativeRemaining = _serverState?.secondsRemainingAt(
+        DateTime.now(),
+      );
+      final nextSeconds = authoritativeRemaining ?? _secondsRemaining - 1;
+      if (nextSeconds <= 0) {
+        if (_secondsRemaining != 0) {
+          setState(() => _secondsRemaining = 0);
+        }
+        unawaited(_completeRound());
+        return;
+      }
+      setState(() {
+        _secondsRemaining = nextSeconds;
+        if (!_isAuthoritative) _questionElapsedSeconds++;
+      });
+      if (_secondsRemaining == 5 && !_countdownSoundPlayed) {
+        _countdownSoundPlayed = true;
+        unawaited(
+          ref.read(gameAudioFeedbackProvider).play(GameSound.triviaCountdown),
+        );
+      }
+    });
+  }
+
+  void _applyServerState(TriviaRushServerState state) {
+    final previousQuestionId = _serverState?.currentQuestion?.id;
+    _serverState = state;
+    _score = state.score;
+    _secondsRemaining = state.secondsRemainingAt(DateTime.now());
+    _questionIndex = state.currentIndex;
+    _assisted = state.assisted;
+    _comboShieldActive = state.comboShieldActive;
+    _secondChanceActive = state.secondChanceActive;
+    _eliminatedOptions
+      ..clear()
+      ..addAll(state.eliminatedAnswerIds);
+    if (previousQuestionId != state.currentQuestion?.id) {
+      _failedOptions.clear();
+      _lastAnswerCorrect = null;
+      _questionElapsedSeconds = 0;
     }
   }
 
@@ -153,6 +204,16 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
             responseTimeSeconds: _questionElapsedSeconds,
           );
       if (!mounted) return;
+
+      if (evaluation.serverState case final state?) {
+        await _handleAuthoritativeAnswer(
+          evaluation: evaluation,
+          state: state,
+          question: question,
+          answerId: answerId,
+        );
+        return;
+      }
 
       if (!evaluation.isCorrect && _secondChanceActive) {
         unawaited(
@@ -212,6 +273,53 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
     }
   }
 
+  Future<void> _handleAuthoritativeAnswer({
+    required TriviaRushAnswerEvaluation evaluation,
+    required TriviaRushServerState state,
+    required PracticeQuestion question,
+    required String answerId,
+  }) async {
+    unawaited(
+      ref
+          .read(gameAudioFeedbackProvider)
+          .play(
+            evaluation.isCorrect
+                ? GameSound.triviaCorrect
+                : GameSound.triviaWrong,
+          ),
+    );
+    if (evaluation.canRetry) {
+      setState(() {
+        _applyServerState(state);
+        _failedOptions.add(answerId);
+        _lastAnswerCorrect = false;
+        _submitting = false;
+      });
+      return;
+    }
+
+    setState(() {
+      if (evaluation.isFinal) {
+        _review.add(
+          TriviaRushReviewEntry(
+            question: question,
+            selectedAnswerId: answerId,
+            evaluation: evaluation,
+          ),
+        );
+      }
+      _lastAnswerCorrect = evaluation.isCorrect;
+    });
+    _recordGhostCheckpoint(score: state.score);
+    await Future<void>.delayed(const Duration(milliseconds: 550));
+    if (!mounted) return;
+    setState(() {
+      _applyServerState(state);
+      _submitting = false;
+    });
+    if (state.isTerminal) await _completeRound();
+  }
+
   Future<void> _activateBooster(TriviaRushBooster booster) async {
     final session = _session;
     final question = _question;
@@ -247,6 +355,14 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
             booster: booster,
           );
       if (!mounted) return;
+      if (activation.serverState case final state?) {
+        setState(() {
+          _applyServerState(state);
+          _submitting = false;
+        });
+        if (state.isTerminal) await _completeRound();
+        return;
+      }
       setState(() {
         _assisted = true;
         _submitting = false;
@@ -293,11 +409,12 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
     if (exhausted) _completeRound();
   }
 
-  void _recordGhostCheckpoint() {
+  void _recordGhostCheckpoint({TriviaRushScore? score}) {
     if (!widget.ghostMode) return;
+    final effectiveScore = score ?? _score;
     final checkpoint = GhostCheckpoint(
       elapsedSeconds: _elapsedSeconds,
-      score: _score.points,
+      score: effectiveScore.points,
     );
     if (_ghostCheckpoints.isNotEmpty &&
         _ghostCheckpoints.last.elapsedSeconds == checkpoint.elapsedSeconds) {
@@ -311,6 +428,43 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
     if (_finished || _completing) return;
     _timer?.cancel();
     setState(() => _completing = true);
+    if (_isAuthoritative && _serverState?.isTerminal != true) {
+      final repository = ref.read(triviaRushRepositoryProvider);
+      if (repository is! AuthoritativeTriviaRushRepository) {
+        setState(() => _completing = false);
+        return;
+      }
+      final authoritativeRepository =
+          repository as AuthoritativeTriviaRushRepository;
+      try {
+        final session = await authoritativeRepository.finish(
+          _session!.attemptId,
+        );
+        final state = session.serverState;
+        if (state == null) {
+          throw const ApiError(
+            code: 'invalid_trivia_state',
+            message: 'El servidor no devolvió el resultado de la ronda.',
+          );
+        }
+        if (!mounted) return;
+        setState(() {
+          _session = session;
+          _applyServerState(state);
+        });
+        if (!state.isTerminal) {
+          setState(() => _completing = false);
+          _startTimer();
+          return;
+        }
+      } on Object catch (error) {
+        if (!mounted) return;
+        setState(() => _completing = false);
+        _showMessage(_errorMessage(error));
+        _startTimer();
+        return;
+      }
+    }
     if (widget.ghostMode) {
       try {
         _recordGhostCheckpoint();
@@ -375,6 +529,7 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
       return _TriviaResultView(
         score: _score,
         review: _review,
+        serverWeaknesses: _serverState?.weaknesses,
         assisted: _assisted,
         ghostMode: widget.ghostMode,
         previousGhost: _ghostRun,
@@ -385,6 +540,14 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
               ? '/student/practice/ghost-duel'
               : '/student/practice/trivia-rush',
         ),
+      );
+    }
+    if (_question == null) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.ghostMode ? 'Duelo fantasma' : 'Trivia Rush'),
+        ),
+        body: const Center(child: CircularProgressIndicator()),
       );
     }
 
@@ -420,8 +583,12 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
               ],
               const SizedBox(height: 18),
               LinearProgressIndicator(
-                value: (_secondsRemaining / widget.config.duration.seconds)
-                    .clamp(0.0, 1.0),
+                value:
+                    (_secondsRemaining /
+                            ((_serverState?.baseDurationSeconds ??
+                                    widget.config.duration.seconds) +
+                                (_serverState?.extraTimeSeconds ?? 0)))
+                        .clamp(0.0, 1.0),
               ),
               const SizedBox(height: 20),
               Text(
@@ -479,7 +646,7 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
                 ),
                 const SizedBox(height: 6),
                 const Text(
-                  'En demostración son ilimitados. Con AdMob, cada uso gratuito pedirá un video voluntario.',
+                  'En demostración son ilimitados. En cuentas reales, cada uso requerirá una recompensa verificada de AdMob.',
                 ),
                 const SizedBox(height: 10),
                 Wrap(
@@ -524,7 +691,11 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('¿Salir de la ronda?'),
-        content: const Text('El progreso de esta partida no se conservará.'),
+        content: Text(
+          _isAuthoritative
+              ? 'La ronda activa quedará marcada como abandonada.'
+              : 'El progreso de esta partida no se conservará.',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
@@ -538,7 +709,22 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
         ],
       ),
     );
-    if (leave == true && mounted) context.pop();
+    if (leave != true || !mounted) return;
+    _timer?.cancel();
+    final repository = ref.read(triviaRushRepositoryProvider);
+    final session = _session;
+    if (_isAuthoritative &&
+        repository is AuthoritativeTriviaRushRepository &&
+        session != null) {
+      try {
+        await (repository as AuthoritativeTriviaRushRepository).abandon(
+          session.attemptId,
+        );
+      } on Object {
+        // El servidor expirará la ronda aunque el dispositivo pierda conexión.
+      }
+    }
+    if (mounted) context.pop();
   }
 }
 
@@ -708,6 +894,7 @@ class _TriviaResultView extends StatelessWidget {
   const _TriviaResultView({
     required this.score,
     required this.review,
+    required this.serverWeaknesses,
     required this.assisted,
     required this.ghostMode,
     required this.previousGhost,
@@ -718,6 +905,7 @@ class _TriviaResultView extends StatelessWidget {
 
   final TriviaRushScore score;
   final List<TriviaRushReviewEntry> review;
+  final List<TriviaRushWeakness>? serverWeaknesses;
   final bool assisted;
   final bool ghostMode;
   final GhostRun? previousGhost;
@@ -727,7 +915,7 @@ class _TriviaResultView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final weaknesses = triviaRushWeaknesses(review);
+    final weaknesses = serverWeaknesses ?? triviaRushWeaknesses(review);
     return Scaffold(
       key: const Key('trivia-result-view'),
       appBar: AppBar(

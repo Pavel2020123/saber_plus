@@ -16,3 +16,11 @@ abstract interface class TriviaRushRepository {
     required TriviaRushBooster booster,
   });
 }
+
+abstract interface class AuthoritativeTriviaRushRepository {
+  Future<TriviaRushSession> synchronize(String attemptId);
+
+  Future<TriviaRushSession> finish(String attemptId);
+
+  Future<void> abandon(String attemptId);
+}
