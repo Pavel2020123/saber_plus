@@ -5,14 +5,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/network/api_error.dart';
+import '../../ghost_duel/domain/ghost_duel_models.dart';
+import '../../ghost_duel/presentation/ghost_duel_providers.dart';
 import '../../../practice/domain/practice_models.dart';
 import '../domain/trivia_rush_models.dart';
 import 'trivia_rush_providers.dart';
 
 class TriviaRushPage extends ConsumerStatefulWidget {
-  const TriviaRushPage({required this.config, super.key});
+  const TriviaRushPage({
+    required this.config,
+    this.ghostMode = false,
+    super.key,
+  });
 
   final TriviaRushConfig config;
+  final bool ghostMode;
 
   @override
   ConsumerState<TriviaRushPage> createState() => _TriviaRushPageState();
@@ -26,11 +33,16 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
   final List<TriviaRushReviewEntry> _review = [];
   final Set<String> _eliminatedOptions = {};
   final Set<String> _failedOptions = {};
+  final List<GhostCheckpoint> _ghostCheckpoints = [];
+  GhostRun? _ghostRun;
+  GhostSaveResult? _ghostSaveResult;
   int _secondsRemaining = 0;
   int _questionIndex = 0;
   int _questionElapsedSeconds = 0;
   bool _submitting = false;
   bool _finished = false;
+  bool _completing = false;
+  bool _ghostPersistenceFailed = false;
   bool _assisted = false;
   bool _comboShieldActive = false;
   bool _secondChanceActive = false;
@@ -41,6 +53,12 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
     if (questions == null || _questionIndex >= questions.length) return null;
     return questions[_questionIndex];
   }
+
+  int get _elapsedSeconds =>
+      (widget.config.duration.seconds - _secondsRemaining).clamp(
+        0,
+        widget.config.duration.seconds,
+      );
 
   @override
   void initState() {
@@ -57,6 +75,22 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
 
   Future<void> _start() async {
     try {
+      if (widget.ghostMode) {
+        final userId = ref.read(ghostDuelUserIdProvider);
+        if (userId == null || userId.trim().isEmpty) {
+          throw const ApiError(
+            code: 'ghost_user_required',
+            message:
+                'Necesitas una sesión de estudiante para guardar tu fantasma.',
+          );
+        }
+        _ghostRun = await ref
+            .read(ghostDuelRepositoryProvider)
+            .loadBest(
+              userId: userId,
+              key: GhostDuelKey.fromTriviaConfig(widget.config),
+            );
+      }
       final session = await ref
           .read(triviaRushRepositoryProvider)
           .start(widget.config);
@@ -71,11 +105,8 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
       _timer = Timer.periodic(const Duration(seconds: 1), (_) {
         if (!mounted || _finished) return;
         if (_secondsRemaining <= 1) {
-          setState(() {
-            _secondsRemaining = 0;
-            _finished = true;
-          });
-          _timer?.cancel();
+          setState(() => _secondsRemaining = 0);
+          _completeRound();
           return;
         }
         setState(() {
@@ -94,6 +125,7 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
     if (session == null ||
         question == null ||
         _submitting ||
+        _completing ||
         _finished ||
         _eliminatedOptions.contains(answerId) ||
         _failedOptions.contains(answerId)) {
@@ -144,6 +176,7 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
         if (protectCombo) _comboShieldActive = false;
         _lastAnswerCorrect = evaluation.isCorrect;
       });
+      _recordGhostCheckpoint();
       await Future<void>.delayed(const Duration(milliseconds: 550));
       if (!mounted || _finished) return;
       _advance();
@@ -159,7 +192,14 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
   Future<void> _activateBooster(TriviaRushBooster booster) async {
     final session = _session;
     final question = _question;
-    if (session == null || question == null || _submitting || _finished) return;
+    if (session == null ||
+        question == null ||
+        _submitting ||
+        _completing ||
+        _finished ||
+        widget.ghostMode) {
+      return;
+    }
     if (booster == TriviaRushBooster.fiftyFifty &&
         _eliminatedOptions.isNotEmpty) {
       _showMessage('Ya descartaste dos opciones en esta pregunta.');
@@ -214,6 +254,7 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
   }
 
   void _advance() {
+    var exhausted = false;
     setState(() {
       _questionIndex++;
       _questionElapsedSeconds = 0;
@@ -223,9 +264,54 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
       _lastAnswerCorrect = null;
       _submitting = false;
       if (_questionIndex >= (_session?.questions.length ?? 0)) {
-        _finished = true;
-        _timer?.cancel();
+        exhausted = true;
       }
+    });
+    if (exhausted) _completeRound();
+  }
+
+  void _recordGhostCheckpoint() {
+    if (!widget.ghostMode) return;
+    final checkpoint = GhostCheckpoint(
+      elapsedSeconds: _elapsedSeconds,
+      score: _score.points,
+    );
+    if (_ghostCheckpoints.isNotEmpty &&
+        _ghostCheckpoints.last.elapsedSeconds == checkpoint.elapsedSeconds) {
+      _ghostCheckpoints[_ghostCheckpoints.length - 1] = checkpoint;
+    } else {
+      _ghostCheckpoints.add(checkpoint);
+    }
+  }
+
+  Future<void> _completeRound() async {
+    if (_finished || _completing) return;
+    _timer?.cancel();
+    setState(() => _completing = true);
+    if (widget.ghostMode) {
+      try {
+        _recordGhostCheckpoint();
+        final userId = ref.read(ghostDuelUserIdProvider)!;
+        final run = GhostRun(
+          userId: userId,
+          key: GhostDuelKey.fromTriviaConfig(widget.config),
+          score: _score.points,
+          bestCombo: _score.bestCombo,
+          correctAnswers: _score.correctAnswers,
+          completedAt: DateTime.now(),
+          checkpoints: _ghostCheckpoints,
+        );
+        _ghostSaveResult = await ref
+            .read(ghostDuelRepositoryProvider)
+            .saveIfBetter(run);
+      } on Object {
+        _ghostPersistenceFailed = true;
+      }
+    }
+    if (!mounted) return;
+    setState(() {
+      _completing = false;
+      _finished = true;
     });
   }
 
@@ -237,6 +323,7 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
   Widget build(BuildContext context) {
     if (_error case final error?) {
       return _TriviaErrorView(
+        title: widget.ghostMode ? 'Duelo fantasma' : 'Trivia Rush',
         message: _errorMessage(error),
         onRetry: () {
           setState(() => _error = null);
@@ -246,7 +333,9 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
     }
     if (_session == null) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Trivia Rush')),
+        appBar: AppBar(
+          title: Text(widget.ghostMode ? 'Duelo fantasma' : 'Trivia Rush'),
+        ),
         body: const Center(child: CircularProgressIndicator()),
       );
     }
@@ -255,7 +344,15 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
         score: _score,
         review: _review,
         assisted: _assisted,
-        onReplay: () => context.go('/student/practice/trivia-rush'),
+        ghostMode: widget.ghostMode,
+        previousGhost: _ghostRun,
+        ghostSaveResult: _ghostSaveResult,
+        ghostPersistenceFailed: _ghostPersistenceFailed,
+        onReplay: () => context.go(
+          widget.ghostMode
+              ? '/student/practice/ghost-duel'
+              : '/student/practice/trivia-rush',
+        ),
       );
     }
 
@@ -267,7 +364,7 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Trivia Rush'),
+          title: Text(widget.ghostMode ? 'Duelo fantasma' : 'Trivia Rush'),
           leading: IconButton(
             onPressed: _confirmExit,
             icon: const Icon(Icons.close_rounded),
@@ -282,6 +379,13 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
                 score: _score,
                 assisted: _assisted,
               ),
+              if (widget.ghostMode) ...[
+                const SizedBox(height: 10),
+                _GhostRaceStatus(
+                  currentScore: _score.points,
+                  ghostScore: _ghostRun?.scoreAt(_elapsedSeconds),
+                ),
+              ],
               const SizedBox(height: 18),
               LinearProgressIndicator(
                 value: (_secondsRemaining / widget.config.duration.seconds)
@@ -335,41 +439,46 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
                     ),
                   ),
                 ),
-              const SizedBox(height: 18),
-              Text(
-                'Potenciadores',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              const SizedBox(height: 6),
-              const Text(
-                'En demostración son ilimitados. Con AdMob, cada uso gratuito pedirá un video voluntario.',
-              ),
-              const SizedBox(height: 10),
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: [
-                  for (final booster in TriviaRushBooster.values)
-                    ActionChip(
-                      key: Key('trivia-booster-${booster.name}'),
-                      avatar: Icon(_boosterIcon(booster), size: 18),
-                      label: Text(booster.label),
-                      tooltip: booster.description,
-                      onPressed: _submitting
-                          ? null
-                          : () => _activateBooster(booster),
-                    ),
-                ],
-              ),
-              if (_comboShieldActive || _secondChanceActive) ...[
-                const SizedBox(height: 12),
+              if (!widget.ghostMode) ...[
+                const SizedBox(height: 18),
                 Text(
-                  [
-                    if (_comboShieldActive) 'Combo protegido',
-                    if (_secondChanceActive) 'Segunda oportunidad activa',
-                  ].join(' · '),
-                  style: Theme.of(context).textTheme.labelLarge,
+                  'Potenciadores',
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
+                const SizedBox(height: 6),
+                const Text(
+                  'En demostración son ilimitados. Con AdMob, cada uso gratuito pedirá un video voluntario.',
+                ),
+                const SizedBox(height: 10),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    for (final booster in TriviaRushBooster.values)
+                      ActionChip(
+                        key: Key('trivia-booster-${booster.name}'),
+                        avatar: Icon(_boosterIcon(booster), size: 18),
+                        label: Text(booster.label),
+                        tooltip: booster.description,
+                        onPressed: _submitting
+                            ? null
+                            : () => _activateBooster(booster),
+                      ),
+                  ],
+                ),
+                if (_comboShieldActive || _secondChanceActive) ...[
+                  const SizedBox(height: 12),
+                  Text(
+                    [
+                      if (_comboShieldActive) 'Combo protegido',
+                      if (_secondChanceActive) 'Segunda oportunidad activa',
+                    ].join(' · '),
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
+                ],
+              ] else if (_completing) ...[
+                const SizedBox(height: 18),
+                const Center(child: CircularProgressIndicator()),
               ],
             ],
           ),
@@ -481,6 +590,58 @@ class _Metric extends StatelessWidget {
   );
 }
 
+class _GhostRaceStatus extends StatelessWidget {
+  const _GhostRaceStatus({
+    required this.currentScore,
+    required this.ghostScore,
+  });
+
+  final int currentScore;
+  final int? ghostScore;
+
+  @override
+  Widget build(BuildContext context) {
+    final ghost = ghostScore;
+    final difference = ghost == null ? 0 : currentScore - ghost;
+    final (icon, message) = switch ((ghost, difference)) {
+      (null, _) => (
+        Icons.auto_awesome_rounded,
+        'Primera partida: estás creando tu fantasma',
+      ),
+      (_, > 0) => (
+        Icons.trending_up_rounded,
+        'Vas $difference puntos delante de tu fantasma',
+      ),
+      (_, < 0) => (
+        Icons.trending_down_rounded,
+        'Tu fantasma lleva ${difference.abs()} puntos de ventaja',
+      ),
+      _ => (Icons.drag_handle_rounded, 'Van empatados'),
+    };
+    return Container(
+      key: const Key('ghost-race-status'),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.tertiaryContainer,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, size: 20),
+          const SizedBox(width: 9),
+          Expanded(
+            child: Text(
+              message,
+              style: const TextStyle(fontWeight: FontWeight.w700),
+            ),
+          ),
+          if (ghost != null) Text('$ghost pts'),
+        ],
+      ),
+    );
+  }
+}
+
 class _AnswerButton extends StatelessWidget {
   const _AnswerButton({
     required this.option,
@@ -516,12 +677,20 @@ class _TriviaResultView extends StatelessWidget {
     required this.score,
     required this.review,
     required this.assisted,
+    required this.ghostMode,
+    required this.previousGhost,
+    required this.ghostSaveResult,
+    required this.ghostPersistenceFailed,
     required this.onReplay,
   });
 
   final TriviaRushScore score;
   final List<TriviaRushReviewEntry> review;
   final bool assisted;
+  final bool ghostMode;
+  final GhostRun? previousGhost;
+  final GhostSaveResult? ghostSaveResult;
+  final bool ghostPersistenceFailed;
   final VoidCallback onReplay;
 
   @override
@@ -529,7 +698,11 @@ class _TriviaResultView extends StatelessWidget {
     final weaknesses = triviaRushWeaknesses(review);
     return Scaffold(
       key: const Key('trivia-result-view'),
-      appBar: AppBar(title: const Text('Resultado de Trivia Rush')),
+      appBar: AppBar(
+        title: Text(
+          ghostMode ? 'Resultado del duelo' : 'Resultado de Trivia Rush',
+        ),
+      ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 36),
         children: [
@@ -545,6 +718,15 @@ class _TriviaResultView extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           Text('Mejor combo: ${score.bestCombo}', textAlign: TextAlign.center),
+          if (ghostMode) ...[
+            const SizedBox(height: 12),
+            _GhostResultBanner(
+              score: score.points,
+              previousGhost: previousGhost,
+              saveResult: ghostSaveResult,
+              persistenceFailed: ghostPersistenceFailed,
+            ),
+          ],
           if (assisted)
             const Padding(
               padding: EdgeInsets.only(top: 8),
@@ -672,15 +854,76 @@ class _ResultMetric extends StatelessWidget {
   );
 }
 
-class _TriviaErrorView extends StatelessWidget {
-  const _TriviaErrorView({required this.message, required this.onRetry});
+class _GhostResultBanner extends StatelessWidget {
+  const _GhostResultBanner({
+    required this.score,
+    required this.previousGhost,
+    required this.saveResult,
+    required this.persistenceFailed,
+  });
 
+  final int score;
+  final GhostRun? previousGhost;
+  final GhostSaveResult? saveResult;
+  final bool persistenceFailed;
+
+  @override
+  Widget build(BuildContext context) {
+    final previous = previousGhost;
+    final result = saveResult;
+    final title = persistenceFailed
+        ? 'No pudimos guardar el récord'
+        : switch (result?.outcome) {
+            GhostDuelOutcome.firstRecord => 'Primer fantasma creado',
+            GhostDuelOutcome.newRecord => '¡Venciste a tu fantasma!',
+            GhostDuelOutcome.keptRecord => 'Tu fantasma conserva el récord',
+            null => 'Duelo finalizado',
+          };
+    final detail = persistenceFailed
+        ? 'Tu resultado sigue visible, pero deberás repetir la ronda para guardarlo.'
+        : previous == null
+        ? 'Tu próximo duelo intentará superar estos $score puntos.'
+        : score > previous.score
+        ? 'Superaste el récord anterior por ${score - previous.score} puntos.'
+        : score == previous.score
+        ? 'Igualaste los ${previous.score} puntos del fantasma.'
+        : 'Te faltaron ${previous.score - score} puntos para alcanzarlo.';
+    return Container(
+      key: const Key('ghost-result-banner'),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.tertiaryContainer,
+        borderRadius: BorderRadius.circular(18),
+      ),
+      child: Column(
+        children: [
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          const SizedBox(height: 5),
+          Text(detail, textAlign: TextAlign.center),
+        ],
+      ),
+    );
+  }
+}
+
+class _TriviaErrorView extends StatelessWidget {
+  const _TriviaErrorView({
+    required this.title,
+    required this.message,
+    required this.onRetry,
+  });
+
+  final String title;
   final String message;
   final VoidCallback onRetry;
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('Trivia Rush')),
+    appBar: AppBar(title: Text(title)),
     body: Center(
       child: Padding(
         padding: const EdgeInsets.all(24),

@@ -27,6 +27,8 @@ import '../features/games/trivia_rush/presentation/trivia_rush_setup_page.dart';
 import '../features/games/memory_match/domain/memory_match_models.dart';
 import '../features/games/memory_match/presentation/memory_match_page.dart';
 import '../features/games/memory_match/presentation/memory_match_setup_page.dart';
+import '../features/games/ghost_duel/domain/ghost_duel_models.dart';
+import '../features/games/ghost_duel/presentation/ghost_duel_setup_page.dart';
 import '../features/historical_simulations/presentation/historical_simulation_detail_page.dart';
 import '../features/historical_simulations/presentation/historical_simulations_page.dart';
 import '../features/favorites/presentation/favorites_page.dart';
@@ -256,6 +258,25 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                             return const MemoryMatchSetupPage();
                           }
                           return MemoryMatchPage(config: config);
+                        },
+                      ),
+                    ],
+                  ),
+                  _animatedRoute(
+                    path: 'ghost-duel',
+                    builder: (context, state) => const GhostDuelSetupPage(),
+                    routes: [
+                      _animatedRoute(
+                        path: 'play',
+                        builder: (context, state) {
+                          final config = GhostDuelConfig.tryFromUri(state.uri);
+                          if (config == null) {
+                            return const GhostDuelSetupPage();
+                          }
+                          return TriviaRushPage(
+                            config: config.triviaConfig,
+                            ghostMode: true,
+                          );
                         },
                       ),
                     ],

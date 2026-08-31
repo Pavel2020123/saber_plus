@@ -335,6 +335,42 @@ void main() {
     expect(find.byKey(const Key('start-memory-match')), findsOneWidget);
   });
 
+  testWidgets('abre el duelo fantasma desde practicar', (tester) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Practicar'));
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('open-ghost-duel')),
+      300,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await Scrollable.ensureVisible(
+      tester.element(find.byKey(const Key('open-ghost-duel'))),
+      alignment: 0.5,
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('open-ghost-duel')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Compite contra tu mejor versión'), findsOneWidget);
+    expect(find.byKey(const Key('ghost-area-mixed')), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('start-ghost-duel')),
+      300,
+      scrollable: find.byType(Scrollable).last,
+    );
+    expect(find.byKey(const Key('start-ghost-duel')), findsOneWidget);
+  });
+
   testWidgets('configura y abre una prueba contrarreloj demostrativa', (
     tester,
   ) async {

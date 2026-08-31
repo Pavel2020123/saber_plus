@@ -93,3 +93,5 @@ El modelo gratuito con publicidad, planes individuales y espacios de institució
 El juego individual de velocidad, sus potenciadores y el contrato seguro pendiente se documentan en [docs/TRIVIA_RUSH.md](docs/TRIVIA_RUSH.md).
 
 El juego sin conexión de parejas entre fórmulas, términos y definiciones se documenta en [docs/MEMORY_MATCH.md](docs/MEMORY_MATCH.md).
+
+El duelo contra el récord personal se documenta en [docs/GHOST_DUEL.md](docs/GHOST_DUEL.md). Los audios, contenidos y contratos necesarios para producción están enumerados en [docs/GAMES_PRODUCTION_CHECKLIST.md](docs/GAMES_PRODUCTION_CHECKLIST.md).

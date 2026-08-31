@@ -110,7 +110,8 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [ ] Audio de Trivia Rush cuando el equipo entregue los cinco recursos con su licencia.
 - [x] Juego de memoria sin conexión con fórmulas, glosario, tres niveles, pistas ilimitadas bajo demanda y repaso final.
 - [ ] Audio del juego de memoria cuando el equipo entregue los tres recursos con su licencia.
-- [ ] Duelo fantasma contra el récord personal.
+- [x] Duelo fantasma local contra la evolución del mejor récord limpio, separado por estudiante, áreas y duración.
+- [ ] Récord fantasma autoritativo y sincronizado entre dispositivos cuando el backend publique el contrato de juegos.
 - Ranking con privacidad por defecto.
 - Batallas asíncronas, bloqueo y reporte.
 - Anuncios, referidos, soporte y calculadora de puntaje.

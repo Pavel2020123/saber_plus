@@ -174,6 +174,19 @@ class PracticeHubPage extends StatelessWidget {
             onTap: () => context.push('/student/practice/memory-match'),
           ),
         ),
+        const SizedBox(height: 8),
+        Card(
+          child: ListTile(
+            key: const Key('open-ghost-duel'),
+            leading: const CircleAvatar(
+              child: Icon(Icons.sports_martial_arts_rounded),
+            ),
+            title: const Text('Duelo fantasma'),
+            subtitle: const Text('Supera la evolución de tu mejor partida'),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            onTap: () => context.push('/student/practice/ghost-duel'),
+          ),
+        ),
       ],
     ),
   );
