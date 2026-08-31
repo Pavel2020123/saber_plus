@@ -144,6 +144,19 @@ class AppPreferencesController extends AsyncNotifier<AppPreferences> {
       rethrow;
     }
   }
+
+  Future<void> setGameSoundEnabled(bool enabled) async {
+    final current = state.valueOrNull;
+    if (current == null || current.gameSoundEnabled == enabled) return;
+    final updated = current.copyWith(gameSoundEnabled: enabled);
+    state = AsyncData(updated);
+    try {
+      await ref.read(appPreferencesStoreProvider).save(updated);
+    } on Object {
+      state = AsyncData(current);
+      rethrow;
+    }
+  }
 }
 
 final appPreferencesControllerProvider =

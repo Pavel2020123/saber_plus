@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:saber_plus/core/feedback/game_audio_feedback.dart';
 import 'package:saber_plus/features/academic/domain/academic_models.dart';
 import 'package:saber_plus/features/games/trivia_rush/data/demo_trivia_rush_repository.dart';
 import 'package:saber_plus/features/games/trivia_rush/domain/trivia_rush_models.dart';
@@ -128,12 +129,14 @@ void main() {
   testWidgets('termina una ronda y muestra el diagnóstico académico', (
     tester,
   ) async {
+    final audio = _RecordingGameAudioFeedback();
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
           triviaRushRepositoryProvider.overrideWithValue(
             const _FakeTriviaRushRepository(),
           ),
+          gameAudioFeedbackProvider.overrideWithValue(audio),
         ],
         child: const MaterialApp(
           home: TriviaRushPage(
@@ -158,7 +161,15 @@ void main() {
       find.text('No detectamos errores en las respuestas enviadas.'),
       findsOneWidget,
     );
+    expect(audio.played, [GameSound.triviaCorrect, GameSound.triviaFinish]);
   });
+}
+
+class _RecordingGameAudioFeedback implements GameAudioFeedback {
+  final List<GameSound> played = [];
+
+  @override
+  Future<void> play(GameSound sound) async => played.add(sound);
 }
 
 class _FakeTriviaRushRepository implements TriviaRushRepository {

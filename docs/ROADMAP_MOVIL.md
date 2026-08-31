@@ -107,10 +107,11 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Comparación orientativa con promedios globales oficiales del ICFES separados por calendario, año y fecha de verificación.
 - [x] Trivia Rush individual con rondas de 60/90/120 segundos, combos, potenciadores ilimitados bajo demanda y diagnóstico final por tema.
 - [ ] Validación autoritativa de Trivia Rush, recompensas verificadas y persistencia de partidas en el backend.
-- [ ] Audio de Trivia Rush cuando el equipo entregue los cinco recursos con su licencia.
+- [x] Audio de Trivia Rush para acierto, error, cuenta regresiva y cierre, con preferencia general y prueba manual desde ajustes.
 - [x] Juego de memoria sin conexión con fórmulas, glosario, tres niveles, pistas ilimitadas bajo demanda y repaso final.
-- [ ] Audio del juego de memoria cuando el equipo entregue los tres recursos con su licencia.
+- [x] Audio del juego de memoria para giro, pareja y victoria, con preferencia general y manejo seguro de fallos.
 - [x] Duelo fantasma local contra la evolución del mejor récord limpio, separado por estudiante, áreas y duración.
+- [x] Audio de victoria y derrota del duelo fantasma; paquete de audio preparado para el futuro juego de tira y afloja.
 - [ ] Récord fantasma autoritativo y sincronizado entre dispositivos cuando el backend publique el contrato de juegos.
 - Ranking con privacidad por defecto.
 - Batallas asíncronas, bloqueo y reporte.

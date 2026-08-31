@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/feedback/game_audio_feedback.dart';
 import '../../../../core/network/api_error.dart';
 import '../../ghost_duel/domain/ghost_duel_models.dart';
 import '../../ghost_duel/presentation/ghost_duel_providers.dart';
@@ -47,6 +48,7 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
   bool _comboShieldActive = false;
   bool _secondChanceActive = false;
   bool? _lastAnswerCorrect;
+  bool _countdownSoundPlayed = false;
 
   PracticeQuestion? get _question {
     final questions = _session?.questions;
@@ -74,6 +76,9 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
   }
 
   Future<void> _start() async {
+    _timer?.cancel();
+    _secondsRemaining = widget.config.duration.seconds;
+    _countdownSoundPlayed = false;
     try {
       if (widget.ghostMode) {
         final userId = ref.read(ghostDuelUserIdProvider);
@@ -113,6 +118,12 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
           _secondsRemaining--;
           _questionElapsedSeconds++;
         });
+        if (_secondsRemaining == 5 && !_countdownSoundPlayed) {
+          _countdownSoundPlayed = true;
+          unawaited(
+            ref.read(gameAudioFeedbackProvider).play(GameSound.triviaCountdown),
+          );
+        }
       });
     } on Object catch (error) {
       if (mounted) setState(() => _error = error);
@@ -144,6 +155,9 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
       if (!mounted) return;
 
       if (!evaluation.isCorrect && _secondChanceActive) {
+        unawaited(
+          ref.read(gameAudioFeedbackProvider).play(GameSound.triviaWrong),
+        );
         setState(() {
           _review.add(
             TriviaRushReviewEntry(
@@ -162,6 +176,15 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
       }
 
       final protectCombo = !evaluation.isCorrect && _comboShieldActive;
+      unawaited(
+        ref
+            .read(gameAudioFeedbackProvider)
+            .play(
+              evaluation.isCorrect
+                  ? GameSound.triviaCorrect
+                  : GameSound.triviaWrong,
+            ),
+      );
       setState(() {
         _review.add(
           TriviaRushReviewEntry(
@@ -313,6 +336,15 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
       _completing = false;
       _finished = true;
     });
+    final completionSound = widget.ghostMode
+        ? switch (_ghostSaveResult?.outcome) {
+            GhostDuelOutcome.firstRecord ||
+            GhostDuelOutcome.newRecord => GameSound.matchVictory,
+            GhostDuelOutcome.keptRecord => GameSound.matchDefeat,
+            null => GameSound.triviaFinish,
+          }
+        : GameSound.triviaFinish;
+    unawaited(ref.read(gameAudioFeedbackProvider).play(completionSound));
   }
 
   void _showMessage(String message) => ScaffoldMessenger.of(

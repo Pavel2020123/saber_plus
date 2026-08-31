@@ -4,28 +4,29 @@ Esta lista separa lo que debe aportar el equipo de contenido de lo que debe impl
 
 ## 1. Audios y licencias
 
-Archivos de Trivia Rush:
+Archivos integrados de Trivia Rush:
 
 - `trivia_correct.mp3`
 - `trivia_wrong.mp3`
-- `trivia_combo.mp3`
 - `trivia_countdown.mp3`
 - `trivia_finish.mp3`
 
-Archivos de memoria:
+Archivos integrados de memoria:
 
 - `memory_flip.mp3`
 - `memory_match.mp3`
-- `memory_finish.mp3`
+- `match_victory.mp3` (cierre compartido de partida)
 
-Archivos opcionales del duelo fantasma:
+Archivos integrados para resultados y el futuro juego de tira y afloja:
 
-- `ghost_overtake.mp3`
-- `ghost_lost_lead.mp3`
-- `ghost_victory.mp3`
-- `ghost_defeat.mp3`
+- `match_found.mp3`
+- `match_countdown.mp3`
+- `match_victory.mp3`
+- `match_defeat.mp3`
+- `tug_pull.mp3`
+- `tug_rope_strain.mp3`
 
-Cada archivo debe incluir autor, página de origen, URL de descarga, licencia, fecha de descarga y modificaciones realizadas. Conviene conservar esa evidencia en `docs/licenses/AUDIO_LICENSES.md`. Después de recibir los archivos se declararán en `pubspec.yaml`, se añadirá una preferencia general de sonidos de juegos y se probarán en Android e iOS.
+Los archivos ya están declarados en `pubspec.yaml`, cuentan con una preferencia general y tienen pruebas automatizadas. Antes de publicar falta completar autor, página de origen, URL de descarga, licencia, fecha de descarga y modificaciones en `docs/licenses/AUDIO_LICENSES.md`, además de escucharlos en dispositivos Android e iOS reales.
 
 ## 2. Contenido académico
 

@@ -23,6 +23,7 @@ class AppPreferences {
     this.examCountdownMinimized = true,
     this.answerStreakVibrationEnabled = true,
     this.answerStreakSoundEnabled = true,
+    this.gameSoundEnabled = true,
   });
 
   final ThemePreference theme;
@@ -32,6 +33,7 @@ class AppPreferences {
   final bool examCountdownMinimized;
   final bool answerStreakVibrationEnabled;
   final bool answerStreakSoundEnabled;
+  final bool gameSoundEnabled;
 
   AppPreferences copyWith({
     ThemePreference? theme,
@@ -41,6 +43,7 @@ class AppPreferences {
     bool? examCountdownMinimized,
     bool? answerStreakVibrationEnabled,
     bool? answerStreakSoundEnabled,
+    bool? gameSoundEnabled,
   }) => AppPreferences(
     theme: theme ?? this.theme,
     reminderEnabled: reminderEnabled ?? this.reminderEnabled,
@@ -52,5 +55,6 @@ class AppPreferences {
         answerStreakVibrationEnabled ?? this.answerStreakVibrationEnabled,
     answerStreakSoundEnabled:
         answerStreakSoundEnabled ?? this.answerStreakSoundEnabled,
+    gameSoundEnabled: gameSoundEnabled ?? this.gameSoundEnabled,
   );
 }

@@ -107,6 +107,27 @@ void main() {
     expect(store.value.answerStreakSoundEnabled, isFalse);
   });
 
+  test('guarda la preferencia de sonidos para juegos', () async {
+    final store = _MemoryPreferencesStore();
+    final reminders = _FakeReminderService();
+    final container = _container(store, reminders);
+    addTearDown(container.dispose);
+
+    await container.read(appPreferencesControllerProvider.future);
+    await container
+        .read(appPreferencesControllerProvider.notifier)
+        .setGameSoundEnabled(false);
+
+    expect(
+      container
+          .read(appPreferencesControllerProvider)
+          .valueOrNull
+          ?.gameSoundEnabled,
+      isFalse,
+    );
+    expect(store.value.gameSoundEnabled, isFalse);
+  });
+
   test('no activa el recordatorio si el permiso es rechazado', () async {
     final store = _MemoryPreferencesStore();
     final reminders = _FakeReminderService(permissionGranted: false);

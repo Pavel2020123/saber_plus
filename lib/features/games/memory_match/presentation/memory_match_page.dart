@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/feedback/game_audio_feedback.dart';
 import '../../../flashcards/domain/flashcard_models.dart';
 import '../../../library/presentation/reference_library_providers.dart';
 import '../domain/memory_match_models.dart';
@@ -78,6 +79,7 @@ class _MemoryMatchPageState extends ConsumerState<MemoryMatchPage> {
         _matchedPairIds.contains(tile.pairId)) {
       return;
     }
+    unawaited(ref.read(gameAudioFeedbackProvider).play(GameSound.memoryFlip));
     setState(() => _revealedTileIds.add(tile.id));
     if (_revealedTileIds.length < 2) return;
 
@@ -87,6 +89,11 @@ class _MemoryMatchPageState extends ConsumerState<MemoryMatchPage> {
         .toList(growable: false);
     if (selected.length != 2) return;
     final isMatch = selected.first.pairId == selected.last.pairId;
+    if (isMatch) {
+      unawaited(
+        ref.read(gameAudioFeedbackProvider).play(GameSound.memoryMatch),
+      );
+    }
     setState(() {
       _moves++;
       _locked = true;
@@ -95,14 +102,21 @@ class _MemoryMatchPageState extends ConsumerState<MemoryMatchPage> {
 
     await Future<void>.delayed(Duration(milliseconds: isMatch ? 450 : 850));
     if (!mounted) return;
+    var completed = false;
     setState(() {
       _revealedTileIds.clear();
       _locked = false;
       if (_matchedPairIds.length == (_pairs?.length ?? 0)) {
         _finished = true;
+        completed = true;
         _timer?.cancel();
       }
     });
+    if (completed) {
+      unawaited(
+        ref.read(gameAudioFeedbackProvider).play(GameSound.matchVictory),
+      );
+    }
   }
 
   Future<void> _showHint() async {

@@ -83,6 +83,18 @@ flutter:
   assets:
     - assets/data/reference_library.json
     - assets/audio/answer_streak_success.mp3
+    - assets/audio/match_countdown.mp3
+    - assets/audio/match_defeat.mp3
+    - assets/audio/match_found.mp3
+    - assets/audio/match_victory.mp3
+    - assets/audio/memory_flip.mp3
+    - assets/audio/memory_match.mp3
+    - assets/audio/trivia_correct.mp3
+    - assets/audio/trivia_countdown.mp3
+    - assets/audio/trivia_finish.mp3
+    - assets/audio/trivia_wrong.mp3
+    - assets/audio/tug_pull.mp3
+    - assets/audio/tug_rope_strain.mp3
 
   # To add assets to your application, add an assets section, like this:
   # assets:

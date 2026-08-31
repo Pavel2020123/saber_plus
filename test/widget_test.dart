@@ -833,13 +833,17 @@ void main() {
     expect(automaticApp.themeMode, ThemeMode.system);
     expect(find.textContaining('cambiará automáticamente'), findsOneWidget);
 
-    await tester.drag(find.byType(ListView).last, const Offset(0, -700));
-    await tester.pumpAndSettle();
-    expect(
-      find.byKey(const Key('preview-answer-streak-feedback')),
-      findsOneWidget,
+    final previewFeedback = find.byKey(
+      const Key('preview-answer-streak-feedback'),
     );
-    await tester.tap(find.byKey(const Key('preview-answer-streak-feedback')));
+    await tester.scrollUntilVisible(
+      previewFeedback,
+      300,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.pumpAndSettle();
+    expect(previewFeedback, findsOneWidget);
+    await tester.tap(previewFeedback);
     await tester.pump(const Duration(milliseconds: 100));
     expect(find.text('Prueba de racha reproducida.'), findsOneWidget);
   });

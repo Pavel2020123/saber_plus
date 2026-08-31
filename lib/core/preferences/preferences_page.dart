@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../feedback/answer_streak_feedback.dart';
+import '../feedback/game_audio_feedback.dart';
 import 'app_preferences.dart';
 import 'app_preferences_controller.dart';
 
@@ -118,6 +119,44 @@ class PreferencesPage extends ConsumerWidget {
             ),
             const SizedBox(height: 32),
             Text(
+              'Sonidos de juegos',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 8),
+            Card(
+              child: Column(
+                children: [
+                  SwitchListTile(
+                    key: const Key('game-sound-switch'),
+                    secondary: const Icon(Icons.sports_esports_outlined),
+                    title: const Text('Efectos durante las partidas'),
+                    subtitle: const Text(
+                      'Aciertos, cartas, cuenta regresiva y resultados.',
+                    ),
+                    value: value.gameSoundEnabled,
+                    onChanged: (enabled) => _run(
+                      context,
+                      () => ref
+                          .read(appPreferencesControllerProvider.notifier)
+                          .setGameSoundEnabled(enabled),
+                    ),
+                  ),
+                  const Divider(height: 1),
+                  ListTile(
+                    key: const Key('preview-game-sound'),
+                    enabled: value.gameSoundEnabled,
+                    leading: const Icon(Icons.play_circle_outline_rounded),
+                    title: const Text('Probar sonido de juego'),
+                    subtitle: const Text('Reproduce el sonido de un acierto.'),
+                    onTap: value.gameSoundEnabled
+                        ? () => _previewGameSound(context, ref)
+                        : null,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 32),
+            Text(
               'Feedback de aciertos',
               style: Theme.of(context).textTheme.titleLarge,
             ),
@@ -211,6 +250,14 @@ class PreferencesPage extends ConsumerWidget {
     if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Prueba de racha reproducida.')),
+    );
+  }
+
+  Future<void> _previewGameSound(BuildContext context, WidgetRef ref) async {
+    await ref.read(gameAudioFeedbackProvider).play(GameSound.triviaCorrect);
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Prueba de juego reproducida.')),
     );
   }
 
