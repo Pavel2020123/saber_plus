@@ -24,6 +24,9 @@ import '../features/gamification/presentation/gamification_page.dart';
 import '../features/games/trivia_rush/domain/trivia_rush_models.dart';
 import '../features/games/trivia_rush/presentation/trivia_rush_page.dart';
 import '../features/games/trivia_rush/presentation/trivia_rush_setup_page.dart';
+import '../features/games/memory_match/domain/memory_match_models.dart';
+import '../features/games/memory_match/presentation/memory_match_page.dart';
+import '../features/games/memory_match/presentation/memory_match_setup_page.dart';
 import '../features/historical_simulations/presentation/historical_simulation_detail_page.dart';
 import '../features/historical_simulations/presentation/historical_simulations_page.dart';
 import '../features/favorites/presentation/favorites_page.dart';
@@ -235,6 +238,24 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                             return const TriviaRushSetupPage();
                           }
                           return TriviaRushPage(config: config);
+                        },
+                      ),
+                    ],
+                  ),
+                  _animatedRoute(
+                    path: 'memory-match',
+                    builder: (context, state) => const MemoryMatchSetupPage(),
+                    routes: [
+                      _animatedRoute(
+                        path: 'play',
+                        builder: (context, state) {
+                          final config = MemoryMatchConfig.tryFromUri(
+                            state.uri,
+                          );
+                          if (config == null) {
+                            return const MemoryMatchSetupPage();
+                          }
+                          return MemoryMatchPage(config: config);
                         },
                       ),
                     ],

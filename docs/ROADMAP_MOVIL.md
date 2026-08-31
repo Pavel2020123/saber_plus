@@ -108,7 +108,8 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Trivia Rush individual con rondas de 60/90/120 segundos, combos, potenciadores ilimitados bajo demanda y diagnóstico final por tema.
 - [ ] Validación autoritativa de Trivia Rush, recompensas verificadas y persistencia de partidas en el backend.
 - [ ] Audio de Trivia Rush cuando el equipo entregue los cinco recursos con su licencia.
-- [ ] Juego de memoria con fórmulas y glosario.
+- [x] Juego de memoria sin conexión con fórmulas, glosario, tres niveles, pistas ilimitadas bajo demanda y repaso final.
+- [ ] Audio del juego de memoria cuando el equipo entregue los tres recursos con su licencia.
 - [ ] Duelo fantasma contra el récord personal.
 - Ranking con privacidad por defecto.
 - Batallas asíncronas, bloqueo y reporte.

@@ -91,3 +91,5 @@ La comparación con promedios nacionales del ICFES se documenta en [docs/NATIONA
 El modelo gratuito con publicidad, planes individuales y espacios de institución se documenta en [docs/BUSINESS_MODEL.md](docs/BUSINESS_MODEL.md).
 
 El juego individual de velocidad, sus potenciadores y el contrato seguro pendiente se documentan en [docs/TRIVIA_RUSH.md](docs/TRIVIA_RUSH.md).
+
+El juego sin conexión de parejas entre fórmulas, términos y definiciones se documenta en [docs/MEMORY_MATCH.md](docs/MEMORY_MATCH.md).

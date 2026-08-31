@@ -304,6 +304,37 @@ void main() {
     expect(find.byKey(const Key('start-trivia-rush')), findsOneWidget);
   });
 
+  testWidgets('abre el juego de memoria desde practicar', (tester) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Practicar'));
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('open-memory-match')),
+      300,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.tap(find.byKey(const Key('open-memory-match')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Encuentra cada concepto y su pareja'), findsOneWidget);
+    expect(find.byKey(const Key('memory-kind-mixed')), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('start-memory-match')),
+      300,
+      scrollable: find.byType(Scrollable).last,
+    );
+    expect(find.byKey(const Key('start-memory-match')), findsOneWidget);
+  });
+
   testWidgets('configura y abre una prueba contrarreloj demostrativa', (
     tester,
   ) async {

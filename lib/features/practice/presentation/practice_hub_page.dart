@@ -163,6 +163,17 @@ class PracticeHubPage extends StatelessWidget {
             onTap: () => context.push('/student/practice/trivia-rush'),
           ),
         ),
+        const SizedBox(height: 8),
+        Card(
+          child: ListTile(
+            key: const Key('open-memory-match'),
+            leading: const CircleAvatar(child: Icon(Icons.grid_view_rounded)),
+            title: const Text('Memoria académica'),
+            subtitle: const Text('Une fórmulas, conceptos y definiciones'),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            onTap: () => context.push('/student/practice/memory-match'),
+          ),
+        ),
       ],
     ),
   );
