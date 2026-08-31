@@ -115,7 +115,7 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Juego local de Tira y afloja contra CPU con preguntas compartidas, velocidad y tirones de una o dos marcas.
 - [x] Arte y animaciones detalladas de Tira y afloja: entrada, espera, respuesta, tensión, empate, tirones, recuperación y cierre, con audio sincronizado y reducción de movimiento.
 - [x] Motor backend autoritativo de Tira y afloja: esquema, emparejamiento, reloj, rondas idempotentes, abandono y eventos versionados (6F-D-C-A).
-- [ ] Transporte autenticado en tiempo real y reconexión de Tira y afloja (6F-D-C-B).
+- [x] Transporte Socket.IO autenticado, presencia, reloj autónomo y reconexión versionada de Tira y afloja (6F-D-C-B).
 - [ ] Arena Flutter conectada al multijugador real, con estados de red y recuperación (6F-D-C-C).
 - [ ] Récord fantasma autoritativo y sincronizado entre dispositivos cuando el backend publique el contrato de juegos.
 - Ranking con privacidad por defecto.

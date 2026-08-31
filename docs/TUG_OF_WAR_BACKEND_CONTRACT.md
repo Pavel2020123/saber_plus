@@ -5,10 +5,10 @@
 La etapa 6F-D-C se divide en tres entregas:
 
 - **6F-D-C-A, terminada:** esquema PostgreSQL, emparejamiento, reloj y rondas autoritativas, respuestas idempotentes, abandono y registro versionado de eventos.
-- **6F-D-C-B, pendiente:** transporte en tiempo real autenticado, notificaciones inmediatas y protocolo de reconexion.
+- **6F-D-C-B, terminada:** transporte Socket.IO autenticado, notificaciones inmediatas, presencia, reloj autonomo y protocolo de reconexion.
 - **6F-D-C-C, pendiente:** conexion de la arena Flutter con rivales reales, estados de red y regreso seguro al modo local.
 
-Mientras B y C no esten terminadas, la aplicacion conserva el duelo local contra CPU.
+Mientras C no este terminada, la aplicacion conserva el duelo local contra CPU.
 
 ## Autenticacion
 
@@ -112,4 +112,47 @@ La respuesta correcta y la explicacion no aparecen en la pregunta activa. Se pub
 
 El backend usa transacciones y bloqueos por partida para evitar que dos solicitudes resuelvan la misma ronda simultaneamente. Tambien guarda un historial ordenado de eventos y no acepta tiempos calculados por el cliente.
 
-En 6F-D-C-B estos mismos eventos se enviaran por una conexion autenticada en tiempo real. La consulta HTTP versionada permanecera como mecanismo de recuperacion y reconciliacion; no se agregara chat libre entre jugadores.
+## Conexion en tiempo real
+
+Socket.IO usa el namespace `/tira-afloja` y exclusivamente el transporte WebSocket. El access token se entrega en el campo `auth` del handshake, nunca como parametro de la URL:
+
+```text
+URL base del backend + namespace /tira-afloja
+auth.token = <access-token>
+transports = [websocket]
+```
+
+El servidor verifica firma y vencimiento del JWT, existencia del usuario, rol de estudiante y correo verificado. Una conexion invalida recibe `tira:error` y se cierra.
+
+### Mensajes que envia Flutter
+
+- `tira:emparejar`: `{ area? }`.
+- `tira:sincronizar`: `{ partidaId, desdeVersion? }`.
+- `tira:listo`: `{ partidaId }`.
+- `tira:responder`: `{ partidaId, ronda, preguntaId, respuestaId, idempotencyKey }`.
+- `tira:abandonar`: `{ partidaId }`.
+- `tira:latido`: no requiere datos y permite estimar la diferencia con el reloj del servidor.
+
+Los mensajes tienen validacion estricta y un limite de 30 acciones por socket cada diez segundos. Las mutaciones llaman al mismo motor autoritativo utilizado por HTTP; WebSocket no contiene reglas paralelas.
+
+### Mensajes que recibe Flutter
+
+- `tira:conectado`: confirma autenticacion e indica si habia una partida recuperable.
+- `tira:estado`: entrega el estado completo y los eventos faltantes.
+- `tira:actualizada`: avisa que la version del servidor cambio; Flutter debe solicitar `tira:sincronizar` usando su ultima version aplicada.
+- `tira:presencia`: informa si el rival se desconecto o regreso. Una desconexion no concede una victoria automaticamente.
+- `tira:error`: error seguro con `codigo` y `mensaje`, sin detalles internos ni tokens.
+
+El backend cierra rondas vencidas mediante un reloj propio, aunque ningun telefono consulte el estado. Los bloqueos de PostgreSQL garantizan que varias solicitudes o instancias no resuelvan dos veces una misma ronda.
+
+### Reconexion
+
+1. Socket.IO intenta recuperar la conexion durante un maximo de dos minutos.
+2. Al conectarse nuevamente, el backend busca la partida abierta, une el socket a su sala privada y envia `tira:conectado` y `tira:estado`.
+3. Flutter conserva la ultima `version` confirmada y emite `tira:sincronizar`.
+4. El servidor devuelve los eventos posteriores a esa version y el estado completo actual.
+5. Flutter reemplaza su posicion local por la posicion del servidor antes de reanudar animaciones.
+
+La consulta HTTP versionada permanece como respaldo si el canal en tiempo real no esta disponible. No se agregara chat libre entre jugadores.
+
+La publicacion actual funciona con una instancia de NestJS. Si el backend se replica horizontalmente, las salas de Socket.IO necesitaran un adaptador compartido, por ejemplo Redis, sin cambiar este contrato movil.
