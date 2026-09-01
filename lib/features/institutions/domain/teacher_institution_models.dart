@@ -60,6 +60,11 @@ class TeacherInstitution {
     this.groupLimit = 1,
     this.advertisingEnabled = true,
     this.analyticsLevel = InstitutionAnalyticsLevel.basic,
+    this.riskAlertsEnabled = false,
+    this.prioritiesEnabled = false,
+    this.exportsEnabled = false,
+    this.planExpired = false,
+    this.expiresAt,
     this.welcomeMessage,
   });
 
@@ -74,6 +79,11 @@ class TeacherInstitution {
   final int? groupLimit;
   final bool advertisingEnabled;
   final InstitutionAnalyticsLevel analyticsLevel;
+  final bool riskAlertsEnabled;
+  final bool prioritiesEnabled;
+  final bool exportsEnabled;
+  final bool planExpired;
+  final DateTime? expiresAt;
   final String? welcomeMessage;
 
   factory TeacherInstitution.fromJson(Map<String, dynamic> json) =>
@@ -95,8 +105,24 @@ class TeacherInstitution {
         analyticsLevel: InstitutionAnalyticsLevel.fromBackend(
           json['nivelAnalitica'] as String?,
         ),
+        riskAlertsEnabled:
+            json['alertasHabilitadas'] as bool? ??
+            json['nivelAnalitica'] == 'DETALLADA',
+        prioritiesEnabled:
+            json['prioridadesHabilitadas'] as bool? ??
+            json['nivelAnalitica'] == 'DETALLADA',
+        exportsEnabled:
+            json['exportacionesHabilitadas'] as bool? ??
+            json['nivelAnalitica'] == 'DETALLADA',
+        planExpired: json['planVencido'] as bool? ?? false,
+        expiresAt: _optionalInstitutionDate(json['venceEn']),
         welcomeMessage: json['mensajeBienvenida'] as String?,
       );
+}
+
+DateTime? _optionalInstitutionDate(Object? value) {
+  if (value is! String || value.isEmpty) return null;
+  return DateTime.tryParse(value)?.toLocal();
 }
 
 class InstitutionJoinRequest {

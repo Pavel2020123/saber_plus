@@ -130,9 +130,17 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Propietario, administradores y profesores con invitaciones por correo, permisos auditables y transferencia segura de propiedad (7B).
 - [x] Grupos asignados por profesor, códigos temporales con hash, vencimiento y cupo, vista previa y aceptación explícita del estudiante (7C).
 - [x] Profesor gratuito con un grupo, hasta 40 estudiantes, analítica básica agregada y frontera de publicidad moderada sin SDK activo (7D).
-- Profesor con plan sin anuncios: hasta cinco grupos y 200 estudiantes, analítica detallada, alertas, prioridades y exportaciones.
+- [x] Profesor con plan sin anuncios: hasta cinco grupos y 200 estudiantes, analítica detallada por alcance autorizado, alertas, prioridades y exportaciones CSV/PDF auditadas (7E).
 - No se ofrecerán tutores, chat de asesoría ni explicaciones personales de preguntas.
 - Importaciones y operaciones masivas permanecen en web/tablet.
+
+## Etapa 7F - Supabase y despliegue de la API
+
+- Proyecto `saberplus-dev` con PostgreSQL administrado en Supabase.
+- Usuario de base exclusivo para Prisma y secretos fuera del repositorio.
+- Aplicación de todas las migraciones y carga controlada de datos de desarrollo.
+- Despliegue HTTPS del backend NestJS y conexión del ambiente Flutter `staging`.
+- Pruebas de extremo a extremo, respaldo inicial y separación del futuro proyecto de producción.
 
 ## Etapa 8 - Comercio y publicación
 

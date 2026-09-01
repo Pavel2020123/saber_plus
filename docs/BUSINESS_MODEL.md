@@ -23,6 +23,8 @@ El profesor gratuito podrá gestionar inicialmente un grupo de hasta 40 estudian
 
 La etapa 7D ya aplica el grupo, los 40 estudiantes y la analítica agregada de forma autoritativa. La aplicación conserva desactivado el cliente publicitario hasta recibir la configuración comercial de AdMob; la política local y sus ubicaciones permitidas están documentadas en `TEACHER_FREE_PLAN.md`.
 
+La etapa 7E aplica el plan institucional sin anuncios, sus cinco grupos, 200 estudiantes, analítica detallada, alertas y exportaciones. La activación actual es exclusivamente administrativa y auditada; ningún cliente puede autoconcederse el plan. Google Play Billing reemplazará esa activación provisional en la etapa 8.
+
 ## Publicidad recompensada
 
 Un anuncio completado puede entregar un potenciador no transferible para juegos individuales o recuperar únicamente el día anterior de una racha durante su ventana de recuperación. No existe un límite comercial diario de potenciadores: cada reproducción debe iniciarse manualmente y queda sujeta a disponibilidad, verificación del servidor y controles de tráfico inválido de AdMob.

@@ -97,7 +97,18 @@ class _TeacherDashboardPageState extends ConsumerState<TeacherDashboardPage> {
                   institution: data.institution!,
                   role: data.memberRole ?? InstitutionMemberRole.teacher,
                   onGroups: () => context.push('/teacher/groups'),
-                  onAnalytics: () => context.push('/teacher/analytics'),
+                  onAnalytics: () => context.push(
+                    data.institution!.analyticsLevel ==
+                            InstitutionAnalyticsLevel.detailed
+                        ? '/teacher/detailed-analytics'
+                        : '/teacher/analytics',
+                  ),
+                  onPreviewDetailed:
+                      (user?.isDemo ?? false) &&
+                          data.institution!.analyticsLevel ==
+                              InstitutionAnalyticsLevel.basic
+                      ? () => context.push('/teacher/detailed-analytics')
+                      : null,
                   onManage:
                       (data.memberRole ?? InstitutionMemberRole.teacher)
                           .canManage
@@ -357,6 +368,7 @@ class _LinkedInstitution extends StatelessWidget {
     required this.role,
     required this.onGroups,
     required this.onAnalytics,
+    required this.onPreviewDetailed,
     required this.onManage,
   });
 
@@ -364,6 +376,7 @@ class _LinkedInstitution extends StatelessWidget {
   final InstitutionMemberRole role;
   final VoidCallback onGroups;
   final VoidCallback onAnalytics;
+  final VoidCallback? onPreviewDetailed;
   final VoidCallback? onManage;
 
   @override
@@ -496,20 +509,45 @@ class _LinkedInstitution extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Indicadores básicos',
+                      institution.analyticsLevel ==
+                              InstitutionAnalyticsLevel.detailed
+                          ? 'Analítica detallada'
+                          : 'Indicadores básicos',
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     const SizedBox(height: 4),
-                    const Text(
-                      'Consulta actividad, simulacros, promedio y avance de tus grupos sin exponer identidades en el resumen.',
+                    Text(
+                      institution.analyticsLevel ==
+                              InstitutionAnalyticsLevel.detailed
+                          ? 'Consulta alertas, prioridades y resultados por estudiante dentro de tus grupos autorizados.'
+                          : 'Consulta actividad, simulacros, promedio y avance de tus grupos sin exponer identidades en el resumen.',
                     ),
                     const SizedBox(height: 12),
                     FilledButton.tonalIcon(
-                      key: const Key('open-teacher-basic-analytics'),
+                      key: Key(
+                        institution.analyticsLevel ==
+                                InstitutionAnalyticsLevel.detailed
+                            ? 'open-teacher-detailed-analytics'
+                            : 'open-teacher-basic-analytics',
+                      ),
                       onPressed: onAnalytics,
                       icon: const Icon(Icons.query_stats_rounded),
-                      label: const Text('Ver indicadores'),
+                      label: Text(
+                        institution.analyticsLevel ==
+                                InstitutionAnalyticsLevel.detailed
+                            ? 'Abrir analítica'
+                            : 'Ver indicadores',
+                      ),
                     ),
+                    if (onPreviewDetailed != null) ...[
+                      const SizedBox(height: 8),
+                      OutlinedButton.icon(
+                        key: const Key('preview-teacher-detailed-analytics'),
+                        onPressed: onPreviewDetailed,
+                        icon: const Icon(Icons.workspace_premium_outlined),
+                        label: const Text('Vista previa sin anuncios'),
+                      ),
+                    ],
                   ],
                 ),
               ),

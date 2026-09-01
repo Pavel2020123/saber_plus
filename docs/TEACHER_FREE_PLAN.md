@@ -28,7 +28,7 @@ El cupo estudiantil cuenta todas las cuentas `ESTUDIANTE` vinculadas a la instit
 
 Un profesor recibe únicamente sus grupos asignados. Propietarios y administradores reciben los grupos de la institución. El contrato no incluye nombres, correos, identificadores de estudiantes ni listas individuales. Flutter también rechaza una respuesta básica que contenga campos de identidad.
 
-La ruta histórica de analítica detallada queda reservada para administración y rechaza el plan gratuito. Alertas, prioridades y exportaciones forman parte de la siguiente etapa de profesor sin anuncios.
+La analítica detallada, las alertas, las prioridades y las exportaciones rechazan el plan gratuito. Su implementación se documenta en [TEACHER_NO_ADS_PLAN.md](TEACHER_NO_ADS_PLAN.md).
 
 ## Publicidad moderada
 
