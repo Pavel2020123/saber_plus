@@ -34,7 +34,7 @@ El código `INST-*` mostrado al propietario es exclusivamente para solicitudes d
 - `POST /instituciones/solicitudes` recibe `codigoInstitucion` y un mensaje opcional.
 - `DELETE /instituciones/solicitudes/me` cancela la solicitud pendiente de la cuenta activa.
 
-Una solicitud no concede acceso por sí sola. La aprobación, el rechazo, las invitaciones y la transferencia de propiedad corresponden a la etapa 7B.
+Una solicitud no concede acceso por sí sola. La aprobación, el rechazo, las invitaciones y la transferencia de propiedad se implementan en la etapa 7B y están descritos en `INSTITUTION_ADMINISTRATION.md`.
 
 ## Persistencia
 

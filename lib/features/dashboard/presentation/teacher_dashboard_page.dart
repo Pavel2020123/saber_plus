@@ -74,6 +74,14 @@ class _TeacherDashboardPageState extends ConsumerState<TeacherDashboardPage> {
                 'Tu cuenta es personal. No compartas la contraseña con otros docentes ni con la institución.',
               ),
               const SizedBox(height: 20),
+              if (data.invitations.isNotEmpty) ...[
+                _IncomingInvitations(
+                  invitations: data.invitations,
+                  working: _working,
+                  onRespond: _respondInvitation,
+                ),
+                const SizedBox(height: 16),
+              ],
               switch (data.status) {
                 TeacherInstitutionStatus.noInstitution => _NoInstitution(
                   working: _working,
@@ -88,6 +96,11 @@ class _TeacherDashboardPageState extends ConsumerState<TeacherDashboardPage> {
                 TeacherInstitutionStatus.linked => _LinkedInstitution(
                   institution: data.institution!,
                   role: data.memberRole ?? InstitutionMemberRole.teacher,
+                  onManage:
+                      (data.memberRole ?? InstitutionMemberRole.teacher)
+                          .canManage
+                      ? () => context.push('/teacher/administration')
+                      : null,
                 ),
               },
             ],
@@ -152,6 +165,47 @@ class _TeacherDashboardPageState extends ConsumerState<TeacherDashboardPage> {
           .read(teacherInstitutionControllerProvider.notifier)
           .cancelJoinRequest(),
       success: 'Solicitud cancelada.',
+    );
+  }
+
+  Future<void> _respondInvitation(
+    IncomingInstitutionInvitation invitation,
+    bool accept,
+  ) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(accept ? 'Aceptar invitación' : 'Rechazar invitación'),
+        content: Text(
+          accept
+              ? 'Te vincularás a ${invitation.institutionName} como ${invitation.role.label.toLowerCase()}.'
+              : 'La invitación de ${invitation.institutionName} dejará de estar disponible.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Volver'),
+          ),
+          FilledButton(
+            key: Key(
+              accept
+                  ? 'confirm-accept-institution-invitation'
+                  : 'confirm-reject-institution-invitation',
+            ),
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: Text(accept ? 'Aceptar' : 'Rechazar'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true || !mounted) return;
+    await _run(
+      () => ref
+          .read(teacherInstitutionControllerProvider.notifier)
+          .respondInvitation(invitationId: invitation.id, accept: accept),
+      success: accept
+          ? 'Ya perteneces a ${invitation.institutionName}.'
+          : 'Invitación rechazada.',
     );
   }
 
@@ -296,10 +350,15 @@ class _PendingRequest extends StatelessWidget {
 }
 
 class _LinkedInstitution extends StatelessWidget {
-  const _LinkedInstitution({required this.institution, required this.role});
+  const _LinkedInstitution({
+    required this.institution,
+    required this.role,
+    required this.onManage,
+  });
 
   final TeacherInstitution institution;
   final InstitutionMemberRole role;
+  final VoidCallback? onManage;
 
   @override
   Widget build(BuildContext context) => Column(
@@ -414,17 +473,38 @@ class _LinkedInstitution extends StatelessWidget {
         ),
       ),
       const SizedBox(height: 12),
-      const Card(
+      Card(
         child: Padding(
-          padding: EdgeInsets.all(18),
+          padding: const EdgeInsets.all(18),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.info_outline_rounded),
-              SizedBox(width: 12),
+              const Icon(Icons.admin_panel_settings_outlined),
+              const SizedBox(width: 12),
               Expanded(
-                child: Text(
-                  'La aprobación de solicitudes, invitaciones y permisos auditables se habilitará en la etapa 7B.',
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      role.canManage ? 'Administración' : 'Tu acceso docente',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      role.canManage
+                          ? 'Revisa solicitudes, invita al equipo y consulta la auditoría de cambios.'
+                          : 'El propietario o un administrador gestiona los integrantes y permisos.',
+                    ),
+                    if (onManage != null) ...[
+                      const SizedBox(height: 12),
+                      FilledButton.tonalIcon(
+                        key: const Key('open-institution-administration'),
+                        onPressed: onManage,
+                        icon: const Icon(Icons.manage_accounts_outlined),
+                        label: const Text('Administrar equipo'),
+                      ),
+                    ],
+                  ],
                 ),
               ),
             ],
@@ -432,6 +512,63 @@ class _LinkedInstitution extends StatelessWidget {
         ),
       ),
     ],
+  );
+}
+
+class _IncomingInvitations extends StatelessWidget {
+  const _IncomingInvitations({
+    required this.invitations,
+    required this.working,
+    required this.onRespond,
+  });
+
+  final List<IncomingInstitutionInvitation> invitations;
+  final bool working;
+  final void Function(IncomingInstitutionInvitation, bool) onRespond;
+
+  @override
+  Widget build(BuildContext context) => Card(
+    color: Theme.of(context).colorScheme.secondaryContainer,
+    child: Padding(
+      padding: const EdgeInsets.all(18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Invitaciones recibidas',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          const SizedBox(height: 8),
+          for (final invitation in invitations) ...[
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.mark_email_unread_outlined),
+              title: Text(invitation.institutionName),
+              subtitle: Text(
+                '${invitation.role.label} · Invitó ${invitation.invitedBy}\nExpira ${_formatDate(invitation.expiresAt)}',
+              ),
+              isThreeLine: true,
+            ),
+            Wrap(
+              spacing: 8,
+              children: [
+                FilledButton(
+                  key: Key('accept-invitation-${invitation.id}'),
+                  onPressed: working ? null : () => onRespond(invitation, true),
+                  child: const Text('Aceptar'),
+                ),
+                TextButton(
+                  onPressed: working
+                      ? null
+                      : () => onRespond(invitation, false),
+                  child: const Text('Rechazar'),
+                ),
+              ],
+            ),
+          ],
+        ],
+      ),
+    ),
   );
 }
 

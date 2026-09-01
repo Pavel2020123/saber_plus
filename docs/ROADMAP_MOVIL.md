@@ -127,7 +127,7 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 ## Etapa 7 - Profesor e institución
 
 - [x] Cuenta personal de profesor, registro propio, creación con propietario y solicitud/cancelación de ingreso sin credenciales institucionales compartidas (7A).
-- Propietario, administradores y profesores con invitaciones, permisos auditables y transferencia de propiedad.
+- [x] Propietario, administradores y profesores con invitaciones por correo, permisos auditables y transferencia segura de propiedad (7B).
 - Grupos vinculados mediante códigos temporales y aceptación explícita del estudiante.
 - Profesor gratuito con un grupo, hasta 40 estudiantes, analítica básica y publicidad moderada.
 - Profesor con plan sin anuncios: hasta cinco grupos y 200 estudiantes, analítica detallada, alertas, prioridades y exportaciones.

@@ -20,6 +20,16 @@ enum InstitutionMemberRole {
 
   final String label;
 
+  String get backendValue => switch (this) {
+    InstitutionMemberRole.owner => 'PROPIETARIO',
+    InstitutionMemberRole.administrator => 'ADMINISTRADOR',
+    InstitutionMemberRole.teacher => 'PROFESOR',
+  };
+
+  bool get canManage =>
+      this == InstitutionMemberRole.owner ||
+      this == InstitutionMemberRole.administrator;
+
   factory InstitutionMemberRole.fromBackend(String? value) => switch (value) {
     'PROPIETARIO' => InstitutionMemberRole.owner,
     'ADMINISTRADOR' => InstitutionMemberRole.administrator,
@@ -99,12 +109,14 @@ class TeacherInstitutionContext {
     this.institution,
     this.memberRole,
     this.joinRequest,
+    this.invitations = const [],
   });
 
   final TeacherInstitutionStatus status;
   final TeacherInstitution? institution;
   final InstitutionMemberRole? memberRole;
   final InstitutionJoinRequest? joinRequest;
+  final List<IncomingInstitutionInvitation> invitations;
 
   factory TeacherInstitutionContext.fromJson(Map<String, dynamic> json) {
     final rawInstitution = json['institucion'];
@@ -127,6 +139,14 @@ class TeacherInstitutionContext {
               Map<String, dynamic>.from(rawRequest),
             )
           : null,
+      invitations: (json['invitaciones'] as List? ?? const [])
+          .whereType<Map>()
+          .map(
+            (item) => IncomingInstitutionInvitation.fromJson(
+              Map<String, dynamic>.from(item),
+            ),
+          )
+          .toList(growable: false),
     );
   }
 
@@ -134,3 +154,246 @@ class TeacherInstitutionContext {
     status: TeacherInstitutionStatus.noInstitution,
   );
 }
+
+class IncomingInstitutionInvitation {
+  const IncomingInstitutionInvitation({
+    required this.id,
+    required this.institutionId,
+    required this.institutionName,
+    required this.institutionCode,
+    required this.role,
+    required this.invitedBy,
+    required this.expiresAt,
+  });
+
+  final String id;
+  final String institutionId;
+  final String institutionName;
+  final String institutionCode;
+  final InstitutionMemberRole role;
+  final String invitedBy;
+  final DateTime expiresAt;
+
+  factory IncomingInstitutionInvitation.fromJson(Map<String, dynamic> json) {
+    final institution = Map<String, dynamic>.from(
+      json['institucion'] as Map? ?? const {},
+    );
+    final creator = Map<String, dynamic>.from(
+      json['creadoPor'] as Map? ?? const {},
+    );
+    return IncomingInstitutionInvitation(
+      id: json['id'] as String,
+      institutionId: institution['id'] as String,
+      institutionName: institution['nombre'] as String,
+      institutionCode: institution['codigoUnico'] as String,
+      role: InstitutionMemberRole.fromBackend(json['rol'] as String?),
+      invitedBy: creator['nombre'] as String? ?? 'Equipo institucional',
+      expiresAt: DateTime.parse(json['fechaExpiracion'] as String).toLocal(),
+    );
+  }
+}
+
+class InstitutionPermissionSet {
+  const InstitutionPermissionSet({
+    required this.reviewRequests,
+    required this.inviteTeachers,
+    required this.manageAdministrators,
+    required this.removeTeachers,
+    required this.transferOwnership,
+    required this.viewAudit,
+  });
+
+  final bool reviewRequests;
+  final bool inviteTeachers;
+  final bool manageAdministrators;
+  final bool removeTeachers;
+  final bool transferOwnership;
+  final bool viewAudit;
+
+  factory InstitutionPermissionSet.fromJson(Map<String, dynamic> json) =>
+      InstitutionPermissionSet(
+        reviewRequests: json['revisarSolicitudes'] as bool? ?? false,
+        inviteTeachers: json['invitarProfesores'] as bool? ?? false,
+        manageAdministrators:
+            json['gestionarAdministradores'] as bool? ?? false,
+        removeTeachers: json['retirarProfesores'] as bool? ?? false,
+        transferOwnership: json['transferirPropiedad'] as bool? ?? false,
+        viewAudit: json['verAuditoria'] as bool? ?? false,
+      );
+}
+
+class InstitutionTeamMember {
+  const InstitutionTeamMember({
+    required this.membershipId,
+    required this.userId,
+    required this.name,
+    required this.email,
+    required this.role,
+    required this.joinedAt,
+  });
+
+  final String membershipId;
+  final String userId;
+  final String name;
+  final String email;
+  final InstitutionMemberRole role;
+  final DateTime joinedAt;
+
+  factory InstitutionTeamMember.fromJson(Map<String, dynamic> json) {
+    final user = Map<String, dynamic>.from(json['usuario'] as Map? ?? const {});
+    return InstitutionTeamMember(
+      membershipId: json['id'] as String,
+      userId: user['id'] as String,
+      name: user['nombre'] as String,
+      email: user['correo'] as String,
+      role: InstitutionMemberRole.fromBackend(json['rol'] as String?),
+      joinedAt: DateTime.parse(json['fechaCreacion'] as String).toLocal(),
+    );
+  }
+}
+
+class InstitutionManagementRequest {
+  const InstitutionManagementRequest({
+    required this.id,
+    required this.userId,
+    required this.name,
+    required this.email,
+    required this.createdAt,
+    this.message,
+  });
+
+  final String id;
+  final String userId;
+  final String name;
+  final String email;
+  final String? message;
+  final DateTime createdAt;
+
+  factory InstitutionManagementRequest.fromJson(Map<String, dynamic> json) {
+    final applicant = Map<String, dynamic>.from(
+      json['solicitante'] as Map? ?? const {},
+    );
+    return InstitutionManagementRequest(
+      id: json['id'] as String,
+      userId: applicant['id'] as String,
+      name: applicant['nombre'] as String,
+      email: applicant['correo'] as String,
+      message: json['mensaje'] as String?,
+      createdAt: DateTime.parse(json['fechaCreacion'] as String).toLocal(),
+    );
+  }
+}
+
+class InstitutionSentInvitation {
+  const InstitutionSentInvitation({
+    required this.id,
+    required this.email,
+    required this.role,
+    required this.invitedBy,
+    required this.expiresAt,
+  });
+
+  final String id;
+  final String email;
+  final InstitutionMemberRole role;
+  final String invitedBy;
+  final DateTime expiresAt;
+
+  factory InstitutionSentInvitation.fromJson(Map<String, dynamic> json) {
+    final creator = Map<String, dynamic>.from(
+      json['creadoPor'] as Map? ?? const {},
+    );
+    return InstitutionSentInvitation(
+      id: json['id'] as String,
+      email: json['correo'] as String,
+      role: InstitutionMemberRole.fromBackend(json['rol'] as String?),
+      invitedBy: creator['nombre'] as String? ?? 'Equipo institucional',
+      expiresAt: DateTime.parse(json['fechaExpiracion'] as String).toLocal(),
+    );
+  }
+}
+
+class InstitutionAuditEntry {
+  const InstitutionAuditEntry({
+    required this.id,
+    required this.action,
+    required this.actorName,
+    required this.createdAt,
+    this.affectedName,
+  });
+
+  final String id;
+  final String action;
+  final String actorName;
+  final String? affectedName;
+  final DateTime createdAt;
+
+  factory InstitutionAuditEntry.fromJson(Map<String, dynamic> json) {
+    final actor = Map<String, dynamic>.from(json['actor'] as Map? ?? const {});
+    final affected = json['afectado'] is Map
+        ? Map<String, dynamic>.from(json['afectado'] as Map)
+        : const <String, dynamic>{};
+    return InstitutionAuditEntry(
+      id: json['id'] as String,
+      action: json['accion'] as String,
+      actorName: actor['nombre'] as String? ?? 'Cuenta eliminada',
+      affectedName: affected['nombre'] as String?,
+      createdAt: DateTime.parse(json['fechaCreacion'] as String).toLocal(),
+    );
+  }
+}
+
+class InstitutionAdministration {
+  const InstitutionAdministration({
+    required this.institutionId,
+    required this.institutionName,
+    required this.institutionCode,
+    required this.myRole,
+    required this.permissions,
+    required this.members,
+    required this.requests,
+    required this.invitations,
+    required this.audit,
+  });
+
+  final String institutionId;
+  final String institutionName;
+  final String institutionCode;
+  final InstitutionMemberRole myRole;
+  final InstitutionPermissionSet permissions;
+  final List<InstitutionTeamMember> members;
+  final List<InstitutionManagementRequest> requests;
+  final List<InstitutionSentInvitation> invitations;
+  final List<InstitutionAuditEntry> audit;
+
+  factory InstitutionAdministration.fromJson(Map<String, dynamic> json) {
+    final institution = Map<String, dynamic>.from(
+      json['institucion'] as Map? ?? const {},
+    );
+    return InstitutionAdministration(
+      institutionId: institution['id'] as String,
+      institutionName: institution['nombre'] as String,
+      institutionCode: institution['codigoUnico'] as String,
+      myRole: InstitutionMemberRole.fromBackend(json['miRol'] as String?),
+      permissions: InstitutionPermissionSet.fromJson(
+        Map<String, dynamic>.from(json['permisos'] as Map? ?? const {}),
+      ),
+      members: _mapList(json['miembros'], InstitutionTeamMember.fromJson),
+      requests: _mapList(
+        json['solicitudes'],
+        InstitutionManagementRequest.fromJson,
+      ),
+      invitations: _mapList(
+        json['invitaciones'],
+        InstitutionSentInvitation.fromJson,
+      ),
+      audit: _mapList(json['auditoria'], InstitutionAuditEntry.fromJson),
+    );
+  }
+}
+
+List<T> _mapList<T>(Object? value, T Function(Map<String, dynamic>) parser) =>
+    (value as List? ?? const [])
+        .whereType<Map>()
+        .map((item) => parser(Map<String, dynamic>.from(item)))
+        .toList(growable: false);
