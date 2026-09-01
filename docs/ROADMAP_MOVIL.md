@@ -122,7 +122,7 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Récord fantasma autoritativo reconstruido desde intentos limpios y sincronizado entre dispositivos (6G-C).
 - [x] Ranking global e institucional con alias seudónimos, períodos y contrato móvil que rechaza datos personales (6G-D).
 - [x] Batallas asíncronas autoritativas con emparejamiento anónimo, invitaciones privadas, bloqueo y reporte sin filtrar identidades (6G-E).
-- Anuncios, referidos, soporte y calculadora de puntaje.
+- [x] Tablón de anuncios, referidos anónimos, soporte por WhatsApp validado y calculadora manual de puntaje (6G-F).
 
 ## Etapa 7 - Profesor e institución
 

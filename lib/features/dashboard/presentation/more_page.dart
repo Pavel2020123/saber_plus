@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/sync/sync_providers.dart';
+import '../../announcements/presentation/announcement_providers.dart';
 import '../../auth/presentation/session_controller.dart';
 import '../../gamification/presentation/gamification_providers.dart';
 import '../../study_time/domain/study_time_models.dart';
@@ -16,6 +17,7 @@ class MorePage extends ConsumerWidget {
     final pending = ref.watch(syncOperationsProvider).valueOrNull ?? const [];
     final gamification = ref.watch(gamificationSummaryProvider).valueOrNull;
     final studyTime = ref.watch(studyTimeSummaryProvider).valueOrNull;
+    final announcements = ref.watch(announcementControllerProvider).valueOrNull;
     return Scaffold(
       appBar: AppBar(title: const Text('Más')),
       body: ListView(
@@ -68,8 +70,38 @@ class MorePage extends ConsumerWidget {
             subtitle: 'Posiciones con identidades protegidas',
             onTap: () => context.push('/student/more/ranking'),
           ),
-          const _MenuTile(icon: Icons.campaign_outlined, title: 'Anuncios'),
-          const _MenuTile(icon: Icons.help_outline_rounded, title: 'Soporte'),
+          _MenuTile(
+            key: const Key('open-announcements'),
+            icon: Icons.campaign_outlined,
+            title: 'Anuncios',
+            subtitle: announcements == null
+                ? 'Novedades de SaberPlus y tu institución'
+                : announcements.pendingCount == 0
+                ? 'Estás al día'
+                : '${announcements.pendingCount} pendiente${announcements.pendingCount == 1 ? '' : 's'}',
+            onTap: () => context.push('/student/more/announcements'),
+          ),
+          _MenuTile(
+            key: const Key('open-score-calculator'),
+            icon: Icons.calculate_outlined,
+            title: 'Calculadora de puntaje',
+            subtitle: 'Calcula el global con tus cinco resultados',
+            onTap: () => context.push('/student/more/score-calculator'),
+          ),
+          _MenuTile(
+            key: const Key('open-referrals'),
+            icon: Icons.group_add_outlined,
+            title: 'Invitar a estudiar',
+            subtitle: 'Comparte tu código sin revelar datos privados',
+            onTap: () => context.push('/student/more/referrals'),
+          ),
+          _MenuTile(
+            key: const Key('open-support'),
+            icon: Icons.help_outline_rounded,
+            title: 'Soporte',
+            subtitle: 'Ayuda con tu cuenta o con la aplicación',
+            onTap: () => context.push('/student/more/support'),
+          ),
           _MenuTile(
             key: const Key('open-preferences'),
             icon: Icons.tune_rounded,

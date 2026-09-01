@@ -14,6 +14,7 @@ import '../features/auth/presentation/session_loading_page.dart';
 import '../features/auth/presentation/verify_email_page.dart';
 import '../features/auth/presentation/verify_pending_page.dart';
 import '../features/auth/presentation/welcome_page.dart';
+import '../features/announcements/presentation/announcements_page.dart';
 import '../features/battles/presentation/async_battles_page.dart';
 import '../features/battles/presentation/battle_detail_page.dart';
 import '../features/battles/presentation/blocked_rivals_page.dart';
@@ -62,7 +63,9 @@ import '../features/profile/presentation/career_orientation_page.dart';
 import '../features/profile/presentation/official_opportunities_page.dart';
 import '../features/profile/presentation/national_score_comparison_page.dart';
 import '../features/ranking/presentation/ranking_page.dart';
+import '../features/referrals/presentation/referrals_page.dart';
 import '../features/search/presentation/academic_search_page.dart';
+import '../features/score_calculator/presentation/score_calculator_page.dart';
 import '../features/shared/presentation/student_shell.dart';
 import '../features/study/presentation/study_area_page.dart';
 import '../features/study/presentation/study_areas_page.dart';
@@ -70,6 +73,7 @@ import '../features/study/presentation/study_lesson_page.dart';
 import '../features/study/presentation/offline_downloads_page.dart';
 import '../features/study/presentation/syllabus_countdown_page.dart';
 import '../features/study_time/presentation/study_time_page.dart';
+import '../features/support/presentation/support_page.dart';
 import 'page_transitions.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -566,6 +570,22 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   _animatedRoute(
                     path: 'ranking',
                     builder: (context, state) => const RankingPage(),
+                  ),
+                  _animatedRoute(
+                    path: 'announcements',
+                    builder: (context, state) => const AnnouncementsPage(),
+                  ),
+                  _animatedRoute(
+                    path: 'score-calculator',
+                    builder: (context, state) => const ScoreCalculatorPage(),
+                  ),
+                  _animatedRoute(
+                    path: 'referrals',
+                    builder: (context, state) => const ReferralsPage(),
+                  ),
+                  _animatedRoute(
+                    path: 'support',
+                    builder: (context, state) => const SupportPage(),
                   ),
                   _animatedRoute(
                     path: 'preferences',
