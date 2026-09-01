@@ -22,6 +22,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
   final _password = TextEditingController();
   final _confirmPassword = TextEditingController();
   final _referralCode = TextEditingController();
+  var _accountType = RegistrationAccountType.student;
 
   @override
   void dispose() {
@@ -45,6 +46,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
             email: _email.text.trim().toLowerCase(),
             password: _password.text,
             referralCode: _referralCode.text.trim(),
+            accountType: _accountType,
           ),
         );
     if (result == null || !mounted) return;
@@ -61,7 +63,9 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
     final session = ref.watch(sessionControllerProvider);
     return AuthFormScaffold(
       title: 'Crea tu cuenta',
-      subtitle: 'Comienza con un diagnóstico y recibe un plan a tu medida.',
+      subtitle: _accountType == RegistrationAccountType.student
+          ? 'Comienza con un diagnóstico y recibe un plan a tu medida.'
+          : 'Crea tu cuenta personal y luego vincula tu institución.',
       child: Form(
         key: _formKey,
         child: Column(
@@ -71,6 +75,41 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
               AuthErrorBanner(message: message),
               const SizedBox(height: 18),
             ],
+            Text(
+              'Tipo de cuenta',
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+            const SizedBox(height: 8),
+            SegmentedButton<RegistrationAccountType>(
+              key: const Key('registration-account-type'),
+              segments: const [
+                ButtonSegment(
+                  value: RegistrationAccountType.student,
+                  icon: Icon(Icons.school_outlined),
+                  label: Text('Estudiante'),
+                ),
+                ButtonSegment(
+                  value: RegistrationAccountType.teacher,
+                  icon: Icon(Icons.co_present_outlined),
+                  label: Text('Profesor'),
+                ),
+              ],
+              selected: {_accountType},
+              onSelectionChanged: (selection) {
+                setState(() => _accountType = selection.first);
+                if (_accountType == RegistrationAccountType.teacher) {
+                  _referralCode.clear();
+                }
+              },
+            ),
+            const SizedBox(height: 10),
+            Text(
+              _accountType == RegistrationAccountType.student
+                  ? 'La cuenta tendrá acceso a estudio, prácticas y juegos.'
+                  : 'No se crean cuentas compartidas de colegio. Cada profesor usa su propio correo y contraseña.',
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+            const SizedBox(height: 18),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -115,15 +154,17 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                 return null;
               },
             ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _referralCode,
-              textCapitalization: TextCapitalization.characters,
-              decoration: const InputDecoration(
-                labelText: 'Código de referido (opcional)',
-                prefixIcon: Icon(Icons.card_giftcard_rounded),
+            if (_accountType == RegistrationAccountType.student) ...[
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _referralCode,
+                textCapitalization: TextCapitalization.characters,
+                decoration: const InputDecoration(
+                  labelText: 'Código de referido (opcional)',
+                  prefixIcon: Icon(Icons.card_giftcard_rounded),
+                ),
               ),
-            ),
+            ],
             const SizedBox(height: 18),
             FilledButton(
               key: const Key('register-button'),

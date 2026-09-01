@@ -102,4 +102,6 @@ Las batallas asíncronas con emparejamiento anónimo, códigos privados, bloqueo
 
 El tablón de comunicados, los referidos protegidos, el soporte por WhatsApp y la calculadora manual se documentan en [docs/COMMUNITY_TOOLS.md](docs/COMMUNITY_TOOLS.md).
 
+El registro personal de profesores y la base segura para crear o solicitar ingreso a una institución se documentan en [docs/TEACHER_INSTITUTION_FOUNDATION.md](docs/TEACHER_INSTITUTION_FOUNDATION.md).
+
 El juego animado de preguntas Tira y afloja, tanto contra CPU como en multijugador autoritativo, se documenta en [docs/TUG_OF_WAR.md](docs/TUG_OF_WAR.md). Su contrato HTTP, Socket.IO y de reconexión se especifica en [docs/TUG_OF_WAR_BACKEND_CONTRACT.md](docs/TUG_OF_WAR_BACKEND_CONTRACT.md).

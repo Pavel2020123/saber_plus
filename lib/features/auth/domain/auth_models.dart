@@ -1,5 +1,15 @@
 import 'session.dart';
 
+enum RegistrationAccountType {
+  student('Estudiante', 'ESTUDIANTE'),
+  teacher('Profesor', 'PROFESOR');
+
+  const RegistrationAccountType(this.label, this.backendValue);
+
+  final String label;
+  final String backendValue;
+}
+
 class AuthTokens {
   const AuthTokens({required this.accessToken});
 
@@ -30,6 +40,7 @@ class RegistrationRequest {
     required this.email,
     required this.password,
     this.referralCode,
+    this.accountType = RegistrationAccountType.student,
   });
 
   final String firstName;
@@ -37,13 +48,16 @@ class RegistrationRequest {
   final String email;
   final String password;
   final String? referralCode;
+  final RegistrationAccountType accountType;
 
   Map<String, dynamic> toBackendJson() => {
     'nombre': '$firstName $lastName'.trim(),
     'correo': email,
     'contrasena': password,
-    if (referralCode case final code? when code.isNotEmpty)
-      'codigoReferido': code,
+    'rol': accountType.backendValue,
+    if (accountType == RegistrationAccountType.student)
+      if (referralCode case final code? when code.isNotEmpty)
+        'codigoReferido': code,
   };
 }
 

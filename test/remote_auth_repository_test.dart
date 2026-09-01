@@ -53,6 +53,7 @@ void main() {
       'nombre': 'Ana Pérez',
       'correo': 'ana@example.com',
       'contrasena': 'Password1',
+      'rol': 'ESTUDIANTE',
       'codigoReferido': 'AMIGO10',
     });
     expect(result.userId, 'user-2');

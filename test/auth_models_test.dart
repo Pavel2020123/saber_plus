@@ -38,6 +38,25 @@ void main() {
       'nombre': 'Ana Pérez',
       'correo': 'ana@example.com',
       'contrasena': 'Password123',
+      'rol': 'ESTUDIANTE',
+    });
+  });
+
+  test('registro de profesor no envía un código de referido', () {
+    const request = RegistrationRequest(
+      firstName: 'Andrea',
+      lastName: 'Docente',
+      email: 'andrea@example.com',
+      password: 'Password123',
+      referralCode: 'AMIGO10',
+      accountType: RegistrationAccountType.teacher,
+    );
+
+    expect(request.toBackendJson(), {
+      'nombre': 'Andrea Docente',
+      'correo': 'andrea@example.com',
+      'contrasena': 'Password123',
+      'rol': 'PROFESOR',
     });
   });
 

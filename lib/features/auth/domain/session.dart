@@ -13,6 +13,7 @@ class UserSession {
     this.requiresEmailVerification = false,
     this.mustChangePassword = false,
     this.isDemo = false,
+    this.institutionId,
   });
 
   final String id;
@@ -24,6 +25,7 @@ class UserSession {
   final bool requiresEmailVerification;
   final bool mustChangePassword;
   final bool isDemo;
+  final String? institutionId;
 
   UserSession copyWith({int? xpTotal}) => UserSession(
     id: id,
@@ -35,6 +37,7 @@ class UserSession {
     requiresEmailVerification: requiresEmailVerification,
     mustChangePassword: mustChangePassword,
     isDemo: isDemo,
+    institutionId: institutionId,
   );
 
   factory UserSession.fromBackendJson(Map<String, dynamic> json) => UserSession(
@@ -47,6 +50,7 @@ class UserSession {
     requiresEmailVerification:
         json['requiereVerificacionCorreo'] as bool? ?? false,
     mustChangePassword: json['debeCambiarContrasena'] as bool? ?? false,
+    institutionId: json['institucionId'] as String?,
   );
 
   static AppRole _roleFromBackend(String role) => switch (role.toUpperCase()) {
