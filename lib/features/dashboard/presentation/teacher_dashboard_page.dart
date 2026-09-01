@@ -97,6 +97,7 @@ class _TeacherDashboardPageState extends ConsumerState<TeacherDashboardPage> {
                   institution: data.institution!,
                   role: data.memberRole ?? InstitutionMemberRole.teacher,
                   onGroups: () => context.push('/teacher/groups'),
+                  onAnalytics: () => context.push('/teacher/analytics'),
                   onManage:
                       (data.memberRole ?? InstitutionMemberRole.teacher)
                           .canManage
@@ -355,12 +356,14 @@ class _LinkedInstitution extends StatelessWidget {
     required this.institution,
     required this.role,
     required this.onGroups,
+    required this.onAnalytics,
     required this.onManage,
   });
 
   final TeacherInstitution institution;
   final InstitutionMemberRole role;
   final VoidCallback onGroups;
+  final VoidCallback onAnalytics;
   final VoidCallback? onManage;
 
   @override
@@ -410,12 +413,14 @@ class _LinkedInstitution extends StatelessWidget {
         children: [
           _Metric(
             icon: Icons.people_outline_rounded,
-            value: '${institution.totalStudents}',
+            value:
+                '${institution.totalStudents} / ${institution.studentLimit ?? '—'}',
             label: 'Estudiantes',
           ),
           _Metric(
             icon: Icons.groups_2_outlined,
-            value: '${institution.totalGroups}',
+            value:
+                '${institution.totalGroups} / ${institution.groupLimit ?? '—'}',
             label: 'Grupos',
           ),
           _Metric(
@@ -424,9 +429,11 @@ class _LinkedInstitution extends StatelessWidget {
             label: 'Docentes',
           ),
           _Metric(
-            icon: Icons.person_add_alt_rounded,
-            value: institution.studentLimit?.toString() ?? '—',
-            label: 'Cupo del plan',
+            icon: institution.advertisingEnabled
+                ? Icons.ads_click_outlined
+                : Icons.block_outlined,
+            value: institution.advertisingEnabled ? 'Sí' : 'No',
+            label: 'Publicidad',
           ),
         ],
       ),
@@ -470,6 +477,41 @@ class _LinkedInstitution extends StatelessWidget {
                     icon: const Icon(Icons.copy_rounded),
                   ),
                 ],
+              ),
+            ],
+          ),
+        ),
+      ),
+      const SizedBox(height: 12),
+      Card(
+        child: Padding(
+          padding: const EdgeInsets.all(18),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Icon(Icons.analytics_outlined),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Indicadores básicos',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 4),
+                    const Text(
+                      'Consulta actividad, simulacros, promedio y avance de tus grupos sin exponer identidades en el resumen.',
+                    ),
+                    const SizedBox(height: 12),
+                    FilledButton.tonalIcon(
+                      key: const Key('open-teacher-basic-analytics'),
+                      onPressed: onAnalytics,
+                      icon: const Icon(Icons.query_stats_rounded),
+                      label: const Text('Ver indicadores'),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

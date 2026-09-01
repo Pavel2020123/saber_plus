@@ -37,6 +37,16 @@ enum InstitutionMemberRole {
   };
 }
 
+enum InstitutionAnalyticsLevel {
+  basic,
+  detailed;
+
+  factory InstitutionAnalyticsLevel.fromBackend(String? value) =>
+      value == 'DETALLADA'
+      ? InstitutionAnalyticsLevel.detailed
+      : InstitutionAnalyticsLevel.basic;
+}
+
 class TeacherInstitution {
   const TeacherInstitution({
     required this.id,
@@ -47,6 +57,9 @@ class TeacherInstitution {
     required this.totalGroups,
     required this.totalTeachers,
     required this.studentLimit,
+    this.groupLimit = 1,
+    this.advertisingEnabled = true,
+    this.analyticsLevel = InstitutionAnalyticsLevel.basic,
     this.welcomeMessage,
   });
 
@@ -58,6 +71,9 @@ class TeacherInstitution {
   final int totalGroups;
   final int totalTeachers;
   final int? studentLimit;
+  final int? groupLimit;
+  final bool advertisingEnabled;
+  final InstitutionAnalyticsLevel analyticsLevel;
   final String? welcomeMessage;
 
   factory TeacherInstitution.fromJson(Map<String, dynamic> json) =>
@@ -70,6 +86,15 @@ class TeacherInstitution {
         totalGroups: json['totalGrupos'] as int? ?? 0,
         totalTeachers: json['totalProfesores'] as int? ?? 0,
         studentLimit: json['limiteEstudiantes'] as int?,
+        groupLimit:
+            json['limiteGrupos'] as int? ??
+            ((json['planActual'] as String? ?? 'GRATIS') == 'GRATIS' ? 1 : 5),
+        advertisingEnabled:
+            json['publicidadHabilitada'] as bool? ??
+            (json['planActual'] as String? ?? 'GRATIS') == 'GRATIS',
+        analyticsLevel: InstitutionAnalyticsLevel.fromBackend(
+          json['nivelAnalitica'] as String?,
+        ),
         welcomeMessage: json['mensajeBienvenida'] as String?,
       );
 }

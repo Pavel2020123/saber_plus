@@ -21,6 +21,8 @@ La institución es un espacio organizativo. Los estudiantes se vinculan voluntar
 
 El profesor gratuito podrá gestionar inicialmente un grupo de hasta 40 estudiantes, consultar indicadores básicos y recibirá más espacios publicitarios que el estudiante. El plan de profesor usará los mismos precios individuales y habilitará hasta cinco grupos, 200 estudiantes, analítica detallada, alertas, priorización ampliada y exportaciones, además de retirar los anuncios. Estos límites deberán contrastarse con los costos reales del backend antes de producción.
 
+La etapa 7D ya aplica el grupo, los 40 estudiantes y la analítica agregada de forma autoritativa. La aplicación conserva desactivado el cliente publicitario hasta recibir la configuración comercial de AdMob; la política local y sus ubicaciones permitidas están documentadas en `TEACHER_FREE_PLAN.md`.
+
 ## Publicidad recompensada
 
 Un anuncio completado puede entregar un potenciador no transferible para juegos individuales o recuperar únicamente el día anterior de una racha durante su ventana de recuperación. No existe un límite comercial diario de potenciadores: cada reproducción debe iniciarse manualmente y queda sujeta a disponibilidad, verificación del servidor y controles de tráfico inválido de AdMob.

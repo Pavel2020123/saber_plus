@@ -108,4 +108,6 @@ Los permisos del equipo docente, las invitaciones, la auditoría y la transferen
 
 Los grupos asignados, los códigos temporales protegidos y la aceptación explícita de estudiantes se documentan en [docs/GROUP_LINKING.md](docs/GROUP_LINKING.md).
 
+Los límites del profesor gratuito, sus indicadores agregados y la política publicitaria preparada se documentan en [docs/TEACHER_FREE_PLAN.md](docs/TEACHER_FREE_PLAN.md).
+
 El juego animado de preguntas Tira y afloja, tanto contra CPU como en multijugador autoritativo, se documenta en [docs/TUG_OF_WAR.md](docs/TUG_OF_WAR.md). Su contrato HTTP, Socket.IO y de reconexión se especifica en [docs/TUG_OF_WAR_BACKEND_CONTRACT.md](docs/TUG_OF_WAR_BACKEND_CONTRACT.md).

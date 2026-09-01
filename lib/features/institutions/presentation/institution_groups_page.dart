@@ -22,10 +22,16 @@ class _InstitutionGroupsPageState extends ConsumerState<InstitutionGroupsPage> {
   @override
   Widget build(BuildContext context) {
     final groupsState = ref.watch(institutionGroupsControllerProvider);
-    final role = ref
+    final teacherContext = ref
         .watch(teacherInstitutionControllerProvider)
-        .valueOrNull
-        ?.memberRole;
+        .valueOrNull;
+    final role = teacherContext?.memberRole;
+    final groupLimit = teacherContext?.institution?.groupLimit;
+    final groupCount =
+        groupsState.valueOrNull?.length ??
+        teacherContext?.institution?.totalGroups ??
+        0;
+    final groupLimitReached = groupLimit != null && groupCount >= groupLimit;
     final administrationState = role?.canManage == true
         ? ref.watch(institutionAdministrationControllerProvider)
         : null;
@@ -43,8 +49,10 @@ class _InstitutionGroupsPageState extends ConsumerState<InstitutionGroupsPage> {
           if (role?.canManage == true)
             IconButton(
               key: const Key('create-institution-group'),
-              tooltip: 'Crear grupo',
-              onPressed: _working ? null : _createGroup,
+              tooltip: groupLimitReached
+                  ? 'Alcanzaste el límite de $groupLimit grupo(s)'
+                  : 'Crear grupo',
+              onPressed: _working || groupLimitReached ? null : _createGroup,
               icon: const Icon(Icons.add_rounded),
             ),
         ],
@@ -62,24 +70,37 @@ class _InstitutionGroupsPageState extends ConsumerState<InstitutionGroupsPage> {
             children: [
               Card(
                 color: Theme.of(context).colorScheme.primaryContainer,
-                child: const Padding(
-                  padding: EdgeInsets.all(18),
+                child: Padding(
+                  padding: const EdgeInsets.all(18),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(Icons.groups_2_outlined, size: 36),
-                      SizedBox(height: 10),
-                      Text(
+                      const Icon(Icons.groups_2_outlined, size: 36),
+                      const SizedBox(height: 10),
+                      const Text(
                         'Acceso por códigos temporales',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      SizedBox(height: 6),
-                      Text(
+                      const SizedBox(height: 6),
+                      const Text(
                         'El estudiante verá el nombre de la institución y del grupo antes de aceptar. El código completo solo se muestra al crearlo.',
                       ),
+                      if (groupLimit != null) ...[
+                        const SizedBox(height: 10),
+                        Chip(
+                          avatar: Icon(
+                            groupLimitReached
+                                ? Icons.lock_outline_rounded
+                                : Icons.check_circle_outline_rounded,
+                          ),
+                          label: Text(
+                            '$groupCount de $groupLimit grupo(s) del plan',
+                          ),
+                        ),
+                      ],
                     ],
                   ),
                 ),
@@ -96,7 +117,9 @@ class _InstitutionGroupsPageState extends ConsumerState<InstitutionGroupsPage> {
               ],
               const SizedBox(height: 12),
               if (groups.isEmpty)
-                _EmptyGroups(canCreate: role?.canManage == true)
+                _EmptyGroups(
+                  canCreate: role?.canManage == true && !groupLimitReached,
+                )
               else
                 for (final group in groups) ...[
                   _GroupCard(
@@ -257,6 +280,7 @@ class _InstitutionGroupsPageState extends ConsumerState<InstitutionGroupsPage> {
     setState(() => _working = true);
     try {
       await operation();
+      ref.invalidate(teacherInstitutionControllerProvider);
       if (mounted) {
         ScaffoldMessenger.of(
           context,

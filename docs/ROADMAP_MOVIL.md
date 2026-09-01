@@ -129,7 +129,7 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Cuenta personal de profesor, registro propio, creación con propietario y solicitud/cancelación de ingreso sin credenciales institucionales compartidas (7A).
 - [x] Propietario, administradores y profesores con invitaciones por correo, permisos auditables y transferencia segura de propiedad (7B).
 - [x] Grupos asignados por profesor, códigos temporales con hash, vencimiento y cupo, vista previa y aceptación explícita del estudiante (7C).
-- Profesor gratuito con un grupo, hasta 40 estudiantes, analítica básica y publicidad moderada.
+- [x] Profesor gratuito con un grupo, hasta 40 estudiantes, analítica básica agregada y frontera de publicidad moderada sin SDK activo (7D).
 - Profesor con plan sin anuncios: hasta cinco grupos y 200 estudiantes, analítica detallada, alertas, prioridades y exportaciones.
 - No se ofrecerán tutores, chat de asesoría ni explicaciones personales de preguntas.
 - Importaciones y operaciones masivas permanecen en web/tablet.

@@ -38,6 +38,9 @@ class DemoInstitutionGroupRepository implements InstitutionGroupRepository {
     required String name,
     required InstitutionGrade grade,
   }) async {
+    if (_teacherGroups.isNotEmpty) {
+      throw StateError('El plan gratis permite hasta 1 grupo.');
+    }
     _teacherGroups = [
       ..._teacherGroups,
       InstitutionGroup(

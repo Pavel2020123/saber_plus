@@ -82,6 +82,15 @@ void main() {
     },
   );
 
+  test('la demostración aplica el límite de un grupo gratuito', () async {
+    final repository = DemoInstitutionGroupRepository();
+
+    await expectLater(
+      repository.createGroup(name: 'Once B', grade: InstitutionGrade.eleventh),
+      throwsA(isA<StateError>()),
+    );
+  });
+
   testWidgets('el estudiante no puede unirse antes de aceptar', (tester) async {
     final repository = DemoInstitutionGroupRepository();
     await tester.pumpWidget(
