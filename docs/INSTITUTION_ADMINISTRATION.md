@@ -58,4 +58,4 @@ La migración `20260901063000_institution_administration` agrega invitaciones, a
 npx prisma migrate deploy
 ```
 
-La siguiente entrega 7C agregará grupos con códigos temporales y aceptación explícita de estudiantes. Las importaciones masivas continuarán fuera de la aplicación móvil.
+La etapa 7C de grupos con códigos temporales y aceptación explícita está documentada en [GROUP_LINKING.md](GROUP_LINKING.md). Las importaciones masivas continuarán fuera de la aplicación móvil.

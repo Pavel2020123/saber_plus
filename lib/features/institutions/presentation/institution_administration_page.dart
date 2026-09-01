@@ -708,6 +708,14 @@ String _auditLabel(String action) => switch (action) {
   'ROL_ACTUALIZADO' => 'Rol actualizado',
   'MIEMBRO_RETIRADO' => 'Miembro retirado',
   'PROPIEDAD_TRANSFERIDA' => 'Propiedad transferida',
+  'GRUPO_CREADO' => 'Grupo creado',
+  'GRUPO_ACTUALIZADO' => 'Grupo actualizado',
+  'GRUPO_ELIMINADO' => 'Grupo eliminado',
+  'PROFESOR_ASIGNADO_GRUPO' => 'Profesor asignado a grupo',
+  'PROFESOR_RETIRADO_GRUPO' => 'Profesor retirado de grupo',
+  'CODIGO_GRUPO_CREADO' => 'Código temporal creado',
+  'CODIGO_GRUPO_REVOCADO' => 'Código temporal revocado',
+  'ESTUDIANTE_UNIDO_GRUPO' => 'Estudiante vinculado a grupo',
   _ => action.toLowerCase().replaceAll('_', ' '),
 };
 

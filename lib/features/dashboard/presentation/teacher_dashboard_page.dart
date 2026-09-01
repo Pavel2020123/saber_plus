@@ -96,6 +96,7 @@ class _TeacherDashboardPageState extends ConsumerState<TeacherDashboardPage> {
                 TeacherInstitutionStatus.linked => _LinkedInstitution(
                   institution: data.institution!,
                   role: data.memberRole ?? InstitutionMemberRole.teacher,
+                  onGroups: () => context.push('/teacher/groups'),
                   onManage:
                       (data.memberRole ?? InstitutionMemberRole.teacher)
                           .canManage
@@ -353,11 +354,13 @@ class _LinkedInstitution extends StatelessWidget {
   const _LinkedInstitution({
     required this.institution,
     required this.role,
+    required this.onGroups,
     required this.onManage,
   });
 
   final TeacherInstitution institution;
   final InstitutionMemberRole role;
+  final VoidCallback onGroups;
   final VoidCallback? onManage;
 
   @override
@@ -467,6 +470,43 @@ class _LinkedInstitution extends StatelessWidget {
                     icon: const Icon(Icons.copy_rounded),
                   ),
                 ],
+              ),
+            ],
+          ),
+        ),
+      ),
+      const SizedBox(height: 12),
+      Card(
+        child: Padding(
+          padding: const EdgeInsets.all(18),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Icon(Icons.groups_2_outlined),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Grupos y códigos temporales',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      role.canManage
+                          ? 'Crea grupos, asigna profesores y genera accesos para estudiantes.'
+                          : 'Gestiona los grupos que te asignaron y genera accesos para tus estudiantes.',
+                    ),
+                    const SizedBox(height: 12),
+                    FilledButton.tonalIcon(
+                      key: const Key('open-institution-groups'),
+                      onPressed: onGroups,
+                      icon: const Icon(Icons.arrow_forward_rounded),
+                      label: const Text('Abrir grupos'),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

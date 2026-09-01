@@ -31,6 +31,13 @@ class MorePage extends ConsumerWidget {
             onTap: () => context.push('/student/more/profile'),
           ),
           _MenuTile(
+            key: const Key('open-student-institution'),
+            icon: Icons.account_balance_outlined,
+            title: 'Mi institución y grupos',
+            subtitle: 'Consulta y acepta códigos temporales de tus profesores',
+            onTap: () => context.push('/student/more/institution'),
+          ),
+          _MenuTile(
             key: const Key('open-favorites'),
             icon: Icons.bookmarks_outlined,
             title: 'Mis favoritos',

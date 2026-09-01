@@ -24,6 +24,8 @@ import '../features/dashboard/presentation/more_page.dart';
 import '../features/dashboard/presentation/student_dashboard_page.dart';
 import '../features/dashboard/presentation/teacher_dashboard_page.dart';
 import '../features/institutions/presentation/institution_administration_page.dart';
+import '../features/institutions/presentation/institution_groups_page.dart';
+import '../features/institutions/presentation/student_group_join_page.dart';
 import '../features/difficult_questions/presentation/difficult_questions_page.dart';
 import '../features/gamification/presentation/gamification_page.dart';
 import '../features/games/trivia_rush/domain/trivia_rush_models.dart';
@@ -553,6 +555,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                     ],
                   ),
                   _animatedRoute(
+                    path: 'institution',
+                    builder: (context, state) => const StudentGroupJoinPage(),
+                  ),
+                  _animatedRoute(
                     path: 'favorites',
                     builder: (context, state) => const FavoritesPage(),
                   ),
@@ -609,6 +615,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           _animatedRoute(
             path: 'administration',
             builder: (context, state) => const InstitutionAdministrationPage(),
+          ),
+          _animatedRoute(
+            path: 'groups',
+            builder: (context, state) => const InstitutionGroupsPage(),
           ),
         ],
       ),
