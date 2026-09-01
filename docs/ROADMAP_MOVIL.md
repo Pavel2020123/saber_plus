@@ -121,7 +121,7 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Arena Flutter conectada al multijugador real, con estados de red, respaldo HTTP y recuperación (6F-D-C-C).
 - [x] Récord fantasma autoritativo reconstruido desde intentos limpios y sincronizado entre dispositivos (6G-C).
 - [x] Ranking global e institucional con alias seudónimos, períodos y contrato móvil que rechaza datos personales (6G-D).
-- Batallas asíncronas, bloqueo y reporte.
+- [x] Batallas asíncronas autoritativas con emparejamiento anónimo, invitaciones privadas, bloqueo y reporte sin filtrar identidades (6G-E).
 - Anuncios, referidos, soporte y calculadora de puntaje.
 
 ## Etapa 7 - Profesor e institución

@@ -14,6 +14,9 @@ import '../features/auth/presentation/session_loading_page.dart';
 import '../features/auth/presentation/verify_email_page.dart';
 import '../features/auth/presentation/verify_pending_page.dart';
 import '../features/auth/presentation/welcome_page.dart';
+import '../features/battles/presentation/async_battles_page.dart';
+import '../features/battles/presentation/battle_detail_page.dart';
+import '../features/battles/presentation/blocked_rivals_page.dart';
 import '../features/academic/domain/academic_models.dart';
 import '../features/academic/presentation/diagnostic_overview_page.dart';
 import '../features/dashboard/presentation/more_page.dart';
@@ -233,6 +236,22 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 pageBuilder: (context, state) =>
                     const NoTransitionPage(child: PracticeHubPage()),
                 routes: [
+                  _animatedRoute(
+                    path: 'battles',
+                    builder: (context, state) => const AsyncBattlesPage(),
+                    routes: [
+                      _animatedRoute(
+                        path: 'blocked',
+                        builder: (context, state) => const BlockedRivalsPage(),
+                      ),
+                      _animatedRoute(
+                        path: ':battleId',
+                        builder: (context, state) => BattleDetailPage(
+                          battleId: state.pathParameters['battleId']!,
+                        ),
+                      ),
+                    ],
+                  ),
                   _animatedRoute(
                     path: 'trivia-rush',
                     builder: (context, state) => const TriviaRushSetupPage(),

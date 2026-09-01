@@ -389,6 +389,11 @@ void main() {
       300,
       scrollable: find.byType(Scrollable).last,
     );
+    await Scrollable.ensureVisible(
+      tester.element(find.byKey(const Key('open-tug-of-war'))),
+      alignment: 0.5,
+    );
+    await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('open-tug-of-war')));
     await tester.pumpAndSettle();
 

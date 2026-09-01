@@ -143,6 +143,28 @@ class PracticeHubPage extends StatelessWidget {
         ],
         const SizedBox(height: 18),
         Text(
+          'Retos entre estudiantes',
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+        const SizedBox(height: 8),
+        const Text(
+          'Compite de forma anónima. Cada estudiante responde cuando pueda dentro de 24 horas.',
+        ),
+        const SizedBox(height: 14),
+        Card(
+          child: ListTile(
+            key: const Key('open-async-battles'),
+            leading: const CircleAvatar(
+              child: Icon(Icons.sports_esports_outlined),
+            ),
+            title: const Text('Batallas asíncronas'),
+            subtitle: const Text('Rival al azar o invitación privada'),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            onTap: () => context.push('/student/practice/battles'),
+          ),
+        ),
+        const SizedBox(height: 26),
+        Text(
           'Juegos individuales',
           style: Theme.of(context).textTheme.headlineSmall,
         ),

@@ -98,4 +98,6 @@ El duelo contra el récord personal, autoritativo y sincronizado entre dispositi
 
 El ranking global e institucional con alias seudónimos y defensa contra filtraciones de datos se documenta en [docs/RANKING_PRIVACY.md](docs/RANKING_PRIVACY.md).
 
+Las batallas asíncronas con emparejamiento anónimo, códigos privados, bloqueo y reporte se documentan en [docs/ASYNC_BATTLES.md](docs/ASYNC_BATTLES.md).
+
 El juego animado de preguntas Tira y afloja, tanto contra CPU como en multijugador autoritativo, se documenta en [docs/TUG_OF_WAR.md](docs/TUG_OF_WAR.md). Su contrato HTTP, Socket.IO y de reconexión se especifica en [docs/TUG_OF_WAR_BACKEND_CONTRACT.md](docs/TUG_OF_WAR_BACKEND_CONTRACT.md).
