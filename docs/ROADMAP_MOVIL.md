@@ -120,7 +120,7 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Transporte Socket.IO autenticado, presencia, reloj autónomo y reconexión versionada de Tira y afloja (6F-D-C-B).
 - [x] Arena Flutter conectada al multijugador real, con estados de red, respaldo HTTP y recuperación (6F-D-C-C).
 - [x] Récord fantasma autoritativo reconstruido desde intentos limpios y sincronizado entre dispositivos (6G-C).
-- Ranking con privacidad por defecto.
+- [x] Ranking global e institucional con alias seudónimos, períodos y contrato móvil que rechaza datos personales (6G-D).
 - Batallas asíncronas, bloqueo y reporte.
 - Anuncios, referidos, soporte y calculadora de puntaje.
 

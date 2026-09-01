@@ -806,6 +806,33 @@ void main() {
     expect(find.text('Las cuatro fases'), findsOneWidget);
   });
 
+  testWidgets('abre el ranking privado desde Más', (tester) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Más'));
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('open-ranking')),
+      180,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.tap(find.byKey(const Key('open-ranking')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Ranking'), findsOneWidget);
+    expect(find.byKey(const Key('ranking-privacy-card')), findsOneWidget);
+    expect(find.text('Estudiante Cóndor 184527'), findsOneWidget);
+    expect(find.text('Juan Completo'), findsNothing);
+  });
+
   testWidgets('abre el estado de sincronización desde Más', (tester) async {
     await tester.pumpWidget(_testApp());
     await tester.pumpAndSettle();
@@ -847,9 +874,13 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Más'));
     await tester.pumpAndSettle();
-    await tester.drag(find.byType(ListView).last, const Offset(0, -250));
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('open-preferences')),
+      180,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.drag(find.byType(ListView).last, const Offset(0, -100));
     await tester.pumpAndSettle();
-    await tester.ensureVisible(find.byKey(const Key('open-preferences')));
     await tester.tap(find.byKey(const Key('open-preferences')));
     await tester.pumpAndSettle();
 

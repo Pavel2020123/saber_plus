@@ -61,7 +61,13 @@ class MorePage extends ConsumerWidget {
                 : '${formatStudyDuration(studyTime.totalSeconds)} de estudio',
             onTap: () => context.push('/student/more/study-time'),
           ),
-          const _MenuTile(icon: Icons.leaderboard_outlined, title: 'Ranking'),
+          _MenuTile(
+            key: const Key('open-ranking'),
+            icon: Icons.leaderboard_outlined,
+            title: 'Ranking',
+            subtitle: 'Posiciones con identidades protegidas',
+            onTap: () => context.push('/student/more/ranking'),
+          ),
           const _MenuTile(icon: Icons.campaign_outlined, title: 'Anuncios'),
           const _MenuTile(icon: Icons.help_outline_rounded, title: 'Soporte'),
           _MenuTile(

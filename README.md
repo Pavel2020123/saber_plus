@@ -96,4 +96,6 @@ El juego sin conexión de parejas entre fórmulas, términos y definiciones se d
 
 El duelo contra el récord personal, autoritativo y sincronizado entre dispositivos se documenta en [docs/GHOST_DUEL.md](docs/GHOST_DUEL.md). Los audios, contenidos y contratos necesarios para producción están enumerados en [docs/GAMES_PRODUCTION_CHECKLIST.md](docs/GAMES_PRODUCTION_CHECKLIST.md).
 
+El ranking global e institucional con alias seudónimos y defensa contra filtraciones de datos se documenta en [docs/RANKING_PRIVACY.md](docs/RANKING_PRIVACY.md).
+
 El juego animado de preguntas Tira y afloja, tanto contra CPU como en multijugador autoritativo, se documenta en [docs/TUG_OF_WAR.md](docs/TUG_OF_WAR.md). Su contrato HTTP, Socket.IO y de reconexión se especifica en [docs/TUG_OF_WAR_BACKEND_CONTRACT.md](docs/TUG_OF_WAR_BACKEND_CONTRACT.md).

@@ -58,6 +58,7 @@ import '../features/profile/presentation/score_projection_page.dart';
 import '../features/profile/presentation/career_orientation_page.dart';
 import '../features/profile/presentation/official_opportunities_page.dart';
 import '../features/profile/presentation/national_score_comparison_page.dart';
+import '../features/ranking/presentation/ranking_page.dart';
 import '../features/search/presentation/academic_search_page.dart';
 import '../features/shared/presentation/student_shell.dart';
 import '../features/study/presentation/study_area_page.dart';
@@ -542,6 +543,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   _animatedRoute(
                     path: 'study-time',
                     builder: (context, state) => const StudyTimePage(),
+                  ),
+                  _animatedRoute(
+                    path: 'ranking',
+                    builder: (context, state) => const RankingPage(),
                   ),
                   _animatedRoute(
                     path: 'preferences',
