@@ -136,11 +136,15 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 
 ## Etapa 7F - Supabase y despliegue de la API
 
-- Proyecto `saberplus-dev` con PostgreSQL administrado en Supabase.
-- Usuario de base exclusivo para Prisma y secretos fuera del repositorio.
-- Aplicación de todas las migraciones y carga controlada de datos de desarrollo.
-- Despliegue HTTPS del backend NestJS y conexión del ambiente Flutter `staging`.
-- Pruebas de extremo a extremo, respaldo inicial y separación del futuro proyecto de producción.
+- [x] Prisma preparado con conexiones separadas para ejecución y migraciones, plantilla segura y script de despliegue controlado.
+- [x] Proyecto `saberplus-dev` con PostgreSQL administrado en Supabase.
+- [x] Usuario de base exclusivo para Prisma y secretos fuera del repositorio.
+- [x] Aplicación de las 38 migraciones versionadas, sin fallos pendientes y con compatibilidad segura para `uuid-ossp`.
+- [ ] Carga controlada de contenido de desarrollo revisado; la base permanece limpia hasta recibir datos académicos aprobados.
+- [ ] Despliegue HTTPS del backend NestJS y conexión del ambiente Flutter `staging`.
+- [ ] Pruebas de extremo a extremo, respaldo inicial y separación del futuro proyecto de producción.
+
+El procedimiento reproducible y las reglas de seguridad están en `docs/SUPABASE_DEPLOYMENT.md`.
 
 ## Etapa 8 - Comercio y publicación
 
