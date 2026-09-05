@@ -22,8 +22,8 @@ class AppConfig {
     if (uri == null || !uri.hasScheme || uri.host.isEmpty) {
       throw StateError('API_BASE_URL no es una URL válida.');
     }
-    if (environment == AppEnvironment.prod && uri.scheme != 'https') {
-      throw StateError('La aplicación de producción requiere una API HTTPS.');
+    if (environment != AppEnvironment.dev && uri.scheme != 'https') {
+      throw StateError('Staging y producción requieren una API HTTPS.');
     }
     if (contentBaseUrl case final value?) {
       final contentUri = Uri.tryParse(value);
@@ -32,9 +32,9 @@ class AppConfig {
           contentUri.host.isEmpty) {
         throw StateError('CONTENT_BASE_URL no es una URL válida.');
       }
-      if (environment == AppEnvironment.prod && contentUri.scheme != 'https') {
+      if (environment != AppEnvironment.dev && contentUri.scheme != 'https') {
         throw StateError(
-          'Los recursos académicos de producción requieren HTTPS.',
+          'Los recursos académicos de staging y producción requieren HTTPS.',
         );
       }
     }

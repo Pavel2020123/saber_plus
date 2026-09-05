@@ -140,11 +140,13 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Proyecto `saberplus-dev` con PostgreSQL administrado en Supabase.
 - [x] Usuario de base exclusivo para Prisma y secretos fuera del repositorio.
 - [x] Aplicación de las 38 migraciones versionadas, sin fallos pendientes y con compatibilidad segura para `uuid-ossp`.
+- [x] Paquete reproducible de Render con HTTPS, validación de entorno, CORS compartido, cierre limpio y chequeos de salud de proceso/base.
 - [ ] Carga controlada de contenido de desarrollo revisado; la base permanece limpia hasta recibir datos académicos aprobados.
 - [ ] Despliegue HTTPS del backend NestJS y conexión del ambiente Flutter `staging`.
 - [ ] Pruebas de extremo a extremo, respaldo inicial y separación del futuro proyecto de producción.
 
-El procedimiento reproducible y las reglas de seguridad están en `docs/SUPABASE_DEPLOYMENT.md`.
+Los procedimientos reproducibles están en `docs/SUPABASE_DEPLOYMENT.md` y
+`docs/RENDER_STAGING_DEPLOYMENT.md`.
 
 ## Etapa 8 - Comercio y publicación
 

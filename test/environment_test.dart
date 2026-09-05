@@ -22,6 +22,16 @@ void main() {
     expect(config.validate, returnsNormally);
   });
 
+  test('staging también rechaza una API sin HTTPS', () {
+    const config = AppConfig(
+      environment: AppEnvironment.staging,
+      apiBaseUrl: 'http://api.example.com',
+      demoMode: false,
+    );
+
+    expect(config.validate, throwsStateError);
+  });
+
   test('producción exige HTTPS para los recursos académicos', () {
     const config = AppConfig(
       environment: AppEnvironment.prod,

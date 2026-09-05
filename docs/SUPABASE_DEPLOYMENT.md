@@ -128,6 +128,10 @@ mediante archivos versionados. El orden del release es:
 5. verificar el endpoint raiz y los flujos E2E;
 6. configurar la URL resultante como `API_BASE_URL` de Flutter staging.
 
+La configuracion concreta de Render, sus limitaciones de staging, endpoints de
+salud y conexion de Flutter se documentan en
+[`RENDER_STAGING_DEPLOYMENT.md`](RENDER_STAGING_DEPLOYMENT.md).
+
 No se cargan datos reales de estudiantes hasta completar las pruebas de
 seguridad, respaldo y eliminacion de cuenta.
 

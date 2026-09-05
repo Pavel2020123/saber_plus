@@ -72,6 +72,8 @@ Consulta el avance y las siguientes entregas en [docs/ROADMAP_MOVIL.md](docs/ROA
 
 La preparación de PostgreSQL administrado, las conexiones de Prisma y el despliegue seguro de migraciones se documentan en [docs/SUPABASE_DEPLOYMENT.md](docs/SUPABASE_DEPLOYMENT.md).
 
+El despliegue HTTPS del backend de staging y su conexión con Flutter se documentan en [docs/RENDER_STAGING_DEPLOYMENT.md](docs/RENDER_STAGING_DEPLOYMENT.md).
+
 El comportamiento y contrato pendiente de las pruebas de velocidad se documenta en [docs/TIME_TRIALS.md](docs/TIME_TRIALS.md).
 
 La comparación segura de resultados y el historial unificado pendiente se describen en [docs/SIMULATION_COMPARISON.md](docs/SIMULATION_COMPARISON.md).
