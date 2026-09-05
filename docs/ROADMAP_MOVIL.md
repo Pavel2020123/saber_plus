@@ -139,14 +139,26 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Prisma preparado con conexiones separadas para ejecución y migraciones, plantilla segura y script de despliegue controlado.
 - [x] Proyecto `saberplus-dev` con PostgreSQL administrado en Supabase.
 - [x] Usuario de base exclusivo para Prisma y secretos fuera del repositorio.
-- [x] Aplicación de las 38 migraciones versionadas, sin fallos pendientes y con compatibilidad segura para `uuid-ossp`.
+- [x] Aplicación de las 39 migraciones versionadas, incluida la del ciclo editorial, sin fallos pendientes y con compatibilidad segura para `uuid-ossp`.
 - [x] Paquete reproducible de Render con HTTPS, validación de entorno, CORS compartido, cierre limpio y chequeos de salud de proceso/base.
 - [ ] Carga controlada de contenido de desarrollo revisado; la base permanece limpia hasta recibir datos académicos aprobados.
 - [ ] Despliegue HTTPS del backend NestJS y conexión del ambiente Flutter `staging`.
 - [ ] Pruebas de extremo a extremo, respaldo inicial y separación del futuro proyecto de producción.
 
-Los procedimientos reproducibles están en `docs/SUPABASE_DEPLOYMENT.md` y
-`docs/RENDER_STAGING_DEPLOYMENT.md`.
+### Etapa 7F-C - Administración de contenido
+
+- [x] **7F-C1:** estados borrador, revisión, publicación y archivo; validaciones
+  jerárquicas; exclusión de contenido no publicado en actividades nuevas; y
+  borrado físico protegido.
+- [ ] **7F-C2:** importación masiva mediante Excel y ZIP con vista previa,
+  validación y detección de duplicados.
+- [ ] **7F-C3:** panel web privado para crear, editar, revisar y publicar.
+- [ ] **7F-C4:** versión del catálogo y sincronización con Flutter/Drift.
+- [ ] **7F-C5:** imágenes y archivos en Supabase Storage con metadatos.
+- [ ] **7F-C6:** auditoría, historial de cambios y restauración de versiones.
+
+Los procedimientos reproducibles están en `docs/SUPABASE_DEPLOYMENT.md`,
+`docs/RENDER_STAGING_DEPLOYMENT.md` y `docs/CONTENT_ADMINISTRATION.md`.
 
 ## Etapa 8 - Comercio y publicación
 

@@ -137,10 +137,11 @@ seguridad, respaldo y eliminacion de cuenta.
 
 ## Estado verificado de desarrollo
 
-El 2 de septiembre de 2026, `saberplus-dev` quedó conectado con un usuario
-exclusivo de Prisma. Las 38 migraciones versionadas se aplicaron correctamente,
-Prisma informó cero migraciones fallidas y se comprobaron las tablas principales
-de usuarios, preguntas, instituciones, Trivia Rush y Tira y afloja.
+El 4 de septiembre de 2026, `saberplus-dev` quedó conectado con un usuario
+exclusivo de Prisma. Las 39 migraciones versionadas, incluido el ciclo editorial
+del contenido, se aplicaron correctamente. Prisma informó cero migraciones
+fallidas y se comprobaron las tablas principales de usuarios, preguntas,
+instituciones, Trivia Rush y Tira y afloja.
 
 La base permanece sin semillas demostrativas. El contenido académico se cargará
 mediante un proceso idempotente y revisado cuando el equipo entregue preguntas,

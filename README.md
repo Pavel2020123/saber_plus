@@ -116,4 +116,6 @@ Los límites del profesor gratuito, sus indicadores agregados y la política pub
 
 El plan institucional sin anuncios, la analítica detallada, las alertas y las exportaciones seguras se documentan en [docs/TEACHER_NO_ADS_PLAN.md](docs/TEACHER_NO_ADS_PLAN.md).
 
+El ciclo seguro de borrador, revisión, publicación y archivo del contenido académico se documenta en [docs/CONTENT_ADMINISTRATION.md](docs/CONTENT_ADMINISTRATION.md).
+
 El juego animado de preguntas Tira y afloja, tanto contra CPU como en multijugador autoritativo, se documenta en [docs/TUG_OF_WAR.md](docs/TUG_OF_WAR.md). Su contrato HTTP, Socket.IO y de reconexión se especifica en [docs/TUG_OF_WAR_BACKEND_CONTRACT.md](docs/TUG_OF_WAR_BACKEND_CONTRACT.md).
