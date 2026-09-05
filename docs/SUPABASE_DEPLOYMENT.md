@@ -60,7 +60,7 @@ Este usuario sigue la integracion oficial de Supabase con Prisma. `bypassrls` y
 En el backend:
 
 ```powershell
-cd "C:\Users\LENOVO 14ALC6\Desktop\SaberPLus\Icfes_Vida_reference\backend"
+cd "C:\Users\LENOVO 14ALC6\Desktop\SaberPLus\SaberPlus-Backend\backend"
 Copy-Item .env.staging.example .env.staging.local
 ```
 

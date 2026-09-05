@@ -2,6 +2,10 @@
 
 Aplicación Flutter para la experiencia móvil de SaberPlus. El proyecto se está construyendo por etapas a partir del informe técnico de migración.
 
+El backend oficial se mantiene por separado en
+[`Pavel2020123/SaberPlus-Backend`](https://github.com/Pavel2020123/SaberPlus-Backend).
+Este repositorio móvil nunca almacena credenciales de PostgreSQL o Supabase.
+
 ## Ejecutar la etapa actual
 
 ```powershell

@@ -141,6 +141,8 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Usuario de base exclusivo para Prisma y secretos fuera del repositorio.
 - [x] Aplicación de las 39 migraciones versionadas, incluida la del ciclo editorial, sin fallos pendientes y con compatibilidad segura para `uuid-ossp`.
 - [x] Paquete reproducible de Render con HTTPS, validación de entorno, CORS compartido, cierre limpio y chequeos de salud de proceso/base.
+- [x] Backend independizado en `Pavel2020123/SaberPlus-Backend`, sin el frontend
+  legado, secretos, dependencias instaladas ni compilaciones locales.
 - [ ] Carga controlada de contenido de desarrollo revisado; la base permanece limpia hasta recibir datos académicos aprobados.
 - [ ] Despliegue HTTPS del backend NestJS y conexión del ambiente Flutter `staging`.
 - [ ] Pruebas de extremo a extremo, respaldo inicial y separación del futuro proyecto de producción.
@@ -154,9 +156,12 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
   validación académica y de imágenes, controles de seguridad, accesibilidad y
   huellas indexadas para bloquear preguntas repetidas, incluso si ya están
   publicadas.
-- [ ] **7F-C2-B:** plantilla `.xlsx` descargable y paquete ZIP demostrativo
-  verificado para el equipo de contenido.
-- [ ] **7F-C3:** panel web privado para crear, editar, revisar y publicar.
+- [ ] **7F-C2-B:** modelo administrable `área > tema > subtema`, asociación
+  obligatoria de preguntas y lecciones, y criterios confiables para convertir
+  resultados acumulados en fortalezas o necesidades de refuerzo. La
+  importación Excel/ZIP permanece como herramienta masiva opcional.
+- [ ] **7F-C3:** panel web privado para administrar el catálogo académico,
+  crear y editar contenido, previsualizarlo, revisar duplicados y publicarlo.
 - [ ] **7F-C4:** versión del catálogo y sincronización con Flutter/Drift.
 - [ ] **7F-C5:** imágenes y archivos en Supabase Storage con metadatos.
 - [ ] **7F-C6:** auditoría, historial de cambios y restauración de versiones.

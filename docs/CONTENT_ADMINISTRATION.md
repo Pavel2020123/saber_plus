@@ -86,14 +86,17 @@ autoría y duplicados contra todo el banco activo. Las coincidencias publicadas
 son errores y no pueden confirmarse como una importación nueva. El contrato
 completo está en `docs/CONTENT_IMPORT_FORMAT.md`.
 
-La plantilla `.xlsx` descargable queda separada como 7F-C2-B. El endpoint de
-formato ya expone sus hojas, columnas, catálogos y límites para que el panel la
-genere sin duplicar esas reglas.
+La importación Excel/ZIP queda disponible como herramienta masiva opcional. El
+método principal será el panel privado, para que el equipo pueda mantener el
+contenido sin preparar archivos manualmente.
 
 ## Próximas entregas de 7F-C
 
-- **7F-C2-B:** plantilla Excel descargable y paquete demostrativo verificado.
-- **7F-C3:** panel web privado para editar, revisar y publicar.
+- **7F-C2-B:** jerarquía administrable `área > tema > subtema`, asociación
+  académica obligatoria y reglas de diagnóstico basadas en resultados
+  acumulados, no en un solo error.
+- **7F-C3:** panel web privado para administrar el catálogo, editar,
+  previsualizar, revisar duplicados y publicar.
 - **7F-C4:** versión global del catálogo y sincronización Flutter/Drift.
 - **7F-C5:** archivos e imágenes en Supabase Storage, con metadatos y texto
   alternativo.

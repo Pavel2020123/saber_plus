@@ -31,9 +31,9 @@ Supabase. Fija una version exacta de Node, compila NestJS, inicia
 Antes de crear el servicio, confirmar que estos cambios ya esten en GitHub:
 
 ```powershell
-cd "C:\Users\LENOVO 14ALC6\Desktop\SaberPLus\Icfes_Vida_reference"
+cd "C:\Users\LENOVO 14ALC6\Desktop\SaberPLus\SaberPlus-Backend"
 git add render.yaml backend
-git commit -m "feat: preparar despliegue HTTPS de staging"
+git commit -m "feat: crear backend oficial de SaberPlus"
 git push origin main
 ```
 
@@ -43,7 +43,7 @@ se elige esa misma rama en Render.
 ## 2. Crear el Blueprint
 
 1. Entrar a Render y elegir **New > Blueprint**.
-2. Conectar GitHub y seleccionar `Pavel2020123/Icfes_Vida`.
+2. Conectar GitHub y seleccionar `Pavel2020123/SaberPlus-Backend`.
 3. Elegir la rama que contiene el commit anterior.
 4. Confirmar que Render encontro `/render.yaml`.
 5. Mantener el nombre `saberplus-api-staging`, el plan Free y la region Ohio.
@@ -142,4 +142,3 @@ debe repetirlas cada vez que arranca. Para un cambio futuro:
 - [Health checks de Render](https://render.com/docs/health-checks)
 - [Especificacion de Blueprints](https://render.com/docs/blueprint-spec)
 - [Version de Node en Render](https://render.com/docs/node-version)
-
