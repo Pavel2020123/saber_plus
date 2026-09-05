@@ -28,6 +28,9 @@ calidad y permisos.
   exactamente una respuesta correcta.
 - El tema y el subtema de una pregunta deben estar publicados.
 - Si la pregunta usa un caso compartido, ese caso también debe estar publicado.
+- Antes de crear o publicar se calcula una huella normalizada. Si otra pregunta
+  activa tiene la misma huella, se bloquea la copia; una pregunta archivada sí
+  puede sustituirse por una versión nueva.
 - Los intentos ya iniciados pueden terminar con su versión anterior, pero el
   contenido archivado no entra en diagnósticos, prácticas, simulacros, repasos,
   planes de estudio ni juegos nuevos.
@@ -66,10 +69,30 @@ verifica que no vuelva a seleccionarse en una actividad nueva.
 La migración se aplica solo mediante el procedimiento controlado de
 `SUPABASE_DEPLOYMENT.md`. Nunca se usa `prisma db push` en staging.
 
+## Importación segura disponible en 7F-C2-A
+
+El backend ya puede recibir un Excel o ZIP desde una sesión administrativa,
+validarlo completamente en memoria y devolver una vista previa sin modificar
+la base de datos:
+
+```text
+GET  /admin/importaciones-contenido/formato
+POST /admin/importaciones-contenido/previsualizar
+```
+
+La segunda ruta usa `multipart/form-data` con un campo `archivo`. Revisa la
+estructura del libro, casos compartidos, opciones, imágenes, accesibilidad,
+autoría y duplicados contra todo el banco activo. Las coincidencias publicadas
+son errores y no pueden confirmarse como una importación nueva. El contrato
+completo está en `docs/CONTENT_IMPORT_FORMAT.md`.
+
+La plantilla `.xlsx` descargable queda separada como 7F-C2-B. El endpoint de
+formato ya expone sus hojas, columnas, catálogos y límites para que el panel la
+genere sin duplicar esas reglas.
+
 ## Próximas entregas de 7F-C
 
-- **7F-C2:** plantilla Excel y paquete ZIP con previsualización, validaciones y
-  detección de duplicados.
+- **7F-C2-B:** plantilla Excel descargable y paquete demostrativo verificado.
 - **7F-C3:** panel web privado para editar, revisar y publicar.
 - **7F-C4:** versión global del catálogo y sincronización Flutter/Drift.
 - **7F-C5:** archivos e imágenes en Supabase Storage, con metadatos y texto

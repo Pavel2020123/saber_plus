@@ -150,15 +150,20 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] **7F-C1:** estados borrador, revisión, publicación y archivo; validaciones
   jerárquicas; exclusión de contenido no publicado en actividades nuevas; y
   borrado físico protegido.
-- [ ] **7F-C2:** importación masiva mediante Excel y ZIP con vista previa,
-  validación y detección de duplicados.
+- [x] **7F-C2-A:** API de importación Excel/ZIP con vista previa sin escrituras,
+  validación académica y de imágenes, controles de seguridad, accesibilidad y
+  huellas indexadas para bloquear preguntas repetidas, incluso si ya están
+  publicadas.
+- [ ] **7F-C2-B:** plantilla `.xlsx` descargable y paquete ZIP demostrativo
+  verificado para el equipo de contenido.
 - [ ] **7F-C3:** panel web privado para crear, editar, revisar y publicar.
 - [ ] **7F-C4:** versión del catálogo y sincronización con Flutter/Drift.
 - [ ] **7F-C5:** imágenes y archivos en Supabase Storage con metadatos.
 - [ ] **7F-C6:** auditoría, historial de cambios y restauración de versiones.
 
 Los procedimientos reproducibles están en `docs/SUPABASE_DEPLOYMENT.md`,
-`docs/RENDER_STAGING_DEPLOYMENT.md` y `docs/CONTENT_ADMINISTRATION.md`.
+`docs/RENDER_STAGING_DEPLOYMENT.md`, `docs/CONTENT_ADMINISTRATION.md` y
+`docs/CONTENT_IMPORT_FORMAT.md`.
 
 ## Etapa 8 - Comercio y publicación
 

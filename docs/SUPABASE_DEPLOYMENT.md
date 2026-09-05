@@ -143,6 +143,11 @@ del contenido, se aplicaron correctamente. Prisma informó cero migraciones
 fallidas y se comprobaron las tablas principales de usuarios, preguntas,
 instituciones, Trivia Rush y Tira y afloja.
 
+El repositorio contiene después una migración número 40 que añade la huella
+indexada de preguntas. Debe aplicarse al reanudar la conexión por Session
+pooler; el intento local por conexión directa quedó aplazado porque la red del
+equipo no dispone de IPv6. No se modificó la base durante ese intento.
+
 La base permanece sin semillas demostrativas. El contenido académico se cargará
 mediante un proceso idempotente y revisado cuando el equipo entregue preguntas,
 lecciones y recursos autorizados.

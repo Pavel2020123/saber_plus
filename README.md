@@ -118,4 +118,6 @@ El plan institucional sin anuncios, la analítica detallada, las alertas y las e
 
 El ciclo seguro de borrador, revisión, publicación y archivo del contenido académico se documenta en [docs/CONTENT_ADMINISTRATION.md](docs/CONTENT_ADMINISTRATION.md).
 
+El formato para importar preguntas, lecciones, casos e imágenes mediante Excel o ZIP se documenta en [docs/CONTENT_IMPORT_FORMAT.md](docs/CONTENT_IMPORT_FORMAT.md).
+
 El juego animado de preguntas Tira y afloja, tanto contra CPU como en multijugador autoritativo, se documenta en [docs/TUG_OF_WAR.md](docs/TUG_OF_WAR.md). Su contrato HTTP, Socket.IO y de reconexión se especifica en [docs/TUG_OF_WAR_BACKEND_CONTRACT.md](docs/TUG_OF_WAR_BACKEND_CONTRACT.md).
