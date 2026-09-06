@@ -174,12 +174,16 @@ las etapas 7F-C de contenido ni las de comercio/publicación.
   validación académica y de imágenes, controles de seguridad, accesibilidad y
   huellas indexadas para bloquear preguntas repetidas, incluso si ya están
   publicadas.
-- [ ] **7F-C2-B:** modelo administrable `área > tema > subtema`, asociación
-  obligatoria de preguntas y lecciones, y criterios confiables para convertir
-  resultados acumulados en fortalezas o necesidades de refuerzo. La
-  importación Excel/ZIP permanece como herramienta masiva opcional.
+- [x] **7F-C2-B1:** base del catálogo `área > tema > subtema`, consultas
+  administrativas paginadas, creación sin duplicados en el mismo ámbito y
+  clasificación específica obligatoria en preguntas y lecciones. La carga rápida
+  ya no crea Banco General; el legado se conserva y señala para revisión.
+- [ ] **7F-C2-B2:** criterios y contrato de evidencia suficiente para convertir
+  resultados acumulados en fortalezas o necesidades de refuerzo por tema/subtema.
+  No concluir una falencia por un único error. La importación Excel/ZIP sigue opcional.
 - [ ] **7F-C3:** panel web privado para administrar el catálogo académico,
-  crear y editar contenido, previsualizarlo, revisar duplicados y publicarlo.
+  crear y editar contenido/nombres, revisar la clasificación del legado,
+  previsualizarlo, revisar duplicados y publicarlo.
 - [ ] **7F-C4:** versión del catálogo y sincronización con Flutter/Drift.
 - [ ] **7F-C5:** imágenes y archivos en Supabase Storage con metadatos.
 - [ ] **7F-C6:** auditoría, historial de cambios y restauración de versiones.

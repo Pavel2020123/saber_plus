@@ -17,7 +17,12 @@ La aplicación inicia en modo demostración para poder revisar navegación y dis
 
 La interfaz inicia con fondo blanco y permite que el estudiante elija modo claro, oscuro o automático según el dispositivo desde `Más > Preferencias`.
 
-Última entrega: **7F-B3-A — configuración y conexión básica de Flutter a staging**.
+Última entrega: **7F-C2-B1 — catálogo académico por área, tema y subtema**.
+La clasificación obligatoria y sus controles se implementaron en el backend;
+el panel visual y el diagnóstico por evidencia tienen sus propias entregas.
+Detalle y commits en [docs/ACADEMIC_CATALOG.md](docs/ACADEMIC_CATALOG.md).
+
+Entrega anterior: **7F-B3-A — configuración y conexión básica de Flutter a staging**.
 El perfil listo para ejecutar, la comprobación sin credenciales y la lista de
 pruebas integrales pendientes están en [docs/FLUTTER_STAGING_CONNECTION.md](docs/FLUTTER_STAGING_CONNECTION.md).
 
