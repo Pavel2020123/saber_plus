@@ -17,7 +17,12 @@ La aplicación inicia en modo demostración para poder revisar navegación y dis
 
 La interfaz inicia con fondo blanco y permite que el estudiante elija modo claro, oscuro o automático según el dispositivo desde `Más > Preferencias`.
 
-Última entrega: **7F-C2-B1 — catálogo académico por área, tema y subtema**.
+Última entrega: **7F-C2-B2 — diagnóstico por evidencia acumulada**.
+Disponible desde Progreso y el resultado del diagnóstico inicial. Diferencia un
+error aislado de una necesidad de refuerzo respaldada por preguntas distintas,
+sesiones y días de práctica. Pruebas y commits en [docs/LEARNING_EVIDENCE.md](docs/LEARNING_EVIDENCE.md).
+
+Entrega anterior: **7F-C2-B1 — catálogo académico por área, tema y subtema**.
 La clasificación obligatoria y sus controles se implementaron en el backend;
 el panel visual y el diagnóstico por evidencia tienen sus propias entregas.
 Detalle y commits en [docs/ACADEMIC_CATALOG.md](docs/ACADEMIC_CATALOG.md).

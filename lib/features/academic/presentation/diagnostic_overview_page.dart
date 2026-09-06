@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/config/environment.dart';
 import '../../../core/network/api_error.dart';
@@ -665,15 +666,20 @@ class _DiagnosticResults extends ConsumerWidget {
           ),
         const SizedBox(height: 12),
         Text(
-          'Temas para reforzar',
+          'Errores para revisar',
           style: Theme.of(context).textTheme.titleLarge,
         ),
         const SizedBox(height: 6),
         Text(
-          'Se calculan con las preguntas falladas guardadas en tu cuaderno de errores.',
+          'Son preguntas falladas de tu cuaderno, no falencias confirmadas. El diagnóstico por temas reúne evidencia de varias sesiones.',
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         const SizedBox(height: 10),
+        OutlinedButton.icon(
+          onPressed: () => context.push('/student/progress/evidence'),
+          icon: const Icon(Icons.fact_check_outlined),
+          label: const Text('Ver diagnóstico por temas'),
+        ),
         weakTopicsAsync.when(
           data: (topics) => topics.isEmpty
               ? const Card(
@@ -709,7 +715,7 @@ class _DiagnosticResults extends ConsumerWidget {
           error: (_, _) => const Card(
             child: ListTile(
               leading: Icon(Icons.info_outline_rounded),
-              title: Text('No pudimos cargar los temas por reforzar'),
+              title: Text('No pudimos cargar los errores para revisar'),
               subtitle: Text('Tu resultado general sí quedó guardado.'),
             ),
           ),

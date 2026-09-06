@@ -62,6 +62,7 @@ import '../features/practice/presentation/simulation_comparison_page.dart';
 import '../features/practice/presentation/time_trial_setup_page.dart';
 import '../features/progress/presentation/adaptive_review_page.dart';
 import '../features/progress/presentation/progress_page.dart';
+import '../features/learning_evidence/presentation/learning_evidence_page.dart';
 import '../features/profile/presentation/academic_profile_page.dart';
 import '../features/profile/presentation/academic_activity_report_page.dart';
 import '../features/profile/presentation/score_projection_page.dart';
@@ -482,6 +483,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 pageBuilder: (context, state) =>
                     const NoTransitionPage(child: ProgressPage()),
                 routes: [
+                  _animatedRoute(
+                    path: 'evidence',
+                    builder: (context, state) => const LearningEvidencePage(),
+                  ),
                   _animatedRoute(
                     path: 'library',
                     builder: (context, state) => const ReferenceLibraryPage(),

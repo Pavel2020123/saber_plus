@@ -1,6 +1,7 @@
 # Contrato académico móvil
 
-Contrato auditado contra el backend NestJS de `Pavel2020123/Icfes_Vida` para la Etapa 3.
+Contrato original auditado contra `Pavel2020123/Icfes_Vida` en la Etapa 3.
+El backend oficial actual es `Pavel2020123/SaberPlus-Backend`.
 
 ## Inicio académico
 
@@ -44,3 +45,10 @@ Flutter no recalcula prioridades ni resultados: el backend continúa siendo la a
 ## Alcance de recomendaciones
 
 El diagnóstico inicial clasifica el resultado principal por **área**. Al finalizar, cada respuesta incorrecta entra al historial con origen `DIAGNOSTICO`; Flutter consulta `GET /cuaderno-errores` y agrupa esos registros por tema y subtema. Así puede mostrar una recomendación concreta como “Regla de tres — Razones y proporciones — Matemáticas” cuando la pregunta está etiquetada con ese subtema.
+
+Desde **7F-C2-B2**, esa lista se presenta como “Errores para revisar”, no como
+falencias confirmadas. El nuevo `GET /diagnostico-evidencia` y la pantalla
+“Diagnóstico por temas” requieren evidencia acumulada antes de clasificar un
+tema/subtema. El resultado inicial por área sigue siendo una muestra orientativa;
+no se cambió retroactivamente su contrato ni la calificación guardada.
+Reglas y límites: [LEARNING_EVIDENCE.md](LEARNING_EVIDENCE.md).

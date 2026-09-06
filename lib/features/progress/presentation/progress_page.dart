@@ -188,6 +188,13 @@ class _DashboardContent extends StatelessWidget {
       const SizedBox(height: 18),
       _LearningProgressCard(progress: data.study),
       const SizedBox(height: 14),
+      OutlinedButton.icon(
+        key: const Key('open-learning-evidence'),
+        onPressed: () => context.push('/student/progress/evidence'),
+        icon: const Icon(Icons.fact_check_outlined),
+        label: const Text('Ver diagnóstico por temas'),
+      ),
+      const SizedBox(height: 14),
       Card(
         child: Padding(
           padding: const EdgeInsets.all(18),

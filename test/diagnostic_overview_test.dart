@@ -79,35 +79,38 @@ void main() {
     expect(option.properties.selected, isTrue);
   });
 
-  testWidgets('finaliza y muestra la falencia exacta por subtema', (
-    tester,
-  ) async {
-    final store = _MemoryDraftStore();
-    await tester.pumpWidget(
-      ProviderScope(
-        overrides: [
-          academicHomeControllerProvider.overrideWith(
-            _InProgressAcademicController.new,
-          ),
-          diagnosticDraftStoreProvider.overrideWithValue(store),
-        ],
-        child: const MaterialApp(home: DiagnosticOverviewPage()),
-      ),
-    );
-    await tester.pumpAndSettle();
+  testWidgets(
+    'finaliza y distingue errores por subtema de falencias confirmadas',
+    (tester) async {
+      final store = _MemoryDraftStore();
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            academicHomeControllerProvider.overrideWith(
+              _InProgressAcademicController.new,
+            ),
+            diagnosticDraftStoreProvider.overrideWithValue(store),
+          ],
+          child: const MaterialApp(home: DiagnosticOverviewPage()),
+        ),
+      );
+      await tester.pumpAndSettle();
 
-    await tester.tap(find.byKey(const Key('diagnostic-option-answer-a')));
-    await tester.tap(find.byKey(const Key('finish-diagnostic-button')));
-    await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const Key('confirm-finish-diagnostic-button')));
-    await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('diagnostic-option-answer-a')));
+      await tester.tap(find.byKey(const Key('finish-diagnostic-button')));
+      await tester.pumpAndSettle();
+      await tester.tap(
+        find.byKey(const Key('confirm-finish-diagnostic-button')),
+      );
+      await tester.pumpAndSettle();
 
-    expect(find.text('Tu línea base'), findsOneWidget);
-    expect(find.text('Temas para reforzar'), findsOneWidget);
-    expect(find.text('Regla de tres'), findsOneWidget);
-    expect(find.textContaining('Razones y proporciones'), findsOneWidget);
-    expect(store.wasCleared, isTrue);
-  });
+      expect(find.text('Tu línea base'), findsOneWidget);
+      expect(find.text('Errores para revisar'), findsOneWidget);
+      expect(find.text('Regla de tres'), findsOneWidget);
+      expect(find.textContaining('Razones y proporciones'), findsOneWidget);
+      expect(store.wasCleared, isTrue);
+    },
+  );
 }
 
 class _MemoryDraftStore extends DiagnosticDraftStore {

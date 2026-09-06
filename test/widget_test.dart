@@ -760,6 +760,30 @@ void main() {
     expect(find.textContaining('Pregunta 1 de'), findsOneWidget);
   });
 
+  testWidgets('abre diagnóstico por temas desde Progreso con la sesión demo', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Progreso'));
+    await tester.pumpAndSettle();
+    await Scrollable.ensureVisible(
+      tester.element(find.byKey(const Key('open-learning-evidence'))),
+      alignment: 0.5,
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('open-learning-evidence')));
+    await tester.pumpAndSettle();
+    expect(find.text('Diagnóstico por temas'), findsOneWidget);
+    expect(find.text('Demostración: datos de ejemplo'), findsOneWidget);
+  });
+
   testWidgets('consulta fórmulas, glosario y estrategia sin conexión', (
     tester,
   ) async {
@@ -782,6 +806,17 @@ void main() {
         of: find.byKey(const Key('progress-dashboard-list')),
         matching: find.byType(Scrollable),
       ),
+    );
+    // Keep the button above the shell navigation bar after new dashboard cards.
+    await tester.pumpAndSettle();
+    await Scrollable.ensureVisible(
+      tester.element(find.byKey(const Key('open-reference-library'))),
+      alignment: 0.5,
+    );
+    await tester.pumpAndSettle();
+    expect(
+      find.byKey(const Key('open-reference-library')).hitTestable(),
+      findsOneWidget,
     );
     await tester.tap(find.byKey(const Key('open-reference-library')));
     await tester.pumpAndSettle();

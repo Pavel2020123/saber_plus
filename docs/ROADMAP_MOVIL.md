@@ -178,9 +178,11 @@ las etapas 7F-C de contenido ni las de comercio/publicación.
   administrativas paginadas, creación sin duplicados en el mismo ámbito y
   clasificación específica obligatoria en preguntas y lecciones. La carga rápida
   ya no crea Banco General; el legado se conserva y señala para revisión.
-- [ ] **7F-C2-B2:** criterios y contrato de evidencia suficiente para convertir
-  resultados acumulados en fortalezas o necesidades de refuerzo por tema/subtema.
-  No concluir una falencia por un único error. La importación Excel/ZIP sigue opcional.
+- [x] **7F-C2-B2:** API personal y pantalla Flutter de evidencia acumulada por
+  tema/subtema, con preguntas distintas, mínimos de sesiones/días, exclusión del
+  contenido genérico, límites y estados sin datos/parciales. Un error aislado no
+  se presenta como falencia confirmada. Falta desplegar y validar el flujo real
+  dentro de 7F-B3-B. Detalle: `docs/LEARNING_EVIDENCE.md`.
 - [ ] **7F-C3:** panel web privado para administrar el catálogo académico,
   crear y editar contenido/nombres, revisar la clasificación del legado,
   previsualizarlo, revisar duplicados y publicarlo.
