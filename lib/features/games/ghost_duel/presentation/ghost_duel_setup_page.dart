@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../../academic/domain/academic_models.dart';
 import '../../trivia_rush/domain/trivia_rush_models.dart';
 import '../domain/ghost_duel_models.dart';
+import 'ghost_character.dart';
 
 class GhostDuelSetupPage extends StatefulWidget {
   const GhostDuelSetupPage({super.key});
@@ -33,7 +34,10 @@ class _GhostDuelSetupPageState extends State<GhostDuelSetupPage> {
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.sports_martial_arts_rounded, size: 38),
+                Align(
+                  alignment: Alignment.center,
+                  child: GhostCharacter(size: 126),
+                ),
                 SizedBox(height: 12),
                 Text(
                   'Compite contra tu mejor versión',

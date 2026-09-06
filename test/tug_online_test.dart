@@ -10,6 +10,7 @@ import 'package:saber_plus/features/games/tug_of_war/domain/tug_online_models.da
 import 'package:saber_plus/features/games/tug_of_war/domain/tug_of_war_models.dart';
 import 'package:saber_plus/features/games/tug_of_war/presentation/tug_of_war_providers.dart';
 import 'package:saber_plus/features/games/tug_of_war/presentation/tug_online_page.dart';
+import 'package:saber_plus/features/games/tug_of_war/presentation/animation/tug_arena.dart';
 
 void main() {
   test('construye la ruta del multijugador con filtro de área', () {
@@ -158,6 +159,70 @@ void main() {
     expect(find.byKey(const Key('ready-online-tug')), findsOneWidget);
     await tester.pumpWidget(const SizedBox());
   });
+
+  testWidgets('solo confirma respuestas y reacciones recibidas del servidor', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(420, 1100));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    final client = _FakeRealtimeClient();
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          tugRealtimeClientFactoryProvider.overrideWithValue(() => client),
+        ],
+        child: const MaterialApp(
+          home: TugOnlinePage(config: TugOnlineConfig()),
+        ),
+      ),
+    );
+    client.add(const TugRealtimeConnected());
+    client.add(
+      TugRealtimeState(
+        TugOnlineSnapshot.fromJson(
+          _snapshotJson(status: 'ACTIVA', round: 1, version: 1),
+        ),
+      ),
+    );
+    await tester.pump();
+    await tester.pump();
+    var arena = tester.widget<TugArena>(find.byType(TugArena));
+    expect(arena.opponentLabel, 'RIVAL');
+    expect(arena.animationCue, isNull);
+    expect(arena.playerAnswered, isFalse);
+
+    await tester.tap(find.byKey(const Key('tug-online-answer-answer-a')));
+    await tester.pump();
+    expect(
+      find.text('Enviando respuesta… Espera la confirmación.'),
+      findsOneWidget,
+    );
+    arena = tester.widget<TugArena>(find.byType(TugArena));
+    expect(arena.playerAnswered, isFalse);
+    expect(arena.animationCue, isNull);
+
+    client.add(
+      TugRealtimeState(
+        TugOnlineSnapshot.fromJson(
+          _snapshotJson(status: 'ACTIVA', round: 1, version: 2, answered: true),
+        ),
+      ),
+    );
+    await tester.pump();
+    expect(
+      find.text('Respuesta confirmada. Esperando el resultado de la ronda…'),
+      findsOneWidget,
+    );
+    arena = tester.widget<TugArena>(find.byType(TugArena));
+    expect(arena.playerAnswered, isTrue);
+    expect(arena.animationCue, isNull);
+
+    client.add(const TugRealtimeDisconnected());
+    await tester.pump();
+    expect(find.textContaining('Reconectando… El tiempo'), findsOneWidget);
+    expect(tester.widget<TugArena>(find.byType(TugArena)).paused, isTrue);
+    await tester.pumpWidget(const SizedBox());
+  });
 }
 
 class _FakeRealtimeClient implements TugRealtimeClient {
@@ -218,6 +283,7 @@ Map<String, dynamic> _snapshotJson({
   int round = 0,
   int ropePosition = 0,
   bool rival = false,
+  bool answered = false,
   List<Map<String, dynamic>> events = const [],
 }) {
   final now = DateTime.now().toUtc();
@@ -249,7 +315,7 @@ Map<String, dynamic> _snapshotJson({
           ? {'id': 'rival', 'nombre': 'Luis', 'fotoPerfil': null}
           : null,
       'ganadorId': winnerId,
-      'yaRespondi': false,
+      'yaRespondi': answered,
       'pregunta': status == 'ACTIVA'
           ? {
               'id': 'question-1',

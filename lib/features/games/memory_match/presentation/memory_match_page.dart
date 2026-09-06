@@ -8,6 +8,7 @@ import '../../../../core/feedback/game_audio_feedback.dart';
 import '../../../flashcards/domain/flashcard_models.dart';
 import '../../../library/presentation/reference_library_providers.dart';
 import '../domain/memory_match_models.dart';
+import 'memory_tile_card.dart';
 
 class MemoryMatchPage extends ConsumerStatefulWidget {
   const MemoryMatchPage({required this.config, super.key});
@@ -241,19 +242,24 @@ class _MemoryMatchPageState extends ConsumerState<MemoryMatchPage> {
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(14, 0, 14, 32),
                 sliver: SliverGrid(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: MediaQuery.sizeOf(context).width >= 700
+                        ? 4
+                        : 2,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
-                    mainAxisExtent: 150,
+                    mainAxisExtent:
+                        150 *
+                        MediaQuery.textScalerOf(context).scale(1).clamp(1, 2),
                   ),
                   delegate: SliverChildBuilderDelegate((context, index) {
                     final tile = _deck![index];
-                    return _MemoryTileCard(
+                    return MemoryTileCard(
                       key: Key('memory-tile-${tile.id}'),
                       tile: tile,
                       revealed: _revealedTileIds.contains(tile.id),
                       matched: _matchedPairIds.contains(tile.pairId),
+                      enabled: !_locked,
                       onTap: () => _selectTile(tile),
                     );
                   }, childCount: _deck!.length),
@@ -286,90 +292,6 @@ class _MemoryMatchPageState extends ConsumerState<MemoryMatchPage> {
       ),
     );
     if (leave == true && mounted) context.pop();
-  }
-}
-
-class _MemoryTileCard extends StatelessWidget {
-  const _MemoryTileCard({
-    required this.tile,
-    required this.revealed,
-    required this.matched,
-    required this.onTap,
-    super.key,
-  });
-
-  final MemoryMatchTile tile;
-  final bool revealed;
-  final bool matched;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final showContent = revealed || matched;
-    final reduceMotion = MediaQuery.disableAnimationsOf(context);
-    return Semantics(
-      button: !matched,
-      label: matched
-          ? 'Pareja encontrada: ${tile.text}'
-          : showContent
-          ? tile.text
-          : 'Tarjeta oculta',
-      child: AnimatedOpacity(
-        opacity: matched ? 0.55 : 1,
-        duration: reduceMotion
-            ? Duration.zero
-            : const Duration(milliseconds: 200),
-        child: Card(
-          clipBehavior: Clip.antiAlias,
-          child: InkWell(
-            onTap: matched ? null : onTap,
-            child: AnimatedSwitcher(
-              duration: reduceMotion
-                  ? Duration.zero
-                  : const Duration(milliseconds: 220),
-              transitionBuilder: (child, animation) =>
-                  ScaleTransition(scale: animation, child: child),
-              child: showContent
-                  ? Padding(
-                      key: ValueKey('front-${tile.id}'),
-                      padding: const EdgeInsets.all(12),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            tile.isPrompt
-                                ? Icons.help_outline_rounded
-                                : Icons.checklist_rounded,
-                            size: 22,
-                          ),
-                          const SizedBox(height: 8),
-                          Flexible(
-                            child: SingleChildScrollView(
-                              child: Text(
-                                tile.text,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  : Center(
-                      key: ValueKey('back-${tile.id}'),
-                      child: Icon(
-                        Icons.school_rounded,
-                        size: 38,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }
 

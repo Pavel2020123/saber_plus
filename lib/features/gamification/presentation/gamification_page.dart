@@ -85,7 +85,7 @@ class _GamificationPageState extends ConsumerState<GamificationPage> {
         _previewStreakState == _StreakPreviewState.active) {
       return source;
     }
-    final days = _previewStreakDays ?? source.current;
+    final days = math.max(1, _previewStreakDays ?? source.current);
     return switch (_previewStreakState) {
       _StreakPreviewState.active => StudyStreak(
         current: days,
@@ -117,7 +117,7 @@ class _GamificationPageState extends ConsumerState<GamificationPage> {
 
   void _changePreviewState(_StreakPreviewState state, int currentDays) {
     setState(() {
-      _previewStreakDays ??= currentDays;
+      _previewStreakDays ??= math.max(1, currentDays);
       _previewStreakState = state;
     });
   }
@@ -240,7 +240,12 @@ class _GamificationContent extends StatelessWidget {
     physics: const AlwaysScrollableScrollPhysics(),
     padding: const EdgeInsets.fromLTRB(18, 12, 18, 32),
     children: [
-      _StatusCard(streak: displayedStreak, xp: xp),
+      _StatusCard(
+        streak: displayedStreak,
+        xp: xp,
+        frozenPreview:
+            previewEnabled && previewState == _StreakPreviewState.frozen,
+      ),
       if (previewEnabled) ...[
         const SizedBox(height: 12),
         _StreakPreviewControls(
@@ -287,28 +292,33 @@ class _GamificationContent extends StatelessWidget {
 }
 
 class _StatusCard extends StatelessWidget {
-  const _StatusCard({required this.streak, required this.xp});
+  const _StatusCard({
+    required this.streak,
+    required this.xp,
+    this.frozenPreview = false,
+  });
 
   final StudyStreak streak;
   final int xp;
+  final bool frozenPreview;
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-    final flame = StreakFlameStyle.fromStreak(streak);
+    final flame = StreakFlameStyle.fromStreak(
+      streak,
+      frozenPreview: frozenPreview,
+    );
     return Container(
       key: const Key('gamification-status-card'),
-      padding: const EdgeInsets.all(22),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFFFF8A00), Color(0xFFE34D2F)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        color: colors.surface,
+        border: Border.all(color: flame.color.withValues(alpha: 0.28)),
         borderRadius: BorderRadius.circular(26),
         boxShadow: [
           BoxShadow(
-            color: colors.shadow.withValues(alpha: 0.16),
+            color: flame.color.withValues(alpha: 0.09),
             blurRadius: 18,
             offset: const Offset(0, 8),
           ),
@@ -320,18 +330,16 @@ class _StatusCard extends StatelessWidget {
           Row(
             children: [
               Container(
-                width: 56,
-                height: 56,
+                width: 92,
+                height: 108,
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.96),
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: flame.color.withValues(alpha: 0.5),
-                      blurRadius: 14,
-                      spreadRadius: 1,
-                    ),
-                  ],
+                  gradient: RadialGradient(
+                    colors: [
+                      flame.color.withValues(alpha: 0.09),
+                      colors.surface,
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(28),
                 ),
                 child: Stack(
                   alignment: Alignment.center,
@@ -339,9 +347,16 @@ class _StatusCard extends StatelessWidget {
                     AnimatedStreakFlame(
                       key: const Key('gamification-streak-flame'),
                       color: flame.color,
-                      size: 39,
+                      size: 100,
                       animate: flame.burns,
                       continuous: flame.burns,
+                      appearance: switch (flame.state) {
+                        StreakFlameState.active =>
+                          StreakFlameAppearance.burning,
+                        StreakFlameState.frozen => StreakFlameAppearance.frozen,
+                        StreakFlameState.lost =>
+                          StreakFlameAppearance.extinguished,
+                      },
                       semanticLabel:
                           '${flame.statusLabel}, ${streak.current} días',
                     ),
@@ -368,9 +383,9 @@ class _StatusCard extends StatelessWidget {
                       streak.current == 1
                           ? '1 día de racha'
                           : '${streak.current} días de racha',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
+                      style: TextStyle(
+                        color: colors.onSurface,
+                        fontSize: 23,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
@@ -378,7 +393,7 @@ class _StatusCard extends StatelessWidget {
                       flame.statusLabel,
                       key: const Key('streak-flame-status'),
                       style: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.86),
+                        color: colors.onSurfaceVariant,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -390,8 +405,25 @@ class _StatusCard extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             _streakMessage(streak),
-            style: const TextStyle(color: Colors.white, fontSize: 15),
+            style: TextStyle(color: colors.onSurfaceVariant, fontSize: 15),
           ),
+          if (flame.burns) ...[
+            const SizedBox(height: 12),
+            Text(
+              streak.current < 50
+                  ? '${((streak.current ~/ 10) + 1) * 10 - streak.current} días para el siguiente color'
+                  : 'Nivel legendario · sigue encendiendo tu hábito',
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
+            const SizedBox(height: 6),
+            LinearProgressIndicator(
+              value: streak.current >= 50 ? 1 : (streak.current % 10) / 10,
+              color: flame.color,
+              backgroundColor: flame.color.withValues(alpha: 0.1),
+              minHeight: 5,
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ],
           const SizedBox(height: 20),
           Row(
             children: [
@@ -416,9 +448,12 @@ class _StatusCard extends StatelessWidget {
   }
 
   String _streakMessage(StudyStreak value) {
+    if (frozenPreview) {
+      return 'Vista previa: llama protegida por hielo, sin movimiento.';
+    }
     if (value.activeToday) return 'Tu actividad de hoy ya protegió la racha.';
     if (value.current > 0) {
-      return 'Tu llama está congelada. Haz una actividad hoy para salvarla.';
+      return 'Tu racha sigue viva. Completa una actividad hoy para mantenerla.';
     }
     if (value.lastActivity != null) {
       return 'Empieza una nueva racha con una actividad hoy.';
@@ -526,7 +561,7 @@ class _StatusMetric extends StatelessWidget {
   Widget build(BuildContext context) => Container(
     padding: const EdgeInsets.all(13),
     decoration: BoxDecoration(
-      color: Colors.white.withValues(alpha: 0.16),
+      color: Theme.of(context).colorScheme.surfaceContainerLow,
       borderRadius: BorderRadius.circular(16),
     ),
     child: Column(
@@ -534,13 +569,18 @@ class _StatusMetric extends StatelessWidget {
       children: [
         Text(
           value,
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
             fontSize: 19,
             fontWeight: FontWeight.w800,
           ),
         ),
-        Text(label, style: const TextStyle(color: Colors.white70)),
+        Text(
+          label,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
+        ),
       ],
     ),
   );

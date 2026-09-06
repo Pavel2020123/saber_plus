@@ -33,6 +33,7 @@ import '../features/gamification/presentation/gamification_page.dart';
 import '../features/games/trivia_rush/domain/trivia_rush_models.dart';
 import '../features/games/trivia_rush/presentation/trivia_rush_page.dart';
 import '../features/games/trivia_rush/presentation/trivia_rush_setup_page.dart';
+import '../features/games/guardian/presentation/guardian_page.dart';
 import '../features/games/memory_match/domain/memory_match_models.dart';
 import '../features/games/memory_match/presentation/memory_match_page.dart';
 import '../features/games/memory_match/presentation/memory_match_setup_page.dart';
@@ -260,6 +261,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                         ),
                       ),
                     ],
+                  ),
+                  _animatedRoute(
+                    path: 'guardian',
+                    builder: (context, state) => const GuardianPage(),
                   ),
                   _animatedRoute(
                     path: 'trivia-rush',

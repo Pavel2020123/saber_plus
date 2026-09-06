@@ -175,6 +175,17 @@ class PracticeHubPage extends StatelessWidget {
         const SizedBox(height: 14),
         Card(
           child: ListTile(
+            key: const Key('open-guardian'),
+            leading: const CircleAvatar(child: Icon(Icons.shield_outlined)),
+            title: const Text('Desafío del guardián'),
+            subtitle: const Text('Precisión, escudos y repaso, sin cronómetro'),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            onTap: () => context.push('/student/practice/guardian'),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Card(
+          child: ListTile(
             key: const Key('open-trivia-rush'),
             leading: const CircleAvatar(
               child: Icon(Icons.rocket_launch_rounded),

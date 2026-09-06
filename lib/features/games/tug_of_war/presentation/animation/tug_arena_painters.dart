@@ -62,7 +62,37 @@ class TugRopePainter extends CustomPainter {
         ..strokeCap = StrokeCap.round,
     );
 
+    // Follow the actual sag with a braided texture instead of a flat line.
+    final braidPaint = Paint()
+      ..color = const Color(0xFF704321).withValues(alpha: 0.8)
+      ..strokeWidth = 1.2
+      ..strokeCap = StrokeCap.round;
+    final metric = ropePath.computeMetrics().first;
+    for (var distance = 3.0; distance < metric.length; distance += 7) {
+      final tangent = metric.getTangentForOffset(distance)!;
+      final normal = Offset(-tangent.vector.dy, tangent.vector.dx);
+      canvas.drawLine(
+        tangent.position - normal * 2.2 - tangent.vector * 1.6,
+        tangent.position + normal * 2.2 + tangent.vector * 1.6,
+        braidPaint,
+      );
+    }
+
     final center = Offset(size.width / 2 + shift, y + sag * 0.75);
+    final ribbon = Path()
+      ..moveTo(center.dx - 4, center.dy + 3)
+      ..lineTo(center.dx + 6 + vibration, center.dy + 24)
+      ..lineTo(center.dx, center.dy + 20)
+      ..lineTo(center.dx - 6, center.dy + 25)
+      ..close();
+    canvas.drawPath(ribbon, Paint()..color = colorScheme.tertiary);
+    canvas.drawLine(
+      center.translate(0, 7),
+      center.translate(vibration, 18),
+      Paint()
+        ..color = colorScheme.onTertiary.withValues(alpha: 0.45)
+        ..strokeWidth = 1.2,
+    );
     final knotPaint = Paint()..color = colorScheme.tertiary;
     canvas
       ..drawCircle(center, 8.5, knotPaint)
@@ -103,6 +133,23 @@ class TugArenaEffectsPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    if (direction != 0 && pullProgress > 0 && pullProgress < 1) {
+      final opacity = math.sin(pullProgress * math.pi);
+      final motionInk = Paint()
+        ..color = colorScheme.onSurface.withValues(alpha: opacity * 0.5)
+        ..strokeWidth = strongPull ? 2.5 : 1.5
+        ..strokeCap = StrokeCap.round;
+      final center = Offset(size.width * 0.5, size.height * 0.49);
+      for (var i = 0; i < 3; i++) {
+        final y = center.dy - 15 - i * 7;
+        final start = center.dx + direction * (16 + i * 8);
+        canvas.drawLine(
+          Offset(start, y),
+          Offset(start - direction * (12 + opacity * 18), y),
+          motionInk,
+        );
+      }
+    }
     if (strongPull && pullProgress > 0 && pullProgress < 0.92) {
       final opacity = math.sin(pullProgress * math.pi).clamp(0.0, 1.0);
       final loserX = direction > 0 ? size.width * 0.77 : size.width * 0.23;
@@ -165,4 +212,94 @@ class TugArenaEffectsPainter extends CustomPainter {
       oldDelegate.strongPull != strongPull ||
       oldDelegate.winner != winner ||
       oldDelegate.colorScheme != colorScheme;
+}
+
+enum TugFighterReaction { neutral, effort, surprised }
+
+/// Comic reaction marks complement the existing illustrated characters.
+/// They are driven exclusively by a resolved round, never by a pending answer.
+class TugFighterReactionPainter extends CustomPainter {
+  const TugFighterReactionPainter({
+    required this.reaction,
+    required this.progress,
+    required this.celebration,
+  });
+
+  final TugFighterReaction reaction;
+  final double progress;
+  final double celebration;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (reaction != TugFighterReaction.neutral && progress > 0) {
+      final center = Offset(size.width * 0.72, size.height * 0.12);
+      final ink = Paint()
+        ..color =
+            (reaction == TugFighterReaction.surprised
+                    ? const Color(0xFF2898D1)
+                    : const Color(0xFFFFBD49))
+                .withValues(alpha: progress.clamp(0, 1));
+      if (reaction == TugFighterReaction.surprised) {
+        final drop = Path()
+          ..moveTo(center.dx, center.dy - 6)
+          ..cubicTo(
+            center.dx + 8,
+            center.dy + 2,
+            center.dx + 4,
+            center.dy + 8,
+            center.dx,
+            center.dy + 7,
+          )
+          ..cubicTo(
+            center.dx - 5,
+            center.dy + 6,
+            center.dx - 5,
+            center.dy + 1,
+            center.dx,
+            center.dy - 6,
+          )
+          ..close();
+        canvas.drawPath(drop, ink);
+        canvas.drawCircle(
+          center.translate(0, 2),
+          1.4,
+          Paint()..color = Colors.white.withValues(alpha: progress),
+        );
+      } else {
+        ink
+          ..strokeWidth = 2
+          ..strokeCap = StrokeCap.round;
+        for (var i = 0; i < 3; i++) {
+          final angle = -math.pi / 3 + i * math.pi / 5;
+          final vector = Offset(math.cos(angle), math.sin(angle));
+          canvas.drawLine(center + vector * 4, center + vector * 11, ink);
+        }
+      }
+    }
+    if (celebration > 0) {
+      final crown = Path()
+        ..moveTo(size.width * 0.4, size.height * 0.04)
+        ..lineTo(size.width * 0.37, 0)
+        ..lineTo(size.width * 0.46, size.height * 0.015)
+        ..lineTo(size.width * 0.5, -size.height * 0.015)
+        ..lineTo(size.width * 0.55, size.height * 0.015)
+        ..lineTo(size.width * 0.63, 0)
+        ..lineTo(size.width * 0.6, size.height * 0.04)
+        ..close();
+      canvas.drawPath(crown, Paint()..color = const Color(0xFFFFCA55));
+      canvas.drawPath(
+        crown,
+        Paint()
+          ..color = const Color(0xFFA26515)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1.2,
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(TugFighterReactionPainter oldDelegate) =>
+      reaction != oldDelegate.reaction ||
+      progress != oldDelegate.progress ||
+      celebration != oldDelegate.celebration;
 }

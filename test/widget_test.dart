@@ -359,9 +359,16 @@ void main() {
     );
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('open-ghost-duel')));
-    await tester.pumpAndSettle();
+    // La mascota flota continuamente; esperar solo la transición de ruta.
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
 
     expect(find.text('Compite contra tu mejor versión'), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('ghost-area-mixed')),
+      250,
+      scrollable: find.byType(Scrollable).last,
+    );
     expect(find.byKey(const Key('ghost-area-mixed')), findsOneWidget);
     await tester.scrollUntilVisible(
       find.byKey(const Key('start-ghost-duel')),
@@ -943,6 +950,11 @@ void main() {
     await tester.pump();
     expect(find.text('14 días de racha'), findsOneWidget);
     expect(find.text('Llama dorada'), findsOneWidget);
+    await Scrollable.ensureVisible(
+      tester.element(find.byKey(const Key('streak-state-preview'))),
+      alignment: 1,
+    );
+    await tester.pump();
     await tester.tap(find.text('Congelada'));
     await tester.pump();
     expect(find.text('Llama congelada'), findsOneWidget);

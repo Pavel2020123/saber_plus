@@ -143,8 +143,10 @@ class _TugOnlinePageState extends ConsumerState<TugOnlinePage> {
           ropePosition: effect?.toPosition ?? snapshot.ropePosition,
           playerAnswered: snapshot.alreadyAnswered,
           cpuAnswered: effect != null,
+          opponentLabel: 'RIVAL',
+          opponentAwaitingLabel: 'esperando resolución',
           animationCue: animationCue,
-          paused: state.connectionStatus == TugOnlineConnectionStatus.failed,
+          paused: state.connectionStatus != TugOnlineConnectionStatus.connected,
           onReady: (_) {},
           onSequenceCompleted: _handleAnimationCompleted,
           onSoundCue: _handleArenaSound,
@@ -197,6 +199,8 @@ class _TugOnlinePageState extends ConsumerState<TugOnlinePage> {
                 key: Key('tug-online-answer-${option.id}'),
                 onPressed:
                     !roundStarted ||
+                        state.connectionStatus !=
+                            TugOnlineConnectionStatus.connected ||
                         timeRemaining == Duration.zero ||
                         snapshot.alreadyAnswered ||
                         state.submitting
@@ -214,16 +218,26 @@ class _TugOnlinePageState extends ConsumerState<TugOnlinePage> {
               const SizedBox(height: 8),
             ],
             if (snapshot.alreadyAnswered || state.submitting)
-              const Card(
+              Card(
+                key: const Key('tug-online-answer-status'),
                 child: Padding(
-                  padding: EdgeInsets.all(14),
+                  padding: const EdgeInsets.all(14),
                   child: Row(
                     children: [
-                      Icon(Icons.hourglass_top_rounded),
-                      SizedBox(width: 10),
+                      Icon(
+                        snapshot.alreadyAnswered
+                            ? Icons.cloud_done_outlined
+                            : Icons.cloud_upload_outlined,
+                      ),
+                      const SizedBox(width: 10),
                       Expanded(
-                        child: Text(
-                          'Respuesta guardada. Esperando la resolución del servidor…',
+                        child: Semantics(
+                          liveRegion: true,
+                          child: Text(
+                            snapshot.alreadyAnswered
+                                ? 'Respuesta confirmada. Esperando el resultado de la ronda…'
+                                : 'Enviando respuesta… Espera la confirmación.',
+                          ),
                         ),
                       ),
                     ],
@@ -501,31 +515,39 @@ class _ConnectionBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final reconnecting =
-        state.connectionStatus == TugOnlineConnectionStatus.reconnecting;
-    final text = reconnecting
-        ? 'Reconectando con el servidor…'
-        : !state.rivalConnected
-        ? 'Tu rival perdió conexión; puede regresar a la partida.'
-        : 'Duelo en línea · Servidor autoritativo · Sin anuncios';
-    return Container(
-      key: const Key('tug-online-connection-banner'),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: Row(
-        children: [
-          Icon(
-            reconnecting || !state.rivalConnected
-                ? Icons.cloud_off_outlined
-                : Icons.cloud_done_outlined,
-            size: 18,
-          ),
-          const SizedBox(width: 8),
-          Expanded(child: Text(text)),
-        ],
+    final disconnected =
+        state.connectionStatus != TugOnlineConnectionStatus.connected;
+    final text = switch (state.connectionStatus) {
+      TugOnlineConnectionStatus.failed =>
+        'No pudimos restablecer la conexión. El resultado se confirmará al reconectar.',
+      TugOnlineConnectionStatus.reconnecting =>
+        'Reconectando… El tiempo de la ronda sigue corriendo. Espera la confirmación antes de continuar.',
+      TugOnlineConnectionStatus.connecting => 'Conectando con la partida…',
+      TugOnlineConnectionStatus.connected when !state.rivalConnected =>
+        'Tu rival perdió conexión; puede regresar a la partida.',
+      TugOnlineConnectionStatus.connected => 'Duelo en línea · Sin anuncios',
+    };
+    return Semantics(
+      liveRegion: true,
+      child: Container(
+        key: const Key('tug-online-connection-banner'),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+          borderRadius: BorderRadius.circular(14),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              disconnected || !state.rivalConnected
+                  ? Icons.cloud_off_outlined
+                  : Icons.cloud_done_outlined,
+              size: 18,
+            ),
+            const SizedBox(width: 8),
+            Expanded(child: Text(text)),
+          ],
+        ),
       ),
     );
   }
@@ -551,7 +573,13 @@ class _OnlineMatchHeader extends StatelessWidget {
           style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
-      Text(snapshot.rival?.name ?? 'Rival'),
+      Flexible(
+        child: Text(
+          snapshot.rival?.name ?? 'Rival',
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
       const SizedBox(width: 10),
       Chip(
         avatar: const Icon(Icons.timer_outlined, size: 18),
@@ -605,7 +633,7 @@ class _OnlineRoundFeedback extends StatelessWidget {
           Text(
             showDetails
                 ? effect.resolution.explanation
-                : 'El servidor está moviendo la cuerda.',
+                : '¡Ronda confirmada! Mira quién gana terreno.',
             textAlign: TextAlign.center,
           ),
           if (showDetails)

@@ -17,6 +17,11 @@ La aplicación inicia en modo demostración para poder revisar navegación y dis
 
 La interfaz inicia con fondo blanco y permite que el estudiante elija modo claro, oscuro o automático según el dispositivo desde `Más > Preferencias`.
 
+Última entrega: **6F-P — pulido de juegos y racha + Desafío del guardián**.
+Los cambios, cómo probarlos y el paso pendiente de migración/despliegue para el
+nuevo juego están en [docs/GAME_POLISH_GUARDIAN.md](docs/GAME_POLISH_GUARDIAN.md).
+No se necesitan audios nuevos. Las siguientes etapas de contenido conservan su orden.
+
 El contrato auditado contra el backend existente está documentado en [docs/AUTH_CONTRACT.md](docs/AUTH_CONTRACT.md).
 El contrato de convocatoria, diagnóstico y plan semanal está en [docs/ACADEMIC_CONTRACT.md](docs/ACADEMIC_CONTRACT.md).
 El contrato del árbol de contenido y sus recursos está en [docs/STUDY_CONTRACT.md](docs/STUDY_CONTRACT.md).

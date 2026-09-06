@@ -25,7 +25,10 @@ class StreakFlameStyle {
     StreakFlameState.lost => 'Llama apagada',
   };
 
-  factory StreakFlameStyle.fromStreak(StudyStreak streak) {
+  factory StreakFlameStyle.fromStreak(
+    StudyStreak streak, {
+    bool frozenPreview = false,
+  }) {
     if (streak.current <= 0) {
       return const StreakFlameStyle(
         state: StreakFlameState.lost,
@@ -34,7 +37,10 @@ class StreakFlameStyle {
         minimumDays: 0,
       );
     }
-    if (!streak.activeToday) {
+    // The API's activoHoy only says whether the student studied today. It
+    // does not confirm a freeze. An unbroken streak still burns until the
+    // server reports actual = 0; ice is currently an explicit demo preview.
+    if (frozenPreview) {
       return const StreakFlameStyle(
         state: StreakFlameState.frozen,
         color: Color(0xFF38BDF8),

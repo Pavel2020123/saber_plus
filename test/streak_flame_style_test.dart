@@ -12,9 +12,19 @@ void main() {
     expect(_activeStyle(50).levelLabel, 'legendaria');
   });
 
-  test('congela una racha pendiente y apaga una racha perdida', () {
+  test('no confunde pendiente de hoy con una congelación confirmada', () {
+    final pending = StreakFlameStyle.fromStreak(
+      const StudyStreak(current: 12, best: 12, activeToday: false),
+    );
+    expect(pending.state, StreakFlameState.active);
+    expect(pending.burns, isTrue);
+    expect(pending.levelLabel, 'dorada');
+  });
+
+  test('el hielo se habilita explícitamente para la vista previa', () {
     final frozen = StreakFlameStyle.fromStreak(
       const StudyStreak(current: 12, best: 12, activeToday: false),
+      frozenPreview: true,
     );
     final lost = StreakFlameStyle.fromStreak(StudyStreak.empty);
 

@@ -11,7 +11,8 @@ Este plan traduce el informe técnico a entregas pequeñas y verificables. El ba
 - [x] Prototipo navegable de estudiante y profesor con datos demostrativos.
 - [x] Cliente móvil de autenticación adaptado al contrato real y deep links personalizados.
 - [x] Contrato de autenticación auditado contra `Pavel2020123/Icfes_Vida`.
-- [ ] URL HTTPS desplegada, OpenAPI y dominio de universal links.
+- [x] URL HTTPS de staging desplegada en Render (confirmada el 5 de septiembre de 2026).
+- [ ] OpenAPI y dominio de universal links.
 
 ## Etapa 1 - Cimientos móviles
 
@@ -124,6 +125,19 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Batallas asíncronas autoritativas con emparejamiento anónimo, invitaciones privadas, bloqueo y reporte sin filtrar identidades (6G-E).
 - [x] Tablón de anuncios, referidos anónimos, soporte por WhatsApp validado y calculadora manual de puntaje (6G-F).
 
+## Entrega adicional 6F-P — juegos y racha
+
+- [x] Fantasma animado y pista contra el récord; feedback no bloqueante de Trivia.
+- [x] Giro 3D de memoria y efectos expresivos/estados de red de Tira y afloja.
+- [x] Llama vectorial, colores por hitos y estados visuales demo de hielo/apagado.
+- [x] Desafío del guardián: cliente demo/real, API autoritativa, revisión y migración versionada.
+- [ ] Aplicar las migraciones pendientes, desplegar el módulo guardián y probarlo
+  con banco publicado en staging; pruebas visuales y de red en teléfonos reales.
+- [ ] Contrato real de congelamiento/gracia de racha y recuperación vía AdMob SSV.
+
+Detalle en `docs/GAME_POLISH_GUARDIAN.md`. Esta entrega adicional no reemplaza
+las etapas 7F-C de contenido ni las de comercio/publicación.
+
 ## Etapa 7 - Profesor e institución
 
 - [x] Cuenta personal de profesor, registro propio, creación con propietario y solicitud/cancelación de ingreso sin credenciales institucionales compartidas (7A).
@@ -144,7 +158,8 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 - [x] Backend independizado en `Pavel2020123/SaberPlus-Backend`, sin el frontend
   legado, secretos, dependencias instaladas ni compilaciones locales.
 - [ ] Carga controlada de contenido de desarrollo revisado; la base permanece limpia hasta recibir datos académicos aprobados.
-- [ ] Despliegue HTTPS del backend NestJS y conexión del ambiente Flutter `staging`.
+- [x] Despliegue HTTPS inicial del backend NestJS en Render, confirmado Live el 5 de septiembre de 2026.
+- [ ] Conexión y verificación integral del ambiente Flutter `staging` con la API desplegada.
 - [ ] Pruebas de extremo a extremo, respaldo inicial y separación del futuro proyecto de producción.
 
 ### Etapa 7F-C - Administración de contenido

@@ -137,6 +137,98 @@ void main() {
     expect(completed, [firstCue.id, secondCue.id]);
   });
 
+  testWidgets('movimiento reducido no emite sonidos ni completa al ocultarse', (
+    tester,
+  ) async {
+    final completed = <int>[];
+    final sounds = <TugArenaSoundCue>[];
+    await tester.pumpWidget(_arenaApp(disableAnimations: true));
+    const cue = TugAnimationCue(
+      id: 33,
+      fromPosition: 0,
+      toPosition: 2,
+      outcome: TugRoundOutcome.strongPlayer,
+      bothCorrect: false,
+    );
+    await tester.pumpWidget(
+      _arenaApp(
+        disableAnimations: true,
+        visible: false,
+        animationCue: cue,
+        ropePosition: 2,
+        onSequenceCompleted: completed.add,
+        onSoundCue: sounds.add,
+      ),
+    );
+    await tester.pump(const Duration(seconds: 2));
+    expect(completed, isEmpty);
+    expect(sounds, isEmpty);
+    await tester.pumpWidget(
+      _arenaApp(
+        disableAnimations: true,
+        animationCue: cue,
+        ropePosition: 2,
+        onSequenceCompleted: completed.add,
+        onSoundCue: sounds.add,
+      ),
+    );
+    await tester.pump();
+    expect(completed, [33]);
+    expect(sounds, [TugArenaSoundCue.ropeStrain, TugArenaSoundCue.pull]);
+  });
+
+  testWidgets('la ruta oculta conserva el punto del tirón hasta volver', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_arenaApp());
+    await tester.pump(const Duration(milliseconds: 851));
+    const cue = TugAnimationCue(
+      id: 34,
+      fromPosition: 0,
+      toPosition: 2,
+      outcome: TugRoundOutcome.strongPlayer,
+      bothCorrect: false,
+    );
+    await tester.pumpWidget(_arenaApp(animationCue: cue, ropePosition: 2));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+    await tester.pumpWidget(
+      _arenaApp(animationCue: cue, ropePosition: 2, visible: false),
+    );
+    final paused =
+        (tester
+                    .widget<CustomPaint>(
+                      find.byKey(const Key('tug-rope-painter')),
+                    )
+                    .painter!
+                as TugRopePainter)
+            .ropePosition;
+    await tester.pump(const Duration(seconds: 4));
+    expect(
+      (tester
+                  .widget<CustomPaint>(
+                    find.byKey(const Key('tug-rope-painter')),
+                  )
+                  .painter!
+              as TugRopePainter)
+          .ropePosition,
+      paused,
+    );
+    await tester.pumpWidget(_arenaApp(animationCue: cue, ropePosition: 2));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+    expect(
+      (tester
+                  .widget<CustomPaint>(
+                    find.byKey(const Key('tug-rope-painter')),
+                  )
+                  .painter!
+              as TugRopePainter)
+          .ropePosition,
+      closeTo(2, 0.01),
+    );
+  });
+
   testWidgets('el ciclo de vida pausa y reanuda un tirón en progreso', (
     tester,
   ) async {
@@ -292,6 +384,7 @@ Widget _arenaApp({
   int ropePosition = 0,
   bool paused = false,
   bool disableAnimations = false,
+  bool visible = true,
   Size size = const Size(390, 844),
   ValueChanged<int>? onReady,
   ValueChanged<int>? onSequenceCompleted,
@@ -304,17 +397,20 @@ Widget _arenaApp({
         alignment: Alignment.topCenter,
         child: SizedBox(
           width: size.width,
-          child: TugArena(
-            key: const Key('tested-tug-arena'),
-            roundId: 0,
-            ropePosition: ropePosition,
-            playerAnswered: false,
-            cpuAnswered: false,
-            animationCue: animationCue,
-            paused: paused,
-            onReady: onReady ?? (_) {},
-            onSequenceCompleted: onSequenceCompleted ?? (_) {},
-            onSoundCue: onSoundCue ?? (_) {},
+          child: TickerMode(
+            enabled: visible,
+            child: TugArena(
+              key: const Key('tested-tug-arena'),
+              roundId: 0,
+              ropePosition: ropePosition,
+              playerAnswered: false,
+              cpuAnswered: false,
+              animationCue: animationCue,
+              paused: paused,
+              onReady: onReady ?? (_) {},
+              onSequenceCompleted: onSequenceCompleted ?? (_) {},
+              onSoundCue: onSoundCue ?? (_) {},
+            ),
           ),
         ),
       ),

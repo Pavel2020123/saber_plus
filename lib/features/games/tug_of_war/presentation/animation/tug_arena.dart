@@ -18,6 +18,8 @@ class TugArena extends StatefulWidget {
     required this.onReady,
     required this.onSequenceCompleted,
     required this.onSoundCue,
+    this.opponentLabel = 'CPU',
+    this.opponentAwaitingLabel = 'pensando',
     super.key,
   });
 
@@ -30,6 +32,8 @@ class TugArena extends StatefulWidget {
   final ValueChanged<int> onReady;
   final ValueChanged<int> onSequenceCompleted;
   final ValueChanged<TugArenaSoundCue> onSoundCue;
+  final String opponentLabel;
+  final String opponentAwaitingLabel;
 
   @override
   State<TugArena> createState() => _TugArenaState();
@@ -55,17 +59,21 @@ class _TugArenaState extends State<TugArena>
   bool _strainSoundSent = false;
   bool _pullSoundSent = false;
   bool _lifecyclePaused = false;
+  bool _tickerEnabled = true;
   int? _activeCueId;
   int? _completedCueId;
   int? _readyRoundId;
   _AnswerSide? _answerSide;
 
-  bool get _isPaused => widget.paused || _lifecyclePaused;
+  bool get _isPaused => widget.paused || _lifecyclePaused || !_tickerEnabled;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    final lifecycle = WidgetsBinding.instance.lifecycleState;
+    _lifecyclePaused =
+        lifecycle != null && lifecycle != AppLifecycleState.resumed;
     _entranceController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 850),
@@ -86,6 +94,7 @@ class _TugArenaState extends State<TugArena>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _syncTickerVisibility();
     final reduceMotion = MediaQuery.disableAnimationsOf(context);
     if (reduceMotion != _reduceMotion) {
       _reduceMotion = reduceMotion;
@@ -101,9 +110,23 @@ class _TugArenaState extends State<TugArena>
     if (!_assetsPrepared) unawaited(_prepareAssets());
   }
 
+  void _syncTickerVisibility() {
+    final tickerEnabled = TickerMode.valuesOf(context).enabled;
+    if (tickerEnabled != _tickerEnabled) {
+      _tickerEnabled = tickerEnabled;
+      if (_tickerEnabled) {
+        _resumeAnimations();
+      } else {
+        _pauseAnimations();
+      }
+    }
+  }
+
   @override
   void didUpdateWidget(covariant TugArena oldWidget) {
     super.didUpdateWidget(oldWidget);
+    // The parent can hide a route in the same frame that a result arrives.
+    _syncTickerVisibility();
     if (widget.roundId != oldWidget.roundId) {
       _answerController.reset();
       _answerSide = null;
@@ -251,7 +274,7 @@ class _TugArenaState extends State<TugArena>
       ..stop()
       ..value = 0;
     _actionController.duration = cue.duration;
-    if (_reduceMotion) {
+    if (_reduceMotion && !_isPaused) {
       _emitReducedMotionSounds(cue);
       _actionController.value = 1;
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -302,7 +325,7 @@ class _TugArenaState extends State<TugArena>
 
   void _completeActiveCueImmediately() {
     final cue = widget.animationCue;
-    if (cue == null || cue.id == _completedCueId) return;
+    if (_isPaused || cue == null || cue.id == _completedCueId) return;
     _actionController.value = 1;
     _emitReducedMotionSounds(cue);
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -312,6 +335,7 @@ class _TugArenaState extends State<TugArena>
 
   void _notifySequenceCompleted(int cueId) {
     if (!mounted ||
+        _isPaused ||
         _completedCueId == cueId ||
         widget.animationCue?.id != cueId) {
       return;
@@ -491,7 +515,8 @@ class _TugArenaState extends State<TugArena>
         : widget.ropePosition;
     final ropeDescription = switch (semanticRopePosition) {
       > 0 => '$semanticRopePosition marcas a favor del jugador',
-      < 0 => '${semanticRopePosition.abs()} marcas a favor de la CPU',
+      < 0 =>
+        '${semanticRopePosition.abs()} marcas a favor de ${widget.opponentLabel}',
       _ => 'en el centro',
     };
 
@@ -501,7 +526,7 @@ class _TugArenaState extends State<TugArena>
       label:
           'Arena de Tira y afloja. Cuerda $ropeDescription. '
           'Jugador ${widget.playerAnswered ? 'respondió' : 'pensando'}. '
-          'CPU ${widget.cpuAnswered ? 'respondió' : 'pensando'}.',
+          '${widget.opponentLabel} ${widget.cpuAnswered ? 'respondió' : widget.opponentAwaitingLabel}.',
       child: ClipRRect(
         borderRadius: BorderRadius.circular(24),
         child: DecoratedBox(
@@ -552,6 +577,11 @@ class _TugArenaState extends State<TugArena>
                     (playerCelebrates ? celebrationWave.abs() * 0.035 : 0),
                 opacity: entrance,
                 alignment: Alignment.bottomCenter,
+                reaction: _reaction(cue, player: true),
+                reactionProgress: cue == null
+                    ? 0
+                    : math.sin(actionTime * math.pi),
+                celebration: playerCelebrates ? celebrationTime : 0,
               ),
               _fighter(
                 asset: _cpuAsset,
@@ -572,6 +602,11 @@ class _TugArenaState extends State<TugArena>
                     (cpuCelebrates ? celebrationWave.abs() * 0.035 : 0),
                 opacity: entrance,
                 alignment: Alignment.bottomCenter,
+                reaction: _reaction(cue, player: false),
+                reactionProgress: cue == null
+                    ? 0
+                    : math.sin(actionTime * math.pi),
+                celebration: cpuCelebrates ? celebrationTime : 0,
               ),
               ExcludeSemantics(
                 child: Opacity(
@@ -609,7 +644,7 @@ class _TugArenaState extends State<TugArena>
               ),
               _fighterLabel(
                 context,
-                label: 'CPU',
+                label: widget.opponentLabel,
                 answered: widget.cpuAnswered,
                 opacity: entrance,
                 right: 10,
@@ -633,6 +668,9 @@ class _TugArenaState extends State<TugArena>
     required double scale,
     required double opacity,
     required Alignment alignment,
+    required TugFighterReaction reaction,
+    required double reactionProgress,
+    required double celebration,
   }) => Positioned(
     left: left,
     top: top,
@@ -647,13 +685,25 @@ class _TugArenaState extends State<TugArena>
           child: Transform.scale(
             scale: scale,
             alignment: alignment,
-            child: Image.asset(
-              asset,
-              fit: BoxFit.contain,
-              alignment: Alignment.bottomCenter,
-              gaplessPlayback: true,
-              errorBuilder: (context, _, _) =>
-                  Icon(fallback, size: width * 0.7),
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Image.asset(
+                  asset,
+                  fit: BoxFit.contain,
+                  alignment: Alignment.bottomCenter,
+                  gaplessPlayback: true,
+                  errorBuilder: (context, _, _) =>
+                      Icon(fallback, size: width * 0.7),
+                ),
+                CustomPaint(
+                  painter: TugFighterReactionPainter(
+                    reaction: reaction,
+                    progress: reactionProgress,
+                    celebration: celebration,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -709,6 +759,17 @@ class _TugArenaState extends State<TugArena>
       ),
     ),
   );
+}
+
+TugFighterReaction _reaction(TugAnimationCue? cue, {required bool player}) {
+  if (cue == null) return TugFighterReaction.neutral;
+  if (cue.isNeutral) {
+    return cue.bothCorrect
+        ? TugFighterReaction.effort
+        : TugFighterReaction.surprised;
+  }
+  final pulling = player ? cue.ropeDelta > 0 : cue.ropeDelta < 0;
+  return pulling ? TugFighterReaction.effort : TugFighterReaction.surprised;
 }
 
 class _ArenaTrackPainter extends CustomPainter {

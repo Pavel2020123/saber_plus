@@ -8,10 +8,13 @@ import '../../../../core/feedback/game_audio_feedback.dart';
 import '../../../../core/network/api_error.dart';
 import '../../ghost_duel/domain/ghost_duel_models.dart';
 import '../../ghost_duel/presentation/ghost_duel_providers.dart';
+import '../../ghost_duel/presentation/ghost_character.dart';
+import '../../ghost_duel/presentation/ghost_race_panel.dart';
 import '../../../practice/domain/practice_models.dart';
 import '../domain/trivia_rush_models.dart';
 import '../domain/trivia_rush_repository.dart';
 import 'trivia_rush_providers.dart';
+import 'trivia_rush_hud.dart';
 
 class TriviaRushPage extends ConsumerStatefulWidget {
   const TriviaRushPage({
@@ -51,6 +54,9 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
   bool _secondChanceActive = false;
   bool? _lastAnswerCorrect;
   bool _countdownSoundPlayed = false;
+  String? _feedback;
+  bool _feedbackPositive = true;
+  int _feedbackId = 0;
 
   bool get _isAuthoritative => _serverState != null;
 
@@ -220,6 +226,10 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
           ref.read(gameAudioFeedbackProvider).play(GameSound.triviaWrong),
         );
         setState(() {
+          _setFeedback(
+            'Todavía puedes corregir: elige otra opción.',
+            positive: false,
+          );
           _review.add(
             TriviaRushReviewEntry(
               question: question,
@@ -237,6 +247,7 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
       }
 
       final protectCombo = !evaluation.isCorrect && _comboShieldActive;
+      final previousPoints = _score.points;
       unawaited(
         ref
             .read(gameAudioFeedbackProvider)
@@ -259,9 +270,16 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
             : _score.registerIncorrect(protectCombo: protectCombo);
         if (protectCombo) _comboShieldActive = false;
         _lastAnswerCorrect = evaluation.isCorrect;
+        _setFeedback(
+          evaluation.isCorrect
+              ? '¡Correcto! +${_score.points - previousPoints} puntos'
+              : protectCombo
+              ? 'El escudo protegió tu combo. Revisaremos este tema al final.'
+              : 'Respuesta registrada. Revisaremos este tema al final.',
+          positive: evaluation.isCorrect || protectCombo,
+        );
       });
       _recordGhostCheckpoint();
-      await Future<void>.delayed(const Duration(milliseconds: 550));
       if (!mounted || _finished) return;
       _advance();
     } on Object catch (error) {
@@ -293,11 +311,16 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
         _applyServerState(state);
         _failedOptions.add(answerId);
         _lastAnswerCorrect = false;
+        _setFeedback(
+          'Todavía puedes corregir: elige otra opción.',
+          positive: false,
+        );
         _submitting = false;
       });
       return;
     }
 
+    final gained = state.score.points - _score.points;
     setState(() {
       if (evaluation.isFinal) {
         _review.add(
@@ -309,9 +332,14 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
         );
       }
       _lastAnswerCorrect = evaluation.isCorrect;
+      _setFeedback(
+        evaluation.isCorrect
+            ? '¡Correcto! +$gained puntos'
+            : 'Respuesta registrada. Revisaremos este tema al final.',
+        positive: evaluation.isCorrect,
+      );
     });
     _recordGhostCheckpoint(score: state.score);
-    await Future<void>.delayed(const Duration(milliseconds: 550));
     if (!mounted) return;
     setState(() {
       _applyServerState(state);
@@ -359,6 +387,7 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
         setState(() {
           _applyServerState(state);
           _submitting = false;
+          _setFeedback(_boosterFeedback(booster));
         });
         if (state.isTerminal) await _completeRound();
         return;
@@ -366,6 +395,7 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
       setState(() {
         _assisted = true;
         _submitting = false;
+        _setFeedback(_boosterFeedback(booster));
         switch (booster) {
           case TriviaRushBooster.extraTime:
             _secondsRemaining += 10;
@@ -506,6 +536,19 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
     context,
   ).showSnackBar(SnackBar(content: Text(message)));
 
+  void _setFeedback(String message, {bool positive = true}) {
+    _feedback = message;
+    _feedbackPositive = positive;
+    _feedbackId++;
+  }
+
+  bool _boosterActive(TriviaRushBooster booster) => switch (booster) {
+    TriviaRushBooster.comboShield => _comboShieldActive,
+    TriviaRushBooster.secondChance => _secondChanceActive,
+    TriviaRushBooster.fiftyFifty => _eliminatedOptions.isNotEmpty,
+    _ => false,
+  };
+
   @override
   Widget build(BuildContext context) {
     if (_error case final error?) {
@@ -570,16 +613,21 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
           child: ListView(
             padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
             children: [
-              _RoundHeader(
+              TriviaRushHud(
                 seconds: _secondsRemaining,
                 score: _score,
                 assisted: _assisted,
+                shieldActive: _comboShieldActive,
+                feedback: _feedback,
+                feedbackPositive: _feedbackPositive,
+                feedbackId: _feedbackId,
               ),
               if (widget.ghostMode) ...[
                 const SizedBox(height: 10),
-                _GhostRaceStatus(
+                GhostRacePanel(
                   currentScore: _score.points,
                   ghostScore: _ghostRun?.scoreAt(_elapsedSeconds),
+                  recordScore: _ghostRun?.score,
                 ),
               ],
               const SizedBox(height: 18),
@@ -599,7 +647,9 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
               const SizedBox(height: 8),
               AnimatedScale(
                 scale: _lastAnswerCorrect == true ? 1.025 : 1,
-                duration: const Duration(milliseconds: 220),
+                duration: MediaQuery.disableAnimationsOf(context)
+                    ? Duration.zero
+                    : const Duration(milliseconds: 220),
                 child: Card(
                   child: Padding(
                     padding: const EdgeInsets.all(18),
@@ -624,21 +674,6 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
                 ),
                 const SizedBox(height: 8),
               ],
-              if (_lastAnswerCorrect != null)
-                Semantics(
-                  liveRegion: true,
-                  child: Text(
-                    _lastAnswerCorrect! ? '¡Correcto!' : 'Intenta otra vez',
-                    key: const Key('trivia-answer-feedback'),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      color: _lastAnswerCorrect!
-                          ? Colors.green.shade700
-                          : Theme.of(context).colorScheme.error,
-                    ),
-                  ),
-                ),
               if (!widget.ghostMode) ...[
                 const SizedBox(height: 18),
                 Text(
@@ -657,7 +692,15 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
                     for (final booster in TriviaRushBooster.values)
                       ActionChip(
                         key: Key('trivia-booster-${booster.name}'),
-                        avatar: Icon(_boosterIcon(booster), size: 18),
+                        avatar: Icon(
+                          _boosterActive(booster)
+                              ? Icons.check_circle_rounded
+                              : _boosterIcon(booster),
+                          size: 18,
+                        ),
+                        backgroundColor: _boosterActive(booster)
+                            ? Theme.of(context).colorScheme.primaryContainer
+                            : null,
                         label: Text(booster.label),
                         tooltip: booster.description,
                         onPressed: _submitting
@@ -729,138 +772,6 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
   }
 }
 
-class _RoundHeader extends StatelessWidget {
-  const _RoundHeader({
-    required this.seconds,
-    required this.score,
-    required this.assisted,
-  });
-
-  final int seconds;
-  final TriviaRushScore score;
-  final bool assisted;
-
-  @override
-  Widget build(BuildContext context) => Row(
-    children: [
-      Expanded(
-        child: _Metric(
-          icon: Icons.timer_outlined,
-          label: '$seconds s',
-          warning: seconds <= 10,
-        ),
-      ),
-      const SizedBox(width: 8),
-      Expanded(
-        child: _Metric(icon: Icons.stars_rounded, label: '${score.points} pts'),
-      ),
-      const SizedBox(width: 8),
-      Expanded(
-        child: _Metric(
-          icon: Icons.local_fire_department_rounded,
-          label: 'x${score.multiplier} · ${score.combo}',
-        ),
-      ),
-      if (assisted) ...[
-        const SizedBox(width: 6),
-        const Tooltip(
-          message: 'Ronda asistida',
-          child: Icon(Icons.auto_awesome_rounded, size: 20),
-        ),
-      ],
-    ],
-  );
-}
-
-class _Metric extends StatelessWidget {
-  const _Metric({
-    required this.icon,
-    required this.label,
-    this.warning = false,
-  });
-
-  final IconData icon;
-  final String label;
-  final bool warning;
-
-  @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-    decoration: BoxDecoration(
-      color: warning
-          ? Theme.of(context).colorScheme.errorContainer
-          : Theme.of(context).colorScheme.surfaceContainerHighest,
-      borderRadius: BorderRadius.circular(14),
-    ),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(icon, size: 18),
-        const SizedBox(width: 5),
-        Flexible(
-          child: Text(
-            label,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontWeight: FontWeight.w700),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-class _GhostRaceStatus extends StatelessWidget {
-  const _GhostRaceStatus({
-    required this.currentScore,
-    required this.ghostScore,
-  });
-
-  final int currentScore;
-  final int? ghostScore;
-
-  @override
-  Widget build(BuildContext context) {
-    final ghost = ghostScore;
-    final difference = ghost == null ? 0 : currentScore - ghost;
-    final (icon, message) = switch ((ghost, difference)) {
-      (null, _) => (
-        Icons.auto_awesome_rounded,
-        'Primera partida: estás creando tu fantasma',
-      ),
-      (_, > 0) => (
-        Icons.trending_up_rounded,
-        'Vas $difference puntos delante de tu fantasma',
-      ),
-      (_, < 0) => (
-        Icons.trending_down_rounded,
-        'Tu fantasma lleva ${difference.abs()} puntos de ventaja',
-      ),
-      _ => (Icons.drag_handle_rounded, 'Van empatados'),
-    };
-    return Container(
-      key: const Key('ghost-race-status'),
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.tertiaryContainer,
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: Row(
-        children: [
-          Icon(icon, size: 20),
-          const SizedBox(width: 9),
-          Expanded(
-            child: Text(
-              message,
-              style: const TextStyle(fontWeight: FontWeight.w700),
-            ),
-          ),
-          if (ghost != null) Text('$ghost pts'),
-        ],
-      ),
-    );
-  }
-}
-
 class _AnswerButton extends StatelessWidget {
   const _AnswerButton({
     required this.option,
@@ -927,11 +838,28 @@ class _TriviaResultView extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 36),
         children: [
-          Icon(
-            Icons.emoji_events_rounded,
-            size: 64,
-            color: Theme.of(context).colorScheme.primary,
-          ),
+          if (ghostMode)
+            Align(
+              alignment: Alignment.center,
+              child: GhostCharacter(
+                size: 126,
+                mood:
+                    !ghostPersistenceFailed &&
+                        (ghostSaveResult?.outcome ==
+                                GhostDuelOutcome.firstRecord ||
+                            ghostSaveResult?.outcome ==
+                                GhostDuelOutcome.newRecord)
+                    ? GhostMood.celebrating
+                    : GhostMood.friendly,
+                label: 'Tu compañero del duelo fantasma',
+              ),
+            )
+          else
+            Icon(
+              Icons.emoji_events_rounded,
+              size: 64,
+              color: Theme.of(context).colorScheme.primary,
+            ),
           const SizedBox(height: 10),
           Text(
             '${score.points} puntos',
@@ -1169,6 +1097,17 @@ IconData _boosterIcon(TriviaRushBooster booster) => switch (booster) {
   TriviaRushBooster.comboShield => Icons.shield_rounded,
   TriviaRushBooster.skip => Icons.skip_next_rounded,
   TriviaRushBooster.secondChance => Icons.replay_circle_filled_rounded,
+};
+
+String _boosterFeedback(TriviaRushBooster booster) => switch (booster) {
+  TriviaRushBooster.extraTime => '¡Tiempo extra! Tienes 10 segundos más.',
+  TriviaRushBooster.fiftyFifty =>
+    'Dos opciones descartadas: elige entre las restantes.',
+  TriviaRushBooster.comboShield =>
+    'Escudo activo: tu próximo error no rompe el combo.',
+  TriviaRushBooster.skip => 'Pregunta saltada. Tu puntaje se conserva.',
+  TriviaRushBooster.secondChance =>
+    'Segunda oportunidad activa para esta pregunta.',
 };
 
 String _errorMessage(Object error) => switch (error) {
