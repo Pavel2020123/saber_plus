@@ -159,7 +159,10 @@ las etapas 7F-C de contenido ni las de comercio/publicación.
   legado, secretos, dependencias instaladas ni compilaciones locales.
 - [ ] Carga controlada de contenido de desarrollo revisado; la base permanece limpia hasta recibir datos académicos aprobados.
 - [x] Despliegue HTTPS inicial del backend NestJS en Render, confirmado Live el 5 de septiembre de 2026.
-- [ ] Conexión y verificación integral del ambiente Flutter `staging` con la API desplegada.
+- [x] **7F-B3-A:** perfil Flutter `staging` sin demo, selector de ejecución, comprobación
+  pública en la app y prueba real HTTPS de API/base/perfil protegido, sin crear datos.
+- [ ] **7F-B3-B:** verificación integral desde teléfono con cuentas de ensayo verificadas,
+  contenido publicado, recursos, autenticación, diagnóstico y progreso reales.
 - [ ] Pruebas de extremo a extremo, respaldo inicial y separación del futuro proyecto de producción.
 
 ### Etapa 7F-C - Administración de contenido
@@ -183,7 +186,8 @@ las etapas 7F-C de contenido ni las de comercio/publicación.
 
 Los procedimientos reproducibles están en `docs/SUPABASE_DEPLOYMENT.md`,
 `docs/RENDER_STAGING_DEPLOYMENT.md`, `docs/CONTENT_ADMINISTRATION.md` y
-`docs/CONTENT_IMPORT_FORMAT.md`.
+`docs/CONTENT_IMPORT_FORMAT.md`. La conexión de Flutter y la distinción entre
+comprobación pública e integración completa están en `docs/FLUTTER_STAGING_CONNECTION.md`.
 
 ## Etapa 8 - Comercio y publicación
 

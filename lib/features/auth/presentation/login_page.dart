@@ -6,6 +6,7 @@ import '../../../core/config/environment.dart';
 import '../domain/session.dart';
 import 'auth_form_scaffold.dart';
 import 'session_controller.dart';
+import 'staging_connection_sheet.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -74,6 +75,22 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            if (config.environment == AppEnvironment.staging) ...[
+              const Text('STAGING · servidor de pruebas, sin datos demo'),
+              TextButton.icon(
+                key: const Key('check-staging-connection'),
+                icon: const Icon(Icons.cloud_outlined),
+                label: const Text('Comprobar conexión'),
+                onPressed: session.isLoading
+                    ? null
+                    : () => showModalBottomSheet<void>(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) => const StagingConnectionSheet(),
+                      ),
+              ),
+              const SizedBox(height: 12),
+            ],
             if (session.errorMessage case final message?) ...[
               AuthErrorBanner(message: message),
               const SizedBox(height: 18),

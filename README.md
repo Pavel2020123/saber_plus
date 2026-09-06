@@ -17,7 +17,18 @@ La aplicación inicia en modo demostración para poder revisar navegación y dis
 
 La interfaz inicia con fondo blanco y permite que el estudiante elija modo claro, oscuro o automático según el dispositivo desde `Más > Preferencias`.
 
-Última entrega: **6F-P — pulido de juegos y racha + Desafío del guardián**.
+Última entrega: **7F-B3-A — configuración y conexión básica de Flutter a staging**.
+El perfil listo para ejecutar, la comprobación sin credenciales y la lista de
+pruebas integrales pendientes están en [docs/FLUTTER_STAGING_CONNECTION.md](docs/FLUTTER_STAGING_CONNECTION.md).
+
+```powershell
+flutter run --dart-define-from-file=config/staging.json
+```
+
+Este perfil usa la API real de desarrollo y no ofrece ingreso demo. No contiene
+credenciales de base de datos y no aplica migraciones.
+
+Entrega anterior: **6F-P — pulido de juegos y racha + Desafío del guardián**.
 Los cambios, cómo probarlos y el paso pendiente de migración/despliegue para el
 nuevo juego están en [docs/GAME_POLISH_GUARDIAN.md](docs/GAME_POLISH_GUARDIAN.md).
 No se necesitan audios nuevos. Las siguientes etapas de contenido conservan su orden.

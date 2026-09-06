@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "SaberPlus — demostración local",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "toolArgs": ["--dart-define=APP_ENV=dev", "--dart-define=DEMO_MODE=true"]
+    },
+    {
+      "name": "SaberPlus — staging real (Render)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "toolArgs": ["--dart-define-from-file=config/staging.json"]
+    }
+  ]
+}
