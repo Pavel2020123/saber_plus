@@ -96,7 +96,9 @@ contenido sin preparar archivos manualmente.
   evidencia acumulada. Su prueba integral real sigue en 7F-B3-B.
 - **7F-C3-A, implementada:** acceso ADMIN, navegación del catálogo y creación
   de temas/subtemas en borrador, con demostración local. Revisión visual pendiente.
-- **7F-C3-B:** editor de lecciones y ajustes de nombres.
+- **7F-C3-B, implementada:** editor de lecciones en borrador, vista previa de
+  texto y ajustes de nombres sin uso académico. Revisión de concurrencia,
+  referencias HTTPS y demo local; despliegue y prueba ADMIN real pendientes.
 - **7F-C3-C:** editor de preguntas y casos.
 - **7F-C3-D:** revisión/publicación y prueba editorial de extremo a extremo.
   Apertura, requisitos y commits en [ADMIN_PANEL.md](ADMIN_PANEL.md).

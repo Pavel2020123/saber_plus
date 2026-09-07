@@ -186,7 +186,10 @@ las etapas 7F-C de contenido ni las de comercio/publicación.
 - [x] **7F-C3-A:** panel privado de acceso ADMIN, catálogo paginado por área y
   tema, creación de temas/subtemas en borrador y demo local aislada. Pruebas
   API/locales; revisión visual en navegador y sesión real pendientes.
-- [ ] **7F-C3-B:** editor de lecciones por subtema, vista previa segura y ajustes de nombres.
+- [x] **7F-C3-B:** editor de lecciones por subtema en borrador, vista previa de
+  texto, referencias HTTPS, corrección de nombres sin uso académico y revisión
+  de concurrencia bajo bloqueo. Demo y pruebas locales; despliegue y sesión real
+  pendientes. Las rutas editoriales heredadas se unifican en C3-D.
 - [ ] **7F-C3-C:** editor de preguntas/casos con opciones, explicaciones, clasificación,
   imágenes referenciadas y control de duplicados.
 - [ ] **7F-C3-D:** revisión/publicación desde el panel, clasificación del legado y
