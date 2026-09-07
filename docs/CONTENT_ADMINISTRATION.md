@@ -13,9 +13,10 @@ Cada tema, subtema, caso y pregunta tiene uno de estos estados:
 3. `PUBLICADO`: puede ser seleccionado en actividades nuevas.
 4. `ARCHIVADO`: deja de ofrecerse sin borrar intentos ni estadísticas previas.
 
-No es posible pasar directamente de borrador a publicado. Cuando se modifica
-el contenido de un subtema, un interactivo, un caso o la asociación de una
-pregunta con un caso, el elemento vuelve a borrador y debe revisarse otra vez.
+No es posible pasar directamente de borrador a publicado. El editor vigente
+solo modifica borradores nunca publicados y sin uso académico, con restricciones
+adicionales según el recurso. No devuelve contenido utilizado a borrador para
+reescribirlo silenciosamente; versionado de correcciones queda en C6.
 
 La migración conserva el contenido previo como archivado. De ese modo, ningún
 material antiguo se publica automáticamente sin una revisión de autoría,
@@ -28,36 +29,39 @@ calidad y permisos.
   exactamente una respuesta correcta.
 - El tema y el subtema de una pregunta deben estar publicados.
 - Si la pregunta usa un caso compartido, ese caso también debe estar publicado.
-- Antes de crear o publicar se calcula una huella normalizada. Si otra pregunta
-  activa tiene la misma huella, se bloquea la copia; una pregunta archivada sí
-  puede sustituirse por una versión nueva.
+- Antes de crear o publicar se calcula una huella normalizada. El editor de
+  borradores bloquea coincidencias incluso archivadas; la revisión de publicación
+  comprueba coincidencias no archivadas. No asumir que archivar permite duplicar
+  desde el editor; las correcciones/versiones necesitan su flujo explícito.
 - Los intentos ya iniciados pueden terminar con su versión anterior, pero el
   contenido archivado no entra en diagnósticos, prácticas, simulacros, repasos,
   planes de estudio ni juegos nuevos.
-- Solo puede borrarse físicamente un elemento nuevo en borrador y sin actividad
-  asociada. El contenido usado se archiva.
+- Desde D2-A no hay borrado físico editorial por HTTP; se usa archivo bajo revisión.
 
-## Rutas administrativas disponibles en 7F-C1
+## Rutas de estado vigentes desde C3-D1/D2-A
 
 Todas requieren una sesión con rol `ADMIN`:
 
 ```text
-PATCH /admin/temas/:id/estado
-PATCH /admin/subtemas/:id/estado
-PATCH /admin/casos-preguntas/:id/estado
-PATCH /admin/preguntas/:id/estado
+GET   /admin/editor/revision/:tipo/:id
+PATCH /admin/editor/revision/:tipo/:id
 ```
 
 Cuerpo de la solicitud:
 
 ```json
 {
-  "estadoContenido": "EN_REVISION"
+  "revision": "<SHA-256 de 64 caracteres devuelto por GET>",
+  "destino": "EN_REVISION",
+  "confirmado": true
 }
 ```
 
-Para publicar se repite la ruta con `PUBLICADO` después de la revisión. Para
-retirar sin destruir datos se usa `ARCHIVADO`.
+Tipos: `temas`, `subtemas`, `preguntas`, `casos`. Usar una revisión actual para
+cada cambio. Para retirar sin destruir datos se usa destino `ARCHIVADO`.
+Las antiguas rutas `.../:id/estado` de C1 devuelven 410 en D2-A; no reenviar su
+cuerpo automáticamente. La escritura nueva sigue bloqueada por defecto mediante
+`EDITORIAL_PUBLICATION_ENABLED` hasta cerrar D2 y preparar D3.
 
 ## Prueba manual prevista
 
@@ -106,8 +110,8 @@ contenido sin preparar archivos manualmente.
 - **7F-C3-D:** revisión/publicación y prueba editorial de extremo a extremo.
   - **D1 implementada:** revisión del registro guardado, controles, confirmación
     y estados en demo; nuevas escrituras reales desactivadas por defecto.
-  - **D2 pendiente:** rutas heredadas, indexación/clasificación del legado,
-    revisión de interactivos y concurrencia PostgreSQL.
+  - **D2 parcial:** D2-A retira escrituras heredadas y unifica bloqueo por área.
+    Faltan indexación/clasificación, revisión de interactivos, PostgreSQL y despliegue.
   - **D3 pendiente:** despliegue y ensayo editorial real con cuenta ADMIN.
   Apertura, requisitos y commits en [ADMIN_PANEL.md](ADMIN_PANEL.md).
 - **7F-C4:** versión global del catálogo y sincronización Flutter/Drift.

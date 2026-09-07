@@ -208,6 +208,9 @@ las etapas 7F-C de contenido ni las de comercio/publicación.
     desactivadas por defecto hasta D2. No hubo publicación en Supabase.
   - [ ] **D2:** unificar rutas heredadas, indexar/reclasificar legado con revisión
     humana, revisar interactivos y verificar concurrencia en PostgreSQL.
+    - [x] **D2-A:** retiro HTTP de escrituras antiguas y carga demo; bloqueo común
+      por área en todos los servicios editoriales vigentes. Pruebas locales;
+      despliegue, indexación/reclasificación, CLOZE y PostgreSQL siguen pendientes.
   - [ ] **D3:** desplegar y probar el flujo editorial completo con cuenta ADMIN,
     contenido autorizado, navegador y base reales.
   Detalle: `docs/ADMIN_PANEL.md`.

@@ -1,4 +1,10 @@
-# 7F-C3-D1 — Revisión y publicación editorial
+# 7F-C3-D2-A — Escrituras editoriales protegidas
+
+Última entrega local: retiro de 15 rutas antiguas de escritura con HTTP 410,
+retiro de carga demo por HTTP y bloqueo común por área en catálogo, lecciones,
+preguntas/casos y revisión. No hay cambio visual ni despliegue automático.
+**D2 continúa abierta** para indexación/reclasificación del legado, CLOZE y
+concurrencia real en PostgreSQL. No se activó la publicación.
 
 Implementado en `admin/` del repositorio oficial **SaberPlus-Backend**. No se
 reintrodujeron carpetas Flutter web ni se modificó la página antigua Icfes_Vida.
@@ -66,8 +72,8 @@ envía a revisión y confirma Publicar. El orden es tema → subtema → caso (s
 - `EDITORIAL_PUBLICATION_ENABLED` permanece ausente/false en entornos reales:
   consulta habilitada, nuevas escrituras de estado bloqueadas. No activar hasta
   unificar las rutas antiguas en D2 y preparar el ensayo autorizado D3.
-- El bloqueo solo afecta a las rutas nuevas de revisión; los endpoints heredados
-  todavía deben unificarse. Interactivos CLOZE y clasificación/indexación del
+- La bandera solo afecta a las rutas nuevas de revisión; desde D2-A las escrituras
+  heredadas devuelven 410 independientemente de esa bandera. CLOZE y clasificación/indexación del
   legado siguen en D2. **C3-D completa todavía no está terminada.**
 
 ## Reglas del editor de lecciones (C3-B)
@@ -81,9 +87,9 @@ envía a revisión y confirma Publicar. El orden es tema → subtema → caso (s
   referencia la elimina. La vista previa es simplificada, no una réplica exacta
   del renderizado Markdown de Flutter. Imágenes/videos no se incrustan todavía.
 - La revisión SHA-256 y los bloqueos evitan sobrescrituras entre estas rutas
-  nuevas del editor. No constituyen historial o restauración. Las rutas heredadas
-  de contenido/interactivos conservan su contrato; no usarlas simultáneamente
-  para editar el mismo contenido. Unificación prevista en C3-D; historial en C6.
+  del editor. No constituyen historial o restauración. Las rutas heredadas de
+  contenido/interactivos se retiraron por HTTP en D2-A; la edición especializada
+  de CLOZE sigue pendiente. Historial y restauración quedan en C6.
 - No hay autoguardado: copiar texto pendiente antes de recargar. La sesión y el
   editor se limpian al cerrar sesión. No se guardan credenciales ni borradores
   en el almacenamiento del navegador.
@@ -108,10 +114,10 @@ envía a revisión y confirma Publicar. El orden es tema → subtema → caso (s
   sin huella, con un máximo de 2000 candidatos; por encima se bloquea hasta indexar.
   No es detección semántica/OCR ni compara el contexto del caso. La coincidencia
   muestra el ID existente para revisión; no implica que todo parecido sea detectado.
-- Revisión SHA-256 y bloqueos por área/filas para estas rutas nuevas. Las rutas
-  heredadas conservan su contrato y no comparten todos los bloqueos: no alternar
-  ambas vías para editar concurrentemente. Unificación/backfill en C3-D antes de
-  probar edición concurrente sobre el banco real. No hay historial/restauración aún.
+- Revisión SHA-256 y bloqueos por área/filas compartidos desde D2-A por todos los
+  servicios editoriales vigentes. Las escrituras heredadas responden 410. Falta
+  indexación del legado y prueba concurrente en PostgreSQL antes de activar.
+  No hay historial/restauración aún.
 - Guardar no publica. No hubo cambios en contenido real, cuentas, Render ni Supabase.
 
 Para la conexión real, seguir `admin/README.md` en el backend: cuenta ADMIN,
@@ -123,6 +129,13 @@ El acceso permanece en memoria de la pestaña y se pierde al recargar. Cerrar
 sesión local no equivale a revocar un token en el backend; eso conserva su etapa.
 
 ## Verificación y límites
+
+**D2-A:** 449 pruebas del backend aprobadas en 60 suites, compilación y lint
+focalizado correctos. Incluyen pruebas HTTP con Nest/AdminGuard reales y JWT/Prisma
+simulados, controles de bloqueo y retiro de la carga demo. No se probó concurrencia
+contra PostgreSQL ni se desplegó. El panel visual y el código Flutter no cambiaron.
+
+Resultados de la entrega anterior D1:
 
 `npm run check` y `npm test` se ejecutan dentro de `SaberPlus-Backend/admin`.
 Las pruebas comprueban API/servidor local, seguridad básica y contrato del catálogo.
@@ -139,7 +152,8 @@ migraciones para C3-D1. No se activó el cambio de estados en entornos reales.
 
 ## Etapas que siguen
 
-1. **7F-C3-D2:** clasificación/indexación del legado, unificación de rutas y revisión especializada.
+1. **Completar 7F-C3-D2:** clasificación/indexación del legado, revisión especializada
+   y concurrencia PostgreSQL; D2-A (retiro de rutas/bloqueos) implementada localmente.
 2. **7F-C3-D3:** ensayo editorial real.
 3. **7F-C4:** versionado del catálogo y sincronización Flutter/Drift.
 4. **7F-C5:** almacenamiento persistente de imágenes/archivos en Supabase Storage
@@ -153,22 +167,22 @@ certificado por materia, juegos en staging, seguridad, anuncios y publicación.
 Siguen pendientes las validaciones integrales 7F-B3-B y los despliegues anteriores,
 incluido Guardián. Esta división detalla 7F-C3, no reemplaza las demás etapas.
 
-## Commits
+## Commits de D2-A
 
 Backend/panel:
 
 ```powershell
 cd "C:\Users\LENOVO 14ALC6\Desktop\SaberPlus-Backend"
-git add admin README.md backend/.env.example backend/src/admin/admin.module.ts backend/src/admin/editorial-review.controller.ts backend/src/admin/editorial-review.service.ts backend/src/admin/editorial-review.service.spec.ts
-git commit -m "feat: agregar revision editorial y publicacion controlada"
+git add README.md admin/README.md backend/EDITORIAL_LEGACY_RETIREMENT.md backend/src/admin backend/src/simulacro/simulacro.service.ts backend/src/simulacro/simulacro-seed-retired.spec.ts
+git commit -m "fix: cerrar escrituras editoriales heredadas y unificar bloqueos"
 ```
 
 Flutter, solo seguimiento documental:
 
 ```powershell
 cd "C:\Users\LENOVO 14ALC6\Desktop\SaberPLus\saber_plus"
-git add README.md docs/ROADMAP_MOVIL.md docs/CONTENT_ADMINISTRATION.md docs/ADMIN_PANEL.md docs/ETAPAS_PENDIENTES.md
-git commit -m "docs: registrar C3-D1 y consolidar etapas pendientes"
+git add README.md docs/ROADMAP_MOVIL.md docs/CONTENT_ADMINISTRATION.md docs/ADMIN_PANEL.md docs/ETAPAS_PENDIENTES.md docs/CONCILIACION_ROADMAP.md
+git commit -m "docs: registrar avance C3-D2-A y pendientes editoriales"
 ```
 
 Los cambios anteriores de Guardián en `backend/prisma`, `backend/src/app.module.ts`,

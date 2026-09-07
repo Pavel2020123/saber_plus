@@ -3,9 +3,10 @@
 Revisión: 7 de septiembre de 2026. Fuente comparada: auditoría anterior aportada
 por el equipo, que situaba el proyecto al terminar 7E.
 
-**Última subetapa implementada: 7F-C3-D1. Próxima: 7F-C3-D2.**
-Esta conciliación solo actualiza documentación; no implementa, despliega ni
-certifica nuevas funcionalidades. Implementado localmente no significa probado
+**Última subetapa implementada: 7F-C3-D2-A. Próxima: continuar 7F-C3-D2.**
+Actualización posterior a la conciliación: retiro de escrituras heredadas y
+bloqueo común por área implementados localmente; no desplegados. La comparación
+original fue documental. Implementado localmente no significa probado
 de extremo a extremo con cuentas y contenido reales.
 
 ## Lo que ya no debemos contar como trabajo desde cero
@@ -23,6 +24,9 @@ de extremo a extremo con cuentas y contenido reales.
 - C3-D1: revisión, advertencias, bloqueos y confirmación de cambios de estado.
   Recorrido demo disponible; nuevas escrituras reales desactivadas por defecto
   hasta cerrar la unificación de rutas y las comprobaciones de D2.
+- C3-D2-A: rutas antiguas de escritura y carga demostrativa HTTP retiradas;
+  protocolo común de bloqueo por área. D2 no se cierra hasta resolver legado,
+  interactivos y pruebas de concurrencia reales.
 - Juegos/motores, animaciones, audios y límites/analíticas institucionales ya
   implementados se conservan. Sus verificaciones reales y conexiones comerciales
   pendientes no significan reconstruirlos.

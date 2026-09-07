@@ -1,4 +1,4 @@
-# SaberPlus — trabajo pendiente tras 7F-C3-D1
+# SaberPlus — trabajo pendiente tras 7F-C3-D2-A
 
 Actualizado: 7 de septiembre de 2026. Listado para compartir con el equipo.
 
@@ -14,8 +14,10 @@ No son trece etapas originales nuevas. La comparación con el listado anterior
 
 ## 1. 7F-C3-D2 — Legado y unificación editorial
 
-- Unificar rutas administrativas antiguas y nuevas bajo las mismas validaciones,
-  revisiones y bloqueos. Evitar escrituras que salten la protección del editor.
+- **D2-A implementada localmente:** 15 escrituras administrativas antiguas
+  retiradas con HTTP 410, carga demo HTTP retirada y bloqueo común por área.
+  El panel conserva sus rutas vigentes. Falta desplegar y verificar en entorno real;
+  no reutilizar métodos internos heredados como vía alternativa.
 - Indexar huellas de preguntas heredadas mediante un proceso acotado, reanudable
   y verificable. Hoy se bloquea si la comparación supera 2000 candidatos.
 - Revisar duplicados y clasificaciones genéricas como Banco General sin
