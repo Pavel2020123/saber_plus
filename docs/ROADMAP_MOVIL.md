@@ -5,6 +5,9 @@ Este plan traduce el informe técnico a entregas pequeñas y verificables. El ba
 Listado consolidado de todo lo pendiente para compartir con el equipo:
 [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md). Incluye tareas de etapas anteriores
 que tienen cliente implementado pero todavía necesitan servidor/despliegue.
+Comparación con el listado anterior 7F–9A:
+[CONCILIACION_ROADMAP.md](CONCILIACION_ROADMAP.md). Sus identificadores se conservan
+como referencia; no se repiten las funciones ya implementadas.
 
 ## Estado actual
 
@@ -231,6 +234,17 @@ comprobación pública e integración completa están en `docs/FLUTTER_STAGING_C
 - Frontera preparada para StoreKit si posteriormente se decide publicar en App Store.
 - Accesibilidad, seguridad, rendimiento y observabilidad.
 - Beta, fichas de tienda, privacidad y plan de rollback.
+
+## Etapa 9A - Operación posterior al lanzamiento
+
+- [ ] Asignar responsables y procedimientos de monitoreo, soporte, incidentes,
+  respaldos/restauraciones, secretos, costos y seguimiento de compras/publicidad.
+- [ ] Establecer revisiones periódicas de contenido, fuentes oficiales, licencias,
+  dependencias y políticas; preparar nuevas versiones y métricas agregadas sin
+  transferir datos académicos a plataformas publicitarias.
+
+Es trabajo continuo posterior a la publicación, con preparación previa. El detalle
+de 7G–7J, 8A–8I, 9A y las mejoras opcionales está en `ETAPAS_PENDIENTES.md`.
 
 ## Decisiones comerciales confirmadas
 
