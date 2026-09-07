@@ -17,12 +17,13 @@ La aplicación inicia en modo demostración para poder revisar navegación y dis
 
 La interfaz inicia con fondo blanco y permite que el estudiante elija modo claro, oscuro o automático según el dispositivo desde `Más > Preferencias`.
 
-Última entrega: **7F-C3-B — editor de lecciones en borrador**.
-El panel está en `admin/` del backend oficial: crear temas/subtemas, redactar
-lecciones, consultar una vista previa del texto y corregir nombres sin uso
-académico. Incluye protección ante ediciones simultáneas y demo local aislada.
+Última entrega: **7F-C3-C — editor de preguntas y casos en borrador**.
+El panel está en `admin/` del backend oficial: preguntas por subtema, opciones,
+explicaciones, casos compartidos por área y referencias de imágenes. Incluye
+control de duplicados, revisión de concurrencia y demo local aislada; conserva
+las lecciones y correcciones de nombres de C3-B.
 Apertura, límites y commits: [docs/ADMIN_PANEL.md](docs/ADMIN_PANEL.md).
-Siguen **7F-C3-C** (preguntas/casos) y **7F-C3-D** (revisión/publicación).
+Sigue **7F-C3-D** (revisión/publicación, unificación de rutas y legado).
 
 Entrega anterior: **7F-C2-B2 — diagnóstico por evidencia acumulada**.
 Disponible desde Progreso y el resultado del diagnóstico inicial. Diferencia un

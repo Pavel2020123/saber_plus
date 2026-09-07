@@ -1,4 +1,4 @@
-# 7F-C3-B — Editor de lecciones y nombres académicos
+# 7F-C3-C — Editor de preguntas y casos
 
 Implementado en `admin/` del repositorio oficial **SaberPlus-Backend**. No se
 reintrodujeron carpetas Flutter web ni se modificó la página antigua Icfes_Vida.
@@ -16,8 +16,12 @@ reintrodujeron carpetas Flutter web ni se modificó la página antigua Icfes_Vid
 - Corregir nombres de temas vacíos o subtemas todavía sin uso académico.
 - Detectar conflictos de edición; conservar el texto local si el guardado falla.
 - Advertir al abandonar el editor con cambios pendientes.
+- Crear, consultar y editar preguntas en borrador por subtema, con 2–6 opciones
+  de texto, una correcta, explicación general y explicaciones opcionales por opción.
+- Crear casos compartidos por área y asociarlos con un orden explícito a preguntas.
+- Bloquear preguntas repetidas, conflictos de revisión y órdenes ocupados en casos.
 
-No hay todavía editor de preguntas/casos, carga de imágenes ni botones de
+No hay todavía carga de archivos de imágenes ni botones de
 publicación. Un borrador nuevo no aparece automáticamente en Flutter: deberá
 revisarse y publicarse cuando terminemos el flujo editorial.
 
@@ -38,7 +42,13 @@ Guarda, cierra el editor y vuelve a seleccionar Porcentajes para comprobarla.
 Para corregir un nombre de tema, selecciona **Álgebra** y pulsa el botón de
 corrección antes de crear subtemas dentro de él.
 
-## Reglas de esta entrega
+Para **C3-C**, desde el editor de Porcentajes pulsa **Preguntas de este subtema**
+y luego **Crear nuevo borrador**. Completa enunciado, opciones, correcta y
+explicación. Guarda y vuelve a seleccionar la pregunta para editarla.
+Para casos, pulsa **Casos del área** en la cabecera. Hay un caso demo de papelería;
+también puedes crear otro antes de asociarlo a una pregunta.
+
+## Reglas del editor de lecciones (C3-B)
 
 - Solo se editan lecciones en BORRADOR, nunca publicadas, sin progreso ni
   actividades de plan, con clasificación específica y sin interactivo CLOZE.
@@ -56,6 +66,32 @@ corrección antes de crear subtemas dentro de él.
   editor se limpian al cerrar sesión. No se guardan credenciales ni borradores
   en el almacenamiento del navegador.
 
+## Reglas de preguntas y casos (C3-C)
+
+- Preguntas: solo se editan borradores nunca publicados y sin uso académico
+  (historial, cuaderno de errores, preguntas/respuestas de partidas, etc.).
+  Casos: solo se editan borradores nunca publicados y sin preguntas asociadas.
+- Las preguntas mantienen su subtema; los casos mantienen su área. Un caso no
+  archivado puede asociarse a preguntas de diferentes subtemas de la misma área.
+- El orden dentro del caso debe estar libre; pregunta independiente no lleva orden.
+- Límites: enunciado/explicación general 12000 caracteres, opción/explicación de
+  opción 4000, título de caso 200, contexto 20000 y URL HTTPS 2000. También aplica
+  el límite global del cuerpo JSON en backend. Explicación general obligatoria.
+- Se referencian imágenes del enunciado y caso; **no hay imágenes dentro de
+  opciones** todavía. Requieren ampliar Respuesta, el contrato y Flutter en C5.
+- Listas y selector de casos paginados de 20 en 20. Los listados no incluyen
+  respuestas correctas; el detalle ADMIN y su vista previa sí las muestran.
+- Duplicados: huella v1 de área, texto, opciones y referencia de imagen normalizados,
+  sin importar el orden de opciones. Se incluyen registros archivados y legado
+  sin huella, con un máximo de 2000 candidatos; por encima se bloquea hasta indexar.
+  No es detección semántica/OCR ni compara el contexto del caso. La coincidencia
+  muestra el ID existente para revisión; no implica que todo parecido sea detectado.
+- Revisión SHA-256 y bloqueos por área/filas para estas rutas nuevas. Las rutas
+  heredadas conservan su contrato y no comparten todos los bloqueos: no alternar
+  ambas vías para editar concurrentemente. Unificación/backfill en C3-D antes de
+  probar edición concurrente sobre el banco real. No hay historial/restauración aún.
+- Guardar no publica. No hubo cambios en contenido real, cuentas, Render ni Supabase.
+
 Para la conexión real, seguir `admin/README.md` en el backend: cuenta ADMIN,
 API con las rutas nuevas y origen del panel autorizado por CORS. La contraseña
 y el JWT se usan para autenticar, nunca se copian a archivos de la app. No se
@@ -68,22 +104,25 @@ sesión local no equivale a revocar un token en el backend; eso conserva su etap
 
 `npm run check` y `npm test` se ejecutan dentro de `SaberPlus-Backend/admin`.
 Las pruebas comprueban API/servidor local, seguridad básica y contrato del catálogo.
-Resultado local del panel: 23 pruebas aprobadas y sintaxis validada. Incluyen
+Resultado local del panel: 31 pruebas aprobadas y sintaxis validada. Incluyen
 dobles DOM para lógica del editor, no una prueba visual de navegador. En backend
-se añadieron pruebas de permisos declarados, DTO, bloqueos, revisiones, nombres,
-solo lectura y URLs; catálogo/editor: 44 pruebas aprobadas. Suite completa del
-backend: 312 pruebas en 55 suites. Compilación y lint de archivos cambiados correctos.
+se añadieron 28 pruebas de preguntas/casos: permisos declarados, DTO, bloqueos,
+revisiones, duplicados, orden, clasificación y solo lectura. Compilación y lint
+de archivos cambiados correctos. Las pruebas usan Prisma simulado, no comprueban
+concurrencia real en PostgreSQL.
+Suite completa del backend: **340 pruebas aprobadas en 56 suites**.
 Revisión visual, CORS y prueba con cuenta ADMIN real quedan pendientes.
 No hubo despliegues, migraciones ni cambios en Supabase. No hacen falta nuevas
-migraciones para C3-B; sí desplegar sus nuevas rutas para usar el editor real.
+migraciones para C3-C; sí desplegar sus nuevas rutas para usar el editor real.
 
 ## Etapas que siguen
 
-1. **7F-C3-C:** editor de preguntas y casos, opciones, explicaciones y referencias a imágenes.
-2. **7F-C3-D:** revisión/publicación en el panel, clasificación del legado y prueba editorial completa.
-3. **7F-C4:** versionado del catálogo y sincronización Flutter/Drift.
-4. **7F-C5:** almacenamiento persistente de imágenes y archivos en Supabase Storage.
-5. **7F-C6:** auditoría e historial/restauración de versiones.
+1. **7F-C3-D:** revisión/publicación en el panel, clasificación e indexación del legado,
+   unificación de rutas heredadas y prueba editorial completa.
+2. **7F-C4:** versionado del catálogo y sincronización Flutter/Drift.
+3. **7F-C5:** almacenamiento persistente de imágenes/archivos en Supabase Storage
+   y ampliación para imágenes dentro de opciones.
+4. **7F-C6:** auditoría e historial/restauración de versiones.
 
 Siguen pendientes las validaciones integrales 7F-B3-B y los despliegues anteriores,
 incluido Guardián. Esta división detalla 7F-C3, no reemplaza las demás etapas.
@@ -94,8 +133,8 @@ Backend/panel:
 
 ```powershell
 cd "C:\Users\LENOVO 14ALC6\Desktop\SaberPlus-Backend"
-git add admin README.md backend/src/admin/admin.module.ts backend/src/admin/lesson-editor.controller.ts backend/src/admin/lesson-editor.service.ts backend/src/admin/lesson-editor.service.spec.ts
-git commit -m "feat: agregar editor seguro de lecciones en borrador"
+git add admin README.md backend/src/admin/admin.module.ts backend/src/admin/question-editor.controller.ts backend/src/admin/question-editor.dto.ts backend/src/admin/question-editor.service.ts backend/src/admin/question-editor.service.spec.ts
+git commit -m "feat: agregar editor de preguntas y casos con control de duplicados"
 ```
 
 Flutter, solo seguimiento documental:
@@ -103,7 +142,7 @@ Flutter, solo seguimiento documental:
 ```powershell
 cd "C:\Users\LENOVO 14ALC6\Desktop\SaberPLus\saber_plus"
 git add README.md docs/ROADMAP_MOVIL.md docs/CONTENT_ADMINISTRATION.md docs/ADMIN_PANEL.md
-git commit -m "docs: completar etapa 7F-C3-B de lecciones"
+git commit -m "docs: completar etapa 7F-C3-C de preguntas y casos"
 ```
 
 Los cambios anteriores de Guardián en `backend/prisma`, `backend/src/app.module.ts`,

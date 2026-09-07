@@ -190,12 +190,16 @@ las etapas 7F-C de contenido ni las de comercio/publicación.
   texto, referencias HTTPS, corrección de nombres sin uso académico y revisión
   de concurrencia bajo bloqueo. Demo y pruebas locales; despliegue y sesión real
   pendientes. Las rutas editoriales heredadas se unifican en C3-D.
-- [ ] **7F-C3-C:** editor de preguntas/casos con opciones, explicaciones, clasificación,
-  imágenes referenciadas y control de duplicados.
-- [ ] **7F-C3-D:** revisión/publicación desde el panel, clasificación del legado y
-  prueba completa de extremo a extremo. Detalle: `docs/ADMIN_PANEL.md`.
+- [x] **7F-C3-C:** editor de preguntas/casos en borrador con opciones de texto,
+  explicaciones, clasificación, imágenes referenciadas en enunciado/caso y
+  control de duplicados/revisiones. Demo y pruebas locales; flujo real pendiente.
+- [ ] **7F-C3-D:** revisión/publicación desde el panel, clasificación e indexación
+  de huellas del legado, unificación de rutas editoriales heredadas con el
+  protocolo de concurrencia y prueba completa de extremo a extremo.
+  Detalle: `docs/ADMIN_PANEL.md`.
 - [ ] **7F-C4:** versión del catálogo y sincronización con Flutter/Drift.
-- [ ] **7F-C5:** imágenes y archivos en Supabase Storage con metadatos.
+- [ ] **7F-C5:** imágenes y archivos en Supabase Storage con metadatos; ampliar
+  modelo Respuesta, contrato y Flutter para imágenes dentro de opciones.
 - [ ] **7F-C6:** auditoría, historial de cambios y restauración de versiones.
 
 Los procedimientos reproducibles están en `docs/SUPABASE_DEPLOYMENT.md`,

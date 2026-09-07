@@ -99,7 +99,10 @@ contenido sin preparar archivos manualmente.
 - **7F-C3-B, implementada:** editor de lecciones en borrador, vista previa de
   texto y ajustes de nombres sin uso académico. Revisión de concurrencia,
   referencias HTTPS y demo local; despliegue y prueba ADMIN real pendientes.
-- **7F-C3-C:** editor de preguntas y casos.
+- **7F-C3-C, implementada:** preguntas por subtema, opciones de texto, explicación,
+  casos por área, imágenes referenciadas y control de duplicados. Demo local;
+  sin publicación ni carga de archivos. Imágenes en opciones requieren ampliación
+  de modelo/contrato/Flutter en C5. Rutas heredadas e indexación del legado en C3-D.
 - **7F-C3-D:** revisión/publicación y prueba editorial de extremo a extremo.
   Apertura, requisitos y commits en [ADMIN_PANEL.md](ADMIN_PANEL.md).
 - **7F-C4:** versión global del catálogo y sincronización Flutter/Drift.
