@@ -183,9 +183,14 @@ las etapas 7F-C de contenido ni las de comercio/publicación.
   contenido genérico, límites y estados sin datos/parciales. Un error aislado no
   se presenta como falencia confirmada. Falta desplegar y validar el flujo real
   dentro de 7F-B3-B. Detalle: `docs/LEARNING_EVIDENCE.md`.
-- [ ] **7F-C3:** panel web privado para administrar el catálogo académico,
-  crear y editar contenido/nombres, revisar la clasificación del legado,
-  previsualizarlo, revisar duplicados y publicarlo.
+- [x] **7F-C3-A:** panel privado de acceso ADMIN, catálogo paginado por área y
+  tema, creación de temas/subtemas en borrador y demo local aislada. Pruebas
+  API/locales; revisión visual en navegador y sesión real pendientes.
+- [ ] **7F-C3-B:** editor de lecciones por subtema, vista previa segura y ajustes de nombres.
+- [ ] **7F-C3-C:** editor de preguntas/casos con opciones, explicaciones, clasificación,
+  imágenes referenciadas y control de duplicados.
+- [ ] **7F-C3-D:** revisión/publicación desde el panel, clasificación del legado y
+  prueba completa de extremo a extremo. Detalle: `docs/ADMIN_PANEL.md`.
 - [ ] **7F-C4:** versión del catálogo y sincronización con Flutter/Drift.
 - [ ] **7F-C5:** imágenes y archivos en Supabase Storage con metadatos.
 - [ ] **7F-C6:** auditoría, historial de cambios y restauración de versiones.

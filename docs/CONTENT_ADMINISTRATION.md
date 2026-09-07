@@ -90,13 +90,16 @@ La importación Excel/ZIP queda disponible como herramienta masiva opcional. El
 método principal será el panel privado, para que el equipo pueda mantener el
 contenido sin preparar archivos manualmente.
 
-## Próximas entregas de 7F-C
+## Estado del panel y próximas entregas de 7F-C
 
-- **7F-C2-B:** jerarquía administrable `área > tema > subtema`, asociación
-  académica obligatoria y reglas de diagnóstico basadas en resultados
-  acumulados, no en un solo error.
-- **7F-C3:** panel web privado para administrar el catálogo, editar,
-  previsualizar, revisar duplicados y publicar.
+- **7F-C2-B1/B2, implementadas:** clasificación obligatoria y diagnóstico por
+  evidencia acumulada. Su prueba integral real sigue en 7F-B3-B.
+- **7F-C3-A, implementada:** acceso ADMIN, navegación del catálogo y creación
+  de temas/subtemas en borrador, con demostración local. Revisión visual pendiente.
+- **7F-C3-B:** editor de lecciones y ajustes de nombres.
+- **7F-C3-C:** editor de preguntas y casos.
+- **7F-C3-D:** revisión/publicación y prueba editorial de extremo a extremo.
+  Apertura, requisitos y commits en [ADMIN_PANEL.md](ADMIN_PANEL.md).
 - **7F-C4:** versión global del catálogo y sincronización Flutter/Drift.
 - **7F-C5:** archivos e imágenes en Supabase Storage, con metadatos y texto
   alternativo.

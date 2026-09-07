@@ -17,7 +17,13 @@ La aplicación inicia en modo demostración para poder revisar navegación y dis
 
 La interfaz inicia con fondo blanco y permite que el estudiante elija modo claro, oscuro o automático según el dispositivo desde `Más > Preferencias`.
 
-Última entrega: **7F-C2-B2 — diagnóstico por evidencia acumulada**.
+Última entrega: **7F-C3-A — panel editorial: acceso privado y catálogo**.
+El panel está en `admin/` del backend oficial y permite crear temas/subtemas
+en borrador, con demo local aislada. Apertura y commits:
+[docs/ADMIN_PANEL.md](docs/ADMIN_PANEL.md). Los editores de contenido y la
+publicación desde el panel siguen en 7F-C3-B/C/D.
+
+Entrega anterior: **7F-C2-B2 — diagnóstico por evidencia acumulada**.
 Disponible desde Progreso y el resultado del diagnóstico inicial. Diferencia un
 error aislado de una necesidad de refuerzo respaldada por preguntas distintas,
 sesiones y días de práctica. Pruebas y commits en [docs/LEARNING_EVIDENCE.md](docs/LEARNING_EVIDENCE.md).
