@@ -3,7 +3,7 @@
 Revisión: 7 de septiembre de 2026. Fuente comparada: auditoría anterior aportada
 por el equipo, que situaba el proyecto al terminar 7E.
 
-**Última subetapa implementada: 7F-C3-D2-A. Próxima: continuar 7F-C3-D2.**
+**Última subetapa implementada: 7F-C3-D2-B. Próxima: continuar 7F-C3-D2.**
 Actualización posterior a la conciliación: retiro de escrituras heredadas y
 bloqueo común por área implementados localmente; no desplegados. La comparación
 original fue documental. Implementado localmente no significa probado
@@ -27,6 +27,8 @@ de extremo a extremo con cuentas y contenido reales.
 - C3-D2-A: rutas antiguas de escritura y carga demostrativa HTTP retiradas;
   protocolo común de bloqueo por área. D2 no se cierra hasta resolver legado,
   interactivos y pruebas de concurrencia reales.
+- C3-D2-B: herramienta de indexación por lotes y reportes de coincidencias
+  implementada localmente. No se procesó la base real ni se reclasificó contenido.
 - Juegos/motores, animaciones, audios y límites/analíticas institucionales ya
   implementados se conservan. Sus verificaciones reales y conexiones comerciales
   pendientes no significan reconstruirlos.

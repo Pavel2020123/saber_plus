@@ -1,4 +1,4 @@
-# SaberPlus — trabajo pendiente tras 7F-C3-D2-A
+# SaberPlus — trabajo pendiente tras 7F-C3-D2-B
 
 Actualizado: 7 de septiembre de 2026. Listado para compartir con el equipo.
 
@@ -18,8 +18,11 @@ No son trece etapas originales nuevas. La comparación con el listado anterior
   retiradas con HTTP 410, carga demo HTTP retirada y bloqueo común por área.
   El panel conserva sus rutas vigentes. Falta desplegar y verificar en entorno real;
   no reutilizar métodos internos heredados como vía alternativa.
-- Indexar huellas de preguntas heredadas mediante un proceso acotado, reanudable
-  y verificable. Hoy se bloquea si la comparación supera 2000 candidatos.
+- **D2-B implementada localmente:** API ADMIN de indexación de huellas nulas
+  por lotes, vista previa/revisión/confirmación y reportes paginados de duplicados.
+  No modifica contenido, fechas, clasificación ni publicación. Falta probarla y
+  ejecutarla en una base autorizada con respaldo; escrituras apagadas por defecto.
+  El editor conserva el bloqueo si supera 2000 candidatos sin indexar.
 - Revisar duplicados y clasificaciones genéricas como Banco General sin
   atribuirles temas inventados ni cambiar resultados históricos.
 - Preparar un flujo explícito de reclasificación con destino y revisión humana.

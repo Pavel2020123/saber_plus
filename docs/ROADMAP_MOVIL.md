@@ -211,6 +211,10 @@ las etapas 7F-C de contenido ni las de comercio/publicación.
     - [x] **D2-A:** retiro HTTP de escrituras antiguas y carga demo; bloqueo común
       por área en todos los servicios editoriales vigentes. Pruebas locales;
       despliegue, indexación/reclasificación, CLOZE y PostgreSQL siguen pendientes.
+    - [x] **D2-B:** herramienta ADMIN de indexación por lotes con vista previa,
+      revisión/confirmación y reportes paginados de coincidencias. Solo huellas
+      nulas, sin alterar fechas/contenido. No ejecutada en Supabase; falta ensayo
+      PostgreSQL y operación autorizada. D2 continúa con reclasificación y CLOZE.
   - [ ] **D3:** desplegar y probar el flujo editorial completo con cuenta ADMIN,
     contenido autorizado, navegador y base reales.
   Detalle: `docs/ADMIN_PANEL.md`.

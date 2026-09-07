@@ -1,6 +1,16 @@
-# 7F-C3-D2-A — Escrituras editoriales protegidas
+# 7F-C3-D2-B — Indexación del banco antiguo
 
-Última entrega local: retiro de 15 rutas antiguas de escritura con HTTP 410,
+Última entrega local: API ADMIN de vista previa/indexación por lotes y reportes
+paginados de duplicados. No hay pantalla nueva ni cambios visuales en el panel.
+`EDITORIAL_LEGACY_INDEX_ENABLED` está apagada por defecto; habilitarla requiere
+preparar/resguardar el entorno y autorizar la operación. No se ejecutó en Supabase.
+Solo rellena huellas nulas: no edita texto, fechas, respuestas ni clasificación,
+no elimina duplicados y no publica. Procedimiento en el backend oficial:
+`backend/EDITORIAL_LEGACY_INDEX.md`.
+También se endureció la confirmación de indexación y revisión/publicación:
+solo se acepta el booleano JSON `true`, sin convertir cadenas o números.
+
+Entrega anterior D2-A: retiro de 15 rutas antiguas de escritura con HTTP 410,
 retiro de carga demo por HTTP y bloqueo común por área en catálogo, lecciones,
 preguntas/casos y revisión. No hay cambio visual ni despliegue automático.
 **D2 continúa abierta** para indexación/reclasificación del legado, CLOZE y
@@ -130,6 +140,12 @@ sesión local no equivale a revocar un token en el backend; eso conserva su etap
 
 ## Verificación y límites
 
+**D2-B:** suite general de 479 pruebas/61 suites aprobada con detección de
+recursos abiertos, sin incidencias informadas en esa repetición. Tras el ajuste
+final de confirmaciones pasaron 32 pruebas de indexación y 23 de revisión
+editorial. Compilación y lint focalizado correctos. Ensayo de 2001 preguntas con
+persistencia simulada; no prueba de PostgreSQL, migración ni indexación real.
+
 **D2-A:** 449 pruebas del backend aprobadas en 60 suites, compilación y lint
 focalizado correctos. Incluyen pruebas HTTP con Nest/AdminGuard reales y JWT/Prisma
 simulados, controles de bloqueo y retiro de la carga demo. No se probó concurrencia
@@ -152,8 +168,9 @@ migraciones para C3-D1. No se activó el cambio de estados en entornos reales.
 
 ## Etapas que siguen
 
-1. **Completar 7F-C3-D2:** clasificación/indexación del legado, revisión especializada
-   y concurrencia PostgreSQL; D2-A (retiro de rutas/bloqueos) implementada localmente.
+1. **Completar 7F-C3-D2:** reclasificación revisada, CLOZE, ejecución autorizada de
+   la indexación y concurrencia PostgreSQL. D2-A y herramienta D2-B implementadas
+   localmente; no equivalen a haber procesado/verificado el banco real.
 2. **7F-C3-D3:** ensayo editorial real.
 3. **7F-C4:** versionado del catálogo y sincronización Flutter/Drift.
 4. **7F-C5:** almacenamiento persistente de imágenes/archivos en Supabase Storage
@@ -167,14 +184,14 @@ certificado por materia, juegos en staging, seguridad, anuncios y publicación.
 Siguen pendientes las validaciones integrales 7F-B3-B y los despliegues anteriores,
 incluido Guardián. Esta división detalla 7F-C3, no reemplaza las demás etapas.
 
-## Commits de D2-A
+## Commits de D2-B
 
 Backend/panel:
 
 ```powershell
 cd "C:\Users\LENOVO 14ALC6\Desktop\SaberPlus-Backend"
-git add README.md admin/README.md backend/EDITORIAL_LEGACY_RETIREMENT.md backend/src/admin backend/src/simulacro/simulacro.service.ts backend/src/simulacro/simulacro-seed-retired.spec.ts
-git commit -m "fix: cerrar escrituras editoriales heredadas y unificar bloqueos"
+git add README.md admin/README.md backend/.env.example backend/EDITORIAL_LEGACY_RETIREMENT.md backend/EDITORIAL_LEGACY_INDEX.md backend/src/admin
+git commit -m "feat: indexar preguntas heredadas por lotes con revision"
 ```
 
 Flutter, solo seguimiento documental:
@@ -182,7 +199,7 @@ Flutter, solo seguimiento documental:
 ```powershell
 cd "C:\Users\LENOVO 14ALC6\Desktop\SaberPLus\saber_plus"
 git add README.md docs/ROADMAP_MOVIL.md docs/CONTENT_ADMINISTRATION.md docs/ADMIN_PANEL.md docs/ETAPAS_PENDIENTES.md docs/CONCILIACION_ROADMAP.md
-git commit -m "docs: registrar avance C3-D2-A y pendientes editoriales"
+git commit -m "docs: registrar indexacion del legado C3-D2-B"
 ```
 
 Los cambios anteriores de Guardián en `backend/prisma`, `backend/src/app.module.ts`,

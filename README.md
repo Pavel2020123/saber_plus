@@ -17,7 +17,12 @@ La aplicación inicia en modo demostración para poder revisar navegación y dis
 
 La interfaz inicia con fondo blanco y permite que el estudiante elija modo claro, oscuro o automático según el dispositivo desde `Más > Preferencias`.
 
-Última entrega: **7F-C3-D2-A — retiro de escrituras antiguas y bloqueo editorial común**.
+Última entrega: **7F-C3-D2-B — indexación segura del banco antiguo por lotes**.
+API ADMIN con vista previa, confirmación y reportes de coincidencias, apagada
+para escrituras por defecto. No se ejecutó sobre Supabase, no publica ni
+reclasifica contenido y no incorpora todavía una pantalla nueva en el panel.
+
+Entrega anterior: **7F-C3-D2-A — retiro de escrituras antiguas y bloqueo editorial común**.
 No hay cambios visuales: el panel usa los servicios vigentes. Las rutas antiguas
 de escritura responden 410 al desplegar esta versión; no se desplegó automáticamente.
 D2 sigue abierta para indexación/reclasificación del legado, CLOZE y pruebas PostgreSQL.

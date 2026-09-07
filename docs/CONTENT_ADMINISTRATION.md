@@ -111,7 +111,9 @@ contenido sin preparar archivos manualmente.
   - **D1 implementada:** revisión del registro guardado, controles, confirmación
     y estados en demo; nuevas escrituras reales desactivadas por defecto.
   - **D2 parcial:** D2-A retira escrituras heredadas y unifica bloqueo por área.
-    Faltan indexación/clasificación, revisión de interactivos, PostgreSQL y despliegue.
+    D2-B implementa indexación por lotes con vista previa y reportes, sin ejecutarla
+    sobre la base real. Faltan operación autorizada, reclasificación, revisión de
+    interactivos, pruebas PostgreSQL y despliegue.
   - **D3 pendiente:** despliegue y ensayo editorial real con cuenta ADMIN.
   Apertura, requisitos y commits en [ADMIN_PANEL.md](ADMIN_PANEL.md).
 - **7F-C4:** versión global del catálogo y sincronización Flutter/Drift.
