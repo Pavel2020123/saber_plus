@@ -17,13 +17,16 @@ La aplicación inicia en modo demostración para poder revisar navegación y dis
 
 La interfaz inicia con fondo blanco y permite que el estudiante elija modo claro, oscuro o automático según el dispositivo desde `Más > Preferencias`.
 
-Última entrega: **7F-C3-C — editor de preguntas y casos en borrador**.
+Última entrega: **7F-C3-D1 — revisión y publicación editorial en demo**.
 El panel está en `admin/` del backend oficial: preguntas por subtema, opciones,
 explicaciones, casos compartidos por área y referencias de imágenes. Incluye
 control de duplicados, revisión de concurrencia y demo local aislada; conserva
 las lecciones y correcciones de nombres de C3-B.
 Apertura, límites y commits: [docs/ADMIN_PANEL.md](docs/ADMIN_PANEL.md).
-Sigue **7F-C3-D** (revisión/publicación, unificación de rutas y legado).
+Ya se revisa el contenido guardado y se confirman cambios de estado. Las nuevas
+escrituras de publicación real están apagadas por defecto hasta cerrar las rutas
+heredadas. Siguen **C3-D2** (legado/unificación) y **C3-D3** (ensayo real).
+Lista completa para el equipo: [docs/ETAPAS_PENDIENTES.md](docs/ETAPAS_PENDIENTES.md).
 
 Entrega anterior: **7F-C2-B2 — diagnóstico por evidencia acumulada**.
 Disponible desde Progreso y el resultado del diagnóstico inicial. Diferencia un

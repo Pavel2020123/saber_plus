@@ -104,6 +104,11 @@ contenido sin preparar archivos manualmente.
   sin publicación ni carga de archivos. Imágenes en opciones requieren ampliación
   de modelo/contrato/Flutter en C5. Rutas heredadas e indexación del legado en C3-D.
 - **7F-C3-D:** revisión/publicación y prueba editorial de extremo a extremo.
+  - **D1 implementada:** revisión del registro guardado, controles, confirmación
+    y estados en demo; nuevas escrituras reales desactivadas por defecto.
+  - **D2 pendiente:** rutas heredadas, indexación/clasificación del legado,
+    revisión de interactivos y concurrencia PostgreSQL.
+  - **D3 pendiente:** despliegue y ensayo editorial real con cuenta ADMIN.
   Apertura, requisitos y commits en [ADMIN_PANEL.md](ADMIN_PANEL.md).
 - **7F-C4:** versión global del catálogo y sincronización Flutter/Drift.
 - **7F-C5:** archivos e imágenes en Supabase Storage, con metadatos y texto

@@ -1,4 +1,4 @@
-# 7F-C3-C — Editor de preguntas y casos
+# 7F-C3-D1 — Revisión y publicación editorial
 
 Implementado en `admin/` del repositorio oficial **SaberPlus-Backend**. No se
 reintrodujeron carpetas Flutter web ni se modificó la página antigua Icfes_Vida.
@@ -21,9 +21,9 @@ reintrodujeron carpetas Flutter web ni se modificó la página antigua Icfes_Vid
 - Crear casos compartidos por área y asociarlos con un orden explícito a preguntas.
 - Bloquear preguntas repetidas, conflictos de revisión y órdenes ocupados en casos.
 
-No hay todavía carga de archivos de imágenes ni botones de
-publicación. Un borrador nuevo no aparece automáticamente en Flutter: deberá
-revisarse y publicarse cuando terminemos el flujo editorial.
+Hay botones de revisión y cambios de estado en la demo. Las nuevas escrituras
+de estado reales están apagadas por defecto hasta C3-D2. No hay carga de archivos
+de imágenes. Un borrador nuevo no aparece automáticamente en Flutter.
 
 ## Abrir la demostración
 
@@ -47,6 +47,28 @@ y luego **Crear nuevo borrador**. Completa enunciado, opciones, correcta y
 explicación. Guarda y vuelve a seleccionar la pregunta para editarla.
 Para casos, pulsa **Casos del área** en la cabecera. Hay un caso demo de papelería;
 también puedes crear otro antes de asociarlo a una pregunta.
+
+Para **C3-D1**, abre cualquier registro guardado y pulsa **Revisar estado y
+publicación**. Guarda primero los cambios locales. Revisa bloqueos y advertencias,
+envía a revisión y confirma Publicar. El orden es tema → subtema → caso (si hay)
+→ pregunta. Archivar no borra: primero retira los dependientes publicados.
+
+## Alcance de C3-D1 y bloqueo de lanzamiento
+
+- Revisión del contenido guardado con versión, dependencias, explicación,
+  opciones, duplicados y orden de caso. Confirmación explícita de cambios.
+- La API relee y valida bajo bloqueos. No se publica usando una revisión vieja;
+  no hay reintentos automáticos ni cambios en cascada.
+- Conserva la fecha de publicación al archivar o volver a borrador. Eso no
+  permite editar como nuevo contenido que ya se usó.
+- Derechos, exactitud, disponibilidad de recursos y accesibilidad requieren
+  revisión humana. La vista previa no descarga imágenes ni verifica licencias.
+- `EDITORIAL_PUBLICATION_ENABLED` permanece ausente/false en entornos reales:
+  consulta habilitada, nuevas escrituras de estado bloqueadas. No activar hasta
+  unificar las rutas antiguas en D2 y preparar el ensayo autorizado D3.
+- El bloqueo solo afecta a las rutas nuevas de revisión; los endpoints heredados
+  todavía deben unificarse. Interactivos CLOZE y clasificación/indexación del
+  legado siguen en D2. **C3-D completa todavía no está terminada.**
 
 ## Reglas del editor de lecciones (C3-B)
 
@@ -104,25 +126,29 @@ sesión local no equivale a revocar un token en el backend; eso conserva su etap
 
 `npm run check` y `npm test` se ejecutan dentro de `SaberPlus-Backend/admin`.
 Las pruebas comprueban API/servidor local, seguridad básica y contrato del catálogo.
-Resultado local del panel: 31 pruebas aprobadas y sintaxis validada. Incluyen
+Resultado local del panel: 37 pruebas aprobadas y sintaxis validada. Incluyen
 dobles DOM para lógica del editor, no una prueba visual de navegador. En backend
-se añadieron 28 pruebas de preguntas/casos: permisos declarados, DTO, bloqueos,
-revisiones, duplicados, orden, clasificación y solo lectura. Compilación y lint
+se añadieron 19 pruebas de revisión/estados además de las del editor anterior:
+gate, permisos, DTO, bloqueos, revisiones, duplicados y archivo. Compilación y lint
 de archivos cambiados correctos. Las pruebas usan Prisma simulado, no comprueban
 concurrencia real en PostgreSQL.
-Suite completa del backend: **340 pruebas aprobadas en 56 suites**.
+Suite completa del backend: **359 pruebas aprobadas en 57 suites**.
 Revisión visual, CORS y prueba con cuenta ADMIN real quedan pendientes.
 No hubo despliegues, migraciones ni cambios en Supabase. No hacen falta nuevas
-migraciones para C3-C; sí desplegar sus nuevas rutas para usar el editor real.
+migraciones para C3-D1. No se activó el cambio de estados en entornos reales.
 
 ## Etapas que siguen
 
-1. **7F-C3-D:** revisión/publicación en el panel, clasificación e indexación del legado,
-   unificación de rutas heredadas y prueba editorial completa.
-2. **7F-C4:** versionado del catálogo y sincronización Flutter/Drift.
-3. **7F-C5:** almacenamiento persistente de imágenes/archivos en Supabase Storage
+1. **7F-C3-D2:** clasificación/indexación del legado, unificación de rutas y revisión especializada.
+2. **7F-C3-D3:** ensayo editorial real.
+3. **7F-C4:** versionado del catálogo y sincronización Flutter/Drift.
+4. **7F-C5:** almacenamiento persistente de imágenes/archivos en Supabase Storage
    y ampliación para imágenes dentro de opciones.
-4. **7F-C6:** auditoría e historial/restauración de versiones.
+5. **7F-C6:** auditoría e historial/restauración de versiones.
+
+Todos los demás pendientes están consolidados en
+[ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md), incluidos contratos antiguos,
+certificado por materia, juegos en staging, seguridad, anuncios y publicación.
 
 Siguen pendientes las validaciones integrales 7F-B3-B y los despliegues anteriores,
 incluido Guardián. Esta división detalla 7F-C3, no reemplaza las demás etapas.
@@ -133,16 +159,16 @@ Backend/panel:
 
 ```powershell
 cd "C:\Users\LENOVO 14ALC6\Desktop\SaberPlus-Backend"
-git add admin README.md backend/src/admin/admin.module.ts backend/src/admin/question-editor.controller.ts backend/src/admin/question-editor.dto.ts backend/src/admin/question-editor.service.ts backend/src/admin/question-editor.service.spec.ts
-git commit -m "feat: agregar editor de preguntas y casos con control de duplicados"
+git add admin README.md backend/.env.example backend/src/admin/admin.module.ts backend/src/admin/editorial-review.controller.ts backend/src/admin/editorial-review.service.ts backend/src/admin/editorial-review.service.spec.ts
+git commit -m "feat: agregar revision editorial y publicacion controlada"
 ```
 
 Flutter, solo seguimiento documental:
 
 ```powershell
 cd "C:\Users\LENOVO 14ALC6\Desktop\SaberPLus\saber_plus"
-git add README.md docs/ROADMAP_MOVIL.md docs/CONTENT_ADMINISTRATION.md docs/ADMIN_PANEL.md
-git commit -m "docs: completar etapa 7F-C3-C de preguntas y casos"
+git add README.md docs/ROADMAP_MOVIL.md docs/CONTENT_ADMINISTRATION.md docs/ADMIN_PANEL.md docs/ETAPAS_PENDIENTES.md
+git commit -m "docs: registrar C3-D1 y consolidar etapas pendientes"
 ```
 
 Los cambios anteriores de Guardián en `backend/prisma`, `backend/src/app.module.ts`,

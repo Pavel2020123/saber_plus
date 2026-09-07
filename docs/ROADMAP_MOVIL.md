@@ -2,6 +2,10 @@
 
 Este plan traduce el informe técnico a entregas pequeñas y verificables. El backend NestJS/PostgreSQL continúa siendo la fuente de verdad para permisos, calificación, XP, pagos e intentos.
 
+Listado consolidado de todo lo pendiente para compartir con el equipo:
+[ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md). Incluye tareas de etapas anteriores
+que tienen cliente implementado pero todavía necesitan servidor/despliegue.
+
 ## Estado actual
 
 - [x] Lectura y clasificación del informe de 27 páginas.
@@ -196,6 +200,13 @@ las etapas 7F-C de contenido ni las de comercio/publicación.
 - [ ] **7F-C3-D:** revisión/publicación desde el panel, clasificación e indexación
   de huellas del legado, unificación de rutas editoriales heredadas con el
   protocolo de concurrencia y prueba completa de extremo a extremo.
+  - [x] **D1:** revisión del contenido guardado, bloqueos/advertencias, confirmación
+    y cambios de estado; recorrido completo en demo. Nuevas escrituras reales
+    desactivadas por defecto hasta D2. No hubo publicación en Supabase.
+  - [ ] **D2:** unificar rutas heredadas, indexar/reclasificar legado con revisión
+    humana, revisar interactivos y verificar concurrencia en PostgreSQL.
+  - [ ] **D3:** desplegar y probar el flujo editorial completo con cuenta ADMIN,
+    contenido autorizado, navegador y base reales.
   Detalle: `docs/ADMIN_PANEL.md`.
 - [ ] **7F-C4:** versión del catálogo y sincronización con Flutter/Drift.
 - [ ] **7F-C5:** imágenes y archivos en Supabase Storage con metadatos; ampliar
