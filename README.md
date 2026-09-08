@@ -17,7 +17,13 @@ La aplicación inicia en modo demostración para poder revisar navegación y dis
 
 La interfaz inicia con fondo blanco y permite que el estudiante elija modo claro, oscuro o automático según el dispositivo desde `Más > Preferencias`.
 
-Última entrega: **7F-C3-D2-B — indexación segura del banco antiguo por lotes**.
+Última entrega: **7F-C3-D2-C — reclasificación revisada de preguntas sin uso**.
+API ADMIN con destino elegido por el editor y confirmación, dentro de la misma
+área. Bloquea preguntas utilizadas o publicadas para conservar su historial.
+Escrituras apagadas; sin pantalla nueva ni operación sobre Supabase. D2 sigue
+abierta para CLOZE, integración visual del legado y verificaciones PostgreSQL.
+
+Entrega anterior: **7F-C3-D2-B — indexación segura del banco antiguo por lotes**.
 API ADMIN con vista previa, confirmación y reportes de coincidencias, apagada
 para escrituras por defecto. No se ejecutó sobre Supabase, no publica ni
 reclasifica contenido y no incorpora todavía una pantalla nueva en el panel.

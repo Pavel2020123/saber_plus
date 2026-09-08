@@ -215,6 +215,10 @@ las etapas 7F-C de contenido ni las de comercio/publicación.
       revisión/confirmación y reportes paginados de coincidencias. Solo huellas
       nulas, sin alterar fechas/contenido. No ejecutada en Supabase; falta ensayo
       PostgreSQL y operación autorizada. D2 continúa con reclasificación y CLOZE.
+    - [x] **D2-C:** API de reclasificación revisada dentro de la misma área, solo
+      para preguntas sin uso registrado y no publicadas. Bloquea historial, juegos
+      e intentos JSON. No altera contenido/estado; escrituras apagadas. Falta
+      integración visual del legado, CLOZE y pruebas/operación en PostgreSQL.
   - [ ] **D3:** desplegar y probar el flujo editorial completo con cuenta ADMIN,
     contenido autorizado, navegador y base reales.
   Detalle: `docs/ADMIN_PANEL.md`.

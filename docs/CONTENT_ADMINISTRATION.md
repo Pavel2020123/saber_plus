@@ -112,8 +112,10 @@ contenido sin preparar archivos manualmente.
     y estados en demo; nuevas escrituras reales desactivadas por defecto.
   - **D2 parcial:** D2-A retira escrituras heredadas y unifica bloqueo por área.
     D2-B implementa indexación por lotes con vista previa y reportes, sin ejecutarla
-    sobre la base real. Faltan operación autorizada, reclasificación, revisión de
-    interactivos, pruebas PostgreSQL y despliegue.
+    sobre la base real. D2-C agrega reclasificación explícita dentro del área,
+    sin uso registrado ni publicación previa. Preguntas utilizadas quedan bloqueadas
+    hasta versiones en C6. Faltan integración visual del legado, operación autorizada,
+    revisión de interactivos, pruebas PostgreSQL y despliegue.
   - **D3 pendiente:** despliegue y ensayo editorial real con cuenta ADMIN.
   Apertura, requisitos y commits en [ADMIN_PANEL.md](ADMIN_PANEL.md).
 - **7F-C4:** versión global del catálogo y sincronización Flutter/Drift.

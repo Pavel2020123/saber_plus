@@ -1,4 +1,4 @@
-# SaberPlus — trabajo pendiente tras 7F-C3-D2-B
+# SaberPlus — trabajo pendiente tras 7F-C3-D2-C
 
 Actualizado: 7 de septiembre de 2026. Listado para compartir con el equipo.
 
@@ -25,7 +25,11 @@ No son trece etapas originales nuevas. La comparación con el listado anterior
   El editor conserva el bloqueo si supera 2000 candidatos sin indexar.
 - Revisar duplicados y clasificaciones genéricas como Banco General sin
   atribuirles temas inventados ni cambiar resultados históricos.
-- Preparar un flujo explícito de reclasificación con destino y revisión humana.
+- **D2-C implementada localmente:** API de reclasificación con destino/revisión/
+  confirmación para preguntas sin uso registrado, dentro de su área. Conserva
+  contenido/estado y bloquea publicadas, respuestas, juegos e intentos JSON.
+  Faltan integración visual de herramientas de legado, ensayo PostgreSQL y
+  operación autorizada. Preguntas usadas requieren versiones en C6, no moverlas.
 - Completar revisión/publicación de lecciones interactivas CLOZE; D1 las señala
   para revisión especializada y no permite publicarlas por esta vía.
 - Probar concurrencia con PostgreSQL y cerrar la condición que mantiene apagada

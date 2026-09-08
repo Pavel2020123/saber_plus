@@ -1,6 +1,15 @@
-# 7F-C3-D2-B — Indexación del banco antiguo
+# 7F-C3-D2-C — Reclasificación revisada del legado
 
-Última entrega local: API ADMIN de vista previa/indexación por lotes y reportes
+Última entrega local: API ADMIN para revisar y confirmar un subtema de destino
+en la misma área. Solo cambia preguntas sin uso registrado y no publicadas,
+conservando su contenido, respuestas, caso, huella y estado. Bloquea historial,
+juegos e intentos de diagnóstico/simulacro/Guardián para no reinterpretar resultados.
+La ausencia de historial no prueba la procedencia del legado: exige revisión humana.
+No hay pantalla nueva ni ejecución en Supabase. Escrituras apagadas mediante
+`EDITORIAL_RECLASSIFICATION_ENABLED`. Contrato y límites en el backend oficial:
+`backend/EDITORIAL_RECLASSIFICATION.md`. Versiones de contenido usado quedan en C6.
+
+Entrega anterior D2-B: API ADMIN de vista previa/indexación por lotes y reportes
 paginados de duplicados. No hay pantalla nueva ni cambios visuales en el panel.
 `EDITORIAL_LEGACY_INDEX_ENABLED` está apagada por defecto; habilitarla requiere
 preparar/resguardar el entorno y autorizar la operación. No se ejecutó en Supabase.
@@ -140,6 +149,11 @@ sesión local no equivale a revocar un token en el backend; eso conserva su etap
 
 ## Verificación y límites
 
+**D2-C:** 48 pruebas específicas y suite completa de **533 pruebas en 62 suites**
+aprobadas con detección de recursos abiertos, sin incidencias informadas.
+Compilación y lint focalizado correctos. Persistencia simulada; sin prueba de
+consultas/concurrencia en PostgreSQL, migración, despliegue ni reclasificación real.
+
 **D2-B:** suite general de 479 pruebas/61 suites aprobada con detección de
 recursos abiertos, sin incidencias informadas en esa repetición. Tras el ajuste
 final de confirmaciones pasaron 32 pruebas de indexación y 23 de revisión
@@ -168,9 +182,9 @@ migraciones para C3-D1. No se activó el cambio de estados en entornos reales.
 
 ## Etapas que siguen
 
-1. **Completar 7F-C3-D2:** reclasificación revisada, CLOZE, ejecución autorizada de
-   la indexación y concurrencia PostgreSQL. D2-A y herramienta D2-B implementadas
-   localmente; no equivalen a haber procesado/verificado el banco real.
+1. **Completar 7F-C3-D2:** CLOZE, integración visual del legado, ejecución autorizada
+   y concurrencia PostgreSQL. D2-A/B/C implementadas localmente no equivalen a
+   haber procesado/verificado el banco real. No mover preguntas utilizadas.
 2. **7F-C3-D3:** ensayo editorial real.
 3. **7F-C4:** versionado del catálogo y sincronización Flutter/Drift.
 4. **7F-C5:** almacenamiento persistente de imágenes/archivos en Supabase Storage
@@ -184,14 +198,14 @@ certificado por materia, juegos en staging, seguridad, anuncios y publicación.
 Siguen pendientes las validaciones integrales 7F-B3-B y los despliegues anteriores,
 incluido Guardián. Esta división detalla 7F-C3, no reemplaza las demás etapas.
 
-## Commits de D2-B
+## Commits de D2-C
 
 Backend/panel:
 
 ```powershell
 cd "C:\Users\LENOVO 14ALC6\Desktop\SaberPlus-Backend"
-git add README.md admin/README.md backend/.env.example backend/EDITORIAL_LEGACY_RETIREMENT.md backend/EDITORIAL_LEGACY_INDEX.md backend/src/admin
-git commit -m "feat: indexar preguntas heredadas por lotes con revision"
+git add README.md admin/README.md backend/.env.example backend/EDITORIAL_RECLASSIFICATION.md backend/src/admin
+git commit -m "feat: reclasificar preguntas sin uso con revision protegida"
 ```
 
 Flutter, solo seguimiento documental:
@@ -199,7 +213,7 @@ Flutter, solo seguimiento documental:
 ```powershell
 cd "C:\Users\LENOVO 14ALC6\Desktop\SaberPLus\saber_plus"
 git add README.md docs/ROADMAP_MOVIL.md docs/CONTENT_ADMINISTRATION.md docs/ADMIN_PANEL.md docs/ETAPAS_PENDIENTES.md docs/CONCILIACION_ROADMAP.md
-git commit -m "docs: registrar indexacion del legado C3-D2-B"
+git commit -m "docs: registrar reclasificacion segura C3-D2-C"
 ```
 
 Los cambios anteriores de Guardián en `backend/prisma`, `backend/src/app.module.ts`,
