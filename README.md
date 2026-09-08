@@ -17,11 +17,18 @@ La aplicación inicia en modo demostración para poder revisar navegación y dis
 
 La interfaz inicia con fondo blanco y permite que el estudiante elija modo claro, oscuro o automático según el dispositivo desde `Más > Preferencias`.
 
-Última entrega: **7F-C3-D2-C — reclasificación revisada de preguntas sin uso**.
+Última entrega: **7F-C3-D2-D — edición y revisión de completar espacios (CLOZE)**.
+Backend ADMIN con validación de marcadores/opciones/clave, guardado protegido y
+retiro confirmado en borradores sin uso. Compatible con el formato Flutter.
+No hay pantalla nueva ni cambios en Supabase/Render; publicación sigue apagada.
+Sigue **D2-E: integrar CLOZE y herramientas de legado en el panel**. Después,
+concurrencia PostgreSQL y ensayo editorial real. D2 todavía no está cerrada.
+
+Entrega anterior: **7F-C3-D2-C — reclasificación revisada de preguntas sin uso**.
 API ADMIN con destino elegido por el editor y confirmación, dentro de la misma
 área. Bloquea preguntas utilizadas o publicadas para conservar su historial.
 Escrituras apagadas; sin pantalla nueva ni operación sobre Supabase. D2 sigue
-abierta para CLOZE, integración visual del legado y verificaciones PostgreSQL.
+abierta para integración visual de CLOZE/legado y verificaciones PostgreSQL.
 
 Entrega anterior: **7F-C3-D2-B — indexación segura del banco antiguo por lotes**.
 API ADMIN con vista previa, confirmación y reportes de coincidencias, apagada
@@ -31,7 +38,7 @@ reclasifica contenido y no incorpora todavía una pantalla nueva en el panel.
 Entrega anterior: **7F-C3-D2-A — retiro de escrituras antiguas y bloqueo editorial común**.
 No hay cambios visuales: el panel usa los servicios vigentes. Las rutas antiguas
 de escritura responden 410 al desplegar esta versión; no se desplegó automáticamente.
-D2 sigue abierta para indexación/reclasificación del legado, CLOZE y pruebas PostgreSQL.
+D2 sigue abierta para operación del legado, integración visual y pruebas PostgreSQL.
 
 Entrega anterior: **7F-C3-D1 — revisión y publicación editorial en demo**.
 El panel está en `admin/` del backend oficial: preguntas por subtema, opciones,

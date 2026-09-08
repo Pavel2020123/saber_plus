@@ -3,6 +3,38 @@ import 'package:saber_plus/features/academic/domain/academic_models.dart';
 import 'package:saber_plus/features/study/domain/study_models.dart';
 
 void main() {
+  test(
+    'conserva el orden de espacios y claves del contrato editorial CLOZE',
+    () {
+      final subtopic = StudySubtopic.fromJson({
+        'id': 'subtopic-cloze',
+        'nombre': 'Sumas',
+        'tipoInteractivo': 'CLOZE',
+        'datosInteractivo': {
+          'textoConEspacios': 'Dos más dos es ___ y tres más tres es ___.',
+          'espacios': [
+            {
+              'opciones': ['4', '5'],
+              'correctaIndex': 0,
+            },
+            {
+              'opciones': ['5', '6'],
+              'correctaIndex': 1,
+            },
+          ],
+        },
+      });
+      final activity = subtopic.clozeActivity!;
+      expect(
+        activity.textWithBlanks,
+        'Dos más dos es ___ y tres más tres es ___.',
+      );
+      expect(activity.blanks, hasLength(2));
+      expect(activity.blanks[0].options[activity.blanks[0].correctIndex], '4');
+      expect(activity.blanks[1].options[activity.blanks[1].correctIndex], '6');
+    },
+  );
+
   test('interpreta el árbol académico y sus recursos', () {
     final catalog = StudyCatalog.fromJson({
       'area': 'MATEMATICAS',

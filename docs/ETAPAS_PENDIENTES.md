@@ -1,4 +1,4 @@
-# SaberPlus — trabajo pendiente tras 7F-C3-D2-C
+# SaberPlus — trabajo pendiente tras 7F-C3-D2-D
 
 Actualizado: 7 de septiembre de 2026. Listado para compartir con el equipo.
 
@@ -30,8 +30,13 @@ No son trece etapas originales nuevas. La comparación con el listado anterior
   contenido/estado y bloquea publicadas, respuestas, juegos e intentos JSON.
   Faltan integración visual de herramientas de legado, ensayo PostgreSQL y
   operación autorizada. Preguntas usadas requieren versiones en C6, no moverlas.
-- Completar revisión/publicación de lecciones interactivas CLOZE; D1 las señala
-  para revisión especializada y no permite publicarlas por esta vía.
+- **D2-D implementada localmente:** API especializada CLOZE, guardado/retiro
+  protegido, validación común y revisión de texto/opciones/clave antes de publicar.
+  Compatible con Flutter; solo borradores nunca publicados y sin uso. No se
+  activó publicación ni se modificó contenido real.
+- **D2-E siguiente:** integrar en el panel los ejercicios CLOZE, indexación y
+  reclasificación del legado, con formularios, vistas previas, confirmación y
+  demo/pruebas de interacción. Las APIs listas no equivalen a pantallas listas.
 - Probar concurrencia con PostgreSQL y cerrar la condición que mantiene apagada
   `EDITORIAL_PUBLICATION_ENABLED`. No activar antes de esta unificación.
 

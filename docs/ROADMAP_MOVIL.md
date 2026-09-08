@@ -218,7 +218,13 @@ las etapas 7F-C de contenido ni las de comercio/publicación.
     - [x] **D2-C:** API de reclasificación revisada dentro de la misma área, solo
       para preguntas sin uso registrado y no publicadas. Bloquea historial, juegos
       e intentos JSON. No altera contenido/estado; escrituras apagadas. Falta
-      integración visual del legado, CLOZE y pruebas/operación en PostgreSQL.
+      integración visual del legado y pruebas/operación en PostgreSQL.
+    - [x] **D2-D:** API de edición/retiro de CLOZE en borradores sin uso, revisión
+      especializada con validación común de espacios/opciones/clave y prueba
+      de compatibilidad Flutter. Sin pantalla nueva ni publicación real.
+    - [ ] **D2-E:** integrar CLOZE, indexación y reclasificación en el panel,
+      con formularios, vista previa, confirmación y demo/pruebas de interacción.
+      Después: concurrencia PostgreSQL y operación autorizada antes de cerrar D2.
   - [ ] **D3:** desplegar y probar el flujo editorial completo con cuenta ADMIN,
     contenido autorizado, navegador y base reales.
   Detalle: `docs/ADMIN_PANEL.md`.
