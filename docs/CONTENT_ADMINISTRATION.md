@@ -116,8 +116,9 @@ contenido sin preparar archivos manualmente.
     sin uso registrado ni publicación previa. Preguntas utilizadas quedan bloqueadas
     hasta versiones en C6. D2-D agrega API CLOZE y revisión especializada con
     formato compatible con Flutter; solo borradores nunca publicados y sin uso.
-    Sigue D2-E: integración visual de CLOZE/legado. Faltan también operación
-    autorizada, pruebas PostgreSQL y despliegue; publicación permanece apagada.
+    D2-E integra formularios CLOZE/legado y demo con 54 pruebas. Sigue D2-F:
+    revisión visual pendiente, consultas/concurrencia PostgreSQL y operación
+    autorizada, antes de desplegar/probar el flujo real. Publicación sigue apagada.
   - **D3 pendiente:** despliegue y ensayo editorial real con cuenta ADMIN.
   Apertura, requisitos y commits en [ADMIN_PANEL.md](ADMIN_PANEL.md).
 - **7F-C4:** versión global del catálogo y sincronización Flutter/Drift.

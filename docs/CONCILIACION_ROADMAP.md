@@ -3,7 +3,7 @@
 Revisión: 7 de septiembre de 2026. Fuente comparada: auditoría anterior aportada
 por el equipo, que situaba el proyecto al terminar 7E.
 
-**Última subetapa implementada: 7F-C3-D2-D. Próxima: 7F-C3-D2-E (panel).**
+**Última subetapa implementada: 7F-C3-D2-E. Próxima: 7F-C3-D2-F (verificación).**
 Actualización posterior a la conciliación: retiro de escrituras heredadas y
 bloqueo común por área implementados localmente; no desplegados. La comparación
 original fue documental. Implementado localmente no significa probado
@@ -34,7 +34,10 @@ de extremo a extremo con cuentas y contenido reales.
   operación real todavía; contenido usado sigue requiriendo versiones en C6.
 - C3-D2-D: API especializada CLOZE y revisión de espacios/opciones/clave,
   con formato compatible con Flutter. Sin pantalla nueva ni publicación real.
-  D2-E integrará estas herramientas y las de legado en el panel.
+  D2-E integra estas herramientas y las de legado en el panel.
+- C3-D2-E: formularios, vistas previas, paginación y confirmación en demo aislada;
+  54 pruebas de lógica/HTTP. Sin prueba visual (navegador no disponible), sin
+  PostgreSQL ni operación real. D2 no se cierra solo con esta implementación.
 - Juegos/motores, animaciones, audios y límites/analíticas institucionales ya
   implementados se conservan. Sus verificaciones reales y conexiones comerciales
   pendientes no significan reconstruirlos.

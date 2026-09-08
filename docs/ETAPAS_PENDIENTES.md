@@ -1,6 +1,6 @@
-# SaberPlus — trabajo pendiente tras 7F-C3-D2-D
+# SaberPlus — trabajo pendiente tras 7F-C3-D2-E
 
-Actualizado: 7 de septiembre de 2026. Listado para compartir con el equipo.
+Actualizado: 8 de septiembre de 2026. Listado para compartir con el equipo.
 
 **Implementado no equivale a desplegado ni probado en teléfonos.** Render ya
 tuvo su despliegue inicial; no hay que repetir esa etapa desde cero. Sí quedan
@@ -28,17 +28,19 @@ No son trece etapas originales nuevas. La comparación con el listado anterior
 - **D2-C implementada localmente:** API de reclasificación con destino/revisión/
   confirmación para preguntas sin uso registrado, dentro de su área. Conserva
   contenido/estado y bloquea publicadas, respuestas, juegos e intentos JSON.
-  Faltan integración visual de herramientas de legado, ensayo PostgreSQL y
+  Faltan verificación visual de herramientas de legado, ensayo PostgreSQL y
   operación autorizada. Preguntas usadas requieren versiones en C6, no moverlas.
 - **D2-D implementada localmente:** API especializada CLOZE, guardado/retiro
   protegido, validación común y revisión de texto/opciones/clave antes de publicar.
   Compatible con Flutter; solo borradores nunca publicados y sin uso. No se
   activó publicación ni se modificó contenido real.
-- **D2-E siguiente:** integrar en el panel los ejercicios CLOZE, indexación y
-  reclasificación del legado, con formularios, vistas previas, confirmación y
-  demo/pruebas de interacción. Las APIs listas no equivalen a pantallas listas.
-- Probar concurrencia con PostgreSQL y cerrar la condición que mantiene apagada
-  `EDITORIAL_PUBLICATION_ENABLED`. No activar antes de esta unificación.
+- **D2-E implementada localmente:** panel con formularios CLOZE, indexación,
+  coincidencias paginadas y reclasificación con selectores tema/subtema. Demo
+  aislada y 54 pruebas de lógica/HTTP aprobadas; falta prueba visual en navegador.
+- **D2-F siguiente:** preparar pruebas y validar consultas, rollback y concurrencia
+  contra PostgreSQL de ensayo autorizado, completar revisión visual y operación
+  del legado autorizada. No activar `EDITORIAL_PUBLICATION_ENABLED` antes de cerrar
+  esta verificación y preparar D3. No ejecutar pruebas en Supabase por defecto.
 
 ## 2. 7F-C3-D3 — Ensayo editorial real
 

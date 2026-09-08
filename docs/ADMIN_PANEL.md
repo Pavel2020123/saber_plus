@@ -1,12 +1,19 @@
-# 7F-C3-D2-D — Edición y revisión especializada de CLOZE
+# 7F-C3-D2-E — Formularios CLOZE y banco antiguo
 
-Última entrega local: API ADMIN para guardar y retirar ejercicios de completar
+Última entrega local (8 de septiembre de 2026): formularios CLOZE, lotes de
+indexación, coincidencias paginadas y reclasificación con selectores por tema y
+subtema. Demo aislada con dos duplicados propios en Banco General. Se conectan
+a las API existentes sin activar banderas reales. No hubo cambios en Supabase,
+Render ni código Flutter. Guía: `admin/EDITORIAL_TOOLS.md` en el backend oficial.
+Sigue **D2-F: verificación PostgreSQL, revisión visual y operación autorizada**.
+
+Entrega anterior D2-D: API ADMIN para guardar y retirar ejercicios de completar
 espacios, con revisión protegida y validación común antes de publicar. Solo
 borradores clasificados, nunca publicados y sin uso académico. Formato compatible
 con Flutter; autocorrección, no calificación diagnóstica. No hay pantalla nueva,
 migración, despliegue ni cambios en Supabase. La publicación permanece apagada.
 Contrato del backend: `backend/EDITORIAL_CLOZE.md`.
-Sigue **D2-E: integrar CLOZE, indexación y reclasificación en el panel**.
+Su interfaz ya está integrada en D2-E; queda su comprobación visual.
 
 Entrega anterior D2-C: API ADMIN para revisar y confirmar un subtema de destino
 en la misma área. Solo cambia preguntas sin uso registrado y no publicadas,
@@ -30,7 +37,7 @@ solo se acepta el booleano JSON `true`, sin convertir cadenas o números.
 Entrega anterior D2-A: retiro de 15 rutas antiguas de escritura con HTTP 410,
 retiro de carga demo por HTTP y bloqueo común por área en catálogo, lecciones,
 preguntas/casos y revisión. No hay cambio visual ni despliegue automático.
-**D2 continúa abierta** para integración visual de CLOZE/legado, operación
+**D2 continúa abierta** para comprobación visual de CLOZE/legado, operación
 autorizada y concurrencia real en PostgreSQL. No se activó la publicación.
 
 Implementado en `admin/` del repositorio oficial **SaberPlus-Backend**. No se
@@ -101,7 +108,7 @@ envía a revisión y confirma Publicar. El orden es tema → subtema → caso (s
   unificar las rutas antiguas en D2 y preparar el ensayo autorizado D3.
 - La bandera solo afecta a las rutas nuevas de revisión; desde D2-A las escrituras
   heredadas devuelven 410 independientemente de esa bandera. La API CLOZE y las
-  herramientas de legado están implementadas; faltan su integración visual y
+  herramientas de legado están implementadas e integradas; faltan comprobación visual y
   validación/operación real. **C3-D completa todavía no está terminada.**
 
 ## Reglas del editor de lecciones (C3-B)
@@ -117,7 +124,7 @@ envía a revisión y confirma Publicar. El orden es tema → subtema → caso (s
 - La revisión SHA-256 y los bloqueos evitan sobrescrituras entre estas rutas
   del editor. No constituyen historial o restauración. Las rutas heredadas de
   contenido/interactivos se retiraron por HTTP en D2-A; D2-D añade las rutas
-  especializadas CLOZE, con interfaz pendiente. Historial y restauración quedan en C6.
+  especializadas CLOZE, con interfaz en D2-E. Historial y restauración quedan en C6.
 - No hay autoguardado: copiar texto pendiente antes de recargar. La sesión y el
   editor se limpian al cerrar sesión. No se guardan credenciales ni borradores
   en el almacenamiento del navegador.
@@ -130,8 +137,15 @@ Para CLOZE se mantiene aparte `GET/PATCH /admin/editor/subtemas/:id/cloze` y
 Retirar exige revisión vigente y `confirmado: true`; conserva la prosa/recursos.
 La prosa de una lección con CLOZE sigue en solo lectura por la ruta general:
 conservar el ejercicio, retirarlo explícitamente, editar y volver a añadirlo.
-No existe recuperación automática del ejercicio retirado. Este flujo se guiará
-en la interfaz D2-E; el contrato completo está en `backend/EDITORIAL_CLOZE.md`.
+No existe recuperación automática del ejercicio retirado. La interfaz D2-E
+explica este flujo; el contrato completo está en `backend/EDITORIAL_CLOZE.md`.
+
+Para probar: ejecutar la demo descrita arriba, abrir Matemáticas → Proporcionalidad
+→ Porcentajes → **Completar espacios (CLOZE)**. Para legado, pulsar **Revisar banco
+antiguo**: consultar/confirmar lote y después consultar duplicados. Elegir una
+coincidencia, cargar temas y escoger Proporcionalidad → Porcentajes como destino.
+Revisar y confirmar. También se abre desde **Revisar clasificación** en preguntas.
+No hay eliminación de duplicados ni procesamiento automático de todos los lotes.
 
 ## Reglas de preguntas y casos (C3-C)
 
@@ -168,6 +182,11 @@ El acceso permanece en memoria de la pestaña y se pierde al recargar. Cerrar
 sesión local no equivale a revocar un token en el backend; eso conserva su etapa.
 
 ## Verificación y límites
+
+**D2-E:** 54 pruebas del panel aprobadas, más comprobación de sintaxis.
+Cubren HTTP demo, formularios con dobles DOM, navegación, conflictos, cursores,
+confirmación, gates y sesión. La habilidad de navegador no encontró navegadores:
+la verificación visual real quedó pendiente. No se probó PostgreSQL ni se desplegó.
 
 **D2-D:** 202 pruebas focalizadas y suite completa de **605 pruebas en 63 suites**
 aprobadas con detección de recursos abiertos. Compilación y lint focalizado correctos.
@@ -207,8 +226,8 @@ migraciones para C3-D1. No se activó el cambio de estados en entornos reales.
 
 ## Etapas que siguen
 
-1. **Completar 7F-C3-D2:** D2-E (interfaz CLOZE y legado), ejecución autorizada
-   y concurrencia PostgreSQL. D2-A/B/C/D implementadas localmente no equivalen a
+1. **Completar 7F-C3-D2:** D2-F (verificación visual/PostgreSQL), ejecución autorizada
+   y concurrencia real. D2-A/B/C/D/E implementadas localmente no equivalen a
    haber procesado/verificado el banco real. No mover preguntas utilizadas.
 2. **7F-C3-D3:** ensayo editorial real.
 3. **7F-C4:** versionado del catálogo y sincronización Flutter/Drift.
@@ -223,22 +242,22 @@ certificado por materia, juegos en staging, seguridad, anuncios y publicación.
 Siguen pendientes las validaciones integrales 7F-B3-B y los despliegues anteriores,
 incluido Guardián. Esta división detalla 7F-C3, no reemplaza las demás etapas.
 
-## Commits de D2-D
+## Commits de D2-E
 
 Backend/panel:
 
 ```powershell
 cd "C:\Users\LENOVO 14ALC6\Desktop\SaberPlus-Backend"
-git add README.md admin/README.md backend/EDITORIAL_CLOZE.md backend/src/admin
-git commit -m "feat: agregar editor y revision protegida de cloze"
+git add README.md admin backend/EDITORIAL_CLOZE.md
+git commit -m "feat: integrar cloze y herramientas de legado en el panel"
 ```
 
-Flutter, documentación y prueba de compatibilidad:
+Flutter, seguimiento documental:
 
 ```powershell
 cd "C:\Users\LENOVO 14ALC6\Desktop\SaberPLus\saber_plus"
-git add README.md docs/ROADMAP_MOVIL.md docs/CONTENT_ADMINISTRATION.md docs/ADMIN_PANEL.md docs/ETAPAS_PENDIENTES.md docs/CONCILIACION_ROADMAP.md test/study_models_test.dart
-git commit -m "test: verificar contrato cloze y registrar etapa D2-D"
+git add README.md docs/ROADMAP_MOVIL.md docs/CONTENT_ADMINISTRATION.md docs/ADMIN_PANEL.md docs/ETAPAS_PENDIENTES.md docs/CONCILIACION_ROADMAP.md
+git commit -m "docs: registrar panel editorial D2-E y pendientes"
 ```
 
 Los cambios anteriores de Guardián en `backend/prisma`, `backend/src/app.module.ts`,

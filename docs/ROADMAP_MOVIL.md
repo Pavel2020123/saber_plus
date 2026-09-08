@@ -222,9 +222,11 @@ las etapas 7F-C de contenido ni las de comercio/publicación.
     - [x] **D2-D:** API de edición/retiro de CLOZE en borradores sin uso, revisión
       especializada con validación común de espacios/opciones/clave y prueba
       de compatibilidad Flutter. Sin pantalla nueva ni publicación real.
-    - [ ] **D2-E:** integrar CLOZE, indexación y reclasificación en el panel,
-      con formularios, vista previa, confirmación y demo/pruebas de interacción.
-      Después: concurrencia PostgreSQL y operación autorizada antes de cerrar D2.
+    - [x] **D2-E:** integrados CLOZE, indexación y reclasificación en el panel,
+      con formularios, vista previa, confirmación, paginación y demo aislada.
+      54 pruebas de lógica/HTTP; revisión visual pendiente, sin navegador disponible.
+    - [ ] **D2-F:** comprobar consultas, rollback y concurrencia en PostgreSQL de
+      ensayo autorizado, revisión visual y operación autorizada antes de cerrar D2.
   - [ ] **D3:** desplegar y probar el flujo editorial completo con cuenta ADMIN,
     contenido autorizado, navegador y base reales.
   Detalle: `docs/ADMIN_PANEL.md`.
