@@ -227,6 +227,10 @@ las etapas 7F-C de contenido ni las de comercio/publicación.
       54 pruebas de lógica/HTTP; revisión visual pendiente, sin navegador disponible.
     - [ ] **D2-F:** comprobar consultas, rollback y concurrencia en PostgreSQL de
       ensayo autorizado, revisión visual y operación autorizada antes de cerrar D2.
+      - [x] Ejecutable local en instancia PostgreSQL desechable: SQL de migraciones
+        de HEAD, bloqueos, revisión, rollback, JSON histórico y gates. Bases existentes intactas.
+      - [ ] Revisión visual/accesibilidad del panel y operación del legado con
+        autorización/respaldo del entorno objetivo. No activar publicación todavía.
   - [ ] **D3:** desplegar y probar el flujo editorial completo con cuenta ADMIN,
     contenido autorizado, navegador y base reales.
   Detalle: `docs/ADMIN_PANEL.md`.

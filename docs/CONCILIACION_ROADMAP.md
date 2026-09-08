@@ -3,7 +3,7 @@
 Revisión: 7 de septiembre de 2026. Fuente comparada: auditoría anterior aportada
 por el equipo, que situaba el proyecto al terminar 7E.
 
-**Última subetapa implementada: 7F-C3-D2-E. Próxima: 7F-C3-D2-F (verificación).**
+**Último avance: 7F-C3-D2-F (PostgreSQL local). Sigue cierre visual/operativo y D3.**
 Actualización posterior a la conciliación: retiro de escrituras heredadas y
 bloqueo común por área implementados localmente; no desplegados. La comparación
 original fue documental. Implementado localmente no significa probado
@@ -38,6 +38,9 @@ de extremo a extremo con cuentas y contenido reales.
 - C3-D2-E: formularios, vistas previas, paginación y confirmación en demo aislada;
   54 pruebas de lógica/HTTP. Sin prueba visual (navegador no disponible), sin
   PostgreSQL ni operación real. D2 no se cierra solo con esta implementación.
+- C3-D2-F: verificación de SQL, concurrencia y rollback en una instancia PostgreSQL
+  local temporal, creada y eliminada por el ejecutor. Sin Supabase ni base local
+  habitual; revisión visual y operación autorizada del legado continúan pendientes.
 - Juegos/motores, animaciones, audios y límites/analíticas institucionales ya
   implementados se conservan. Sus verificaciones reales y conexiones comerciales
   pendientes no significan reconstruirlos.

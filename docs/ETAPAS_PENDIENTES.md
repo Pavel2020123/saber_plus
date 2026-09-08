@@ -1,4 +1,4 @@
-# SaberPlus — trabajo pendiente tras 7F-C3-D2-E
+# SaberPlus — trabajo pendiente tras verificación local 7F-C3-D2-F
 
 Actualizado: 8 de septiembre de 2026. Listado para compartir con el equipo.
 
@@ -20,16 +20,17 @@ No son trece etapas originales nuevas. La comparación con el listado anterior
   no reutilizar métodos internos heredados como vía alternativa.
 - **D2-B implementada localmente:** API ADMIN de indexación de huellas nulas
   por lotes, vista previa/revisión/confirmación y reportes paginados de duplicados.
-  No modifica contenido, fechas, clasificación ni publicación. Falta probarla y
-  ejecutarla en una base autorizada con respaldo; escrituras apagadas por defecto.
+  No modifica contenido, fechas, clasificación ni publicación. SQL/rollback local
+  probado en D2-F; falta operarla en el entorno objetivo con respaldo/autorización.
+  Escrituras apagadas por defecto.
   El editor conserva el bloqueo si supera 2000 candidatos sin indexar.
 - Revisar duplicados y clasificaciones genéricas como Banco General sin
   atribuirles temas inventados ni cambiar resultados históricos.
 - **D2-C implementada localmente:** API de reclasificación con destino/revisión/
   confirmación para preguntas sin uso registrado, dentro de su área. Conserva
   contenido/estado y bloquea publicadas, respuestas, juegos e intentos JSON.
-  Faltan verificación visual de herramientas de legado, ensayo PostgreSQL y
-  operación autorizada. Preguntas usadas requieren versiones en C6, no moverlas.
+  Faltan verificación visual y operación autorizada. D2-F verifica consultas y
+  concurrencia en PostgreSQL temporal. Preguntas usadas requieren versiones en C6.
 - **D2-D implementada localmente:** API especializada CLOZE, guardado/retiro
   protegido, validación común y revisión de texto/opciones/clave antes de publicar.
   Compatible con Flutter; solo borradores nunca publicados y sin uso. No se
@@ -37,10 +38,11 @@ No son trece etapas originales nuevas. La comparación con el listado anterior
 - **D2-E implementada localmente:** panel con formularios CLOZE, indexación,
   coincidencias paginadas y reclasificación con selectores tema/subtema. Demo
   aislada y 54 pruebas de lógica/HTTP aprobadas; falta prueba visual en navegador.
-- **D2-F siguiente:** preparar pruebas y validar consultas, rollback y concurrencia
-  contra PostgreSQL de ensayo autorizado, completar revisión visual y operación
-  del legado autorizada. No activar `EDITORIAL_PUBLICATION_ENABLED` antes de cerrar
-  esta verificación y preparar D3. No ejecutar pruebas en Supabase por defecto.
+- **D2-F verificación local implementada:** PostgreSQL desechable, SQL versionado,
+  consultas y concurrencia reales, rollback y protección de uso histórico. No se
+  utiliza Supabase ni la base local habitual. Revisión visual y operación autorizada
+  del legado siguen pendientes. No activar `EDITORIAL_PUBLICATION_ENABLED` antes
+  de completar estos controles y preparar D3.
 
 ## 2. 7F-C3-D3 — Ensayo editorial real
 

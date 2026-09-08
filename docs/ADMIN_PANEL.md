@@ -1,11 +1,19 @@
-# 7F-C3-D2-E — Formularios CLOZE y banco antiguo
+# 7F-C3-D2-F — Verificación PostgreSQL local
 
-Última entrega local (8 de septiembre de 2026): formularios CLOZE, lotes de
+Última entrega local (8 de septiembre de 2026): ejecutor PostgreSQL desechable
+con pruebas de consultas, bloqueos, rollback y uso histórico. Se aplicó el SQL
+de 40 migraciones de HEAD solo a instancias nuevas de ensayo que se detuvieron
+y eliminaron. Sin Supabase, sin base local habitual ni cambios en lógica productiva.
+Guía: `backend/EDITORIAL_POSTGRES_TESTS.md` en el backend oficial.
+**D2-F local verificada; D2 mantiene pendientes revisión visual y operación
+autorizada del legado**, antes de D3. No activar banderas reales por estas pruebas.
+
+Entrega anterior D2-E: formularios CLOZE, lotes de
 indexación, coincidencias paginadas y reclasificación con selectores por tema y
 subtema. Demo aislada con dos duplicados propios en Banco General. Se conectan
 a las API existentes sin activar banderas reales. No hubo cambios en Supabase,
 Render ni código Flutter. Guía: `admin/EDITORIAL_TOOLS.md` en el backend oficial.
-Sigue **D2-F: verificación PostgreSQL, revisión visual y operación autorizada**.
+PostgreSQL local ya se verificó en D2-F; quedan revisión visual y operación autorizada.
 
 Entrega anterior D2-D: API ADMIN para guardar y retirar ejercicios de completar
 espacios, con revisión protegida y validación común antes de publicar. Solo
@@ -183,6 +191,14 @@ sesión local no equivale a revocar un token en el backend; eso conserva su etap
 
 ## Verificación y límites
 
+**D2-F:** 10 pruebas PostgreSQL real y 11 de seguridad del ejecutor aprobadas.
+Suite general: 605 pruebas en 63 suites aprobadas con detección de recursos
+abiertos. Se observó espera real por advisory lock; la indexación conservó
+microsegundos y revirtió todo el lote ante un error SQL forzado. Sin HTTP, RLS,
+pooler ni credenciales reales; la tabla mínima de ensayo Guardián no verifica
+su módulo/migración completos. La herramienta de navegador no pudo iniciarse:
+revisión visual pendiente. Las instancias de ensayo quedaron detenidas/eliminadas.
+
 **D2-E:** 54 pruebas del panel aprobadas, más comprobación de sintaxis.
 Cubren HTTP demo, formularios con dobles DOM, navegación, conflictos, cursores,
 confirmación, gates y sesión. La habilidad de navegador no encontró navegadores:
@@ -226,8 +242,8 @@ migraciones para C3-D1. No se activó el cambio de estados en entornos reales.
 
 ## Etapas que siguen
 
-1. **Completar 7F-C3-D2:** D2-F (verificación visual/PostgreSQL), ejecución autorizada
-   y concurrencia real. D2-A/B/C/D/E implementadas localmente no equivalen a
+1. **Completar 7F-C3-D2:** verificación visual y operación autorizada del legado.
+   D2-F ya verifica PostgreSQL local; los avances D2-A/B/C/D/E/F no equivalen a
    haber procesado/verificado el banco real. No mover preguntas utilizadas.
 2. **7F-C3-D3:** ensayo editorial real.
 3. **7F-C4:** versionado del catálogo y sincronización Flutter/Drift.
@@ -242,14 +258,25 @@ certificado por materia, juegos en staging, seguridad, anuncios y publicación.
 Siguen pendientes las validaciones integrales 7F-B3-B y los despliegues anteriores,
 incluido Guardián. Esta división detalla 7F-C3, no reemplaza las demás etapas.
 
-## Commits de D2-E
+## Repetir PostgreSQL sin tocar bases existentes
+
+```powershell
+cd "C:\Users\LENOVO 14ALC6\Desktop\SaberPlus-Backend\backend"
+node --test tool/test_editorial_postgres.test.mjs
+npm run test:editorial:postgres
+```
+
+Usa PostgreSQL 16 instalado en este equipo. No necesita tus contraseñas ni
+lee archivos `.env`; no pasar una URL de Supabase. Detalles y límites en la guía.
+
+## Commits de D2-F
 
 Backend/panel:
 
 ```powershell
 cd "C:\Users\LENOVO 14ALC6\Desktop\SaberPlus-Backend"
-git add README.md admin backend/EDITORIAL_CLOZE.md
-git commit -m "feat: integrar cloze y herramientas de legado en el panel"
+git add README.md admin/README.md admin/EDITORIAL_TOOLS.md backend/package.json backend/EDITORIAL_POSTGRES_TESTS.md backend/test/editorial-postgres.test.cjs backend/tool/test_editorial_postgres.mjs backend/tool/test_editorial_postgres.test.mjs
+git commit -m "test: verificar concurrencia editorial en postgres aislado"
 ```
 
 Flutter, seguimiento documental:
@@ -257,7 +284,7 @@ Flutter, seguimiento documental:
 ```powershell
 cd "C:\Users\LENOVO 14ALC6\Desktop\SaberPLus\saber_plus"
 git add README.md docs/ROADMAP_MOVIL.md docs/CONTENT_ADMINISTRATION.md docs/ADMIN_PANEL.md docs/ETAPAS_PENDIENTES.md docs/CONCILIACION_ROADMAP.md
-git commit -m "docs: registrar panel editorial D2-E y pendientes"
+git commit -m "docs: registrar verificacion postgres D2-F y pendientes"
 ```
 
 Los cambios anteriores de Guardián en `backend/prisma`, `backend/src/app.module.ts`,

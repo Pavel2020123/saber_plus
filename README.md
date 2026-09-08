@@ -17,12 +17,18 @@ La aplicación inicia en modo demostración para poder revisar navegación y dis
 
 La interfaz inicia con fondo blanco y permite que el estudiante elija modo claro, oscuro o automático según el dispositivo desde `Más > Preferencias`.
 
-Última entrega: **7F-C3-D2-E — formularios CLOZE y banco antiguo en el panel**.
+Última entrega: **7F-C3-D2-F — pruebas editoriales en PostgreSQL temporal**.
+Ejecutor aislado para comprobar consultas, conflictos, rollback y uso histórico
+sin utilizar Supabase ni la base local habitual. D2 mantiene pendientes la
+revisión visual y la operación autorizada del legado, antes del ensayo real D3.
+Guía y comandos: [docs/ADMIN_PANEL.md](docs/ADMIN_PANEL.md).
+
+Entrega anterior: **7F-C3-D2-E — formularios CLOZE y banco antiguo en el panel**.
 Incluye edición con vista previa, indexación por lotes, informes de coincidencias
 y destino paginado por área/tema/subtema. Demo aislada: 54 pruebas del panel
 aprobadas. No hubo cambios en Supabase/Render ni en el código Flutter.
-Sigue **D2-F: pruebas PostgreSQL y revisión visual pendiente**, antes de operar
-el legado con autorización y pasar a D3. D2 aún no se cierra.
+La comprobación PostgreSQL local se añadió en D2-F. Quedan revisión visual y
+operación del legado con autorización, antes de D3. D2 aún no se cierra.
 
 Entrega anterior: **7F-C3-D2-D — edición y revisión de completar espacios (CLOZE)**.
 Backend ADMIN con validación de marcadores/opciones/clave, guardado protegido y
