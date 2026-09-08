@@ -14,6 +14,9 @@ No son trece etapas originales nuevas. La comparación con el listado anterior
 
 ## 1. 7F-C3-D2 — Legado y unificación editorial
 
+- Ajuste D2-F implementado localmente: eliminación confirmada de temas/subtemas
+  en borrador vacío, nunca publicados ni usados. No borra contenido ni hijos.
+  No es una papelera; restauración/auditoría siguen pendientes en C6.
 - **D2-A implementada localmente:** 15 escrituras administrativas antiguas
   retiradas con HTTP 410, carga demo HTTP retirada y bloqueo común por área.
   El panel conserva sus rutas vigentes. Falta desplegar y verificar en entorno real;

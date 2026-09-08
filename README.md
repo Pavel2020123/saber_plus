@@ -17,7 +17,13 @@ La aplicación inicia en modo demostración para poder revisar navegación y dis
 
 La interfaz inicia con fondo blanco y permite que el estudiante elija modo claro, oscuro o automático según el dispositivo desde `Más > Preferencias`.
 
-Última entrega: **7F-C3-D2-F — pruebas editoriales en PostgreSQL temporal**.
+Último ajuste de **7F-C3-D2-F:** eliminación confirmada de temas y subtemas
+en borrador vacío, nunca publicados ni usados. Disponible localmente en el panel
+y backend; no elimina dependientes ni contenido en cascada. Sin cambios de código
+Flutter, migraciones o despliegue. Guía en `backend/EDITORIAL_DRAFT_DELETION.md`
+del repositorio backend. La revisión visual y D3 siguen pendientes.
+
+Entrega previa: **7F-C3-D2-F — pruebas editoriales en PostgreSQL temporal**.
 Ejecutor aislado para comprobar consultas, conflictos, rollback y uso histórico
 sin utilizar Supabase ni la base local habitual. D2 mantiene pendientes la
 revisión visual y la operación autorizada del legado, antes del ensayo real D3.

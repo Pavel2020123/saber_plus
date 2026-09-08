@@ -229,6 +229,10 @@ las etapas 7F-C de contenido ni las de comercio/publicación.
       ensayo autorizado, revisión visual y operación autorizada antes de cerrar D2.
       - [x] Ejecutable local en instancia PostgreSQL desechable: SQL de migraciones
         de HEAD, bloqueos, revisión, rollback, JSON histórico y gates. Bases existentes intactas.
+      - [x] Ajuste pedido durante la revisión: eliminar temas/subtemas en borrador
+        vacío con confirmación, revisión y bloqueo de hijos/contenido/uso. Panel,
+        demo y API ADMIN; sin cascadas ni despliegue. Guía del backend:
+        `backend/EDITORIAL_DRAFT_DELETION.md`.
       - [ ] Revisión visual/accesibilidad del panel y operación del legado con
         autorización/respaldo del entorno objetivo. No activar publicación todavía.
   - [ ] **D3:** desplegar y probar el flujo editorial completo con cuenta ADMIN,
