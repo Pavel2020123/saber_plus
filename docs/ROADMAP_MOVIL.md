@@ -11,6 +11,11 @@ como referencia; no se repiten las funciones ya implementadas.
 
 ## Estado actual
 
+Revisión complementaria del 9 de septiembre de 2026:
+[auditoría de seguridad, persistencia y UX](AUDITORIA_PROYECTO_2026-09-09.md)
+y [resumen funcional para el equipo](FUNCIONALIDADES_PARA_EL_EQUIPO.md).
+No sustituye el ensayo real D3 ni cambia la numeración de etapas.
+
 - [x] Lectura y clasificación del informe de 27 páginas.
 - [x] Proyecto Flutter base, tema claro/oscuro y navegación por rol.
 - [x] Configuración `dev`, `staging` y `prod` mediante `dart-define`.

@@ -14,6 +14,11 @@ class MorePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isDemo = ref.watch(
+      sessionControllerProvider.select(
+        (session) => session.user?.isDemo ?? false,
+      ),
+    );
     final pending = ref.watch(syncOperationsProvider).valueOrNull ?? const [];
     final gamification = ref.watch(gamificationSummaryProvider).valueOrNull;
     final studyTime = ref.watch(studyTimeSummaryProvider).valueOrNull;
@@ -130,7 +135,7 @@ class MorePage extends ConsumerWidget {
           const Divider(height: 28),
           ListTile(
             leading: const Icon(Icons.logout_rounded),
-            title: const Text('Cerrar demostración'),
+            title: Text(isDemo ? 'Cerrar demostración' : 'Cerrar sesión'),
             onTap: () async {
               await ref.read(sessionControllerProvider.notifier).signOut();
               if (context.mounted) context.go('/welcome');

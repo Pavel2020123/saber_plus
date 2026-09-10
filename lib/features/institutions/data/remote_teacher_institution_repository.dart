@@ -36,7 +36,7 @@ class RemoteTeacherInstitutionRepository
             'mensajeBienvenida': message,
         },
       );
-      return loadContext();
+      return await loadContext();
     } on DioException catch (error) {
       throw ApiError.fromDioException(error);
     }
@@ -55,7 +55,7 @@ class RemoteTeacherInstitutionRepository
           if (message case final value? when value.isNotEmpty) 'mensaje': value,
         },
       );
-      return loadContext();
+      return await loadContext();
     } on DioException catch (error) {
       throw ApiError.fromDioException(error);
     }
@@ -65,7 +65,7 @@ class RemoteTeacherInstitutionRepository
   Future<TeacherInstitutionContext> cancelJoinRequest() async {
     try {
       await _dio.delete<Map<String, dynamic>>('/instituciones/solicitudes/me');
-      return loadContext();
+      return await loadContext();
     } on DioException catch (error) {
       throw ApiError.fromDioException(error);
     }
@@ -81,7 +81,7 @@ class RemoteTeacherInstitutionRepository
         '/instituciones/invitaciones/$invitationId/responder',
         data: {'respuesta': accept ? 'ACEPTAR' : 'RECHAZAR'},
       );
-      return loadContext();
+      return await loadContext();
     } on DioException catch (error) {
       throw ApiError.fromDioException(error);
     }
@@ -165,7 +165,7 @@ class RemoteTeacherInstitutionRepository
   ) async {
     try {
       await action();
-      return loadAdministration();
+      return await loadAdministration();
     } on DioException catch (error) {
       throw ApiError.fromDioException(error);
     }

@@ -118,28 +118,41 @@ class _AcademicDashboard extends StatelessWidget {
           _ContinueCard(entry: entry),
         ],
         const SizedBox(height: 18),
-        Row(
-          children: [
-            Expanded(
-              child: _MetricCard(
+        LayoutBuilder(
+          builder: (context, constraints) {
+            final metrics = [
+              _MetricCard(
                 icon: Icons.event_available_rounded,
                 value: days == null ? 'Sin fecha' : '$days días',
                 label: data.activeExam == null
                     ? 'Convocatoria'
                     : 'Calendario ${data.activeExam!.calendar}',
               ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: _MetricCard(
+              _MetricCard(
                 key: const Key('open-gamification-from-home'),
                 icon: Icons.bolt_rounded,
                 value: _formatInteger(xpTotal),
                 label: 'XP total',
                 onTap: () => context.push('/student/more/gamification'),
               ),
-            ),
-          ],
+            ];
+            // Preserve readable type instead of squeezing two metric labels
+            // between their icons on small screens or with large system text.
+            if (constraints.maxWidth <
+                320 * MediaQuery.textScalerOf(context).scale(1)) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [metrics[0], const SizedBox(height: 12), metrics[1]],
+              );
+            }
+            return Row(
+              children: [
+                Expanded(child: metrics[0]),
+                const SizedBox(width: 12),
+                Expanded(child: metrics[1]),
+              ],
+            );
+          },
         ),
         if (data.activeExam case final exam?) ...[
           const SizedBox(height: 12),
@@ -250,13 +263,10 @@ class _PrimaryActionCard extends StatelessWidget {
     };
 
     return Container(
+      key: const Key('home-primary-action-card'),
       padding: const EdgeInsets.all(22),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [colors.primary, const Color(0xFF243EAE)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        color: colors.primary,
         borderRadius: BorderRadius.circular(26),
       ),
       child: Column(
@@ -264,21 +274,23 @@ class _PrimaryActionCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.auto_awesome_rounded,
-                color: Color(0xFFFFD66B),
+                color: colors.onPrimary,
                 size: 19,
               ),
               const SizedBox(width: 7),
-              Text(
-                diagnostic.status == DiagnosticStatus.completed
-                    ? 'SIGUIENTE ACTIVIDAD'
-                    : 'PRIMER PASO',
-                style: const TextStyle(
-                  color: Colors.white70,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 0.7,
+              Expanded(
+                child: Text(
+                  diagnostic.status == DiagnosticStatus.completed
+                      ? 'SIGUIENTE ACTIVIDAD'
+                      : 'PRIMER PASO',
+                  style: TextStyle(
+                    color: colors.onPrimary,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 0.7,
+                  ),
                 ),
               ),
             ],
@@ -286,21 +298,18 @@ class _PrimaryActionCard extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             title,
-            style: const TextStyle(
-              color: Colors.white,
+            style: TextStyle(
+              color: colors.onPrimary,
               fontSize: 22,
               fontWeight: FontWeight.w800,
             ),
           ),
           const SizedBox(height: 7),
-          Text(
-            detail,
-            style: const TextStyle(color: Colors.white70, fontSize: 15),
-          ),
+          Text(detail, style: TextStyle(color: colors.onPrimary, fontSize: 15)),
           const SizedBox(height: 20),
           FilledButton.icon(
             style: FilledButton.styleFrom(
-              backgroundColor: Colors.white,
+              backgroundColor: colors.onPrimary,
               foregroundColor: colors.primary,
               minimumSize: const Size(0, 48),
               padding: const EdgeInsets.symmetric(horizontal: 18),

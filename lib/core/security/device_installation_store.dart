@@ -46,13 +46,13 @@ class DeviceInstallationStore {
     }
 
     final generated = _generate();
-    _cached = generated;
     try {
       await _write(generated);
     } on MissingPluginException {
       // Las pruebas sin plugins conservan el identificador solo en memoria.
     }
-    return generated;
+    // Si falla la escritura real, reintentar debe volver a persistir la identidad.
+    return _cached = generated;
   }
 
   bool _isValid(String? value) =>

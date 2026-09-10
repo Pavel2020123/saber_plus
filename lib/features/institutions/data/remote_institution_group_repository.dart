@@ -123,7 +123,7 @@ class RemoteInstitutionGroupRepository implements InstitutionGroupRepository {
         '/instituciones/grupos/aceptar',
         data: {'codigo': code, 'acepto': true},
       );
-      return loadStudentGroups();
+      return await loadStudentGroups();
     } on DioException catch (error) {
       throw ApiError.fromDioException(error);
     }
@@ -134,7 +134,7 @@ class RemoteInstitutionGroupRepository implements InstitutionGroupRepository {
   ) async {
     try {
       await action();
-      return loadTeacherGroups();
+      return await loadTeacherGroups();
     } on DioException catch (error) {
       throw ApiError.fromDioException(error);
     }

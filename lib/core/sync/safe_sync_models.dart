@@ -55,6 +55,14 @@ class SyncOperation {
 
 enum SafeWriteDisposition { synced, queued, blocked }
 
+/// Identidad local confirmada y revisión del token, nunca la credencial en sí.
+class SyncSessionSnapshot {
+  const SyncSessionSnapshot({required this.userId, required this.revision});
+
+  final String userId;
+  final int revision;
+}
+
 class SafeWriteResult {
   const SafeWriteResult(this.disposition, {this.message});
 

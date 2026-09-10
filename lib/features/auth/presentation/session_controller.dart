@@ -13,36 +13,47 @@ enum SignInResult { authenticated, verificationRequired, failed }
 
 class SessionController extends Notifier<SessionState> {
   var _disposed = false;
+  var _generation = 0;
+  Future<void> _storageWrites = Future<void>.value();
 
   @override
   SessionState build() {
     _disposed = false;
-    ref.onDispose(() => _disposed = true);
-    unawaited(Future<void>.microtask(_restoreSession));
+    final generation = ++_generation;
+    ref.onDispose(() {
+      _disposed = true;
+      _generation++;
+    });
+    unawaited(Future<void>.microtask(() => _restoreSession(generation)));
     return const SessionState.restoring();
   }
 
-  Future<void> _restoreSession() async {
-    final secureStore = ref.read(secureSessionStoreProvider);
-    final accessToken = await secureStore.readAccessToken();
-    if (_disposed) return;
-    if (accessToken == null || accessToken.isEmpty) {
-      state = const SessionState.unauthenticated();
-      return;
-    }
-
+  Future<void> _restoreSession(int generation) async {
+    if (!_isCurrent(generation)) return;
     try {
-      ref.read(accessTokenStoreProvider).set(accessToken);
-      final user = await ref.read(authRepositoryProvider).profile();
-      if (user.requiresEmailVerification) {
-        await _clearTokens();
-        if (!_disposed) state = const SessionState.unauthenticated();
+      final accessToken = await ref
+          .read(secureSessionStoreProvider)
+          .readAccessToken();
+      if (!_isCurrent(generation)) return;
+      if (accessToken == null || accessToken.isEmpty) {
+        state = const SessionState.unauthenticated();
         return;
       }
-      if (!_disposed) state = SessionState.authenticated(user);
+      ref.read(accessTokenStoreProvider).set(accessToken);
+      final user = await ref.read(authRepositoryProvider).profile();
+      if (!_isCurrent(generation)) return;
+      if (user.requiresEmailVerification) {
+        await _clearTokens();
+        if (_isCurrent(generation)) {
+          state = const SessionState.unauthenticated();
+        }
+        return;
+      }
+      state = SessionState.authenticated(user);
     } on Object {
+      if (!_isCurrent(generation)) return;
       await _clearTokens();
-      if (!_disposed) state = const SessionState.unauthenticated();
+      if (_isCurrent(generation)) state = const SessionState.unauthenticated();
     }
   }
 
@@ -50,26 +61,43 @@ class SessionController extends Notifier<SessionState> {
     required String email,
     required String password,
   }) async {
-    state = state.copyWith(isLoading: true, clearError: true);
+    if (_disposed) return SignInResult.failed;
+    final generation = ++_generation;
+    state = const SessionState.unauthenticated().copyWith(isLoading: true);
     try {
+      await _clearTokens();
+      if (!_isCurrent(generation)) return SignInResult.failed;
       final result = await ref
           .read(authRepositoryProvider)
           .login(email: email.trim().toLowerCase(), password: password);
+      if (!_isCurrent(generation)) return SignInResult.failed;
+      if (result.tokens.accessToken.trim().isEmpty) {
+        throw const FormatException('El token de acceso está vacío.');
+      }
       await _persist(result);
+      if (!_isCurrent(generation)) return SignInResult.failed;
       final user = await ref.read(authRepositoryProvider).profile();
+      if (!_isCurrent(generation)) return SignInResult.failed;
+      if (user.id != result.user.id) {
+        throw const FormatException('El perfil no corresponde a esta sesión.');
+      }
       if (user.requiresEmailVerification) {
         await _clearTokens();
+        if (!_isCurrent(generation)) return SignInResult.failed;
         state = const SessionState.unauthenticated();
         return SignInResult.verificationRequired;
       }
       state = SessionState.authenticated(user);
       return SignInResult.authenticated;
     } on ApiError catch (error) {
+      if (!_isCurrent(generation)) return SignInResult.failed;
       await _clearTokens();
-      _setError(error);
+      if (_isCurrent(generation)) _setError(error);
       return SignInResult.failed;
     } on Object {
+      if (!_isCurrent(generation)) return SignInResult.failed;
       await _clearTokens();
+      if (!_isCurrent(generation)) return SignInResult.failed;
       _setError(
         const ApiError(
           code: 'invalid_response',
@@ -81,15 +109,20 @@ class SessionController extends Notifier<SessionState> {
   }
 
   Future<RegistrationResult?> register(RegistrationRequest request) async {
+    if (_disposed) return null;
+    final generation = ++_generation;
     state = state.copyWith(isLoading: true, clearError: true);
     try {
       final result = await ref.read(authRepositoryProvider).register(request);
+      if (!_isCurrent(generation)) return null;
       state = const SessionState.unauthenticated();
       return result;
     } on ApiError catch (error) {
+      if (!_isCurrent(generation)) return null;
       _setError(error);
       return null;
     } on Object {
+      if (!_isCurrent(generation)) return null;
       _setError(
         const ApiError(
           code: 'invalid_response',
@@ -126,16 +159,22 @@ class SessionController extends Notifier<SessionState> {
   );
 
   Future<bool> changeInitialPassword(String password) async {
+    if (_disposed) return false;
+    final generation = ++_generation;
     state = state.copyWith(isLoading: true, clearError: true);
     try {
       await ref.read(authRepositoryProvider).changeInitialPassword(password);
+      if (!_isCurrent(generation)) return false;
       final refreshedUser = await ref.read(authRepositoryProvider).profile();
+      if (!_isCurrent(generation)) return false;
       state = SessionState.authenticated(refreshedUser);
       return true;
     } on ApiError catch (error) {
+      if (!_isCurrent(generation)) return false;
       _setError(error);
       return false;
     } on Object {
+      if (!_isCurrent(generation)) return false;
       _setError(
         const ApiError(
           code: 'invalid_response',
@@ -147,6 +186,10 @@ class SessionController extends Notifier<SessionState> {
   }
 
   void enterDemo({AppRole role = AppRole.student}) {
+    if (_disposed) return;
+    _generation++;
+    // Invalida inmediatamente el token real, incluso si su borrado nativo tarda.
+    unawaited(_clearTokens());
     state = SessionState.authenticated(
       UserSession(
         id: 'demo-${role.name}',
@@ -159,17 +202,24 @@ class SessionController extends Notifier<SessionState> {
   }
 
   Future<void> refreshProfile() async {
+    if (_disposed) return;
+    final generation = _generation;
     final current = state.user;
     if (current == null || current.isDemo) return;
     try {
       final user = await ref.read(authRepositoryProvider).profile();
-      if (!_disposed) state = SessionState.authenticated(user);
+      if (_isCurrent(generation) &&
+          state.user?.id == current.id &&
+          user.id == current.id) {
+        state = SessionState.authenticated(user);
+      }
     } on Object {
       // La gamificación sigue disponible aunque falle esta actualización de XP.
     }
   }
 
   Future<void> registerEarnedXp(int earnedXp) async {
+    if (_disposed) return;
     final current = state.user;
     if (current == null) return;
     if (current.isDemo) {
@@ -181,33 +231,52 @@ class SessionController extends Notifier<SessionState> {
     await refreshProfile();
   }
 
-  void clearError() => state = state.copyWith(clearError: true);
+  void clearError() {
+    if (!_disposed) state = state.copyWith(clearError: true);
+  }
 
   Future<void> signOut() async {
-    await _clearTokens();
+    if (_disposed) return;
+    final generation = ++_generation;
+    final clearing = _clearTokens();
+    // No se mantiene la pantalla autenticada mientras responde Keychain/Keystore.
     state = const SessionState.unauthenticated();
+    if (!await clearing && _isCurrent(generation)) {
+      state = const SessionState.unauthenticated(
+        errorCode: 'session_storage_error',
+        errorMessage:
+            'Se cerró la sesión, pero no se pudo borrar la credencial guardada. Intenta cerrar sesión nuevamente antes de compartir este dispositivo.',
+      );
+    }
   }
 
   Future<void> invalidateFromOtherDevice({required String message}) async {
-    if (state.status != SessionStatus.authenticated) return;
-    await _clearTokens();
     if (_disposed) return;
+    if (state.status != SessionStatus.authenticated) return;
+    _generation++;
+    final clearing = _clearTokens();
     state = SessionState.unauthenticated(
       errorCode: 'device_session_conflict',
       errorMessage: message,
     );
+    await clearing;
   }
 
   Future<bool> _runUnauthenticatedAction(Future<void> Function() action) async {
+    if (_disposed) return false;
+    final generation = ++_generation;
     state = state.copyWith(isLoading: true, clearError: true);
     try {
       await action();
+      if (!_isCurrent(generation)) return false;
       state = const SessionState.unauthenticated();
       return true;
     } on ApiError catch (error) {
+      if (!_isCurrent(generation)) return false;
       _setError(error);
       return false;
     } on Object {
+      if (!_isCurrent(generation)) return false;
       _setError(
         const ApiError(
           code: 'invalid_response',
@@ -220,15 +289,35 @@ class SessionController extends Notifier<SessionState> {
 
   Future<void> _persist(LoginResult result) async {
     ref.read(accessTokenStoreProvider).set(result.tokens.accessToken);
-    await ref
-        .read(secureSessionStoreProvider)
-        .saveAccessToken(result.tokens.accessToken);
+    final store = ref.read(secureSessionStoreProvider);
+    await _enqueueStorage(
+      () => store.saveAccessToken(result.tokens.accessToken),
+    );
   }
 
-  Future<void> _clearTokens() async {
+  Future<bool> _clearTokens() async {
     ref.read(accessTokenStoreProvider).clear();
-    await ref.read(secureSessionStoreProvider).clear();
+    final store = ref.read(secureSessionStoreProvider);
+    try {
+      await _enqueueStorage(store.clear);
+      return true;
+    } on Object {
+      return false;
+    }
   }
+
+  // Ordena las escrituras: un login que termina tarde nunca puede persistir su
+  // token después del borrado solicitado por logout o por entrar a demostración.
+  Future<void> _enqueueStorage(Future<void> Function() action) {
+    final pending = _storageWrites.then((_) => action());
+    _storageWrites = pending.then<void>(
+      (_) {},
+      onError: (Object _, StackTrace _) {},
+    );
+    return pending;
+  }
+
+  bool _isCurrent(int generation) => !_disposed && _generation == generation;
 
   void _setError(ApiError error) {
     state = state.copyWith(

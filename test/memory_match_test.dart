@@ -92,6 +92,7 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 200));
 
+    expect(find.byTooltip('Abandonar partida'), findsOneWidget);
     expect(find.text('0 movimientos'), findsOneWidget);
     expect(find.text('0/6'), findsOneWidget);
     final hintFinder = find.byKey(const Key('memory-hint-button'));

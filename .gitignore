@@ -34,6 +34,19 @@ migrate_working_dir/
 /build/
 /coverage/
 
+# Local environment settings and sensitive exports (never embed in the app).
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.*.example
+/config/*.local.json
+**/*.dump
+**/*.backup
+**/*.p12
+**/*.pem
+**/*.jks
+**/*.keystore
+
 # Symbolication related
 app.*.symbols
 

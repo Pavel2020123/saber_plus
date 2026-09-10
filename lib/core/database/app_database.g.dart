@@ -536,6 +536,18 @@ class $PendingOperationsTable extends PendingOperations
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _revisionMeta = const VerificationMeta(
+    'revision',
+  );
+  @override
+  late final GeneratedColumn<String> revision = GeneratedColumn<String>(
+    'revision',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
   static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
   @override
   late final GeneratedColumn<String> userId = GeneratedColumn<String>(
@@ -634,6 +646,7 @@ class $PendingOperationsTable extends PendingOperations
   @override
   List<GeneratedColumn> get $columns => [
     id,
+    revision,
     userId,
     kind,
     entityId,
@@ -660,6 +673,12 @@ class $PendingOperationsTable extends PendingOperations
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     } else if (isInserting) {
       context.missing(_idMeta);
+    }
+    if (data.containsKey('revision')) {
+      context.handle(
+        _revisionMeta,
+        revision.isAcceptableOrUnknown(data['revision']!, _revisionMeta),
+      );
     }
     if (data.containsKey('user_id')) {
       context.handle(
@@ -743,6 +762,10 @@ class $PendingOperationsTable extends PendingOperations
         DriftSqlType.string,
         data['${effectivePrefix}id'],
       )!,
+      revision: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}revision'],
+      )!,
       userId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}user_id'],
@@ -791,6 +814,7 @@ class $PendingOperationsTable extends PendingOperations
 class PendingOperation extends DataClass
     implements Insertable<PendingOperation> {
   final String id;
+  final String revision;
   final String userId;
   final String kind;
   final String entityId;
@@ -802,6 +826,7 @@ class PendingOperation extends DataClass
   final DateTime updatedAt;
   const PendingOperation({
     required this.id,
+    required this.revision,
     required this.userId,
     required this.kind,
     required this.entityId,
@@ -816,6 +841,7 @@ class PendingOperation extends DataClass
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
+    map['revision'] = Variable<String>(revision);
     map['user_id'] = Variable<String>(userId);
     map['kind'] = Variable<String>(kind);
     map['entity_id'] = Variable<String>(entityId);
@@ -833,6 +859,7 @@ class PendingOperation extends DataClass
   PendingOperationsCompanion toCompanion(bool nullToAbsent) {
     return PendingOperationsCompanion(
       id: Value(id),
+      revision: Value(revision),
       userId: Value(userId),
       kind: Value(kind),
       entityId: Value(entityId),
@@ -854,6 +881,7 @@ class PendingOperation extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return PendingOperation(
       id: serializer.fromJson<String>(json['id']),
+      revision: serializer.fromJson<String>(json['revision']),
       userId: serializer.fromJson<String>(json['userId']),
       kind: serializer.fromJson<String>(json['kind']),
       entityId: serializer.fromJson<String>(json['entityId']),
@@ -870,6 +898,7 @@ class PendingOperation extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
+      'revision': serializer.toJson<String>(revision),
       'userId': serializer.toJson<String>(userId),
       'kind': serializer.toJson<String>(kind),
       'entityId': serializer.toJson<String>(entityId),
@@ -884,6 +913,7 @@ class PendingOperation extends DataClass
 
   PendingOperation copyWith({
     String? id,
+    String? revision,
     String? userId,
     String? kind,
     String? entityId,
@@ -895,6 +925,7 @@ class PendingOperation extends DataClass
     DateTime? updatedAt,
   }) => PendingOperation(
     id: id ?? this.id,
+    revision: revision ?? this.revision,
     userId: userId ?? this.userId,
     kind: kind ?? this.kind,
     entityId: entityId ?? this.entityId,
@@ -908,6 +939,7 @@ class PendingOperation extends DataClass
   PendingOperation copyWithCompanion(PendingOperationsCompanion data) {
     return PendingOperation(
       id: data.id.present ? data.id.value : this.id,
+      revision: data.revision.present ? data.revision.value : this.revision,
       userId: data.userId.present ? data.userId.value : this.userId,
       kind: data.kind.present ? data.kind.value : this.kind,
       entityId: data.entityId.present ? data.entityId.value : this.entityId,
@@ -926,6 +958,7 @@ class PendingOperation extends DataClass
   String toString() {
     return (StringBuffer('PendingOperation(')
           ..write('id: $id, ')
+          ..write('revision: $revision, ')
           ..write('userId: $userId, ')
           ..write('kind: $kind, ')
           ..write('entityId: $entityId, ')
@@ -942,6 +975,7 @@ class PendingOperation extends DataClass
   @override
   int get hashCode => Object.hash(
     id,
+    revision,
     userId,
     kind,
     entityId,
@@ -957,6 +991,7 @@ class PendingOperation extends DataClass
       identical(this, other) ||
       (other is PendingOperation &&
           other.id == this.id &&
+          other.revision == this.revision &&
           other.userId == this.userId &&
           other.kind == this.kind &&
           other.entityId == this.entityId &&
@@ -970,6 +1005,7 @@ class PendingOperation extends DataClass
 
 class PendingOperationsCompanion extends UpdateCompanion<PendingOperation> {
   final Value<String> id;
+  final Value<String> revision;
   final Value<String> userId;
   final Value<String> kind;
   final Value<String> entityId;
@@ -982,6 +1018,7 @@ class PendingOperationsCompanion extends UpdateCompanion<PendingOperation> {
   final Value<int> rowid;
   const PendingOperationsCompanion({
     this.id = const Value.absent(),
+    this.revision = const Value.absent(),
     this.userId = const Value.absent(),
     this.kind = const Value.absent(),
     this.entityId = const Value.absent(),
@@ -995,6 +1032,7 @@ class PendingOperationsCompanion extends UpdateCompanion<PendingOperation> {
   });
   PendingOperationsCompanion.insert({
     required String id,
+    this.revision = const Value.absent(),
     required String userId,
     required String kind,
     required String entityId,
@@ -1014,6 +1052,7 @@ class PendingOperationsCompanion extends UpdateCompanion<PendingOperation> {
        updatedAt = Value(updatedAt);
   static Insertable<PendingOperation> custom({
     Expression<String>? id,
+    Expression<String>? revision,
     Expression<String>? userId,
     Expression<String>? kind,
     Expression<String>? entityId,
@@ -1027,6 +1066,7 @@ class PendingOperationsCompanion extends UpdateCompanion<PendingOperation> {
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
+      if (revision != null) 'revision': revision,
       if (userId != null) 'user_id': userId,
       if (kind != null) 'kind': kind,
       if (entityId != null) 'entity_id': entityId,
@@ -1042,6 +1082,7 @@ class PendingOperationsCompanion extends UpdateCompanion<PendingOperation> {
 
   PendingOperationsCompanion copyWith({
     Value<String>? id,
+    Value<String>? revision,
     Value<String>? userId,
     Value<String>? kind,
     Value<String>? entityId,
@@ -1055,6 +1096,7 @@ class PendingOperationsCompanion extends UpdateCompanion<PendingOperation> {
   }) {
     return PendingOperationsCompanion(
       id: id ?? this.id,
+      revision: revision ?? this.revision,
       userId: userId ?? this.userId,
       kind: kind ?? this.kind,
       entityId: entityId ?? this.entityId,
@@ -1073,6 +1115,9 @@ class PendingOperationsCompanion extends UpdateCompanion<PendingOperation> {
     final map = <String, Expression>{};
     if (id.present) {
       map['id'] = Variable<String>(id.value);
+    }
+    if (revision.present) {
+      map['revision'] = Variable<String>(revision.value);
     }
     if (userId.present) {
       map['user_id'] = Variable<String>(userId.value);
@@ -1111,6 +1156,7 @@ class PendingOperationsCompanion extends UpdateCompanion<PendingOperation> {
   String toString() {
     return (StringBuffer('PendingOperationsCompanion(')
           ..write('id: $id, ')
+          ..write('revision: $revision, ')
           ..write('userId: $userId, ')
           ..write('kind: $kind, ')
           ..write('entityId: $entityId, ')
@@ -3794,6 +3840,7 @@ typedef $$OfflineDownloadsTableProcessedTableManager =
 typedef $$PendingOperationsTableCreateCompanionBuilder =
     PendingOperationsCompanion Function({
       required String id,
+      Value<String> revision,
       required String userId,
       required String kind,
       required String entityId,
@@ -3808,6 +3855,7 @@ typedef $$PendingOperationsTableCreateCompanionBuilder =
 typedef $$PendingOperationsTableUpdateCompanionBuilder =
     PendingOperationsCompanion Function({
       Value<String> id,
+      Value<String> revision,
       Value<String> userId,
       Value<String> kind,
       Value<String> entityId,
@@ -3831,6 +3879,11 @@ class $$PendingOperationsTableFilterComposer
   });
   ColumnFilters<String> get id => $composableBuilder(
     column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get revision => $composableBuilder(
+    column: $table.revision,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -3894,6 +3947,11 @@ class $$PendingOperationsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get revision => $composableBuilder(
+    column: $table.revision,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get userId => $composableBuilder(
     column: $table.userId,
     builder: (column) => ColumnOrderings(column),
@@ -3951,6 +4009,9 @@ class $$PendingOperationsTableAnnotationComposer
   });
   GeneratedColumn<String> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get revision =>
+      $composableBuilder(column: $table.revision, builder: (column) => column);
 
   GeneratedColumn<String> get userId =>
       $composableBuilder(column: $table.userId, builder: (column) => column);
@@ -4023,6 +4084,7 @@ class $$PendingOperationsTableTableManager
           updateCompanionCallback:
               ({
                 Value<String> id = const Value.absent(),
+                Value<String> revision = const Value.absent(),
                 Value<String> userId = const Value.absent(),
                 Value<String> kind = const Value.absent(),
                 Value<String> entityId = const Value.absent(),
@@ -4035,6 +4097,7 @@ class $$PendingOperationsTableTableManager
                 Value<int> rowid = const Value.absent(),
               }) => PendingOperationsCompanion(
                 id: id,
+                revision: revision,
                 userId: userId,
                 kind: kind,
                 entityId: entityId,
@@ -4049,6 +4112,7 @@ class $$PendingOperationsTableTableManager
           createCompanionCallback:
               ({
                 required String id,
+                Value<String> revision = const Value.absent(),
                 required String userId,
                 required String kind,
                 required String entityId,
@@ -4061,6 +4125,7 @@ class $$PendingOperationsTableTableManager
                 Value<int> rowid = const Value.absent(),
               }) => PendingOperationsCompanion.insert(
                 id: id,
+                revision: revision,
                 userId: userId,
                 kind: kind,
                 entityId: entityId,

@@ -5,6 +5,19 @@ import 'package:saber_plus/core/security/device_installation_store.dart';
 import 'package:saber_plus/core/security/session_security.dart';
 
 void main() {
+  test(
+    'reintenta persistir la identidad cuando falló la primera escritura',
+    () async {
+      var writes = 0;
+      final store = DeviceInstallationStore(() async => null, (_) async {
+        if (++writes == 1) throw StateError('secure storage unavailable');
+      }, generate: () => 'device-installation-1234567890');
+      await expectLater(store.getOrCreate(), throwsStateError);
+      expect(await store.getOrCreate(), 'device-installation-1234567890');
+      expect(writes, 2);
+    },
+  );
+
   test('crea una identidad aleatoria y estable por instalación', () async {
     String? persisted;
     var writes = 0;

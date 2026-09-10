@@ -184,6 +184,7 @@ class _MemoryMatchPageState extends ConsumerState<MemoryMatchPage> {
           title: const Text('Memoria académica'),
           leading: IconButton(
             onPressed: _confirmExit,
+            tooltip: 'Abandonar partida',
             icon: const Icon(Icons.close_rounded),
           ),
         ),

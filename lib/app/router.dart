@@ -1,9 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../core/sync/sync_queue_page.dart';
 import '../core/preferences/preferences_page.dart';
-import '../features/auth/domain/session.dart';
 import '../features/auth/presentation/login_page.dart';
 import '../features/auth/presentation/change_initial_password_page.dart';
 import '../features/auth/presentation/forgot_password_page.dart';
@@ -82,9 +82,13 @@ import '../features/study/presentation/syllabus_countdown_page.dart';
 import '../features/study_time/presentation/study_time_page.dart';
 import '../features/support/presentation/support_page.dart';
 import 'page_transitions.dart';
+import 'session_route_policy.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
-  final session = ref.watch(
+  // La sesión refresca las redirecciones, no destruye el router que todavía
+  // está usando el callback de login/logout de la pantalla actual.
+  final sessionRefresh = ValueNotifier<int>(0);
+  ref.listen(
     sessionControllerProvider.select(
       (state) => (
         status: state.status,
@@ -92,53 +96,20 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         mustChangePassword: state.user?.mustChangePassword ?? false,
       ),
     ),
+    (_, _) => sessionRefresh.value++,
   );
 
-  return GoRouter(
+  final router = GoRouter(
     initialLocation: '/session-loading',
+    refreshListenable: sessionRefresh,
     redirect: (context, state) {
-      const publicRoutes = {
-        '/welcome',
-        '/login',
-        '/register',
-        '/forgot-password',
-        '/reset-password',
-        '/verify-email',
-        '/verify-pending',
-      };
-      final isPublic = publicRoutes.contains(state.matchedLocation);
-      final isAuthenticated = session.status == SessionStatus.authenticated;
-
-      if (session.status == SessionStatus.restoring) {
-        return state.matchedLocation == '/session-loading'
-            ? null
-            : '/session-loading';
-      }
-      if (state.matchedLocation == '/session-loading') {
-        if (!isAuthenticated) return '/welcome';
-        return session.role == AppRole.teacher ? '/teacher' : '/student/home';
-      }
-
-      if (!isAuthenticated && !isPublic) return '/login';
-      if (isAuthenticated && isPublic) {
-        return session.role == AppRole.teacher ? '/teacher' : '/student/home';
-      }
-      if (isAuthenticated &&
-          session.mustChangePassword &&
-          state.matchedLocation != '/change-initial-password') {
-        return '/change-initial-password';
-      }
-      if (isAuthenticated &&
-          !session.mustChangePassword &&
-          state.matchedLocation == '/change-initial-password') {
-        return session.role == AppRole.teacher ? '/teacher' : '/student/home';
-      }
-      if (isAuthenticated &&
-          session.role == AppRole.teacher &&
-          state.matchedLocation.startsWith('/student')) {
-        return '/teacher';
-      }
-      return null;
+      final session = ref.read(sessionControllerProvider);
+      return sessionRouteRedirect(
+        location: state.matchedLocation,
+        status: session.status,
+        role: session.user?.role,
+        mustChangePassword: session.user?.mustChangePassword ?? false,
+      );
     },
     routes: [
       GoRoute(
@@ -644,6 +615,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
     ],
   );
+  ref.onDispose(() {
+    router.dispose();
+    sessionRefresh.dispose();
+  });
+  return router;
 });
 
 GoRoute _animatedRoute({

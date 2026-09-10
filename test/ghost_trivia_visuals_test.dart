@@ -165,6 +165,7 @@ void main() {
       );
       await tester.pump();
       await tester.pump();
+      expect(find.byTooltip('Abandonar partida'), findsOneWidget);
       await tester.tap(find.byKey(const Key('trivia-answer-a1')));
       await tester.pump();
       expect(find.text('Pregunta 2'), findsOneWidget);

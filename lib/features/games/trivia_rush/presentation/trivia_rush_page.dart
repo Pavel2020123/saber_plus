@@ -606,6 +606,7 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
           title: Text(widget.ghostMode ? 'Duelo fantasma' : 'Trivia Rush'),
           leading: IconButton(
             onPressed: _confirmExit,
+            tooltip: 'Abandonar partida',
             icon: const Icon(Icons.close_rounded),
           ),
         ),

@@ -6,11 +6,14 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:saber_plus/app/app.dart';
 import 'package:saber_plus/app/page_transitions.dart';
+import 'package:saber_plus/app/router.dart';
 import 'package:saber_plus/core/feedback/answer_streak_feedback.dart';
 import 'package:saber_plus/core/notifications/study_reminder_service.dart';
 import 'package:saber_plus/core/preferences/app_preferences.dart';
 import 'package:saber_plus/core/preferences/app_preferences_store.dart';
 import 'package:saber_plus/core/storage/secure_session_store.dart';
+import 'package:saber_plus/features/auth/domain/session.dart';
+import 'package:saber_plus/features/auth/presentation/session_controller.dart';
 import 'package:saber_plus/features/difficult_questions/data/drift_difficult_question_repository.dart';
 import 'package:saber_plus/features/difficult_questions/domain/difficult_question_models.dart';
 import 'package:saber_plus/features/difficult_questions/domain/difficult_question_repository.dart';
@@ -85,6 +88,36 @@ Widget _testApp() => ProviderScope(
 );
 
 void main() {
+  testWidgets('conserva el router al entrar, cambiar de rol y cerrar sesión', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+    final container = ProviderScope.containerOf(
+      tester.element(find.byType(SaberPlusApp)),
+    );
+    final router = container.read(appRouterProvider);
+    final session = container.read(sessionControllerProvider.notifier);
+    session.enterDemo();
+    // El callback de la pantalla puede seguir usando el mismo router antes
+    // del siguiente frame sin encontrar un RouteInformationProvider destruido.
+    router.go('/student/home');
+    await tester.pumpAndSettle();
+    expect(container.read(appRouterProvider), same(router));
+    expect(router.routeInformationProvider.value.uri.path, '/student/home');
+
+    session.enterDemo(role: AppRole.teacher);
+    await tester.pumpAndSettle();
+    expect(container.read(appRouterProvider), same(router));
+    expect(router.routeInformationProvider.value.uri.path, '/teacher');
+
+    await session.signOut();
+    await tester.pumpAndSettle();
+    expect(container.read(appRouterProvider), same(router));
+    expect(router.routeInformationProvider.value.uri.path, '/login');
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('muestra la bienvenida de SaberPlus', (tester) async {
     await tester.pumpWidget(_testApp());
     await tester.pumpAndSettle();

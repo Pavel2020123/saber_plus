@@ -1,6 +1,11 @@
 # SaberPlus — trabajo pendiente tras verificación local 7F-C3-D2-F
 
-Actualizado: 8 de septiembre de 2026. Listado para compartir con el equipo.
+Actualizado: 10 de septiembre de 2026. Listado para compartir con el equipo.
+
+Se añadió una [auditoría complementaria](AUDITORIA_PROYECTO_2026-09-09.md)
+con correcciones locales y pruebas; no se desplegó ni se cerró D3. Se mantienen
+los 13 bloques siguientes. El [resumen de funcionalidades](FUNCIONALIDADES_PARA_EL_EQUIPO.md)
+distingue lo implementado de lo que todavía necesita contrato o verificación real.
 
 **Implementado no equivale a desplegado ni probado en teléfonos.** Render ya
 tuvo su despliegue inicial; no hay que repetir esa etapa desde cero. Sí quedan
@@ -101,6 +106,8 @@ No son trece etapas originales nuevas. La comparación con el listado anterior
 - Backend de **una única sesión/dispositivo activo**, revocación y comprobación
   en cada solicitud protegida; el cliente ya tiene parte de esta frontera.
 - Refresh tokens, rotación, expiración y cierre/revocación centralizados.
+- Restringir en el servidor las rutas permitidas mientras siga pendiente el
+  cambio inicial de contraseña; no depender únicamente de la redirección móvil.
 - Persistir sesiones en PostgreSQL vinculadas a un identificador aleatorio de
   instalación; cerrar remotamente/todas las sesiones y revocar por reemplazo,
   cambio o recuperación de contraseña y eliminación de cuenta. Auditar lo mínimo.
@@ -212,6 +219,9 @@ No son trece etapas originales nuevas. La comparación con el listado anterior
   respaldo inicial, recuperación comprobada, observabilidad y plan de reversión.
 - Revisar vulnerabilidades de dependencias y advertencias técnicas pendientes;
   probar seguridad, accesibilidad, carga, consumo y rendimiento.
+- Resolver los avisos de lint preservados de Guardián y revisar la migración de
+  `flutter_timezone` a Kotlin integrado antes de actualizar Flutter; el APK debug
+  actual compila, pero no constituye la verificación de release ni de iOS.
 - Banco académico suficiente y autorizado; revisión de fórmulas/glosario,
   fechas de examen y vigencia de fuentes de becas, universidades y datos nacionales.
 - Completar origen, autor, licencia y fechas de los audios ya integrados; no se

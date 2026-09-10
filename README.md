@@ -6,6 +6,18 @@ El backend oficial se mantiene por separado en
 [`Pavel2020123/SaberPlus-Backend`](https://github.com/Pavel2020123/SaberPlus-Backend).
 Este repositorio móvil nunca almacena credenciales de PostgreSQL o Supabase.
 
+## Auditoría y resumen para el equipo
+
+Entrega complementaria del 9 de septiembre de 2026: correcciones de sesión,
+sincronización, validaciones del backend y accesibilidad, sin despliegue ni
+escrituras en Supabase. D2-F/D3 conservan sus comprobaciones pendientes.
+Verificación cerrada el 10 de septiembre: 422 pruebas Flutter aprobadas (4 remotas
+omitidas), análisis sin avisos y APK debug generado con firma/recursos verificados.
+
+- [Funcionalidades de la app, API y panel](docs/FUNCIONALIDADES_PARA_EL_EQUIPO.md).
+- [Auditoría, verificaciones, riesgos y comandos de commit](docs/AUDITORIA_PROYECTO_2026-09-09.md).
+- [Listado completo de trabajo pendiente](docs/ETAPAS_PENDIENTES.md).
+
 ## Ejecutar la etapa actual
 
 ```powershell

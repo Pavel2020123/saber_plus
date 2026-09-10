@@ -28,6 +28,10 @@ class OfflineDownloads extends Table {
 class PendingOperations extends Table {
   TextColumn get id => text()();
 
+  // Cambia con cada edición; permite confirmar una respuesta de red sin borrar
+  // otra edición local, incluso si ambas contienen exactamente el mismo texto.
+  TextColumn get revision => text().withDefault(const Constant(''))();
+
   TextColumn get userId => text()();
 
   TextColumn get kind => text()();
@@ -162,7 +166,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.defaults() : super(driftDatabase(name: 'saber_plus'));
 
   @override
-  int get schemaVersion => 7;
+  int get schemaVersion => 8;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -174,6 +178,9 @@ class AppDatabase extends _$AppDatabase {
       if (from < 5) await migrator.createTable(flashcardProgressEntries);
       if (from < 6) await migrator.createTable(difficultQuestionEntries);
       if (from < 7) await migrator.createTable(studyTimeEntries);
+      if (from >= 2 && from < 8) {
+        await migrator.addColumn(pendingOperations, pendingOperations.revision);
+      }
     },
   );
 
@@ -223,6 +230,29 @@ class AppDatabase extends _$AppDatabase {
 
   Future<void> removePendingOperation(String id) =>
       (delete(pendingOperations)..where((row) => row.id.equals(id))).go();
+
+  Future<int> removePendingOperationIfUnchanged(PendingOperation expected) =>
+      (delete(
+        pendingOperations,
+      )..where((row) => _samePending(row, expected))).go();
+
+  Future<int> updatePendingOperationIfUnchanged(
+    PendingOperation expected,
+    PendingOperationsCompanion changes,
+  ) => (update(
+    pendingOperations,
+  )..where((row) => _samePending(row, expected))).write(changes);
+
+  Expression<bool> _samePending(
+    $PendingOperationsTable row,
+    PendingOperation expected,
+  ) =>
+      row.id.equals(expected.id) &
+      row.userId.equals(expected.userId) &
+      row.revision.equals(expected.revision) &
+      row.payloadJson.equals(expected.payloadJson) &
+      row.status.equals(expected.status) &
+      row.attempts.equals(expected.attempts);
 
   Stream<List<FavoriteEntry>> watchFavoriteEntries(String userId) =>
       (select(favoriteEntries)

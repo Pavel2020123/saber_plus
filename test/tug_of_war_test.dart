@@ -149,6 +149,7 @@ void main() {
     await tester.pump();
     await tester.pump();
 
+    expect(find.byTooltip('Abandonar partida'), findsOneWidget);
     expect(find.byKey(const Key('tug-arena')), findsOneWidget);
     expect(find.byKey(const Key('tug-local-match-banner')), findsOneWidget);
     expect(find.byKey(const Key('tug-arena-preparing')), findsOneWidget);

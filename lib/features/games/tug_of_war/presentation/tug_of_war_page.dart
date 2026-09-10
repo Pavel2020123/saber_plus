@@ -459,6 +459,7 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage>
           title: const Text('Tira y afloja'),
           leading: IconButton(
             onPressed: _confirmExit,
+            tooltip: 'Abandonar partida',
             icon: const Icon(Icons.close_rounded),
           ),
         ),

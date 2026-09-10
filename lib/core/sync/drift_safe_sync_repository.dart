@@ -1,19 +1,29 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../features/auth/presentation/session_controller.dart';
 import '../database/app_database.dart';
+import '../network/access_token_store.dart';
 import '../network/api_client.dart';
+import '../network/auth_interceptor.dart';
 import 'safe_sync_models.dart';
 import 'safe_sync_repository.dart';
 
 class DriftSafeSyncRepository implements SafeSyncRepository {
-  DriftSafeSyncRepository(this._dio, this._database);
+  DriftSafeSyncRepository(
+    this._dio,
+    this._database, {
+    required this.currentSession,
+  });
 
   final Dio _dio;
   final AppDatabase _database;
+  final SyncSessionSnapshot? Function() currentSession;
+  final Random _random = Random.secure();
   final Map<String, Future<SyncReport>> _activeSynchronizations = {};
 
   @override
@@ -69,7 +79,9 @@ class DriftSafeSyncRepository implements SafeSyncRepository {
   Future<SyncReport> synchronize(String userId) async {
     final active = _activeSynchronizations[userId];
     if (active != null) return active;
-    final future = _performSynchronization(userId);
+    // Capturar antes de leer SQLite: una cola de A nunca debe tomar el token B.
+    final session = currentSession();
+    final future = _performSynchronization(userId, session);
     _activeSynchronizations[userId] = future;
     try {
       return await future;
@@ -82,11 +94,13 @@ class DriftSafeSyncRepository implements SafeSyncRepository {
   Future<SyncReport> retry(String userId, String operationId) async {
     final row = await _database.findPendingOperation(operationId);
     if (row != null && row.userId == userId) {
-      await _database.savePendingOperation(
-        _companionFromRow(
-          row,
-          status: SyncOperationStatus.pending,
-          clearError: true,
+      await _database.updatePendingOperationIfUnchanged(
+        row,
+        PendingOperationsCompanion(
+          revision: Value(_newRevision()),
+          status: Value(SyncOperationStatus.pending.wireValue),
+          lastError: const Value(null),
+          updatedAt: Value(DateTime.now().toUtc()),
         ),
       );
     }
@@ -97,23 +111,30 @@ class DriftSafeSyncRepository implements SafeSyncRepository {
   Future<void> discard(String userId, String operationId) async {
     final operation = await _database.findPendingOperation(operationId);
     if (operation?.userId == userId) {
-      await _database.removePendingOperation(operationId);
+      await _database.removePendingOperationIfUnchanged(operation!);
     }
   }
 
-  Future<SyncReport> _performSynchronization(String userId) async {
+  Future<SyncReport> _performSynchronization(
+    String userId,
+    SyncSessionSnapshot? session,
+  ) async {
     final operations = await _database.getPendingOperations(userId);
     var synced = 0;
     Map<String, int>? remoteProgress;
 
     for (final row in operations) {
+      if (session == null || session.userId != userId || !_isCurrent(session)) {
+        break;
+      }
       if (row.status == SyncOperationStatus.blocked.wireValue) continue;
       try {
         final kind = SyncOperationKind.fromWireValue(row.kind);
         final payload = _decodePayload(row.payloadJson);
         switch (kind) {
           case SyncOperationKind.studyProgress:
-            remoteProgress ??= await _loadRemoteProgress();
+            remoteProgress ??= await _loadRemoteProgress(session);
+            if (!_isCurrent(session)) break;
             final localPercentage = _readPercentage(payload);
             final percentage =
                 localPercentage > (remoteProgress[row.entityId] ?? 0)
@@ -122,6 +143,7 @@ class DriftSafeSyncRepository implements SafeSyncRepository {
             await _dio.post<Map<String, dynamic>>(
               '/simulacros/progreso',
               data: {'subtemaId': row.entityId, 'porcentaje': percentage},
+              options: _requestOptions(session),
             );
             remoteProgress[row.entityId] = percentage;
           case SyncOperationKind.notebookEntry:
@@ -131,14 +153,19 @@ class DriftSafeSyncRepository implements SafeSyncRepository {
                 'nota': payload['nota'] as String? ?? '',
                 'estado': payload['estado'] as String,
               },
+              options: _requestOptions(session),
             );
         }
-        await _database.removePendingOperation(row.id);
-        synced++;
+        if (!_isCurrent(session)) break;
+        // Solo confirma la revisión enviada: una edición posterior sigue pendiente.
+        final removed = await _database.removePendingOperationIfUnchanged(row);
+        synced += removed;
       } on DioException catch (error) {
+        if (!_isCurrent(session)) break;
         if (_shouldWaitForConnection(error)) break;
         await _markBlocked(row, _messageFrom(error));
       } on Object {
+        if (!_isCurrent(session)) break;
         await _markBlocked(
           row,
           'La operación guardada no tiene un formato válido.',
@@ -158,9 +185,12 @@ class DriftSafeSyncRepository implements SafeSyncRepository {
     );
   }
 
-  Future<Map<String, int>> _loadRemoteProgress() async {
+  Future<Map<String, int>> _loadRemoteProgress(
+    SyncSessionSnapshot session,
+  ) async {
     final response = await _dio.get<Map<String, dynamic>>(
       '/simulacros/progreso',
+      options: _requestOptions(session),
     );
     final body = _body(response.data);
     final raw = body['porSubtema'];
@@ -186,7 +216,7 @@ class DriftSafeSyncRepository implements SafeSyncRepository {
         final previous = _readPercentage(_decodePayload(existing.payloadJson));
         if (previous > resolvedPercentage) resolvedPercentage = previous;
       }
-      await _enqueue(
+      await _saveEnqueued(
         id: id,
         userId: userId,
         kind: SyncOperationKind.studyProgress,
@@ -203,13 +233,31 @@ class DriftSafeSyncRepository implements SafeSyncRepository {
     required SyncOperationKind kind,
     required String entityId,
     required Map<String, dynamic> payload,
-    PendingOperation? existing,
+  }) => _database.transaction(() async {
+    final existing = await _database.findPendingOperation(id);
+    await _saveEnqueued(
+      id: id,
+      userId: userId,
+      kind: kind,
+      entityId: entityId,
+      payload: payload,
+      existing: existing,
+    );
+  });
+
+  Future<void> _saveEnqueued({
+    required String id,
+    required String userId,
+    required SyncOperationKind kind,
+    required String entityId,
+    required Map<String, dynamic> payload,
+    required PendingOperation? existing,
   }) async {
     final now = DateTime.now().toUtc();
-    final previous = existing ?? await _database.findPendingOperation(id);
     await _database.savePendingOperation(
       PendingOperationsCompanion.insert(
         id: id,
+        revision: Value(_newRevision()),
         userId: userId,
         kind: kind.wireValue,
         entityId: entityId,
@@ -217,7 +265,7 @@ class DriftSafeSyncRepository implements SafeSyncRepository {
         status: Value(SyncOperationStatus.pending.wireValue),
         attempts: const Value(0),
         lastError: const Value(null),
-        createdAt: previous?.createdAt ?? now,
+        createdAt: existing?.createdAt ?? now,
         updatedAt: now,
       ),
     );
@@ -237,34 +285,32 @@ class DriftSafeSyncRepository implements SafeSyncRepository {
     return const SafeWriteResult(SafeWriteDisposition.queued);
   }
 
-  Future<void> _markBlocked(PendingOperation row, String message) =>
-      _database.savePendingOperation(
-        _companionFromRow(
-          row,
-          status: SyncOperationStatus.blocked,
-          lastError: message,
-          attempts: row.attempts + 1,
-        ),
-      );
+  Future<void> _markBlocked(PendingOperation row, String message) async {
+    await _database.updatePendingOperationIfUnchanged(
+      row,
+      PendingOperationsCompanion(
+        revision: Value(_newRevision()),
+        status: Value(SyncOperationStatus.blocked.wireValue),
+        lastError: Value(message),
+        attempts: Value(row.attempts + 1),
+        updatedAt: Value(DateTime.now().toUtc()),
+      ),
+    );
+  }
 
-  PendingOperationsCompanion _companionFromRow(
-    PendingOperation row, {
-    SyncOperationStatus? status,
-    String? lastError,
-    bool clearError = false,
-    int? attempts,
-  }) => PendingOperationsCompanion.insert(
-    id: row.id,
-    userId: row.userId,
-    kind: row.kind,
-    entityId: row.entityId,
-    payloadJson: row.payloadJson,
-    status: Value(status?.wireValue ?? row.status),
-    attempts: Value(attempts ?? row.attempts),
-    lastError: Value(clearError ? null : lastError ?? row.lastError),
-    createdAt: row.createdAt,
-    updatedAt: DateTime.now().toUtc(),
-  );
+  String _newRevision() => List.generate(
+    16,
+    (_) => _random.nextInt(256).toRadixString(16).padLeft(2, '0'),
+  ).join();
+
+  bool _isCurrent(SyncSessionSnapshot session) {
+    final current = currentSession();
+    return current?.userId == session.userId &&
+        current?.revision == session.revision;
+  }
+
+  Options _requestOptions(SyncSessionSnapshot session) =>
+      Options(extra: {AuthInterceptor.sessionRevisionKey: session.revision});
 
   SyncOperation _fromRow(PendingOperation row) => SyncOperation(
     id: row.id,
@@ -295,13 +341,13 @@ class DriftSafeSyncRepository implements SafeSyncRepository {
   }
 
   bool _shouldWaitForConnection(DioException error) {
+    if (error.type == DioExceptionType.cancel) return true;
     final status = error.response?.statusCode;
     if (status == 401 || status == 403) return true;
     if (status == 408 || status == 429 || (status != null && status >= 500)) {
       return true;
     }
     return error.response == null &&
-        error.type != DioExceptionType.cancel &&
         error.type != DioExceptionType.badCertificate;
   }
 
@@ -319,9 +365,20 @@ class DriftSafeSyncRepository implements SafeSyncRepository {
       '$userId::${kind.wireValue}::$entityId';
 }
 
-final safeSyncRepositoryProvider = Provider<SafeSyncRepository>(
-  (ref) => DriftSafeSyncRepository(
+final safeSyncRepositoryProvider = Provider<SafeSyncRepository>((ref) {
+  var disposed = false;
+  ref.onDispose(() => disposed = true);
+  return DriftSafeSyncRepository(
     ref.watch(dioProvider),
     ref.watch(appDatabaseProvider),
-  ),
-);
+    currentSession: () {
+      if (disposed) return null;
+      final user = ref.read(sessionControllerProvider).user;
+      final tokens = ref.read(accessTokenStoreProvider);
+      if (user == null || user.isDemo || tokens.accessToken == null) {
+        return null;
+      }
+      return SyncSessionSnapshot(userId: user.id, revision: tokens.revision);
+    },
+  );
+});
