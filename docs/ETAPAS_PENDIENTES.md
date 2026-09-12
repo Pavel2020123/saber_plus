@@ -21,6 +21,54 @@ pendientes en **13 bloques de trabajo**, incluyendo deuda de etapas anteriores:
 No son trece etapas originales nuevas. La comparación con el listado anterior
 7F–9A está en [CONCILIACION_ROADMAP.md](CONCILIACION_ROADMAP.md).
 
+## Punto de reanudación — leer primero al volver a trabajar
+
+Pausa documentada el 12 de septiembre de 2026. **La siguiente tarea es
+7F-C3-D3: conectar el panel administrativo al backend real y comprobar la
+persistencia en Supabase. Está pendiente, no terminada.** Ya estaba incluida
+como ensayo editorial real; se amplía aquí para poder retomarla sin el chat.
+No se añade otro bloque ni se cambia el orden de los 13 bloques restantes.
+
+### Repositorios y contexto que se deben conservar
+
+- App Flutter Android/iOS: `C:\Users\LENOVO 14ALC6\Desktop\SaberPLus\saber_plus`.
+- Backend oficial: `C:\Users\LENOVO 14ALC6\Desktop\SaberPlus-Backend`;
+  API en `backend/` y panel editorial web en `admin/`.
+- Repositorio remoto del backend: `https://github.com/Pavel2020123/SaberPlus-Backend`.
+  No trabajar sobre la antigua web Icfes_Vida ni sobre otra copia del backend.
+- Flujo previsto: **panel administrativo → API en Render → PostgreSQL en
+  Supabase**. El panel y Flutter no reciben contraseñas de base de datos.
+- Render ya tuvo un despliegue exitoso. Eso no confirma que incluya los últimos
+  cambios locales de auditoría, editor o retiro de pagos heredados.
+- La demo editorial es aislada: sus cambios no llegan a Supabase y se pierden
+  al reiniciar. No confundir una prueba en demo con D3 completada.
+- No reiniciar etapas implementadas. Revisar el estado actual de ambos repositorios
+  y preservar cualquier cambio del usuario antes de modificar archivos.
+
+### Información que se debe pedir al retomar
+
+1. URL actual y exacta del servicio Render; no deducirla del nombre del servicio.
+2. Confirmar si existe una cuenta **ADMIN de SaberPlus**, no de profesor.
+   No pedir su contraseña por chat; si falta, preparar su creación autorizada.
+3. Confirmar si se pudo entrar a la demo y eliminar un tema/subtema en borrador
+   vacío. Si no, hacer la comprobación visual pendiente antes del ensayo real.
+4. Confirmar el entorno Supabase de ensayo (`saberplus-dev`, según lo acordado)
+   y el origen desde el que se abrirá el panel. No solicitar ni copiar secretos
+   en este documento, Git o la aplicación.
+
+### Instrucción lista para copiar en una nueva sesión
+
+> Lee `docs/ETAPAS_PENDIENTES.md` completo y `docs/ADMIN_PANEL.md` en el proyecto
+> Flutter. Retoma el punto de reanudación 7F-C3-D3: conectar el panel administrativo
+> del repositorio SaberPlus-Backend al backend real en Render y verificar que
+> guarde en Supabase. Revisa también las guías de `admin/` y `backend/` antes de
+> configurar la conexión. No rehagas etapas anteriores ni asumas que lo local
+> está desplegado. Pídeme la URL actual de Render y confirma si tengo cuenta ADMIN,
+> sin solicitar contraseñas. Conserva mis cambios y prepara las operaciones reales
+> con entorno y autorización confirmados. Al terminar actualiza este documento
+> con lo probado, lo pendiente, la siguiente etapa y los comandos de commit con
+> sus rutas. No hagas commits ni despliegues automáticamente.
+
 ## 1. 7F-C3-D2 — Legado y unificación editorial
 
 - Ajuste D2-F implementado localmente: eliminación confirmada de temas/subtemas
@@ -56,7 +104,55 @@ No son trece etapas originales nuevas. La comparación con el listado anterior
   del legado siguen pendientes. No activar `EDITORIAL_PUBLICATION_ENABLED` antes
   de completar estos controles y preparar D3.
 
-## 2. 7F-C3-D3 — Ensayo editorial real
+## 2. 7F-C3-D3 — Conectar el panel al backend y ensayo editorial real
+
+**Estado: pendiente de conexión y verificación real.** El objetivo es trabajar
+desde el panel con una cuenta ADMIN y guardar contenido de ensayo en la base
+correcta, sin usar la demo. La sincronización del catálogo con Flutter es C4;
+conectar el panel por sí solo no garantiza que lo nuevo aparezca ya en la app.
+
+### Orden de ejecución
+
+1. Revisar las guías y configuración existentes en ambos repositorios, el commit
+   desplegado en Render y su estado de salud. Identificar cambios y migraciones
+   faltantes, sin aplicarlos a ciegas ni reiniciar el despliegue desde cero.
+2. Confirmar la base de ensayo, respaldo y permisos antes de cualquier migración
+   u operación sobre datos. Completar los controles D2 aplicables y preparar el
+   despliegue de cambios pendientes con autorización del usuario.
+3. Configurar el panel para usar la URL real de la API en lugar de la demo,
+   siguiendo su configuración existente. Autorizar únicamente su origen concreto
+   por CORS y verificar HTTPS. No resolver permisos con un comodín indiscriminado.
+4. Iniciar sesión con ADMIN y comprobar que profesor/estudiante no pueden acceder
+   a las funciones editoriales. Verificar caducidad y cierre de sesión.
+5. Seleccionar un área del catálogo y crear tema, subtema, lección, caso y pregunta
+   de ensayo propios/autorizados. Verificar las cinco áreas existentes; no asumir
+   que el panel ya tiene creación de áreas ni crear duplicados para probar.
+6. Guardar borradores, recargar, cerrar sesión y volver a entrar: comprobar que
+   los registros siguen en el catálogo remoto. Contrastar su persistencia en la
+   base confirmada sin exponer credenciales ni datos de otros usuarios.
+7. Probar duplicados, clasificación área/tema/subtema, fallos de red, conflictos
+   entre editores y borrado de un borrador vacío. No eliminar contenido utilizado
+   ni reenviar automáticamente una escritura de resultado incierto.
+8. Solo después de los controles previos y con autorización, habilitar las
+   banderas editoriales necesarias, revisar y publicar contenido de ensayo en
+   orden. Verificar archivado sin alterar historial; no activar operaciones de
+   legado innecesarias para este ensayo.
+9. Registrar evidencia y resultados, actualizar el estado de D3 y dejar
+   identificada la siguiente tarea C4. Si falta navegador, cuenta o acceso real,
+   anotar el bloqueo: las pruebas locales no cierran esta etapa.
+
+### Criterios para darla por terminada
+
+- [ ] Panel conectado a la API correcta, fuera de modo demo.
+- [ ] ADMIN entra; roles no autorizados quedan bloqueados por el servidor.
+- [ ] Contenido de ensayo guardado en Supabase y recuperado tras recargar/reingresar.
+- [ ] Revisión, publicación y archivado comprobados con controles D2 satisfechos.
+- [ ] Duplicados, errores de red, conflictos y borrado permitido comprobados.
+- [ ] Prueba visual real y accesibilidad básica registradas.
+- [ ] Commit desplegado, configuración no secreta y resultados documentados;
+      pendientes claramente separados de lo verificado.
+
+### Alcance original que se conserva
 
 - Preparar una cuenta ADMIN autorizada y contenido de ensayo propio/autorizado.
 - Desplegar las rutas editoriales y autorizar el origen del panel por CORS.

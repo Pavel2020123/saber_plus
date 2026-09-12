@@ -18,6 +18,14 @@ omitidas), análisis sin avisos y APK debug generado con firma/recursos verifica
 - [Auditoría, verificaciones, riesgos y comandos de commit](docs/AUDITORIA_PROYECTO_2026-09-09.md).
 - [Listado completo de trabajo pendiente](docs/ETAPAS_PENDIENTES.md).
 
+## Retomar el proyecto después de la pausa
+
+Leer primero [ETAPAS_PENDIENTES.md](docs/ETAPAS_PENDIENTES.md), especialmente
+**Punto de reanudación** y **7F-C3-D3: conectar el panel al backend real**.
+Incluye rutas, contexto, información que falta, lista de comprobación y un texto
+para iniciar una nueva sesión sin depender del historial del chat. D3 sigue
+pendiente; Render ya tuvo su despliegue inicial y no hay que rehacerlo desde cero.
+
 ## Ejecutar la etapa actual
 
 ```powershell
