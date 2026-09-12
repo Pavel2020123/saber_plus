@@ -1,6 +1,10 @@
 # SaberPlus — trabajo pendiente tras verificación local 7F-C3-D2-F
 
-Actualizado: 10 de septiembre de 2026. Listado para compartir con el equipo.
+Actualizado: 12 de septiembre de 2026. Listado para compartir con el equipo.
+
+Retiro de ePayco/Wompi implementado localmente en el backend: las rutas antiguas
+responden 410 sin procesar pagos; se conserva el historial. Falta desplegarlo y
+verificarlo en Render. Google Play Billing y D3 mantienen sus tareas pendientes.
 
 Se añadió una [auditoría complementaria](AUDITORIA_PROYECTO_2026-09-09.md)
 con correcciones locales y pruebas; no se desplegó ni se cerró D3. Se mantienen

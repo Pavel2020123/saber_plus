@@ -1,6 +1,6 @@
 # SaberPlus — funcionalidades y estado para el equipo
 
-Actualizado: 10 de septiembre de 2026. Documento para compartir con compañeros.
+Actualizado: 12 de septiembre de 2026. Documento para compartir con compañeros.
 
 ## Qué estamos construyendo
 
@@ -247,7 +247,9 @@ la concesión dependerá de disponibilidad y verificación, no de tocar un botó
 **Todavía pendientes:** SDK/configuración real AdMob, verificación de recompensas,
 Google Play Billing y derechos/renovaciones/reembolsos. No hay monetización lista
 para producción por tener una política de anuncios en el código. Wompi/ePayco no
-forman parte del cobro móvil acordado; las rutas de pago heredadas requieren cierre.
+forman parte del cobro móvil acordado. Su implementación se retiró localmente el
+12 de septiembre: las rutas antiguas responden 410 sin procesar pagos. Falta
+desplegar ese retiro en Render; las tablas históricas se conservan.
 
 ## Qué sigue
 
