@@ -12,8 +12,9 @@ como referencia; no se repiten las funciones ya implementadas.
 ## Estado actual
 
 Prioridad acordada el 12 de septiembre: cerrar el módulo del profesor **P1–P5
-antes de D3**. P1 tiene correcciones locales de métricas/navegación; sigue P2.
-Ver [PROFESOR_P1.md](PROFESOR_P1.md) y el punto de reanudación del listado
+antes de D3**. P1 corrige métricas/navegación y P2 añade la ficha de evidencia
+por estudiante/tema/subtema. Ambas son entregas locales; sigue P3.
+Ver [PROFESOR_P2.md](PROFESOR_P2.md) y el punto de reanudación del listado
 consolidado. No se da por probado en Render ni por terminado el ensayo editorial.
 
 Revisión complementaria del 9 de septiembre de 2026:

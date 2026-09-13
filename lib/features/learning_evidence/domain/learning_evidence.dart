@@ -34,6 +34,7 @@ class EvidenceItem {
     required this.percentage,
     required this.level,
     this.subtopics = const [],
+    this.lastEvidence,
   });
 
   final String id;
@@ -46,6 +47,7 @@ class EvidenceItem {
   final double percentage;
   final EvidenceLevel level;
   final List<EvidenceItem> subtopics;
+  final DateTime? lastEvidence;
 
   static EvidenceItem parse(
     Map<String, dynamic> json,
@@ -111,6 +113,9 @@ class EvidenceItem {
       percentage: percentage.toDouble(),
       level: level,
       subtopics: List.unmodifiable(children),
+      lastEvidence: json['ultimaEvidencia'] == null
+          ? null
+          : DateTime.parse(_text(json['ultimaEvidencia'])),
     );
   }
 }
@@ -185,6 +190,12 @@ class LearningEvidence {
     if (until.isBefore(since) ||
         topics.map((row) => row.id).toSet().length != topics.length) {
       throw const FormatException('Informe inconsistente.');
+    }
+    for (final item in topics.expand((topic) => [topic, ...topic.subtopics])) {
+      final date = item.lastEvidence;
+      if (date != null && (date.isBefore(since) || date.isAfter(until))) {
+        throw const FormatException('Fecha de evidencia fuera del informe.');
+      }
     }
     return LearningEvidence(
       policy: policy,

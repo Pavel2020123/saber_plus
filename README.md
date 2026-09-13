@@ -25,8 +25,9 @@ Leer primero [ETAPAS_PENDIENTES.md](docs/ETAPAS_PENDIENTES.md), especialmente
 Incluye rutas, contexto, información que falta, lista de comprobación y un texto
 para iniciar una nueva sesión sin depender del historial del chat. D3 sigue
 pendiente para después del profesor; Render ya tuvo su despliegue inicial y no
-hay que rehacerlo desde cero. P1 tiene una entrega local documentada en
-[PROFESOR_P1.md](docs/PROFESOR_P1.md); la siguiente implementación es P2.
+hay que rehacerlo desde cero. P1 y P2 tienen entregas locales documentadas en
+[PROFESOR_P1.md](docs/PROFESOR_P1.md) y [PROFESOR_P2.md](docs/PROFESOR_P2.md);
+la siguiente implementación es P3.
 
 ## Ejecutar la etapa actual
 

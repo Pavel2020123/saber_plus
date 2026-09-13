@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:open_filex/open_filex.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/network/api_error.dart';
 import '../domain/teacher_detailed_analytics_models.dart';
@@ -366,6 +367,15 @@ class _StudentsTab extends StatelessWidget {
             expandedCrossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(student.email),
+              const SizedBox(height: 8),
+              OutlinedButton.icon(
+                key: Key('open-student-evidence-${student.id}'),
+                onPressed: () => context.push(
+                  '/teacher/students/${Uri.encodeComponent(student.id)}/evidence',
+                ),
+                icon: const Icon(Icons.account_tree_outlined),
+                label: const Text('Ver temas y subtemas'),
+              ),
               const SizedBox(height: 8),
               Text(
                 student.lastActivity == null
