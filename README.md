@@ -21,10 +21,12 @@ omitidas), análisis sin avisos y APK debug generado con firma/recursos verifica
 ## Retomar el proyecto después de la pausa
 
 Leer primero [ETAPAS_PENDIENTES.md](docs/ETAPAS_PENDIENTES.md), especialmente
-**Punto de reanudación** y **7F-C3-D3: conectar el panel al backend real**.
+**Punto de reanudación** y **Cierre del módulo profesor (P1–P5)**.
 Incluye rutas, contexto, información que falta, lista de comprobación y un texto
 para iniciar una nueva sesión sin depender del historial del chat. D3 sigue
-pendiente; Render ya tuvo su despliegue inicial y no hay que rehacerlo desde cero.
+pendiente para después del profesor; Render ya tuvo su despliegue inicial y no
+hay que rehacerlo desde cero. P1 tiene una entrega local documentada en
+[PROFESOR_P1.md](docs/PROFESOR_P1.md); la siguiente implementación es P2.
 
 ## Ejecutar la etapa actual
 

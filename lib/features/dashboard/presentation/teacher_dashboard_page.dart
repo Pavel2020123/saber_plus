@@ -7,6 +7,7 @@ import '../../../core/network/api_error.dart';
 import '../../auth/presentation/session_controller.dart';
 import '../../institutions/domain/teacher_institution_models.dart';
 import '../../institutions/presentation/teacher_institution_providers.dart';
+import '../../institutions/presentation/teacher_metrics_layout.dart';
 
 class TeacherDashboardPage extends ConsumerStatefulWidget {
   const TeacherDashboardPage({super.key});
@@ -284,7 +285,7 @@ class _NoInstitution extends StatelessWidget {
         icon: Icons.add_business_rounded,
         title: 'Crear una institución',
         description:
-            'Serás el propietario inicial y podrás organizar el equipo docente en la siguiente etapa.',
+            'Serás el propietario inicial. Podrás crear grupos, invitar docentes y organizar sus permisos.',
         buttonLabel: 'Crear institución',
         onPressed: working ? null : onCreate,
       ),
@@ -416,13 +417,39 @@ class _LinkedInstitution extends StatelessWidget {
         ),
       ),
       const SizedBox(height: 16),
-      GridView.count(
-        crossAxisCount: 2,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        mainAxisSpacing: 12,
-        crossAxisSpacing: 12,
-        childAspectRatio: 1.25,
+      Text('Tu trabajo de hoy', style: Theme.of(context).textTheme.titleLarge),
+      const SizedBox(height: 8),
+      Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: [
+          FilledButton.tonalIcon(
+            key: const Key('teacher-quick-analytics'),
+            onPressed: onAnalytics,
+            icon: const Icon(Icons.query_stats_rounded),
+            label: const Text('Revisar seguimiento'),
+          ),
+          OutlinedButton.icon(
+            key: const Key('teacher-quick-groups'),
+            onPressed: onGroups,
+            icon: const Icon(Icons.groups_2_outlined),
+            label: const Text('Mis grupos'),
+          ),
+          if (onManage != null)
+            OutlinedButton.icon(
+              key: const Key('teacher-quick-administration'),
+              onPressed: onManage,
+              icon: const Icon(Icons.manage_accounts_outlined),
+              label: const Text('Equipo docente'),
+            ),
+        ],
+      ),
+      const SizedBox(height: 16),
+      const Text(
+        'Capacidad de la institución; el seguimiento respeta tus grupos autorizados.',
+      ),
+      const SizedBox(height: 8),
+      TeacherMetricsLayout(
         children: [
           _Metric(
             icon: Icons.people_outline_rounded,
@@ -743,7 +770,7 @@ class _Metric extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(icon, color: Theme.of(context).colorScheme.primary),
-          const Spacer(),
+          const SizedBox(height: 12),
           Text(value, style: Theme.of(context).textTheme.headlineSmall),
           Text(label, style: Theme.of(context).textTheme.bodySmall),
         ],

@@ -11,6 +11,11 @@ como referencia; no se repiten las funciones ya implementadas.
 
 ## Estado actual
 
+Prioridad acordada el 12 de septiembre: cerrar el módulo del profesor **P1–P5
+antes de D3**. P1 tiene correcciones locales de métricas/navegación; sigue P2.
+Ver [PROFESOR_P1.md](PROFESOR_P1.md) y el punto de reanudación del listado
+consolidado. No se da por probado en Render ni por terminado el ensayo editorial.
+
 Revisión complementaria del 9 de septiembre de 2026:
 [auditoría de seguridad, persistencia y UX](AUDITORIA_PROYECTO_2026-09-09.md)
 y [resumen funcional para el equipo](FUNCIONALIDADES_PARA_EL_EQUIPO.md).

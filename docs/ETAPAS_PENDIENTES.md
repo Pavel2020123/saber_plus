@@ -23,11 +23,29 @@ No son trece etapas originales nuevas. La comparación con el listado anterior
 
 ## Punto de reanudación — leer primero al volver a trabajar
 
-Pausa documentada el 12 de septiembre de 2026. **La siguiente tarea es
-7F-C3-D3: conectar el panel administrativo al backend real y comprobar la
-persistencia en Supabase. Está pendiente, no terminada.** Ya estaba incluida
-como ensayo editorial real; se amplía aquí para poder retomarla sin el chat.
-No se añade otro bloque ni se cambia el orden de los 13 bloques restantes.
+Orden actualizado por decisión del usuario el 12 de septiembre de 2026:
+**primero completar el módulo del profesor (P1–P5), después retomar 7F-C3-D3**.
+P1 tiene correcciones locales; **la siguiente implementación es P2**, seguimiento
+por estudiante, área, tema y subtema. D3 sigue pendiente, no cancelada ni terminada.
+Los 13 bloques se conservan como inventario; el cierre docente se detalla como
+subetapas previas para no ocultar sus carencias dentro de una prueba integral.
+Guía de entrega y pruebas: [PROFESOR_P1.md](PROFESOR_P1.md).
+
+### Cierre del módulo profesor — antes de D3
+
+| Subetapa | Alcance y criterio de cierre | Estado |
+| --- | --- | --- |
+| P1 | Corregir cálculo del avance publicado sin borrar historial, textos, ausencia de resultados y accesos rápidos. Verificar tamaños pequeños/texto ampliado. | Implementación local; ver pruebas y límites en PROFESOR_P1.md. |
+| P2 | Ficha del estudiante y desglose área → tema → subtema con aciertos, errores, cantidad de evidencia y fecha. Distinguir falta de evidencia de una falencia; reutilizar diagnóstico/repaso existentes y comprobar permisos de grupo en servidor. | Siguiente implementación. |
+| P3 | Profesor selecciona temas para sus grupos; el estudiante ve la prioridad y el docente consulta cumplimiento. Definir vigencia, retiro y evidencia de cumplimiento. No confundir prioridades automáticas por área con asignaciones docentes. | Pendiente. |
+| P4 | Sincronizar tiempo estudiado y mostrar evolución por fechas. Definir qué actividades cuentan, evitar duplicados y distinguir tiempo registrado de tener la app abierta. Reutilizar el contador local existente. | Pendiente; coordinar con contratos académicos del bloque 8. |
+| P5 | Ensayo profesor → grupo → estudiante, roles y aislamiento, sesión vencida, reintentos y reconexión. Cuentas y contenido de ensayo autorizados; despliegue y pruebas en dispositivos. | Pendiente; coordinar con bloques 6 y 7. |
+
+No se cambian los límites comerciales ni se agregan tutores/chat. No rehacer
+instituciones, grupos, invitaciones, analítica básica, alertas o exportaciones ya
+implementadas. P2–P4 requieren extender sus contratos, no solo crear pantallas.
+Se puede avanzar con pruebas controladas antes de D3, pero cualquier comprobación
+que necesite publicación/configuración real debe quedar abierta hasta realizarla.
 
 ### Repositorios y contexto que se deben conservar
 
@@ -45,7 +63,7 @@ No se añade otro bloque ni se cambia el orden de los 13 bloques restantes.
 - No reiniciar etapas implementadas. Revisar el estado actual de ambos repositorios
   y preservar cualquier cambio del usuario antes de modificar archivos.
 
-### Información que se debe pedir al retomar
+### Información que se debe pedir al retomar D3 (después de P1–P5)
 
 1. URL actual y exacta del servicio Render; no deducirla del nombre del servicio.
 2. Confirmar si existe una cuenta **ADMIN de SaberPlus**, no de profesor.
@@ -58,16 +76,15 @@ No se añade otro bloque ni se cambia el orden de los 13 bloques restantes.
 
 ### Instrucción lista para copiar en una nueva sesión
 
-> Lee `docs/ETAPAS_PENDIENTES.md` completo y `docs/ADMIN_PANEL.md` en el proyecto
-> Flutter. Retoma el punto de reanudación 7F-C3-D3: conectar el panel administrativo
-> del repositorio SaberPlus-Backend al backend real en Render y verificar que
-> guarde en Supabase. Revisa también las guías de `admin/` y `backend/` antes de
-> configurar la conexión. No rehagas etapas anteriores ni asumas que lo local
-> está desplegado. Pídeme la URL actual de Render y confirma si tengo cuenta ADMIN,
-> sin solicitar contraseñas. Conserva mis cambios y prepara las operaciones reales
-> con entorno y autorización confirmados. Al terminar actualiza este documento
-> con lo probado, lo pendiente, la siguiente etapa y los comandos de commit con
-> sus rutas. No hagas commits ni despliegues automáticamente.
+> Lee `docs/ETAPAS_PENDIENTES.md` completo y `docs/PROFESOR_P1.md`. Retoma primero
+> el módulo del profesor: P1 tiene una entrega local y sigue P2, después P3, P4 y
+> P5. Verifica el estado actual antes de programar. D3, conectar el panel al backend
+> real, se hace después y no debe perderse. No rehagas funciones existentes ni
+> asumas que lo local está desplegado. Conserva mis cambios, no pidas contraseñas
+> y confirma el entorno y la autorización para cualquier operación real. Al
+> terminar actualiza este documento con lo probado, lo pendiente, la siguiente
+> etapa y los comandos de commit con sus rutas. No hagas commits ni despliegues
+> automáticamente.
 
 ## 1. 7F-C3-D2 — Legado y unificación editorial
 

@@ -8,7 +8,7 @@ La etapa 7D aplica en el backend los límites del espacio institucional gratuito
 | --- | ---: | ---: |
 | Grupos | 1 | 5 |
 | Estudiantes institucionales | 40 | 200 |
-| Analítica | Básica y agregada | Detallada, en una etapa posterior |
+| Analítica | Básica y agregada | Detallada por estudiante (7E) |
 | Publicidad | Moderada | Sin anuncios |
 
 `Institucion.limiteGrupos` y `Institucion.limiteEstudiantes` permiten que el backend cambie un límite concreto sin publicar otra versión móvil. Una migración inicializa las instituciones gratuitas con un grupo y las demás con cinco.
@@ -17,14 +17,18 @@ El cupo estudiantil cuenta todas las cuentas `ESTUDIANTE` vinculadas a la instit
 
 ## Indicadores básicos
 
-`GET /instituciones/me/analiticas-basicas` devuelve los últimos treinta días:
+`GET /instituciones/me/analiticas-basicas` entrega indicadores agregados:
 
-- estudiantes vinculados y estudiantes con actividad;
-- simulacros completados;
-- promedio de puntaje sobre 100;
-- avance promedio de subtemas;
-- última fecha de actividad;
+- estudiantes vinculados a los grupos autorizados y aquellos con actividad en los últimos 30 días;
+- simulacros completados en los últimos 30 días;
+- promedio de puntaje sobre 100 en ese período;
+- avance acumulado sobre subtemas publicados cuyo tema también esté publicado;
+- última fecha de resultados o lecciones registrada en ese período;
 - el mismo resumen por cada grupo autorizado.
+
+P1 corrige localmente el avance y aclara la actividad, sin borrar historial.
+La ausencia de resultados no se presenta como nota cero. No mide todo el uso
+de la app ni el tiempo sin sincronizar. Ver [PROFESOR_P1.md](PROFESOR_P1.md).
 
 Un profesor recibe únicamente sus grupos asignados. Propietarios y administradores reciben los grupos de la institución. El contrato no incluye nombres, correos, identificadores de estudiantes ni listas individuales. Flutter también rechaza una respuesta básica que contenga campos de identidad.
 

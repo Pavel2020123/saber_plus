@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/network/api_error.dart';
 import '../domain/teacher_basic_analytics_models.dart';
 import 'teacher_basic_analytics_providers.dart';
+import 'teacher_metrics_layout.dart';
 
 class TeacherBasicAnalyticsPage extends ConsumerWidget {
   const TeacherBasicAnalyticsPage({super.key});
@@ -101,6 +102,10 @@ class _AnalyticsHeader extends StatelessWidget {
           Text(
             'Actualizado ${_dateTime(analytics.generatedAt)}. Los resultados muestran tendencias agregadas, no calificaciones oficiales.',
           ),
+          const SizedBox(height: 8),
+          const Text(
+            'Actividad: resultados y lecciones registrados en el servidor, no todo el uso de la app. El avance es acumulado sobre subtemas publicados, no solo de estos días.',
+          ),
         ],
       ),
     ),
@@ -113,13 +118,7 @@ class _MetricsGrid extends StatelessWidget {
   final BasicAnalyticsMetrics metrics;
 
   @override
-  Widget build(BuildContext context) => GridView.count(
-    crossAxisCount: 2,
-    shrinkWrap: true,
-    physics: const NeverScrollableScrollPhysics(),
-    mainAxisSpacing: 10,
-    crossAxisSpacing: 10,
-    childAspectRatio: 1.28,
+  Widget build(BuildContext context) => TeacherMetricsLayout(
     children: [
       _MetricCard(
         icon: Icons.people_outline_rounded,
@@ -138,7 +137,9 @@ class _MetricsGrid extends StatelessWidget {
       ),
       _MetricCard(
         icon: Icons.track_changes_outlined,
-        value: _decimal(metrics.averageScore),
+        value: metrics.totalSimulations == 0
+            ? 'Sin datos'
+            : _decimal(metrics.averageScore),
         label: 'Promedio / 100',
       ),
       _MetricCard(
@@ -151,7 +152,7 @@ class _MetricsGrid extends StatelessWidget {
         value: metrics.lastActivity == null
             ? 'Sin datos'
             : _shortDate(metrics.lastActivity!),
-        label: 'Última actividad',
+        label: 'Último registro',
       ),
     ],
   );
@@ -205,9 +206,11 @@ class _PlanCard extends StatelessWidget {
             children: [
               const Icon(Icons.workspace_premium_outlined),
               const SizedBox(width: 8),
-              Text(
-                'Plan ${plan.name.toLowerCase()}',
-                style: Theme.of(context).textTheme.titleMedium,
+              Expanded(
+                child: Text(
+                  'Plan ${plan.name.toLowerCase()}',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
               ),
             ],
           ),
@@ -265,7 +268,13 @@ class _GroupAnalyticsCard extends StatelessWidget {
               Chip(label: Text('${group.totalStudents} estudiantes')),
               Chip(label: Text('${group.activeStudents} activos')),
               Chip(label: Text('${group.totalSimulations} simulacros')),
-              Chip(label: Text('${_decimal(group.averageScore)} promedio')),
+              Chip(
+                label: Text(
+                  group.totalSimulations == 0
+                      ? 'Sin resultados en el período'
+                      : '${_decimal(group.averageScore)} promedio',
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 12),

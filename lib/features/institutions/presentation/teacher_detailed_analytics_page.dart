@@ -6,6 +6,7 @@ import '../../../core/network/api_error.dart';
 import '../domain/teacher_detailed_analytics_models.dart';
 import '../domain/teacher_detailed_analytics_repository.dart';
 import 'teacher_detailed_analytics_providers.dart';
+import 'teacher_metrics_layout.dart';
 
 class TeacherDetailedAnalyticsPage extends ConsumerStatefulWidget {
   const TeacherDetailedAnalyticsPage({super.key});
@@ -70,6 +71,7 @@ class _TeacherDetailedAnalyticsPageState
             ),
           ],
           bottom: const TabBar(
+            isScrollable: true,
             tabs: [
               Tab(icon: Icon(Icons.query_stats_rounded), text: 'Resumen'),
               Tab(icon: Icon(Icons.warning_amber_rounded), text: 'Alertas'),
@@ -187,13 +189,15 @@ class _SummaryTab extends StatelessWidget {
         ),
       ),
       const SizedBox(height: 12),
-      GridView.count(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        crossAxisCount: 2,
-        mainAxisSpacing: 10,
-        crossAxisSpacing: 10,
-        childAspectRatio: 1.25,
+      Text(
+        'Actualizado ${_date(analytics.generatedAt)}. Resumen acumulado, no limitado a los últimos 30 días.',
+      ),
+      const SizedBox(height: 8),
+      const Text(
+        'El avance corresponde al catálogo publicado actual. Las prioridades son orientativas por área; no son tareas asignadas por el profesor.',
+      ),
+      const SizedBox(height: 12),
+      TeacherMetricsLayout(
         children: [
           _Metric(
             icon: Icons.people_outline_rounded,
@@ -207,7 +211,9 @@ class _SummaryTab extends StatelessWidget {
           ),
           _Metric(
             icon: Icons.track_changes_outlined,
-            value: _decimal(analytics.summary.averageScore),
+            value: analytics.summary.totalSimulations == 0
+                ? 'Sin datos'
+                : _decimal(analytics.summary.averageScore),
             label: 'Promedio / 100',
           ),
           _Metric(
@@ -308,7 +314,9 @@ class _AlertsTab extends StatelessWidget {
               children: [
                 Text(alert.email),
                 const SizedBox(height: 4),
-                Text('${alert.daysInactive} día(s) sin actividad.'),
+                Text(
+                  '${alert.daysInactive} día(s) sin registro académico remoto.',
+                ),
                 if (alert.priorityAreaLabel case final area?)
                   Text('Prioridad sugerida: $area.'),
                 const Divider(height: 20),
@@ -352,12 +360,18 @@ class _StudentsTab extends StatelessWidget {
             ),
             title: Text(student.name),
             subtitle: Text(
-              '${student.groups.join(', ')} · promedio ${_decimal(student.averageScore)}',
+              '${student.groups.isEmpty ? 'Sin grupo asignado' : student.groups.join(', ')} · ${student.totalSimulations == 0 ? 'Sin resultados' : 'promedio ${_decimal(student.averageScore)}'}',
             ),
             childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
             expandedCrossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(student.email),
+              const SizedBox(height: 8),
+              Text(
+                student.lastActivity == null
+                    ? 'Sin registros de resultados o lecciones.'
+                    : 'Último registro de resultados o lecciones: ${_date(student.lastActivity!)}.',
+              ),
               const SizedBox(height: 8),
               Wrap(
                 spacing: 8,
