@@ -355,6 +355,11 @@ void main() {
       300,
       scrollable: find.byType(Scrollable).last,
     );
+    await Scrollable.ensureVisible(
+      tester.element(find.byKey(const Key('open-memory-match'))),
+      alignment: 0.5,
+    );
+    await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('open-memory-match')));
     await tester.pumpAndSettle();
 
@@ -469,6 +474,11 @@ void main() {
       200,
       scrollable: find.byType(Scrollable).last,
     );
+    await Scrollable.ensureVisible(
+      tester.element(find.byKey(const Key('open-time-trial'))),
+      alignment: 0.5,
+    );
+    await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('open-time-trial')));
     await tester.pumpAndSettle();
 

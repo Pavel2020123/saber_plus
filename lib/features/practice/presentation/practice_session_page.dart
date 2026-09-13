@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:dio/dio.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,6 +14,7 @@ import '../../../core/widgets/animated_streak_flame.dart';
 import '../../../core/wellbeing/study_break_reminder.dart';
 import '../../academic/domain/academic_models.dart';
 import '../../auth/presentation/session_controller.dart';
+import '../../institutions/presentation/teacher_priority_providers.dart';
 import '../../difficult_questions/data/drift_difficult_question_repository.dart';
 import '../../difficult_questions/domain/difficult_question_models.dart';
 import '../../difficult_questions/presentation/difficult_question_providers.dart';
@@ -32,6 +34,7 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
     super.key,
     required this.area,
     required this.subtopicId,
+    this.priorityId,
   }) : randomConfig = null,
        isSimulation = false,
        adaptiveQuestionCount = null,
@@ -41,7 +44,8 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
        timeTrialConfig = null;
 
   const PracticeSessionPage.random({super.key, required this.randomConfig})
-    : area = null,
+    : priorityId = null,
+      area = null,
       subtopicId = null,
       isSimulation = false,
       adaptiveQuestionCount = null,
@@ -51,7 +55,8 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
       timeTrialConfig = null;
 
   const PracticeSessionPage.simulation({super.key, required this.area})
-    : subtopicId = null,
+    : priorityId = null,
+      subtopicId = null,
       randomConfig = null,
       isSimulation = true,
       adaptiveQuestionCount = null,
@@ -61,7 +66,8 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
       timeTrialConfig = null;
 
   const PracticeSessionPage.adaptive({super.key, required int questionCount})
-    : area = null,
+    : priorityId = null,
+      area = null,
       subtopicId = null,
       randomConfig = null,
       isSimulation = false,
@@ -72,7 +78,8 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
       timeTrialConfig = null;
 
   const PracticeSessionPage.official({super.key, required this.officialBlock})
-    : area = null,
+    : priorityId = null,
+      area = null,
       subtopicId = null,
       randomConfig = null,
       isSimulation = false,
@@ -85,7 +92,8 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
     super.key,
     required this.historicalEditionId,
     required this.historicalBlock,
-  }) : area = null,
+  }) : priorityId = null,
+       area = null,
        subtopicId = null,
        randomConfig = null,
        isSimulation = false,
@@ -96,7 +104,8 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
   const PracticeSessionPage.timeTrial({
     super.key,
     required this.timeTrialConfig,
-  }) : area = null,
+  }) : priorityId = null,
+       area = null,
        subtopicId = null,
        randomConfig = null,
        isSimulation = false,
@@ -106,6 +115,7 @@ class PracticeSessionPage extends ConsumerStatefulWidget {
        historicalBlock = null;
 
   final AcademicArea? area;
+  final String? priorityId;
   final String? subtopicId;
   final RandomPracticeConfig? randomConfig;
   final bool isSimulation;
@@ -134,6 +144,8 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
   DateTime? _questionEnteredAt;
   DateTime? _sessionStartedAt;
   DateTime? _expiresAt;
+  DateTime? _priorityExpiry;
+  CancelToken? _priorityLoadCancel;
   Timer? _clock;
   var _focusLossCount = 0;
   var _outsideApp = false;
@@ -149,6 +161,7 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
   bool get _tracksIntegrity => _isOfficial || _isHistorical;
   bool get _usesRandomEndpoint => _isRandom || _isOfficial || _isTimeTrial;
   bool get _isSubtopic =>
+      widget.priorityId == null &&
       !_isRandom &&
       !_isSimulation &&
       !_isAdaptive &&
@@ -186,6 +199,7 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
 
   @override
   void dispose() {
+    _priorityLoadCancel?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     _clock?.cancel();
     super.dispose();
@@ -217,6 +231,8 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
   }
 
   Future<void> _loadPractice() async {
+    _priorityLoadCancel?.cancel();
+    _priorityExpiry = null;
     _clock?.cancel();
     setState(() {
       _loading = true;
@@ -235,7 +251,7 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
     try {
       final userId = _userId;
       final store = ref.read(practiceDraftStoreProvider);
-      if (userId != null) {
+      if (userId != null && widget.priorityId == null) {
         final draft = await store.read(userId, _draftId);
         if (draft != null && _canRestore(draft)) {
           if (!mounted) return;
@@ -258,7 +274,7 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
                     .startAdaptiveSession(widget.adaptiveQuestionCount!))
                 .session
           : await _startRegularPractice();
-      if (!mounted) return;
+      if (!mounted || userId != _userId) return;
       final now = _now;
       setState(() {
         _session = session;
@@ -267,11 +283,13 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
         _questionEnteredAt = now;
         // Los intentos comunes reservan cinco minutos frente al límite de API.
         // El contrarreloj conserva su límite estricto aunque la app se cierre.
-        _expiresAt = now.add(
-          Duration(
-            minutes: _isTimeTrial ? widget.timeTrialConfig!.minutes : 115,
-          ),
-        );
+        _expiresAt =
+            _priorityExpiry ??
+            now.add(
+              Duration(
+                minutes: _isTimeTrial ? widget.timeTrialConfig!.minutes : 115,
+              ),
+            );
       });
       await _persistDraft();
       _startClock();
@@ -284,7 +302,16 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
     }
   }
 
-  Future<PracticeSession> _startRegularPractice() {
+  Future<PracticeSession> _startRegularPractice() async {
+    if (widget.priorityId case final priorityId?) {
+      final cancel = CancelToken();
+      _priorityLoadCancel = cancel;
+      final practice = await ref
+          .read(teacherPriorityRepositoryProvider)
+          .startPractice(priorityId, widget.area!, cancelToken: cancel);
+      _priorityExpiry = practice.expiresAt;
+      return practice.session;
+    }
     if (_isHistorical) {
       return ref
           .read(historicalSimulationRepositoryProvider)
@@ -440,6 +467,8 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
   }
 
   Future<void> _persistDraft() async {
+    // Una prioridad puede retirarse en remoto. No restaurar su contenido desde disco.
+    if (widget.priorityId != null) return;
     final userId = _userId;
     final session = _session;
     final startedAt = _sessionStartedAt;
@@ -470,6 +499,7 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
   }
 
   Future<void> _clearDraft() async {
+    if (widget.priorityId != null) return;
     final userId = _userId;
     if (userId == null) return;
     await ref.read(practiceDraftStoreProvider).clear(userId, _draftId);
@@ -574,6 +604,7 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
 
   Future<void> _submit() async {
     final session = _session!;
+    final ownerId = _userId;
     _recordCurrentTime();
     setState(() => _submitting = true);
     final answers = session.questions
@@ -595,11 +626,11 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
                     ))
                 .result
           : await _gradeRegularPractice(session, answers);
-      if (!mounted) return;
+      if (!mounted || ownerId != _userId) return;
       _clock?.cancel();
       unawaited(_recordStudyTime(session, answers));
       await _clearDraft();
-      if (!mounted) return;
+      if (!mounted || ownerId != _userId) return;
       setState(() {
         _result = result;
         _submitting = false;
@@ -617,8 +648,9 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
         unawaited(_syncProgress(result.summary.percentage.round()));
       }
       if (_isAdaptive) ref.invalidate(adaptiveProfileProvider);
+      if (widget.priorityId != null) ref.invalidate(teacherPriorityProvider);
     } on Object catch (error) {
-      if (!mounted) return;
+      if (!mounted || ownerId != _userId) return;
       final uncertain =
           error is ApiError &&
           const {
@@ -660,6 +692,11 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
     PracticeSession session,
     List<PracticeAnswer> answers,
   ) {
+    if (widget.priorityId case final priorityId?) {
+      return ref
+          .read(teacherPriorityRepositoryProvider)
+          .gradePractice(priorityId, session, answers);
+    }
     if (_isHistorical) {
       return ref
           .read(historicalSimulationRepositoryProvider)
@@ -737,12 +774,33 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
 
   @override
   Widget build(BuildContext context) {
+    if (widget.priorityId != null) {
+      ref.listen(
+        sessionControllerProvider.select((s) => (s.user?.id, s.user?.role)),
+        (_, _) {
+          _priorityLoadCancel?.cancel();
+          _clock?.cancel();
+          setState(() {
+            _session = null;
+            _result = null;
+            _loading = false;
+            _loadError = const ApiError(
+              code: 'priority_session_changed',
+              message:
+                  'La sesión cambió. Regresa a tus prioridades para continuar.',
+            );
+          });
+        },
+      );
+    }
     final result = _result;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           result == null
-              ? _isTimeTrial
+              ? widget.priorityId != null
+                    ? 'Práctica de tu prioridad'
+                    : _isTimeTrial
                     ? 'Prueba contrarreloj'
                     : _isHistorical
                     ? 'Edición histórica · ${widget.historicalBlock!.label}'
@@ -796,9 +854,12 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
             result: value,
             session: session,
             focusLossCount: _tracksIntegrity ? _focusLossCount : 0,
+            isPriority: widget.priorityId != null,
             onRetry: _loadPractice,
             onExit: () => context.pop(),
-            exitLabel: _isHistorical
+            exitLabel: widget.priorityId != null
+                ? 'Volver a prioridades'
+                : _isHistorical
                 ? 'Volver a la edición'
                 : _isOfficial
                 ? 'Volver a las jornadas'
@@ -1114,6 +1175,7 @@ class _PracticeResultView extends StatelessWidget {
     required this.onExit,
     required this.exitLabel,
     this.focusLossCount = 0,
+    this.isPriority = false,
   });
 
   final PracticeResult result;
@@ -1122,6 +1184,7 @@ class _PracticeResultView extends StatelessWidget {
   final VoidCallback onExit;
   final String exitLabel;
   final int focusLossCount;
+  final bool isPriority;
 
   @override
   Widget build(BuildContext context) {
@@ -1188,11 +1251,16 @@ class _PracticeResultView extends StatelessWidget {
           const SizedBox(height: 10),
         ],
         const SizedBox(height: 10),
-        FilledButton.icon(
-          onPressed: onRetry,
-          icon: const Icon(Icons.replay_rounded),
-          label: const Text('Practicar de nuevo'),
-        ),
+        if (isPriority)
+          const Text(
+            'La práctica no acredita dominio del tema. Vuelve al listado para consultar el cumplimiento vigente.',
+          ),
+        if (!isPriority)
+          FilledButton.icon(
+            onPressed: onRetry,
+            icon: const Icon(Icons.replay_rounded),
+            label: const Text('Practicar de nuevo'),
+          ),
         const SizedBox(height: 8),
         TextButton(onPressed: onExit, child: Text(exitLabel)),
       ],

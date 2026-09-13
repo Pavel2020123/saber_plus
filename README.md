@@ -27,9 +27,9 @@ para iniciar una nueva sesión sin depender del historial del chat. D3 sigue
 pendiente para después del profesor; Render ya tuvo su despliegue inicial y no
 hay que rehacerlo desde cero. P1 y P2 tienen entregas locales documentadas en
 [PROFESOR_P1.md](docs/PROFESOR_P1.md) y [PROFESOR_P2.md](docs/PROFESOR_P2.md);
-P3-A ya tiene la base de prioridades en backend, probada localmente. **Sigue P3-B:
-pantallas y práctica dirigida**, documentada en [PROFESOR_P3_A.md](docs/PROFESOR_P3_A.md).
-P3 completa, migración real y despliegue siguen pendientes.
+P3-A y P3-B completan localmente las prioridades docentes, pantallas y práctica
+dirigida: [PROFESOR_P3_B.md](docs/PROFESOR_P3_B.md). **Sigue P4: tiempo estudiado
+y evolución**. Migración real, despliegue y pruebas con teléfonos siguen pendientes.
 
 ## Ejecutar la etapa actual
 

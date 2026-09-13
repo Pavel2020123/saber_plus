@@ -14,9 +14,10 @@ como referencia; no se repiten las funciones ya implementadas.
 Prioridad acordada el 12 de septiembre: cerrar el módulo del profesor **P1–P5
 antes de D3**. P1 corrige métricas/navegación y P2 añade la ficha de evidencia
 por estudiante/tema/subtema. P3-A añade persistencia y API de prioridades con
-pruebas en PostgreSQL temporal. **Sigue P3-B: pantallas y práctica dirigida**;
-P3 completa no está cerrada ni su migración desplegada.
-Ver [PROFESOR_P3_A.md](PROFESOR_P3_A.md) y el punto de reanudación del listado
+pruebas en PostgreSQL temporal. P3-B integra pantallas y práctica dirigida.
+**Sigue P4: tiempo estudiado y evolución**. P3 está implementada localmente;
+su migración/despliegue y el ensayo real P5 siguen pendientes.
+Ver [PROFESOR_P3_B.md](PROFESOR_P3_B.md) y el punto de reanudación del listado
 consolidado. No se da por probado en Render ni por terminado el ensayo editorial.
 
 Revisión complementaria del 9 de septiembre de 2026:

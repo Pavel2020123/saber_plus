@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/network/api_error.dart';
 import '../domain/institution_group_models.dart';
@@ -362,6 +363,16 @@ class _GroupCard extends StatelessWidget {
               ],
             ),
             const Divider(height: 26),
+            OutlinedButton.icon(
+              key: Key('group-priorities-${group.id}'),
+              onPressed: working
+                  ? null
+                  : () => context.push(
+                      '/teacher/groups/${Uri.encodeComponent(group.id)}/priorities',
+                    ),
+              icon: const Icon(Icons.flag_outlined),
+              label: const Text('Temas priorizados y cumplimiento'),
+            ),
             Text(
               'Equipo asignado',
               style: Theme.of(context).textTheme.titleMedium,

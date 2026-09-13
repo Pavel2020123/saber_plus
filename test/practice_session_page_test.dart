@@ -1,4 +1,8 @@
 import 'dart:async';
+import 'package:dio/dio.dart';
+import 'package:saber_plus/features/institutions/data/demo_teacher_priority_repository.dart';
+import 'package:saber_plus/features/institutions/data/teacher_priority_repository.dart';
+import 'package:saber_plus/features/institutions/presentation/teacher_priority_providers.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -114,6 +118,54 @@ const _streakSession = PracticeSession(
 );
 
 void main() {
+  testWidgets(
+    'P3-B usa práctica dirigida sin borrador local y vuelve a prioridades',
+    (tester) async {
+      final repository = _PriorityPracticeRepository();
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            sessionControllerProvider.overrideWith(
+              _AuthenticatedSessionController.new,
+            ),
+            teacherPriorityRepositoryProvider.overrideWithValue(repository),
+            practiceDraftStoreProvider.overrideWithValue(
+              _ForbiddenPriorityDraftStore(),
+            ),
+            difficultQuestionRepositoryProvider.overrideWithValue(
+              _MemoryDifficultQuestionRepository(),
+            ),
+            studyTimeRepositoryProvider.overrideWithValue(
+              _MemoryStudyTimeRepository(),
+            ),
+          ],
+          child: const MaterialApp(
+            home: PracticeSessionPage(
+              area: AcademicArea.mathematics,
+              subtopicId: 'priority:demo-priority',
+              priorityId: 'demo-priority',
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('Práctica de tu prioridad'), findsOneWidget);
+      expect(repository.startCalls, 1);
+      await tester.tap(find.byKey(const Key('practice-answer-answer-b')));
+      await tester.pump();
+      await tester.tap(find.byKey(const Key('submit-practice-button')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('confirm-submit-practice-button')));
+      await tester.pumpAndSettle();
+      expect(repository.grader.gradeCalls, 1);
+      final back = find.text('Volver a prioridades');
+      await tester.scrollUntilVisible(back, 200);
+      await tester.pumpAndSettle();
+      expect(back, findsOneWidget);
+      expect(find.text('Volver a la lección'), findsNothing);
+      expect(find.text('Practicar de nuevo'), findsNothing);
+    },
+  );
   testWidgets('responde, califica y revela la explicación al finalizar', (
     tester,
   ) async {
@@ -416,6 +468,48 @@ void main() {
     expect(find.text('Resultado contrarreloj'), findsOneWidget);
     expect(find.byKey(const Key('practice-result-view')), findsOneWidget);
   });
+}
+
+class _PriorityPracticeRepository extends DemoTeacherPriorityRepository {
+  final grader = _FakePracticeRepository();
+  int startCalls = 0;
+  @override
+  Future<PriorityPractice> startPractice(
+    String priorityId,
+    AcademicArea area, {
+    CancelToken? cancelToken,
+  }) async {
+    startCalls++;
+    expect(priorityId, 'demo-priority');
+    return (
+      session: _practiceSession,
+      expiresAt: DateTime.now().add(const Duration(minutes: 10)),
+    );
+  }
+
+  @override
+  Future<PracticeResult> gradePractice(
+    String priorityId,
+    PracticeSession session,
+    List<PracticeAnswer> answers,
+  ) => grader.gradePractice(
+    attemptId: session.attemptId,
+    area: session.area,
+    answers: answers,
+  );
+}
+
+class _ForbiddenPriorityDraftStore extends PracticeDraftStore {
+  _ForbiddenPriorityDraftStore() : super(const FlutterSecureStorage());
+  @override
+  Future<PracticeDraft?> read(String userId, String draftId) =>
+      throw StateError('No leer prioridades de disco');
+  @override
+  Future<void> save(String userId, String draftId, PracticeDraft draft) =>
+      throw StateError('No guardar prioridades en disco');
+  @override
+  Future<void> clear(String userId, String draftId) =>
+      throw StateError('No hay borrador local de prioridad');
 }
 
 class _FakePracticeRepository implements PracticeRepository {

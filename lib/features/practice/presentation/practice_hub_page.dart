@@ -22,6 +22,17 @@ class PracticeHubPage extends StatelessWidget {
     body: ListView(
       padding: const EdgeInsets.fromLTRB(20, 12, 20, 36),
       children: [
+        Card(
+          child: ListTile(
+            key: const Key('open-teacher-priorities'),
+            leading: const Icon(Icons.flag_outlined),
+            title: const Text('Prioridades de mi profesor'),
+            subtitle: const Text('Temas de tu grupo y práctica pendiente'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => context.push('/student/practice/priorities'),
+          ),
+        ),
+        const SizedBox(height: 16),
         Text(
           'Simulacro completo',
           style: Theme.of(context).textTheme.headlineSmall,

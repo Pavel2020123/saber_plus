@@ -29,6 +29,7 @@ import '../features/institutions/presentation/student_group_join_page.dart';
 import '../features/institutions/presentation/teacher_basic_analytics_page.dart';
 import '../features/institutions/presentation/teacher_detailed_analytics_page.dart';
 import '../features/institutions/presentation/teacher_student_evidence_page.dart';
+import '../features/institutions/presentation/teacher_priorities_page.dart';
 import '../features/difficult_questions/presentation/difficult_questions_page.dart';
 import '../features/gamification/presentation/gamification_page.dart';
 import '../features/games/trivia_rush/domain/trivia_rush_models.dart';
@@ -219,6 +220,30 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 pageBuilder: (context, state) =>
                     const NoTransitionPage(child: PracticeHubPage()),
                 routes: [
+                  _animatedRoute(
+                    path: 'priorities',
+                    builder: (_, _) => const TeacherPrioritiesPage(),
+                    routes: [
+                      _animatedRoute(
+                        path: ':priorityId/play',
+                        builder: (_, state) {
+                          final slug = state.uri.queryParameters['area'];
+                          final matches = AcademicArea.values.where(
+                            (a) => a.slug == slug,
+                          );
+                          if (matches.isEmpty) {
+                            return const TeacherPrioritiesPage();
+                          }
+                          final id = state.pathParameters['priorityId']!;
+                          return PracticeSessionPage(
+                            area: matches.first,
+                            subtopicId: 'priority:$id',
+                            priorityId: id,
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                   _animatedRoute(
                     path: 'battles',
                     builder: (context, state) => const AsyncBattlesPage(),
@@ -603,6 +628,29 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           _animatedRoute(
             path: 'groups',
             builder: (context, state) => const InstitutionGroupsPage(),
+            routes: [
+              _animatedRoute(
+                path: ':groupId/priorities',
+                builder: (_, state) => TeacherPrioritiesPage(
+                  groupId: state.pathParameters['groupId']!,
+                ),
+                routes: [
+                  _animatedRoute(
+                    path: 'new',
+                    builder: (_, state) => CreateTeacherPriorityPage(
+                      groupId: state.pathParameters['groupId']!,
+                    ),
+                  ),
+                  _animatedRoute(
+                    path: ':priorityId/report',
+                    builder: (_, state) => TeacherPrioritiesPage(
+                      groupId: state.pathParameters['groupId']!,
+                      priorityId: state.pathParameters['priorityId']!,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
           _animatedRoute(
             path: 'analytics',
