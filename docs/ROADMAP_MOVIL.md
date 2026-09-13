@@ -13,8 +13,10 @@ como referencia; no se repiten las funciones ya implementadas.
 
 Prioridad acordada el 12 de septiembre: cerrar el módulo del profesor **P1–P5
 antes de D3**. P1 corrige métricas/navegación y P2 añade la ficha de evidencia
-por estudiante/tema/subtema. Ambas son entregas locales; sigue P3.
-Ver [PROFESOR_P2.md](PROFESOR_P2.md) y el punto de reanudación del listado
+por estudiante/tema/subtema. P3-A añade persistencia y API de prioridades con
+pruebas en PostgreSQL temporal. **Sigue P3-B: pantallas y práctica dirigida**;
+P3 completa no está cerrada ni su migración desplegada.
+Ver [PROFESOR_P3_A.md](PROFESOR_P3_A.md) y el punto de reanudación del listado
 consolidado. No se da por probado en Render ni por terminado el ensayo editorial.
 
 Revisión complementaria del 9 de septiembre de 2026:
@@ -162,7 +164,7 @@ las etapas 7F-C de contenido ni las de comercio/publicación.
 - [x] Propietario, administradores y profesores con invitaciones por correo, permisos auditables y transferencia segura de propiedad (7B).
 - [x] Grupos asignados por profesor, códigos temporales con hash, vencimiento y cupo, vista previa y aceptación explícita del estudiante (7C).
 - [x] Profesor gratuito con un grupo, hasta 40 estudiantes, analítica básica agregada y frontera de publicidad moderada sin SDK activo (7D).
-- [x] Profesor con plan sin anuncios: hasta cinco grupos y 200 estudiantes, analítica detallada por alcance autorizado, alertas, prioridades y exportaciones CSV/PDF auditadas (7E).
+- [x] Profesor con plan sin anuncios: hasta cinco grupos y 200 estudiantes, analítica detallada por alcance autorizado, alertas, prioridades automáticas por área y exportaciones CSV/PDF auditadas (7E). Las asignaciones elegidas por el profesor se completan en P3-A/P3-B; no dar P3 por cerrada con las sugerencias automáticas.
 - No se ofrecerán tutores, chat de asesoría ni explicaciones personales de preguntas.
 - Importaciones y operaciones masivas permanecen en web/tablet.
 

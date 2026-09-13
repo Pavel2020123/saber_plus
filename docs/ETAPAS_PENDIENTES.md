@@ -1,6 +1,6 @@
 # SaberPlus — trabajo pendiente tras verificación local 7F-C3-D2-F
 
-Actualizado: 12 de septiembre de 2026. Listado para compartir con el equipo.
+Actualizado: 13 de septiembre de 2026. Listado para compartir con el equipo.
 
 Retiro de ePayco/Wompi implementado localmente en el backend: las rutas antiguas
 responden 410 sin procesar pagos; se conserva el historial. Falta desplegarlo y
@@ -25,12 +25,13 @@ No son trece etapas originales nuevas. La comparación con el listado anterior
 
 Orden actualizado por decisión del usuario el 12 de septiembre de 2026:
 **primero completar el módulo del profesor (P1–P5), después retomar 7F-C3-D3**.
-P1 y P2 tienen entregas locales; **la siguiente implementación es P3**, prioridades
-elegidas por el profesor para sus grupos. D3 sigue pendiente, no cancelada ni terminada.
+P1, P2 y **P3-A (backend de prioridades)** tienen entregas locales. **Sigue P3-B**:
+pantallas y práctica dirigida para profesor/estudiante. P3 completa aún no está cerrada.
+D3 sigue pendiente, no cancelada ni terminada.
 Los 13 bloques se conservan como inventario; el cierre docente se detalla como
 subetapas previas para no ocultar sus carencias dentro de una prueba integral.
 Guías de entrega y pruebas: [PROFESOR_P1.md](PROFESOR_P1.md) y
-[PROFESOR_P2.md](PROFESOR_P2.md).
+[PROFESOR_P2.md](PROFESOR_P2.md) y [PROFESOR_P3_A.md](PROFESOR_P3_A.md).
 
 ### Cierre del módulo profesor — antes de D3
 
@@ -38,7 +39,8 @@ Guías de entrega y pruebas: [PROFESOR_P1.md](PROFESOR_P1.md) y
 | --- | --- | --- |
 | P1 | Corregir cálculo del avance publicado sin borrar historial, textos, ausencia de resultados y accesos rápidos. Verificar tamaños pequeños/texto ampliado. | Implementación local; ver pruebas y límites en PROFESOR_P1.md. |
 | P2 | Ficha del estudiante y desglose área → tema → subtema con aciertos, errores, cantidad de evidencia y fecha. Reutiliza reglas del diagnóstico y autorización por grupo/plan, sin exponer respuestas. | Implementación local; falta ensayo real P5. Ver PROFESOR_P2.md. |
-| P3 | Profesor selecciona temas para sus grupos; el estudiante ve la prioridad y el docente consulta cumplimiento. Definir vigencia, retiro y evidencia de cumplimiento. No confundir prioridades automáticas por área con asignaciones docentes. | Siguiente implementación. |
+| P3-A | Persistencia y API de prioridades docentes: selección publicada, plazo/retiro, cinco preguntas únicas, idempotencia, permisos, reportes y migración. No confundir práctica con dominio. | Implementación local: 724 pruebas Jest y 11 PostgreSQL temporal; falta migración/despliegue real. Ver PROFESOR_P3_A.md. |
+| P3-B | Profesor selecciona desde sus grupos; alumno ve prioridad y practica el snapshot autorizado; docente consulta cumplimiento. Repositorios remoto/demo, sesión, reintentos, estados y accesibilidad. | Siguiente implementación. Requiere integrar Flutter y extender el inicio de práctica; P3 no está completa con solo la API. |
 | P4 | Sincronizar tiempo estudiado y mostrar evolución por fechas. Definir qué actividades cuentan, evitar duplicados y distinguir tiempo registrado de tener la app abierta. Reutilizar el contador local existente. | Pendiente; coordinar con contratos académicos del bloque 8. |
 | P5 | Ensayo profesor → grupo → estudiante, roles y aislamiento, sesión vencida, reintentos y reconexión. Cuentas y contenido de ensayo autorizados; despliegue y pruebas en dispositivos. | Pendiente; coordinar con bloques 6 y 7. |
 
@@ -77,8 +79,8 @@ que necesite publicación/configuración real debe quedar abierta hasta realizar
 
 ### Instrucción lista para copiar en una nueva sesión
 
-> Lee `docs/ETAPAS_PENDIENTES.md` completo y `docs/PROFESOR_P2.md`. Retoma primero
-> el módulo del profesor: P1 y P2 tienen entregas locales y sigue P3, después P4 y
+> Lee `docs/ETAPAS_PENDIENTES.md` completo y `docs/PROFESOR_P3_A.md`. Retoma primero
+> el módulo del profesor: P1, P2 y P3-A tienen entregas locales; sigue P3-B, después P4 y
 > P5. Verifica el estado actual antes de programar. D3, conectar el panel al backend
 > real, se hace después y no debe perderse. No rehagas funciones existentes ni
 > asumas que lo local está desplegado. Conserva mis cambios, no pidas contraseñas
