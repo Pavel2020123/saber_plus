@@ -15,9 +15,10 @@ Prioridad acordada el 12 de septiembre: cerrar el módulo del profesor **P1–P5
 antes de D3**. P1 corrige métricas/navegación y P2 añade la ficha de evidencia
 por estudiante/tema/subtema. P3-A añade persistencia y API de prioridades con
 pruebas en PostgreSQL temporal. P3-B integra pantallas y práctica dirigida.
-**Sigue P4: tiempo estudiado y evolución**. P3 está implementada localmente;
-su migración/despliegue y el ensayo real P5 siguen pendientes.
-Ver [PROFESOR_P3_B.md](PROFESOR_P3_B.md) y el punto de reanudación del listado
+P4-A prepara persistencia de Pomodoro y API de tiempo/evolución con fuentes
+separadas y permisos docentes. **Sigue P4-B: sincronización y pantallas Flutter**.
+P3 y P4-A son entregas locales; sus migraciones/despliegue y P5 siguen pendientes.
+Ver [PROFESOR_P4_A.md](PROFESOR_P4_A.md) y el punto de reanudación del listado
 consolidado. No se da por probado en Render ni por terminado el ensayo editorial.
 
 Revisión complementaria del 9 de septiembre de 2026:

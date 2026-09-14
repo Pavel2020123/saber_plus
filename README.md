@@ -28,8 +28,9 @@ pendiente para después del profesor; Render ya tuvo su despliegue inicial y no
 hay que rehacerlo desde cero. P1 y P2 tienen entregas locales documentadas en
 [PROFESOR_P1.md](docs/PROFESOR_P1.md) y [PROFESOR_P2.md](docs/PROFESOR_P2.md);
 P3-A y P3-B completan localmente las prioridades docentes, pantallas y práctica
-dirigida: [PROFESOR_P3_B.md](docs/PROFESOR_P3_B.md). **Sigue P4: tiempo estudiado
-y evolución**. Migración real, despliegue y pruebas con teléfonos siguen pendientes.
+dirigida: [PROFESOR_P3_B.md](docs/PROFESOR_P3_B.md). P4-A prepara la API de tiempo
+y evolución: [PROFESOR_P4_A.md](docs/PROFESOR_P4_A.md). **Sigue P4-B: sincronización
+y pantallas Flutter**. Migración real, despliegue y pruebas con teléfonos siguen pendientes.
 
 ## Ejecutar la etapa actual
 

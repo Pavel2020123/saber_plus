@@ -1,6 +1,6 @@
 # SaberPlus — trabajo pendiente tras verificación local 7F-C3-D2-F
 
-Actualizado: 13 de septiembre de 2026. Listado para compartir con el equipo.
+Actualizado: 14 de septiembre de 2026. Listado para compartir con el equipo.
 
 Retiro de ePayco/Wompi implementado localmente en el backend: las rutas antiguas
 responden 410 sin procesar pagos; se conserva el historial. Falta desplegarlo y
@@ -26,13 +26,14 @@ No son trece etapas originales nuevas. La comparación con el listado anterior
 Orden actualizado por decisión del usuario el 12 de septiembre de 2026:
 **primero completar el módulo del profesor (P1–P5), después retomar 7F-C3-D3**.
 P1, P2 y **P3-A/P3-B (prioridades, pantallas y práctica dirigida)** tienen entregas
-locales. **Sigue P4: tiempo estudiado y evolución**. Falta ensayo docente real P5.
+locales. **P4-A prepara API/persistencia de tiempo y evolución; sigue P4-B:
+sincronización y pantallas Flutter**. P4 no está cerrada. Falta ensayo docente real P5.
 D3 sigue pendiente, no cancelada ni terminada.
 Los 13 bloques se conservan como inventario; el cierre docente se detalla como
 subetapas previas para no ocultar sus carencias dentro de una prueba integral.
 Guías de entrega y pruebas: [PROFESOR_P1.md](PROFESOR_P1.md) y
 [PROFESOR_P2.md](PROFESOR_P2.md), [PROFESOR_P3_A.md](PROFESOR_P3_A.md) y
-[PROFESOR_P3_B.md](PROFESOR_P3_B.md).
+[PROFESOR_P3_B.md](PROFESOR_P3_B.md) y [PROFESOR_P4_A.md](PROFESOR_P4_A.md).
 
 ### Cierre del módulo profesor — antes de D3
 
@@ -42,7 +43,8 @@ Guías de entrega y pruebas: [PROFESOR_P1.md](PROFESOR_P1.md) y
 | P2 | Ficha del estudiante y desglose área → tema → subtema con aciertos, errores, cantidad de evidencia y fecha. Reutiliza reglas del diagnóstico y autorización por grupo/plan, sin exponer respuestas. | Implementación local; falta ensayo real P5. Ver PROFESOR_P2.md. |
 | P3-A | Persistencia y API de prioridades docentes: selección publicada, plazo/retiro, cinco preguntas únicas, idempotencia, permisos, reportes y migración. No confundir práctica con dominio. | Implementación local: 724 pruebas Jest y 11 PostgreSQL temporal; falta migración/despliegue real. Ver PROFESOR_P3_A.md. |
 | P3-B | Profesor selecciona desde sus grupos; alumno ve prioridad y practica el snapshot autorizado; docente consulta cumplimiento. Repositorios remoto/demo, sesión, reintentos, estados y accesibilidad. | Implementación local con pruebas Flutter/backend/PostgreSQL. Ver PROFESOR_P3_B.md. Pendientes migración P3-A, despliegue y ensayo real P5. |
-| P4 | Sincronizar tiempo estudiado y mostrar evolución por fechas. Definir qué actividades cuentan, evitar duplicados y distinguir tiempo registrado de tener la app abierta. Reutilizar el contador local existente. | Siguiente implementación; coordinar con contratos académicos del bloque 8. |
+| P4-A | Persistencia privada y API de Pomodoros idempotentes; resumen propio/docente 7/30/90 días, historial confirmado, fuentes separadas, permisos y muestra parcial. | Implementación backend local con pruebas; migración/despliegue pendientes. Ver PROFESOR_P4_A.md. |
+| P4-B | Integrar cola de Pomodoro por cuenta, confirmaciones/reintentos, resumen remoto y evolución accesible desde la ficha docente. Conservar datos locales y distinguir pendiente/demo/sin registros. | Siguiente implementación. Reutilizar contador/Drift y contrato P4-A, sin subir tiempos de evaluación por duplicado. |
 | P5 | Ensayo profesor → grupo → estudiante, roles y aislamiento, sesión vencida, reintentos y reconexión. Cuentas y contenido de ensayo autorizados; despliegue y pruebas en dispositivos. | Pendiente; coordinar con bloques 6 y 7. |
 
 No se cambian los límites comerciales ni se agregan tutores/chat. No rehacer
@@ -80,8 +82,8 @@ que necesite publicación/configuración real debe quedar abierta hasta realizar
 
 ### Instrucción lista para copiar en una nueva sesión
 
-> Lee `docs/ETAPAS_PENDIENTES.md` completo y `docs/PROFESOR_P3_B.md`. Retoma primero
-> el módulo del profesor: P1, P2 y P3-A/P3-B tienen entregas locales; sigue P4 y después
+> Lee `docs/ETAPAS_PENDIENTES.md` completo y `docs/PROFESOR_P4_A.md`. Retoma primero
+> el módulo del profesor: P1, P2, P3-A/P3-B y P4-A tienen entregas locales; sigue P4-B y después
 > P5. Verifica el estado actual antes de programar. D3, conectar el panel al backend
 > real, se hace después y no debe perderse. No rehagas funciones existentes ni
 > asumas que lo local está desplegado. Conserva mis cambios, no pidas contraseñas
