@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/network/api_error.dart';
 import '../../academic/domain/academic_models.dart';
 import '../../learning_evidence/domain/learning_evidence.dart';
@@ -74,6 +75,15 @@ class _TeacherStudentEvidencePageState
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 32),
             children: [
               _StudentHeader(data: data),
+              const SizedBox(height: 12),
+              OutlinedButton.icon(
+                key: const Key('open-student-evolution'),
+                onPressed: () => context.push(
+                  '/teacher/students/${Uri.encodeComponent(widget.studentId)}/evolution',
+                ),
+                icon: const Icon(Icons.schedule),
+                label: const Text('Ver tiempo y evolución'),
+              ),
               const SizedBox(height: 16),
               DropdownButtonFormField<AcademicArea>(
                 key: ValueKey('student-evidence-filter-${widget.studentId}'),

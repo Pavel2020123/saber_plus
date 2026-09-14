@@ -3537,6 +3537,420 @@ class StudyTimeEntriesCompanion extends UpdateCompanion<StudyTimeEntry> {
   }
 }
 
+class $PomodoroSyncEntriesTable extends PomodoroSyncEntries
+    with TableInfo<$PomodoroSyncEntriesTable, PomodoroSyncEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PomodoroSyncEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+    'user_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _eventIdMeta = const VerificationMeta(
+    'eventId',
+  );
+  @override
+  late final GeneratedColumn<String> eventId = GeneratedColumn<String>(
+    'event_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _endedAtUtcMeta = const VerificationMeta(
+    'endedAtUtc',
+  );
+  @override
+  late final GeneratedColumn<String> endedAtUtc = GeneratedColumn<String>(
+    'ended_at_utc',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+    'status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('pending'),
+  );
+  static const VerificationMeta _attemptsMeta = const VerificationMeta(
+    'attempts',
+  );
+  @override
+  late final GeneratedColumn<int> attempts = GeneratedColumn<int>(
+    'attempts',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _errorCodeMeta = const VerificationMeta(
+    'errorCode',
+  );
+  @override
+  late final GeneratedColumn<String> errorCode = GeneratedColumn<String>(
+    'error_code',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    userId,
+    eventId,
+    endedAtUtc,
+    status,
+    attempts,
+    errorCode,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'pomodoro_sync_entries';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<PomodoroSyncEntry> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('user_id')) {
+      context.handle(
+        _userIdMeta,
+        userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('event_id')) {
+      context.handle(
+        _eventIdMeta,
+        eventId.isAcceptableOrUnknown(data['event_id']!, _eventIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_eventIdMeta);
+    }
+    if (data.containsKey('ended_at_utc')) {
+      context.handle(
+        _endedAtUtcMeta,
+        endedAtUtc.isAcceptableOrUnknown(
+          data['ended_at_utc']!,
+          _endedAtUtcMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_endedAtUtcMeta);
+    }
+    if (data.containsKey('status')) {
+      context.handle(
+        _statusMeta,
+        status.isAcceptableOrUnknown(data['status']!, _statusMeta),
+      );
+    }
+    if (data.containsKey('attempts')) {
+      context.handle(
+        _attemptsMeta,
+        attempts.isAcceptableOrUnknown(data['attempts']!, _attemptsMeta),
+      );
+    }
+    if (data.containsKey('error_code')) {
+      context.handle(
+        _errorCodeMeta,
+        errorCode.isAcceptableOrUnknown(data['error_code']!, _errorCodeMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {userId, eventId};
+  @override
+  PomodoroSyncEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PomodoroSyncEntry(
+      userId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}user_id'],
+      )!,
+      eventId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}event_id'],
+      )!,
+      endedAtUtc: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}ended_at_utc'],
+      )!,
+      status: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}status'],
+      )!,
+      attempts: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}attempts'],
+      )!,
+      errorCode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}error_code'],
+      ),
+    );
+  }
+
+  @override
+  $PomodoroSyncEntriesTable createAlias(String alias) {
+    return $PomodoroSyncEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class PomodoroSyncEntry extends DataClass
+    implements Insertable<PomodoroSyncEntry> {
+  final String userId;
+  final String eventId;
+  final String endedAtUtc;
+  final String status;
+  final int attempts;
+  final String? errorCode;
+  const PomodoroSyncEntry({
+    required this.userId,
+    required this.eventId,
+    required this.endedAtUtc,
+    required this.status,
+    required this.attempts,
+    this.errorCode,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['user_id'] = Variable<String>(userId);
+    map['event_id'] = Variable<String>(eventId);
+    map['ended_at_utc'] = Variable<String>(endedAtUtc);
+    map['status'] = Variable<String>(status);
+    map['attempts'] = Variable<int>(attempts);
+    if (!nullToAbsent || errorCode != null) {
+      map['error_code'] = Variable<String>(errorCode);
+    }
+    return map;
+  }
+
+  PomodoroSyncEntriesCompanion toCompanion(bool nullToAbsent) {
+    return PomodoroSyncEntriesCompanion(
+      userId: Value(userId),
+      eventId: Value(eventId),
+      endedAtUtc: Value(endedAtUtc),
+      status: Value(status),
+      attempts: Value(attempts),
+      errorCode: errorCode == null && nullToAbsent
+          ? const Value.absent()
+          : Value(errorCode),
+    );
+  }
+
+  factory PomodoroSyncEntry.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PomodoroSyncEntry(
+      userId: serializer.fromJson<String>(json['userId']),
+      eventId: serializer.fromJson<String>(json['eventId']),
+      endedAtUtc: serializer.fromJson<String>(json['endedAtUtc']),
+      status: serializer.fromJson<String>(json['status']),
+      attempts: serializer.fromJson<int>(json['attempts']),
+      errorCode: serializer.fromJson<String?>(json['errorCode']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'userId': serializer.toJson<String>(userId),
+      'eventId': serializer.toJson<String>(eventId),
+      'endedAtUtc': serializer.toJson<String>(endedAtUtc),
+      'status': serializer.toJson<String>(status),
+      'attempts': serializer.toJson<int>(attempts),
+      'errorCode': serializer.toJson<String?>(errorCode),
+    };
+  }
+
+  PomodoroSyncEntry copyWith({
+    String? userId,
+    String? eventId,
+    String? endedAtUtc,
+    String? status,
+    int? attempts,
+    Value<String?> errorCode = const Value.absent(),
+  }) => PomodoroSyncEntry(
+    userId: userId ?? this.userId,
+    eventId: eventId ?? this.eventId,
+    endedAtUtc: endedAtUtc ?? this.endedAtUtc,
+    status: status ?? this.status,
+    attempts: attempts ?? this.attempts,
+    errorCode: errorCode.present ? errorCode.value : this.errorCode,
+  );
+  PomodoroSyncEntry copyWithCompanion(PomodoroSyncEntriesCompanion data) {
+    return PomodoroSyncEntry(
+      userId: data.userId.present ? data.userId.value : this.userId,
+      eventId: data.eventId.present ? data.eventId.value : this.eventId,
+      endedAtUtc: data.endedAtUtc.present
+          ? data.endedAtUtc.value
+          : this.endedAtUtc,
+      status: data.status.present ? data.status.value : this.status,
+      attempts: data.attempts.present ? data.attempts.value : this.attempts,
+      errorCode: data.errorCode.present ? data.errorCode.value : this.errorCode,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PomodoroSyncEntry(')
+          ..write('userId: $userId, ')
+          ..write('eventId: $eventId, ')
+          ..write('endedAtUtc: $endedAtUtc, ')
+          ..write('status: $status, ')
+          ..write('attempts: $attempts, ')
+          ..write('errorCode: $errorCode')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(userId, eventId, endedAtUtc, status, attempts, errorCode);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PomodoroSyncEntry &&
+          other.userId == this.userId &&
+          other.eventId == this.eventId &&
+          other.endedAtUtc == this.endedAtUtc &&
+          other.status == this.status &&
+          other.attempts == this.attempts &&
+          other.errorCode == this.errorCode);
+}
+
+class PomodoroSyncEntriesCompanion extends UpdateCompanion<PomodoroSyncEntry> {
+  final Value<String> userId;
+  final Value<String> eventId;
+  final Value<String> endedAtUtc;
+  final Value<String> status;
+  final Value<int> attempts;
+  final Value<String?> errorCode;
+  final Value<int> rowid;
+  const PomodoroSyncEntriesCompanion({
+    this.userId = const Value.absent(),
+    this.eventId = const Value.absent(),
+    this.endedAtUtc = const Value.absent(),
+    this.status = const Value.absent(),
+    this.attempts = const Value.absent(),
+    this.errorCode = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PomodoroSyncEntriesCompanion.insert({
+    required String userId,
+    required String eventId,
+    required String endedAtUtc,
+    this.status = const Value.absent(),
+    this.attempts = const Value.absent(),
+    this.errorCode = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : userId = Value(userId),
+       eventId = Value(eventId),
+       endedAtUtc = Value(endedAtUtc);
+  static Insertable<PomodoroSyncEntry> custom({
+    Expression<String>? userId,
+    Expression<String>? eventId,
+    Expression<String>? endedAtUtc,
+    Expression<String>? status,
+    Expression<int>? attempts,
+    Expression<String>? errorCode,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (userId != null) 'user_id': userId,
+      if (eventId != null) 'event_id': eventId,
+      if (endedAtUtc != null) 'ended_at_utc': endedAtUtc,
+      if (status != null) 'status': status,
+      if (attempts != null) 'attempts': attempts,
+      if (errorCode != null) 'error_code': errorCode,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PomodoroSyncEntriesCompanion copyWith({
+    Value<String>? userId,
+    Value<String>? eventId,
+    Value<String>? endedAtUtc,
+    Value<String>? status,
+    Value<int>? attempts,
+    Value<String?>? errorCode,
+    Value<int>? rowid,
+  }) {
+    return PomodoroSyncEntriesCompanion(
+      userId: userId ?? this.userId,
+      eventId: eventId ?? this.eventId,
+      endedAtUtc: endedAtUtc ?? this.endedAtUtc,
+      status: status ?? this.status,
+      attempts: attempts ?? this.attempts,
+      errorCode: errorCode ?? this.errorCode,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (eventId.present) {
+      map['event_id'] = Variable<String>(eventId.value);
+    }
+    if (endedAtUtc.present) {
+      map['ended_at_utc'] = Variable<String>(endedAtUtc.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    if (attempts.present) {
+      map['attempts'] = Variable<int>(attempts.value);
+    }
+    if (errorCode.present) {
+      map['error_code'] = Variable<String>(errorCode.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PomodoroSyncEntriesCompanion(')
+          ..write('userId: $userId, ')
+          ..write('eventId: $eventId, ')
+          ..write('endedAtUtc: $endedAtUtc, ')
+          ..write('status: $status, ')
+          ..write('attempts: $attempts, ')
+          ..write('errorCode: $errorCode, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -3557,6 +3971,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $StudyTimeEntriesTable studyTimeEntries = $StudyTimeEntriesTable(
     this,
   );
+  late final $PomodoroSyncEntriesTable pomodoroSyncEntries =
+      $PomodoroSyncEntriesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -3569,6 +3985,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     flashcardProgressEntries,
     difficultQuestionEntries,
     studyTimeEntries,
+    pomodoroSyncEntries,
   ];
 }
 
@@ -5445,6 +5862,243 @@ typedef $$StudyTimeEntriesTableProcessedTableManager =
       StudyTimeEntry,
       PrefetchHooks Function()
     >;
+typedef $$PomodoroSyncEntriesTableCreateCompanionBuilder =
+    PomodoroSyncEntriesCompanion Function({
+      required String userId,
+      required String eventId,
+      required String endedAtUtc,
+      Value<String> status,
+      Value<int> attempts,
+      Value<String?> errorCode,
+      Value<int> rowid,
+    });
+typedef $$PomodoroSyncEntriesTableUpdateCompanionBuilder =
+    PomodoroSyncEntriesCompanion Function({
+      Value<String> userId,
+      Value<String> eventId,
+      Value<String> endedAtUtc,
+      Value<String> status,
+      Value<int> attempts,
+      Value<String?> errorCode,
+      Value<int> rowid,
+    });
+
+class $$PomodoroSyncEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $PomodoroSyncEntriesTable> {
+  $$PomodoroSyncEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get userId => $composableBuilder(
+    column: $table.userId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get eventId => $composableBuilder(
+    column: $table.eventId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get endedAtUtc => $composableBuilder(
+    column: $table.endedAtUtc,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get attempts => $composableBuilder(
+    column: $table.attempts,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get errorCode => $composableBuilder(
+    column: $table.errorCode,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$PomodoroSyncEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $PomodoroSyncEntriesTable> {
+  $$PomodoroSyncEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get userId => $composableBuilder(
+    column: $table.userId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get eventId => $composableBuilder(
+    column: $table.eventId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get endedAtUtc => $composableBuilder(
+    column: $table.endedAtUtc,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get attempts => $composableBuilder(
+    column: $table.attempts,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get errorCode => $composableBuilder(
+    column: $table.errorCode,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$PomodoroSyncEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PomodoroSyncEntriesTable> {
+  $$PomodoroSyncEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<String> get eventId =>
+      $composableBuilder(column: $table.eventId, builder: (column) => column);
+
+  GeneratedColumn<String> get endedAtUtc => $composableBuilder(
+    column: $table.endedAtUtc,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<int> get attempts =>
+      $composableBuilder(column: $table.attempts, builder: (column) => column);
+
+  GeneratedColumn<String> get errorCode =>
+      $composableBuilder(column: $table.errorCode, builder: (column) => column);
+}
+
+class $$PomodoroSyncEntriesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $PomodoroSyncEntriesTable,
+          PomodoroSyncEntry,
+          $$PomodoroSyncEntriesTableFilterComposer,
+          $$PomodoroSyncEntriesTableOrderingComposer,
+          $$PomodoroSyncEntriesTableAnnotationComposer,
+          $$PomodoroSyncEntriesTableCreateCompanionBuilder,
+          $$PomodoroSyncEntriesTableUpdateCompanionBuilder,
+          (
+            PomodoroSyncEntry,
+            BaseReferences<
+              _$AppDatabase,
+              $PomodoroSyncEntriesTable,
+              PomodoroSyncEntry
+            >,
+          ),
+          PomodoroSyncEntry,
+          PrefetchHooks Function()
+        > {
+  $$PomodoroSyncEntriesTableTableManager(
+    _$AppDatabase db,
+    $PomodoroSyncEntriesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PomodoroSyncEntriesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PomodoroSyncEntriesTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$PomodoroSyncEntriesTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> userId = const Value.absent(),
+                Value<String> eventId = const Value.absent(),
+                Value<String> endedAtUtc = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<int> attempts = const Value.absent(),
+                Value<String?> errorCode = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PomodoroSyncEntriesCompanion(
+                userId: userId,
+                eventId: eventId,
+                endedAtUtc: endedAtUtc,
+                status: status,
+                attempts: attempts,
+                errorCode: errorCode,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String userId,
+                required String eventId,
+                required String endedAtUtc,
+                Value<String> status = const Value.absent(),
+                Value<int> attempts = const Value.absent(),
+                Value<String?> errorCode = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PomodoroSyncEntriesCompanion.insert(
+                userId: userId,
+                eventId: eventId,
+                endedAtUtc: endedAtUtc,
+                status: status,
+                attempts: attempts,
+                errorCode: errorCode,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$PomodoroSyncEntriesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $PomodoroSyncEntriesTable,
+      PomodoroSyncEntry,
+      $$PomodoroSyncEntriesTableFilterComposer,
+      $$PomodoroSyncEntriesTableOrderingComposer,
+      $$PomodoroSyncEntriesTableAnnotationComposer,
+      $$PomodoroSyncEntriesTableCreateCompanionBuilder,
+      $$PomodoroSyncEntriesTableUpdateCompanionBuilder,
+      (
+        PomodoroSyncEntry,
+        BaseReferences<
+          _$AppDatabase,
+          $PomodoroSyncEntriesTable,
+          PomodoroSyncEntry
+        >,
+      ),
+      PomodoroSyncEntry,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -5469,4 +6123,6 @@ class $AppDatabaseManager {
       );
   $$StudyTimeEntriesTableTableManager get studyTimeEntries =>
       $$StudyTimeEntriesTableTableManager(_db, _db.studyTimeEntries);
+  $$PomodoroSyncEntriesTableTableManager get pomodoroSyncEntries =>
+      $$PomodoroSyncEntriesTableTableManager(_db, _db.pomodoroSyncEntries);
 }

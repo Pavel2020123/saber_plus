@@ -26,14 +26,17 @@ No son trece etapas originales nuevas. La comparación con el listado anterior
 Orden actualizado por decisión del usuario el 12 de septiembre de 2026:
 **primero completar el módulo del profesor (P1–P5), después retomar 7F-C3-D3**.
 P1, P2 y **P3-A/P3-B (prioridades, pantallas y práctica dirigida)** tienen entregas
-locales. **P4-A prepara API/persistencia de tiempo y evolución; sigue P4-B:
-sincronización y pantallas Flutter**. P4 no está cerrada. Falta ensayo docente real P5.
+locales. **P4-A/P4-B preparan API, persistencia, sincronización y pantallas de
+tiempo/evolución**. La implementación P4 es local; su despliegue y comprobación
+real no están cerrados. **Sigue P5: ensayo docente real**, con los preparativos
+de commits, migraciones y despliegue indicados abajo.
 D3 sigue pendiente, no cancelada ni terminada.
 Los 13 bloques se conservan como inventario; el cierre docente se detalla como
 subetapas previas para no ocultar sus carencias dentro de una prueba integral.
 Guías de entrega y pruebas: [PROFESOR_P1.md](PROFESOR_P1.md) y
 [PROFESOR_P2.md](PROFESOR_P2.md), [PROFESOR_P3_A.md](PROFESOR_P3_A.md) y
-[PROFESOR_P3_B.md](PROFESOR_P3_B.md) y [PROFESOR_P4_A.md](PROFESOR_P4_A.md).
+[PROFESOR_P3_B.md](PROFESOR_P3_B.md), [PROFESOR_P4_A.md](PROFESOR_P4_A.md) y
+[PROFESOR_P4_B.md](PROFESOR_P4_B.md).
 
 ### Cierre del módulo profesor — antes de D3
 
@@ -44,7 +47,7 @@ Guías de entrega y pruebas: [PROFESOR_P1.md](PROFESOR_P1.md) y
 | P3-A | Persistencia y API de prioridades docentes: selección publicada, plazo/retiro, cinco preguntas únicas, idempotencia, permisos, reportes y migración. No confundir práctica con dominio. | Implementación local: 724 pruebas Jest y 11 PostgreSQL temporal; falta migración/despliegue real. Ver PROFESOR_P3_A.md. |
 | P3-B | Profesor selecciona desde sus grupos; alumno ve prioridad y practica el snapshot autorizado; docente consulta cumplimiento. Repositorios remoto/demo, sesión, reintentos, estados y accesibilidad. | Implementación local con pruebas Flutter/backend/PostgreSQL. Ver PROFESOR_P3_B.md. Pendientes migración P3-A, despliegue y ensayo real P5. |
 | P4-A | Persistencia privada y API de Pomodoros idempotentes; resumen propio/docente 7/30/90 días, historial confirmado, fuentes separadas, permisos y muestra parcial. | Implementación backend local con pruebas; migración/despliegue pendientes. Ver PROFESOR_P4_A.md. |
-| P4-B | Integrar cola de Pomodoro por cuenta, confirmaciones/reintentos, resumen remoto y evolución accesible desde la ficha docente. Conservar datos locales y distinguir pendiente/demo/sin registros. | Siguiente implementación. Reutilizar contador/Drift y contrato P4-A, sin subir tiempos de evaluación por duplicado. |
+| P4-B | Cola de Pomodoro por cuenta, confirmaciones/reintentos, resumen remoto y evolución accesible desde la ficha docente. Conserva datos locales y distingue pendiente/demo/sin registros. | Implementación Flutter local; ver PROFESOR_P4_B.md. SQLite v9 conserva el historial; no sube evaluaciones ni importa el historial antiguo. Falta ensayo real P5. |
 | P5 | Ensayo profesor → grupo → estudiante, roles y aislamiento, sesión vencida, reintentos y reconexión. Cuentas y contenido de ensayo autorizados; despliegue y pruebas en dispositivos. | Pendiente; coordinar con bloques 6 y 7. |
 
 No se cambian los límites comerciales ni se agregan tutores/chat. No rehacer
@@ -52,6 +55,31 @@ instituciones, grupos, invitaciones, analítica básica, alertas o exportaciones
 implementadas. P2–P4 requieren extender sus contratos, no solo crear pantallas.
 Se puede avanzar con pruebas controladas antes de D3, pero cualquier comprobación
 que necesite publicación/configuración real debe quedar abierta hasta realizarla.
+
+### Próximo trabajo: P5, antes de D3
+
+1. Revisar los commits de ambos repositorios. En la revisión del 14 de septiembre,
+   la relación `pomodorosRegistrados` ya estaba guardada pero faltaba incluir el
+   modelo `PomodoroRegistrado`. Los cambios de Guardián siguen separados y deben
+   revisarse antes de asegurar que un checkout limpio del backend compila.
+2. Confirmar URL exacta de Render y entorno de ensayo `saberplus-dev`, permisos y
+   respaldo. Revisar/aplicar con autorización las migraciones pendientes P3-A/P4-A
+   y desplegar la versión correspondiente; no repetir el despliegue inicial.
+3. Preparar cuentas reales autorizadas de profesor y estudiante, contenido de
+   ensayo, institución/grupo y vinculación. No compartir contraseñas por chat.
+4. Probar profesor → prioridad → práctica del estudiante → cumplimiento/evidencia
+   y tiempo/evolución. Comprobar separación de fuentes, días sin registros y
+   conservación de datos tras cerrar/reabrir la app.
+5. Comprobar permisos por rol, grupo/institución y plan, sesión vencida/cambio de
+   cuenta, desconexión/reconexión y reintento idempotente de Pomodoro. Verificar
+   interfaz en Android y registrar la comprobación iOS o su limitación de entorno.
+6. Registrar resultados, corregir fallos y cerrar P5 solo con evidencia real.
+   Después retomar D3 y sus controles editoriales D2 aún pendientes. C4 continúa
+   siendo la sincronización del catálogo con Flutter, no una consecuencia
+   automática de conectar el panel.
+
+No se requieren audios nuevos para P4-B/P5. No se ejecutaron migraciones ni
+despliegues reales durante la integración Flutter.
 
 ### Repositorios y contexto que se deben conservar
 
@@ -82,9 +110,10 @@ que necesite publicación/configuración real debe quedar abierta hasta realizar
 
 ### Instrucción lista para copiar en una nueva sesión
 
-> Lee `docs/ETAPAS_PENDIENTES.md` completo y `docs/PROFESOR_P4_A.md`. Retoma primero
-> el módulo del profesor: P1, P2, P3-A/P3-B y P4-A tienen entregas locales; sigue P4-B y después
-> P5. Verifica el estado actual antes de programar. D3, conectar el panel al backend
+> Lee `docs/ETAPAS_PENDIENTES.md` completo y `docs/PROFESOR_P4_B.md`. Retoma primero
+> el módulo del profesor: P1, P2, P3-A/P3-B y P4-A/P4-B tienen entregas locales;
+> sigue P5, con sus preparativos de commits, migraciones, despliegue y cuentas.
+> Verifica el estado actual antes de programar. D3, conectar el panel al backend
 > real, se hace después y no debe perderse. No rehagas funciones existentes ni
 > asumas que lo local está desplegado. Conserva mis cambios, no pidas contraseñas
 > y confirma el entorno y la autorización para cualquier operación real. Al

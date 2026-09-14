@@ -1164,7 +1164,7 @@ void main() {
     expect(find.text('Ir a practicar'), findsOneWidget);
   });
 
-  testWidgets('muestra el tiempo total estudiado por actividad', (
+  testWidgets('muestra tiempos de evaluaciones y Pomodoro separados', (
     tester,
   ) async {
     await tester.pumpWidget(_testApp());
@@ -1182,19 +1182,24 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Tiempo estudiado'), findsOneWidget);
-    expect(find.byKey(const Key('study-time-total')), findsOneWidget);
-    expect(
-      tester.widget<Text>(find.byKey(const Key('study-time-total'))).data,
-      '1 h 45 min',
-    );
-    expect(find.text('Pomodoro'), findsOneWidget);
-    expect(find.text('Prácticas y simulacros'), findsOneWidget);
     await tester.scrollUntilVisible(
-      find.byKey(const Key('study-time-source-diagnostic')),
+      find.byKey(const Key('study-evaluation-total')),
+      200,
+    );
+    expect(
+      tester.widget<Text>(find.byKey(const Key('study-evaluation-total'))).data,
+      '1 h 20 min',
+    );
+    expect(find.byKey(const Key('study-time-total')), findsNothing);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('study-pomodoro-total')),
       180,
       scrollable: find.byType(Scrollable).last,
     );
-    expect(find.text('Diagnóstico'), findsOneWidget);
+    expect(
+      tester.widget<Text>(find.byKey(const Key('study-pomodoro-total'))).data,
+      '50 min',
+    );
   });
 
   testWidgets('abre el perfil académico central desde Más', (tester) async {
@@ -1225,7 +1230,8 @@ void main() {
       find.byKey(const Key('academic-profile-study-time')),
       findsOneWidget,
     );
-    expect(find.textContaining('1 h 45 min'), findsOneWidget);
+    expect(find.textContaining('3 actividades locales'), findsOneWidget);
+    expect(find.textContaining('1 h 45 min'), findsNothing);
     await tester.scrollUntilVisible(
       find.byKey(const Key('academic-profile-summary')),
       220,
@@ -1284,7 +1290,9 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Resumen de actividad'), findsOneWidget);
     expect(find.byKey(const Key('weekly-activity-summary')), findsOneWidget);
-    expect(find.text('1 h 45 min'), findsWidgets);
+    // El resumen local excluye los 25 minutos de Pomodoro de las evaluaciones.
+    expect(find.text('1 h 20 min'), findsWidgets);
+    expect(find.text('1 h 45 min'), findsNothing);
     await tester.scrollUntilVisible(
       find.byKey(const Key('weekly-target-progress')),
       180,

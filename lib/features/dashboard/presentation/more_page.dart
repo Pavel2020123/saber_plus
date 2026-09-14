@@ -6,8 +6,6 @@ import '../../../core/sync/sync_providers.dart';
 import '../../announcements/presentation/announcement_providers.dart';
 import '../../auth/presentation/session_controller.dart';
 import '../../gamification/presentation/gamification_providers.dart';
-import '../../study_time/domain/study_time_models.dart';
-import '../../study_time/presentation/study_time_providers.dart';
 
 class MorePage extends ConsumerWidget {
   const MorePage({super.key});
@@ -21,7 +19,6 @@ class MorePage extends ConsumerWidget {
     );
     final pending = ref.watch(syncOperationsProvider).valueOrNull ?? const [];
     final gamification = ref.watch(gamificationSummaryProvider).valueOrNull;
-    final studyTime = ref.watch(studyTimeSummaryProvider).valueOrNull;
     final announcements = ref.watch(announcementControllerProvider).valueOrNull;
     return Scaffold(
       appBar: AppBar(title: const Text('Más')),
@@ -70,9 +67,7 @@ class MorePage extends ConsumerWidget {
             key: const Key('open-study-time'),
             icon: Icons.schedule_rounded,
             title: 'Tiempo estudiado',
-            subtitle: studyTime == null
-                ? 'Pomodoros y evaluaciones confirmadas'
-                : '${formatStudyDuration(studyTime.totalSeconds)} de estudio',
+            subtitle: 'Evaluaciones, Pomodoro y sincronización',
             onTap: () => context.push('/student/more/study-time'),
           ),
           _MenuTile(

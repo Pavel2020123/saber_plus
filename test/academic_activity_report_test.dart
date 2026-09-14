@@ -4,6 +4,27 @@ import 'package:saber_plus/features/profile/domain/academic_activity_report.dart
 import 'package:saber_plus/features/study_time/domain/study_time_models.dart';
 
 void main() {
+  test(
+    'Pomodoro cuenta como actividad, sin duplicar minutos de evaluaciones',
+    () {
+      final date = DateTime(2026, 9, 14, 15);
+      final report = AcademicActivityReport.fromSources(
+        now: date,
+        studyRecords: [
+          _record('practice', date, 25),
+          StudyTimeRecord(
+            userId: 'student-1',
+            eventId: 'pomodoro',
+            source: StudyTimeSource.pomodoro,
+            durationSeconds: 1500,
+            recordedAt: date,
+          ),
+        ],
+      );
+      expect(report.week.studySeconds, 1500);
+      expect(report.week.sessions, 2);
+    },
+  );
   test('resume la semana de lunes a domingo sin contar fechas futuras', () {
     final report = AcademicActivityReport.fromSources(
       now: DateTime(2026, 8, 30, 12),

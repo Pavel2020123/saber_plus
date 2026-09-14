@@ -141,7 +141,11 @@ AcademicPeriodSummary _summarize({
   for (final record in records) {
     final date = _dateOnly(record.recordedAt);
     if (date.isBefore(start) || !date.isBefore(endExclusive)) continue;
-    studySeconds += record.durationSeconds.clamp(0, 24 * 60 * 60);
+    // Pomodoro puede coincidir con una evaluación. Conservarlo como actividad,
+    // pero no sumar sus minutos al contador local de evaluaciones.
+    if (record.source != StudyTimeSource.pomodoro) {
+      studySeconds += record.durationSeconds.clamp(0, 24 * 60 * 60);
+    }
     sessions++;
     activeDates.add(_dateKey(date));
   }

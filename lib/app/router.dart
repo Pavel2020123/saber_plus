@@ -666,6 +666,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               studentId: state.pathParameters['studentId']!,
             ),
           ),
+          _animatedRoute(
+            path: 'students/:studentId/evolution',
+            builder: (context, state) =>
+                StudyTimePage(studentId: state.pathParameters['studentId']!),
+          ),
         ],
       ),
     ],

@@ -16,9 +16,10 @@ antes de D3**. P1 corrige métricas/navegación y P2 añade la ficha de evidenci
 por estudiante/tema/subtema. P3-A añade persistencia y API de prioridades con
 pruebas en PostgreSQL temporal. P3-B integra pantallas y práctica dirigida.
 P4-A prepara persistencia de Pomodoro y API de tiempo/evolución con fuentes
-separadas y permisos docentes. **Sigue P4-B: sincronización y pantallas Flutter**.
-P3 y P4-A son entregas locales; sus migraciones/despliegue y P5 siguen pendientes.
-Ver [PROFESOR_P4_A.md](PROFESOR_P4_A.md) y el punto de reanudación del listado
+separadas y permisos docentes. P4-B integra la cola persistente por cuenta,
+reintentos y evolución Flutter propia/docente. **Sigue P5: ensayo docente real**.
+P3 y P4 son entregas locales; sus migraciones/despliegue y pruebas reales siguen pendientes.
+Ver [PROFESOR_P4_B.md](PROFESOR_P4_B.md) y el punto de reanudación del listado
 consolidado. No se da por probado en Render ni por terminado el ensayo editorial.
 
 Revisión complementaria del 9 de septiembre de 2026:

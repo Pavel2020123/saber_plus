@@ -264,12 +264,16 @@ void main() {
         const PageStorageKey('evidence-area-mathematics'),
       );
       await tester.scrollUntilVisible(area, 200);
+      await Scrollable.ensureVisible(tester.element(area), alignment: 0.5);
+      await tester.pumpAndSettle();
       await tester.tap(
         find.descendant(of: area, matching: find.text('Matemáticas')),
       );
       await tester.pumpAndSettle();
       final topic = find.text('Proporcionalidad');
       await tester.scrollUntilVisible(topic, 150);
+      await Scrollable.ensureVisible(tester.element(topic), alignment: 0.5);
+      await tester.pumpAndSettle();
       await tester.tap(topic);
       await tester.pumpAndSettle();
       await tester.scrollUntilVisible(find.text('Regla de tres'), 100);

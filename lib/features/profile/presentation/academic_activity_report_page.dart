@@ -42,6 +42,9 @@ class AcademicActivityReportPage extends ConsumerWidget {
               ),
               const SizedBox(height: 4),
               Text(_periodLabel(data.week)),
+              const Text(
+                'El tiempo de este resumen corresponde solo a evaluaciones registradas localmente. Los Pomodoros cuentan como actividades, pero no se suman sus minutos porque pueden coincidir.',
+              ),
               const SizedBox(height: 16),
               _WeeklyMetrics(report: data),
               if (data.weeklyTargetProgress case final progress?) ...[
@@ -101,7 +104,7 @@ class _WeeklyMetrics extends StatelessWidget {
       _SummaryMetric(
         icon: Icons.timer_outlined,
         value: formatStudyDuration(report.week.studySeconds),
-        label: 'Tiempo estudiado',
+        label: 'Evaluaciones (local)',
       ),
       _SummaryMetric(
         icon: Icons.play_circle_outline_rounded,
@@ -185,7 +188,9 @@ class _WeeklyTargetCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(99),
             ),
             const SizedBox(height: 8),
-            Text('$studiedMinutes de $targetMinutes minutos registrados'),
+            Text(
+              '$studiedMinutes de $targetMinutes minutos, contando solo evaluaciones locales',
+            ),
           ],
         ),
       ),
@@ -373,8 +378,8 @@ class _DataSourceNotice extends StatelessWidget {
           Expanded(
             child: Text(
               actionsAvailable
-                  ? 'El tiempo procede de actividades registradas en este dispositivo. Las acciones académicas son confirmadas por el servidor.'
-                  : 'El tiempo local sigue disponible. Las acciones académicas no pudieron actualizarse desde el servidor.',
+                  ? 'El tiempo procede de evaluaciones registradas en este dispositivo, sin sumar Pomodoro. Las acciones académicas son confirmadas por el servidor. El informe Tiempo estudiado permite consultar las fuentes remotas separadas.'
+                  : 'El tiempo local de evaluaciones sigue disponible, sin sumar Pomodoro. Las acciones académicas no pudieron actualizarse desde el servidor.',
             ),
           ),
         ],

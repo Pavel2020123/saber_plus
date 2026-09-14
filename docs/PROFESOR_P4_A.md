@@ -1,5 +1,9 @@
 # Profesor P4-A — base del tiempo y evolución
 
+Nota posterior: [P4-B](PROFESOR_P4_B.md) ya integra Flutter localmente. El contenido
+de esta entrega conserva su contexto histórico; sigue P5, no otra implementación
+de P4-B. Para el estado actual de `git add -p`, consultar la guía P4-B y el diff.
+
 Entrega local del 14 de septiembre de 2026. **P4-A implementada en el backend;
 sigue P4-B: sincronización y pantallas Flutter**. P5 y D3 permanecen pendientes.
 No se modificó código Dart: la app aún muestra su contador local anterior.

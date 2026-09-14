@@ -7,9 +7,9 @@ import 'package:saber_plus/core/database/app_database.dart';
 import 'package:sqlite3/sqlite3.dart' as sqlite;
 
 void main() {
-  for (var version = 2; version <= 7; version++) {
+  for (var version = 2; version <= 8; version++) {
     test(
-      'migra una cola existente v$version a v8 sin perder sus revisiones',
+      'migra una cola existente v$version a v9 sin perder sus revisiones',
       () async {
         final directory = await Directory.systemTemp.createTemp(
           'saberplus-outbox-migration-test-',
@@ -24,7 +24,7 @@ void main() {
         });
 
         // Construye un archivo aislado con el esquema anterior real: las tablas
-        // previas no cambiaron en v8; únicamente se añadió pending_operations.revision.
+        // previas no cambiaron: v8 añade revisión; v9 añade cola de Pomodoro vacía.
         database = AppDatabase(NativeDatabase(file));
         await database.savePendingOperation(
           PendingOperationsCompanion.insert(
@@ -45,13 +45,18 @@ void main() {
         database = null;
         final legacy = sqlite.sqlite3.open(file.path);
         try {
-          legacy.execute('ALTER TABLE pending_operations DROP COLUMN revision');
+          if (version < 8) {
+            legacy.execute(
+              'ALTER TABLE pending_operations DROP COLUMN revision',
+            );
+          }
           const introducedIn = {
             'favorite_entries': 3,
             'learning_resume_entries': 4,
             'flashcard_progress_entries': 5,
             'difficult_question_entries': 6,
             'study_time_entries': 7,
+            'pomodoro_sync_entries': 9,
           };
           for (final entry in introducedIn.entries) {
             if (entry.value > version) {
@@ -108,7 +113,8 @@ void main() {
         final pragma = await database
             .customSelect('PRAGMA user_version')
             .getSingle();
-        expect(pragma.read<int>('user_version'), 8);
+        expect(pragma.read<int>('user_version'), 9);
+        expect(await database.pendingPomodoros('student-1'), isEmpty);
       },
     );
   }

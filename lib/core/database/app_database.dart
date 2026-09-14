@@ -149,6 +149,19 @@ class StudyTimeEntries extends Table {
   Set<Column<Object>> get primaryKey => {userId, eventId};
 }
 
+class PomodoroSyncEntries extends Table {
+  TextColumn get userId => text()();
+  TextColumn get eventId => text()();
+  // Texto UTC conserva los milisegundos del cuerpo idempotente (SQLite dateTime
+  // usa segundos). No modificar al reintentar ni derivarlo del historial viejo.
+  TextColumn get endedAtUtc => text()();
+  TextColumn get status => text().withDefault(const Constant('pending'))();
+  IntColumn get attempts => integer().withDefault(const Constant(0))();
+  TextColumn get errorCode => text().nullable()();
+  @override
+  Set<Column<Object>> get primaryKey => {userId, eventId};
+}
+
 @DriftDatabase(
   tables: [
     OfflineDownloads,
@@ -158,6 +171,7 @@ class StudyTimeEntries extends Table {
     FlashcardProgressEntries,
     DifficultQuestionEntries,
     StudyTimeEntries,
+    PomodoroSyncEntries,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -166,7 +180,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.defaults() : super(driftDatabase(name: 'saber_plus'));
 
   @override
-  int get schemaVersion => 8;
+  int get schemaVersion => 9;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -181,6 +195,7 @@ class AppDatabase extends _$AppDatabase {
       if (from >= 2 && from < 8) {
         await migrator.addColumn(pendingOperations, pendingOperations.revision);
       }
+      if (from < 9) await migrator.createTable(pomodoroSyncEntries);
     },
   );
 
@@ -367,6 +382,67 @@ class AppDatabase extends _$AppDatabase {
 
   Future<void> saveStudyTimeEntry(StudyTimeEntriesCompanion entry) =>
       into(studyTimeEntries).insert(entry, mode: InsertMode.insertOrIgnore);
+
+  Future<StudyTimeEntry?> findStudyTimeEntry(String userId, String eventId) =>
+      (select(studyTimeEntries)
+            ..where((r) => r.userId.equals(userId) & r.eventId.equals(eventId)))
+          .getSingleOrNull();
+
+  Future<void> enqueuePomodoro(
+    String userId,
+    String eventId,
+    String endedAtUtc,
+  ) => into(pomodoroSyncEntries).insert(
+    PomodoroSyncEntriesCompanion.insert(
+      userId: userId,
+      eventId: eventId,
+      endedAtUtc: endedAtUtc,
+    ),
+    mode: InsertMode.insertOrIgnore,
+  );
+
+  Stream<List<PomodoroSyncEntry>> watchPomodoroQueue(String userId) =>
+      (select(pomodoroSyncEntries)
+            ..where(
+              (r) =>
+                  r.userId.equals(userId) &
+                  r.status.isIn(['pending', 'blocked']),
+            )
+            ..orderBy([
+              (r) => OrderingTerm.asc(r.endedAtUtc),
+              (r) => OrderingTerm.asc(r.eventId),
+            ])
+            ..limit(100))
+          .watch();
+
+  Future<List<PomodoroSyncEntry>> pendingPomodoros(String userId) =>
+      (select(pomodoroSyncEntries)
+            ..where((r) => r.userId.equals(userId) & r.status.equals('pending'))
+            ..orderBy([
+              (r) => OrderingTerm.asc(r.endedAtUtc),
+              (r) => OrderingTerm.asc(r.eventId),
+            ])
+            ..limit(50))
+          .get();
+
+  Future<int> updatePomodoroIfUnchanged(
+    PomodoroSyncEntry expected,
+    PomodoroSyncEntriesCompanion changes,
+  ) =>
+      (update(pomodoroSyncEntries)..where(
+            (r) =>
+                r.userId.equals(expected.userId) &
+                r.eventId.equals(expected.eventId) &
+                r.endedAtUtc.equals(expected.endedAtUtc) &
+                r.status.equals(expected.status) &
+                r.attempts.equals(expected.attempts),
+          ))
+          .write(changes);
+
+  Future<PomodoroSyncEntry?> findPomodoro(String userId, String eventId) =>
+      (select(pomodoroSyncEntries)
+            ..where((r) => r.userId.equals(userId) & r.eventId.equals(eventId)))
+          .getSingleOrNull();
 }
 
 final appDatabaseProvider = Provider<AppDatabase>((ref) {

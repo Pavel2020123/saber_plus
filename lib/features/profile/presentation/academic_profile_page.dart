@@ -412,12 +412,13 @@ class _StudyTimeCard extends StatelessWidget {
     child: ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
       leading: const Icon(Icons.timer_outlined),
-      title: const Text('Tiempo total estudiado'),
+      title: const Text('Tiempo registrado'),
       subtitle: Text(
         summary == null
             ? 'Calculando actividad…'
-            : '${formatStudyDuration(summary!.totalSeconds)} en ${summary!.sessionCount} sesiones',
+            : '${summary!.sessionCount} actividades locales. Consulta el informe con fuentes separadas.',
       ),
+      onTap: () => context.push('/student/more/study-time'),
     ),
   );
 }
