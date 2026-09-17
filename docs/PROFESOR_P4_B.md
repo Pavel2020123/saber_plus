@@ -1,7 +1,7 @@
 # Profesor P4-B — sincronización y evolución en Flutter
 
 Entrega local del 14 de septiembre de 2026. Implementa el cliente del contrato
-P4-A; **sigue P5: ensayo real del módulo profesor**, antes de D3. No se desplegó
+P4-A; **sigue P4-C: aprobación institucional, y después P5**, antes de D3. No se desplegó
 en Render ni se modificó Supabase. No se añadieron paquetes ni audios.
 
 ## Qué puede hacer cada usuario

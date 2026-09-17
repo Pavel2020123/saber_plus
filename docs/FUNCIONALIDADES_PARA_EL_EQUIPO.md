@@ -179,6 +179,13 @@ de catálogos y revisión de vigencia todavía forman parte de la preparación.
 - Límites implementados: plan gratis de 1 grupo/40 estudiantes; ampliado de
   5 grupos/200 estudiantes. Su activación comercial sigue pendiente de Billing.
 
+**Pendiente P4-C:** actualmente un profesor con correo verificado puede crear
+una institución activa sin revisión de SaberPlus. Antes de ofrecer altas libres,
+la creación pasará a ser una solicitud; el ADMIN la aprobará o rechazará desde
+el panel web tras revisar evidencia institucional mínima. La app solo mostrará
+la solicitud y su estado. La gestión general de cuentas también corresponde al
+panel ADMIN, no a la app de estudiante/profesor.
+
 Los profesores supervisan a sus estudiantes; no se ofrecen tutores contratados
 ni chat de asesoría personal. Los derechos comerciales no se autoconceden desde Flutter.
 

@@ -31,8 +31,9 @@ P3-A y P3-B completan localmente las prioridades docentes, pantallas y práctica
 dirigida: [PROFESOR_P3_B.md](docs/PROFESOR_P3_B.md). P4-A prepara la API de tiempo
 y evolución: [PROFESOR_P4_A.md](docs/PROFESOR_P4_A.md). P4-B integra la cola de
 Pomodoro por cuenta y los informes Flutter con fuentes separadas:
-[PROFESOR_P4_B.md](docs/PROFESOR_P4_B.md). **Sigue P5: ensayo real del módulo
-profesor**, preparando primero commits, migraciones y despliegue pendientes.
+[PROFESOR_P4_B.md](docs/PROFESOR_P4_B.md). **Sigue P4-C: aprobación de nuevas
+instituciones por ADMIN**, y después P5: ensayo real del módulo profesor,
+preparando commits, migraciones y despliegue pendientes.
 D3 se retoma después de P5; las entregas locales no equivalen a pruebas en teléfonos.
 Verificación P4-B: 497 pruebas Flutter aprobadas, 4 remotas omitidas y análisis
 sin avisos. No se ejecutaron operaciones sobre Supabase/Render.
