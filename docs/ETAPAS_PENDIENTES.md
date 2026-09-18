@@ -10,7 +10,8 @@ También seleccionó mapa de aprendizaje, repaso diferido y cobertura del banco.
 Reglas acordadas y decisiones pendientes en [SABI_Y_JUEGOS_APROBADOS.md](SABI_Y_JUEGOS_APROBADOS.md).
 Primera renovación elegida: **Duelo fantasma con Sabi**, captura con ambas manos y
 celebración propia. [G-SABI-1A: guía de preproducción](SABI_DUELO_FANTASMA.md)
-registrada; arte articulado, animación e integración todavía pendientes.
+registrada; **G-SABI-1B tiene muestra local de carrera vectorial**, pendiente de
+aprobación visual y prueba en teléfono. Captura/celebración e integración pendientes.
 Son alcance nuevo planificado, todavía sin implementar ni calendario asignado;
 se añaden al inventario de 13 bloques original, no se ocultan dentro de su recuento.
 **P5 y la conexión real D3 están pausadas por decisión del usuario**, no terminadas.

@@ -1,8 +1,31 @@
 # Sabi — primera renovación: Duelo fantasma
 
-18 de septiembre de 2026. **G-SABI-1A: preproducción documentada**.
-No hay nueva animación implementada, archivo Rive producido ni prueba visual de
-esta renovación. Las reglas y recursos del juego existente se conservan.
+18 de septiembre de 2026. **G-SABI-1B: primera muestra local de carrera**.
+G-SABI-1A queda documentada. Se implementó una adaptación vectorial articulada en
+Flutter y una escena aislada con el fantasma existente. No es una reproducción
+exacta del PNG ni arte final aprobado. Falta aprobación visual del usuario y prueba
+en teléfono. No se produjo un archivo Rive. Las reglas del juego se conservan.
+
+## Cómo ver la muestra
+
+Ejecutar la app en modo debug, abrir **Practicar → Juegos individuales → Duelo
+fantasma → Ver prueba de Sabi corriendo**. El botón solo aparece con `kDebugMode`;
+no se publica en builds profile/release. La pantalla no inicia partidas ni accede
+a repositorios, red, XP o récords.
+
+- Carrera continua con extremidades articuladas, cola, branquias y rebote del cuerpo.
+- Pausar/reproducir y recorrer las poses con un deslizador sin salto al reanudar.
+- Escena clara/oscura, etiqueta accesible, movimiento reducido y pausa cuando la
+  app pierde actividad, se cubre la ruta o se desactivan sus tickers.
+- Referencia original conservada en `assets/characters/sabi/reference/sabi_front.png`.
+  No se recortó ni sobrescribió. No se empaqueta en la app: es referencia de diseño.
+- Código: `sabi_runner_painter.dart` y `sabi_chase_preview_page.dart` en
+  `lib/features/games/ghost_duel/presentation/`.
+
+Revisión local: capturas de cuatro poses, claro/oscuro, generadas mediante la prueba
+`CAPTURE_SABI` y examinadas. No equivalen a revisar fluidez/rendimiento en teléfono.
+La muestra conserva la cara y la geometría entre poses, pero simplifica la ilustración
+y necesita que el usuario apruebe el parecido antes de hacer la captura del fantasma.
 
 ## Objetivo elegido
 
@@ -15,8 +38,9 @@ La celebración no utiliza la transformación musculosa de las referencias.
 
 Animar un único personaje articulado: mismas piezas, colores, proporciones y logo
 durante toda la secuencia. Rive es una opción de autoría e integración; animación
-vectorial programada en Flutter es otra. No hay todavía elección definitiva ni
-archivo `.riv`. Un PNG generado no contiene huesos, capas ni estados de animación.
+vectorial programada en Flutter es otra y se usa para esta primera muestra, sin
+dependencias nuevas. No hay archivo `.riv`. Un PNG generado no contiene huesos,
+capas ni estados de animación.
 
 La IA de imagen a video puede servir como referencia de movimiento o una secuencia
 pregrabada revisada. No equivale a un personaje interactivo y no garantiza conservar
@@ -80,7 +104,8 @@ La primera partida forma el récord y no representa atrapar uno previo inexisten
 4. **G-SABI-1D — Integración y pruebas:** conectar al resultado real y verificar
    accesibilidad, rendimiento, ciclo de vida y reglas existentes.
 
-G-SABI-1B–1D están pendientes. Esta guía no representa el cierre de Duelo fantasma,
+G-SABI-1B tiene muestra local pendiente de aprobación visual; G-SABI-1C–1D están
+pendientes. Esta guía no representa el cierre de Duelo fantasma,
 P5, D3 ni de la integración de juegos en producción.
 
 ## Criterios de aceptación futura
@@ -101,3 +126,20 @@ P5, D3 ni de la integración de juegos en producción.
   https://help.runwayml.com/hc/en-us/articles/48324313115155-Image-to-Video-Prompting-Guide
 
 Estas herramientas son opciones, no servicios contratados ni conectados al proyecto.
+
+## Verificación reproducible
+
+Resultado local de esta entrega: `flutter analyze` sin avisos y **23 pruebas
+focalizadas aprobadas**, incluyendo la captura opcional. No se ejecutó toda la
+suite ni se compiló un APK nuevo; prueba real en dispositivo pendiente.
+
+```powershell
+flutter analyze
+flutter test test/sabi_chase_preview_test.dart test/ghost_trivia_visuals_test.dart test/ghost_duel_test.dart test/remote_ghost_duel_repository_test.dart
+flutter test test/sabi_chase_preview_test.dart --dart-define=CAPTURE_SABI=true
+```
+
+El último comando genera `build/sabi-preview/contact-sheet.png` para inspección,
+no modifica el arte original. Las pruebas cubren navegación, pausa/poses/reanudación,
+ciclo de vida, ruta cubierta, movimiento reducido, texto ampliado, cierre pixel a
+pixel del ciclo y regresiones de reglas y repositorios del fantasma.

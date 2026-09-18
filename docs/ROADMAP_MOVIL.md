@@ -17,8 +17,9 @@ en [SABI_Y_JUEGOS_APROBADOS.md](SABI_Y_JUEGOS_APROBADOS.md). Están aprobados co
 alcance futuro, no implementados; el usuario prepara la imagen del personaje.
 Esta ampliación no cierra ni sustituye las etapas pendientes que siguen debajo.
 Se comienza por [Duelo fantasma con Sabi](SABI_DUELO_FANTASMA.md): G-SABI-1A
-documenta la escena y sus condiciones; G-SABI-1B–1D (arte, animación e integración)
-siguen pendientes. No confundir las imágenes de referencia con animaciones terminadas.
+documenta la escena y sus condiciones; G-SABI-1B tiene una muestra local de carrera
+en Flutter, pendiente de aprobación visual. G-SABI-1C–1D (captura e integración)
+siguen pendientes. No confundir el prototipo con una renovación terminada.
 
 Prioridad acordada el 12 de septiembre: cerrar el módulo del profesor **P1–P5
 antes de D3**. P1 corrige métricas/navegación y P2 añade la ficha de evidencia

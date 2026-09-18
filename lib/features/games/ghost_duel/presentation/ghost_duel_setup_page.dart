@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -5,6 +6,7 @@ import '../../../academic/domain/academic_models.dart';
 import '../../trivia_rush/domain/trivia_rush_models.dart';
 import '../domain/ghost_duel_models.dart';
 import 'ghost_character.dart';
+import 'sabi_chase_preview_page.dart';
 
 class GhostDuelSetupPage extends StatefulWidget {
   const GhostDuelSetupPage({super.key});
@@ -51,6 +53,17 @@ class _GhostDuelSetupPageState extends State<GhostDuelSetupPage> {
             ),
           ),
           const SizedBox(height: 18),
+          if (kDebugMode)
+            OutlinedButton.icon(
+              key: const Key('open-sabi-preview'),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => const SabiChasePreviewPage(),
+                ),
+              ),
+              icon: const Icon(Icons.animation_rounded),
+              label: const Text('Ver prueba de Sabi corriendo'),
+            ),
           const Card(
             child: Padding(
               padding: EdgeInsets.all(16),

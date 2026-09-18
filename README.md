@@ -8,6 +8,11 @@ Este repositorio móvil nunca almacena credenciales de PostgreSQL o Supabase.
 
 ## Auditoría y resumen para el equipo
 
+Muestra de Sabi (G-SABI-1B): en modo debug, **Practicar → Juegos individuales →
+Duelo fantasma → Ver prueba de Sabi corriendo**. Animación vectorial aislada con
+pausa y revisión de poses, pendiente de aprobación del diseño. No cambia partidas
+ni récords. Detalles y pruebas en [SABI_DUELO_FANTASMA.md](docs/SABI_DUELO_FANTASMA.md).
+
 Entrega complementaria del 9 de septiembre de 2026: correcciones de sesión,
 sincronización, validaciones del backend y accesibilidad, sin despliegue ni
 escrituras en Supabase. D2-F/D3 conservan sus comprobaciones pendientes.

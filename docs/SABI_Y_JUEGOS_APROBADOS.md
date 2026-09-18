@@ -1,6 +1,9 @@
 # Sabi y ampliaciones aprobadas
 
 Acuerdos del 18 de septiembre de 2026. Estado: **planificado, no implementado**.
+Excepción de avance: G-SABI-1B tiene una primera muestra vectorial local de Sabi
+corriendo, pendiente de aprobación visual. Los cuatro juegos nuevos siguen sin
+implementar y la renovación aún no está integrada en partidas reales.
 Registrar estas decisiones no autoriza a desarrollar todos los juegos en este turno.
 P5 y la conexión real D3 quedan pendientes y pausadas por decisión del usuario;
 estas ampliaciones no las sustituyen. La primera renovación elegida es **Duelo
