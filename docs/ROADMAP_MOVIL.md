@@ -11,6 +11,12 @@ como referencia; no se repiten las funciones ya implementadas.
 
 ## Estado actual
 
+Acuerdo del 18 de septiembre: **P5 y la conexión real D3 quedan pausadas**,
+no terminadas. Se registran cuatro juegos nuevos con Sabi y tres mejoras académicas
+en [SABI_Y_JUEGOS_APROBADOS.md](SABI_Y_JUEGOS_APROBADOS.md). Están aprobados como
+alcance futuro, no implementados; el usuario prepara la imagen del personaje.
+Esta ampliación no cierra ni sustituye las etapas pendientes que siguen debajo.
+
 Prioridad acordada el 12 de septiembre: cerrar el módulo del profesor **P1–P5
 antes de D3**. P1 corrige métricas/navegación y P2 añade la ficha de evidencia
 por estudiante/tema/subtema. P3-A añade persistencia y API de prioridades con

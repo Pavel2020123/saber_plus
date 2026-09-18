@@ -1,6 +1,16 @@
 # SaberPlus — trabajo pendiente tras verificación local 7F-C3-D2-F
 
-Actualizado: 17 de septiembre de 2026. Listado para compartir con el equipo.
+Actualizado: 18 de septiembre de 2026. Listado para compartir con el equipo.
+
+## Ampliación aprobada — Sabi, cuatro juegos y tres mejoras académicas
+
+El usuario seleccionó **Salto a la cima, Rescate de estrellas, Taller de inventos
+y Escudo del conocimiento**, con un protagonista compartido que está diseñando.
+También seleccionó mapa de aprendizaje, repaso diferido y cobertura del banco.
+Reglas acordadas y decisiones pendientes en [SABI_Y_JUEGOS_APROBADOS.md](SABI_Y_JUEGOS_APROBADOS.md).
+Son alcance nuevo planificado, todavía sin implementar ni calendario asignado;
+se añaden al inventario de 13 bloques original, no se ocultan dentro de su recuento.
+**P5 y la conexión real D3 están pausadas por decisión del usuario**, no terminadas.
 
 Retiro de ePayco/Wompi implementado localmente en el backend: las rutas antiguas
 responden 410 sin procesar pagos; se conserva el historial. Falta desplegarlo y
@@ -550,7 +560,8 @@ autorizan desarrollarlas todas ahora. Se priorizan después con el equipo.
 
 - Publicación comercial en App Store y cobros StoreKit: solo si se autorizan después.
 - Tutores y chat de asesoría: descartados del modelo.
-- Más juegos no acordados: no se agregan al camino actual.
+- Más juegos no acordados: no se agregan al camino actual. Los cuatro seleccionados
+  en SABI_Y_JUEGOS_APROBADOS.md sí son alcance aprobado, pendiente de programación.
 - Rediseño visual general del panel: no es prioridad; debe ser funcional y accesible.
 
 Referencias: ROADMAP_MOVIL.md, ADMIN_PANEL.md, BUSINESS_MODEL.md,
