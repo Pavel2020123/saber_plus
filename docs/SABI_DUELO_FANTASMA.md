@@ -1,5 +1,9 @@
 # Sabi — primera renovación: Duelo fantasma
 
+**PAUSADO por decisión del usuario:** implementar primero juegos y mejoras
+académicas; volver al arte y las animaciones al final. El prototipo se conserva,
+pero no se adopta como diseño profesional definitivo ni se amplía ahora.
+
 18 de septiembre de 2026. **G-SABI-1B: primera muestra local de carrera**.
 G-SABI-1A queda documentada. Se implementó una adaptación vectorial articulada en
 Flutter y una escena aislada con el fantasma existente. No es una reproducción

@@ -186,6 +186,19 @@ class PracticeHubPage extends StatelessWidget {
         const SizedBox(height: 14),
         Card(
           child: ListTile(
+            key: const Key('open-summit'),
+            leading: const CircleAvatar(child: Icon(Icons.landscape_outlined)),
+            title: const Text('Salto a la cima'),
+            subtitle: const Text(
+              'Sube con aciertos · Disponible en demostración',
+            ),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            onTap: () => context.push('/student/practice/summit'),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Card(
+          child: ListTile(
             key: const Key('open-guardian'),
             leading: const CircleAvatar(child: Icon(Icons.shield_outlined)),
             title: const Text('Desafío del guardián'),

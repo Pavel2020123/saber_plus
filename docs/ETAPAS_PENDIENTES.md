@@ -8,11 +8,12 @@ El usuario seleccionó **Salto a la cima, Rescate de estrellas, Taller de invent
 y Escudo del conocimiento**, con un protagonista compartido que está diseñando.
 También seleccionó mapa de aprendizaje, repaso diferido y cobertura del banco.
 Reglas acordadas y decisiones pendientes en [SABI_Y_JUEGOS_APROBADOS.md](SABI_Y_JUEGOS_APROBADOS.md).
-Primera renovación elegida: **Duelo fantasma con Sabi**, captura con ambas manos y
-celebración propia. [G-SABI-1A: guía de preproducción](SABI_DUELO_FANTASMA.md)
-registrada; **G-SABI-1B tiene muestra local de carrera vectorial**, pendiente de
-aprobación visual y prueba en teléfono. Captura/celebración e integración pendientes.
-Son alcance nuevo planificado, todavía sin implementar ni calendario asignado;
+**Nuevo orden: funcionalidad primero, animaciones al final.** JN-1A tiene
+[Salto a la cima en demo local](SALTO_A_LA_CIMA.md); faltan JN-1B backend y JN-1C
+integración real. Después: JN-2 Estrellas, JN-3 Inventos, JN-4 Escudo, MA-1 cobertura,
+MA-2 mapa y MA-3 repaso diferido. G-SABI-1B se conserva como prototipo pausado,
+sin aprobación artística; las celebraciones y renovación visual no se hacen ahora.
+Son alcance adicional, no implementado en producción;
 se añaden al inventario de 13 bloques original, no se ocultan dentro de su recuento.
 **P5 y la conexión real D3 están pausadas por decisión del usuario**, no terminadas.
 

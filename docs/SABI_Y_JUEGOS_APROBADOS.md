@@ -1,14 +1,30 @@
 # Sabi y ampliaciones aprobadas
 
-Acuerdos del 18 de septiembre de 2026. Estado: **planificado, no implementado**.
-Excepción de avance: G-SABI-1B tiene una primera muestra vectorial local de Sabi
-corriendo, pendiente de aprobación visual. Los cuatro juegos nuevos siguen sin
-implementar y la renovación aún no está integrada en partidas reales.
-Registrar estas decisiones no autoriza a desarrollar todos los juegos en este turno.
+Acuerdos del 18 de septiembre de 2026. **Cambio de prioridad: funciones primero;
+arte y animaciones al final**, por decisión del usuario. No borrar el prototipo de
+Sabi ni interpretar la pausa como cancelación de su diseño.
+
+**JN-1A tiene implementación funcional demo** de Salto a la cima; los otros tres
+juegos nuevos y las tres mejoras académicas siguen pendientes. G-SABI-1B conserva
+su muestra vectorial, sin aprobación artística ni integración en partidas reales.
 P5 y la conexión real D3 quedan pendientes y pausadas por decisión del usuario;
-estas ampliaciones no las sustituyen. La primera renovación elegida es **Duelo
-fantasma**: ver [SABI_DUELO_FANTASMA.md](SABI_DUELO_FANTASMA.md). Falta calendarizar
-el resto; no desarrollar los cuatro juegos nuevos simultáneamente.
+estas ampliaciones no las sustituyen. [Duelo fantasma animado](SABI_DUELO_FANTASMA.md)
+se retoma al final, no es la siguiente tarea.
+
+## Orden funcional propuesto para continuar por entregas
+
+1. **JN-1 — Salto a la cima:** A demo funcional, B backend, C integración remota.
+2. **JN-2 — Rescate de estrellas:** reglas, contenido, persistencia e integración.
+3. **JN-3 — Taller de inventos:** retos por subtema, piezas y proyecto guardado.
+4. **JN-4 — Escudo del conocimiento:** rondas, resistencia y resultados.
+5. **MA-1 — Cobertura del banco:** diagnóstico editorial antes de poblar más juegos.
+6. **MA-2 — Mapa de aprendizaje:** relaciones entre temas, orientación sin bloqueos.
+7. **MA-3 — Repaso diferido:** agenda de retención y sincronización.
+8. **Arte/animación final:** Sabi compartido, Fantasma, Tira y afloja, Guardián y
+   juegos nuevos; revisar accesibilidad, movimiento reducido y rendimiento.
+
+No confundir implementar API/cliente con desplegarlos: P5/D3 y sus dependencias
+deben retomarse antes de dar por probadas las funciones reales.
 
 ## Un protagonista compartido
 
@@ -36,8 +52,10 @@ el resto; no desarrollar los cuatro juegos nuevos simultáneamente.
 - Cada acierto permite subir; cada error hace caer **un escalón**.
 - Corrección expresa del usuario: no interrumpir la partida con una explicación
   al fallar; la consecuencia durante el juego es el descenso.
-- Pendiente definir la regla del escalón inicial, longitud del recorrido, final de
-  partida y si habrá revisión opcional al terminar. No dar estas reglas por aprobadas.
+- JN-1A usa reglas iniciales ajustables: base 0, meta 5 y máximo 12 preguntas, sin
+  cronómetro ni descenso bajo cero. Ver [SALTO_A_LA_CIMA.md](SALTO_A_LA_CIMA.md).
+  Estos valores requieren revisión de dificultad, no aprobación artística. Una
+  revisión académica detallada al terminar sigue pendiente de decisión.
 
 ### JN-2 — Rescate de estrellas
 
@@ -104,4 +122,4 @@ el resto; no desarrollar los cuatro juegos nuevos simultáneamente.
   Escape académico o Misión cooperativa no se incorporan por esta selección.
 
 Estos cuatro juegos amplían el alcance: **no están dentro del recuento histórico
-de seis juegos existentes** ni se consideran trabajo terminado.
+de seis juegos existentes** ni se consideran trabajo terminado de producción.

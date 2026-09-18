@@ -8,6 +8,13 @@ Este repositorio móvil nunca almacena credenciales de PostgreSQL o Supabase.
 
 ## Auditoría y resumen para el equipo
 
+**Prioridad actual: funciones antes que animaciones.** JN-1A añade
+**Practicar → Juegos individuales → Salto a la cima** para estudiantes demo.
+Cinco escalones, hasta doce preguntas, subir al acertar y bajar uno al fallar,
+sin explicaciones durante la partida. No concede XP ni modifica el diagnóstico.
+Faltan backend e integración real; ver [SALTO_A_LA_CIMA.md](docs/SALTO_A_LA_CIMA.md).
+El prototipo de Sabi que sigue abajo se conserva, pero sus animaciones están pausadas.
+
 Muestra de Sabi (G-SABI-1B): en modo debug, **Practicar → Juegos individuales →
 Duelo fantasma → Ver prueba de Sabi corriendo**. Animación vectorial aislada con
 pausa y revisión de poses, pendiente de aprobación del diseño. No cambia partidas

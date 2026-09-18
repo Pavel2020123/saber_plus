@@ -14,12 +14,13 @@ como referencia; no se repiten las funciones ya implementadas.
 Acuerdo del 18 de septiembre: **P5 y la conexión real D3 quedan pausadas**,
 no terminadas. Se registran cuatro juegos nuevos con Sabi y tres mejoras académicas
 en [SABI_Y_JUEGOS_APROBADOS.md](SABI_Y_JUEGOS_APROBADOS.md). Están aprobados como
-alcance futuro, no implementados; el usuario prepara la imagen del personaje.
+alcance futuro; JN-1A tiene entrega demo funcional, no integración de producción.
 Esta ampliación no cierra ni sustituye las etapas pendientes que siguen debajo.
-Se comienza por [Duelo fantasma con Sabi](SABI_DUELO_FANTASMA.md): G-SABI-1A
-documenta la escena y sus condiciones; G-SABI-1B tiene una muestra local de carrera
-en Flutter, pendiente de aprobación visual. G-SABI-1C–1D (captura e integración)
-siguen pendientes. No confundir el prototipo con una renovación terminada.
+**Prioridad más reciente: juegos funcionales y mejoras académicas primero;
+animaciones al final.** [Salto a la cima](SALTO_A_LA_CIMA.md) inicia esta entrega:
+JN-1A demo, JN-1B backend y JN-1C remoto. Después JN-2–4 y MA-1–3 según
+SABI_Y_JUEGOS_APROBADOS.md. [Duelo fantasma con Sabi](SABI_DUELO_FANTASMA.md)
+queda pausado; se conserva su prototipo sin darlo por arte final.
 
 Prioridad acordada el 12 de septiembre: cerrar el módulo del profesor **P1–P5
 antes de D3**. P1 corrige métricas/navegación y P2 añade la ficha de evidencia
