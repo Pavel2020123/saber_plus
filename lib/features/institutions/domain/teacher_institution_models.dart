@@ -1,12 +1,15 @@
 enum TeacherInstitutionStatus {
   noInstitution,
   pendingRequest,
+  verificationRequired,
   linked;
 
   factory TeacherInstitutionStatus.fromBackend(String? value) =>
       switch (value) {
         'SOLICITUD_PENDIENTE' => TeacherInstitutionStatus.pendingRequest,
         'VINCULADO' => TeacherInstitutionStatus.linked,
+        'VERIFICACION_REQUERIDA' =>
+          TeacherInstitutionStatus.verificationRequired,
         _ => TeacherInstitutionStatus.noInstitution,
       };
 }
@@ -66,6 +69,8 @@ class TeacherInstitution {
     this.planExpired = false,
     this.expiresAt,
     this.welcomeMessage,
+    this.verificationState,
+    this.verificationDeadline,
   });
 
   final String id;
@@ -85,6 +90,8 @@ class TeacherInstitution {
   final bool planExpired;
   final DateTime? expiresAt;
   final String? welcomeMessage;
+  final String? verificationState;
+  final DateTime? verificationDeadline;
 
   factory TeacherInstitution.fromJson(Map<String, dynamic> json) =>
       TeacherInstitution(
@@ -117,6 +124,8 @@ class TeacherInstitution {
         planExpired: json['planVencido'] as bool? ?? false,
         expiresAt: _optionalInstitutionDate(json['venceEn']),
         welcomeMessage: json['mensajeBienvenida'] as String?,
+        verificationState: json['estadoVerificacion'] as String?,
+        verificationDeadline: _optionalInstitutionDate(json['transicionHasta']),
       );
 }
 

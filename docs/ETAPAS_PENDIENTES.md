@@ -1,6 +1,6 @@
 # SaberPlus — trabajo pendiente tras verificación local 7F-C3-D2-F
 
-Actualizado: 14 de septiembre de 2026. Listado para compartir con el equipo.
+Actualizado: 17 de septiembre de 2026. Listado para compartir con el equipo.
 
 Retiro de ePayco/Wompi implementado localmente en el backend: las rutas antiguas
 responden 410 sin procesar pagos; se conserva el historial. Falta desplegarlo y
@@ -28,16 +28,17 @@ después retomar 7F-C3-D3**.
 P1, P2 y **P3-A/P3-B (prioridades, pantallas y práctica dirigida)** tienen entregas
 locales. **P4-A/P4-B preparan API, persistencia, sincronización y pantallas de
 tiempo/evolución**. La implementación P4 es local; su despliegue y comprobación
-real no están cerrados. **Antes de P5 sigue P4-C: aprobación de instituciones**;
-después P5 será el ensayo docente real, con los preparativos de commits,
-migraciones y despliegue indicados abajo.
+real no están cerrados. **P4-C tiene implementación local de aprobación institucional**:
+Flutter, API, migración y bandeja ADMIN. Faltan revisión visual, despliegue y ensayo
+real. **Sigue preparar P5**, con los preparativos de commits, migraciones y despliegue
+indicados abajo; no rehacer P4-C desde cero.
 D3 sigue pendiente, no cancelada ni terminada.
 Los 13 bloques se conservan como inventario; el cierre docente se detalla como
 subetapas previas para no ocultar sus carencias dentro de una prueba integral.
 Guías de entrega y pruebas: [PROFESOR_P1.md](PROFESOR_P1.md) y
 [PROFESOR_P2.md](PROFESOR_P2.md), [PROFESOR_P3_A.md](PROFESOR_P3_A.md) y
 [PROFESOR_P3_B.md](PROFESOR_P3_B.md), [PROFESOR_P4_A.md](PROFESOR_P4_A.md) y
-[PROFESOR_P4_B.md](PROFESOR_P4_B.md). P4-C está especificada más abajo.
+[PROFESOR_P4_B.md](PROFESOR_P4_B.md), [PROFESOR_P4_C.md](PROFESOR_P4_C.md).
 
 ### Cierre del módulo profesor — antes de D3
 
@@ -49,7 +50,7 @@ Guías de entrega y pruebas: [PROFESOR_P1.md](PROFESOR_P1.md) y
 | P3-B | Profesor selecciona desde sus grupos; alumno ve prioridad y practica el snapshot autorizado; docente consulta cumplimiento. Repositorios remoto/demo, sesión, reintentos, estados y accesibilidad. | Implementación local con pruebas Flutter/backend/PostgreSQL. Ver PROFESOR_P3_B.md. Pendientes migración P3-A, despliegue y ensayo real P5. |
 | P4-A | Persistencia privada y API de Pomodoros idempotentes; resumen propio/docente 7/30/90 días, historial confirmado, fuentes separadas, permisos y muestra parcial. | Implementación backend local con pruebas; migración/despliegue pendientes. Ver PROFESOR_P4_A.md. |
 | P4-B | Cola de Pomodoro por cuenta, confirmaciones/reintentos, resumen remoto y evolución accesible desde la ficha docente. Conserva datos locales y distingue pendiente/demo/sin registros. | Implementación Flutter local; ver PROFESOR_P4_B.md. SQLite v9 conserva el historial; no sube evaluaciones ni importa el historial antiguo. Falta ensayo real P5. |
-| P4-C | Solicitud de institución por profesor, verificación de evidencia mínima y aprobación/rechazo por ADMIN desde el panel web. Pendiente no equivale a institución activa. | Nueva subetapa pendiente; necesaria antes de ofrecer altas institucionales libres y del ensayo P5. Ver alcance siguiente. |
+| P4-C | Solicitud de institución por profesor, verificación de evidencia mínima y aprobación/rechazo por ADMIN desde el panel web. Pendiente no equivale a institución activa. | Implementación local con pruebas. Pendientes revisión visual, migración/despliegue y ensayo real P5. Sin adjuntos documentales; coordinar archivos privados con C5. Ver PROFESOR_P4_C.md. |
 | P5 | Ensayo profesor → solicitud/aprobación → grupo → estudiante, roles y aislamiento, sesión vencida, reintentos y reconexión. Cuentas y contenido de ensayo autorizados; despliegue y pruebas en dispositivos. | Pendiente después de P4-C; coordinar con bloques 6 y 7. |
 
 No se cambian los límites comerciales ni se agregan tutores/chat. No rehacer
@@ -60,8 +61,9 @@ que necesite publicación/configuración real debe quedar abierta hasta realizar
 
 ### P4-C — Verificación de nuevas instituciones (antes de P5)
 
-**Motivo:** el `POST /instituciones` actual crea una institución activa y asigna
-propiedad al profesor sin aprobación de SaberPlus. La verificación del correo
+**Motivo original:** `POST /instituciones` creaba una institución activa y asignaba
+propiedad al profesor sin aprobación de SaberPlus; P4-C retira esa ruta con 410.
+La verificación del correo
 personal no acredita que represente al colegio. No basta ocultar el botón en
 Flutter: el backend debe bloquear el acceso institucional hasta aprobarlo.
 
@@ -106,17 +108,19 @@ cuenta/datos del simple bloqueo de acceso y revisar dependencias antes de borrar
 No llevar esta sección a la app del estudiante/profesor. Coordinarla con el bloque
 7 de identidad/seguridad y el ensayo real D3, sin asumir que ya está implementada.
 
-### Próximo trabajo: P4-C y después P5, antes de D3
+### Próximo trabajo: preparar y ejecutar P5, antes de D3
 
-1. Revisar los commits de ambos repositorios. En la revisión del 14 de septiembre,
-   la relación `pomodorosRegistrados` ya estaba guardada pero faltaba incluir el
-   modelo `PomodoroRegistrado`. Los cambios de Guardián siguen separados y deben
-   revisarse antes de asegurar que un checkout limpio del backend compila.
+1. Revisar los commits de ambos repositorios. Al 17 de septiembre, Pomodoro ya
+   está en HEAD. Sigue pendiente el modelo `IntentoGuardian`, aunque la relación
+   de Usuario ya está guardada: resolver ese trabajo previo por separado antes
+   del push/despliegue. No confundir build del árbol local con checkout completo.
 2. Confirmar URL exacta de Render y entorno de ensayo `saberplus-dev`, permisos y
-   respaldo. Revisar/aplicar con autorización las migraciones pendientes P3-A/P4-A
+   respaldo. Revisar/aplicar con autorización las migraciones pendientes P3-A/P4-A/P4-C
    y desplegar la versión correspondiente; no repetir el despliegue inicial.
-3. Implementar P4-C y preparar cuentas reales autorizadas de profesor y
-   estudiante, contenido de ensayo y una solicitud institucional revisada.
+3. Revisar visualmente P4-C y preparar cuentas reales autorizadas de ADMIN, profesor
+   y estudiante, contenido de ensayo y una solicitud institucional revisada.
+   Antes de migrar P4-C, comunicar la transición de 30 días para instituciones
+   existentes y organizar revisión manual; no quedan automáticamente verificadas.
    No compartir contraseñas por chat.
 4. Probar profesor → aprobación → grupo → prioridad → práctica del estudiante
    → cumplimiento/evidencia
@@ -162,10 +166,11 @@ despliegues reales durante la integración Flutter.
 
 ### Instrucción lista para copiar en una nueva sesión
 
-> Lee `docs/ETAPAS_PENDIENTES.md` completo y `docs/PROFESOR_P4_B.md`. Retoma primero
+> Lee `docs/ETAPAS_PENDIENTES.md` completo y `docs/PROFESOR_P4_C.md`. Retoma primero
 > el módulo del profesor: P1, P2, P3-A/P3-B y P4-A/P4-B tienen entregas locales;
-> sigue P4-C (aprobación de instituciones) y después P5, con sus preparativos
-> de commits, migraciones, despliegue y cuentas.
+> P4-C también tiene entrega local (solicitud/aprobación de instituciones).
+> Sigue preparar P5: revisión visual pendiente, commits coherentes (incluido el
+> trabajo previo de Guardián), migraciones, despliegue autorizado y cuentas de ensayo.
 > Verifica el estado actual antes de programar. D3, conectar el panel al backend
 > real, se hace después y no debe perderse. No rehagas funciones existentes ni
 > asumas que lo local está desplegado. Conserva mis cambios, no pidas contraseñas

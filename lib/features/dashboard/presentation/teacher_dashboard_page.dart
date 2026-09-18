@@ -8,6 +8,7 @@ import '../../auth/presentation/session_controller.dart';
 import '../../institutions/domain/teacher_institution_models.dart';
 import '../../institutions/presentation/teacher_institution_providers.dart';
 import '../../institutions/presentation/teacher_metrics_layout.dart';
+import '../../institutions/presentation/institution_approval_page.dart';
 
 class TeacherDashboardPage extends ConsumerStatefulWidget {
   const TeacherDashboardPage({super.key});
@@ -75,6 +76,21 @@ class _TeacherDashboardPageState extends ConsumerState<TeacherDashboardPage> {
                 'Tu cuenta es personal. No compartas la contraseña con otros docentes ni con la institución.',
               ),
               const SizedBox(height: 20),
+              if (data.institution?.verificationState == 'LEGADO_EN_REVISION')
+                const Card(
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Text(
+                      'Institución existente pendiente de verificación. El propietario debe completar la solicitud dentro del plazo de transición. Consulta el estado y la fecha límite aquí.',
+                    ),
+                  ),
+                ),
+              OutlinedButton.icon(
+                key: const Key('institution-verification'),
+                onPressed: _working ? null : _createInstitution,
+                icon: const Icon(Icons.verified_user_outlined),
+                label: const Text('Consultar verificación institucional'),
+              ),
               if (data.invitations.isNotEmpty) ...[
                 _IncomingInvitations(
                   invitations: data.invitations,
@@ -84,6 +100,14 @@ class _TeacherDashboardPageState extends ConsumerState<TeacherDashboardPage> {
                 const SizedBox(height: 16),
               ],
               switch (data.status) {
+                TeacherInstitutionStatus.verificationRequired => const Card(
+                  child: Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Text(
+                      'Tu institución necesita revisión de SaberPlus. Consulta la verificación para ver el motivo y los pasos para continuar.',
+                    ),
+                  ),
+                ),
                 TeacherInstitutionStatus.noInstitution => _NoInstitution(
                   working: _working,
                   onCreate: _createInstitution,
@@ -125,17 +149,10 @@ class _TeacherDashboardPageState extends ConsumerState<TeacherDashboardPage> {
   }
 
   Future<void> _createInstitution() async {
-    final values = await showDialog<({String name, String welcome})>(
-      context: context,
-      builder: (_) => const _CreateInstitutionDialog(),
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (_) => const InstitutionApprovalPage()),
     );
-    if (values == null || !mounted) return;
-    await _run(
-      () => ref
-          .read(teacherInstitutionControllerProvider.notifier)
-          .createInstitution(name: values.name, welcomeMessage: values.welcome),
-      success: 'Institución creada. Ahora eres su propietario.',
-    );
+    if (mounted) ref.invalidate(teacherInstitutionControllerProvider);
   }
 
   Future<void> _requestJoin() async {
@@ -273,7 +290,7 @@ class _NoInstitution extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               const Text(
-                'Crea una institución si serás responsable de administrarla, o solicita acceso usando el código que te compartieron.',
+                'Solicita la aprobación de tu institución o pide acceso a una existente usando el código que te compartieron.',
               ),
             ],
           ),
@@ -283,10 +300,10 @@ class _NoInstitution extends StatelessWidget {
       _ActionCard(
         key: const Key('teacher-create-institution'),
         icon: Icons.add_business_rounded,
-        title: 'Crear una institución',
+        title: 'Solicitar una institución',
         description:
-            'Serás el propietario inicial. Podrás crear grupos, invitar docentes y organizar sus permisos.',
-        buttonLabel: 'Crear institución',
+            'SaberPlus revisará tu autorización. Después de la aprobación podrás crear grupos e invitar docentes.',
+        buttonLabel: 'Solicitar institución',
         onPressed: working ? null : onCreate,
       ),
       const SizedBox(height: 12),
@@ -776,80 +793,6 @@ class _Metric extends StatelessWidget {
         ],
       ),
     ),
-  );
-}
-
-class _CreateInstitutionDialog extends StatefulWidget {
-  const _CreateInstitutionDialog();
-
-  @override
-  State<_CreateInstitutionDialog> createState() =>
-      _CreateInstitutionDialogState();
-}
-
-class _CreateInstitutionDialogState extends State<_CreateInstitutionDialog> {
-  final _formKey = GlobalKey<FormState>();
-  final _name = TextEditingController();
-  final _welcome = TextEditingController();
-
-  @override
-  void dispose() {
-    _name.dispose();
-    _welcome.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) => AlertDialog(
-    title: const Text('Crear institución'),
-    content: Form(
-      key: _formKey,
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextFormField(
-              key: const Key('institution-name-field'),
-              controller: _name,
-              autofocus: true,
-              maxLength: 120,
-              textCapitalization: TextCapitalization.words,
-              decoration: const InputDecoration(labelText: 'Nombre'),
-              validator: (value) => (value?.trim().length ?? 0) < 2
-                  ? 'Escribe el nombre de la institución.'
-                  : null,
-            ),
-            TextFormField(
-              key: const Key('institution-welcome-field'),
-              controller: _welcome,
-              maxLength: 500,
-              minLines: 2,
-              maxLines: 4,
-              decoration: const InputDecoration(
-                labelText: 'Mensaje de bienvenida (opcional)',
-              ),
-            ),
-          ],
-        ),
-      ),
-    ),
-    actions: [
-      TextButton(
-        onPressed: () => Navigator.pop(context),
-        child: const Text('Cancelar'),
-      ),
-      FilledButton(
-        key: const Key('confirm-create-institution'),
-        onPressed: () {
-          if (!(_formKey.currentState?.validate() ?? false)) return;
-          Navigator.pop(context, (
-            name: _name.text.trim(),
-            welcome: _welcome.text.trim(),
-          ));
-        },
-        child: const Text('Crear'),
-      ),
-    ],
   );
 }
 

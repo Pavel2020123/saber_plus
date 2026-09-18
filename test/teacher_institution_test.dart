@@ -8,6 +8,8 @@ import 'package:saber_plus/features/institutions/data/remote_teacher_institution
 import 'package:saber_plus/features/institutions/domain/teacher_institution_models.dart';
 import 'package:saber_plus/features/institutions/presentation/institution_administration_page.dart';
 import 'package:saber_plus/features/institutions/presentation/teacher_institution_providers.dart';
+import 'package:saber_plus/features/institutions/presentation/institution_approval_page.dart';
+import 'package:saber_plus/features/institutions/data/institution_approval_repository.dart';
 
 void main() {
   test('interpreta el vínculo y el rol institucional sin listar personas', () {
@@ -152,40 +154,44 @@ void main() {
     expect(requests.last.path, '/instituciones/me/administracion');
   });
 
-  testWidgets('el profesor crea su institución personal desde la interfaz', (
-    tester,
-  ) async {
-    final repository = DemoTeacherInstitutionRepository();
-    await tester.pumpWidget(
-      ProviderScope(
-        overrides: [
-          teacherInstitutionRepositoryProvider.overrideWithValue(repository),
-        ],
-        child: const MaterialApp(home: TeacherDashboardPage()),
-      ),
-    );
-    await tester.pumpAndSettle();
+  testWidgets(
+    'el profesor solicita verificación sin crear una institución activa',
+    (tester) async {
+      final repository = DemoTeacherInstitutionRepository();
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            teacherInstitutionRepositoryProvider.overrideWithValue(repository),
+            institutionApprovalRepositoryProvider.overrideWithValue(
+              DemoInstitutionApprovalRepository(),
+            ),
+          ],
+          child: const MaterialApp(home: TeacherDashboardPage()),
+        ),
+      );
+      await tester.pumpAndSettle();
 
-    expect(find.text('Configura tu espacio institucional'), findsOneWidget);
-    final createButton = find.descendant(
-      of: find.byKey(const Key('teacher-create-institution')),
-      matching: find.byType(FilledButton),
-    );
-    await tester.ensureVisible(createButton);
-    await tester.tap(createButton);
-    await tester.pumpAndSettle();
-    await tester.enterText(
-      find.byKey(const Key('institution-name-field')),
-      'Colegio Central',
-    );
-    await tester.tap(find.byKey(const Key('confirm-create-institution')));
-    await tester.pumpAndSettle();
-
-    expect(find.byKey(const Key('teacher-institution-name')), findsOneWidget);
-    expect(find.text('Colegio Central'), findsOneWidget);
-    expect(find.text('Propietario'), findsOneWidget);
-    expect(find.text('INST-DEMO01'), findsOneWidget);
-  });
+      expect(find.text('Configura tu espacio institucional'), findsOneWidget);
+      final createButton = find.descendant(
+        of: find.byKey(const Key('teacher-create-institution')),
+        matching: find.byType(FilledButton),
+      );
+      await tester.ensureVisible(createButton);
+      await tester.pumpAndSettle();
+      await tester.tap(createButton);
+      await tester.pumpAndSettle();
+      expect(
+        find.text('Solicita la aprobación de tu institución'),
+        findsOneWidget,
+      );
+      expect(find.byKey(const Key('application-nombre')), findsOneWidget);
+      expect(
+        (await repository.loadContext()).status,
+        TeacherInstitutionStatus.noInstitution,
+      );
+      expect(find.text('INST-DEMO01'), findsNothing);
+    },
+  );
 
   testWidgets('el propietario crea una invitación desde la administración', (
     tester,

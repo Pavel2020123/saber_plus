@@ -17,11 +17,13 @@ por estudiante/tema/subtema. P3-A añade persistencia y API de prioridades con
 pruebas en PostgreSQL temporal. P3-B integra pantallas y práctica dirigida.
 P4-A prepara persistencia de Pomodoro y API de tiempo/evolución con fuentes
 separadas y permisos docentes. P4-B integra la cola persistente por cuenta,
-reintentos y evolución Flutter propia/docente. **Sigue P4-C: aprobación de nuevas
-instituciones por ADMIN en el panel web, y después P5: ensayo docente real**.
+reintentos y evolución Flutter propia/docente. **P4-C implementada localmente:**
+solicitud, revisión ADMIN, estados, transición del legado y control de accesos.
+**Sigue P5: preparativos de Git/despliegue y ensayo docente real**, incluyendo
+la revisión visual pendiente de la bandeja institucional.
 P3 y P4 son entregas locales; sus migraciones/despliegue y pruebas reales siguen pendientes.
-Ver [PROFESOR_P4_B.md](PROFESOR_P4_B.md) y la especificación P4-C del listado
-consolidado. No se da por probado en Render ni por terminado el ensayo editorial.
+Ver [PROFESOR_P4_B.md](PROFESOR_P4_B.md) y [PROFESOR_P4_C.md](PROFESOR_P4_C.md).
+No se da por probado en Render ni por terminado el ensayo editorial.
 
 Revisión complementaria del 9 de septiembre de 2026:
 [auditoría de seguridad, persistencia y UX](AUDITORIA_PROYECTO_2026-09-09.md)

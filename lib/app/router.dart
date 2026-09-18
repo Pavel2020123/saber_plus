@@ -30,6 +30,7 @@ import '../features/institutions/presentation/teacher_basic_analytics_page.dart'
 import '../features/institutions/presentation/teacher_detailed_analytics_page.dart';
 import '../features/institutions/presentation/teacher_student_evidence_page.dart';
 import '../features/institutions/presentation/teacher_priorities_page.dart';
+import '../features/institutions/presentation/institution_approval_page.dart';
 import '../features/difficult_questions/presentation/difficult_questions_page.dart';
 import '../features/gamification/presentation/gamification_page.dart';
 import '../features/games/trivia_rush/domain/trivia_rush_models.dart';
@@ -621,6 +622,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/teacher',
         builder: (context, state) => const TeacherDashboardPage(),
         routes: [
+          _animatedRoute(
+            path: 'verification',
+            builder: (_, _) => const InstitutionApprovalPage(),
+          ),
           _animatedRoute(
             path: 'administration',
             builder: (context, state) => const InstitutionAdministrationPage(),
