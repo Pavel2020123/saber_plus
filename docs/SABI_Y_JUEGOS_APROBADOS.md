@@ -3,18 +3,27 @@
 Acuerdos del 18 de septiembre de 2026. Estado: **planificado, no implementado**.
 Registrar estas decisiones no autoriza a desarrollar todos los juegos en este turno.
 P5 y la conexión real D3 quedan pendientes y pausadas por decisión del usuario;
-estas ampliaciones no las sustituyen. Falta acordar su calendario de entrega.
+estas ampliaciones no las sustituyen. La primera renovación elegida es **Duelo
+fantasma**: ver [SABI_DUELO_FANTASMA.md](SABI_DUELO_FANTASMA.md). Falta calendarizar
+el resto; no desarrollar los cuatro juegos nuevos simultáneamente.
 
 ## Un protagonista compartido
 
 - Un único personaje, provisionalmente llamado Sabi, protagonizará todos los juegos.
-- El usuario está preparando la imagen del animalito; apariencia definitiva pendiente
-  de recibir y aprobar. El ajolote es una propuesta, no un diseño ya entregado.
+- El usuario entregó en la conversación referencias de un ajolote turquesa con
+  branquias coral, camiseta azul marino y S⁺, además de una transformación musculosa.
+  Estas son referencias visuales, no archivos articulados ni animaciones listas.
+  Usar la familia visual de esas últimas referencias; antes de producir el arte
+  definitivo fijar una imagen maestra y su archivo local, sin mezclar variantes.
 - La camiseta debe llevar el logo elegido de SaberPlus, S con + en exponente.
 - Conservar identidad y proporciones entre juegos; reutilizar animaciones y cambiar
   acciones o accesorios según el contexto, sin exigir más mascotas principales.
 - Rive es una opción propuesta. La imagen por sí sola no es un archivo animado:
   faltan preparación por piezas, animación, integración y pruebas en dispositivos.
+- Requisito explícito: movimiento fluido y personaje consistente. No simular la
+  animación alternando imágenes generadas con caras, anatomía o proporciones distintas.
+- Cada juego puede tener su propia celebración: la transformación musculosa no es
+  obligatoria en todos. No se necesitan más protagonistas para variar los movimientos.
 
 ## Cuatro juegos nuevos confirmados
 
@@ -56,12 +65,18 @@ estas ampliaciones no las sustituyen. Falta acordar su calendario de entrega.
 - Duelo fantasma: Sabi corre tras el fantasma de su récord, lo alcanza al superar
   ese récord o lo ve escapar si no lo consigue. Sin récord previo, establecer una
   primera referencia. Vincular el movimiento al resultado real de la partida.
+  Celebración solicitada: atraparlo, levantarlo con **ambas manos** y celebrar.
+  No sustituir esta escena por la transformación musculosa genérica.
 - Tira y afloja: mejorar los personajes y sus movimientos con el protagonista
   compartido, conservando las reglas y validaciones del juego.
+  La transformación musculosa es una propuesta para su victoria, aún por detallar.
 - Guardián: representar los aciertos con proyectiles de Sabi que reducen vida o
   escudo. El usuario propuso un dado de 1 a 6 con vida/tiempo variables; su equilibrio
   y reglas definitivas siguen pendientes. No implementar multiplicadores o tiempos
   arbitrarios ni reemplazar silenciosamente las reglas actuales.
+  Celebración solicitada: apoyar un pie sobre el Guardián derrotado y soltar una
+  carcajada teatral de triunfo. Tratamiento propuesto caricaturesco, sin heridas.
+  No generar ni contratar voces/sonidos nuevos en esta etapa sin revisar los audios.
 
 ## Tres mejoras académicas seleccionadas
 
