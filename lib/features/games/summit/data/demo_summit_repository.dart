@@ -6,6 +6,28 @@ import '../domain/summit_models.dart';
 
 /// In-memory demo only. Never uses a real practice attempt or grants its XP.
 class DemoSummitRepository implements SummitRepository {
+  @override
+  bool get isDemo => true;
+  @override
+  SummitPendingAnswer? get pending => null;
+  @override
+  Future<SummitAttempt?> restore() async => _current;
+  @override
+  Future<SummitAttempt> abandon(String attemptId) async {
+    final attempt = _current;
+    if (_busy || attempt == null || attempt.id != attemptId) {
+      _conflict('No se puede abandonar esta partida.');
+    }
+    if (attempt.finished) return attempt;
+    return _current = SummitAttempt(
+      id: attempt.id,
+      area: attempt.area,
+      progress: attempt.progress,
+      question: null,
+      status: 'ABANDONADO',
+    );
+  }
+
   final _practice = DemoPracticeRepository();
   List<PracticeQuestion> _questions = const [];
   final _requests = <String, (String, String)>{};
@@ -19,10 +41,15 @@ class DemoSummitRepository implements SummitRepository {
       throw ApiError(code: 'conflict', message: message);
 
   @override
-  Future<SummitAttempt> start(AcademicArea area) async {
+  Future<SummitAttempt> start(
+    AcademicArea area, {
+    String? themeId,
+    String? subtopicId,
+    PracticeDifficulty? difficulty,
+  }) async {
     if (_busy) _conflict('Espera a que termine el envío.');
     final previous = _current;
-    if (previous != null && !previous.progress.finished) {
+    if (previous != null && !previous.finished) {
       if (previous.area != area) {
         _conflict('Termina tu partida actual primero.');
       }
@@ -79,7 +106,7 @@ class DemoSummitRepository implements SummitRepository {
     }
     if (_busy) _conflict('Espera a que termine el envío.');
     final question = attempt.question;
-    if (attempt.progress.finished ||
+    if (attempt.finished ||
         question == null ||
         question.id != questionId ||
         !question.options.any((option) => option.id == answerId)) {

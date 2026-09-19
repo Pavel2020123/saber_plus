@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:saber_plus/core/network/api_error.dart';
+import 'package:saber_plus/core/network/api_client.dart';
+import 'package:saber_plus/features/games/summit/data/remote_summit_repository.dart';
 import 'package:saber_plus/features/academic/domain/academic_models.dart';
 import 'package:saber_plus/features/auth/domain/session.dart';
 import 'package:saber_plus/features/auth/presentation/session_controller.dart';
@@ -146,10 +149,15 @@ void main() {
   );
 
   test(
-    'provider blocks real users, isolates demo accounts, keeps XP-only updates',
+    'provider selects real repository, isolates accounts, keeps XP-only updates',
     () async {
       final container = ProviderContainer(
-        overrides: [sessionControllerProvider.overrideWith(_Session.new)],
+        overrides: [
+          sessionControllerProvider.overrideWith(_Session.new),
+          dioProvider.overrideWithValue(
+            Dio(BaseOptions(baseUrl: 'https://test.invalid')),
+          ),
+        ],
       );
       addTearDown(container.dispose);
       final session =
@@ -162,7 +170,10 @@ void main() {
       expect(container.read(summitRepositoryProvider), isNot(same(repo)));
       expect(container.read(summitRepositoryProvider)!.current, isNull);
       session.change(id: 'real', demo: false);
-      expect(container.read(summitRepositoryProvider), isNull);
+      expect(
+        container.read(summitRepositoryProvider),
+        isA<RemoteSummitRepository>(),
+      );
       session.change(id: 'teacher', role: AppRole.teacher);
       expect(container.read(summitRepositoryProvider), isNull);
       session.clear();

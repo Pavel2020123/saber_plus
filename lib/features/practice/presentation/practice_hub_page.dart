@@ -189,9 +189,7 @@ class PracticeHubPage extends StatelessWidget {
             key: const Key('open-summit'),
             leading: const CircleAvatar(child: Icon(Icons.landscape_outlined)),
             title: const Text('Salto a la cima'),
-            subtitle: const Text(
-              'Sube con aciertos · Disponible en demostración',
-            ),
+            subtitle: const Text('Sube al acertar · Baja un escalón al fallar'),
             trailing: const Icon(Icons.chevron_right_rounded),
             onTap: () => context.push('/student/practice/summit'),
           ),

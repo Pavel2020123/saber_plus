@@ -324,6 +324,12 @@ void main() {
       300,
       scrollable: find.byType(Scrollable).last,
     );
+    // Center the tile clear of the persistent bottom navigation before tapping.
+    await Scrollable.ensureVisible(
+      tester.element(find.byKey(const Key('open-trivia-rush'))),
+      alignment: 0.5,
+    );
+    await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('open-trivia-rush')));
     await tester.pumpAndSettle();
 

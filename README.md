@@ -13,7 +13,9 @@ Este repositorio móvil nunca almacena credenciales de PostgreSQL o Supabase.
 Cinco escalones, hasta doce preguntas, subir al acertar y bajar uno al fallar,
 sin explicaciones durante la partida. No concede XP ni modifica el diagnóstico.
 JN-1B añade el backend probado localmente, sin despliegue ni migración en Supabase.
-Sigue JN-1C, integración Flutter; ver [SALTO_A_LA_CIMA.md](docs/SALTO_A_LA_CIMA.md).
+JN-1C añade el cliente Flutter remoto con recuperación segura, filtros e imágenes;
+falta ensayo real en dispositivo/staging. Sigue JN-2A, Rescate de estrellas.
+Ver [SALTO_A_LA_CIMA.md](docs/SALTO_A_LA_CIMA.md).
 El prototipo de Sabi que sigue abajo se conserva, pero sus animaciones están pausadas.
 
 Muestra de Sabi (G-SABI-1B): en modo debug, **Practicar → Juegos individuales →

@@ -14,12 +14,13 @@ como referencia; no se repiten las funciones ya implementadas.
 Acuerdo del 18 de septiembre: **P5 y la conexión real D3 quedan pausadas**,
 no terminadas. Se registran cuatro juegos nuevos con Sabi y tres mejoras académicas
 en [SABI_Y_JUEGOS_APROBADOS.md](SABI_Y_JUEGOS_APROBADOS.md). Están aprobados como
-alcance futuro; JN-1A tiene entrega demo funcional y JN-1B backend verificado
-localmente, sin despliegue ni integración de producción.
+alcance futuro; JN-1A demo, JN-1B backend y JN-1C cliente remoto implementados
+localmente, sin despliegue ni ensayo real en producción.
 Esta ampliación no cierra ni sustituye las etapas pendientes que siguen debajo.
 **Prioridad más reciente: juegos funcionales y mejoras académicas primero;
 animaciones al final.** [Salto a la cima](SALTO_A_LA_CIMA.md) inicia esta entrega:
-JN-1A demo y JN-1B backend local listos; sigue JN-1C remoto. Después JN-2–4 y MA-1–3 según
+JN-1A demo, JN-1B backend y JN-1C cliente listos localmente; sigue JN-2A demo de
+Rescate de estrellas. Quedan su backend/integración, JN-3–4 y MA-1–3 según
 SABI_Y_JUEGOS_APROBADOS.md. [Duelo fantasma con Sabi](SABI_DUELO_FANTASMA.md)
 queda pausado; se conserva su prototipo sin darlo por arte final.
 
@@ -31,7 +32,7 @@ P4-A prepara persistencia de Pomodoro y API de tiempo/evolución con fuentes
 separadas y permisos docentes. P4-B integra la cola persistente por cuenta,
 reintentos y evolución Flutter propia/docente. **P4-C implementada localmente:**
 solicitud, revisión ADMIN, estados, transición del legado y control de accesos.
-**Sigue P5: preparativos de Git/despliegue y ensayo docente real**, incluyendo
+**P5 queda pendiente y pausada: preparativos de Git/despliegue y ensayo docente real**, incluyendo
 la revisión visual pendiente de la bandeja institucional.
 P3 y P4 son entregas locales; sus migraciones/despliegue y pruebas reales siguen pendientes.
 Ver [PROFESOR_P4_B.md](PROFESOR_P4_B.md) y [PROFESOR_P4_C.md](PROFESOR_P4_C.md).
