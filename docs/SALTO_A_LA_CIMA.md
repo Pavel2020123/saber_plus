@@ -108,7 +108,8 @@ no equivalen a conectar la app con Render/Supabase ni a una revisión visual en 
 
 - **Ensayo real de JN-1:** despliegue, migración y prueba en dispositivo cuando
   se autorice retomar infraestructura. El código cliente no cierra esta validación.
-- **Siguiente entrega funcional: JN-2A — Rescate de estrellas**, reglas y demo local.
+- **JN-2A — Rescate de estrellas:** reglas y demo local ya implementadas.
+  Sigue JN-2B backend; ver [RESCATE_DE_ESTRELLAS.md](RESCATE_DE_ESTRELLAS.md).
 - **Arte y animaciones al final:** Sabi/plataformas/caída/victoria, sin rehacer reglas
   ni determinar aciertos a partir de animaciones.
 

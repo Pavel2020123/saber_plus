@@ -1,6 +1,6 @@
 # SaberPlus — trabajo pendiente tras verificación local 7F-C3-D2-F
 
-Actualizado: 18 de septiembre de 2026. Listado para compartir con el equipo.
+Actualizado: 19 de septiembre de 2026. Listado para compartir con el equipo.
 
 ## Ampliación aprobada — Sabi, cuatro juegos y tres mejoras académicas
 
@@ -11,8 +11,9 @@ Reglas acordadas y decisiones pendientes en [SABI_Y_JUEGOS_APROBADOS.md](SABI_Y_
 **Nuevo orden: funcionalidad primero, animaciones al final.** JN-1A tiene
 [Salto a la cima en demo local](SALTO_A_LA_CIMA.md); JN-1B backend está implementado
 y probado localmente, sin despliegue. JN-1C cliente Flutter remoto implementado;
-la prueba real queda pendiente de infraestructura. Sigue JN-2A Estrellas (reglas/demo),
-después su backend/integración, JN-3 Inventos, JN-4 Escudo, MA-1 cobertura,
+la prueba real queda pendiente de infraestructura. JN-2A
+[Rescate de estrellas](RESCATE_DE_ESTRELLAS.md) tiene reglas/demo implementadas.
+Sigue JN-2B backend, después JN-2C integración, JN-3 Inventos, JN-4 Escudo, MA-1 cobertura,
 MA-2 mapa y MA-3 repaso diferido. G-SABI-1B se conserva como prototipo pausado,
 sin aprobación artística; las celebraciones y renovación visual no se hacen ahora.
 Son alcance adicional, no implementado en producción;

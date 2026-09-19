@@ -304,6 +304,36 @@ void main() {
     expect(find.textContaining('3 cuadernos'), findsOneWidget);
   });
 
+  testWidgets('abre Rescate de estrellas y comienza una partida demo', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Practicar'));
+    await tester.pumpAndSettle();
+    final tile = find.byKey(const Key('open-star-rescue'));
+    await tester.scrollUntilVisible(
+      tile,
+      250,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await Scrollable.ensureVisible(tester.element(tile), alignment: 0.5);
+    await tester.pumpAndSettle();
+    await tester.tap(tile);
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(find.byKey(const Key('rescue-start')), 150);
+    await tester.tap(find.byKey(const Key('rescue-start')));
+    await tester.pumpAndSettle();
+    expect(find.text('Estrellas liberadas: 0/6'), findsOneWidget);
+    expect(find.text('Rescate de estrellas'), findsOneWidget);
+  });
+
   testWidgets('abre la configuración de Trivia Rush desde practicar', (
     tester,
   ) async {

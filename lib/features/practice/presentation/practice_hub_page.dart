@@ -197,6 +197,21 @@ class PracticeHubPage extends StatelessWidget {
         const SizedBox(height: 8),
         Card(
           child: ListTile(
+            key: const Key('open-star-rescue'),
+            leading: const CircleAvatar(
+              child: Icon(Icons.auto_awesome_outlined),
+            ),
+            title: const Text('Rescate de estrellas'),
+            subtitle: const Text(
+              'Libera estrellas y completa constelaciones · Demo',
+            ),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            onTap: () => context.push('/student/practice/star-rescue'),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Card(
+          child: ListTile(
             key: const Key('open-guardian'),
             leading: const CircleAvatar(child: Icon(Icons.shield_outlined)),
             title: const Text('Desafío del guardián'),

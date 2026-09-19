@@ -6,8 +6,8 @@ Sabi ni interpretar la pausa como cancelación de su diseño.
 
 **JN-1A tiene implementación funcional demo y JN-1B backend local probado**
 de Salto a la cima, sin despliegue; JN-1C cliente remoto ya está implementado.
-Sigue JN-2A reglas/demo de Rescate de estrellas. Los otros tres
-juegos nuevos y las tres mejoras académicas siguen pendientes. G-SABI-1B conserva
+JN-2A reglas/demo de Rescate de estrellas implementada el 19 de septiembre;
+sigue JN-2B backend. Inventos, Escudo y las tres mejoras académicas siguen pendientes. G-SABI-1B conserva
 su muestra vectorial, sin aprobación artística ni integración en partidas reales.
 P5 y la conexión real D3 quedan pendientes y pausadas por decisión del usuario;
 estas ampliaciones no las sustituyen. [Duelo fantasma animado](SABI_DUELO_FANTASMA.md)
@@ -17,7 +17,8 @@ se retoma al final, no es la siguiente tarea.
 
 1. **JN-1 — Salto a la cima:** A demo funcional y B backend local listos;
    C cliente remoto implementado. Migración real y ensayo en staging pendientes.
-2. **JN-2 — Rescate de estrellas:** reglas, contenido, persistencia e integración.
+2. **JN-2 — Rescate de estrellas:** A reglas/demo listas; siguen B backend,
+   C integración y ensayo real. Arte al final.
 3. **JN-3 — Taller de inventos:** retos por subtema, piezas y proyecto guardado.
 4. **JN-4 — Escudo del conocimiento:** rondas, resistencia y resultados.
 5. **MA-1 — Cobertura del banco:** diagnóstico editorial antes de poblar más juegos.
@@ -65,7 +66,11 @@ deben retomarse antes de dar por probadas las funciones reales.
 - Las estrellas están atrapadas en burbujas.
 - Cada respuesta correcta permite a Sabi liberar una estrella.
 - Completar pequeños grupos reconstruye una constelación.
-- Pendientes duración, consecuencia del error y condiciones de finalización.
+- JN-2A usa parámetros provisionales de prueba: 6 estrellas, grupos de 3 y
+  máximo 10 preguntas; error consume pregunta sin quitar estrellas, sin cronómetro.
+  Se gana al liberar las 6 o se termina con rescate parcial al agotar preguntas.
+  Son hipótesis ajustables, no reglas finales aprobadas. Ver
+  [RESCATE_DE_ESTRELLAS.md](RESCATE_DE_ESTRELLAS.md).
 
 ### JN-3 — Taller de inventos
 

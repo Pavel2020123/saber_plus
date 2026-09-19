@@ -14,7 +14,10 @@ Cinco escalones, hasta doce preguntas, subir al acertar y bajar uno al fallar,
 sin explicaciones durante la partida. No concede XP ni modifica el diagnóstico.
 JN-1B añade el backend probado localmente, sin despliegue ni migración en Supabase.
 JN-1C añade el cliente Flutter remoto con recuperación segura, filtros e imágenes;
-falta ensayo real en dispositivo/staging. Sigue JN-2A, Rescate de estrellas.
+falta ensayo real en dispositivo/staging. JN-2A añade
+[Rescate de estrellas en demo](docs/RESCATE_DE_ESTRELLAS.md): seis estrellas,
+dos constelaciones y hasta diez preguntas, con reglas iniciales ajustables.
+Sigue **JN-2B, backend de Rescate de estrellas**, sin despliegue automático.
 Ver [SALTO_A_LA_CIMA.md](docs/SALTO_A_LA_CIMA.md).
 El prototipo de Sabi que sigue abajo se conserva, pero sus animaciones están pausadas.
 
