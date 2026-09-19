@@ -4,7 +4,8 @@ Acuerdos del 18 de septiembre de 2026. **Cambio de prioridad: funciones primero;
 arte y animaciones al final**, por decisión del usuario. No borrar el prototipo de
 Sabi ni interpretar la pausa como cancelación de su diseño.
 
-**JN-1A tiene implementación funcional demo** de Salto a la cima; los otros tres
+**JN-1A tiene implementación funcional demo y JN-1B backend local probado**
+de Salto a la cima, sin despliegue; sigue JN-1C integración Flutter. Los otros tres
 juegos nuevos y las tres mejoras académicas siguen pendientes. G-SABI-1B conserva
 su muestra vectorial, sin aprobación artística ni integración en partidas reales.
 P5 y la conexión real D3 quedan pendientes y pausadas por decisión del usuario;
@@ -13,7 +14,8 @@ se retoma al final, no es la siguiente tarea.
 
 ## Orden funcional propuesto para continuar por entregas
 
-1. **JN-1 — Salto a la cima:** A demo funcional, B backend, C integración remota.
+1. **JN-1 — Salto a la cima:** A demo funcional y B backend local listos;
+   C integración remota pendiente. Migración real y ensayo en staging pendientes.
 2. **JN-2 — Rescate de estrellas:** reglas, contenido, persistencia e integración.
 3. **JN-3 — Taller de inventos:** retos por subtema, piezas y proyecto guardado.
 4. **JN-4 — Escudo del conocimiento:** rondas, resistencia y resultados.

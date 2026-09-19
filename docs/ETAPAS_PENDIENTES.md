@@ -9,8 +9,9 @@ y Escudo del conocimiento**, con un protagonista compartido que está diseñando
 También seleccionó mapa de aprendizaje, repaso diferido y cobertura del banco.
 Reglas acordadas y decisiones pendientes en [SABI_Y_JUEGOS_APROBADOS.md](SABI_Y_JUEGOS_APROBADOS.md).
 **Nuevo orden: funcionalidad primero, animaciones al final.** JN-1A tiene
-[Salto a la cima en demo local](SALTO_A_LA_CIMA.md); faltan JN-1B backend y JN-1C
-integración real. Después: JN-2 Estrellas, JN-3 Inventos, JN-4 Escudo, MA-1 cobertura,
+[Salto a la cima en demo local](SALTO_A_LA_CIMA.md); JN-1B backend está implementado
+y probado localmente, sin despliegue. Sigue JN-1C integración Flutter; la prueba real
+queda pendiente de infraestructura. Después: JN-2 Estrellas, JN-3 Inventos, JN-4 Escudo, MA-1 cobertura,
 MA-2 mapa y MA-3 repaso diferido. G-SABI-1B se conserva como prototipo pausado,
 sin aprobación artística; las celebraciones y renovación visual no se hacen ahora.
 Son alcance adicional, no implementado en producción;

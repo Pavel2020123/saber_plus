@@ -14,11 +14,12 @@ como referencia; no se repiten las funciones ya implementadas.
 Acuerdo del 18 de septiembre: **P5 y la conexión real D3 quedan pausadas**,
 no terminadas. Se registran cuatro juegos nuevos con Sabi y tres mejoras académicas
 en [SABI_Y_JUEGOS_APROBADOS.md](SABI_Y_JUEGOS_APROBADOS.md). Están aprobados como
-alcance futuro; JN-1A tiene entrega demo funcional, no integración de producción.
+alcance futuro; JN-1A tiene entrega demo funcional y JN-1B backend verificado
+localmente, sin despliegue ni integración de producción.
 Esta ampliación no cierra ni sustituye las etapas pendientes que siguen debajo.
 **Prioridad más reciente: juegos funcionales y mejoras académicas primero;
 animaciones al final.** [Salto a la cima](SALTO_A_LA_CIMA.md) inicia esta entrega:
-JN-1A demo, JN-1B backend y JN-1C remoto. Después JN-2–4 y MA-1–3 según
+JN-1A demo y JN-1B backend local listos; sigue JN-1C remoto. Después JN-2–4 y MA-1–3 según
 SABI_Y_JUEGOS_APROBADOS.md. [Duelo fantasma con Sabi](SABI_DUELO_FANTASMA.md)
 queda pausado; se conserva su prototipo sin darlo por arte final.
 
