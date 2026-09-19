@@ -11,6 +11,11 @@ como referencia; no se repiten las funciones ya implementadas.
 
 ## Estado actual
 
+Reparto del 19 de septiembre: compañeros preparan los seis certificados y revisan/
+reparan audios en ramas independientes; el propietario continúa JN-2B. Reglas,
+inventario y criterios en [GUIA_TRABAJO_COMPANEROS.md](GUIA_TRABAJO_COMPANEROS.md).
+No confundir esta asignación con implementación, prueba en dispositivo o despliegue.
+
 Acuerdo del 18 de septiembre: **P5 y la conexión real D3 quedan pausadas**,
 no terminadas. Se registran cuatro juegos nuevos con Sabi y tres mejoras académicas
 en [SABI_Y_JUEGOS_APROBADOS.md](SABI_Y_JUEGOS_APROBADOS.md). Están aprobados como

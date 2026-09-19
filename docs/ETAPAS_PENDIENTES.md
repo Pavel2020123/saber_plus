@@ -2,6 +2,17 @@
 
 Actualizado: 19 de septiembre de 2026. Listado para compartir con el equipo.
 
+## Trabajo paralelo del equipo
+
+Guía para compañeros: [GUIA_TRABAJO_COMPANEROS.md](GUIA_TRABAJO_COMPANEROS.md).
+Certificados: nueva decisión de **solo cinco por área y uno final por las cinco**,
+con nombre registrado del estudiante y validación de finalización en el servidor.
+Audios: investigar el reporte de que solo se escucha Tira y afloja; las llamadas
+existentes no prueban reproducción real. Reparar primero y luego agregar efectos
+coordinados a juegos nuevos. Contenido desde ADMIN más adelante; pruebas entre los tres.
+Cada compañero trabaja en su rama/PR; el propietario revisa e incorpora. Este reparto
+no cambia la siguiente entrega funcional JN-2B ni reabre animaciones/P5/D3.
+
 ## Ampliación aprobada — Sabi, cuatro juegos y tres mejoras académicas
 
 El usuario seleccionó **Salto a la cima, Rescate de estrellas, Taller de inventos
@@ -381,13 +392,20 @@ conectar el panel por sí solo no garantiza que lo nuevo aparezca ya en la app.
   almacenar permanentemente bancos de claves de respuesta. Distinguir recursos
   públicos descargables de datos privados y resultados autorizados del alumno.
 
-## 9. Certificado por completar una materia
+## 9. Seis certificados: cinco áreas y curso completo
 
-- El certificado de logros ya existe; falta el contrato específico de completar
-  el 100 % de una materia, comprobado por el servidor.
-- Integrarlo con la colección del perfil, descarga y reglas de emisión.
-- Confirmar nombres/plantillas definitivos con el equipo; no reemplazar los
-  actuales automáticamente. Pendiente identificado en GAMIFICATION_CONTRACT.md.
+- Nueva decisión: un certificado por Lectura crítica, Matemáticas, Ciencias naturales,
+  Sociales y ciudadanas e Inglés, más uno final por completar las cinco áreas.
+- El PDF por logro es la implementación heredada, no el objetivo final. Sustituir
+  sus acciones en la colección mediante integración coordinada, sin borrar PDFs
+  personales existentes ni retirar rutas sin acordar compatibilidad.
+- Plantilla sencilla reutilizable; nombre dinámico desde `Usuario.nombre`, exactamente
+  el registrado, sin recortar al primer nombre. Ver guía de compañeros, tareas C1/C2.
+- Acordar evidencia/versión de contenido para completar cada área; el servidor
+  confirma la finalización. Ni abrir lecciones ni un porcentaje local bastan por defecto.
+- Habilitar el final solo al completar las cinco áreas; no por descargar cinco PDFs.
+- Pendientes contrato, emisión, colección/descarga y pruebas de permisos y nombres.
+  Ver [GAMIFICATION_CONTRACT.md](GAMIFICATION_CONTRACT.md) para el código heredado.
 
 ## 10. Etapas 8C–8D — Publicidad y recompensas reales
 

@@ -38,7 +38,22 @@ La pérdida real sigue siendo responsabilidad del backend. Para aplicar el día 
 
 Las cuentas demostrativas muestran controles para sumar diez días y alternar entre activa, congelada y perdida. Esos controles solo modifican la vista previa en memoria y nunca aparecen en una cuenta real ni llaman a la API.
 
-## Certificados de logros
+## Certificados: objetivo actualizado del producto (19 de septiembre)
+
+El propietario solicita **seis tipos**: uno por cada área (Lectura crítica,
+Matemáticas, Ciencias naturales, Sociales y ciudadanas e Inglés) y uno final
+por completar las cinco. No emitir PDFs por cada logro, racha o juego en el diseño final.
+Nombre del certificado desde `Usuario.nombre`; Flutter lo recibe en `firstName`,
+pero no debe dividir ese texto ni inventar apellidos.
+
+Falta definir la evidencia/versionado para considerar cada área completada y
+crear el contrato de servidor correspondiente. La emisión no puede decidirse solo
+en Flutter. La plantilla puede diseñarse por separado de esa autorización.
+La migración de la colección y la compatibilidad de descargas anteriores se coordinarán;
+no borrar documentos existentes ni dar por implementada esta decisión.
+Asignación y criterios: [GUIA_TRABAJO_COMPANEROS.md](GUIA_TRABAJO_COMPANEROS.md).
+
+## Certificados de logros — implementación heredada actual
 
 `GET /gamificacion/logros/:logroId/certificado`
 
@@ -50,4 +65,5 @@ Las cuentas demostrativas muestran controles para sumar diez días y alternar en
 - Los logros bloqueados no muestran ninguna acción de certificado.
 - El modo demostrativo no genera certificados personales falsos; la descarga requiere una cuenta real.
 
-El certificado especial por completar el 100% de una materia requiere un nuevo contrato del backend y permanece pendiente dentro de las mejoras académicas posteriores.
+El sistema de los cinco certificados por área y el final requiere un nuevo contrato
+del backend y permanece pendiente; esta ruta heredada no lo implementa.
