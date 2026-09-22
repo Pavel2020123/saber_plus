@@ -7,7 +7,7 @@ Sabi ni interpretar la pausa como cancelación de su diseño.
 **JN-1A tiene implementación funcional demo y JN-1B backend local probado**
 de Salto a la cima, sin despliegue; JN-1C cliente remoto ya está implementado.
 JN-2A reglas/demo de Rescate de estrellas implementada el 19 de septiembre;
-sigue JN-2B backend. Inventos, Escudo y las tres mejoras académicas siguen pendientes. G-SABI-1B conserva
+sigue JN-2B backend. Escudo y las tres mejoras académicas siguen pendientes. G-SABI-1B conserva
 su muestra vectorial, sin aprobación artística ni integración en partidas reales.
 P5 y la conexión real D3 quedan pendientes y pausadas por decisión del usuario;
 estas ampliaciones no las sustituyen. [Duelo fantasma animado](SABI_DUELO_FANTASMA.md)
@@ -19,13 +19,16 @@ se retoma al final, no es la siguiente tarea.
    C cliente remoto implementado. Migración real y ensayo en staging pendientes.
 2. **JN-2 — Rescate de estrellas:** A reglas/demo listas; siguen B backend,
    C integración y ensayo real. Arte al final.
-3. **JN-3 — Taller de inventos:** retos por subtema, piezas y proyecto guardado.
-4. **JN-4 — Escudo del conocimiento:** rondas, resistencia y resultados.
-5. **MA-1 — Cobertura del banco:** diagnóstico editorial antes de poblar más juegos.
-6. **MA-2 — Mapa de aprendizaje:** relaciones entre temas, orientación sin bloqueos.
-7. **MA-3 — Repaso diferido:** agenda de retención y sincronización.
-8. **Arte/animación final:** Sabi compartido, Fantasma, Tira y afloja, Guardián y
+3. **JN-4 — Escudo del conocimiento:** rondas, resistencia y resultados.
+4. **MA-1 — Cobertura del banco:** diagnóstico editorial antes de poblar más juegos.
+5. **MA-2 — Mapa de aprendizaje:** relaciones entre temas, orientación sin bloqueos.
+6. **MA-3 — Repaso diferido:** agenda de retención y sincronización.
+7. **Arte/animación final:** Sabi compartido, Fantasma, Tira y afloja, Guardián y
    juegos nuevos; revisar accesibilidad, movimiento reducido y rendimiento.
+
+**JN-3 — Taller de inventos fue cancelado por decisión del usuario.** Se retira
+del alcance y de las tareas de audio. Se conserva el identificador JN-4 de Escudo
+para mantener las referencias existentes; JN-3 no es una etapa pendiente.
 
 No confundir implementar API/cliente con desplegarlos: P5/D3 y sus dependencias
 deben retomarse antes de dar por probadas las funciones reales.
@@ -48,7 +51,7 @@ deben retomarse antes de dar por probadas las funciones reales.
 - Cada juego puede tener su propia celebración: la transformación musculosa no es
   obligatoria en todos. No se necesitan más protagonistas para variar los movimientos.
 
-## Cuatro juegos nuevos confirmados
+## Tres juegos nuevos confirmados
 
 ### JN-1 — Salto a la cima
 
@@ -71,15 +74,6 @@ deben retomarse antes de dar por probadas las funciones reales.
   Se gana al liberar las 6 o se termina con rescate parcial al agotar preguntas.
   Son hipótesis ajustables, no reglas finales aprobadas. Ver
   [RESCATE_DE_ESTRELLAS.md](RESCATE_DE_ESTRELLAS.md).
-
-### JN-3 — Taller de inventos
-
-- Sabi construye un cohete, un robot o un vehículo.
-- Cada pequeño reto resuelto añade una pieza; al completar el invento se anima
-  su funcionamiento.
-- Recorridos organizados por subtema, por ejemplo el cohete de las proporciones.
-- Las piezas son progreso del juego, no compras ni premios aleatorios.
-- Pendientes número de piezas, selección de retos y persistencia del proyecto.
 
 ### JN-4 — Escudo del conocimiento
 
@@ -129,5 +123,5 @@ deben retomarse antes de dar por probadas las funciones reales.
 - No se aprobaron otros juegos sugeridos: Camino de las pistas, Detective del error,
   Escape académico o Misión cooperativa no se incorporan por esta selección.
 
-Estos cuatro juegos amplían el alcance: **no están dentro del recuento histórico
+Estos tres juegos amplían el alcance: **no están dentro del recuento histórico
 de seis juegos existentes** ni se consideran trabajo terminado de producción.

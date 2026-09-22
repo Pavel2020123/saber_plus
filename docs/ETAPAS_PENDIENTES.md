@@ -14,9 +14,9 @@ coordinados a juegos nuevos. Contenido desde ADMIN más adelante; pruebas entre 
 Cada compañero trabaja en su rama/PR; el propietario revisa e incorpora. Este reparto
 no cambia la siguiente entrega funcional JN-2B ni reabre animaciones/P5/D3.
 
-## Ampliación aprobada — Sabi, cuatro juegos y tres mejoras académicas
+## Ampliación aprobada — Sabi, tres juegos y tres mejoras académicas
 
-El usuario seleccionó **Salto a la cima, Rescate de estrellas, Taller de inventos
+El alcance vigente incluye **Salto a la cima, Rescate de estrellas
 y Escudo del conocimiento**, con un protagonista compartido que está diseñando.
 También seleccionó mapa de aprendizaje, repaso diferido y cobertura del banco.
 Reglas acordadas y decisiones pendientes en [SABI_Y_JUEGOS_APROBADOS.md](SABI_Y_JUEGOS_APROBADOS.md).
@@ -25,7 +25,7 @@ Reglas acordadas y decisiones pendientes en [SABI_Y_JUEGOS_APROBADOS.md](SABI_Y_
 y probado localmente, sin despliegue. JN-1C cliente Flutter remoto implementado;
 la prueba real queda pendiente de infraestructura. JN-2A
 [Rescate de estrellas](RESCATE_DE_ESTRELLAS.md) tiene reglas/demo implementadas.
-Sigue JN-2B backend, después JN-2C integración, JN-3 Inventos, JN-4 Escudo, MA-1 cobertura,
+Sigue JN-2B backend, después JN-2C integración, JN-4 Escudo, MA-1 cobertura,
 MA-2 mapa y MA-3 repaso diferido. G-SABI-1B se conserva como prototipo pausado,
 sin aprobación artística; las celebraciones y renovación visual no se hacen ahora.
 Son alcance adicional, no implementado en producción;
@@ -586,7 +586,7 @@ autorizan desarrollarlas todas ahora. Se priorizan después con el equipo.
 
 - Publicación comercial en App Store y cobros StoreKit: solo si se autorizan después.
 - Tutores y chat de asesoría: descartados del modelo.
-- Más juegos no acordados: no se agregan al camino actual. Los cuatro seleccionados
+- Más juegos no acordados: no se agregan al camino actual. Los tres seleccionados
   en SABI_Y_JUEGOS_APROBADOS.md sí son alcance aprobado, pendiente de programación.
 - Rediseño visual general del panel: no es prioridad; debe ser funcional y accesible.
 

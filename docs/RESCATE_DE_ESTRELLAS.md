@@ -87,5 +87,5 @@ generado un APK ni ejecutado toda la suite del proyecto para esta entrega.
 4. **Arte y animaciones al final:** Sabi, burbujas, liberación, conexión de estrellas
    y celebraciones; decidir audios antes de solicitar nuevas descargas.
 
-Después continúan JN-3 Inventos, JN-4 Escudo, MA-1 cobertura del banco,
+Después continúan JN-4 Escudo, MA-1 cobertura del banco,
 MA-2 mapa de aprendizaje y MA-3 repaso diferido. Esta demo no cierra esas tareas.
