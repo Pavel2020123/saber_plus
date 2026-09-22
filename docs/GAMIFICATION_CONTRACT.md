@@ -38,32 +38,34 @@ La pérdida real sigue siendo responsabilidad del backend. Para aplicar el día 
 
 Las cuentas demostrativas muestran controles para sumar diez días y alternar entre activa, congelada y perdida. Esos controles solo modifican la vista previa en memoria y nunca aparecen en una cuenta real ni llaman a la API.
 
-## Certificados: objetivo actualizado del producto (19 de septiembre)
+## Certificados de áreas y curso (integración local, 22 de septiembre)
 
-El propietario solicita **seis tipos**: uno por cada área (Lectura crítica,
-Matemáticas, Ciencias naturales, Sociales y ciudadanas e Inglés) y uno final
-por completar las cinco. No emitir PDFs por cada logro, racha o juego en el diseño final.
-Nombre del certificado desde `Usuario.nombre`; Flutter lo recibe en `firstName`,
-pero no debe dividir ese texto ni inventar apellidos.
+El catálogo protegido `GET /gamificacion/certificados` devuelve cinco áreas
+(`LECTURA_CRITICA`, `MATEMATICAS`, `CIENCIAS_NATURALES`,
+`SOCIALES_CIUDADANAS`, `INGLES`) y `CURSO_COMPLETO`. Cada entrada indica
+`id`, `titulo`, `completadas`, `total`, `disponible` y `unidad`.
 
-Falta definir la evidencia/versionado para considerar cada área completada y
-crear el contrato de servidor correspondiente. La emisión no puede decidirse solo
-en Flutter. La plantilla puede diseñarse por separado de esa autorización.
-La migración de la colección y la compatibilidad de descargas anteriores se coordinarán;
-no borrar documentos existentes ni dar por implementada esta decisión.
-Asignación y criterios: [GUIA_TRABAJO_COMPANEROS.md](GUIA_TRABAJO_COMPANEROS.md).
+La evidencia por área son **todos los subtemas publicados** bajo temas publicados,
+con `ProgresoTema` del estudiante autenticado, `completado=true` y
+`porcentaje>=100`. Un área vacía permanece cerrada. El curso requiere las cinco
+áreas disponibles. La API recalcula al consultar y al descargar; no conserva
+un derecho histórico cuando se agrega una nueva lección publicada.
 
-## Certificados de logros — implementación heredada actual
+`GET /gamificacion/certificados/:tipo/pdf` vuelve a validar la disponibilidad,
+lee el nombre íntegro desde `Usuario.nombre` y renderiza el HTML de
+`backend/src/gamificacion/templates/certificado.html` en PDF A4 horizontal.
+Responde 404 para tipos distintos de los seis y 403 si está pendiente. La
+respuesta PDF es privada y sin caché HTTP. El diseño incluye el logo y Sabi, con
+una aclaración de que no es un diploma oficial del ICFES. La generación depende
+de Chrome instalado en el backend; Render todavía no se ha verificado.
 
-`GET /gamificacion/logros/:logroId/certificado`
+Flutter muestra seis tarjetas en `Logros y actividad`, valida la firma/tamaño del
+PDF y guarda el archivo en almacenamiento privado separado por cuenta y por tipo.
+Reconsulta el servidor al descargar para incorporar cambios de nombre/progreso.
+La cuenta demostrativa no emite documentos personales. Los logros continúan como
+insignias sin botones de certificado.
 
-- El servidor vuelve a comprobar que el logro pertenezca al estudiante y esté desbloqueado.
-- Flutter acepta el archivo únicamente si contiene la firma de un PDF y no supera 20 MB.
-- El nombre recibido se sanitiza y nunca se utiliza para construir rutas del dispositivo.
-- Los archivos se guardan en el almacenamiento privado de la app, separados por usuario.
-- Una descarga existente se reutiliza y se puede abrir nuevamente sin descargarla.
-- Los logros bloqueados no muestran ninguna acción de certificado.
-- El modo demostrativo no genera certificados personales falsos; la descarga requiere una cuenta real.
-
-El sistema de los cinco certificados por área y el final requiere un nuevo contrato
-del backend y permanece pendiente; esta ruta heredada no lo implementa.
+La ruta heredada `GET /gamificacion/logros/:logroId/certificado` devuelve 410
+para señalar el retiro del PDF por logro. Los archivos antiguos que el alumno
+descargó localmente no se eliminan. El nuevo flujo requiere despliegue y prueba
+integrada antes de marcarlo listo para producción.

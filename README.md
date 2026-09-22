@@ -9,7 +9,7 @@ Este repositorio móvil nunca almacena credenciales de PostgreSQL o Supabase.
 ## Auditoría y resumen para el equipo
 
 **Trabajo de compañeros:** leer [GUIA_TRABAJO_COMPANEROS.md](docs/GUIA_TRABAJO_COMPANEROS.md).
-Define seis certificados (cinco áreas y curso completo), reparación/verificación
+Documenta seis certificados integrados localmente (cinco áreas y curso completo), reparación/verificación
 de audios, pruebas conjuntas y entregas en ramas mediante Pull Request.
 Son tareas asignadas, no implementaciones terminadas; no trabajar directamente en `main`.
 

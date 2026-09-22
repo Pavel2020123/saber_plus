@@ -5,6 +5,7 @@ import '../../auth/presentation/session_controller.dart';
 import '../data/demo_gamification_repository.dart';
 import '../data/remote_gamification_repository.dart';
 import '../domain/gamification_models.dart';
+import '../domain/course_certificate.dart';
 import '../domain/gamification_repository.dart';
 
 final gamificationRepositoryProvider = Provider<GamificationRepository>((ref) {
@@ -21,3 +22,11 @@ final gamificationSummaryProvider =
     FutureProvider.autoDispose<GamificationSummary>(
       (ref) => ref.watch(gamificationRepositoryProvider).loadSummary(),
     );
+
+final courseCertificatesProvider =
+    FutureProvider.autoDispose<List<CourseCertificate>>((ref) {
+      ref.watch(
+        sessionControllerProvider.select((session) => session.user?.id),
+      );
+      return ref.watch(gamificationRepositoryProvider).loadCertificates();
+    });

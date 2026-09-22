@@ -164,16 +164,16 @@ class GamificationSummary {
   );
 }
 
-class AchievementCertificate {
-  const AchievementCertificate({
-    required this.achievementId,
+class DownloadedCertificate {
+  const DownloadedCertificate({
+    required this.certificateId,
     required this.fileName,
     required this.localPath,
     required this.byteSize,
     required this.downloadedAt,
   });
 
-  final String achievementId;
+  final String certificateId;
   final String fileName;
   final String localPath;
   final int byteSize;

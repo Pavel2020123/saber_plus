@@ -1,12 +1,13 @@
 # SaberPlus — trabajo pendiente tras verificación local 7F-C3-D2-F
 
-Actualizado: 19 de septiembre de 2026. Listado para compartir con el equipo.
+Actualizado: 22 de septiembre de 2026. Listado para compartir con el equipo.
 
 ## Trabajo paralelo del equipo
 
 Guía para compañeros: [GUIA_TRABAJO_COMPANEROS.md](GUIA_TRABAJO_COMPANEROS.md).
-Certificados: nueva decisión de **solo cinco por área y uno final por las cinco**,
-con nombre registrado del estudiante y validación de finalización en el servidor.
+Certificados: **cinco por área y uno final por las cinco**, integrados localmente
+con nombre registrado y validación de finalización del servidor. Falta despliegue
+y prueba conjunta con base real.
 Audios: investigar el reporte de que solo se escucha Tira y afloja; las llamadas
 existentes no prueban reproducción real. Reparar primero y luego agregar efectos
 coordinados a juegos nuevos. Contenido desde ADMIN más adelante; pruebas entre los tres.
@@ -396,16 +397,15 @@ conectar el panel por sí solo no garantiza que lo nuevo aparezca ya en la app.
 
 - Nueva decisión: un certificado por Lectura crítica, Matemáticas, Ciencias naturales,
   Sociales y ciudadanas e Inglés, más uno final por completar las cinco áreas.
-- El PDF por logro es la implementación heredada, no el objetivo final. Sustituir
-  sus acciones en la colección mediante integración coordinada, sin borrar PDFs
-  personales existentes ni retirar rutas sin acordar compatibilidad.
-- Plantilla sencilla reutilizable; nombre dinámico desde `Usuario.nombre`, exactamente
-  el registrado, sin recortar al primer nombre. Ver guía de compañeros, tareas C1/C2.
-- Acordar evidencia/versión de contenido para completar cada área; el servidor
-  confirma la finalización. Ni abrir lecciones ni un porcentaje local bastan por defecto.
-- Habilitar el final solo al completar las cinco áreas; no por descargar cinco PDFs.
-- Pendientes contrato, emisión, colección/descarga y pruebas de permisos y nombres.
-  Ver [GAMIFICATION_CONTRACT.md](GAMIFICATION_CONTRACT.md) para el código heredado.
+- Implementado localmente el 22 de septiembre: una plantilla HTML reutilizable con
+  logo, Sabi, nombre dinámico desde `Usuario.nombre`, área/curso y fecha. PDF A4 horizontal.
+- El servidor exige completar todas las lecciones publicadas del área. Un área vacía
+  no habilita certificado. El final requiere las cinco áreas, no cinco descargas.
+- La colección Flutter ofrece las seis tarjetas. Se retiraron sus botones por logro;
+  la ruta heredada devuelve 410. Los PDFs personales previos no se borran.
+- Pendiente: desplegar y probar Render con Chrome, base real, nombres extensos y
+  los seis estados en celulares. Acordar después política de historial/versiones si
+  se necesita conservar un derecho de emisión tras publicar nuevas lecciones.
 
 ## 10. Etapas 8C–8D — Publicidad y recompensas reales
 

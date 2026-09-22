@@ -11,10 +11,11 @@ como referencia; no se repiten las funciones ya implementadas.
 
 ## Estado actual
 
-Reparto del 19 de septiembre: compañeros preparan los seis certificados y revisan/
-reparan audios en ramas independientes; el propietario continúa JN-2B. Reglas,
-inventario y criterios en [GUIA_TRABAJO_COMPANEROS.md](GUIA_TRABAJO_COMPANEROS.md).
-No confundir esta asignación con implementación, prueba en dispositivo o despliegue.
+Certificados de cinco áreas y curso completo integrados localmente el 22 de septiembre:
+plantilla HTML/PDF, reglas del servidor y colección Flutter. Falta desplegar y
+probar el flujo con base real y celulares. Compañeros revisan el diseño y trabajan
+en reparar audios en ramas independientes; ver
+[GUIA_TRABAJO_COMPANEROS.md](GUIA_TRABAJO_COMPANEROS.md).
 
 Acuerdo del 18 de septiembre: **P5 y la conexión real D3 quedan pausadas**,
 no terminadas. Se registran cuatro juegos nuevos con Sabi y tres mejoras académicas
@@ -116,7 +117,9 @@ El cliente ya está adaptado al contrato actual del backend NestJS.
 ## Etapa 6 - Comunidad y gamificación
 
 - [x] XP confirmado por perfil, rachas, actividad y progreso de logros.
-- [x] Descarga y apertura segura de certificados de logros desbloqueados.
+- [x] Seis certificados locales de finalización (cinco áreas y curso), con HTML/PDF,
+  descarga privada y autorización desde el servidor. Pendiente desplegar y probar
+  el flujo real en Render y celulares.
 - [x] Favoritos de lecciones por estudiante, persistentes en el dispositivo y disponibles sin conexión.
 - [ ] Sincronización de favoritos entre dispositivos cuando el backend publique el contrato correspondiente.
 - [x] Búsqueda académica de lecciones y prácticas por área, tema, subtema o concepto.

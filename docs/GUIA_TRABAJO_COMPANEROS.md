@@ -1,11 +1,12 @@
 # SaberPlus — guía de trabajo para compañeros
 
-Actualizado: 19 de septiembre de 2026. Leer antes de modificar código.
+Actualizado: 22 de septiembre de 2026. Leer antes de modificar código.
 
 ## 1. Acuerdo del equipo
 
 El propietario continúa con la lógica/backend de los juegos y coordina la integración.
-Los compañeros pueden encargarse de **certificados y audios**, en ramas distintas.
+Los compañeros pueden **revisar el diseño de certificados y reparar audios** en
+ramas distintas.
 El contenido académico lo cargarán después el propietario y un compañero desde el
 panel ADMIN. Las pruebas en celulares se harán entre los tres.
 
@@ -13,7 +14,7 @@ No trabajar ni subir cambios directamente en `main`. Cada entrega se revisa en u
 Pull Request (PR) y **el propietario decide cuándo incorporarla**. No desplegar,
 aplicar migraciones ni usar credenciales de producción por cuenta propia.
 
-Esta guía describe tareas por implementar/verificar, no funciones ya terminadas.
+Esta guía distingue trabajo local integrado de pruebas y despliegues pendientes.
 P5/D3 siguen pausadas; los juegos nuevos avanzan primero en funcionalidad.
 Las animaciones de Sabi quedan al final; esta asignación no reabre ese trabajo.
 
@@ -80,85 +81,41 @@ Los logros pueden seguir existiendo como insignias, sin emitir certificados.
 “Ciencias ciudadanas” se corresponde con **Sociales y ciudadanas** en el catálogo.
 Son seis tipos, no seis PDFs de por vida: se puede volver a descargar uno obtenido.
 
-### C1 — Diseño y generación del PDF (pueden empezar aquí)
+### Implementación local del 22 de septiembre
 
-Crear **una plantilla sencilla reutilizable**, con logo de SaberPlus, nombre del
-estudiante, área/curso y fecha. No se necesitan seis diseños diferentes, QR,
-firmas externas ni más clases de certificados. Entregar el diseño editable,
-el generador reutilizable y muestras con datos ficticios.
+El propietario integró una plantilla HTML única con el logo S+ y la imagen de Sabi
+celebrando. El backend convierte esa plantilla en PDF A4 horizontal y consulta
+`Usuario.nombre` de la sesión autenticada. El catálogo contiene exactamente los
+seis tipos de la tabla. La app muestra su avance y permite descargarlos.
 
-Ejemplo de texto para área:
+Regla acordada: se completan **todas las lecciones (subtemas) publicadas del área**.
+Un área sin lecciones publicadas permanece bloqueada. El curso se habilita cuando
+las cinco áreas están completas. Borradores, contenido archivado y preguntas
+sueltas no cuentan. `ProgresoTema.completado` y `porcentaje >= 100` son la evidencia
+del servidor. El progreso de lectura se marca por la ruta académica existente.
 
-> SaberPlus felicita a **Juan David Ospino Pérez** por haber completado el área
-> de **Sociales y ciudadanas** de su programa de preparación para Saber 11.
+La disponibilidad se recalcula con el catálogo actual. Si se publica una lección
+nueva, hay que completarla para volver a emitir el certificado. El PDF privado
+ya descargado no se borra. Al reemitir, se usa el nombre actualizado del perfil.
+Los logros siguen como insignias; la ruta antigua de PDF por logro responde 410.
 
-Ejemplo final:
+Ubicaciones:
 
-> SaberPlus felicita a **Juanito Pérez** por haber completado las cinco áreas
-> del curso de preparación para Saber 11 de SaberPlus.
+- Backend: `backend/src/gamificacion/templates/certificado.html`,
+  `certificado-html.service.ts` y `certificados-curso.service.ts`.
+- API protegida: `GET /gamificacion/certificados` y
+  `GET /gamificacion/certificados/:tipo/pdf`.
+- App: `lib/features/gamification/presentation/course_certificates_section.dart`.
+- Vista previa local con datos inventados:
+  `cd backend; npm run build; node tool/preview_course_certificate.cjs`.
+  Las muestras en `backend/output/pdf/` llevan marca de demostración y no se suben.
 
-Presentarlo como constancia de finalización de SaberPlus, no como diploma oficial
-del ICFES, de un colegio o prueba de un puntaje obtenido en el examen real.
+Los compañeros pueden **revisar el diseño, accesibilidad y textos**, y probar
+los seis tipos con cuentas de ensayo después del despliegue. Hacer cambios solo
+en rama propia y PR. No emitir certificados manualmente ni modificar reglas de
+desbloqueo sin acordarlo con el propietario. Queda pendiente la prueba integrada
+con base real y el navegador del servicio de Render.
 
-**Nombre dinámico, nunca escrito a mano para cada estudiante:**
-
-- El backend ya guarda el nombre escrito por el usuario en `Usuario.nombre`.
-- Flutter recibe `nombre` en `UserSession.firstName`. Aunque la propiedad se llama
-  `firstName`, contiene ese texto; **no separar por espacios ni quedarse con “Juan”**.
-- Si escribió “Juanito Pérez”, debe salir “Juanito Pérez”; no inventar apellidos ni
-  pedir otro nombre dentro de la pantalla de certificados.
-- En la emisión real, el servidor toma `Usuario.nombre` del usuario autenticado,
-  no un nombre/ID arbitrario enviado por el cliente.
-- Probar nombres largos, tildes, ñ, guiones y apóstrofes. Ajustar texto/tamaño para
-  evitar cortes y solapamientos; conservar el nombre dentro del PDF.
-- Si falta el nombre, mostrar un error accionable, no emitir un certificado vacío.
-
-Ya existe generación PDF con **PDFKit** en
-`SaberPlus-Backend/backend/src/gamificacion/certificado-logro.service.ts`:
-consulta `Usuario.nombre` e imprime ese valor. Usarlo como referencia; no hace falta
-cambiar de librería ni reescribir el sistema de descarga.
-
-Para evitar choques, proponer un archivo nuevo, por ejemplo
-`backend/src/gamificacion/certificado-curso-template.ts` (ruta propuesta, aún no creada),
-con una función que reciba nombre, área/curso y fecha y devuelva bytes PDF.
-Ese generador **no decide si el estudiante aprobó**. Las muestras deben indicar
-“DEMOSTRACIÓN / NO VÁLIDO” y no activar certificados en cuentas reales.
-
-### C2 — Habilitación, colección y descarga (coordinar antes)
-
-Implementar seis tarjetas con estado pendiente/disponible; habilitar descarga
-únicamente con confirmación de servidor. El certificado final no se habilita con
-cuatro áreas ni por descargar los cinco PDFs: depende de completar las cinco áreas.
-
-**Decisión pendiente que hay que acordar antes de activar la emisión:** qué evidencia
-constituye “terminar un área”. Revisar progreso existente y fijar contenido obligatorio
-y versión del curso; no asumir que abrir todas las lecciones o acertar una pregunta
-equivale a completar un área. No inventar un porcentaje de acierto ni cambiar la
-dificultad por cuenta propia. Los borradores no deben contar como contenido obligatorio.
-Definir también qué ocurre al agregar contenido y al cambiar el nombre tras emitir.
-
-El servidor valida propiedad, finalización y tipo de certificado en cada emisión.
-No confiar en un `100%` calculado solo por Flutter. Mantener emisión/reintentos
-idempotentes y acordar tratamiento del historial antes de cambiar el modelo.
-
-Hay una ruta heredada `GET /gamificacion/logros/:logroId/certificado`, no una API
-de estos seis certificados. No conectarla fingiendo que cualquier logro representa
-un área. El cambio requiere un contrato específico y pruebas backend.
-Retirar de la interfaz las acciones de PDF por logro al integrar el nuevo sistema;
-no borrar documentos existentes del usuario ni romper silenciosamente consumidores
-de la ruta anterior. Acordar compatibilidad/retirada con el propietario.
-
-En Flutter revisar `lib/features/gamification/`, especialmente
-`data/remote_gamification_repository.dart` y `presentation/gamification_page.dart`.
-Conservar validación de PDF/tamaño y almacenamiento privado separado por cuenta.
-Nombre visible sugerido: `certificado-matematicas-juanito-perez.pdf`; sanear y limitar
-solo el nombre del archivo. El texto personal nunca debe formar una ruta libre del
-dispositivo ni permitir que un usuario acceda a PDFs de otro.
-
-**Criterios de entrega:** seis tipos exactos; nombre dinámico correcto; área bloqueada
-sin completar; final bloqueado con menos de cinco; descarga/reapertura; pruebas de
-cuentas distintas y ausencia de autorización; muestras legibles y sin recortes.
-C1 puede entregarse antes; C2 no se da por terminado solo por tener un PDF bonito.
 
 ## 4. Audios: reparar los existentes antes de añadir más
 
@@ -280,7 +237,7 @@ Probar explícitamente esos casos entre los tres antes de cargar miles de pregun
 
 | Responsable | Alcance principal | Coordinar antes de tocar |
 | --- | --- | --- |
-| Compañero de certificados | Plantilla/generador y pruebas; luego colección y contrato acordado | Gamificación, esquema/migraciones, perfil y política de finalización |
+| Compañero de certificados | Revisar plantilla ya integrada, accesibilidad y pruebas en celulares; proponer mejoras en PR | Gamificación, perfil y política de finalización |
 | Compañero de audios | Servicio de sonido, eventos, assets, licencias y pruebas | `pubspec.yaml`, preferencias y pantallas de juegos en desarrollo |
 | Propietario | Lógica/backend de juegos y revisión/integración | Cambios compartidos de ambos compañeros |
 | Los tres | Pruebas de celular e incidencias | Publicación, cuentas reales y datos de ensayo |

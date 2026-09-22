@@ -1,12 +1,22 @@
 import '../../../core/network/api_error.dart';
 import '../domain/gamification_models.dart';
+import '../domain/course_certificate.dart';
 import '../domain/gamification_repository.dart';
 
 class DemoGamificationRepository implements GamificationRepository {
   @override
-  Future<AchievementCertificate> downloadCertificate({
+  Future<List<CourseCertificate>> loadCertificates() async => [
+    for (final type in CourseCertificateType.values)
+      CourseCertificate(
+        type: type,
+        total: type == CourseCertificateType.course ? 5 : 0,
+      ),
+  ];
+
+  @override
+  Future<DownloadedCertificate> downloadCertificate({
     required String userId,
-    required Achievement achievement,
+    required CourseCertificate certificate,
   }) => throw const ApiError(
     code: 'demo_certificate',
     message:
@@ -14,9 +24,9 @@ class DemoGamificationRepository implements GamificationRepository {
   );
 
   @override
-  Future<AchievementCertificate?> findCertificate({
+  Future<DownloadedCertificate?> findCertificate({
     required String userId,
-    required Achievement achievement,
+    required CourseCertificate certificate,
   }) async => null;
 
   @override

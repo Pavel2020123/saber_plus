@@ -2,7 +2,6 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:open_filex/open_filex.dart';
 
 import '../../../app/theme.dart';
 import '../../../core/network/api_error.dart';
@@ -11,6 +10,7 @@ import '../../auth/presentation/session_controller.dart';
 import '../domain/gamification_models.dart';
 import 'gamification_providers.dart';
 import 'streak_flame_style.dart';
+import 'course_certificates_section.dart';
 
 enum _StreakPreviewState { active, frozen, lost }
 
@@ -22,9 +22,6 @@ class GamificationPage extends ConsumerStatefulWidget {
 }
 
 class _GamificationPageState extends ConsumerState<GamificationPage> {
-  final Map<String, AchievementCertificate> _certificates = {};
-  final Set<String> _checkedCertificates = {};
-  final Set<String> _downloadingCertificates = {};
   int? _previewStreakDays;
   var _previewStreakState = _StreakPreviewState.active;
 
@@ -52,7 +49,6 @@ class _GamificationPageState extends ConsumerState<GamificationPage> {
           onRetry: () => ref.invalidate(gamificationSummaryProvider),
         ),
         data: (data) {
-          _checkExistingCertificates(data.achievements);
           final demoPreview = session.user?.isDemo ?? false;
           final displayedStreak = demoPreview
               ? _previewStreak(data.streak)
@@ -70,9 +66,6 @@ class _GamificationPageState extends ConsumerState<GamificationPage> {
               onPreviewState: (value) =>
                   _changePreviewState(value, data.streak.current),
               onResetPreview: _resetPreview,
-              certificates: _certificates,
-              downloadingCertificates: _downloadingCertificates,
-              onCertificate: _downloadOrOpenCertificate,
             ),
           );
         },
@@ -129,78 +122,11 @@ class _GamificationPageState extends ConsumerState<GamificationPage> {
     });
   }
 
-  void _checkExistingCertificates(List<Achievement> achievements) {
-    final userId = ref.read(sessionControllerProvider).user?.id;
-    if (userId == null) return;
-    final repository = ref.read(gamificationRepositoryProvider);
-    for (final achievement in achievements) {
-      if (!achievement.unlocked || !_checkedCertificates.add(achievement.id)) {
-        continue;
-      }
-      Future<void>(() async {
-        final certificate = await repository.findCertificate(
-          userId: userId,
-          achievement: achievement,
-        );
-        if (mounted && certificate != null) {
-          setState(() => _certificates[achievement.id] = certificate);
-        }
-      }).onError((_, _) {});
-    }
-  }
-
-  Future<void> _downloadOrOpenCertificate(Achievement achievement) async {
-    final userId = ref.read(sessionControllerProvider).user?.id;
-    if (userId == null || _downloadingCertificates.contains(achievement.id)) {
-      return;
-    }
-    setState(() => _downloadingCertificates.add(achievement.id));
-    try {
-      final repository = ref.read(gamificationRepositoryProvider);
-      var certificate = await repository.findCertificate(
-        userId: userId,
-        achievement: achievement,
-      );
-      final downloadedNow = certificate == null;
-      certificate ??= await repository.downloadCertificate(
-        userId: userId,
-        achievement: achievement,
-      );
-      if (!mounted) return;
-      setState(() => _certificates[achievement.id] = certificate!);
-      final result = await OpenFilex.open(
-        certificate.localPath,
-        type: 'application/pdf',
-      );
-      if (!mounted) return;
-      if (result.type == ResultType.done) {
-        if (downloadedNow) {
-          _showMessage('Certificado guardado como ${certificate.fileName}.');
-        }
-      } else {
-        _showMessage(
-          'El certificado se guardó, pero no encontramos una aplicación para abrir PDF.',
-        );
-      }
-    } on Object catch (error) {
-      if (mounted) _showMessage(_messageFor(error));
-    } finally {
-      if (mounted) {
-        setState(() => _downloadingCertificates.remove(achievement.id));
-      }
-    }
-  }
-
-  void _showMessage(String message) {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message)));
-  }
-
   Future<void> _refresh(WidgetRef ref) async {
     await Future.wait<void>([
       ref.read(sessionControllerProvider.notifier).refreshProfile(),
       ref.refresh(gamificationSummaryProvider.future).then((_) {}),
+      ref.refresh(courseCertificatesProvider.future).then((_) {}),
     ]);
   }
 }
@@ -216,9 +142,6 @@ class _GamificationContent extends StatelessWidget {
     required this.onAdvancePreview,
     required this.onPreviewState,
     required this.onResetPreview,
-    required this.certificates,
-    required this.downloadingCertificates,
-    required this.onCertificate,
   });
 
   final GamificationSummary summary;
@@ -230,9 +153,6 @@ class _GamificationContent extends StatelessWidget {
   final VoidCallback onAdvancePreview;
   final ValueChanged<_StreakPreviewState> onPreviewState;
   final VoidCallback onResetPreview;
-  final Map<String, AchievementCertificate> certificates;
-  final Set<String> downloadingCertificates;
-  final ValueChanged<Achievement> onCertificate;
 
   @override
   Widget build(BuildContext context) => ListView(
@@ -279,14 +199,11 @@ class _GamificationContent extends StatelessWidget {
         ...summary.achievements.map(
           (achievement) => Padding(
             padding: const EdgeInsets.only(bottom: 10),
-            child: _AchievementCard(
-              achievement: achievement,
-              certificate: certificates[achievement.id],
-              downloading: downloadingCertificates.contains(achievement.id),
-              onCertificate: () => onCertificate(achievement),
-            ),
+            child: _AchievementCard(achievement: achievement),
           ),
         ),
+      const SizedBox(height: 24),
+      const CourseCertificatesSection(),
     ],
   );
 }
@@ -693,17 +610,9 @@ class _AchievementHeader extends StatelessWidget {
 }
 
 class _AchievementCard extends StatelessWidget {
-  const _AchievementCard({
-    required this.achievement,
-    required this.certificate,
-    required this.downloading,
-    required this.onCertificate,
-  });
+  const _AchievementCard({required this.achievement});
 
   final Achievement achievement;
-  final AchievementCertificate? certificate;
-  final bool downloading;
-  final VoidCallback onCertificate;
 
   @override
   Widget build(BuildContext context) {
@@ -764,28 +673,6 @@ class _AchievementCard extends StatelessWidget {
                         : '${achievement.progress} de ${achievement.goal}',
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
-                  if (achievement.unlocked) ...[
-                    const SizedBox(height: 10),
-                    OutlinedButton.icon(
-                      key: Key('certificate-${achievement.id}'),
-                      onPressed: downloading ? null : onCertificate,
-                      icon: downloading
-                          ? const SizedBox.square(
-                              dimension: 16,
-                              child: CircularProgressIndicator(strokeWidth: 2),
-                            )
-                          : Icon(
-                              certificate == null
-                                  ? Icons.download_rounded
-                                  : Icons.picture_as_pdf_outlined,
-                            ),
-                      label: Text(
-                        certificate == null
-                            ? 'Descargar certificado'
-                            : 'Abrir certificado',
-                      ),
-                    ),
-                  ],
                 ],
               ),
             ),

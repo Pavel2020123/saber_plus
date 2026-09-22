@@ -1,15 +1,18 @@
 import 'gamification_models.dart';
+import 'course_certificate.dart';
 
 abstract interface class GamificationRepository {
   Future<GamificationSummary> loadSummary();
 
-  Future<AchievementCertificate?> findCertificate({
+  Future<List<CourseCertificate>> loadCertificates();
+
+  Future<DownloadedCertificate?> findCertificate({
     required String userId,
-    required Achievement achievement,
+    required CourseCertificate certificate,
   });
 
-  Future<AchievementCertificate> downloadCertificate({
+  Future<DownloadedCertificate> downloadCertificate({
     required String userId,
-    required Achievement achievement,
+    required CourseCertificate certificate,
   });
 }

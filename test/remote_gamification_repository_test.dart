@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:saber_plus/features/gamification/data/remote_gamification_repository.dart';
-import 'package:saber_plus/features/gamification/domain/gamification_models.dart';
+import 'package:saber_plus/features/gamification/domain/course_certificate.dart';
 
 void main() {
   test('consulta el resumen protegido de gamificación', () async {
@@ -66,7 +66,7 @@ void main() {
               statusCode: 200,
               headers: Headers.fromMap({
                 'content-disposition': [
-                  'attachment; filename="certificado-primer-paso.pdf"',
+                  'attachment; filename="certificado-matematicas-juanito-perez.pdf"',
                 ],
               }),
               data: const [0x25, 0x50, 0x44, 0x46, 1, 2, 3],
@@ -82,16 +82,20 @@ void main() {
 
     final certificate = await repository.downloadCertificate(
       userId: '../student-1',
-      achievement: _unlockedAchievement,
+      certificate: _availableCertificate,
     );
     final existing = await repository.findCertificate(
       userId: '../student-1',
-      achievement: _unlockedAchievement,
+      certificate: _availableCertificate,
     );
 
-    expect(captured.path, '/gamificacion/logros/PRIMER_PASO/certificado');
+    expect(captured.path, '/gamificacion/certificados/MATEMATICAS/pdf');
     expect(captured.responseType, ResponseType.bytes);
-    expect(certificate.fileName, 'certificado-primer-paso.pdf');
+    expect(certificate.fileName, 'certificado-matematicas-juanito-perez.pdf');
+    expect(
+      certificate.localPath,
+      contains('certificado-matematicas-juanito-perez.pdf'),
+    );
     expect(certificate.localPath, startsWith(temporary.path));
     expect(certificate.localPath, isNot(contains('..')));
     expect(await File(certificate.localPath).readAsBytes(), const [
@@ -103,11 +107,12 @@ void main() {
       2,
       3,
     ]);
-    expect(existing?.achievementId, 'PRIMER_PASO');
+    expect(existing?.certificateId, 'MATEMATICAS');
+    expect(existing?.fileName, 'certificado-matematicas-juanito-perez.pdf');
     expect(existing?.byteSize, 7);
   });
 
-  test('no solicita certificados de logros bloqueados', () async {
+  test('no solicita certificados de áreas pendientes', () async {
     var requests = 0;
     final dio = Dio(BaseOptions(baseUrl: 'http://localhost:3000'));
     dio.interceptors.add(
@@ -128,15 +133,8 @@ void main() {
     await expectLater(
       repository.downloadCertificate(
         userId: 'student-1',
-        achievement: const Achievement(
-          id: 'RACHA_7',
-          title: 'Semana completa',
-          description: 'Alcanza una racha de 7 días.',
-          category: AchievementCategory.streak,
-          unlocked: false,
-          progress: 3,
-          goal: 7,
-          percentage: 43,
+        certificate: const CourseCertificate(
+          type: CourseCertificateType.english,
         ),
       ),
       throwsA(isA<Exception>()),
@@ -145,13 +143,9 @@ void main() {
   });
 }
 
-const _unlockedAchievement = Achievement(
-  id: 'PRIMER_PASO',
-  title: 'Primer paso',
-  description: 'Responde tu primera pregunta.',
-  category: AchievementCategory.practice,
-  unlocked: true,
-  progress: 1,
-  goal: 1,
-  percentage: 100,
+const _availableCertificate = CourseCertificate(
+  type: CourseCertificateType.mathematics,
+  available: true,
+  completed: 1,
+  total: 1,
 );

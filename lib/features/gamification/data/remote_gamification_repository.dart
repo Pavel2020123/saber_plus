@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 
 import '../../../core/network/api_error.dart';
 import '../domain/gamification_models.dart';
+import '../domain/course_certificate.dart';
 import '../domain/gamification_repository.dart';
 
 typedef CertificateDirectoryProvider = Future<Directory> Function();
@@ -22,6 +23,17 @@ class RemoteGamificationRepository implements GamificationRepository {
   final CertificateDirectoryProvider _certificateDirectory;
 
   @override
+  Future<List<CourseCertificate>> loadCertificates() async {
+    try {
+      final response = await _dio.get<Object?>('/gamificacion/certificados');
+      final body = response.data;
+      return CourseCertificate.parseList(body is Map ? body['data'] : body);
+    } on DioException catch (error) {
+      throw ApiError.fromDioException(error);
+    }
+  }
+
+  @override
   Future<GamificationSummary> loadSummary() async {
     try {
       final response = await _dio.get<Map<String, dynamic>>(
@@ -34,12 +46,25 @@ class RemoteGamificationRepository implements GamificationRepository {
   }
 
   @override
-  Future<AchievementCertificate?> findCertificate({
+  Future<DownloadedCertificate?> findCertificate({
     required String userId,
-    required Achievement achievement,
+    required CourseCertificate certificate,
   }) async {
-    final file = await _certificateFile(userId, achievement.id);
-    if (!await file.exists()) return null;
+    if (!certificate.available) return null;
+    final directory = await _certificateDirectoryFor(userId, certificate.id);
+    if (!await directory.exists()) return null;
+    final files = await directory
+        .list()
+        .where(
+          (entry) => entry is File && entry.path.toLowerCase().endsWith('.pdf'),
+        )
+        .cast<File>()
+        .toList();
+    if (files.isEmpty) return null;
+    files.sort(
+      (a, b) => b.statSync().modified.compareTo(a.statSync().modified),
+    );
+    final file = files.first;
     final bytes = await file
         .openRead(0, 4)
         .fold<List<int>>(<int>[], (buffer, chunk) => buffer..addAll(chunk));
@@ -48,9 +73,9 @@ class RemoteGamificationRepository implements GamificationRepository {
       return null;
     }
     final stat = await file.stat();
-    return AchievementCertificate(
-      achievementId: achievement.id,
-      fileName: _fallbackFileName(achievement),
+    return DownloadedCertificate(
+      certificateId: certificate.id,
+      fileName: file.uri.pathSegments.last,
       localPath: file.path,
       byteSize: stat.size,
       downloadedAt: stat.modified.toUtc(),
@@ -58,20 +83,24 @@ class RemoteGamificationRepository implements GamificationRepository {
   }
 
   @override
-  Future<AchievementCertificate> downloadCertificate({
+  Future<DownloadedCertificate> downloadCertificate({
     required String userId,
-    required Achievement achievement,
+    required CourseCertificate certificate,
   }) async {
-    if (!achievement.unlocked) {
+    if (!certificate.available) {
       throw const ApiError(
-        code: 'achievement_locked',
-        message: 'Completa este logro antes de descargar su certificado.',
+        code: 'certificate_locked',
+        message:
+            'Completa las lecciones publicadas antes de descargar el certificado.',
       );
     }
     try {
       final response = await _dio.get<List<int>>(
-        '/gamificacion/logros/${Uri.encodeComponent(achievement.id)}/certificado',
-        options: Options(responseType: ResponseType.bytes),
+        '/gamificacion/certificados/${certificate.id}/pdf',
+        options: Options(
+          responseType: ResponseType.bytes,
+          receiveTimeout: const Duration(seconds: 60),
+        ),
       );
       final bytes = response.data ?? const <int>[];
       if (!_isPdf(bytes) || bytes.length > _maximumCertificateBytes) {
@@ -81,16 +110,18 @@ class RemoteGamificationRepository implements GamificationRepository {
         );
       }
 
-      final file = await _certificateFile(userId, achievement.id);
+      final fileName = _responseFileName(response.headers, certificate);
+      final directory = await _certificateDirectoryFor(userId, certificate.id);
+      final file = File('${directory.path}${Platform.pathSeparator}$fileName');
       await file.parent.create(recursive: true);
       final partial = File('${file.path}.part');
       await partial.writeAsBytes(bytes, flush: true);
       if (await file.exists()) await file.delete();
       await partial.rename(file.path);
       final stat = await file.stat();
-      return AchievementCertificate(
-        achievementId: achievement.id,
-        fileName: _responseFileName(response.headers, achievement),
+      return DownloadedCertificate(
+        certificateId: certificate.id,
+        fileName: fileName,
         localPath: file.path,
         byteSize: stat.size,
         downloadedAt: stat.modified.toUtc(),
@@ -100,18 +131,18 @@ class RemoteGamificationRepository implements GamificationRepository {
     }
   }
 
-  Future<File> _certificateFile(String userId, String achievementId) async {
+  Future<Directory> _certificateDirectoryFor(
+    String userId,
+    String certificateId,
+  ) async {
     final root = await _certificateDirectory();
     final separator = Platform.pathSeparator;
-    final directory = Directory(
-      '${root.path}${separator}saberplus${separator}certificates$separator${_safeSegment(userId)}',
-    );
-    return File(
-      '${directory.path}$separator${_safeSegment(achievementId)}.pdf',
+    return Directory(
+      '${root.path}${separator}saberplus${separator}course-certificates$separator${_safeSegment(userId)}$separator${_safeSegment(certificateId)}',
     );
   }
 
-  String _responseFileName(Headers headers, Achievement achievement) {
+  String _responseFileName(Headers headers, CourseCertificate certificate) {
     final disposition = headers.value('content-disposition') ?? '';
     final match = RegExp(
       r'filename\s*=\s*"?([^";]+)',
@@ -119,14 +150,19 @@ class RemoteGamificationRepository implements GamificationRepository {
     ).firstMatch(disposition);
     final candidate = match?.group(1)?.trim();
     if (candidate == null || candidate.isEmpty) {
-      return _fallbackFileName(achievement);
+      return _fallbackFileName(certificate);
     }
     final safe = candidate.replaceAll(RegExp(r'[^a-zA-Z0-9._-]'), '-');
-    return safe.toLowerCase().endsWith('.pdf') ? safe : '$safe.pdf';
+    final base = safe.toLowerCase().endsWith('.pdf')
+        ? safe.substring(0, safe.length - 4)
+        : safe;
+    final clean = base.replaceAll(RegExp(r'^\.+|\.+$'), '');
+    final bounded = clean.substring(0, clean.length.clamp(0, 120));
+    return '${bounded.isEmpty ? 'certificado' : bounded}.pdf';
   }
 
-  String _fallbackFileName(Achievement achievement) =>
-      'certificado-${_safeSegment(achievement.title)}.pdf';
+  String _fallbackFileName(CourseCertificate certificate) =>
+      'certificado-${_safeSegment(certificate.title)}.pdf';
 
   String _safeSegment(String value) {
     final safe = value
