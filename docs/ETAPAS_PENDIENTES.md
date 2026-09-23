@@ -4,7 +4,7 @@ Actualizado: 22 de septiembre de 2026. Listado para compartir con el equipo.
 
 ## Trabajo paralelo del equipo
 
-Ampliación planificada: **PR-I1–PR-I7 — perfiles, top 100 por juego, insignias y
+Ampliación planificada: **PR-I1–PR-I7 — perfiles, top 50 por juego, insignias y
 directorio/solicitudes de estudiantes a instituciones**. Incluye búsqueda de personas,
 visita a perfiles y todas las insignias vigentes por juego, sin límite de tres.
 Las insignias anuales obtenidas se acumulan y permanecen visibles: mismo diseño

@@ -12,8 +12,11 @@ juego seleccionado con detalle accesible al tocar, como catálogo, no premios ga
 
 Los archivos recibidos usan rangos 1, 2, 3, 4, 5, 6–10, 11–20, 21–30, 31–40 y
 41–50. Esta integración respeta el arte recibido, en lugar de inventar imágenes
-para los 16 rangos propuestos abajo. Los nombres `top6-11` de Trivia/Fantasma se
-mapean a 6–10 sin superponer el puesto 11. Faltan imágenes de 51–100 y otras familias.
+para rangos distintos de los recibidos. Los nombres `top6-11` de Trivia/Fantasma se
+mapean a 6–10 sin superponer el puesto 11. Solo faltan las otras familias de juegos.
+Decisión vigente: rankings e insignias hasta el puesto 50; se cancela el top 100.
+Fuera del top 50 se puede consultar la posición propia, pero no obtener una insignia
+de clasificación. Se mantienen las colecciones anuales.
 Se conservan los originales (aproximadamente 85 MB); optimizar recursos antes de
 publicar sigue pendiente. No se modificaron ni regeneraron las ilustraciones.
 
@@ -28,8 +31,8 @@ públicos. PR-I3 completo NO queda cerrado con este catálogo visual.
   Si destaca en todos los juegos, todas aparecen en su perfil, organizadas por juego.
 - Buscar personas por alias/nombre público y @usuario único y visitar su perfil,
   además de entrar desde rankings. Directorio separado de instituciones.
-- Rankings top 100 separados por juego; abrir el perfil público desde una entrada.
-- Cinco diseños individuales para puestos 1–5 y diseños por intervalos hasta 100.
+- Rankings top 50 separados por juego; abrir el perfil público desde una entrada.
+- Cinco diseños individuales para puestos 1–5 y diseños por intervalos hasta 50.
 - Tocar una insignia muestra juego, posición exacta, ámbito, período y actualización.
   En web, hover/foco muestra ayuda; en móvil, toque abre detalle y pulsación larga
   puede mostrar tooltip. No depender del cursor, del color ni de texto diminuto.
@@ -157,7 +160,7 @@ funciones necesitan una decisión de producto independiente.
 | Etapa | Entrega y criterio de cierre |
 | --- | --- |
 | PR-I1 — Reglas y contratos | Cerrar períodos, XP por juego, ayudas, empates, privacidad, rangos y permisos/códigos. Diseñar migraciones y contrato versionado con pruebas de autorización. |
-| PR-I2 — Rankings por juego | Registro idempotente de XP, agregados, top 100 paginado y posición propia fuera del top. Integrar por juego conforme exista motor seguro; prueba de empate/reintento/cierre de período. |
+| PR-I2 — Rankings por juego | Registro idempotente de XP, agregados, top 50 paginado y posición propia fuera del top, sin insignia fuera de los primeros 50. Integrar por juego conforme exista motor seguro; prueba de empate/reintento/cierre de período. |
 | PR-I3 — Insignias | Catálogo por juego/rango, posición actual y colección anual permanente. Mismo arte con año dinámico; cierre idempotente y coexistencia 2026/2027 sin duplicados. Mostrar todas las obtenidas agrupadas por año/juego. |
 | PR-I4 — Perfiles y búsqueda de personas | Diseño sobrio, avatar, @usuario, vista propia/pública, buscador paginado por identidad pública, navegación desde rankings, todas las insignias vigentes y detalle accesible; preferencias de visibilidad y estados privados. Priorizar después compartir/reportar/bloquear antes del lanzamiento social. |
 | PR-I5 — Instituciones y solicitudes | Directorio/búsqueda, perfil, logo editado solo por propietario, solicitudes de alumnos, bandeja/avisos y código institucional privado. Reutilizar aprobación P4-C, cuentas y grupos. Foto del profesor sin ranking de jugador. |
@@ -171,7 +174,7 @@ PR-I7 se coordina con P5, D3 y la prueba móvil. No sustituye seguridad, publici
 Billing, contenido ni publicación. El usuario puede priorizar PR-I1 como próxima
 entrega; hasta esa decisión JN-2B sigue siendo el punto de reanudación.
 
-## Rangos gráficos comunes (16 por familia)
+## Rangos gráficos comunes (10 por familia, hasta el puesto 50)
 
 | ID | Posiciones | Texto mostrado por la app | Acabado propuesto |
 | --- | --- | --- | --- |
@@ -181,20 +184,14 @@ entrega; hasta esa decisión JN-2B sigue siendo el punto de reanudación.
 | top_04 | 4 | TOP 4 | Amatista, rombo superior y laurel |
 | top_05 | 5 | TOP 5 | Zafiro, estrella superior y laurel |
 | top_06_10 | 6–10 | TOP 6–10 | Turquesa, doble borde |
-| top_11_15 | 11–15 | TOP 11–15 | Esmeralda, dos hojas por lado |
-| top_16_20 | 16–20 | TOP 16–20 | Índigo, una estrella pequeña |
+| top_11_20 | 11–20 | TOP 11–20 | Conservar el diseño recibido de cada familia |
 | top_21_30 | 21–30 | TOP 21–30 | Azul acero, borde facetado |
 | top_31_40 | 31–40 | TOP 31–40 | Verde jade, borde simple |
 | top_41_50 | 41–50 | TOP 41–50 | Violeta suave, borde simple |
-| top_51_60 | 51–60 | TOP 51–60 | Plata mate, detalle azul |
-| top_61_70 | 61–70 | TOP 61–70 | Cobre mate, detalle coral |
-| top_71_80 | 71–80 | TOP 71–80 | Acero mate, detalle turquesa |
-| top_81_90 | 81–90 | TOP 81–90 | Bronce oscuro, detalle azul |
-| top_91_100 | 91–100 | TOP 91–100 | Grafito, borde turquesa |
 
 La referencia agrupa 4–5; la petición nueva exige separarlos. No usar intervalos
-superpuestos como 6–10 y 10–15. Ejemplo: top 83 usa top_81_90 y el detalle dice
-«Puesto 83 de Tira y afloja · Global · septiembre de 2026 · XP confirmado».
+superpuestos como 6–10 y 10–15. Ejemplo: top 43 usa top_41_50 y el detalle dice
+«Puesto 43 de Tira y afloja · Global · temporada 2026 · XP confirmado».
 Los colores son propuesta artística. Texto/forma identifican la categoría también.
 
 ## Prompts de imágenes
@@ -202,7 +199,7 @@ Los colores son propuesta artística. Texto/forma identifican la categoría tamb
 Uso: adjuntar la imagen maestra de Sabi y la referencia de medallas. Combinar el
 prompt base + una ficha de juego + una variante de rango. Generar UNA insignia por
 archivo, no un collage. Primero aprobar una muestra por juego; después producir
-los otros rangos manteniendo composición/personaje. No hacen falta 160 imágenes
+los otros rangos manteniendo composición/personaje. No hacen falta todas las imágenes
 para comenzar: empezar por Trivia Rush y preparar las otras familias por etapas.
 Nombres propuestos, no assets existentes: `badge_<familia>_<rango>.png`.
 No generar un archivo nuevo por año: la app añadirá «2026», «2027», etc. sobre una
@@ -298,7 +295,7 @@ Conserva la pose, motivo y silueta de la muestra aprobada de esta familia. Los p
 inferiores, sin cambiar a Sabi. Placa inferior vacía; no dibujar cifras ni intervalos.
 Nombre de entrega: [badge_familia_rango.png]. No generar los demás rangos en esta imagen.
 
-Ejemplo completo de selección: BASE + TA + VARIANTE `top_81_90`, bronce oscuro
-con detalle azul, archivo `badge_tug_of_war_top_81_90.png`. La app compone «TOP 81–90»;
-la posición 83 procede del servidor, nunca del dibujo. Transparencia y legibilidad
+Ejemplo completo de selección: BASE + TA + VARIANTE `top_41_50`, violeta suave
+con borde simple, archivo `badge_tug_of_war_top_41_50.png`. La app compone «TOP 41–50»;
+la posición 43 procede del servidor, nunca del dibujo. Transparencia y legibilidad
 se verifican al importar: una imagen generada puede necesitar preparación adicional.

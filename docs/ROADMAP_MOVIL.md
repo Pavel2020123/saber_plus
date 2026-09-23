@@ -11,7 +11,7 @@ como referencia; no se repiten las funciones ya implementadas.
 
 ## Estado actual
 
-Nueva ampliación planificada **PR-I1–PR-I7**: perfiles sobrios, rankings top 100
+Nueva ampliación planificada **PR-I1–PR-I7**: perfiles sobrios, rankings top 50
 por juego, todas las insignias vigentes visibles, búsqueda de personas/perfiles,
 perfil/ranking institucional y búsqueda con
 solicitudes de estudiantes. Ver [plan y prompts](PERFILES_RANKINGS_INSIGNIAS.md).

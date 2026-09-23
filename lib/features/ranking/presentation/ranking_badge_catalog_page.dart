@@ -77,8 +77,8 @@ class _RankingBadgeCatalogPageState extends State<RankingBadgeCatalogPage> {
         ),
         const SizedBox(height: 20),
         const Text(
-          'Diseños disponibles: puestos 1–50. Los puestos 51–100 y los demás '
-          'juegos están pendientes; no se sustituyen por medallas de otro rango.',
+          'Insignias para los primeros 50 puestos de cada juego. '
+          'Los diseños de los demás juegos se incorporarán más adelante.',
         ),
       ],
     ),
