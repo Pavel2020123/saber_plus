@@ -8,6 +8,9 @@ Este repositorio móvil nunca almacena credenciales de PostgreSQL o Supabase.
 
 ## Auditoría y resumen para el equipo
 
+**Estructura y arquitectura:** leer [ARQUITECTURA_Y_ESTRUCTURA.md](docs/ARQUITECTURA_Y_ESTRUCTURA.md).
+Explica las capas de Flutter, el backend NestJS, el panel, la persistencia y cómo colaborar.
+
 **Trabajo de compañeros:** leer [GUIA_TRABAJO_COMPANEROS.md](docs/GUIA_TRABAJO_COMPANEROS.md).
 Documenta seis certificados integrados localmente (cinco áreas y curso completo), reparación/verificación
 de audios, pruebas conjuntas y entregas en ramas mediante Pull Request.
