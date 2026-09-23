@@ -12,6 +12,7 @@ import '../../study_time/domain/study_time_models.dart';
 import '../../study_time/presentation/study_time_providers.dart';
 import '../domain/academic_profile_models.dart';
 import 'academic_profile_providers.dart';
+import '../../ranking/presentation/ranking_badge_catalog_page.dart';
 
 class AcademicProfilePage extends ConsumerWidget {
   const AcademicProfilePage({super.key});
@@ -45,6 +46,19 @@ class AcademicProfilePage extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(18, 10, 18, 32),
           children: [
             _IdentityCard(user: user),
+            ListTile(
+              leading: const Icon(Icons.workspace_premium_outlined),
+              title: const Text('Insignias de Sabi'),
+              subtitle: const Text(
+                'Explorar diseños · No son premios obtenidos',
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => Navigator.of(context).push<void>(
+                MaterialPageRoute(
+                  builder: (_) => const RankingBadgeCatalogPage(),
+                ),
+              ),
+            ),
             const SizedBox(height: 20),
             Text('Tu panorama', style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 10),

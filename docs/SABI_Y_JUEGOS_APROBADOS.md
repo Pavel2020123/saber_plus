@@ -15,6 +15,11 @@ se retoma al final, no es la siguiente tarea.
 
 ## Orden funcional propuesto para continuar por entregas
 
+Perfiles e insignias por juego tienen una ampliación propia PR-I1–PR-I7 en
+[PERFILES_RANKINGS_INSIGNIAS.md](PERFILES_RANKINGS_INSIGNIAS.md), con prompts
+distintos por familia. Preparación de insignias estáticas no reabre las animaciones.
+Integrar PR-I1–6 antes del arte final; su ensayo real se coordina con P5/D3.
+
 1. **JN-1 — Salto a la cima:** A demo funcional y B backend local listos;
    C cliente remoto implementado. Migración real y ensayo en staging pendientes.
 2. **JN-2 — Rescate de estrellas:** A reglas/demo listas; siguen B backend,

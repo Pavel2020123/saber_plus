@@ -4,6 +4,18 @@ Actualizado: 22 de septiembre de 2026. Listado para compartir con el equipo.
 
 ## Trabajo paralelo del equipo
 
+Ampliación planificada: **PR-I1–PR-I7 — perfiles, top 100 por juego, insignias y
+directorio/solicitudes de estudiantes a instituciones**. Incluye búsqueda de personas,
+visita a perfiles y todas las insignias vigentes por juego, sin límite de tres.
+Las insignias anuales obtenidas se acumulan y permanecen visibles: mismo diseño
+con año dinámico, conservando 2026 al obtener 2027 y temporadas posteriores.
+Alcance, diferencias con
+lo existente, reglas propuestas, dependencias y prompts identificados en
+[PERFILES_RANKINGS_INSIGNIAS.md](PERFILES_RANKINGS_INSIGNIAS.md).
+Son siete entregas adicionales, todavía sin implementar; no se cuentan como parte
+de los 13 bloques históricos ni sustituyen P5/D3. Preparar PR-I1 y los assets puede
+adelantarse; JN-2B conserva el punto de reanudación hasta cambiar la prioridad.
+
 Guía para compañeros: [GUIA_TRABAJO_COMPANEROS.md](GUIA_TRABAJO_COMPANEROS.md).
 Certificados: **cinco por área y uno final por las cinco**, integrados localmente
 con nombre registrado y validación de finalización del servidor. Falta despliegue

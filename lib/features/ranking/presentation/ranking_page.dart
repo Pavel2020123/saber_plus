@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/network/api_error.dart';
 import '../domain/ranking_models.dart';
 import 'ranking_providers.dart';
+import 'ranking_badge_catalog_page.dart';
 
 class RankingPage extends ConsumerStatefulWidget {
   const RankingPage({super.key});
@@ -25,6 +26,15 @@ class _RankingPageState extends ConsumerState<RankingPage> {
       appBar: AppBar(
         title: const Text('Ranking'),
         actions: [
+          IconButton(
+            tooltip: 'Ver catálogo de insignias',
+            icon: const Icon(Icons.workspace_premium_outlined),
+            onPressed: () => Navigator.of(context).push<void>(
+              MaterialPageRoute(
+                builder: (_) => const RankingBadgeCatalogPage(),
+              ),
+            ),
+          ),
           IconButton(
             tooltip: 'Actualizar ranking',
             onPressed: () => ref.invalidate(rankingBoardProvider(_query)),
