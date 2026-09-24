@@ -33,8 +33,9 @@ sin despliegue automático. **JN-2C implementada localmente:** cliente remoto co
 recuperación segura, filtros e imágenes. Falta ensayo real.
 **JN-4A implementada localmente:** [Escudo del conocimiento](docs/ESCUDO_DEL_CONOCIMIENTO.md)
 en estudiante demo, con rondas, reparación y páginas, sin XP. **JN-4B backend seguro
-implementado y probado localmente**, sin despliegue. Sigue **JN-4C: cliente remoto
-de Escudo**, manteniendo P5/D3 y las animaciones pausadas.
+implementado y probado localmente**, sin despliegue. **JN-4C cliente remoto de Escudo
+implementado localmente:** recuperación segura, filtros e imágenes. Falta ensayo real.
+Sigue **MA-1: cobertura del banco**, manteniendo P5/D3 y las animaciones pausadas.
 Ver [SALTO_A_LA_CIMA.md](docs/SALTO_A_LA_CIMA.md).
 El prototipo de Sabi que sigue abajo se conserva, pero sus animaciones están pausadas.
 

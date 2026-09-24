@@ -185,7 +185,10 @@ Las aprobaciones aún no incluyen carga completa de adjuntos privados; coordinar
   JN-4B backend añadido el 24: reglas autoritativas, intentos privados,
   snapshots, reintentos, caducidad y migración. Build correcto, 824 pruebas Jest
   (82 suites) y 21 en PostgreSQL temporal aprobadas. No desplegado ni migrado en Supabase.
-  Siguiente: JN-4C cliente remoto; arte al final.
+  JN-4C añade Flutter remoto con filtros, imágenes/contextos, validación de estados,
+  almacenamiento seguro de envíos pendientes y recuperación aislada por cuenta/API.
+  Sin anuncios, comodines ni ensayo contra el backend desplegado.
+  Siguiente: MA-1 cobertura del banco; arte al final.
 - MA-1/2/3: cobertura del banco, mapa y repaso diferido aprobados, pendientes.
 - Animaciones profesionales y renovación de Sabi: al final, por decisión del usuario.
 

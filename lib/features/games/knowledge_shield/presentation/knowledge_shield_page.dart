@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../core/config/environment.dart';
+import '../../../../core/config/resource_url.dart';
 import '../../../../core/network/api_error.dart';
 import '../../../academic/domain/academic_models.dart';
+import '../../../practice/domain/practice_models.dart';
+import '../../../study/presentation/study_providers.dart';
 import '../../trivia_rush/data/remote_trivia_rush_repository.dart';
 import '../domain/knowledge_shield_models.dart';
 import 'knowledge_shield_providers.dart';
@@ -18,7 +22,7 @@ class KnowledgeShieldPage extends ConsumerWidget {
           child: Padding(
             padding: EdgeInsets.all(24),
             child: Text(
-              'Disponible por ahora solo en la sesión de demostración de estudiante. La conexión para cuentas reales está pendiente; no se simularán resultados reales.',
+              'Este juego requiere una sesión de estudiante. Las cuentas reales nunca usarán preguntas demo como respaldo.',
             ),
           ),
         ),
@@ -28,14 +32,14 @@ class KnowledgeShieldPage extends ConsumerWidget {
   }
 }
 
-class _ShieldGame extends StatefulWidget {
+class _ShieldGame extends ConsumerStatefulWidget {
   const _ShieldGame({super.key, required this.repository});
   final KnowledgeShieldRepository repository;
   @override
-  State<_ShieldGame> createState() => _ShieldGameState();
+  ConsumerState<_ShieldGame> createState() => _ShieldGameState();
 }
 
-class _ShieldGameState extends State<_ShieldGame> {
+class _ShieldGameState extends ConsumerState<_ShieldGame> {
   final _scroll = ScrollController();
   late KnowledgeShieldAttempt? _attempt = widget.repository.current;
   late bool _feedback = _attempt?.lastCorrect != null;
@@ -43,7 +47,53 @@ class _ShieldGameState extends State<_ShieldGame> {
   String? _selected;
   String? _error;
   bool _busy = false;
+  late bool _ready = widget.repository.isDemo;
+  String? _themeId;
+  String? _subtopicId;
+  PracticeDifficulty? _difficulty;
   ({String question, String answer, String key})? _pending;
+  @override
+  void initState() {
+    super.initState();
+    if (!widget.repository.isDemo) _restore();
+  }
+
+  Future<void> _restore() async {
+    if (_busy) return;
+    setState(() {
+      _busy = true;
+      _error = null;
+    });
+    try {
+      final result = await widget.repository.restore();
+      if (!mounted) return;
+      final pending = widget.repository.pending;
+      setState(() {
+        _ready = true;
+        _attempt = result;
+        _pending = pending == null
+            ? null
+            : (
+                question: pending.questionId,
+                answer: pending.answerId,
+                key: pending.requestKey,
+              );
+        _selected = pending?.answerId;
+        _feedback = pending == null && result?.lastCorrect != null;
+      });
+      _top();
+    } on Object catch (e) {
+      if (mounted) {
+        setState(
+          () => _error = e is ApiError
+              ? e.message
+              : 'No se pudo recuperar la defensa. Reintenta la sincronización.',
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
 
   @override
   void dispose() {
@@ -54,7 +104,6 @@ class _ShieldGameState extends State<_ShieldGame> {
   void _top() => WidgetsBinding.instance.addPostFrameCallback((_) {
     if (mounted && _scroll.hasClients) _scroll.jumpTo(0);
   });
-
   Future<void> _perform(
     Future<KnowledgeShieldAttempt> Function() action, {
     bool feedback = false,
@@ -65,21 +114,21 @@ class _ShieldGameState extends State<_ShieldGame> {
       _error = null;
     });
     try {
-      final result = await action();
+      final attempt = await action();
       if (!mounted) return;
       setState(() {
-        _attempt = result;
+        _attempt = attempt;
         _feedback = feedback;
-        _pending = null;
         _selected = null;
+        _pending = null;
       });
       _top();
-    } on Object catch (error) {
+    } on Object catch (e) {
       if (mounted) {
         setState(
-          () => _error = error is ApiError
-              ? error.message
-              : 'No se pudo confirmar. Reintenta el mismo envío.',
+          () => _error = e is ApiError
+              ? e.message
+              : 'No se pudo completar la operación. Reintenta; el fallo no cuenta como respuesta incorrecta.',
         );
       }
     } finally {
@@ -117,12 +166,14 @@ class _ShieldGameState extends State<_ShieldGame> {
     if (_busy || _attempt == null || _attempt!.finished || _pending != null) {
       return;
     }
-    final confirmed = await showDialog<bool>(
+    final yes = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('¿Abandonar la defensa?'),
-        content: const Text(
-          'La partida quedará cerrada. Si solo sales de la pantalla, podrás retomarla mientras no cierres la app ni cambies de cuenta.',
+        content: Text(
+          widget.repository.isDemo
+              ? 'La defensa quedará cerrada. Si solo sales de esta pantalla, puedes retomarla mientras no cierres la app ni cambies de cuenta.'
+              : 'La defensa quedará cerrada. Puedes salir sin abandonarla y retomarla durante 24 horas desde su inicio.',
         ),
         actions: [
           TextButton(
@@ -136,7 +187,7 @@ class _ShieldGameState extends State<_ShieldGame> {
         ],
       ),
     );
-    if (mounted && confirmed == true) {
+    if (mounted && yes == true) {
       await _perform(() => widget.repository.abandon(_attempt!.id));
     }
   }
@@ -144,7 +195,6 @@ class _ShieldGameState extends State<_ShieldGame> {
   @override
   Widget build(BuildContext context) {
     final attempt = _attempt;
-    final progress = attempt?.progress;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Escudo del conocimiento'),
@@ -162,17 +212,28 @@ class _ShieldGameState extends State<_ShieldGame> {
           controller: _scroll,
           padding: const EdgeInsets.all(20),
           children: [
-            const Text(
-              'DEMOSTRACIÓN · Sin XP ni cambios en tu diagnóstico',
+            Text(
+              widget.repository.isDemo
+                  ? 'DEMOSTRACIÓN · Sin XP ni cambios en tu diagnóstico'
+                  : 'PARTIDA EN LÍNEA · Sin XP ni cambios en tu diagnóstico',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            const Text(
-              'Preguntas de ejemplo que pueden repetirse. Avance solo en memoria: se pierde al cerrar la app o cambiar de cuenta. Arte, animaciones y audios pendientes.',
+            Text(
+              widget.repository.isDemo
+                  ? 'Ejemplos que pueden repetirse. La defensa queda en memoria al salir de esta pantalla; se pierde al cerrar la app o cambiar de cuenta. Arte y animaciones pendientes.'
+                  : 'El servidor confirma tu avance. Necesitas conexión y 12 preguntas publicadas para los filtros elegidos. Puedes retomar la defensa durante 24 horas desde su inicio.',
             ),
             const SizedBox(height: 16),
             if (_busy) const LinearProgressIndicator(),
-            if (_error != null)
+            if (!widget.repository.isDemo)
+              TextButton.icon(
+                key: const Key('shield-sync'),
+                onPressed: _busy ? null : _restore,
+                icon: const Icon(Icons.sync),
+                label: const Text('Recuperar / sincronizar partida'),
+              ),
+            if (_error != null) ...[
               Semantics(
                 liveRegion: true,
                 child: Text(
@@ -180,103 +241,42 @@ class _ShieldGameState extends State<_ShieldGame> {
                   style: TextStyle(color: Theme.of(context).colorScheme.error),
                 ),
               ),
-            if (attempt == null) ...[
-              Text(
-                'Protege la biblioteca con Sabi',
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
               const SizedBox(height: 12),
+            ],
+            if (!_ready)
               const Text(
-                'Reglas de prueba: 3 rondas de 4 preguntas. Empiezas con 3 puntos de escudo. Un acierto repara 1 (máximo 3); un error quita 1. Al terminar cada ronda, un ataque de tinta quita otro punto. Si resistes con escudo, recuperas una página. Llegar a 0 termina la defensa. Supera las 3 rondas para ganar. Sin cronómetro.',
-              ),
-              const SizedBox(height: 20),
-              DropdownButtonFormField<AcademicArea>(
-                initialValue: _area,
-                isExpanded: true,
-                decoration: const InputDecoration(labelText: 'Área'),
-                items: [
-                  for (final area in AcademicArea.values)
-                    DropdownMenuItem(value: area, child: Text(area.label)),
-                ],
-                onChanged: _busy
-                    ? null
-                    : (value) => setState(() => _area = value!),
-              ),
-              const SizedBox(height: 20),
-              FilledButton(
-                key: const Key('shield-start'),
-                onPressed: _busy
-                    ? null
-                    : () => _perform(() => widget.repository.start(_area)),
-                child: const Text('Proteger biblioteca'),
-              ),
-            ] else ...[
+                'Primero comprobaremos tu partida guardada. Si falla la conexión, pulsa recuperar; no se iniciará una demo.',
+              )
+            else if (attempt == null)
+              ..._setup()
+            else ...[
               Text(
                 attempt.area.label,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 12),
-              Semantics(
-                liveRegion: true,
-                child: Text(
-                  'Escudo: ${progress!.shield}/3 · Páginas recuperadas: ${progress.pages}/3',
-                  key: const Key('shield-progress'),
-                ),
-              ),
-              LinearProgressIndicator(
-                value: progress.shield / KnowledgeShieldProgress.maximumShield,
-                semanticsLabel:
-                    'Resistencia del escudo: ${progress.shield} de 3 puntos',
-              ),
+              _ShieldStatus(progress: attempt.progress),
               const SizedBox(height: 12),
               Text(
-                'Respondidas: ${progress.answered}/12 · Aciertos: ${progress.correct} · Errores: ${progress.mistakes}',
+                'Respondidas: ${attempt.progress.answered}/${KnowledgeShieldProgress.questionLimit} · Errores: ${attempt.progress.mistakes}',
               ),
               const SizedBox(height: 16),
-              if (attempt.finished) ...[
-                Text(
-                  attempt.abandoned
-                      ? 'Defensa abandonada'
-                      : progress.won
-                      ? '¡Protegiste la biblioteca!'
-                      : 'El escudo se agotó',
-                  key: const Key('shield-result'),
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-                Text(
-                  'Recuperaste ${progress.pages} de 3 páginas en esta demostración. No se otorgan XP, insignias ni certificados.',
-                ),
-                const SizedBox(height: 16),
-                FilledButton(
-                  key: const Key('shield-restart'),
-                  onPressed: _busy
-                      ? null
-                      : () {
-                          setState(() {
-                            _attempt = null;
-                            _feedback = false;
-                            _selected = null;
-                            _pending = null;
-                            _error = null;
-                          });
-                          _top();
-                        },
-                  child: const Text('Nueva defensa'),
-                ),
-              ] else if (_feedback) ...[
+              if (attempt.finished)
+                ..._result(attempt)
+              else if (_feedback) ...[
                 Semantics(
                   liveRegion: true,
                   child: Text(
-                    attempt.lastCorrect == true
-                        ? '¡Respuesta correcta! Escudo reparado hasta un máximo de 3.'
-                        : 'La tinta dañó el escudo: −1 punto.',
+                    (attempt.lastCorrect == true
+                            ? '¡Respuesta correcta! Escudo reparado hasta un máximo de 3.'
+                            : 'La tinta dañó el escudo: −1 punto.') +
+                        (attempt.progress.roundEnded
+                            ? ' Ronda superada: resististe el ataque de tinta (−1) y recuperaste una página.'
+                            : ''),
                     key: const Key('shield-feedback'),
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
-                if (progress.roundEnded)
-                  Text(
-                    'Ronda ${progress.answered ~/ KnowledgeShieldProgress.questionsPerRound} superada. Resististe el ataque de tinta (−1) y recuperaste una página.',
-                  ),
                 const SizedBox(height: 16),
                 FilledButton(
                   key: const Key('shield-next'),
@@ -285,64 +285,332 @@ class _ShieldGameState extends State<_ShieldGame> {
                     _top();
                   },
                   child: Text(
-                    progress.roundEnded
+                    attempt.progress.roundEnded
                         ? 'Comenzar siguiente ronda'
                         : 'Siguiente pregunta',
                   ),
                 ),
-              ] else ...[
-                Text(
-                  'Ronda ${progress.round}/3 · Pregunta ${progress.answered % KnowledgeShieldProgress.questionsPerRound + 1}/4',
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  attempt.question!.statement,
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const SizedBox(height: 16),
-                for (final option in attempt.question!.options)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: Semantics(
-                      selected: _selected == option.id,
-                      child: OutlinedButton(
-                        key: ValueKey('shield-option-${option.id}'),
-                        onPressed: _busy || _pending != null
-                            ? null
-                            : () => setState(() => _selected = option.id),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Row(
-                            children: [
-                              Icon(
-                                _selected == option.id
-                                    ? Icons.radio_button_checked
-                                    : Icons.radio_button_unchecked,
-                              ),
-                              const SizedBox(width: 12),
-                              Expanded(child: Text(option.text)),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                FilledButton(
-                  key: const Key('shield-answer'),
-                  onPressed: _busy || _selected == null ? null : _answer,
-                  child: Text(
-                    _busy
-                        ? 'Confirmando…'
-                        : _pending != null
-                        ? 'Reintentar envío'
-                        : 'Confirmar respuesta',
-                  ),
-                ),
-              ],
+              ] else
+                ..._question(attempt),
             ],
           ],
         ),
       ),
     );
   }
+
+  List<Widget> _setup() => [
+    Text(
+      'Protege la biblioteca con Sabi',
+      style: Theme.of(context).textTheme.headlineSmall,
+    ),
+    const SizedBox(height: 12),
+    const Text(
+      'Reglas de prueba: 3 rondas de 4 preguntas. Escudo inicial y máximo: 3. Un acierto repara 1; un error quita 1. Al cerrar cada ronda, el ataque de tinta quita otro punto. Si resistes, recuperas una página. Llegar a 0 termina la defensa. Supera las tres rondas para ganar. Sin cronómetro.',
+    ),
+    const SizedBox(height: 20),
+    DropdownButtonFormField<AcademicArea>(
+      initialValue: _area,
+      isExpanded: true,
+      decoration: const InputDecoration(labelText: 'Área'),
+      items: [
+        for (final area in AcademicArea.values)
+          DropdownMenuItem(value: area, child: Text(area.label)),
+      ],
+      onChanged: _busy
+          ? null
+          : (value) => setState(() {
+              _area = value!;
+              _themeId = null;
+              _subtopicId = null;
+            }),
+    ),
+    if (!widget.repository.isDemo) ..._filters(),
+    const SizedBox(height: 20),
+    FilledButton(
+      key: const Key('shield-start'),
+      onPressed: _busy || !_ready
+          ? null
+          : () => _perform(
+              () => widget.repository.start(
+                _area,
+                themeId: _themeId,
+                subtopicId: _subtopicId,
+                difficulty: _difficulty,
+              ),
+            ),
+      child: Text(_busy ? 'Preparando…' : 'Proteger biblioteca'),
+    ),
+  ];
+
+  List<Widget> _filters() {
+    final catalog = ref.watch(studyCatalogProvider(_area));
+    return [
+      const SizedBox(height: 16),
+      DropdownButtonFormField<PracticeDifficulty>(
+        initialValue: _difficulty,
+        isExpanded: true,
+        decoration: const InputDecoration(labelText: 'Dificultad'),
+        items: [
+          const DropdownMenuItem(value: null, child: Text('Todas')),
+          for (final value in PracticeDifficulty.values)
+            DropdownMenuItem(value: value, child: Text(value.label)),
+        ],
+        onChanged: _busy
+            ? null
+            : (value) => setState(() => _difficulty = value),
+      ),
+      catalog.when(
+        loading: () => const Padding(
+          padding: EdgeInsets.all(12),
+          child: Text('Cargando temas… Puedes jugar con el área completa.'),
+        ),
+        error: (error, stack) => TextButton(
+          onPressed: () => ref.invalidate(studyCatalogProvider(_area)),
+          child: const Text('No se cargaron los temas. Reintentar catálogo'),
+        ),
+        data: (data) {
+          final theme = data.findTheme(_themeId ?? '');
+          return Column(
+            children: [
+              const SizedBox(height: 16),
+              DropdownButtonFormField<String>(
+                key: ValueKey(
+                  'theme-${_area.name}-${data.themes.map((t) => t.id).join()}',
+                ),
+                initialValue: theme?.id,
+                isExpanded: true,
+                decoration: const InputDecoration(labelText: 'Tema'),
+                items: [
+                  const DropdownMenuItem(
+                    value: null,
+                    child: Text('Todos los temas'),
+                  ),
+                  for (final item in data.themes)
+                    DropdownMenuItem(value: item.id, child: Text(item.name)),
+                ],
+                onChanged: _busy
+                    ? null
+                    : (value) => setState(() {
+                        _themeId = value;
+                        _subtopicId = null;
+                      }),
+              ),
+              if (theme != null) ...[
+                const SizedBox(height: 16),
+                DropdownButtonFormField<String>(
+                  key: ValueKey('subtopic-${theme.id}'),
+                  initialValue: theme.subtopics.any((s) => s.id == _subtopicId)
+                      ? _subtopicId
+                      : null,
+                  isExpanded: true,
+                  decoration: const InputDecoration(labelText: 'Subtema'),
+                  items: [
+                    const DropdownMenuItem(
+                      value: null,
+                      child: Text('Todos los subtemas'),
+                    ),
+                    for (final item in theme.subtopics)
+                      DropdownMenuItem(value: item.id, child: Text(item.name)),
+                  ],
+                  onChanged: _busy
+                      ? null
+                      : (value) => setState(() => _subtopicId = value),
+                ),
+              ],
+            ],
+          );
+        },
+      ),
+    ];
+  }
+
+  List<Widget> _question(KnowledgeShieldAttempt attempt) {
+    final q = attempt.question!;
+    return [
+      Text(
+        'Ronda ${attempt.progress.round}/3 · Pregunta ${attempt.progress.answered % KnowledgeShieldProgress.questionsPerRound + 1}/4',
+      ),
+      Text(
+        'Pregunta ${attempt.progress.answered + 1} · ${q.themeName} · ${q.subtopicName}',
+      ),
+      const SizedBox(height: 12),
+      if (q.caseContent case final content?) ...[
+        Text(content.title),
+        Text(content.context),
+        if (content.imageUrl case final url?) _image(url, 'Imagen del caso'),
+        const SizedBox(height: 12),
+      ],
+      Text(q.statement, style: Theme.of(context).textTheme.titleLarge),
+      if (q.imageUrl case final url?) _image(url, 'Imagen de la pregunta'),
+      const SizedBox(height: 16),
+      for (final option in q.options)
+        Padding(
+          padding: const EdgeInsets.only(bottom: 10),
+          child: Semantics(
+            selected: _selected == option.id,
+            child: OutlinedButton(
+              key: ValueKey('shield-option-${option.id}'),
+              style: OutlinedButton.styleFrom(
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.all(16),
+              ),
+              onPressed: _busy || _pending != null
+                  ? null
+                  : () => setState(() => _selected = option.id),
+              child: Row(
+                children: [
+                  Icon(
+                    _selected == option.id
+                        ? Icons.radio_button_checked
+                        : Icons.radio_button_unchecked,
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(child: Text(option.text)),
+                ],
+              ),
+            ),
+          ),
+        ),
+      FilledButton(
+        key: const Key('shield-answer'),
+        onPressed: _busy || _selected == null ? null : _answer,
+        child: Text(
+          _busy
+              ? 'Confirmando…'
+              : _pending != null
+              ? 'Reintentar envío'
+              : 'Confirmar respuesta',
+        ),
+      ),
+    ];
+  }
+
+  Widget _image(String url, String label) => _KnowledgeShieldImage(
+    key: ValueKey('$label-$url'),
+    url: resolveResourceUrl(ref.read(appConfigProvider), url),
+    label: label,
+    allowHttp: ref.read(appConfigProvider).environment == AppEnvironment.dev,
+  );
+
+  List<Widget> _result(KnowledgeShieldAttempt attempt) => [
+    Semantics(
+      liveRegion: true,
+      child: Text(
+        attempt.status == 'EXPIRADO'
+            ? 'La defensa venció'
+            : attempt.abandoned
+            ? 'Defensa abandonada'
+            : attempt.progress.won
+            ? '¡Protegiste la biblioteca!'
+            : 'El escudo se agotó',
+        key: const Key('shield-result'),
+        style: Theme.of(context).textTheme.headlineSmall,
+      ),
+    ),
+    const SizedBox(height: 12),
+    Text(
+      'Recuperaste ${attempt.progress.pages} de 3 páginas. No se otorgan XP, insignias ni certificados.',
+    ),
+    const Text(
+      'Este resultado corresponde solo a esta partida; no determina tus falencias académicas.',
+    ),
+    const SizedBox(height: 16),
+    FilledButton(
+      key: const Key('shield-restart'),
+      onPressed: _busy
+          ? null
+          : () => setState(() {
+              _area = attempt.area;
+              _themeId = null;
+              _subtopicId = null;
+              _attempt = null;
+              _feedback = false;
+              _selected = null;
+              _pending = null;
+              _error = null;
+            }),
+      child: const Text('Nueva defensa'),
+    ),
+  ];
+}
+
+class _KnowledgeShieldImage extends StatefulWidget {
+  const _KnowledgeShieldImage({
+    super.key,
+    required this.url,
+    required this.label,
+    required this.allowHttp,
+  });
+  final String url;
+  final String label;
+  final bool allowHttp;
+  @override
+  State<_KnowledgeShieldImage> createState() => _KnowledgeShieldImageState();
+}
+
+class _KnowledgeShieldImageState extends State<_KnowledgeShieldImage> {
+  int _retry = 0;
+  @override
+  Widget build(BuildContext context) {
+    final uri = Uri.tryParse(widget.url);
+    if (uri == null ||
+        !(uri.scheme == 'https' ||
+            (widget.allowHttp && uri.scheme == 'http')) ||
+        uri.host.isEmpty ||
+        uri.userInfo.isNotEmpty) {
+      return const Text(
+        'La imagen no tiene una dirección válida. No respondas sin su contexto.',
+      );
+    }
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Image.network(
+        widget.url,
+        key: ValueKey(_retry),
+        fit: BoxFit.contain,
+        semanticLabel: widget.label,
+        loadingBuilder: (context, child, progress) =>
+            progress == null ? child : const Text('Cargando imagen…'),
+        errorBuilder: (context, error, stack) => Column(
+          children: [
+            Text(
+              '${widget.label}: no se pudo cargar. Reintenta antes de responder; puedes salir y retomar la partida.',
+            ),
+            TextButton(
+              onPressed: () async {
+                await NetworkImage(widget.url).evict();
+                if (mounted) setState(() => _retry++);
+              },
+              child: const Text('Reintentar imagen'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Static status until the final animation stage.
+class _ShieldStatus extends StatelessWidget {
+  const _ShieldStatus({required this.progress});
+  final KnowledgeShieldProgress progress;
+  @override
+  Widget build(BuildContext context) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Semantics(
+        liveRegion: true,
+        child: Text(
+          'Escudo: ${progress.shield}/3 · Páginas recuperadas: ${progress.pages}/3',
+          key: const Key('shield-progress'),
+        ),
+      ),
+      LinearProgressIndicator(
+        value: progress.shield / KnowledgeShieldProgress.maximumShield,
+        semanticsLabel:
+            'Resistencia del escudo: ${progress.shield} de 3 puntos',
+      ),
+    ],
+  );
 }

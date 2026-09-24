@@ -14,6 +14,16 @@ class DemoKnowledgeShieldRepository implements KnowledgeShieldRepository {
   bool _disposed = false;
   @override
   KnowledgeShieldAttempt? get current => _current;
+  @override
+  bool get isDemo => true;
+  @override
+  KnowledgeShieldPendingAnswer? get pending => null;
+  @override
+  Future<KnowledgeShieldAttempt?> restore() async {
+    _check();
+    return _current;
+  }
+
   void dispose() {
     _disposed = true;
     _current = null;
@@ -33,7 +43,12 @@ class DemoKnowledgeShieldRepository implements KnowledgeShieldRepository {
   }
 
   @override
-  Future<KnowledgeShieldAttempt> start(AcademicArea area) async {
+  Future<KnowledgeShieldAttempt> start(
+    AcademicArea area, {
+    String? themeId,
+    String? subtopicId,
+    PracticeDifficulty? difficulty,
+  }) async {
     _check();
     final previous = _current;
     if (previous != null && !previous.finished) {

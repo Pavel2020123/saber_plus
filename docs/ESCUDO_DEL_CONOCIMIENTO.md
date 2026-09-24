@@ -4,8 +4,9 @@ Actualizado: 24 de septiembre de 2026.
 
 ## Estado y alcance
 
-**JN-4A: reglas y demo Flutter implementadas localmente. JN-4B: backend local probado.**
-Flutter aún no está conectado al backend ni habilitado para cuentas reales. No concede XP, insignias, certificados,
+**JN-4A demo, JN-4B backend y JN-4C cliente remoto implementados localmente.**
+El cliente distingue sesiones demo/reales; falta desplegar y probar la integración real.
+No concede XP, insignias, certificados,
 progreso académico ni cambios de diagnóstico. No sustituye al Guardián: aquí se
 resisten rondas para proteger una biblioteca, no se reduce la vida de un enemigo.
 
@@ -25,7 +26,7 @@ Son parámetros de prueba para evaluar dificultad, no reglas finales aprobadas.
   acierto/acierto/error/error termina en cero por el ataque y no entrega página.
 - El mensaje entre preguntas requiere continuar; no hay ataques en segundo plano.
 
-## Implementación
+## Implementación demo JN-4A
 
 - `lib/features/games/knowledge_shield/domain`: progreso inmutable, reglas,
   intento y contrato de repositorio.
@@ -84,14 +85,45 @@ Build correcto; **824 pruebas Jest (82 suites) y 21 pruebas PostgreSQL temporal*
 aprobadas. La instancia temporal se cerró y eliminó, sin tocar bases existentes.
 No se desplegó ni se aplicó la migración en Supabase/Render.
 
+## JN-4C — Cliente remoto
+
+- Cuentas reales de estudiantes usan `/escudo-conocimiento`; demo conserva su repositorio
+  en memoria. No hay respaldo demo al fallar la API y profesores no acceden al juego.
+- Recupera primero el intento activo o el último ID guardado, incluidos los resultados
+  finales. Tras un fallo se puede pulsar **Recuperar / sincronizar partida**.
+- Filtros de área, tema, subtema y dificultad; requiere doce preguntas publicadas válidas.
+  Incluye contexto e imágenes con carga/error/reintento. Sin calificación local de preguntas reales.
+- Valida versión, estados, contadores alcanzables y transición de última respuesta;
+  rechaza respuestas incompletas, de otra partida o que no confirman el envío.
+- Almacenamiento seguro Android/iOS separado por URL de API y usuario. Guarda solo
+  identificadores de intento/envío y clave UUID; no guarda soluciones ni el banco.
+- El envío se persiste antes del POST. Un reintento conserva pregunta, opción y clave;
+  no permite cambiar de respuesta mientras está pendiente. Un error de almacenamiento
+  no dispara el POST ni inventa un resultado. Cambiar de cuenta descarta operaciones tardías.
+- Diferencia derrota, victoria, abandono y caducidad. El servidor controla las 24 horas;
+  no se usa el reloj del teléfono para decidirlas ni hay daño por falta de conexión.
+- Sin cambios de backend, migración, anuncios, comodines, audios ni animaciones en JN-4C.
+
+Verificación JN-4C: **116 pruebas seleccionadas aprobadas**, incluidas 23 nuevas
+de repositorio remoto/pantalla. API simulada; sin ensayo real en Render ni teléfono.
+
+Pruebas de integración cliente con API simulada:
+
+```powershell
+flutter analyze
+flutter test test/knowledge_shield_test.dart test/remote_knowledge_shield_repository_test.dart test/knowledge_shield_remote_page_test.dart test/star_rescue_test.dart test/remote_star_rescue_repository_test.dart test/star_rescue_remote_page_test.dart test/widget_test.dart
+```
+
+Ensayo real pendiente: desplegar el backend/migración cuando se autorice, disponer
+de estudiante verificado y doce preguntas publicadas; probar filtros, imágenes,
+envío con conexión interrumpida, reabrir app, abandonar y terminar las tres rondas.
+
 ## Entregas pendientes
 
-1. **JN-4C — Cliente remoto:** conectar API, imágenes/contextos completos, filtros,
-   recuperación persistente y errores de conexión. Nunca calificar respuestas reales localmente.
-2. Migración/despliegue y ensayo real cuando se retomen esas tareas. P5/D3 siguen pausadas.
-3. Arte/animaciones y audio finales: Sabi defendiendo, criaturas de tinta, reparación,
+1. Migración/despliegue y ensayo real cuando se retomen esas tareas. P5/D3 siguen pausadas.
+2. Arte/animaciones y audio finales: Sabi defendiendo, criaturas de tinta, reparación,
    ataque y páginas; revisar audios existentes antes de pedir archivos nuevos.
 
-Después de JN-4C siguen MA-1 cobertura del banco, MA-2 mapa de aprendizaje y
+Sigue MA-1 cobertura del banco, MA-2 mapa de aprendizaje y
 MA-3 repaso diferido. El rediseño azul UI-F y las animaciones siguen antes de las
 pruebas finales/publicación, no se incluyen en esta demo funcional.

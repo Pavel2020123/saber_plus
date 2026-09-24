@@ -170,7 +170,7 @@ void main() {
     expect(repo.current, null);
   });
   test(
-    'provider blocks real/teacher accounts, isolates users but not XP updates',
+    'provider selects remote for real students, blocks teachers and isolates users',
     () async {
       final container = ProviderContainer(
         overrides: [sessionControllerProvider.overrideWith(_Session.new)],
@@ -187,7 +187,7 @@ void main() {
         isNot(same(repo)),
       );
       session.change('real', demo: false);
-      expect(container.read(knowledgeShieldRepositoryProvider), null);
+      expect(container.read(knowledgeShieldRepositoryProvider)!.isDemo, false);
       session.change('teacher', role: AppRole.teacher);
       expect(container.read(knowledgeShieldRepositoryProvider), null);
       session.clear();
