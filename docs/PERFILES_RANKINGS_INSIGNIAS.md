@@ -167,12 +167,13 @@ funciones necesitan una decisión de producto independiente.
 | PR-I6 — Ranking institucional | Aportes históricos por institución, suma por período, participantes activos y detalle público agregado. Probar cambios de institución y ausencia de doble conteo. |
 | PR-I7 — Ensayo integral | Migraciones/despliegue coordinados con P5/D3, dos cuentas/dispositivos, imágenes, permisos, accesibilidad, red, clasificación y cierre anual. Simular cambio de año/reintentos conservando insignias anteriores. Solo cerrar con resultados reales. |
 
-Orden propuesto: JN-2B/C y JN-4A/B/C implementados localmente; seguir MA-1/2/3 y añadir PR-I1–6 antes
+Orden propuesto: JN-2B/C, JN-4A/B/C y MA-1 básica implementados localmente;
+reportes académicos MA-1 pendientes; seguir MA-2/3 y añadir PR-I1–6 antes
 del arte final de Sabi. PR-I1 y preparación de imágenes pueden adelantarse; PR-I2
 depende de los motores seguros de los juegos y PR-I4/5 de archivos persistentes C5.
 PR-I7 se coordina con P5, D3 y la prueba móvil. No sustituye seguridad, publicidad,
 Billing, contenido ni publicación. El usuario puede priorizar PR-I1 como próxima
-entrega; hasta esa decisión MA-1 sigue siendo el punto de reanudación.
+entrega; hasta esa decisión MA-2 sigue siendo el punto de reanudación.
 
 ## Rangos gráficos comunes (10 por familia, hasta el puesto 50)
 

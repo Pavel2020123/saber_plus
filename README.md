@@ -35,7 +35,9 @@ recuperación segura, filtros e imágenes. Falta ensayo real.
 en estudiante demo, con rondas, reparación y páginas, sin XP. **JN-4B backend seguro
 implementado y probado localmente**, sin despliegue. **JN-4C cliente remoto de Escudo
 implementado localmente:** recuperación segura, filtros e imágenes. Falta ensayo real.
-Sigue **MA-1: cobertura del banco**, manteniendo P5/D3 y las animaciones pausadas.
+**MA-1: cobertura básica del banco implementada localmente** en el panel y backend.
+Ver [alcance y pendientes](docs/COBERTURA_DEL_BANCO.md). Sigue **MA-2: mapa de aprendizaje**,
+manteniendo P5/D3 y las animaciones pausadas.
 Ver [SALTO_A_LA_CIMA.md](docs/SALTO_A_LA_CIMA.md).
 El prototipo de Sabi que sigue abajo se conserva, pero sus animaciones están pausadas.
 

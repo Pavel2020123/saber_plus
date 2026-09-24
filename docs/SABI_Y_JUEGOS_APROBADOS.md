@@ -9,7 +9,8 @@ de Salto a la cima, sin despliegue; JN-1C cliente remoto ya está implementado.
 JN-2A reglas/demo de Rescate de estrellas implementada el 19 de septiembre;
 JN-2B backend implementado localmente el 23 de septiembre y JN-2C Flutter remoto el 24.
 Falta despliegue/ensayo real. JN-4A demo de Escudo implementada el 24 de septiembre;
-JN-4B backend y JN-4C cliente remoto implementados localmente, sin despliegue/ensayo real; sigue MA-1.
+JN-4B backend y JN-4C cliente remoto implementados localmente, sin despliegue/ensayo real.
+MA-1 cobertura básica implementada localmente; reportes académicos pendientes; sigue MA-2.
 Las tres mejoras académicas siguen pendientes. G-SABI-1B conserva
 su muestra vectorial, sin aprobación artística ni integración en partidas reales.
 P5 y la conexión real D3 quedan pendientes y pausadas por decisión del usuario;
@@ -28,7 +29,8 @@ Integrar PR-I1–6 antes del arte final; su ensayo real se coordina con P5/D3.
 2. **JN-2 — Rescate de estrellas:** A demo, B backend y C cliente remoto locales
    listos. Migración/despliegue y ensayo real pendientes. Arte al final.
 3. **JN-4 — Escudo del conocimiento:** A demo, B backend y C cliente remoto locales listos; ensayo real pendiente.
-4. **MA-1 — Cobertura del banco:** diagnóstico editorial antes de poblar más juegos.
+4. **MA-1 — Cobertura del banco:** [base local implementada](COBERTURA_DEL_BANCO.md);
+   faltan reportes académicos y revisión visual/ensayo real.
 5. **MA-2 — Mapa de aprendizaje:** relaciones entre temas, orientación sin bloqueos.
 6. **MA-3 — Repaso diferido:** agenda de retención y sincronización.
 7. **Arte/animación final:** Sabi compartido, Fantasma, Tira y afloja, Guardián y

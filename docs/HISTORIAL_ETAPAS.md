@@ -188,8 +188,12 @@ Las aprobaciones aún no incluyen carga completa de adjuntos privados; coordinar
   JN-4C añade Flutter remoto con filtros, imágenes/contextos, validación de estados,
   almacenamiento seguro de envíos pendientes y recuperación aislada por cuenta/API.
   Sin anuncios, comodines ni ensayo contra el backend desplegado.
-  Siguiente: MA-1 cobertura del banco; arte al final.
-- MA-1/2/3: cobertura del banco, mapa y repaso diferido aprobados, pendientes.
+  Siguiente tras JN-4C: MA-1 cobertura del banco; arte al final.
+- MA-1: [cobertura básica implementada localmente](COBERTURA_DEL_BANCO.md), con
+  consulta ADMIN paginada, dificultades y explicaciones faltantes. Backend: 827
+  pruebas; panel: 79; PostgreSQL aislado: 4 de cobertura aprobadas. No desplegada.
+  Reportes académicos y verificación visual/real pendientes. Sin cambios Flutter funcionales.
+- MA-2/3: mapa de aprendizaje y repaso diferido pendientes; sigue MA-2.
 - Animaciones profesionales y renovación de Sabi: al final, por decisión del usuario.
 
 Guía: [SABI_Y_JUEGOS_APROBADOS.md](SABI_Y_JUEGOS_APROBADOS.md).
