@@ -1,12 +1,17 @@
 # SaberPlus — guía de trabajo para compañeros
 
-Actualizado: 22 de septiembre de 2026. Leer antes de modificar código.
+Actualizado: 24 de septiembre de 2026. Leer antes de modificar código.
+
+**Nueva delegación:** el propietario deja temporalmente la continuación al equipo.
+Leer primero [RELEVO_EQUIPO.md](RELEVO_EQUIPO.md): auditoría y ruta completa de etapas.
+Esta guía conserva el detalle de certificados/audios, pero ya no limita el trabajo
+de compañeros a esas dos tareas. No autoriza despliegues ni operaciones en bases reales.
 
 ## 1. Acuerdo del equipo
 
-El propietario continúa con la lógica/backend de los juegos y coordina la integración.
-Los compañeros pueden **revisar el diseño de certificados y reparar audios** en
-ramas distintas.
+Los compañeros pueden auditar y continuar las etapas aprobadas en ramas distintas,
+empezando por la auditoría y MA-2. Coordinar integración y decisiones pendientes con
+el propietario. También pueden revisar certificados y reparar audios según esta guía.
 El contenido académico lo cargarán después el propietario y un compañero desde el
 panel ADMIN. Las pruebas en celulares se harán entre los tres.
 

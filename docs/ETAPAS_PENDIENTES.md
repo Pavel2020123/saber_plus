@@ -2,6 +2,11 @@
 
 Actualizado: 24 de septiembre de 2026. Listado para compartir con el equipo.
 
+**Ruta operativa del relevo:** [RELEVO_EQUIPO.md](RELEVO_EQUIPO.md).
+Los compañeros auditan ambos repositorios y continúan MA-2, después MA-3 y PR-I.
+P5/D3 y operaciones reales permanecen pausadas; las secciones de preparación
+histórica siguientes no autorizan retomarlas sin coordinación con el propietario.
+
 Historial completo y decisiones posteriores: [HISTORIAL_ETAPAS.md](HISTORIAL_ETAPAS.md).
 PR-I3A ya integra el catálogo visual de 40 insignias, con top 50 como límite;
 no concede premios reales. El panel tiene editor por bloques y guardado/publicación
@@ -78,14 +83,14 @@ No son trece etapas originales nuevas. La comparación con el listado anterior
 
 ## Punto de reanudación — leer primero al volver a trabajar
 
-Orden actualizado: **primero completar el módulo del profesor (P1–P4-C y P5),
-después retomar 7F-C3-D3**.
+Orden vigente: **auditoría de relevo → MA-2 → MA-3 → PR-I**, según RELEVO_EQUIPO.
+Cuando se autorice retomar infraestructura, completar P5 antes de 7F-C3-D3.
 P1, P2 y **P3-A/P3-B (prioridades, pantallas y práctica dirigida)** tienen entregas
 locales. **P4-A/P4-B preparan API, persistencia, sincronización y pantallas de
 tiempo/evolución**. La implementación P4 es local; su despliegue y comprobación
 real no están cerrados. **P4-C tiene implementación local de aprobación institucional**:
 Flutter, API, migración y bandeja ADMIN. Faltan revisión visual, despliegue y ensayo
-real. **Sigue preparar P5**, con los preparativos de commits, migraciones y despliegue
+real. **P5 permanece pausada**, con los preparativos de commits, migraciones y despliegue
 indicados abajo; no rehacer P4-C desde cero.
 D3 sigue pendiente, no cancelada ni terminada.
 Los 13 bloques se conservan como inventario; el cierre docente se detalla como
@@ -163,12 +168,12 @@ cuenta/datos del simple bloqueo de acceso y revisar dependencias antes de borrar
 No llevar esta sección a la app del estudiante/profesor. Coordinarla con el bloque
 7 de identidad/seguridad y el ensayo real D3, sin asumir que ya está implementada.
 
-### Próximo trabajo: preparar y ejecutar P5, antes de D3
+### Preparación de P5 cuando se autorice retomarla, antes de D3
 
-1. Revisar los commits de ambos repositorios. Al 17 de septiembre, Pomodoro ya
-   está en HEAD. Sigue pendiente el modelo `IntentoGuardian`, aunque la relación
-   de Usuario ya está guardada: resolver ese trabajo previo por separado antes
-   del push/despliegue. No confundir build del árbol local con checkout completo.
+1. Revisar los commits actuales de ambos repositorios y lo realmente desplegado.
+   La advertencia sobre un modelo Guardián sin commit era del 17 de septiembre,
+   no un diagnóstico vigente: verificarlo, no recrearlo a ciegas. No confundir
+   build del árbol local con un checkout completo y reproducible.
 2. Confirmar URL exacta de Render y entorno de ensayo `saberplus-dev`, permisos y
    respaldo. Revisar/aplicar con autorización las migraciones pendientes P3-A/P4-A/P4-C
    y desplegar la versión correspondiente; no repetir el despliegue inicial.
@@ -221,18 +226,12 @@ despliegues reales durante la integración Flutter.
 
 ### Instrucción lista para copiar en una nueva sesión
 
-> Lee `docs/ETAPAS_PENDIENTES.md` completo y `docs/PROFESOR_P4_C.md`. Retoma primero
-> el módulo del profesor: P1, P2, P3-A/P3-B y P4-A/P4-B tienen entregas locales;
-> P4-C también tiene entrega local (solicitud/aprobación de instituciones).
-> Sigue preparar P5: revisión visual pendiente, commits coherentes (incluido el
-> trabajo previo de Guardián), migraciones, despliegue autorizado y cuentas de ensayo.
-> Verifica el estado actual antes de programar. D3, conectar el panel al backend
-> real, se hace después y no debe perderse. No rehagas funciones existentes ni
-> asumas que lo local está desplegado. Conserva mis cambios, no pidas contraseñas
-> y confirma el entorno y la autorización para cualquier operación real. Al
-> terminar actualiza este documento con lo probado, lo pendiente, la siguiente
-> etapa y los comandos de commit con sus rutas. No hagas commits ni despliegues
-> automáticamente.
+> Lee `docs/RELEVO_EQUIPO.md`, arquitectura e inventario de pendientes. Audita ambos
+> repositorios, conserva los cambios y registra la línea base. Continúa MA-2; MA-1
+> básica y los juegos nuevos ya tienen implementación local. P5/D3 siguen pausados
+> hasta autorización. No confundas implementación con despliegue. Actualiza etapas,
+> pruebas y limitaciones, y entrega comandos de commit con rutas de ambos repositorios.
+> No pidas secretos ni hagas commits, despliegues o migraciones reales automáticamente.
 
 ## 1. 7F-C3-D2 — Legado y unificación editorial
 

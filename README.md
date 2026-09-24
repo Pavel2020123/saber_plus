@@ -8,6 +8,10 @@ Este repositorio móvil nunca almacena credenciales de PostgreSQL o Supabase.
 
 ## Auditoría y resumen para el equipo
 
+**Compañeros que retoman el proyecto:** empezar por [RELEVO_EQUIPO.md](docs/RELEVO_EQUIPO.md).
+Incluye auditoría inicial, ambos repositorios, alcance de cada etapa, reglas que
+conservar, ramas, pruebas y ejemplos de commits. Próxima entrega funcional: MA-2.
+
 **Historial desde la primera etapa:** [HISTORIAL_ETAPAS.md](docs/HISTORIAL_ETAPAS.md).
 Incluye entregas, cambios de alcance y referencias a todos los commits registrados.
 
