@@ -1,6 +1,13 @@
 # SaberPlus — trabajo pendiente tras verificación local 7F-C3-D2-F
 
-Actualizado: 22 de septiembre de 2026. Listado para compartir con el equipo.
+Actualizado: 23 de septiembre de 2026. Listado para compartir con el equipo.
+
+Historial completo y decisiones posteriores: [HISTORIAL_ETAPAS.md](HISTORIAL_ETAPAS.md).
+PR-I3A ya integra el catálogo visual de 40 insignias, con top 50 como límite;
+no concede premios reales. El panel tiene editor por bloques y guardado/publicación
+directa, sin revisión editorial obligatoria. Las referencias a revisión de abajo
+describen el flujo histórico y los controles de seguridad, no un paso adicional
+que deba volver a imponerse al administrador. D3 verifica el flujo simplificado.
 
 ## Trabajo paralelo del equipo
 
@@ -12,7 +19,7 @@ con año dinámico, conservando 2026 al obtener 2027 y temporadas posteriores.
 Alcance, diferencias con
 lo existente, reglas propuestas, dependencias y prompts identificados en
 [PERFILES_RANKINGS_INSIGNIAS.md](PERFILES_RANKINGS_INSIGNIAS.md).
-Son siete entregas adicionales, todavía sin implementar; no se cuentan como parte
+Son siete entregas adicionales, con PR-I3A visual implementada y el resto pendiente; no se cuentan como parte
 de los 13 bloques históricos ni sustituyen P5/D3. Preparar PR-I1 y los assets puede
 adelantarse; JN-2B conserva el punto de reanudación hasta cambiar la prioridad.
 

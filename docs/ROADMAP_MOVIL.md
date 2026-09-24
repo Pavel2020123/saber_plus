@@ -11,11 +11,16 @@ como referencia; no se repiten las funciones ya implementadas.
 
 ## Estado actual
 
+Historial desde el inicio: [HISTORIAL_ETAPAS.md](HISTORIAL_ETAPAS.md).
+Última entrega local: PR-I3A, catálogo visual de 40 insignias, top 50. No equivale
+a asignación de insignias anuales. La carpeta web temporal para la sustentación
+se retiró; se conservan Android/iOS. El panel web independiente permanece.
+
 Nueva ampliación planificada **PR-I1–PR-I7**: perfiles sobrios, rankings top 50
 por juego, todas las insignias vigentes visibles, búsqueda de personas/perfiles,
 perfil/ranking institucional y búsqueda con
 solicitudes de estudiantes. Ver [plan y prompts](PERFILES_RANKINGS_INSIGNIAS.md).
-Todavía no implementada; coordinar archivos con C5 y ensayo real con P5/D3.
+Solo el catálogo visual PR-I3A está implementado; coordinar archivos con C5 y ensayo real con P5/D3.
 Las reglas de XP, períodos y permisos detalladas allí son propuestas por cerrar.
 Decisión posterior: colección anual permanente de insignias, mismo arte con año
 dinámico; una nueva temporada no sustituye las insignias de años anteriores.
@@ -304,7 +309,7 @@ comprobación pública e integración completa están en `docs/FLUTTER_STAGING_C
 - AdMob con banners fuera de pantallas de concentración, intersticiales en pausas naturales y controles locales/remotos de frecuencia.
 - Anuncios recompensados voluntarios para recuperar el día anterior de una racha y obtener potenciadores ilimitados bajo demanda para juegos individuales.
 - Plan individual sin anuncios y con cosméticos: 9.900 COP mensual, 49.900 COP semestral, promoción de 39.900 COP y 69.900 COP anual.
-- Google Play Billing para compras móviles; Wompi permanece únicamente en la página web y fuera del alcance de Flutter.
+- Google Play Billing para compras móviles; ePayco/Wompi fueron retirados del backend de SaberPlus, con despliegue/verificación pendientes.
 - Derechos de acceso neutrales en el backend, sin depender del proveedor de pago.
 - Restauración, reembolso y cambio de cuenta.
 - Publicación comercial inicial solo en Google Play; iOS continúa compilable y probado, sin publicación inicial ni cobros reales.

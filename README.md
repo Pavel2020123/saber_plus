@@ -8,6 +8,9 @@ Este repositorio móvil nunca almacena credenciales de PostgreSQL o Supabase.
 
 ## Auditoría y resumen para el equipo
 
+**Historial desde la primera etapa:** [HISTORIAL_ETAPAS.md](docs/HISTORIAL_ETAPAS.md).
+Incluye entregas, cambios de alcance y referencias a todos los commits registrados.
+
 **Estructura y arquitectura:** leer [ARQUITECTURA_Y_ESTRUCTURA.md](docs/ARQUITECTURA_Y_ESTRUCTURA.md).
 Explica las capas de Flutter, el backend NestJS, el panel, la persistencia y cómo colaborar.
 
