@@ -14,6 +14,15 @@ class DemoStarRescueRepository implements StarRescueRepository {
   bool _disposed = false;
   @override
   StarRescueAttempt? get current => _current;
+  @override
+  bool get isDemo => true;
+  @override
+  StarRescuePendingAnswer? get pending => null;
+  @override
+  Future<StarRescueAttempt?> restore() async {
+    _check();
+    return _current;
+  }
 
   void dispose() {
     _disposed = true;
@@ -34,7 +43,12 @@ class DemoStarRescueRepository implements StarRescueRepository {
   }
 
   @override
-  Future<StarRescueAttempt> start(AcademicArea area) async {
+  Future<StarRescueAttempt> start(
+    AcademicArea area, {
+    String? themeId,
+    String? subtopicId,
+    PracticeDifficulty? difficulty,
+  }) async {
     _check();
     final previous = _current;
     if (previous != null && !previous.finished) {

@@ -1,6 +1,6 @@
 # Historial completo de etapas de SaberPlus
 
-Actualizado: 23 de septiembre de 2026.
+Actualizado: 24 de septiembre de 2026.
 
 ## Cómo leer este documento
 
@@ -175,8 +175,9 @@ Las aprobaciones aún no incluyen carga completa de adjuntos privados; coordinar
 - G-SABI-1B: prototipo de carrera; no es animación final aprobada.
 - JN-1A/B/C: Salto a la cima demo, backend y cliente remoto locales.
 - JN-2A: Rescate de estrellas demo local; JN-2B backend local añadido el 23 de
-  septiembre (reglas, intentos privados, recuperación y migración). Sigue JN-2C;
-  no se desplegó ni migró en Supabase.
+  septiembre (reglas, intentos privados, recuperación y migración). JN-2C añade
+  cliente remoto, filtros, imágenes y recuperación segura por cuenta/servidor.
+  No se desplegó ni migró en Supabase; falta ensayo real. Sigue JN-4.
 - JN-3: Taller de inventos cancelado, no pendiente.
 - JN-4: Escudo del conocimiento aprobado, pendiente de implementar.
 - MA-1/2/3: cobertura del banco, mapa y repaso diferido aprobados, pendientes.

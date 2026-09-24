@@ -7,7 +7,8 @@ Sabi ni interpretar la pausa como cancelación de su diseño.
 **JN-1A tiene implementación funcional demo y JN-1B backend local probado**
 de Salto a la cima, sin despliegue; JN-1C cliente remoto ya está implementado.
 JN-2A reglas/demo de Rescate de estrellas implementada el 19 de septiembre;
-JN-2B backend local implementado el 23 de septiembre; sigue JN-2C Flutter remoto.
+JN-2B backend implementado localmente el 23 de septiembre y JN-2C Flutter remoto el 24.
+Falta despliegue/ensayo real; sigue JN-4.
 Escudo y las tres mejoras académicas siguen pendientes. G-SABI-1B conserva
 su muestra vectorial, sin aprobación artística ni integración en partidas reales.
 P5 y la conexión real D3 quedan pendientes y pausadas por decisión del usuario;
@@ -23,8 +24,8 @@ Integrar PR-I1–6 antes del arte final; su ensayo real se coordina con P5/D3.
 
 1. **JN-1 — Salto a la cima:** A demo funcional y B backend local listos;
    C cliente remoto implementado. Migración real y ensayo en staging pendientes.
-2. **JN-2 — Rescate de estrellas:** A demo y B backend locales listos; sigue
-   C integración y ensayo real. Arte al final.
+2. **JN-2 — Rescate de estrellas:** A demo, B backend y C cliente remoto locales
+   listos. Migración/despliegue y ensayo real pendientes. Arte al final.
 3. **JN-4 — Escudo del conocimiento:** rondas, resistencia y resultados.
 4. **MA-1 — Cobertura del banco:** diagnóstico editorial antes de poblar más juegos.
 5. **MA-2 — Mapa de aprendizaje:** relaciones entre temas, orientación sin bloqueos.

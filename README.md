@@ -29,7 +29,9 @@ falta ensayo real en dispositivo/staging. JN-2A añade
 [Rescate de estrellas en demo](docs/RESCATE_DE_ESTRELLAS.md): seis estrellas,
 dos constelaciones y hasta diez preguntas, con reglas iniciales ajustables.
 **JN-2B implementada localmente:** backend seguro de Rescate de estrellas,
-sin despliegue automático. Sigue **JN-2C, integración Flutter remota**.
+sin despliegue automático. **JN-2C implementada localmente:** cliente remoto con
+recuperación segura, filtros e imágenes. Falta ensayo real; sigue **JN-4, Escudo
+del conocimiento**, manteniendo P5/D3 y las animaciones pausadas.
 Ver [SALTO_A_LA_CIMA.md](docs/SALTO_A_LA_CIMA.md).
 El prototipo de Sabi que sigue abajo se conserva, pero sus animaciones están pausadas.
 

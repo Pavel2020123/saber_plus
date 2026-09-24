@@ -184,7 +184,7 @@ void main() {
     );
   });
   test(
-    'provider isolates account/role and excludes real users; XP does not reset',
+    'provider isolates account/role and uses remote for real users; XP does not reset',
     () async {
       final container = ProviderContainer(
         overrides: [sessionControllerProvider.overrideWith(_Session.new)],
@@ -200,7 +200,7 @@ void main() {
       expect(container.read(starRescueRepositoryProvider), isNot(same(repo)));
       expect(container.read(starRescueRepositoryProvider)!.current, null);
       session.change('real', demo: false);
-      expect(container.read(starRescueRepositoryProvider), null);
+      expect(container.read(starRescueRepositoryProvider)!.isDemo, false);
       session.change('teacher', role: AppRole.teacher);
       expect(container.read(starRescueRepositoryProvider), null);
       session.clear();
