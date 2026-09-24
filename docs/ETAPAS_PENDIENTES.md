@@ -21,7 +21,7 @@ lo existente, reglas propuestas, dependencias y prompts identificados en
 [PERFILES_RANKINGS_INSIGNIAS.md](PERFILES_RANKINGS_INSIGNIAS.md).
 Son siete entregas adicionales, con PR-I3A visual implementada y el resto pendiente; no se cuentan como parte
 de los 13 bloques históricos ni sustituyen P5/D3. Preparar PR-I1 y los assets puede
-adelantarse; JN-2B conserva el punto de reanudación hasta cambiar la prioridad.
+adelantarse; JN-2B ya tiene backend local. Sigue JN-2C, integración Flutter remota.
 
 Guía para compañeros: [GUIA_TRABAJO_COMPANEROS.md](GUIA_TRABAJO_COMPANEROS.md).
 Certificados: **cinco por área y uno final por las cinco**, integrados localmente
@@ -31,7 +31,7 @@ Audios: investigar el reporte de que solo se escucha Tira y afloja; las llamadas
 existentes no prueban reproducción real. Reparar primero y luego agregar efectos
 coordinados a juegos nuevos. Contenido desde ADMIN más adelante; pruebas entre los tres.
 Cada compañero trabaja en su rama/PR; el propietario revisa e incorpora. Este reparto
-no cambia la siguiente entrega funcional JN-2B ni reabre animaciones/P5/D3.
+no cambia la siguiente entrega funcional JN-2C ni reabre animaciones/P5/D3.
 
 ## Ampliación aprobada — Sabi, tres juegos y tres mejoras académicas
 
@@ -44,7 +44,8 @@ Reglas acordadas y decisiones pendientes en [SABI_Y_JUEGOS_APROBADOS.md](SABI_Y_
 y probado localmente, sin despliegue. JN-1C cliente Flutter remoto implementado;
 la prueba real queda pendiente de infraestructura. JN-2A
 [Rescate de estrellas](RESCATE_DE_ESTRELLAS.md) tiene reglas/demo implementadas.
-Sigue JN-2B backend, después JN-2C integración, JN-4 Escudo, MA-1 cobertura,
+JN-2B tiene backend y migración locales, sin despliegue. Sigue JN-2C integración,
+JN-4 Escudo, MA-1 cobertura,
 MA-2 mapa y MA-3 repaso diferido. G-SABI-1B se conserva como prototipo pausado,
 sin aprobación artística; las celebraciones y renovación visual no se hacen ahora.
 Son alcance adicional, no implementado en producción;

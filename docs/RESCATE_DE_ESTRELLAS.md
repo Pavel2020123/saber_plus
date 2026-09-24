@@ -1,12 +1,24 @@
 # JN-2 — Rescate de estrellas
 
-Actualizado: 19 de septiembre de 2026.
+Actualizado: 23 de septiembre de 2026.
 
-## Estado: JN-2A demo local implementada
+## Estado: JN-2A demo y JN-2B backend locales; sigue JN-2C
+
+JN-2B añade API `/rescate-estrellas`, reglas versión 1 (6 estrellas, grupos de 3,
+10 preguntas), snapshots privados, calificación autoritativa, filtros, recuperación,
+caducidad de 24 horas, abandono y reintentos sin duplicar estrellas. Una partida
+activa por estudiante y juego, protegida con transacciones, índice parcial y RLS.
+No concede XP ni altera evidencia académica. Contrato completo en el repositorio
+oficial `SaberPlus-Backend/backend/STAR_RESCUE.md`.
+
+La migración nueva solo se prueba en PostgreSQL desechable; no está en Supabase.
+Flutter no se modificó en JN-2B: falta cliente remoto JN-2C y ensayo real autorizado.
+
+### Estado del cliente Flutter (JN-2A)
 
 Disponible en **Practicar → Juegos individuales → Rescate de estrellas**, solo
-para estudiantes de demostración. No hay backend, persistencia en disco ni
-integración de producción para este juego. No se tocó Render/Supabase.
+para estudiantes de demostración. Todavía no usa el nuevo backend ni persistencia
+en disco para este juego. No se tocó Render/Supabase.
 
 Sabi es el protagonista previsto; en esta entrega solo se nombran su misión y
 las constelaciones, representadas con indicadores estáticos y etiquetas accesibles.
@@ -16,7 +28,8 @@ No se generaron personajes, animaciones ni sonidos nuevos. El arte queda al fina
 
 El usuario aprobó liberar una estrella por acierto y reconstruir constelaciones
 en grupos. Los siguientes números y la consecuencia del error son **hipótesis
-para probar la demo**, no requisitos definitivos aprobados ni reglas de servidor:
+para probar la demo**, ahora fijadas en la versión 1 del servidor JN-2B;
+su equilibrio seguirá revisándose antes de publicación:
 
 - Se comienza sin estrellas.
 - Cada acierto libera una; cada grupo de 3 completa una constelación.
@@ -58,6 +71,12 @@ con la API de práctica. Las cuentas reales ven un aviso, nunca una demo encubie
 
 ## Verificación
 
+JN-2B (23 de septiembre): build del backend correcto, ESLint del módulo sin
+avisos, 811 pruebas Jest/80 suites y 20 pruebas con PostgreSQL temporal aprobadas.
+Incluyen RLS, concurrencia, reintentos, snapshots, filtros, rescate parcial y
+recuperación desde otra instancia. No se cambió código Flutter ni se hizo ensayo
+en teléfonos para esta entrega; la comprobación JN-2A siguiente es histórica.
+
 `flutter analyze` sin avisos y **83 pruebas seleccionadas aprobadas** el 19 de
 septiembre: incluye **18 nuevas** (17 del juego y una de navegación), junto con
 la regresión de Salto a la cima y las pantallas existentes.
@@ -76,10 +95,9 @@ generado un APK ni ejecutado toda la suite del proyecto para esta entrega.
 
 ## Próximas entregas
 
-1. **JN-2B — Backend:** fijar reglas versionadas, preguntas publicadas por área/tema/
-   subtema/dificultad sin relleno demo, intentos privados y copias del contenido,
-   calificación del servidor, recuperación, caducidad, abandono e idempotencia.
-   Probar permisos/concurrencia con PostgreSQL temporal, sin desplegar por defecto.
+1. **JN-2B — Backend:** implementación local preparada con reglas versionadas,
+   preguntas publicadas, snapshots privados, recuperación, caducidad y abandono.
+   Pruebas de permisos/concurrencia en PostgreSQL temporal, sin despliegue real.
 2. **JN-2C — Flutter remoto:** API, almacenamiento seguro del envío pendiente,
    filtros, imágenes/casos completos, recuperación y estados de conexión.
 3. **Ensayo real:** despliegue autorizado, contenido suficiente y revisión en

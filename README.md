@@ -28,7 +28,8 @@ JN-1C añade el cliente Flutter remoto con recuperación segura, filtros e imág
 falta ensayo real en dispositivo/staging. JN-2A añade
 [Rescate de estrellas en demo](docs/RESCATE_DE_ESTRELLAS.md): seis estrellas,
 dos constelaciones y hasta diez preguntas, con reglas iniciales ajustables.
-Sigue **JN-2B, backend de Rescate de estrellas**, sin despliegue automático.
+**JN-2B implementada localmente:** backend seguro de Rescate de estrellas,
+sin despliegue automático. Sigue **JN-2C, integración Flutter remota**.
 Ver [SALTO_A_LA_CIMA.md](docs/SALTO_A_LA_CIMA.md).
 El prototipo de Sabi que sigue abajo se conserva, pero sus animaciones están pausadas.
 
