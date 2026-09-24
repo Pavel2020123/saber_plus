@@ -334,6 +334,36 @@ void main() {
     expect(find.text('Rescate de estrellas'), findsOneWidget);
   });
 
+  testWidgets('abre Escudo del conocimiento y comienza una partida demo', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_testApp());
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Comenzar'));
+    await tester.tap(find.text('Comenzar'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('student-demo-button')));
+    await tester.tap(find.byKey(const Key('student-demo-button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Practicar'));
+    await tester.pumpAndSettle();
+    final tile = find.byKey(const Key('open-knowledge-shield'));
+    await tester.scrollUntilVisible(
+      tile,
+      250,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await Scrollable.ensureVisible(tester.element(tile), alignment: 0.5);
+    await tester.pumpAndSettle();
+    await tester.tap(tile);
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(find.byKey(const Key('shield-start')), 150);
+    await tester.tap(find.byKey(const Key('shield-start')));
+    await tester.pumpAndSettle();
+    expect(find.text('Escudo: 3/3 · Páginas recuperadas: 0/3'), findsOneWidget);
+    expect(find.text('Escudo del conocimiento'), findsOneWidget);
+  });
+
   testWidgets('abre la configuración de Trivia Rush desde practicar', (
     tester,
   ) async {

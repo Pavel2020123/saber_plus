@@ -179,7 +179,10 @@ Las aprobaciones aún no incluyen carga completa de adjuntos privados; coordinar
   cliente remoto, filtros, imágenes y recuperación segura por cuenta/servidor.
   No se desplegó ni migró en Supabase; falta ensayo real. Sigue JN-4.
 - JN-3: Taller de inventos cancelado, no pendiente.
-- JN-4: Escudo del conocimiento aprobado, pendiente de implementar.
+- JN-4A: Escudo del conocimiento implementado en demo local el 24 de septiembre:
+  tres rondas, escudo reparable, páginas, resultados, abandono y aislamiento de cuenta.
+  Sin XP ni diagnóstico, sin backend/despliegue. Ver [ESCUDO_DEL_CONOCIMIENTO.md](ESCUDO_DEL_CONOCIMIENTO.md).
+  Siguiente: JN-4B backend seguro y JN-4C cliente remoto; arte al final.
 - MA-1/2/3: cobertura del banco, mapa y repaso diferido aprobados, pendientes.
 - Animaciones profesionales y renovación de Sabi: al final, por decisión del usuario.
 

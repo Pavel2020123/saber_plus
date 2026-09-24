@@ -30,8 +30,10 @@ falta ensayo real en dispositivo/staging. JN-2A añade
 dos constelaciones y hasta diez preguntas, con reglas iniciales ajustables.
 **JN-2B implementada localmente:** backend seguro de Rescate de estrellas,
 sin despliegue automático. **JN-2C implementada localmente:** cliente remoto con
-recuperación segura, filtros e imágenes. Falta ensayo real; sigue **JN-4, Escudo
-del conocimiento**, manteniendo P5/D3 y las animaciones pausadas.
+recuperación segura, filtros e imágenes. Falta ensayo real.
+**JN-4A implementada localmente:** [Escudo del conocimiento](docs/ESCUDO_DEL_CONOCIMIENTO.md)
+en estudiante demo, con rondas, reparación y páginas, sin XP. Sigue **JN-4B: backend
+seguro de Escudo**, manteniendo P5/D3 y las animaciones pausadas.
 Ver [SALTO_A_LA_CIMA.md](docs/SALTO_A_LA_CIMA.md).
 El prototipo de Sabi que sigue abajo se conserva, pero sus animaciones están pausadas.
 

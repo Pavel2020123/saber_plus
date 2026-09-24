@@ -42,7 +42,8 @@ animaciones al final.** [Salto a la cima](SALTO_A_LA_CIMA.md) inicia esta entreg
 JN-1A demo, JN-1B backend y JN-1C cliente listos localmente. JN-2A demo de
 [Rescate de estrellas](RESCATE_DE_ESTRELLAS.md) implementada el 19 de septiembre;
 JN-2B backend implementado localmente el 23 de septiembre y JN-2C cliente remoto el 24;
-falta ensayo real. Siguen JN-4 y MA-1–3 según
+falta ensayo real. JN-4A [Escudo demo](ESCUDO_DEL_CONOCIMIENTO.md) implementada el 24;
+siguen JN-4B backend, JN-4C cliente remoto y MA-1–3 según
 SABI_Y_JUEGOS_APROBADOS.md. [Duelo fantasma con Sabi](SABI_DUELO_FANTASMA.md)
 queda pausado; se conserva su prototipo sin darlo por arte final.
 

@@ -212,6 +212,19 @@ class PracticeHubPage extends StatelessWidget {
         const SizedBox(height: 8),
         Card(
           child: ListTile(
+            key: const Key('open-knowledge-shield'),
+            leading: const CircleAvatar(
+              child: Icon(Icons.local_library_outlined),
+            ),
+            title: const Text('Escudo del conocimiento'),
+            subtitle: const Text('Resiste rondas y recupera páginas · Demo'),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            onTap: () => context.push('/student/practice/knowledge-shield'),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Card(
+          child: ListTile(
             key: const Key('open-guardian'),
             leading: const CircleAvatar(child: Icon(Icons.shield_outlined)),
             title: const Text('Desafío del guardián'),
