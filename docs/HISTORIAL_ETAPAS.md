@@ -204,6 +204,11 @@ de `SaberPlus-Backend/admin` no se eliminó**. La demostración no cierra la bet
 
 ## Etapas futuras 8 y 9
 
+Nueva decisión de diseño: **UI-F**, pendiente. Renovar la app con identidad azul
+SaberPlus, botones y componentes cuidados, conservando claro/oscuro y accesibilidad.
+Se hará tras las funciones, coordinada con las animaciones finales y antes de las
+pruebas integrales/beta 8G y publicación. No se cambiaron colores con esta decisión.
+
 8A/B: Billing y derechos; 8C/D: anuncios y recompensas reales; 8E: privacidad y
 licencias; 8F: seguridad/rendimiento; 8G: pruebas/beta; 8H: entrega iOS;
 8I: publicación Google Play; 9A: operación posterior.

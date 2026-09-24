@@ -305,6 +305,13 @@ comprobación pública e integración completa están en `docs/FLUTTER_STAGING_C
 
 ## Etapa 8 - Comercio y publicación
 
+- [ ] **UI-F — Diseño final de la app:** identidad azul SaberPlus, botones y
+  componentes consistentes, mejoras de navegación/legibilidad y temas claro/oscuro.
+  Aprobar pantallas de muestra antes de extenderlo; coordinar Sabi/animaciones.
+  Se realiza después del desarrollo funcional y antes de 8G (pruebas integrales
+  y beta), capturas y publicación. No detiene las pruebas de cada entrega.
+  Alcance y criterio de cierre en `ETAPAS_PENDIENTES.md`.
+
 - Contenido académico completo y permanente para el estudiante gratuito, financiado con publicidad moderada.
 - AdMob con banners fuera de pantallas de concentración, intersticiales en pausas naturales y controles locales/remotos de frecuencia.
 - Anuncios recompensados voluntarios para recuperar el día anterior de una racha y obtener potenciadores ilimitados bajo demanda para juegos individuales.

@@ -535,6 +535,32 @@ conectar el panel por sí solo no garantiza que lo nuevo aparezca ya en la app.
   memoria, batería, datos y tamaño APK/AAB. Lectores de pantalla, texto ampliado,
   contraste, navegación y todas las animaciones con reducción de movimiento.
 
+### UI-F — Diseño final de la app (antes de 8G)
+
+Pendiente, aprobado por el usuario. Forma parte del cierre del bloque 12, no es
+un rediseño del panel ADMIN ni una etapa opcional posterior a la publicación.
+
+- Adoptar una identidad azul basada en el logo S+ de SaberPlus; aprobar primero
+  una muestra de inicio, perfil y pregunta antes de extenderla a toda la app.
+- Definir colores, tipografía, espaciados, bordes, elevación e iconos como estilos
+  compartidos; evitar colores y botones diferentes definidos pantalla por pantalla.
+- Rediseñar botones, tarjetas, formularios, navegación y estados de carga, error,
+  vacío, selección y deshabilitado. Mejorar jerarquía y legibilidad sin recargar.
+- Conservar los modos claro, oscuro y del sistema: azul como identidad, no como
+  fondo saturado obligatorio de todas las pantallas. Revisar contraste y foco.
+- Aplicar el sistema visual a estudiante y profesor, perfiles, rankings, estudio,
+  juegos y ajustes, respetando lo ya implementado y sin modificar reglas académicas.
+- Integrar el arte final de Sabi y las animaciones acordadas dentro de esta fase
+  de acabado; mantener reducción de movimiento y no distraer durante preguntas.
+- Verificar controles táctiles, texto ampliado, lectores de pantalla, pantallas
+  pequeñas y adaptación Android/iOS; ajustar pruebas de widgets afectadas.
+
+Orden: funciones e integraciones → UI-F y acabado de animaciones → 8G pruebas
+integrales/beta → comprobación final iOS y capturas/publicación Google Play.
+Las pruebas unitarias, de seguridad y de cada entrega continúan durante el
+desarrollo; no se posponen hasta UI-F. Cerrar esta etapa con revisión visual del
+usuario en celular y componentes consistentes, antes de producir capturas finales.
+
 ### 8G — Pruebas integrales y beta
 
 - Suites Flutter/backend, análisis y compilaciones; E2E contra staging.
