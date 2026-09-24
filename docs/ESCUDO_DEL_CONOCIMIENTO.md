@@ -4,8 +4,8 @@ Actualizado: 24 de septiembre de 2026.
 
 ## Estado y alcance
 
-**JN-4A: reglas y demo Flutter implementadas localmente.** No está conectado al
-backend ni habilitado para cuentas reales. No concede XP, insignias, certificados,
+**JN-4A: reglas y demo Flutter implementadas localmente. JN-4B: backend local probado.**
+Flutter aún no está conectado al backend ni habilitado para cuentas reales. No concede XP, insignias, certificados,
 progreso académico ni cambios de diagnóstico. No sustituye al Guardián: aquí se
 resisten rondas para proteger una biblioteca, no se reduce la vida de un enemigo.
 
@@ -69,17 +69,29 @@ Cubren límites del escudo, última ronda fallida, reparación, páginas, cinco 
 duplicados, concurrencia, identidad, abandono, reintentos, navegación y texto grande.
 No sustituyen la prueba visual en un teléfono real.
 
+## JN-4B — Backend local (24 de septiembre)
+
+Implementado en el repositorio SaberPlus-Backend, módulo `backend/src/knowledge-shield`.
+Rutas bajo `/escudo-conocimiento`: iniciar, activo, recuperar por ID, responder y abandonar.
+El servidor calcula escudo/páginas y solo expone la pregunta actual. Valida propietario,
+rol estudiante, JWT/correo verificado, publicación de preguntas y filtros académicos.
+Requiere doce preguntas válidas; no rellena bancos pequeños con repeticiones.
+Incluye snapshots privados, reintentos idempotentes, control de concurrencia,
+caducidad de 24 horas y migración con RLS/revocación de acceso de clientes.
+No otorga XP ni modifica diagnóstico. Contrato detallado: `backend/KNOWLEDGE_SHIELD.md`.
+
+Build correcto; **824 pruebas Jest (82 suites) y 21 pruebas PostgreSQL temporal**
+aprobadas. La instancia temporal se cerró y eliminó, sin tocar bases existentes.
+No se desplegó ni se aplicó la migración en Supabase/Render.
+
 ## Entregas pendientes
 
-1. **JN-4B — Backend seguro:** contrato versionado, preguntas publicadas suficientes,
-   filtros académicos, intentos privados, snapshots, reglas autoritativas,
-   idempotencia, expiración, migración y pruebas con PostgreSQL temporal.
-2. **JN-4C — Cliente remoto:** conectar API, imágenes/contextos completos, filtros,
+1. **JN-4C — Cliente remoto:** conectar API, imágenes/contextos completos, filtros,
    recuperación persistente y errores de conexión. Nunca calificar respuestas reales localmente.
-3. Migración/despliegue y ensayo real cuando se retomen esas tareas. P5/D3 siguen pausadas.
-4. Arte/animaciones y audio finales: Sabi defendiendo, criaturas de tinta, reparación,
+2. Migración/despliegue y ensayo real cuando se retomen esas tareas. P5/D3 siguen pausadas.
+3. Arte/animaciones y audio finales: Sabi defendiendo, criaturas de tinta, reparación,
    ataque y páginas; revisar audios existentes antes de pedir archivos nuevos.
 
-Después de JN-4B/C siguen MA-1 cobertura del banco, MA-2 mapa de aprendizaje y
+Después de JN-4C siguen MA-1 cobertura del banco, MA-2 mapa de aprendizaje y
 MA-3 repaso diferido. El rediseño azul UI-F y las animaciones siguen antes de las
 pruebas finales/publicación, no se incluyen en esta demo funcional.

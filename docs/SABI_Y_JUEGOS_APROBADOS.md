@@ -9,7 +9,8 @@ de Salto a la cima, sin despliegue; JN-1C cliente remoto ya está implementado.
 JN-2A reglas/demo de Rescate de estrellas implementada el 19 de septiembre;
 JN-2B backend implementado localmente el 23 de septiembre y JN-2C Flutter remoto el 24.
 Falta despliegue/ensayo real. JN-4A demo de Escudo implementada el 24 de septiembre;
-siguen JN-4B backend y JN-4C cliente remoto. Las tres mejoras académicas siguen pendientes. G-SABI-1B conserva
+JN-4B backend implementado y probado localmente, sin despliegue; sigue JN-4C cliente remoto.
+Las tres mejoras académicas siguen pendientes. G-SABI-1B conserva
 su muestra vectorial, sin aprobación artística ni integración en partidas reales.
 P5 y la conexión real D3 quedan pendientes y pausadas por decisión del usuario;
 estas ampliaciones no las sustituyen. [Duelo fantasma animado](SABI_DUELO_FANTASMA.md)
@@ -26,7 +27,7 @@ Integrar PR-I1–6 antes del arte final; su ensayo real se coordina con P5/D3.
    C cliente remoto implementado. Migración real y ensayo en staging pendientes.
 2. **JN-2 — Rescate de estrellas:** A demo, B backend y C cliente remoto locales
    listos. Migración/despliegue y ensayo real pendientes. Arte al final.
-3. **JN-4 — Escudo del conocimiento:** A demo local lista; B backend y C cliente remoto pendientes.
+3. **JN-4 — Escudo del conocimiento:** A demo y B backend locales listos; C cliente remoto pendiente.
 4. **MA-1 — Cobertura del banco:** diagnóstico editorial antes de poblar más juegos.
 5. **MA-2 — Mapa de aprendizaje:** relaciones entre temas, orientación sin bloqueos.
 6. **MA-3 — Repaso diferido:** agenda de retención y sincronización.
@@ -91,7 +92,7 @@ deben retomarse antes de dar por probadas las funciones reales.
 - JN-4A implementa reglas provisionales: 3 rondas de 4 preguntas, escudo de 3,
   acierto repara 1, error quita 1, ataque al cierre quita 1; sobrevivir da una página.
   Sin reloj, XP ni efectos académicos. Ver [ESCUDO_DEL_CONOCIMIENTO.md](ESCUDO_DEL_CONOCIMIENTO.md).
-  Faltan backend, cliente remoto, ensayo real y arte final.
+  Backend JN-4B implementado localmente; faltan cliente remoto, despliegue, ensayo real y arte final.
 
 ## Renovación de juegos existentes: dirección acordada
 

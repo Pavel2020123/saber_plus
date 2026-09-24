@@ -182,7 +182,10 @@ Las aprobaciones aún no incluyen carga completa de adjuntos privados; coordinar
 - JN-4A: Escudo del conocimiento implementado en demo local el 24 de septiembre:
   tres rondas, escudo reparable, páginas, resultados, abandono y aislamiento de cuenta.
   Sin XP ni diagnóstico, sin backend/despliegue. Ver [ESCUDO_DEL_CONOCIMIENTO.md](ESCUDO_DEL_CONOCIMIENTO.md).
-  Siguiente: JN-4B backend seguro y JN-4C cliente remoto; arte al final.
+  JN-4B backend añadido el 24: reglas autoritativas, intentos privados,
+  snapshots, reintentos, caducidad y migración. Build correcto, 824 pruebas Jest
+  (82 suites) y 21 en PostgreSQL temporal aprobadas. No desplegado ni migrado en Supabase.
+  Siguiente: JN-4C cliente remoto; arte al final.
 - MA-1/2/3: cobertura del banco, mapa y repaso diferido aprobados, pendientes.
 - Animaciones profesionales y renovación de Sabi: al final, por decisión del usuario.
 
