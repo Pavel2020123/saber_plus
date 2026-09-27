@@ -10,7 +10,7 @@ Este repositorio móvil nunca almacena credenciales de PostgreSQL o Supabase.
 
 **Compañeros que retoman el proyecto:** empezar por [RELEVO_EQUIPO.md](docs/RELEVO_EQUIPO.md).
 Incluye auditoría inicial, ambos repositorios, alcance de cada etapa, reglas que
-conservar, ramas, pruebas y ejemplos de commits. Próxima entrega funcional: MA-2.
+conservar, ramas, pruebas y ejemplos de commits. Próxima entrega funcional: MA-2B.
 
 **Historial desde la primera etapa:** [HISTORIAL_ETAPAS.md](docs/HISTORIAL_ETAPAS.md).
 Incluye entregas, cambios de alcance y referencias a todos los commits registrados.
@@ -40,7 +40,9 @@ en estudiante demo, con rondas, reparación y páginas, sin XP. **JN-4B backend 
 implementado y probado localmente**, sin despliegue. **JN-4C cliente remoto de Escudo
 implementado localmente:** recuperación segura, filtros e imágenes. Falta ensayo real.
 **MA-1: cobertura básica del banco implementada localmente** en el panel y backend.
-Ver [alcance y pendientes](docs/COBERTURA_DEL_BANCO.md). Sigue **MA-2: mapa de aprendizaje**,
+Ver [alcance y pendientes](docs/COBERTURA_DEL_BANCO.md).
+**MA-2A implementada localmente:** [reglas y backend del mapa](docs/MAPA_APRENDIZAJE.md).
+No hay pantalla móvil todavía. Sigue **MA-2B: editor del mapa en el panel**,
 manteniendo P5/D3 y las animaciones pausadas.
 Ver [SALTO_A_LA_CIMA.md](docs/SALTO_A_LA_CIMA.md).
 El prototipo de Sabi que sigue abajo se conserva, pero sus animaciones están pausadas.

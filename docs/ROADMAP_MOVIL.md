@@ -11,8 +11,12 @@ como referencia; no se repiten las funciones ya implementadas.
 
 ## Estado actual
 
+Entrega más reciente (27 de septiembre): **MA-2A reglas y backend del mapa**,
+implementada localmente, migración no desplegada. [Alcance](MAPA_APRENDIZAJE.md).
+Siguiente: **MA-2B editor del panel**, luego MA-2C Flutter y MA-3.
+
 Historial desde el inicio: [HISTORIAL_ETAPAS.md](HISTORIAL_ETAPAS.md).
-Última entrega local: PR-I3A, catálogo visual de 40 insignias, top 50. No equivale
+Entrega visual previa: PR-I3A, catálogo visual de 40 insignias, top 50. No equivale
 a asignación de insignias anuales. La carpeta web temporal para la sustentación
 se retiró; se conservan Android/iOS. El panel web independiente permanece.
 
@@ -46,7 +50,7 @@ falta ensayo real. JN-4A [Escudo demo](ESCUDO_DEL_CONOCIMIENTO.md) implementada 
 JN-4B backend implementado y probado localmente, sin despliegue;
 JN-4C cliente remoto implementado localmente, sin ensayo real;
 MA-1 [cobertura básica](COBERTURA_DEL_BANCO.md) implementada localmente, con reportes
-académicos y ensayo real pendientes; siguen MA-2–3 según
+académicos y ensayo real pendientes; MA-2A backend local listo, siguen MA-2B/C y MA-3 según
 SABI_Y_JUEGOS_APROBADOS.md. [Duelo fantasma con Sabi](SABI_DUELO_FANTASMA.md)
 queda pausado; se conserva su prototipo sin darlo por arte final.
 

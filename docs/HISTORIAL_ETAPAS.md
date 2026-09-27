@@ -1,6 +1,6 @@
 # Historial completo de etapas de SaberPlus
 
-Actualizado: 24 de septiembre de 2026.
+Actualizado: 27 de septiembre de 2026.
 
 ## Cómo leer este documento
 
@@ -193,7 +193,11 @@ Las aprobaciones aún no incluyen carga completa de adjuntos privados; coordinar
   consulta ADMIN paginada, dificultades y explicaciones faltantes. Backend: 827
   pruebas; panel: 79; PostgreSQL aislado: 4 de cobertura aprobadas. No desplegada.
   Reportes académicos y verificación visual/real pendientes. Sin cambios Flutter funcionales.
-- MA-2/3: mapa de aprendizaje y repaso diferido pendientes; sigue MA-2.
+- MA-2A: reglas/backend del [mapa de aprendizaje](MAPA_APRENDIZAJE.md) implementados
+  localmente el 27 de septiembre: relaciones orientativas por subtema, ciclos,
+  concurrencia, API ADMIN/lectura publicada y migración no desplegada. Build, ESLint,
+  845 pruebas backend y 7 PostgreSQL/HTTP aprobadas. Sin pantalla nueva en Flutter.
+  Siguen MA-2B panel y MA-2C Flutter; MA-3 repaso diferido sigue pendiente.
 - Animaciones profesionales y renovación de Sabi: al final, por decisión del usuario.
 
 Guía: [SABI_Y_JUEGOS_APROBADOS.md](SABI_Y_JUEGOS_APROBADOS.md).

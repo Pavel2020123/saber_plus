@@ -1,9 +1,10 @@
 # SaberPlus — trabajo pendiente tras verificación local 7F-C3-D2-F
 
-Actualizado: 24 de septiembre de 2026. Listado para compartir con el equipo.
+Actualizado: 27 de septiembre de 2026. Listado para compartir con el equipo.
 
 **Ruta operativa del relevo:** [RELEVO_EQUIPO.md](RELEVO_EQUIPO.md).
-Los compañeros auditan ambos repositorios y continúan MA-2, después MA-3 y PR-I.
+Los compañeros revisan ambos repositorios y continúan MA-2B, luego MA-2C, MA-3 y PR-I.
+MA-2A (reglas/backend) implementada localmente: [detalle](MAPA_APRENDIZAJE.md).
 P5/D3 y operaciones reales permanecen pausadas; las secciones de preparación
 histórica siguientes no autorizan retomarlas sin coordinación con el propietario.
 
@@ -28,7 +29,8 @@ Son siete entregas adicionales, con PR-I3A visual implementada y el resto pendie
 de los 13 bloques históricos ni sustituyen P5/D3. Preparar PR-I1 y los assets puede
 adelantarse; JN-2B/C ya tienen backend y cliente locales. JN-4A demo de Escudo lista;
 JN-4B backend y JN-4C cliente remoto implementados localmente. MA-1 cobertura básica
-implementada localmente; reportes académicos pendientes. Sigue MA-2 mapa de aprendizaje.
+implementada localmente; reportes académicos pendientes. MA-2A backend local listo;
+sigue MA-2B panel y después MA-2C Flutter.
 
 Guía para compañeros: [GUIA_TRABAJO_COMPANEROS.md](GUIA_TRABAJO_COMPANEROS.md).
 Certificados: **cinco por área y uno final por las cinco**, integrados localmente
@@ -38,7 +40,7 @@ Audios: investigar el reporte de que solo se escucha Tira y afloja; las llamadas
 existentes no prueban reproducción real. Reparar primero y luego agregar efectos
 coordinados a juegos nuevos. Contenido desde ADMIN más adelante; pruebas entre los tres.
 Cada compañero trabaja en su rama/PR; el propietario revisa e incorpora. Este reparto
-no cambia la siguiente entrega funcional MA-2 ni reabre animaciones/P5/D3.
+no cambia la siguiente entrega funcional MA-2B ni reabre animaciones/P5/D3.
 
 ## Ampliación aprobada — Sabi, tres juegos y tres mejoras académicas
 
@@ -55,7 +57,8 @@ JN-2B tiene backend/migración locales y JN-2C cliente remoto con recuperación,
 sin despliegue ni ensayo real. [JN-4A Escudo](ESCUDO_DEL_CONOCIMIENTO.md) tiene demo local;
 JN-4B backend y JN-4C remoto locales listos, sin migración/despliegue ni ensayo real.
 MA-1 [cobertura básica](COBERTURA_DEL_BANCO.md) implementada localmente; reportes
-académicos, revisión visual y ensayo real pendientes. Siguen MA-2 mapa y MA-3 repaso diferido.
+académicos, revisión visual y ensayo real pendientes. MA-2A backend implementado
+localmente; siguen MA-2B panel, MA-2C Flutter y MA-3 repaso diferido.
 G-SABI-1B se conserva como prototipo pausado,
 sin aprobación artística; las celebraciones y renovación visual no se hacen ahora.
 Son alcance adicional, no implementado en producción;
@@ -83,7 +86,8 @@ No son trece etapas originales nuevas. La comparación con el listado anterior
 
 ## Punto de reanudación — leer primero al volver a trabajar
 
-Orden vigente: **auditoría de relevo → MA-2 → MA-3 → PR-I**, según RELEVO_EQUIPO.
+Orden vigente: **revisar estado → MA-2B → MA-2C → MA-3 → PR-I**, según RELEVO_EQUIPO.
+MA-2A está implementada/probada localmente, no desplegada; no rehacerla.
 Cuando se autorice retomar infraestructura, completar P5 antes de 7F-C3-D3.
 P1, P2 y **P3-A/P3-B (prioridades, pantallas y práctica dirigida)** tienen entregas
 locales. **P4-A/P4-B preparan API, persistencia, sincronización y pantallas de
@@ -227,7 +231,8 @@ despliegues reales durante la integración Flutter.
 ### Instrucción lista para copiar en una nueva sesión
 
 > Lee `docs/RELEVO_EQUIPO.md`, arquitectura e inventario de pendientes. Audita ambos
-> repositorios, conserva los cambios y registra la línea base. Continúa MA-2; MA-1
+> repositorios, conserva los cambios y registra la línea base. Continúa MA-2B; MA-2A
+> backend ya está implementada localmente (ver MAPA_APRENDIZAJE.md). MA-1
 > básica y los juegos nuevos ya tienen implementación local. P5/D3 siguen pausados
 > hasta autorización. No confundas implementación con despliegue. Actualiza etapas,
 > pruebas y limitaciones, y entrega comandos de commit con rutas de ambos repositorios.

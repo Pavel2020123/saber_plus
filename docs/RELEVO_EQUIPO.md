@@ -1,9 +1,14 @@
 # Relevo del equipo — empezar aquí
 
-Actualizado: 24 de septiembre de 2026. Encargo del propietario: los compañeros
+Actualizado: 27 de septiembre de 2026. Encargo del propietario: los compañeros
 pueden auditar y continuar las etapas acordadas mientras él no esté trabajando.
 Esta guía es la ruta operativa; no certifica una auditoría completa del código.
 El inventario detallado sigue en [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md).
+
+**Último avance:** MA-2A backend implementado y probado localmente; sigue **MA-2B**
+editor del panel, luego MA-2C Flutter. Ver [MAPA_APRENDIZAJE.md](MAPA_APRENDIZAJE.md)
+y [revisión acotada](REVISION_REANUDACION_2026-09-27.md). No rehacer MA-2A ni afirmar
+que ya existe interfaz del mapa. Los compañeros aún no habían comenzado según el propietario.
 
 ## 1. Antes de programar: comprender y auditar ambos repositorios
 
@@ -128,7 +133,8 @@ Esta entrega documental no vuelve a ejecutar las suites de la app.
 
 ## 5. Orden de continuación y fichas de trabajo
 
-**Primero auditoría → MA-2 → MA-3 → PR-I1.** Completar el trabajo local de PR-I2–6
+**Revisar estado → MA-2B → MA-2C → MA-3 → PR-I1.** MA-2A ya está implementada
+localmente; la auditoría completa sigue sin certificarse. Completar PR-I2–6
 según dependencias; C5 es necesario antes de fotos reales. Los bloques editoriales,
 seguridad, comerciales y despliegues se coordinan después, sin saltar sus requisitos.
 P5 precede a D3; D3 no sustituye C4. PR-I7 necesita infraestructura autorizada.
@@ -149,7 +155,11 @@ subtemas vacíos, padres archivados y paginación. Rutas: `admin/public/bank-cov
 `backend/src/admin/bank-coverage.service.ts`; guía `docs/COBERTURA_DEL_BANCO.md`.
 Commit sugerido al cerrar ese alcance: `feat: completar reportes y cobertura academica`.
 
-### MA-2 — Mapa de aprendizaje (siguiente)
+### MA-2 — Mapa de aprendizaje (A implementada; siguen B y C)
+
+MA-2A ya tiene reglas, API y migración local sin desplegar. No repetir el backend:
+seguir instrucciones de MA-2B/C en [MAPA_APRENDIZAJE.md](MAPA_APRENDIZAJE.md).
+El alcance completo siguiente sigue aplicando; no está todo terminado.
 
 Relacionar conocimientos previos por tema/subtema: fracciones → proporciones →
 regla de tres. Permitir edición autorizada en panel, evitar ciclos/autorreferencias
@@ -490,7 +500,8 @@ Comandos exactos de cd, git add y git commit para CADA repositorio:
 
 > Lee docs/RELEVO_EQUIPO.md y sus referencias, revisa el estado Git de Flutter y
 > SaberPlus-Backend y audita antes de modificar. El propietario delegó continuación
-> local al equipo. Sigue MA-2 después de documentar la línea base; no rehagas MA-1
+> local al equipo. Sigue MA-2B, editor del panel, tras revisar el estado; MA-2A backend
+> ya tiene implementación y pruebas locales. Luego MA-2C Flutter. No rehagas MA-1
 > básica ni los juegos existentes. P5/D3 y despliegues están pausados. Respeta top50,
 > todas las insignias anuales, seis certificados y estudio gratuito; animaciones al
 > final. Trabaja una entrega acotada, añade pruebas, actualiza etapas y entrega rutas
