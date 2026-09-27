@@ -8,6 +8,10 @@ Este repositorio móvil nunca almacena credenciales de PostgreSQL o Supabase.
 
 ## Auditoría y resumen para el equipo
 
+**Cambio de alcance (27 de septiembre):** [90 insignias integradas y juegos vigentes](docs/INSIGNIAS_Y_JUEGOS_VIGENTES.md).
+Ocho juegos conservados; JN-4 Escudo retirado de app/backend por decisión del propietario.
+Instituciones tiene colección propia. Los diseños aún no son premios concedidos.
+
 **Compañeros que retoman el proyecto:** empezar por [RELEVO_EQUIPO.md](docs/RELEVO_EQUIPO.md).
 Incluye auditoría inicial, ambos repositorios, alcance de cada etapa, reglas que
 conservar, ramas, pruebas y ejemplos de commits. Próxima entrega funcional: MA-2B.
@@ -35,10 +39,8 @@ dos constelaciones y hasta diez preguntas, con reglas iniciales ajustables.
 **JN-2B implementada localmente:** backend seguro de Rescate de estrellas,
 sin despliegue automático. **JN-2C implementada localmente:** cliente remoto con
 recuperación segura, filtros e imágenes. Falta ensayo real.
-**JN-4A implementada localmente:** [Escudo del conocimiento](docs/ESCUDO_DEL_CONOCIMIENTO.md)
-en estudiante demo, con rondas, reparación y páginas, sin XP. **JN-4B backend seguro
-implementado y probado localmente**, sin despliegue. **JN-4C cliente remoto de Escudo
-implementado localmente:** recuperación segura, filtros e imágenes. Falta ensayo real.
+**JN-4 Escudo del conocimiento retirado** el 27 de septiembre. Su implementación
+anterior se conserva en el historial Git, no en el catálogo activo de juegos.
 **MA-1: cobertura básica del banco implementada localmente** en el panel y backend.
 Ver [alcance y pendientes](docs/COBERTURA_DEL_BANCO.md).
 **MA-2A implementada localmente:** [reglas y backend del mapa](docs/MAPA_APRENDIZAJE.md).

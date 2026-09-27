@@ -2,6 +2,12 @@
 
 Actualizado: 27 de septiembre de 2026.
 
+Última decisión: integración de 90 diseños de insignias (ocho juegos e instituciones)
+y retiro de JN-4 Escudo por no tener insignias y petición expresa del propietario.
+Código móvil/motor backend eliminados, API antigua 410, historial/migraciones sin
+borrar. [Detalle](INSIGNIAS_Y_JUEGOS_VIGENTES.md). Las entregas anteriores JN-4 son
+históricas; no volver a incluirlas en pendientes. Sigue MA-2B.
+
 ## Cómo leer este documento
 
 Este es el índice histórico desde la primera entrega hasta la última registrada.

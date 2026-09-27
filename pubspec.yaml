@@ -86,6 +86,11 @@ flutter:
     - assets/characters/sabi/insignias/Duelo fantasma/
     - assets/characters/sabi/insignias/Salto a la cima/
     - assets/characters/sabi/insignias/Tira y afloja/
+    - assets/characters/sabi/insignias/Guardián/
+    - assets/characters/sabi/insignias/Memoria/
+    - assets/characters/sabi/insignias/Batallas/
+    - assets/characters/sabi/insignias/Rescate de estrellas/
+    - assets/characters/sabi/insignias/Instituciones/
     - assets/data/reference_library.json
     - assets/audio/answer_streak_success.mp3
     - assets/audio/match_countdown.mp3

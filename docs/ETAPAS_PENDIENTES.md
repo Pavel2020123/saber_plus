@@ -9,7 +9,9 @@ P5/D3 y operaciones reales permanecen pausadas; las secciones de preparación
 histórica siguientes no autorizan retomarlas sin coordinación con el propietario.
 
 Historial completo y decisiones posteriores: [HISTORIAL_ETAPAS.md](HISTORIAL_ETAPAS.md).
-PR-I3A ya integra el catálogo visual de 40 insignias, con top 50 como límite;
+**JN-4 Escudo retirado de app/backend el 27 de septiembre**; no es etapa pendiente.
+Ver [insignias y juegos vigentes](INSIGNIAS_Y_JUEGOS_VIGENTES.md).
+PR-I3A ya integra el catálogo visual de 90 insignias, con top 50 como límite;
 no concede premios reales. El panel tiene editor por bloques y guardado/publicación
 directa, sin revisión editorial obligatoria. Las referencias a revisión de abajo
 describen el flujo histórico y los controles de seguridad, no un paso adicional
@@ -27,8 +29,8 @@ lo existente, reglas propuestas, dependencias y prompts identificados en
 [PERFILES_RANKINGS_INSIGNIAS.md](PERFILES_RANKINGS_INSIGNIAS.md).
 Son siete entregas adicionales, con PR-I3A visual implementada y el resto pendiente; no se cuentan como parte
 de los 13 bloques históricos ni sustituyen P5/D3. Preparar PR-I1 y los assets puede
-adelantarse; JN-2B/C ya tienen backend y cliente locales. JN-4A demo de Escudo lista;
-JN-4B backend y JN-4C cliente remoto implementados localmente. MA-1 cobertura básica
+adelantarse; JN-2B/C ya tienen backend y cliente locales. JN-4 se retiró del alcance.
+MA-1 cobertura básica
 implementada localmente; reportes académicos pendientes. MA-2A backend local listo;
 sigue MA-2B panel y después MA-2C Flutter.
 
@@ -42,10 +44,10 @@ coordinados a juegos nuevos. Contenido desde ADMIN más adelante; pruebas entre 
 Cada compañero trabaja en su rama/PR; el propietario revisa e incorpora. Este reparto
 no cambia la siguiente entrega funcional MA-2B ni reabre animaciones/P5/D3.
 
-## Ampliación aprobada — Sabi, tres juegos y tres mejoras académicas
+## Ampliación vigente — Sabi, dos juegos nuevos y tres mejoras académicas
 
-El alcance vigente incluye **Salto a la cima, Rescate de estrellas
-y Escudo del conocimiento**, con un protagonista compartido que está diseñando.
+El alcance vigente incluye **Salto a la cima y Rescate de estrellas**,
+con protagonista compartido. Escudo fue retirado; Taller de inventos sigue cancelado.
 También seleccionó mapa de aprendizaje, repaso diferido y cobertura del banco.
 Reglas acordadas y decisiones pendientes en [SABI_Y_JUEGOS_APROBADOS.md](SABI_Y_JUEGOS_APROBADOS.md).
 **Nuevo orden: funcionalidad primero, animaciones al final.** JN-1A tiene
@@ -54,8 +56,7 @@ y probado localmente, sin despliegue. JN-1C cliente Flutter remoto implementado;
 la prueba real queda pendiente de infraestructura. JN-2A
 [Rescate de estrellas](RESCATE_DE_ESTRELLAS.md) tiene reglas/demo implementadas.
 JN-2B tiene backend/migración locales y JN-2C cliente remoto con recuperación,
-sin despliegue ni ensayo real. [JN-4A Escudo](ESCUDO_DEL_CONOCIMIENTO.md) tiene demo local;
-JN-4B backend y JN-4C remoto locales listos, sin migración/despliegue ni ensayo real.
+sin despliegue ni ensayo real. JN-4 Escudo ya no es un juego activo ni pendiente.
 MA-1 [cobertura básica](COBERTURA_DEL_BANCO.md) implementada localmente; reportes
 académicos, revisión visual y ensayo real pendientes. MA-2A backend implementado
 localmente; siguen MA-2B panel, MA-2C Flutter y MA-3 repaso diferido.
@@ -641,8 +642,8 @@ autorizan desarrollarlas todas ahora. Se priorizan después con el equipo.
 
 - Publicación comercial en App Store y cobros StoreKit: solo si se autorizan después.
 - Tutores y chat de asesoría: descartados del modelo.
-- Más juegos no acordados: no se agregan al camino actual. Los tres seleccionados
-  en SABI_Y_JUEGOS_APROBADOS.md sí son alcance aprobado, pendiente de programación.
+- Más juegos no acordados: no se agregan al camino actual. Cima y Rescate mantienen
+  sus pendientes de integración real. Taller y Escudo están cancelados.
 - Rediseño visual general del panel: no es prioridad; debe ser funcional y accesible.
 
 Referencias: ROADMAP_MOVIL.md, ADMIN_PANEL.md, BUSINESS_MODEL.md,

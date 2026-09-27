@@ -11,6 +11,11 @@ como referencia; no se repiten las funciones ya implementadas.
 
 ## Estado actual
 
+Cambio del 27 de septiembre: **JN-4 Escudo retirado** de app/backend, no reimplementarlo.
+Catálogo ampliado a **90 insignias (ocho juegos e instituciones)**; la asignación
+por temporada sigue pendiente. [Inventario vigente](INSIGNIAS_Y_JUEGOS_VIGENTES.md).
+Las menciones a implementación de Escudo más abajo son antecedentes, no trabajo activo.
+
 Entrega más reciente (27 de septiembre): **MA-2A reglas y backend del mapa**,
 implementada localmente, migración no desplegada. [Alcance](MAPA_APRENDIZAJE.md).
 Siguiente: **MA-2B editor del panel**, luego MA-2C Flutter y MA-3.

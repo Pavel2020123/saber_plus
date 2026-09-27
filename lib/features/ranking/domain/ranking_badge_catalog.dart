@@ -3,11 +3,18 @@ enum BadgeGame {
   trivia('Trivia Rush', 'triviarush'),
   ghost('Duelo fantasma', 'duelofantasma'),
   summit('Salto a la cima', 'saltoalacima'),
-  tug('Tira y afloja', 'tirayafloja');
+  tug('Tira y afloja', 'tirayafloja'),
+  guardian('Guardián', 'guardian'),
+  memory('Memoria', 'memoria'),
+  battles('Batallas', 'batallas'),
+  starRescue('Rescate de estrellas', 'rescatedeestrellas'),
+  institutions('Instituciones', 'intituciones');
 
   const BadgeGame(this.label, this.filePrefix);
   final String label;
   final String filePrefix;
+
+  bool get isInstitution => this == BadgeGame.institutions;
 }
 
 class RankingBadgeArt {

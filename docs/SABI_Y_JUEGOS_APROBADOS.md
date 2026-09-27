@@ -1,5 +1,10 @@
 # Sabi y ampliaciones aprobadas
 
+**Alcance vigente desde el 27 de septiembre:** JN-4 Escudo está retirado de app/backend,
+igual que JN-3 Taller permanece cancelado. Las reglas e implementación anteriores
+de Escudo documentadas abajo son históricas, no tareas por retomar. Quedan ocho
+juegos con insignias y colección institucional: ver INSIGNIAS_Y_JUEGOS_VIGENTES.md.
+
 Acuerdos del 18 de septiembre de 2026. **Cambio de prioridad: funciones primero;
 arte y animaciones al final**, por decisión del usuario. No borrar el prototipo de
 Sabi ni interpretar la pausa como cancelación de su diseño.
@@ -29,7 +34,7 @@ Integrar PR-I1–6 antes del arte final; su ensayo real se coordina con P5/D3.
    C cliente remoto implementado. Migración real y ensayo en staging pendientes.
 2. **JN-2 — Rescate de estrellas:** A demo, B backend y C cliente remoto locales
    listos. Migración/despliegue y ensayo real pendientes. Arte al final.
-3. **JN-4 — Escudo del conocimiento:** A demo, B backend y C cliente remoto locales listos; ensayo real pendiente.
+3. **JN-4 — Escudo del conocimiento:** retirado el 27 de septiembre; no desarrollar ni animar.
 4. **MA-1 — Cobertura del banco:** [base local implementada](COBERTURA_DEL_BANCO.md);
    faltan reportes académicos y revisión visual/ensayo real.
 5. **MA-2 — Mapa de aprendizaje:** [MA-2A reglas/backend local listo](MAPA_APRENDIZAJE.md);
@@ -87,7 +92,10 @@ deben retomarse antes de dar por probadas las funciones reales.
   Son hipótesis ajustables, no reglas finales aprobadas. Ver
   [RESCATE_DE_ESTRELLAS.md](RESCATE_DE_ESTRELLAS.md).
 
-### JN-4 — Escudo del conocimiento
+### JN-4 — Escudo del conocimiento (histórico, retirado)
+
+Cancelado el 27 de septiembre por decisión del propietario. Código eliminado de
+app/backend; no requiere ensayo de juego ni arte. Reglas siguientes solo históricas.
 
 - Sabi protege una biblioteca de pequeñas criaturas de tinta.
 - Los aciertos reparan el escudo; al final se recuperan páginas perdidas.

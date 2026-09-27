@@ -1,5 +1,9 @@
 # JN-4 — Escudo del conocimiento
 
+**RETIRADO el 27 de septiembre de 2026.** Documento histórico, no instrucciones
+vigentes. Código Flutter y motor backend eliminados; rutas antiguas devuelven 410.
+No ejecutar los comandos antiguos de esta guía. Ver INSIGNIAS_Y_JUEGOS_VIGENTES.md.
+
 Actualizado: 24 de septiembre de 2026.
 
 ## Estado y alcance

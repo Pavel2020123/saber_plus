@@ -39,7 +39,6 @@ import '../features/games/trivia_rush/presentation/trivia_rush_setup_page.dart';
 import '../features/games/guardian/presentation/guardian_page.dart';
 import '../features/games/summit/presentation/summit_page.dart';
 import '../features/games/star_rescue/presentation/star_rescue_page.dart';
-import '../features/games/knowledge_shield/presentation/knowledge_shield_page.dart';
 import '../features/games/memory_match/domain/memory_match_models.dart';
 import '../features/games/memory_match/presentation/memory_match_page.dart';
 import '../features/games/memory_match/presentation/memory_match_setup_page.dart';
@@ -275,10 +274,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   _animatedRoute(
                     path: 'star-rescue',
                     builder: (context, state) => const StarRescuePage(),
-                  ),
-                  _animatedRoute(
-                    path: 'knowledge-shield',
-                    builder: (context, state) => const KnowledgeShieldPage(),
                   ),
                   _animatedRoute(
                     path: 'trivia-rush',

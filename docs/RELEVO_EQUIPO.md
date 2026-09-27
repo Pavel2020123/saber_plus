@@ -5,6 +5,10 @@ pueden auditar y continuar las etapas acordadas mientras él no esté trabajando
 Esta guía es la ruta operativa; no certifica una auditoría completa del código.
 El inventario detallado sigue en [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md).
 
+**Decisión posterior de este día:** [insignias y juegos vigentes](INSIGNIAS_Y_JUEGOS_VIGENTES.md).
+90 diseños integrados: ocho juegos y colección institucional. JN-4 Escudo retirado
+de app/backend; no continuar su desarrollo, despliegue como juego ni animaciones.
+
 **Último avance:** MA-2A backend implementado y probado localmente; sigue **MA-2B**
 editor del panel, luego MA-2C Flutter. Ver [MAPA_APRENDIZAJE.md](MAPA_APRENDIZAJE.md)
 y [revisión acotada](REVISION_REANUDACION_2026-09-27.md). No rehacer MA-2A ni afirmar
@@ -116,7 +120,7 @@ Esta entrega documental no vuelve a ejecutar las suites de la app.
 - Contenido académico estudiantil gratuito; pago quita anuncios y añade cosméticos,
   no bloquea áreas, estadísticas, juegos o PDFs detrás de Premium.
 - No reintegrar ePayco/Wompi, tutores, chat ni juegos nuevos no aprobados.
-- JN-3 Taller de inventos está cancelado. Cima, Rescate y Escudo ya tienen motores
+- JN-3 Taller de inventos y JN-4 Escudo están cancelados. Cima y Rescate ya tienen motores
   locales/backend/clientes; auditar y completar integración, no rehacerlos.
 - Seis certificados: cinco áreas y curso completo. Todas las lecciones publicadas
   del área completadas; área vacía no habilita certificado. Nombre registrado,
@@ -201,7 +205,7 @@ PR-I1 más motores de juegos. Commit: `feat: agregar rankings verificables por j
 
 ### PR-I3 — Insignias por temporada
 
-Reutilizar las 40 imágenes integradas, completar familias faltantes sin inventar
+Reutilizar las 90 imágenes integradas para las nueve familias vigentes, sin inventar
 premios. Puestos 1–5 individuales; intervalos 6–10, 11–20, 21–30, 31–40, 41–50.
 Separar posición provisional actual de premio anual confirmado. Guardar snapshot
 permanente de juego, ámbito, año, puesto y reglas; cierre idempotente. Una insignia
@@ -298,7 +302,7 @@ servicios académicos. Commit: `feat: agregar versiones y auditoria editorial`.
 
 ### 7F-B3-B / 6F-P — Integración móvil y juegos reales
 
-Inventariar migraciones/commits de Guardián, Cima, Rescate, Escudo y otros juegos;
+Inventariar migraciones/commits de Guardián, Cima, Rescate y otros juegos vigentes;
 desplegar solo con autorización. Probar sesión, contenido, diagnóstico, progreso,
 recuperación, reloj y dos dispositivos en multijugador. No rehacer motores por
 falta de despliegue. Auditar audios: el propietario reportó que solo escuchaba

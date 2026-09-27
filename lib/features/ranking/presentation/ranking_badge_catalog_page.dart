@@ -77,8 +77,8 @@ class _RankingBadgeCatalogPageState extends State<RankingBadgeCatalogPage> {
         ),
         const SizedBox(height: 20),
         const Text(
-          'Insignias para los primeros 50 puestos de cada juego. '
-          'Los diseños de los demás juegos se incorporarán más adelante.',
+          '90 diseños: ocho juegos y una colección institucional. '
+          'Cada colección cubre los primeros 50 puestos.',
         ),
       ],
     ),
@@ -95,6 +95,10 @@ class _RankingBadgeCatalogPageState extends State<RankingBadgeCatalogPage> {
             children: [
               _BadgeImage(art: art, size: 220),
               const SizedBox(height: 12),
+              if (art.game.isInstitution)
+                const Text(
+                  'Distinción para instituciones, no para un jugador individual.',
+                ),
               const Text(
                 'Vista previa, no obtenida. El puesto exacto y el año vendrán '
                 'del servidor. Las distinciones anuales conservarán su año '

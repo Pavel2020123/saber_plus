@@ -199,7 +199,7 @@ sin voces obligatorias, sobresaltos ni música permanente por defecto.
 | --- | --- |
 | Salto a la cima | `summit_step_up.mp3`: subir; `summit_step_down.mp3`: bajar; `summit_victory.mp3`: alcanzar la cima. En error en la base, no simular una caída inexistente. |
 | Rescate de estrellas | `star_release.mp3`: liberar una estrella; `constellation_complete.mp3`: completar grupo; `star_rescue_finish.mp3`: cierre. Un error no reproduce pérdida de estrella. |
-| Escudo del conocimiento | `shield_repair.mp3`: recuperar escudo; `shield_hit.mp3`: impacto confirmado; `shield_round_complete.mp3`: terminar ronda. Conectar cuando existan reglas/eventos. |
+| Escudo del conocimiento | Retirado el 27 de septiembre: no preparar ni integrar audios para este juego. |
 | Fantasma, opcional | `ghost_capture.mp3` / `ghost_escape.mp3`: resultado final, no por cada movimiento. Coordinar con arte posterior. |
 | Guardián, opcional | `guardian_hit.mp3` / `guardian_defeated.mp3`: daño y victoria confirmados. No inventar disparos ni cambiar mecánicas para justificar un audio. |
 

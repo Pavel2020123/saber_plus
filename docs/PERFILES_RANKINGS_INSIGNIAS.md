@@ -5,6 +5,12 @@ continúa cancelado. Sabi conserva su nombre y diseño maestro. No se generan im
 
 ## Entrega PR-I3A — arte disponible
 
+Actualización del 27 de septiembre: **90 imágenes integradas**, nueve familias:
+ocho juegos y una institucional. Se añadieron Guardián, Memoria, Batallas, Rescate
+e Instituciones. Escudo se retiró y no requiere insignias, XP competitivo o ranking.
+Ver [alcance vigente](INSIGNIAS_Y_JUEGOS_VIGENTES.md). El párrafo siguiente documenta
+la primera entrega de 40 imágenes, no el inventario actual.
+
 Se integran las 40 imágenes originales en Flutter: Trivia Rush, Duelo fantasma,
 Salto a la cima y Tira y afloja. Acceso desde **Mi perfil académico → Insignias de
 Sabi** o desde el icono de insignia del ranking. Se muestran todas las imágenes del
@@ -274,11 +280,10 @@ Identidad RE: Sabi libera con su mano una estrella dorada de una burbuja transpa
 otras dos estrellas unidas por una línea forman una pequeña constelación. Marco
 circular con tres puntas estelares suaves. Aplicar BASE y variante de rango.
 
-### ES — Escudo del conocimiento (`badge_knowledge_shield_<rango>.png`)
+### ES — Cancelado
 
-Identidad ES: Sabi sostiene un escudo azul frente a un libro abierto; dos pequeñas
-gotas de tinta rebotan hacia afuera. Marco con forma de escudo, libro claramente
-visible, actitud protectora. No guardián de piedra. Aplicar BASE y variante de rango.
+Escudo del conocimiento fue retirado el 27 de septiembre. No generar insignias,
+animaciones ni nuevas reglas para este juego.
 
 ### IN — Instituciones (`badge_institution_<rango>.png`)
 
