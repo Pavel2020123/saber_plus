@@ -8,6 +8,13 @@ Código móvil/motor backend eliminados, API antigua 410, historial/migraciones 
 borrar. [Detalle](INSIGNIAS_Y_JUEGOS_VIGENTES.md). Las entregas anteriores JN-4 son
 históricas; no volver a incluirlas en pendientes. Sigue MA-3.
 
+## Entrega posterior — MA-3A reglas del repaso diferido
+
+Núcleo puro de programación de repasos 1/3/7/14/30
+días y armado de agenda por cuenta, sin inferir dominio ni cambiar aún flashcards.
+Pruebas de fechas, repeticiones y aislamiento. MA-3B/C pendientes; ver
+[REPASO_DIFERIDO.md](REPASO_DIFERIDO.md). No hubo migraciones ni despliegue.
+
 ## Entrega posterior — MA-2C Flutter
 
 Tarjeta de mapa en lecciones, consulta autenticada, recorrido de bases y navegación.

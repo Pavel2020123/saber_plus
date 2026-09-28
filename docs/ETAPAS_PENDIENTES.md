@@ -4,6 +4,8 @@ Actualizado: 27 de septiembre de 2026. Listado para compartir con el equipo.
 
 **Ruta operativa del relevo:** [RELEVO_EQUIPO.md](RELEVO_EQUIPO.md).
 Los compañeros revisan ambos repositorios y continúan MA-3, luego PR-I.
+MA-3A (reglas) implementada localmente. Siguiente: **MA-3B**, después MA-3C.
+Ver [REPASO_DIFERIDO.md](REPASO_DIFERIDO.md); la agenda aún no está conectada a la UI.
 MA-2C Flutter implementada/probada localmente; ensayo real pendiente.
 MA-2B (editor del panel) implementada y probada localmente; no repetirla.
 MA-2A (reglas/backend) implementada localmente: [detalle](MAPA_APRENDIZAJE.md).
