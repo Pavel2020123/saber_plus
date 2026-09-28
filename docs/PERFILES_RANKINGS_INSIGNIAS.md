@@ -174,7 +174,7 @@ funciones necesitan una decisión de producto independiente.
 | PR-I7 — Ensayo integral | Migraciones/despliegue coordinados con P5/D3, dos cuentas/dispositivos, imágenes, permisos, accesibilidad, red, clasificación y cierre anual. Simular cambio de año/reintentos conservando insignias anteriores. Solo cerrar con resultados reales. |
 
 Orden propuesto: JN-2B/C, JN-4A/B/C y MA-1 básica implementados localmente;
-reportes académicos MA-1 pendientes; MA-2A/B/C locales listas; seguir MA-3 y añadir PR-I1–6 antes
+reportes académicos MA-1 pendientes; MA-2A/B/C y MA-3A/B/C locales listas; seguir PR-I1–6 antes
 del arte final de Sabi. PR-I1 y preparación de imágenes pueden adelantarse; PR-I2
 depende de los motores seguros de los juegos y PR-I4/5 de archivos persistentes C5.
 PR-I7 se coordina con P5, D3 y la prueba móvil. No sustituye seguridad, publicidad,

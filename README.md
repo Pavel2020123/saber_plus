@@ -14,10 +14,10 @@ Instituciones tiene colección propia. Los diseños aún no son premios concedid
 
 **Compañeros que retoman el proyecto:** empezar por [RELEVO_EQUIPO.md](docs/RELEVO_EQUIPO.md).
 Incluye auditoría inicial, ambos repositorios, alcance de cada etapa, reglas que
-conservar, ramas, pruebas y ejemplos de commits. Próxima entrega: MA-3C.
-**MA-3A implementada localmente:** [reglas del repaso diferido](docs/REPASO_DIFERIDO.md).
-MA-3B persistencia/sincronización implementada y probada localmente.
-Falta integración visual (C); aún no hay agenda activa desde la interfaz.
+conservar, ramas, pruebas y ejemplos de commits. Próxima entrega: PR-I1.
+**MA-3A/B/C implementadas localmente:** [repaso diferido](docs/REPASO_DIFERIDO.md).
+Agenda en Progreso → Flashcards → Repasos pendientes y próximos, con cuenta real.
+La demo mantiene práctica libre; falta ensayo con dispositivo/backend desplegado.
 
 **Historial desde la primera etapa:** [HISTORIAL_ETAPAS.md](docs/HISTORIAL_ETAPAS.md).
 Incluye entregas, cambios de alcance y referencias a todos los commits registrados.

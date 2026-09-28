@@ -1,4 +1,5 @@
 import 'dart:async';
+import '../../flashcards/presentation/deferred_review_providers.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -88,6 +89,7 @@ final studyTimeAutoSyncProvider = Provider<void>((ref) {
   );
   if (user.$1 == null || user.$2 != AppRole.student || user.$3 != false) return;
   final worker = ref.watch(pomodoroSyncWorkerProvider);
+  final reviews = ref.watch(deferredReviewRepositoryProvider.future);
   var disposed = false;
   Future<void> tick() async {
     if (disposed) return;
@@ -98,6 +100,18 @@ final studyTimeAutoSyncProvider = Provider<void>((ref) {
       if (!disposed && count > 0) ref.invalidate(studyEvolutionProvider);
     } on Object {
       /* La cola persiste; el botón manual informa errores de disco. */
+    }
+    if (disposed) return;
+    try {
+      final agenda = await reviews;
+      final currentLifecycle = WidgetsBinding.instance.lifecycleState;
+      if (!disposed &&
+          (currentLifecycle == null ||
+              currentLifecycle == AppLifecycleState.resumed)) {
+        await agenda.synchronize(user.$1!);
+      }
+    } on Object {
+      // Retain the outbox. The agenda exposes pending/conflict and manual retry.
     }
   }
 

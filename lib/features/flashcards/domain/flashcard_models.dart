@@ -61,7 +61,14 @@ class FlashcardProgress {
 }
 
 class FlashcardSessionConfig {
-  const FlashcardSessionConfig({this.kind, this.area, this.count = 10});
+  const FlashcardSessionConfig({
+    this.kind,
+    this.area,
+    this.count = 10,
+    this.reviewCardId,
+  });
+
+  final String? reviewCardId;
 
   final FlashcardKind? kind;
   final AcademicArea? area;
@@ -69,6 +76,7 @@ class FlashcardSessionConfig {
 
   String get location {
     final parameters = <String, String>{'cantidad': '$count'};
+    if (reviewCardId != null) parameters['repaso'] = reviewCardId!;
     if (kind case final selected?) parameters['tipo'] = selected.queryValue;
     if (area case final selected?) parameters['area'] = selected.slug;
     return Uri(
@@ -87,6 +95,7 @@ class FlashcardSessionConfig {
           .firstOrNull;
     }
     return FlashcardSessionConfig(
+      reviewCardId: uri.queryParameters['repaso'],
       kind: FlashcardKind.tryFromQuery(uri.queryParameters['tipo']),
       area: area,
       count: count != null && count >= 5 && count <= 30 ? count : 10,

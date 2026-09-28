@@ -16,7 +16,7 @@ JN-2B backend implementado localmente el 23 de septiembre y JN-2C Flutter remoto
 Falta despliegue/ensayo real. JN-4A demo de Escudo implementada el 24 de septiembre;
 JN-4B backend y JN-4C cliente remoto implementados localmente, sin despliegue/ensayo real.
 MA-1 cobertura básica implementada localmente; reportes académicos pendientes.
-MA-2A backend, MA-2B panel y MA-2C Flutter implementados localmente; sigue MA-3.
+MA-2A/B/C y MA-3A/B/C implementadas localmente; sigue PR-I1.
 Las tres mejoras académicas siguen pendientes. G-SABI-1B conserva
 su muestra vectorial, sin aprobación artística ni integración en partidas reales.
 P5 y la conexión real D3 quedan pendientes y pausadas por decisión del usuario;
@@ -38,7 +38,7 @@ Integrar PR-I1–6 antes del arte final; su ensayo real se coordina con P5/D3.
 4. **MA-1 — Cobertura del banco:** [base local implementada](COBERTURA_DEL_BANCO.md);
    faltan reportes académicos y revisión visual/ensayo real.
 5. **MA-2 — Mapa de aprendizaje:** [MA-2A reglas/backend local listo](MAPA_APRENDIZAJE.md);
-   MA-2B/C implementadas localmente; sigue MA-3. Orientación sin bloqueos.
+   MA-2B/C y MA-3 implementadas localmente; sigue PR-I1. Orientación sin bloqueos.
 6. **MA-3 — Repaso diferido:** agenda de retención y sincronización.
 7. **Arte/animación final:** Sabi compartido, Fantasma, Tira y afloja, Guardián y
    juegos nuevos; revisar accesibilidad, movimiento reducido y rendimiento.

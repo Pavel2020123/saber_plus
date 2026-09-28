@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -6,6 +7,8 @@ import '../../auth/presentation/session_controller.dart';
 import '../data/drift_flashcard_repository.dart';
 import '../domain/flashcard_models.dart';
 import 'flashcard_providers.dart';
+import 'deferred_review_providers.dart';
+import '../domain/deferred_review.dart';
 
 class FlashcardSessionPage extends ConsumerStatefulWidget {
   const FlashcardSessionPage({required this.config, super.key});
@@ -25,9 +28,46 @@ class _FlashcardSessionPageState extends ConsumerState<FlashcardSessionPage> {
   var _known = 0;
   var _again = 0;
   var _finished = false;
+  String? _account;
+  int _generation = 0;
+
+  void _reset() {
+    _generation++;
+    _session = null;
+    _index = 0;
+    _revealed = false;
+    _saving = false;
+    _known = 0;
+    _again = 0;
+    _finished = false;
+  }
+
+  @override
+  void didUpdateWidget(covariant FlashcardSessionPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.config.reviewCardId != widget.config.reviewCardId) _reset();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final user = ref.watch(sessionControllerProvider).user;
+    if (_account != user?.id) {
+      _account = user?.id;
+      _reset();
+    }
+    if (widget.config.reviewCardId != null) {
+      ref.watch(deferredReviewRepositoryProvider);
+      if (user == null || user.isDemo) {
+        return Scaffold(
+          appBar: AppBar(title: const Text('Repaso programado')),
+          body: const Center(
+            child: Text(
+              'Inicia sesión con una cuenta real para usar la agenda.',
+            ),
+          ),
+        );
+      }
+    }
     final catalog = ref.watch(flashcardCatalogProvider);
     final progress = ref.watch(flashcardProgressProvider);
     return Scaffold(
@@ -45,11 +85,18 @@ class _FlashcardSessionPageState extends ConsumerState<FlashcardSessionPage> {
             title: 'No pudimos cargar tu progreso.',
           ),
           data: (savedProgress) {
-            _session ??= buildFlashcardSession(
-              cards: cards,
-              progress: {for (final item in savedProgress) item.cardId: item},
-              config: widget.config,
-            );
+            _session ??= widget.config.reviewCardId != null
+                ? cards
+                      .where((c) => c.id == widget.config.reviewCardId)
+                      .take(1)
+                      .toList()
+                : buildFlashcardSession(
+                    cards: cards,
+                    progress: {
+                      for (final item in savedProgress) item.cardId: item,
+                    },
+                    config: widget.config,
+                  );
             final session = _session!;
             if (session.isEmpty) {
               return const _SessionMessage(
@@ -179,43 +226,72 @@ class _FlashcardSessionPageState extends ConsumerState<FlashcardSessionPage> {
   Widget _buildResult(int total) => _SessionMessage(
     icon: Icons.celebration_outlined,
     title: 'Sesión completada',
-    detail:
-        'Dominaste $_known de $total tarjetas y marcaste $_again para repasar.',
+    detail: widget.config.reviewCardId != null
+        ? 'Autoevaluación terminada. Si correspondía programar un repaso, consulta su estado en la agenda. Practicar antes de tiempo no cambia la fecha.'
+        : 'Recordaste $_known de $total tarjetas y marcaste $_again para repasar. Es una autoevaluación, no dominio acreditado.',
     actions: [
-      FilledButton.icon(
-        key: const Key('repeat-flashcard-session'),
-        onPressed: () => setState(() {
-          _index = 0;
-          _revealed = false;
-          _known = 0;
-          _again = 0;
-          _finished = false;
-        }),
-        icon: const Icon(Icons.replay_rounded),
-        label: const Text('Repetir sesión'),
-      ),
+      if (widget.config.reviewCardId == null)
+        FilledButton.icon(
+          key: const Key('repeat-flashcard-session'),
+          onPressed: () => setState(() {
+            _index = 0;
+            _revealed = false;
+            _known = 0;
+            _again = 0;
+            _finished = false;
+          }),
+          icon: const Icon(Icons.replay_rounded),
+          label: const Text('Repetir sesión'),
+        ),
       TextButton(
         key: const Key('finish-flashcard-session'),
         onPressed: () => context.pop(),
-        child: const Text('Volver a flashcards'),
+        child: Text(
+          widget.config.reviewCardId == null
+              ? 'Volver a flashcards'
+              : 'Volver a la agenda',
+        ),
       ),
     ],
   );
 
   Future<void> _rate(Flashcard card, bool mastered) async {
+    if (_saving) return;
     final userId = ref.read(sessionControllerProvider).user?.id;
     if (userId == null) return;
+    final generation = _generation;
     setState(() => _saving = true);
     try {
-      await ref
-          .read(flashcardRepositoryProvider)
-          .recordReview(
-            userId: userId,
-            cardId: card.id,
-            mastered: mastered,
-            reviewedAt: DateTime.now(),
-          );
-      if (!mounted) return;
+      if (widget.config.reviewCardId != null) {
+        final repo = await ref.read(deferredReviewRepositoryProvider.future);
+        if (!mounted ||
+            generation != _generation ||
+            ref.read(sessionControllerProvider).user?.id != userId) {
+          return;
+        }
+        await repo.enqueue(
+          userId: userId,
+          cardId: card.id,
+          outcome: mastered
+              ? RecallOutcome.remembered
+              : RecallOutcome.needsPractice,
+        );
+        unawaited(repo.synchronize(userId).catchError((Object _) {}));
+      } else {
+        await ref
+            .read(flashcardRepositoryProvider)
+            .recordReview(
+              userId: userId,
+              cardId: card.id,
+              mastered: mastered,
+              reviewedAt: DateTime.now(),
+            );
+      }
+      if (!mounted ||
+          generation != _generation ||
+          ref.read(sessionControllerProvider).user?.id != userId) {
+        return;
+      }
       setState(() {
         if (mastered) {
           _known++;
@@ -231,10 +307,18 @@ class _FlashcardSessionPageState extends ConsumerState<FlashcardSessionPage> {
         _saving = false;
       });
     } on Object {
-      if (!mounted) return;
+      if (!mounted ||
+          generation != _generation ||
+          ref.read(sessionControllerProvider).user?.id != userId) {
+        return;
+      }
       setState(() => _saving = false);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('No pudimos guardar esta respuesta.')),
+        const SnackBar(
+          content: Text(
+            'No pudimos guardar esta respuesta. Si la tarjeta ya tiene un envío pendiente, revísalo en la agenda antes de repetir.',
+          ),
+        ),
       );
     }
   }

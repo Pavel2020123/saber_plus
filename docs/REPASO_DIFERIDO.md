@@ -1,14 +1,14 @@
 # MA-3 — Repaso diferido
 
-Estado: MA-3A y MA-3B implementadas localmente. **Sigue MA-3C**. No afirmar que la
-agenda ya aparece en la app: la persistencia y sincronización están probadas, pero
-su activación desde la interfaz/ciclo de vida corresponde a C.
+Estado: MA-3A/B/C implementadas localmente. **Sigue PR-I1**. La agenda ya aparece
+en la app con cuenta real. Falta ensayo con dispositivo e infraestructura
+autorizada; no se han desplegado migraciones ni cambios en Render/Supabase.
 
 | Entrega | Estado | Alcance |
 |---|---|---|
 | MA-3A | Implementada localmente | Reglas deterministas, separación por cuenta y armado de agenda |
 | MA-3B | Implementada/probada localmente | Contrato/API, persistencia local/remota y sincronización idempotente |
-| MA-3C | Siguiente | Integración en flashcards/repasos y pantalla de pendientes/próximos |
+| MA-3C | Implementada/probada localmente | Agenda, flashcards y sincronización en primer plano |
 | Ensayo real | Pendiente | Reconexión, reinstalación, cuentas y dispositivo con infraestructura autorizada |
 
 ## Política inicial v1
@@ -98,14 +98,36 @@ debe respetar MA-3C. Revisar política de versiones antes de editar las 130 tarj
 
 ## MA-3C — UI y práctica
 
-Reutilizar pantalla de flashcards con modo «Repasos pendientes», próximos y
-práctica libre diferenciados. No cambiar reglas silenciosamente al pulsar
-«Lo recuerdo». Mostrar carga/error/vacío/sin conexión. No presentar la
-autoevaluación como acierto corregido automáticamente.
+Entrega local: Progreso → Flashcards → Repasos pendientes y próximos. Muestra
+vencidos, próximos, nuevas tarjetas y respuestas sin confirmar/bloqueadas. Las
+fechas son locales; el reloj de pantalla actualiza vencimientos cada minuto.
+Las próximas no abren un repaso anticipado; la práctica libre sigue disponible
+por separado y no modifica esta agenda. Una sesión programada contiene una tarjeta.
 
-Reutilizar cuaderno de errores cuando el contrato permita una comprobación real;
-no tratar una pregunta repetida como una muestra independiente de dominio.
-Probar texto grande, navegación, cambio de cuenta y vuelta al día siguiente.
+La demo informa que necesita cuenta real, sin encolar ni consultar el backend.
+Cada respuesta se guarda primero en la cola durable. Se intenta sincronizar al
+responder, manualmente en la agenda y con el ciclo existente de estudio en primer
+plano (cada minuto); no se agrega otro temporizador de red ni notificaciones.
+Pendiente no significa confirmado: ante desconexión se conserva la respuesta.
+Conflictos, retirados e inválidos requieren confirmación antes de descartarse.
+Cambio de cuenta/configuración invalida resultados visuales tardíos.
+
+Archivos: `presentation/deferred_review_page.dart`, `deferred_review_providers.dart`,
+`flashcard_session_page.dart` y `study_time/presentation/study_evolution_providers.dart`.
+Ruta: `/student/progress/flashcards/agenda`; sesión con parámetro `repaso` validado
+contra el catálogo. Los textos dicen autoevaluación, no dominio acreditado.
+
+El cuaderno de errores y el repaso diario tienen accesos desde la agenda. Sus
+preguntas NO reciben intervalos nuevos ni generan evidencia independiente por
+repetirse. Programar evaluaciones corregidas requeriría otro contrato explícito.
+
+Pruebas de interfaz: ocho casos cubren grupos, texto grande, demo, error de red,
+sesión de una tarjeta, ID inexistente, ruta, descarte confirmado y vencimiento.
+Ensayo físico, reconexión/reinstalación real y accesibilidad manual siguen pendientes.
+
+Verificación MA-3C: `flutter analyze` sin problemas; 54 pruebas seleccionadas
+aprobadas (`deferred_review_page_test`, `flashcard_page_test`, `flashcard_models_test`,
+`deferred_review_sync_test` y `widget_test`); `git diff --check` limpio.
 
 ## Reanudación y commits
 
@@ -113,5 +135,6 @@ Flutter: `C:\Users\LENOVO 14ALC6\Desktop\SaberPLus\saber_plus`.
 Backend: `C:\Users\LENOVO 14ALC6\Desktop\SaberPlus-Backend` (necesario para MA-3B).
 Trabajar en rama; revisar `git status` y no incluir secretos ni cambios ajenos.
 Mensaje MA-3A: `feat: definir reglas de repaso diferido`.
-No marcar toda MA-3 terminada hasta cerrar B/C y distinguir el ensayo real.
+Mensaje MA-3C: `feat: integrar agenda de repasos y flashcards`.
+MA-3 está implementada localmente; no marcar el ensayo real como terminado.
 Después sigue PR-I1. UI final azul, animaciones, anuncios y P5/D3 no se adelantan.

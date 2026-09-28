@@ -54,6 +54,7 @@ import '../features/favorites/presentation/favorites_page.dart';
 import '../features/flashcards/domain/flashcard_models.dart';
 import '../features/flashcards/presentation/flashcard_session_page.dart';
 import '../features/flashcards/presentation/flashcards_page.dart';
+import '../features/flashcards/presentation/deferred_review_page.dart';
 import '../features/library/presentation/reference_library_page.dart';
 import '../features/practice/domain/practice_models.dart';
 import '../features/practice/presentation/practice_history_page.dart';
@@ -503,6 +504,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                     path: 'flashcards',
                     builder: (context, state) => const FlashcardsPage(),
                     routes: [
+                      _animatedRoute(
+                        path: 'agenda',
+                        builder: (context, state) => const DeferredReviewPage(),
+                      ),
                       _animatedRoute(
                         path: 'session',
                         builder: (context, state) => FlashcardSessionPage(

@@ -3,10 +3,10 @@
 Actualizado: 27 de septiembre de 2026. Listado para compartir con el equipo.
 
 **Ruta operativa del relevo:** [RELEVO_EQUIPO.md](RELEVO_EQUIPO.md).
-Los compañeros revisan ambos repositorios y continúan MA-3, luego PR-I.
-MA-3A/B (reglas, persistencia y sincronización) implementadas localmente.
-Siguiente: **MA-3C**; ensayo real posterior sigue pendiente.
-Ver [REPASO_DIFERIDO.md](REPASO_DIFERIDO.md); la agenda aún no está conectada a la UI.
+Los compañeros revisan ambos repositorios y continúan PR-I1.
+MA-3A/B/C (reglas, persistencia, sincronización y agenda) implementadas localmente.
+Siguiente: **PR-I1 — reglas y contratos competitivos**; ensayo real de MA-3 pendiente.
+Ver [REPASO_DIFERIDO.md](REPASO_DIFERIDO.md); no confundir implementación con despliegue.
 MA-2C Flutter implementada/probada localmente; ensayo real pendiente.
 MA-2B (editor del panel) implementada y probada localmente; no repetirla.
 MA-2A (reglas/backend) implementada localmente: [detalle](MAPA_APRENDIZAJE.md).
@@ -37,7 +37,7 @@ de los 13 bloques históricos ni sustituyen P5/D3. Preparar PR-I1 y los assets p
 adelantarse; JN-2B/C ya tienen backend y cliente locales. JN-4 se retiró del alcance.
 MA-1 cobertura básica
 implementada localmente; reportes académicos pendientes. MA-2A backend local listo;
-MA-2B panel y MA-2C Flutter locales listos; sigue MA-3.
+MA-2B panel, MA-2C Flutter y MA-3A/B/C locales listos; sigue PR-I1.
 
 Guía para compañeros: [GUIA_TRABAJO_COMPANEROS.md](GUIA_TRABAJO_COMPANEROS.md).
 Certificados: **cinco por área y uno final por las cinco**, integrados localmente

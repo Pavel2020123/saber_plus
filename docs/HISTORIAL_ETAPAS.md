@@ -6,7 +6,16 @@ Actualizado: 27 de septiembre de 2026.
 y retiro de JN-4 Escudo por no tener insignias y petición expresa del propietario.
 Código móvil/motor backend eliminados, API antigua 410, historial/migraciones sin
 borrar. [Detalle](INSIGNIAS_Y_JUEGOS_VIGENTES.md). Las entregas anteriores JN-4 son
-históricas; no volver a incluirlas en pendientes. Sigue MA-3.
+históricas; no volver a incluirlas en pendientes. Sigue PR-I1.
+
+## Entrega del 28 de septiembre — MA-3C agenda y flashcards
+
+Agenda de pendientes, próximos, tarjetas nuevas y bloqueadas. Autoevaluación de
+una tarjeta, confirmación para descartar conflictos y sincronización usando el
+ciclo existente en primer plano. Demo sin agenda remota; práctica libre conservada.
+Accesos al cuaderno y errores diarios sin modificar sus reglas. Ocho pruebas nuevas
+de interfaz; detalle y verificaciones en [REPASO_DIFERIDO.md](REPASO_DIFERIDO.md).
+Sin despliegue ni migraciones reales. Siguiente: PR-I1.
 
 ## Entrega del 28 de septiembre — MA-3B persistencia y sincronización
 

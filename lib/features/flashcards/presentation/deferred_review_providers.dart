@@ -7,8 +7,7 @@ import '../../auth/presentation/session_controller.dart';
 import 'flashcard_providers.dart';
 import '../data/deferred_review_repository.dart';
 
-// No automatic network activity: MA-3C will expose explicit synchronization and
-// integrate the existing lifecycle worker. Demo cannot send events to production.
+// Retained by the existing foreground sync lifecycle; never sends demo events.
 final deferredReviewRepositoryProvider =
     FutureProvider.autoDispose<DeferredReviewRepository>((ref) async {
       var disposed = false;
@@ -37,4 +36,14 @@ final deferredReviewRepositoryProvider =
       );
       ref.onDispose(repo.dispose);
       return repo;
+    });
+
+final deferredReviewRowsProvider =
+    StreamProvider.autoDispose<List<DeferredReviewEntry>>((ref) {
+      final user = ref.watch(sessionControllerProvider).user;
+      if (user == null || user.isDemo) return Stream.value(const []);
+      final db = ref.watch(appDatabaseProvider);
+      return (db.select(
+        db.deferredReviewEntries,
+      )..where((r) => r.userId.equals(user.id))).watch();
     });

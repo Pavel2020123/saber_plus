@@ -35,7 +35,7 @@ void main() {
     await tester.pumpWidget(app(const FlashcardsPage()));
     await tester.pump();
 
-    expect(find.text('0 de 130 dominadas'), findsOneWidget);
+    expect(find.text('0 de 130 recordadas en autoevaluación'), findsOneWidget);
     expect(find.byKey(const Key('flashcard-kind-filter')), findsOneWidget);
     expect(find.byKey(const Key('flashcard-area-filter')), findsOneWidget);
     expect(find.byKey(const Key('flashcard-count-filter')), findsOneWidget);

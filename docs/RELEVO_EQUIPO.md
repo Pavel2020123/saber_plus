@@ -140,7 +140,7 @@ Esta entrega documental no vuelve a ejecutar las suites de la app.
 
 ## 5. Orden de continuación y fichas de trabajo
 
-**Revisar estado → MA-3 → PR-I1.** MA-2A, MA-2B y MA-2C ya están implementadas
+**Revisar estado → PR-I1.** MA-2A/B/C y MA-3A/B/C ya están implementadas
 localmente; la auditoría completa sigue sin certificarse. Completar PR-I2–6
 según dependencias; C5 es necesario antes de fotos reales. Los bloques editoriales,
 seguridad, comerciales y despliegues se coordinan después, sin saltar sus requisitos.
@@ -162,11 +162,11 @@ subtemas vacíos, padres archivados y paginación. Rutas: `admin/public/bank-cov
 `backend/src/admin/bank-coverage.service.ts`; guía `docs/COBERTURA_DEL_BANCO.md`.
 Commit sugerido al cerrar ese alcance: `feat: completar reportes y cobertura academica`.
 
-### MA-2 — Mapa de aprendizaje (A implementada; siguen B y C)
+### MA-2 — Mapa de aprendizaje (A/B/C implementadas localmente)
 
-MA-2A ya tiene reglas, API y migración local sin desplegar. No repetir el backend:
-seguir instrucciones de MA-2B/C en [MAPA_APRENDIZAJE.md](MAPA_APRENDIZAJE.md).
-El alcance completo siguiente sigue aplicando; no está todo terminado.
+MA-2A/B/C ya tienen reglas, API, panel y Flutter locales. No repetirlos:
+seguir el ensayo pendiente en [MAPA_APRENDIZAJE.md](MAPA_APRENDIZAJE.md).
+El alcance siguiente documenta lo construido; falta validación real autorizada.
 
 Relacionar conocimientos previos por tema/subtema: fracciones → proporciones →
 regla de tres. Permitir edición autorizada en panel, evitar ciclos/autorreferencias
@@ -180,10 +180,12 @@ Commit: `feat: agregar mapa de aprendizaje sin bloquear contenido`.
 
 ### MA-3 — Repaso diferido
 
-**MA-3A/B implementadas localmente; seguir MA-3C.** Leer primero
+**MA-3A/B/C implementadas localmente; seguir PR-I1.** Leer primero
 [REPASO_DIFERIDO.md](REPASO_DIFERIDO.md): política v1, archivos, límites y contrato
 implementado. Los intervalos, persistencia y sincronización están probados;
-no rehacerlos. Falta UI/ciclo de vida MA-3C. No afirmar que ya hay agenda activa.
+no rehacerlos. Agenda y ciclo en primer plano integrados; falta ensayo real.
+La agenda requiere cuenta real; la demo conserva práctica libre. El cuaderno y
+los errores de hoy son accesos existentes, no preguntas con intervalos nuevos.
 
 Programar comprobaciones días después reutilizando flashcards, cuaderno de errores
 y repasos. Definir intervalos antes de implementarlos; persistir por cuenta y

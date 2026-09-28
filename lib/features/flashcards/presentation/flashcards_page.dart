@@ -60,6 +60,12 @@ class _FlashcardsPageState extends ConsumerState<FlashcardsPage> {
       key: const Key('flashcards-setup-list'),
       padding: const EdgeInsets.fromLTRB(18, 16, 18, 32),
       children: [
+        OutlinedButton.icon(
+          key: const Key('open-review-agenda'),
+          onPressed: () => context.push('/student/progress/flashcards/agenda'),
+          icon: const Icon(Icons.event_repeat),
+          label: const Text('Repasos pendientes y próximos'),
+        ),
         Text(
           'Repasa con memoria activa',
           style: Theme.of(context).textTheme.headlineSmall,
@@ -167,7 +173,7 @@ class _ProgressCard extends StatelessWidget {
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
-                    '$mastered de $total dominadas',
+                    '$mastered de $total recordadas en autoevaluación',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ),
