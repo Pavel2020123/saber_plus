@@ -180,10 +180,10 @@ Commit: `feat: agregar mapa de aprendizaje sin bloquear contenido`.
 
 ### MA-3 — Repaso diferido
 
-**MA-3A implementada localmente; seguir MA-3B.** Leer primero
+**MA-3A/B implementadas localmente; seguir MA-3C.** Leer primero
 [REPASO_DIFERIDO.md](REPASO_DIFERIDO.md): política v1, archivos, límites y contrato
-pendiente. Los intervalos ya están definidos; no rehacer el núcleo. Aún faltan
-persistencia/sincronización y UI MA-3C. No afirmar que ya hay agenda activa.
+implementado. Los intervalos, persistencia y sincronización están probados;
+no rehacerlos. Falta UI/ciclo de vida MA-3C. No afirmar que ya hay agenda activa.
 
 Programar comprobaciones días después reutilizando flashcards, cuaderno de errores
 y repasos. Definir intervalos antes de implementarlos; persistir por cuenta y

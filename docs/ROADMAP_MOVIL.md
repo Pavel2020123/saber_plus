@@ -20,8 +20,8 @@ Entrega más reciente (27 de septiembre): **MA-2A reglas y backend del mapa**,
 implementada localmente, migración no desplegada. [Alcance](MAPA_APRENDIZAJE.md).
 MA-2B editor del panel implementado/probado localmente (88 pruebas del panel).
 MA-2C Flutter implementada localmente. Siguiente: **MA-3 repaso diferido**.
-MA-3A reglas implementadas localmente; continuar **MA-3B persistencia/sincronización**,
-luego MA-3C UI. Detalles: [REPASO_DIFERIDO.md](REPASO_DIFERIDO.md).
+MA-3A/B implementadas localmente; continuar **MA-3C UI y ciclo de sincronización**.
+Detalles: [REPASO_DIFERIDO.md](REPASO_DIFERIDO.md).
 Sin despliegue ni ensayo real.
 
 Historial desde el inicio: [HISTORIAL_ETAPAS.md](HISTORIAL_ETAPAS.md).

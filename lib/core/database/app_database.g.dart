@@ -3951,6 +3951,443 @@ class PomodoroSyncEntriesCompanion extends UpdateCompanion<PomodoroSyncEntry> {
   }
 }
 
+class $DeferredReviewEntriesTable extends DeferredReviewEntries
+    with TableInfo<$DeferredReviewEntriesTable, DeferredReviewEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DeferredReviewEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+    'user_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _cardIdMeta = const VerificationMeta('cardId');
+  @override
+  late final GeneratedColumn<String> cardId = GeneratedColumn<String>(
+    'card_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _confirmedJsonMeta = const VerificationMeta(
+    'confirmedJson',
+  );
+  @override
+  late final GeneratedColumn<String> confirmedJson = GeneratedColumn<String>(
+    'confirmed_json',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _provisionalJsonMeta = const VerificationMeta(
+    'provisionalJson',
+  );
+  @override
+  late final GeneratedColumn<String> provisionalJson = GeneratedColumn<String>(
+    'provisional_json',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _pendingJsonMeta = const VerificationMeta(
+    'pendingJson',
+  );
+  @override
+  late final GeneratedColumn<String> pendingJson = GeneratedColumn<String>(
+    'pending_json',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+    'status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('synced'),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    userId,
+    cardId,
+    confirmedJson,
+    provisionalJson,
+    pendingJson,
+    status,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'deferred_review_entries';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<DeferredReviewEntry> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('user_id')) {
+      context.handle(
+        _userIdMeta,
+        userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('card_id')) {
+      context.handle(
+        _cardIdMeta,
+        cardId.isAcceptableOrUnknown(data['card_id']!, _cardIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_cardIdMeta);
+    }
+    if (data.containsKey('confirmed_json')) {
+      context.handle(
+        _confirmedJsonMeta,
+        confirmedJson.isAcceptableOrUnknown(
+          data['confirmed_json']!,
+          _confirmedJsonMeta,
+        ),
+      );
+    }
+    if (data.containsKey('provisional_json')) {
+      context.handle(
+        _provisionalJsonMeta,
+        provisionalJson.isAcceptableOrUnknown(
+          data['provisional_json']!,
+          _provisionalJsonMeta,
+        ),
+      );
+    }
+    if (data.containsKey('pending_json')) {
+      context.handle(
+        _pendingJsonMeta,
+        pendingJson.isAcceptableOrUnknown(
+          data['pending_json']!,
+          _pendingJsonMeta,
+        ),
+      );
+    }
+    if (data.containsKey('status')) {
+      context.handle(
+        _statusMeta,
+        status.isAcceptableOrUnknown(data['status']!, _statusMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {userId, cardId};
+  @override
+  DeferredReviewEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DeferredReviewEntry(
+      userId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}user_id'],
+      )!,
+      cardId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}card_id'],
+      )!,
+      confirmedJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}confirmed_json'],
+      ),
+      provisionalJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}provisional_json'],
+      ),
+      pendingJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}pending_json'],
+      ),
+      status: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}status'],
+      )!,
+    );
+  }
+
+  @override
+  $DeferredReviewEntriesTable createAlias(String alias) {
+    return $DeferredReviewEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class DeferredReviewEntry extends DataClass
+    implements Insertable<DeferredReviewEntry> {
+  final String userId;
+  final String cardId;
+  final String? confirmedJson;
+  final String? provisionalJson;
+  final String? pendingJson;
+  final String status;
+  const DeferredReviewEntry({
+    required this.userId,
+    required this.cardId,
+    this.confirmedJson,
+    this.provisionalJson,
+    this.pendingJson,
+    required this.status,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['user_id'] = Variable<String>(userId);
+    map['card_id'] = Variable<String>(cardId);
+    if (!nullToAbsent || confirmedJson != null) {
+      map['confirmed_json'] = Variable<String>(confirmedJson);
+    }
+    if (!nullToAbsent || provisionalJson != null) {
+      map['provisional_json'] = Variable<String>(provisionalJson);
+    }
+    if (!nullToAbsent || pendingJson != null) {
+      map['pending_json'] = Variable<String>(pendingJson);
+    }
+    map['status'] = Variable<String>(status);
+    return map;
+  }
+
+  DeferredReviewEntriesCompanion toCompanion(bool nullToAbsent) {
+    return DeferredReviewEntriesCompanion(
+      userId: Value(userId),
+      cardId: Value(cardId),
+      confirmedJson: confirmedJson == null && nullToAbsent
+          ? const Value.absent()
+          : Value(confirmedJson),
+      provisionalJson: provisionalJson == null && nullToAbsent
+          ? const Value.absent()
+          : Value(provisionalJson),
+      pendingJson: pendingJson == null && nullToAbsent
+          ? const Value.absent()
+          : Value(pendingJson),
+      status: Value(status),
+    );
+  }
+
+  factory DeferredReviewEntry.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DeferredReviewEntry(
+      userId: serializer.fromJson<String>(json['userId']),
+      cardId: serializer.fromJson<String>(json['cardId']),
+      confirmedJson: serializer.fromJson<String?>(json['confirmedJson']),
+      provisionalJson: serializer.fromJson<String?>(json['provisionalJson']),
+      pendingJson: serializer.fromJson<String?>(json['pendingJson']),
+      status: serializer.fromJson<String>(json['status']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'userId': serializer.toJson<String>(userId),
+      'cardId': serializer.toJson<String>(cardId),
+      'confirmedJson': serializer.toJson<String?>(confirmedJson),
+      'provisionalJson': serializer.toJson<String?>(provisionalJson),
+      'pendingJson': serializer.toJson<String?>(pendingJson),
+      'status': serializer.toJson<String>(status),
+    };
+  }
+
+  DeferredReviewEntry copyWith({
+    String? userId,
+    String? cardId,
+    Value<String?> confirmedJson = const Value.absent(),
+    Value<String?> provisionalJson = const Value.absent(),
+    Value<String?> pendingJson = const Value.absent(),
+    String? status,
+  }) => DeferredReviewEntry(
+    userId: userId ?? this.userId,
+    cardId: cardId ?? this.cardId,
+    confirmedJson: confirmedJson.present
+        ? confirmedJson.value
+        : this.confirmedJson,
+    provisionalJson: provisionalJson.present
+        ? provisionalJson.value
+        : this.provisionalJson,
+    pendingJson: pendingJson.present ? pendingJson.value : this.pendingJson,
+    status: status ?? this.status,
+  );
+  DeferredReviewEntry copyWithCompanion(DeferredReviewEntriesCompanion data) {
+    return DeferredReviewEntry(
+      userId: data.userId.present ? data.userId.value : this.userId,
+      cardId: data.cardId.present ? data.cardId.value : this.cardId,
+      confirmedJson: data.confirmedJson.present
+          ? data.confirmedJson.value
+          : this.confirmedJson,
+      provisionalJson: data.provisionalJson.present
+          ? data.provisionalJson.value
+          : this.provisionalJson,
+      pendingJson: data.pendingJson.present
+          ? data.pendingJson.value
+          : this.pendingJson,
+      status: data.status.present ? data.status.value : this.status,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DeferredReviewEntry(')
+          ..write('userId: $userId, ')
+          ..write('cardId: $cardId, ')
+          ..write('confirmedJson: $confirmedJson, ')
+          ..write('provisionalJson: $provisionalJson, ')
+          ..write('pendingJson: $pendingJson, ')
+          ..write('status: $status')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    userId,
+    cardId,
+    confirmedJson,
+    provisionalJson,
+    pendingJson,
+    status,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DeferredReviewEntry &&
+          other.userId == this.userId &&
+          other.cardId == this.cardId &&
+          other.confirmedJson == this.confirmedJson &&
+          other.provisionalJson == this.provisionalJson &&
+          other.pendingJson == this.pendingJson &&
+          other.status == this.status);
+}
+
+class DeferredReviewEntriesCompanion
+    extends UpdateCompanion<DeferredReviewEntry> {
+  final Value<String> userId;
+  final Value<String> cardId;
+  final Value<String?> confirmedJson;
+  final Value<String?> provisionalJson;
+  final Value<String?> pendingJson;
+  final Value<String> status;
+  final Value<int> rowid;
+  const DeferredReviewEntriesCompanion({
+    this.userId = const Value.absent(),
+    this.cardId = const Value.absent(),
+    this.confirmedJson = const Value.absent(),
+    this.provisionalJson = const Value.absent(),
+    this.pendingJson = const Value.absent(),
+    this.status = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  DeferredReviewEntriesCompanion.insert({
+    required String userId,
+    required String cardId,
+    this.confirmedJson = const Value.absent(),
+    this.provisionalJson = const Value.absent(),
+    this.pendingJson = const Value.absent(),
+    this.status = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : userId = Value(userId),
+       cardId = Value(cardId);
+  static Insertable<DeferredReviewEntry> custom({
+    Expression<String>? userId,
+    Expression<String>? cardId,
+    Expression<String>? confirmedJson,
+    Expression<String>? provisionalJson,
+    Expression<String>? pendingJson,
+    Expression<String>? status,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (userId != null) 'user_id': userId,
+      if (cardId != null) 'card_id': cardId,
+      if (confirmedJson != null) 'confirmed_json': confirmedJson,
+      if (provisionalJson != null) 'provisional_json': provisionalJson,
+      if (pendingJson != null) 'pending_json': pendingJson,
+      if (status != null) 'status': status,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  DeferredReviewEntriesCompanion copyWith({
+    Value<String>? userId,
+    Value<String>? cardId,
+    Value<String?>? confirmedJson,
+    Value<String?>? provisionalJson,
+    Value<String?>? pendingJson,
+    Value<String>? status,
+    Value<int>? rowid,
+  }) {
+    return DeferredReviewEntriesCompanion(
+      userId: userId ?? this.userId,
+      cardId: cardId ?? this.cardId,
+      confirmedJson: confirmedJson ?? this.confirmedJson,
+      provisionalJson: provisionalJson ?? this.provisionalJson,
+      pendingJson: pendingJson ?? this.pendingJson,
+      status: status ?? this.status,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (cardId.present) {
+      map['card_id'] = Variable<String>(cardId.value);
+    }
+    if (confirmedJson.present) {
+      map['confirmed_json'] = Variable<String>(confirmedJson.value);
+    }
+    if (provisionalJson.present) {
+      map['provisional_json'] = Variable<String>(provisionalJson.value);
+    }
+    if (pendingJson.present) {
+      map['pending_json'] = Variable<String>(pendingJson.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DeferredReviewEntriesCompanion(')
+          ..write('userId: $userId, ')
+          ..write('cardId: $cardId, ')
+          ..write('confirmedJson: $confirmedJson, ')
+          ..write('provisionalJson: $provisionalJson, ')
+          ..write('pendingJson: $pendingJson, ')
+          ..write('status: $status, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -3973,6 +4410,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   );
   late final $PomodoroSyncEntriesTable pomodoroSyncEntries =
       $PomodoroSyncEntriesTable(this);
+  late final $DeferredReviewEntriesTable deferredReviewEntries =
+      $DeferredReviewEntriesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -3986,6 +4425,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     difficultQuestionEntries,
     studyTimeEntries,
     pomodoroSyncEntries,
+    deferredReviewEntries,
   ];
 }
 
@@ -6099,6 +6539,250 @@ typedef $$PomodoroSyncEntriesTableProcessedTableManager =
       PomodoroSyncEntry,
       PrefetchHooks Function()
     >;
+typedef $$DeferredReviewEntriesTableCreateCompanionBuilder =
+    DeferredReviewEntriesCompanion Function({
+      required String userId,
+      required String cardId,
+      Value<String?> confirmedJson,
+      Value<String?> provisionalJson,
+      Value<String?> pendingJson,
+      Value<String> status,
+      Value<int> rowid,
+    });
+typedef $$DeferredReviewEntriesTableUpdateCompanionBuilder =
+    DeferredReviewEntriesCompanion Function({
+      Value<String> userId,
+      Value<String> cardId,
+      Value<String?> confirmedJson,
+      Value<String?> provisionalJson,
+      Value<String?> pendingJson,
+      Value<String> status,
+      Value<int> rowid,
+    });
+
+class $$DeferredReviewEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $DeferredReviewEntriesTable> {
+  $$DeferredReviewEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get userId => $composableBuilder(
+    column: $table.userId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get cardId => $composableBuilder(
+    column: $table.cardId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get confirmedJson => $composableBuilder(
+    column: $table.confirmedJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get provisionalJson => $composableBuilder(
+    column: $table.provisionalJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get pendingJson => $composableBuilder(
+    column: $table.pendingJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$DeferredReviewEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $DeferredReviewEntriesTable> {
+  $$DeferredReviewEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get userId => $composableBuilder(
+    column: $table.userId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get cardId => $composableBuilder(
+    column: $table.cardId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get confirmedJson => $composableBuilder(
+    column: $table.confirmedJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get provisionalJson => $composableBuilder(
+    column: $table.provisionalJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get pendingJson => $composableBuilder(
+    column: $table.pendingJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$DeferredReviewEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $DeferredReviewEntriesTable> {
+  $$DeferredReviewEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<String> get cardId =>
+      $composableBuilder(column: $table.cardId, builder: (column) => column);
+
+  GeneratedColumn<String> get confirmedJson => $composableBuilder(
+    column: $table.confirmedJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get provisionalJson => $composableBuilder(
+    column: $table.provisionalJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get pendingJson => $composableBuilder(
+    column: $table.pendingJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+}
+
+class $$DeferredReviewEntriesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $DeferredReviewEntriesTable,
+          DeferredReviewEntry,
+          $$DeferredReviewEntriesTableFilterComposer,
+          $$DeferredReviewEntriesTableOrderingComposer,
+          $$DeferredReviewEntriesTableAnnotationComposer,
+          $$DeferredReviewEntriesTableCreateCompanionBuilder,
+          $$DeferredReviewEntriesTableUpdateCompanionBuilder,
+          (
+            DeferredReviewEntry,
+            BaseReferences<
+              _$AppDatabase,
+              $DeferredReviewEntriesTable,
+              DeferredReviewEntry
+            >,
+          ),
+          DeferredReviewEntry,
+          PrefetchHooks Function()
+        > {
+  $$DeferredReviewEntriesTableTableManager(
+    _$AppDatabase db,
+    $DeferredReviewEntriesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$DeferredReviewEntriesTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer: () =>
+              $$DeferredReviewEntriesTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$DeferredReviewEntriesTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> userId = const Value.absent(),
+                Value<String> cardId = const Value.absent(),
+                Value<String?> confirmedJson = const Value.absent(),
+                Value<String?> provisionalJson = const Value.absent(),
+                Value<String?> pendingJson = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => DeferredReviewEntriesCompanion(
+                userId: userId,
+                cardId: cardId,
+                confirmedJson: confirmedJson,
+                provisionalJson: provisionalJson,
+                pendingJson: pendingJson,
+                status: status,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String userId,
+                required String cardId,
+                Value<String?> confirmedJson = const Value.absent(),
+                Value<String?> provisionalJson = const Value.absent(),
+                Value<String?> pendingJson = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => DeferredReviewEntriesCompanion.insert(
+                userId: userId,
+                cardId: cardId,
+                confirmedJson: confirmedJson,
+                provisionalJson: provisionalJson,
+                pendingJson: pendingJson,
+                status: status,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$DeferredReviewEntriesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $DeferredReviewEntriesTable,
+      DeferredReviewEntry,
+      $$DeferredReviewEntriesTableFilterComposer,
+      $$DeferredReviewEntriesTableOrderingComposer,
+      $$DeferredReviewEntriesTableAnnotationComposer,
+      $$DeferredReviewEntriesTableCreateCompanionBuilder,
+      $$DeferredReviewEntriesTableUpdateCompanionBuilder,
+      (
+        DeferredReviewEntry,
+        BaseReferences<
+          _$AppDatabase,
+          $DeferredReviewEntriesTable,
+          DeferredReviewEntry
+        >,
+      ),
+      DeferredReviewEntry,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -6125,4 +6809,6 @@ class $AppDatabaseManager {
       $$StudyTimeEntriesTableTableManager(_db, _db.studyTimeEntries);
   $$PomodoroSyncEntriesTableTableManager get pomodoroSyncEntries =>
       $$PomodoroSyncEntriesTableTableManager(_db, _db.pomodoroSyncEntries);
+  $$DeferredReviewEntriesTableTableManager get deferredReviewEntries =>
+      $$DeferredReviewEntriesTableTableManager(_db, _db.deferredReviewEntries);
 }

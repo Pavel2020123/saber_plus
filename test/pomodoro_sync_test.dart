@@ -350,6 +350,7 @@ void main() {
         disk = AppDatabase(NativeDatabase(file));
         await DriftStudyTimeRepository(disk).record(record());
         await disk.customStatement('DROP TABLE pomodoro_sync_entries');
+        await disk.customStatement('DROP TABLE deferred_review_entries');
         await disk.customStatement('PRAGMA user_version = 8');
         await disk.close();
         disk = AppDatabase(NativeDatabase(file));

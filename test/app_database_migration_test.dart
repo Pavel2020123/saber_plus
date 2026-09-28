@@ -9,7 +9,7 @@ import 'package:sqlite3/sqlite3.dart' as sqlite;
 void main() {
   for (var version = 2; version <= 8; version++) {
     test(
-      'migra una cola existente v$version a v9 sin perder sus revisiones',
+      'migra una cola existente v$version a v10 sin perder sus revisiones',
       () async {
         final directory = await Directory.systemTemp.createTemp(
           'saberplus-outbox-migration-test-',
@@ -113,7 +113,7 @@ void main() {
         final pragma = await database
             .customSelect('PRAGMA user_version')
             .getSingle();
-        expect(pragma.read<int>('user_version'), 9);
+        expect(pragma.read<int>('user_version'), 10);
         expect(await database.pendingPomodoros('student-1'), isEmpty);
       },
     );

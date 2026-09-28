@@ -8,7 +8,15 @@ Código móvil/motor backend eliminados, API antigua 410, historial/migraciones 
 borrar. [Detalle](INSIGNIAS_Y_JUEGOS_VIGENTES.md). Las entregas anteriores JN-4 son
 históricas; no volver a incluirlas en pendientes. Sigue MA-3.
 
-## Entrega posterior — MA-3A reglas del repaso diferido
+## Entrega del 28 de septiembre — MA-3B persistencia y sincronización
+
+Backend de agenda/recibos,
+migración local con RLS, reloj servidor y revisión optimista; Flutter Drift v10,
+cola atómica por tarjeta, recuperación y conflictos explícitos. 45 pruebas Flutter,
+10 Jest y 5 PostgreSQL aislado. No desplegado. Continúa MA-3C para activar UI/ciclo
+de sincronización; detalles en [REPASO_DIFERIDO.md](REPASO_DIFERIDO.md).
+
+## Entrega anterior — MA-3A reglas del repaso diferido
 
 Núcleo puro de programación de repasos 1/3/7/14/30
 días y armado de agenda por cuenta, sin inferir dominio ni cambiar aún flashcards.

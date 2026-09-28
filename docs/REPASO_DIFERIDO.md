@@ -1,13 +1,14 @@
 # MA-3 — Repaso diferido
 
-Estado: MA-3A implementada localmente. **Sigue MA-3B**. No afirmar que la agenda
-ya aparece en la app o se sincroniza: esta entrega es el núcleo de reglas probado.
+Estado: MA-3A y MA-3B implementadas localmente. **Sigue MA-3C**. No afirmar que la
+agenda ya aparece en la app: la persistencia y sincronización están probadas, pero
+su activación desde la interfaz/ciclo de vida corresponde a C.
 
 | Entrega | Estado | Alcance |
 |---|---|---|
 | MA-3A | Implementada localmente | Reglas deterministas, separación por cuenta y armado de agenda |
-| MA-3B | Siguiente | Contrato/API, persistencia local/remota y sincronización idempotente |
-| MA-3C | Pendiente | Integración en flashcards/repasos y pantalla de pendientes/próximos |
+| MA-3B | Implementada/probada localmente | Contrato/API, persistencia local/remota y sincronización idempotente |
+| MA-3C | Siguiente | Integración en flashcards/repasos y pantalla de pendientes/próximos |
 | Ensayo real | Pendiente | Reconexión, reinstalación, cuentas y dispositivo con infraestructura autorizada |
 
 ## Política inicial v1
@@ -44,6 +45,33 @@ Verificación: 16 pruebas seleccionadas aprobadas (reglas, modelos y repositorio
 de flashcards); `flutter analyze` sin problemas.
 
 ## MA-3B — contrato y sincronización, no improvisar
+
+**Entrega local cerrada el 28 de septiembre.** Contrato detallado en el otro repo:
+`backend/DEFERRED_REVIEW.md`. API GET agenda/POST evento autenticados, registro de
+130 IDs congelados `library-v1`, recibos idempotentes, revisión optimista, reloj
+PostgreSQL y transacción con lock por cuenta. Ninguna migración en Supabase.
+
+Flutter: esquema Drift 10 (`DeferredReviewEntries`), repositorio
+`lib/features/flashcards/data/deferred_review_repository.dart` y proveedor
+`presentation/deferred_review_providers.dart`. Guardado atómico de predicción y
+evento; confirmado separado; un evento en vuelo por tarjeta; reintentos conservan
+UUID/cuerpo. Conflictos/retirados/inválidos no reintentan solos. Descarte explícito
+de conflicto primero recarga el servidor. Respuestas tardías no confirman otra
+sesión. Refrescar recupera confirmados tras reinstalar, nunca eventos perdidos
+que no llegaron al servidor. No se importan contadores antiguos como retención.
+
+Decisión temporal: offline solo predice. La fecha efectiva es la recepción en el
+servidor; no confiar en fecha del teléfono ni acumular pasos durante desconexión.
+La práctica temprana conocida no encola; el servidor vuelve a comprobar vencimiento.
+Es autoevaluación, no comprobación independiente de dominio ni acierto evaluado.
+
+Verificación: 45 pruebas Flutter seleccionadas (agenda, sincronización, migraciones
+y Pomodoro), 10 Jest y 5 PostgreSQL temporal. UI/ensayo físico y staging pendientes.
+Se reutiliza la base Drift y el patrón de sincronización existente; la cola tiene
+su tabla propia para no mezclar DTOs ni alterar progreso/cuaderno/Pomodoro.
+
+Las instrucciones siguientes documentan el alcance aplicado y los límites que
+debe respetar MA-3C. Revisar política de versiones antes de editar las 130 tarjetas.
 
 1. Revisar `FlashcardRepository`, Drift, cola de sincronización existente y
    backend `cuaderno-errores`. Definir IDs estables/versiones de contenido:

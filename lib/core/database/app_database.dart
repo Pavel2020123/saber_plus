@@ -162,6 +162,17 @@ class PomodoroSyncEntries extends Table {
   Set<Column<Object>> get primaryKey => {userId, eventId};
 }
 
+class DeferredReviewEntries extends Table {
+  TextColumn get userId => text()();
+  TextColumn get cardId => text()();
+  TextColumn get confirmedJson => text().nullable()();
+  TextColumn get provisionalJson => text().nullable()();
+  TextColumn get pendingJson => text().nullable()();
+  TextColumn get status => text().withDefault(const Constant('synced'))();
+  @override
+  Set<Column<Object>> get primaryKey => {userId, cardId};
+}
+
 @DriftDatabase(
   tables: [
     OfflineDownloads,
@@ -172,6 +183,7 @@ class PomodoroSyncEntries extends Table {
     DifficultQuestionEntries,
     StudyTimeEntries,
     PomodoroSyncEntries,
+    DeferredReviewEntries,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -180,7 +192,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.defaults() : super(driftDatabase(name: 'saber_plus'));
 
   @override
-  int get schemaVersion => 9;
+  int get schemaVersion => 10;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -196,6 +208,7 @@ class AppDatabase extends _$AppDatabase {
         await migrator.addColumn(pendingOperations, pendingOperations.revision);
       }
       if (from < 9) await migrator.createTable(pomodoroSyncEntries);
+      if (from < 10) await migrator.createTable(deferredReviewEntries);
     },
   );
 
