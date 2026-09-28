@@ -19,7 +19,8 @@ juego seleccionado con detalle accesible al tocar, como catálogo, no premios ga
 Los archivos recibidos usan rangos 1, 2, 3, 4, 5, 6–10, 11–20, 21–30, 31–40 y
 41–50. Esta integración respeta el arte recibido, en lugar de inventar imágenes
 para rangos distintos de los recibidos. Los nombres `top6-11` de Trivia/Fantasma se
-mapean a 6–10 sin superponer el puesto 11. Solo faltan las otras familias de juegos.
+mapean a 6–10 sin superponer el puesto 11. Las otras familias vigentes ya se añadieron
+en la ampliación de 90 imágenes; no generarlas otra vez.
 Decisión vigente: rankings e insignias hasta el puesto 50; se cancela el top 100.
 Fuera del top 50 se puede consultar la posición propia, pero no obtener una insignia
 de clasificación. Se mantienen las colecciones anuales.
@@ -173,13 +174,15 @@ funciones necesitan una decisión de producto independiente.
 | PR-I6 — Ranking institucional | Aportes históricos por institución, suma por período, participantes activos y detalle público agregado. Probar cambios de institución y ausencia de doble conteo. |
 | PR-I7 — Ensayo integral | Migraciones/despliegue coordinados con P5/D3, dos cuentas/dispositivos, imágenes, permisos, accesibilidad, red, clasificación y cierre anual. Simular cambio de año/reintentos conservando insignias anteriores. Solo cerrar con resultados reales. |
 
-Orden propuesto: JN-2B/C, JN-4A/B/C y MA-1 básica implementados localmente;
+Orden vigente: JN-1A/B/C, JN-2A/B/C y MA-1 básica implementados localmente;
+JN-4 está retirado, no desplegar ni reimplementar su motor.
 reportes académicos MA-1 pendientes; MA-2A/B/C y MA-3A/B/C locales listas; seguir PR-I1–6 antes
 del arte final de Sabi. PR-I1 y preparación de imágenes pueden adelantarse; PR-I2
 depende de los motores seguros de los juegos y PR-I4/5 de archivos persistentes C5.
 PR-I7 se coordina con P5, D3 y la prueba móvil. No sustituye seguridad, publicidad,
-Billing, contenido ni publicación. El usuario puede priorizar PR-I1 como próxima
-entrega; hasta esa decisión MA-3 sigue siendo el punto de reanudación.
+Billing, contenido ni publicación. **PR-I1 es la próxima entrega**, porque MA-3A/B/C
+ya está implementada localmente. Las reglas marcadas como propuestas siguen por
+confirmar: completar MA-3 no las convierte en decisiones aprobadas.
 
 ## Rangos gráficos comunes (10 por familia, hasta el puesto 50)
 

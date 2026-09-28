@@ -1,11 +1,12 @@
 # Profesor P3-A — base de prioridades docentes
 
 Actualización posterior: [P3-B](PROFESOR_P3_B.md) integra las pantallas y práctica;
-la implementación local de P3 está completa y sigue P4. Este documento conserva
+la implementación local de P3 está completa; P4-A/B/C también están entregadas.
+P5 está pausada; siguiente entrega global PR-I1. Este documento conserva
 la entrega histórica P3-A y sus pruebas. Migración/despliegue real siguen pendientes.
 
 Entrega local del 13 de septiembre de 2026. **P3-A implementada en backend;
-P3-B (pantallas y práctica dirigida) sigue pendiente. P3 completa no está cerrada.**
+P3-B era el siguiente paso de esa entrega y ya se completó localmente.**
 
 ## Qué se preparó
 

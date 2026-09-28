@@ -1,5 +1,11 @@
 # 7F-B3-A — Flutter conectado al servidor de staging
 
+> Guía operativa, no autorización para usar staging. P5/D3 siguen pausadas;
+> próxima entrega local PR-I1 según ETAPAS_PENDIENTES. Las etapas sugeridas al final
+> corresponden a la entrega original y ya tienen avances posteriores.
+>
+> Orden vigente: [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
+
 ## Entrega terminada
 
 - Perfil compartido `config/staging.json`: API y recursos HTTPS de Render,

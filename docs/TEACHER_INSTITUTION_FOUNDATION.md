@@ -1,5 +1,10 @@
 # Base de profesor e institución
 
+**Contrato histórico 7A, actualizado por P4-C:** el alta directa `POST /instituciones`
+fue retirada (410). El profesor solicita aprobación y ADMIN revisa antes de activar
+la institución. Ver [PROFESOR_P4_C.md](PROFESOR_P4_C.md). No reconstruir el alta
+automática descrita abajo. P5/despliegue real pendientes y pausados.
+
 La etapa 7A reemplaza el panel institucional ficticio por un flujo conectado. Cada docente usa una cuenta personal: no existen correos o contraseñas compartidos por una institución.
 
 ## Registro de profesor
@@ -18,7 +23,7 @@ Las cuentas individuales de profesor deben verificar su correo antes de crear un
 
 El contrato no lista nombres, correos ni resultados de estudiantes. Las estadísticas individuales y grupales se incorporarán cuando existan permisos y grupos autorizados.
 
-## Crear una institución
+## Crear una institución (flujo histórico sustituido por aprobación P4-C)
 
 `POST /instituciones` conserva la ruta existente, pero ahora ejecuta una transacción que:
 
@@ -47,7 +52,8 @@ La migración `20260831233000_teacher_institution_membership` agrega:
 
 Los profesores y administradores ya vinculados se migran automáticamente. La primera cuenta vinculada de cada institución queda como propietario y las demás conservan un rol compatible.
 
-Antes de probar contra PostgreSQL debe ejecutarse en la carpeta del backend:
+Comando de despliegue histórico: ejecutar solo con autorización y conexión
+verificada a la base prevista, nunca como paso automático de onboarding:
 
 ```powershell
 npx prisma migrate deploy

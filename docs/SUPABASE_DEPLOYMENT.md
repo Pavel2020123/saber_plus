@@ -1,5 +1,12 @@
 # Supabase para el backend de SaberPlus
 
+> Guía de infraestructura, no tarea de onboarding. La base y despliegue inicial
+> ya existieron; el estado remoto actual debe comprobarse con autorización. P5/D3
+> y migraciones compartidas están pausadas. No ejecutar los comandos de abajo
+> sobre una base real solo por leer esta guía.
+>
+> Orden vigente: [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
+
 La Etapa 7F utiliza Supabase exclusivamente como PostgreSQL administrado. NestJS
 continua siendo la API y la fuente de verdad; Flutter no usa la Data API de
 Supabase, no conoce credenciales de base y no consulta tablas directamente.

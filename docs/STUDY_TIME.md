@@ -14,6 +14,11 @@ Abrir una lección o dejar una pantalla visible no suma tiempo automáticamente,
 
 Los registros contienen solamente el estudiante, identificador del evento, fuente, cantidad de segundos y fecha. No guardan preguntas, respuestas ni contenido académico.
 
-El acumulado actual es local al dispositivo y empieza a crecer desde esta versión. El backend auditado no publica todavía un contrato de tiempo total ni permite sincronizar estos eventos entre dispositivos. Cuando exista ese contrato, el identificador idempotente permitirá enviarlos sin duplicar minutos.
+El acumulado histórico de esta pantalla es local al dispositivo. P4-A/B añadió
+API de tiempo/evolución y cola durable para nuevos Pomodoros completados; no
+importa el historial antiguo ni reenvía tiempos de evaluaciones que ya conoce el
+servidor. El resumen remoto y el acumulado local tienen fuentes distintas, no
+deben sumarse como si fueran actividades diferentes. Implementación local con
+ensayo real pendiente: [PROFESOR_P4_B.md](PROFESOR_P4_B.md).
 
 El modo demostración usa datos ficticios aislados; una cuenta real nueva comienza en cero.

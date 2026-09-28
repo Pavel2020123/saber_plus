@@ -13,11 +13,11 @@ Sabi ni interpretar la pausa como cancelación de su diseño.
 de Salto a la cima, sin despliegue; JN-1C cliente remoto ya está implementado.
 JN-2A reglas/demo de Rescate de estrellas implementada el 19 de septiembre;
 JN-2B backend implementado localmente el 23 de septiembre y JN-2C Flutter remoto el 24.
-Falta despliegue/ensayo real. JN-4A demo de Escudo implementada el 24 de septiembre;
-JN-4B backend y JN-4C cliente remoto implementados localmente, sin despliegue/ensayo real.
+Falta despliegue/ensayo real de los juegos vigentes. Las entregas históricas JN-4A/B/C
+de Escudo fueron retiradas; no queda su motor por desplegar.
 MA-1 cobertura básica implementada localmente; reportes académicos pendientes.
 MA-2A/B/C y MA-3A/B/C implementadas localmente; sigue PR-I1.
-Las tres mejoras académicas siguen pendientes. G-SABI-1B conserva
+MA-1 conserva pendientes de reportes; MA-2/3 esperan ensayo real. G-SABI-1B conserva
 su muestra vectorial, sin aprobación artística ni integración en partidas reales.
 P5 y la conexión real D3 quedan pendientes y pausadas por decisión del usuario;
 estas ampliaciones no las sustituyen. [Duelo fantasma animado](SABI_DUELO_FANTASMA.md)
@@ -39,7 +39,8 @@ Integrar PR-I1–6 antes del arte final; su ensayo real se coordina con P5/D3.
    faltan reportes académicos y revisión visual/ensayo real.
 5. **MA-2 — Mapa de aprendizaje:** [MA-2A reglas/backend local listo](MAPA_APRENDIZAJE.md);
    MA-2B/C y MA-3 implementadas localmente; sigue PR-I1. Orientación sin bloqueos.
-6. **MA-3 — Repaso diferido:** agenda de retención y sincronización.
+6. **MA-3 — Repaso diferido:** reglas, agenda y sincronización locales listas;
+   falta ensayo real. Sigue PR-I1 según la ruta de ETAPAS_PENDIENTES.
 7. **Arte/animación final:** Sabi compartido, Fantasma, Tira y afloja, Guardián y
    juegos nuevos; revisar accesibilidad, movimiento reducido y rendimiento.
 
@@ -68,7 +69,7 @@ deben retomarse antes de dar por probadas las funciones reales.
 - Cada juego puede tener su propia celebración: la transformación musculosa no es
   obligatoria en todos. No se necesitan más protagonistas para variar los movimientos.
 
-## Tres juegos nuevos confirmados
+## Juegos nuevos: dos vigentes y uno retirado
 
 ### JN-1 — Salto a la cima
 

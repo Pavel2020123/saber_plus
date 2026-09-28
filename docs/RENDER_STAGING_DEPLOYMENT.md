@@ -1,5 +1,11 @@
 # Backend HTTPS de staging en Render
 
+> Guía de infraestructura, no tarea inmediata. Render ya tuvo despliegue inicial;
+> no recrearlo ni asumir que contiene HEAD local. P5/D3 y despliegues están pausados.
+> Coordinar URL, entorno y autorización antes de ejecutar las instrucciones.
+>
+> Orden vigente: [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
+
 Esta guia completa la parte de despliegue de la Etapa 7F. Render ejecuta la API
 NestJS y Supabase aloja PostgreSQL. Flutter siempre consume la API HTTPS; nunca
 se conecta directamente a las tablas ni recibe credenciales de base de datos.

@@ -1,6 +1,18 @@
 # Historial completo de etapas de SaberPlus
 
-Actualizado: 27 de septiembre de 2026.
+Actualizado: 28 de septiembre de 2026.
+
+Este documento conserva entregas y sus próximos pasos **en aquella fecha**.
+No ejecutar un «sigue» histórico como ruta actual: manda
+[ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
+
+## Relevo documental del 28 de septiembre
+
+Conciliados README, ruta de etapas, fichas de relevo y resúmenes funcionales tras
+MA-3C. Próxima entrega PR-I1; P5/D3 siguen pausadas. Se añade índice de documentación
+y PROMPT_RELEVO para el compañero. Corregidas referencias antiguas de certificados,
+aprobación institucional, Pomodoro, agenda y juegos retirados. No cambió código,
+ni hubo migraciones/despliegue o ejecución de suites funcionales en esta entrega.
 
 Última decisión: integración de 90 diseños de insignias (ocho juegos e instituciones)
 y retiro de JN-4 Escudo por no tener insignias y petición expresa del propietario.

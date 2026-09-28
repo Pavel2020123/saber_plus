@@ -1,6 +1,6 @@
-# SaberPlus — trabajo pendiente tras verificación local 7F-C3-D2-F
+# SaberPlus — etapas pendientes y ruta vigente del equipo
 
-Actualizado: 27 de septiembre de 2026. Listado para compartir con el equipo.
+Actualizado: 28 de septiembre de 2026, tras MA-3C. Listado para compartir con el equipo.
 
 **Ruta operativa del relevo:** [RELEVO_EQUIPO.md](RELEVO_EQUIPO.md).
 Los compañeros revisan ambos repositorios y continúan PR-I1.
@@ -21,6 +21,56 @@ no concede premios reales. El panel tiene editor por bloques y guardado/publicac
 directa, sin revisión editorial obligatoria. Las referencias a revisión de abajo
 describen el flujo histórico y los controles de seguridad, no un paso adicional
 que deba volver a imponerse al administrador. D3 verifica el flujo simplificado.
+
+## Ruta vigente del equipo
+
+Esta tabla es el punto único para decidir **qué sigue**, no un reemplazo de las
+fichas detalladas inferiores y de RELEVO_EQUIPO. Un estado local no acredita
+despliegue, pruebas en teléfono ni producción. No hay un número simple de etapas:
+los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese plan.
+
+| Etapa/bloque | Estado y trabajo que falta | Dependencia / cuándo retomarlo |
+|---|---|---|
+| MA-1 — Cobertura | Base local; faltan reportes académicos de preguntas, revisión visual y ensayo real. No confundirlos con reportes de jugadores. | Entrega acotada coordinada; no pierde su pendiente al avanzar a PR-I. |
+| MA-2A/B/C — Mapa | API, panel y Flutter locales. Falta recorrido real panel → API → app. | Infraestructura autorizada, junto a D3/C4. |
+| MA-3A/B/C — Repaso diferido | Reglas, persistencia, API, agenda y flashcards locales. Falta ensayo físico/reconexión/reinstalación. | Infraestructura autorizada. No repetir implementación. |
+| **PR-I1 — Próxima entrega** | Cerrar reglas competitivas y contrato versionado: XP válido por juego, ayudas, empates, ámbitos, privacidad, códigos y cierre anual. Separar confirmado de propuesto; preguntar antes de decidir. | Revisar ambos repositorios y reglas en PERFILES_RANKINGS_INSIGNIAS. No conceder premios todavía. |
+| PR-I2 — Ranking por juego | Top 50 y posición propia, aportes idempotentes verificables; activar solo juegos con evidencia segura. | PR-I1 y motores autoritativos; no inventar XP pasado. |
+| PR-I3 — Insignias anuales | PR-I3A gráfico ya tiene 90 imágenes. Faltan concesión real, cierre idempotente, historial permanente y correcciones auditadas. | PR-I1/2. Todas las ganadas, sin límite de tres; años anteriores permanecen. |
+| PR-I4 — Perfil/personas | Perfil sobrio, identidad pública y búsqueda; todas las insignias por juego/año, detalle al tocar, visibilidad y protección de datos. | PR-I1–3; C5 antes de fotos reales. Avatar existente mientras tanto, sin fingir carga persistente. |
+| PR-I5 — Instituciones | Directorio aprobado, perfil/logo del propietario, solicitudes estudiantiles/avisos y código institucional privado. Profesor con foto, no jugador. | Reutilizar P4-C y grupos; PR-I1 y C5 para archivos. No sustituir código de grupo silenciosamente. |
+| PR-I6 — Ranking institucional | Aportes mientras se pertenece a institución, sin traslado/doble conteo del XP histórico; agregados públicos. | PR-I1/2/5 y reglas confirmadas. |
+| PR-I7 — Ensayo social | Dos cuentas/dispositivos, privacidad, fotos, solicitudes, ayudas/empates y cierre anual conservando años anteriores. | Despliegue autorizado; coordinar con P5/D3, sin alterar reloj de producción. |
+| P1–P4-C / P5 — Profesor | P1–P4-C locales; P5 es despliegue y ensayo real docente, aprobación institucional, roles, grupos, prioridades y tiempo. | **P5 pausada**. Pedir URL/cuentas/entorno autorizado, nunca contraseñas. Antes de D3. |
+| 7F-C3-D2 — Legado | Herramientas locales; faltan revisión visual y operación de legado autorizada con respaldo. | No borrar ni reclasificar contenido usado; preparar D3. |
+| 7F-C3-D3 — Panel real | Conectar ADMIN a backend vigente y confirmar publicación/persistencia real. | **Pausada**, después de P5 y controles D2. Demo no cierra esta etapa. |
+| 7F-C4 — Catálogo | Versionado, altas/cambios/retiradas, caché y actualización en app preservando progreso/intentos. | Contrato editorial; D3 por sí sola no lo resuelve. |
+| 7F-C5 — Archivos | Storage persistente, permisos, tamaño/tipo, metadatos/licencias y fotos; evidencia institucional privada separada. | Puede prepararse localmente antes de PR-I4/5; servicio real requiere autorización. |
+| 7F-C6 — Versiones | Auditoría de cambios, versiones y restauración sin reescribir preguntas ya respondidas. | Contratos editoriales y ensayo de recuperación. |
+| 7F-B3-B / 6F-P — Integración | Validar módulos móviles/juegos vigentes, Guardián/Cima/Rescate y multijugador real; diagnosticar audios en teléfono. | Migraciones/despliegue autorizado; no rehacer motores por estar sin desplegar. |
+| Bloque 7 — Identidad/seguridad | Auditar/completar sesión única, revocación/refresh, cuentas ADMIN, eliminación, SMTP/enlaces, contratos y privacidad. | Reutilizar lo existente; separar correcciones por flujo y probar permisos. |
+| Bloque 8 — Contratos académicos | Recuperación de intentos, contrarreloj/omisiones, AM/PM e historial, banco autorizado, sincronizaciones personales y límites offline. | Revisar contratos antes de crear endpoints. MA-3 y Pomodoro P4 ya tienen sincronización local implementada. |
+| Bloque 9 — Certificados | Seis tipos y HTML/PDF locales. Falta despliegue/prueba real, nombres largos y áreas incompletas/vacías. | Todas las lecciones publicadas del área; final por las cinco. No añadir PDF por logro. |
+| 8A–8B — Billing | Productos y derechos verificados, restauración/renovación/reembolso, plan sin anuncios y límites institucionales. | Decisiones comerciales/productos y configuración autorizada. Nada de Wompi/ePayco. |
+| 8C–8D — Anuncios/comodines | Ubicaciones a acordar, AdMob/SSV, racha y concesiones de un uso; antifraude y ausencia de inventario. | No insertar anuncios ahora. Beneficios sin video para derecho sin anuncios confirmado. |
+| 7J — Contenido | Carga autorizada desde ADMIN, cobertura/calidad, fuentes oficiales, soporte y licencias. | Equipo de contenido; piloto y cierre antes de publicar. No exigir Excel. |
+| 8E — Privacidad/licencias | Políticas públicas, datos/SDK/audiencia real y evidencia de derechos. | Antes de activar servicios comerciales y publicar. |
+| 8F — Producción/seguridad | Entornos, respaldo/restauración, observabilidad, seguridad, carga y rendimiento. | Operaciones reales solo coordinadas; pruebas locales continúan en cada entrega. |
+| UI-F / Sabi — Acabado final | Sistema azul S+, botones/componentes y claro/oscuro; animaciones profesionales aprobadas, accesibilidad. | Después de funciones e integraciones, **antes de 8G y capturas de tienda**. No rediseñar ADMIN. |
+| 8G — Integral/beta | E2E, celulares, red/cierres/cuentas, compras/anuncios de prueba, PDF/audio y regresiones. | Funciones integradas, UI-F y staging autorizado. |
+| 8H — iOS | Compilar/probar en macOS/Xcode y dispositivo; conservar compatibilidad. | No publicar App Store ni activar cobros reales iOS en este alcance. |
+| 8I — Google Play | Firma/AAB, ficha, declaraciones, revisión y lanzamiento gradual. | Beta, privacidad y autorización; comprobar requisitos de la cuenta al ejecutar. |
+| 9A — Mantenimiento | Responsables, soporte, monitoreo, contenido, costos, seguridad y actualizaciones. | Preparar operación antes de publicar; ejecución continua después. |
+
+**Secuencia inmediata:** revisar estado y línea base → PR-I1 (resolver decisiones)
+→ PR-I2 → PR-I3 → PR-I4/5/6 por dependencias. Adelantar C5 si se necesitan fotos;
+no saltar permisos ni simular que la infraestructura funciona. P5 → D3 se retoman
+solo al autorizarse; ensayos MA-2/3, certificados, juegos y PR-I7 siguen abiertos
+hasta tener evidencia real. MA-1, seguridad y contratos se planifican sin perderlos.
+
+**Cancelados:** JN-3 Taller y JN-4 Escudo. **No añadidos:** chat/tutores, feed,
+seguidores, más juegos o certificados. Las ideas opcionales no son nuevas tareas.
+Para arrancar con otro chat, usar [PROMPT_RELEVO.md](PROMPT_RELEVO.md).
 
 ## Trabajo paralelo del equipo
 
@@ -47,7 +97,7 @@ Audios: investigar el reporte de que solo se escucha Tira y afloja; las llamadas
 existentes no prueban reproducción real. Reparar primero y luego agregar efectos
 coordinados a juegos nuevos. Contenido desde ADMIN más adelante; pruebas entre los tres.
 Cada compañero trabaja en su rama/PR; el propietario revisa e incorpora. Este reparto
-no cambia la siguiente entrega funcional MA-3 ni reabre animaciones/P5/D3.
+no cambia la siguiente entrega PR-I1 ni reabre animaciones/P5/D3.
 
 ## Ampliación vigente — Sabi, dos juegos nuevos y tres mejoras académicas
 
@@ -64,7 +114,7 @@ JN-2B tiene backend/migración locales y JN-2C cliente remoto con recuperación,
 sin despliegue ni ensayo real. JN-4 Escudo ya no es un juego activo ni pendiente.
 MA-1 [cobertura básica](COBERTURA_DEL_BANCO.md) implementada localmente; reportes
 académicos, revisión visual y ensayo real pendientes. MA-2A backend implementado
-localmente; MA-2B panel y MA-2C Flutter listos; sigue MA-3 repaso diferido.
+localmente; MA-2B/C y MA-3A/B/C listas localmente; sigue PR-I1.
 G-SABI-1B se conserva como prototipo pausado,
 sin aprobación artística; las celebraciones y renovación visual no se hacen ahora.
 Son alcance adicional, no implementado en producción;
@@ -92,8 +142,8 @@ No son trece etapas originales nuevas. La comparación con el listado anterior
 
 ## Punto de reanudación — leer primero al volver a trabajar
 
-Orden vigente: **revisar estado → MA-3 → PR-I**, según RELEVO_EQUIPO.
-MA-2A está implementada/probada localmente, no desplegada; no rehacerla.
+Orden vigente: **revisar estado → PR-I1**, según RELEVO_EQUIPO.
+MA-2A/B/C y MA-3A/B/C están implementadas localmente; no rehacerlas.
 Cuando se autorice retomar infraestructura, completar P5 antes de 7F-C3-D3.
 P1, P2 y **P3-A/P3-B (prioridades, pantallas y práctica dirigida)** tienen entregas
 locales. **P4-A/P4-B preparan API, persistencia, sincronización y pantallas de
@@ -237,8 +287,9 @@ despliegues reales durante la integración Flutter.
 ### Instrucción lista para copiar en una nueva sesión
 
 > Lee `docs/RELEVO_EQUIPO.md`, arquitectura e inventario de pendientes. Audita ambos
-> repositorios, conserva los cambios y registra la línea base. Continúa MA-3; MA-2A/B/C
-> backend ya está implementada localmente (ver MAPA_APRENDIZAJE.md). MA-1
+> repositorios, conserva los cambios y registra la línea base. Continúa PR-I1;
+> MA-2A/B/C y MA-3A/B/C ya están implementadas localmente. Consulta las reglas
+> competitivas propuestas antes de implementarlas. MA-1
 > básica y los juegos nuevos ya tienen implementación local. P5/D3 siguen pausados
 > hasta autorización. No confundas implementación con despliegue. Actualiza etapas,
 > pruebas y limitaciones, y entrega comandos de commit con rutas de ambos repositorios.
@@ -418,8 +469,12 @@ conectar el panel por sí solo no garantiza que lo nuevo aparezca ya en la app.
   automática sin una política institucional explícita.
 - Sincronización de favoritos y preguntas difíciles entre instalaciones/cambios
   de dispositivo, respetando la sesión única. Hoy la persistencia es local.
-- Sincronizar progreso de flashcards, objetivo personal del examen y tiempo
-  estudiado. Sus funciones locales no se rehacen; falta el contrato remoto.
+- La agenda de flashcards ya tiene contrato y sincronización local MA-3A/B/C;
+  falta ensayo real. Los contadores de práctica libre no se importan a esa agenda.
+  Revisar por separado su eventual sincronización y la del objetivo personal.
+  Pomodoro/tiempo-evolución ya tienen API y cola P4-A/B; no rehacerlas ni subir
+  otra vez los tiempos de evaluaciones. Falta ensayo real y conciliar límites
+  del acumulado histórico local con el resumen del servidor.
 - Evaluar qué estado de «Continúa donde quedaste» conviene sincronizar; no asumir
   que todo intento protegido puede copiarse libremente entre dispositivos.
 - Cerrar política offline de intentos/contenido protegido y precondiciones de
@@ -630,12 +685,15 @@ Registradas para que no se pierdan, **no bloquean la primera publicación** ni
 autorizan desarrollarlas todas ahora. Se priorizan después con el equipo.
 
 - Push desde backend (las notificaciones locales ya existen).
-- Sincronización remota del Pomodoro y preferencias menores.
+- Preferencias menores y recuperación del temporizador activo de Pomodoro.
+  La cola remota de bloques completados ya está implementada en P4-A/B.
 - Sonido/vibración al terminar Pomodoro: actualmente no los reproduce; requiere
   una decisión separada del feedback de rachas (ver POMODORO.md).
 - Búsqueda académica paginada en backend y filtro diario de errores en servidor;
   no rehacer las pantallas y funciones de búsqueda/repaso existentes.
-- Más cosméticos, certificados, juegos, torneos/temporadas y modos de Tira y afloja.
+- Más cosméticos, juegos, torneos y modos de Tira y afloja, solo con nuevo acuerdo.
+  Las temporadas anuales PR-I no son opcionales; ampliar los seis certificados
+  no está autorizado por el alcance vigente.
 - Importación masiva confirmada desde panel web/tableta: existe la API de vista
   previa Excel/ZIP sin escrituras; **no equivale a un importador que guarde lotes**.
   El camino principal elegido sigue siendo la carga por página, no exigir Excel.

@@ -1,6 +1,7 @@
 # MA-2 — Mapa de aprendizaje
 
-Actualizado: 27 de septiembre de 2026.
+Actualizado: 28 de septiembre de 2026. MA-2 y MA-3 están implementadas localmente;
+la siguiente entrega es PR-I1. Los ensayos reales siguen pendientes.
 
 | Entrega | Estado | Alcance |
 |---|---|---|
@@ -48,7 +49,7 @@ Demo solo en memoria, sin conexión a Supabase. El contrato real no cambió.
 Validación: `npm run check` (22 módulos) y `npm test` (88 pruebas del panel).
 Pruebas automatizadas DOM/HTTP; revisión visual manual y ensayo real pendientes.
 No se ejecutaron migraciones, despliegues ni pruebas Flutter: no cambió código móvil.
-Sigue **MA-2C**. P5/D3 y animaciones permanecen pausadas.
+MA-2C ya se entregó (ver abajo). P5/D3 y animaciones permanecen pausadas.
 
 ### Alcance original de MA-2B (referencia)
 
@@ -59,7 +60,7 @@ sin borrar contenido. No agregar un nuevo flujo obligatorio de revisión/publica
 Ante 409, informar que cambió y ofrecer recargar; no sobrescribir ni reenviar a ciegas.
 Proteger cambios sin guardar, limpiar sesión y evitar respuestas tardías.
 Crear equivalente demo en memoria que valide ciclos/publicación y pruebas del panel.
-No conectar a Supabase para probar la demo. Dejar MA-2C como siguiente al cerrar.
+No conectar a Supabase para probar la demo. Esta ficha es alcance histórico de MA-2B.
 
 ## MA-2C — entrega Flutter
 
@@ -82,8 +83,9 @@ su integración en `study_lesson_page.dart`. Pruebas: `test/learning_map_test.da
 Validación local: 14 pruebas seleccionadas (mapa, modelos de estudio y repositorio
 remoto). Incluyen rutas, contenido retirado, texto grande, cierre de sesión,
 contrato y reintento. No equivale a pruebas físicas o ensayo panel/API/app real.
-No se modificó el backend ni se desplegó/migró Supabase. Sigue **MA-3 — repaso
-diferido**; P5/D3, revisión visual física y animaciones siguen pendientes/pausadas.
+No se modificó el backend ni se desplegó/migró Supabase durante MA-2C.
+MA-3 también se entregó localmente; sigue PR-I1. P5/D3, revisión visual física
+y animaciones siguen pendientes/pausadas.
 
 ### Alcance original de MA-2C (referencia)
 
@@ -95,4 +97,4 @@ no en un solo error o en el grafo. Sin evidencia, no etiquetar al alumno como d�
 Repositorio demo separado del remoto, no fallback silencioso. Probar cuentas,
 contenido retirado, texto grande y navegación. Animaciones finales siguen pausadas.
 
-Después de MA-2B/C sigue MA-3 repaso diferido; MA-1 reportes académicos permanece abierto.
+MA-2B/C y MA-3 ya se entregaron localmente; MA-1 reportes académicos permanece abierto.

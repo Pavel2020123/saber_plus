@@ -1,6 +1,7 @@
 # SaberPlus — funcionalidades y estado para el equipo
 
-Actualizado: 12 de septiembre de 2026. Documento para compartir con compañeros.
+Actualizado: 28 de septiembre de 2026. Resumen documental, no auditoría integral
+nueva del código. Orden y estados detallados en [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md).
 
 ## Qué estamos construyendo
 
@@ -49,6 +50,8 @@ correo/enlaces HTTPS. Las protecciones locales no sustituyen esos contratos.
 - Lecciones con texto Markdown y referencias a imágenes, videos y PDF.
 - Actividad de completar espacios (CLOZE), con opciones y autocorrección.
 - Seguimiento del avance y enlace a la práctica relacionada.
+- Mapa orientativo de bases por subtema: API, panel y Flutter MA-2A/B/C locales.
+  No bloquea contenido ni convierte lectura en dominio; ensayo real pendiente.
 
 CLOZE ayuda a estudiar; su autocorrección no es una calificación diagnóstica
 independiente ni concede por sí sola una evidencia de dominio.
@@ -96,20 +99,24 @@ Un banco histórico necesita material propio o autorizado, no copiar PDF sin per
 - Favoritos de estudio y preguntas marcadas como difíciles.
 - Búsqueda local del contenido académico disponible.
 - Flashcards con práctica y seguimiento local.
+- Agenda MA-3A/B/C de flashcards vencidas/próximas, cola durable, API y reintentos
+  por cuenta. Autoevaluación separada de práctica libre y de evidencia de dominio.
 - «Continúa donde quedaste» para retomar actividades compatibles.
 - Biblioteca empaquetada: fórmulas, glosario y estrategias de examen, con filtros.
 - Contador de fecha del examen y planificación del temario por área.
 
 No todas estas preferencias/progresos se sincronizan entre dispositivos.
-Favoritos, preguntas difíciles, flashcards y varias herramientas personales
-tienen persistencia local; su contrato remoto conserva una etapa pendiente.
+Favoritos, preguntas difíciles y contadores de práctica libre conservan estado
+local. La agenda de repaso sí tiene contrato/sincronización localmente implementados;
+falta ensayo real. No migrar contadores antiguos como retención acreditada.
 La biblioteca empaquetada no se actualiza automáticamente desde el panel.
 
 ## 6. Hábitos y bienestar
 
 - Pomodoro opcional de 25 minutos en estudio/práctica, con pausa y reinicio.
-- Tiempo total estudiado acumulado localmente por estudiante y seguimiento de
-  sesiones completadas; todavía no se sincroniza entre dispositivos.
+- Acumulado local y resumen remoto de tiempo/evolución con fuentes separadas.
+  P4-A/B implementa API y cola idempotente de nuevos Pomodoros completados;
+  no importa el historial antiguo ni duplica tiempos de evaluaciones del servidor.
 - Sugerencia de descanso tras 50 minutos en primer plano dentro de una sesión
   de estudio normal, con pausa voluntaria de tres minutos. No mide concentración
   mental ni interrumpe un simulacro cronometrado.
@@ -129,7 +136,12 @@ sonido al finalizar. No hay todavía notificaciones push académicas del backend
 | Memoria | Encuentra parejas de fórmulas y conceptos | Reutiliza la biblioteca; revisar calidad del contenido antes del lanzamiento |
 | Tira y afloja | Las respuestas desplazan la cuerda; incluye experiencia individual y en línea | En línea requiere probar dos dispositivos, latencia y reconexión |
 | Batallas asíncronas | Desafíos entre estudiantes sin exigir que jueguen simultáneamente | Entregas, vencimientos, bloqueo de rivales y permisos se validan en backend |
-| Desafío del guardián | Alcanzar seis aciertos antes de tres errores, hasta ocho preguntas | Módulo/migración backend pendientes de integrar y desplegar de forma revisada |
+| Desafío del guardián | Alcanzar seis aciertos antes de tres errores, hasta ocho preguntas | Motor local; falta verificar despliegue y ensayo real |
+| Salto a la cima | Aciertos suben un escalón y errores bajan uno | Demo, backend y cliente remoto locales; falta ensayo real |
+| Rescate de estrellas | Aciertos liberan estrellas y completan constelaciones | Demo, backend y cliente remoto locales; falta ensayo real |
+
+Ocho juegos vigentes. Taller de inventos cancelado y Escudo del conocimiento retirado;
+no reintroducirlos. Renovación profesional con Sabi aplazada al acabado final.
 
 Existen animaciones, efectos de audio y controles de movimiento reducido.
 Las partidas asistidas no deben convertirse en récords competitivos limpios.
@@ -142,10 +154,13 @@ No se dan por probados todos los modos en Android/iOS reales por tener tests.
 - Llama animada, crecimiento al entrar e hitos de color: naranja, dorado,
   rojo, violeta, azul y cian desde 50 días.
 - Controles de adelantar días/estado reservados a la demostración.
-- Colección de certificados de logros; descarga, almacenamiento privado y
-  apertura de PDF cuando el logro autorizado lo permite.
+- Seis certificados: cinco áreas y curso completo, plantilla HTML→PDF con nombre
+  registrado. Todas las lecciones publicadas del área completadas; área vacía
+  no habilita PDF. Final exige las cinco áreas. Implementación local y descarga privada.
+- Catálogo de 90 insignias (ocho juegos e instituciones), no premios ganados.
+  Rankings por juego y asignación anual permanente permanecen pendientes PR-I1–7.
 
-Pendiente: certificado específico por completar toda una materia y contrato
+Pendiente: ensayo real de los seis certificados y contrato
 real de gracia/congelamiento/recuperación de racha. La apariencia de hielo no
 equivale a una recuperación concedida por el servidor. Los certificados no
 se presentan como acreditaciones oficiales del ICFES.
@@ -168,8 +183,8 @@ de catálogos y revisión de vigencia todavía forman parte de la preparación.
 
 ## 10. Profesores, grupos e instituciones
 
-- Una persona crea una cuenta de profesor y puede crear o solicitar vinculación
-  a una institución; no hay una contraseña institucional compartida.
+- Una persona crea una cuenta de profesor y solicita aprobación para una nueva
+  institución o vinculación a una existente; no hay contraseña institucional compartida.
 - Propietario, administradores y profesores con permisos diferenciados.
 - Gestión de miembros, invitaciones, grupos y códigos de vinculación.
 - El estudiante acepta vincularse y compartir el seguimiento previsto.
@@ -179,12 +194,11 @@ de catálogos y revisión de vigencia todavía forman parte de la preparación.
 - Límites implementados: plan gratis de 1 grupo/40 estudiantes; ampliado de
   5 grupos/200 estudiantes. Su activación comercial sigue pendiente de Billing.
 
-**Pendiente P4-C:** actualmente un profesor con correo verificado puede crear
-una institución activa sin revisión de SaberPlus. Antes de ofrecer altas libres,
-la creación pasará a ser una solicitud; el ADMIN la aprobará o rechazará desde
-el panel web tras revisar evidencia institucional mínima. La app solo mostrará
-la solicitud y su estado. La gestión general de cuentas también corresponde al
-panel ADMIN, no a la app de estudiante/profesor.
+**P4-C implementada localmente:** solicitud y estado en app, revisión de evidencia
+mínima y aprobación/rechazo por ADMIN en panel; acceso institucional bloqueado
+hasta aprobarse. Alta directa antigua retirada. P1–P4 incluyen prioridades,
+seguimiento y tiempo/evolución; falta despliegue/ensayo P5, pausado. Gestión general
+de cuentas es un pendiente del panel ADMIN, no de la app estudiantil.
 
 Los profesores supervisan a sus estudiantes; no se ofrecen tutores contratados
 ni chat de asesoría personal. Los derechos comerciales no se autoconceden desde Flutter.
@@ -228,7 +242,10 @@ de aquello que todavía no tiene un contrato de sincronización.
 - Detección de duplicados por huella normalizada, sin importar orden de opciones.
 - Herramientas de indexación por lotes del banco antiguo y coincidencias paginadas.
 - Reclasificación revisada de preguntas nunca usadas, sin alterar resultados históricos.
-- Flujo borrador → revisión → publicación, y archivado sin cascadas.
+- Guardar contenido/pregunta válido publica directamente con autorización;
+  no hay bandeja de revisión obligatoria. Archivado sin cascadas.
+- Editor de lecciones por bloques, cobertura por subtema y editor del mapa de bases.
+  Reportes académicos en cobertura aún pendientes MA-1.
 - Eliminación confirmada de temas/subtemas vacíos nunca publicados ni usados.
 - Protección contra ediciones simultáneas mediante revisión y bloqueos del servidor.
 
@@ -260,10 +277,10 @@ desplegar ese retiro en Render; las tablas históricas se conservan.
 
 ## Qué sigue
 
-Después de la auditoría se retoma D2-F/D3 (revisión visual y ensayo real), luego
-C4 (catálogo/sincronización), C5 (archivos/imágenes) y C6 (versiones/auditoría editorial).
-Las demás obligaciones no desaparecen: sesión única/seguridad, contratos académicos,
-certificado por materia, juegos en staging, monetización y publicación.
+**PR-I1: reglas y contratos competitivos.** Después PR-I2–6 por dependencias,
+con C5 antes de fotos reales. MA-2/3 locales no se rehacen. P5/D3 siguen pausadas.
+No desaparecen MA-1 reportes, C4/C5/C6, identidad/seguridad, contratos académicos,
+ensayos de certificados/juegos, monetización, acabado azul/animaciones y publicación.
 
 El listado íntegro sigue en [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md).
 Los resultados y límites de esta revisión están en [AUDITORIA_PROYECTO_2026-09-09.md](AUDITORIA_PROYECTO_2026-09-09.md).

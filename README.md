@@ -8,6 +8,13 @@ Este repositorio móvil nunca almacena credenciales de PostgreSQL o Supabase.
 
 ## Auditoría y resumen para el equipo
 
+**Relevo actualizado al 28 de septiembre de 2026:** la ruta vigente está en
+[ETAPAS_PENDIENTES.md](docs/ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
+Leer [RELEVO_EQUIPO.md](docs/RELEVO_EQUIPO.md) antes de cambiar código;
+[prompt para otro chat](docs/PROMPT_RELEVO.md) e
+[índice documental](docs/INDICE_DOCUMENTACION.md). Las entregas históricas de abajo
+no cambian ese orden ni autorizan despliegues.
+
 **Cambio de alcance (27 de septiembre):** [90 insignias integradas y juegos vigentes](docs/INSIGNIAS_Y_JUEGOS_VIGENTES.md).
 Ocho juegos conservados; JN-4 Escudo retirado de app/backend por decisión del propietario.
 Instituciones tiene colección propia. Los diseños aún no son premios concedidos.
@@ -28,7 +35,8 @@ Explica las capas de Flutter, el backend NestJS, el panel, la persistencia y có
 **Trabajo de compañeros:** leer [GUIA_TRABAJO_COMPANEROS.md](docs/GUIA_TRABAJO_COMPANEROS.md).
 Documenta seis certificados integrados localmente (cinco áreas y curso completo), reparación/verificación
 de audios, pruebas conjuntas y entregas en ramas mediante Pull Request.
-Son tareas asignadas, no implementaciones terminadas; no trabajar directamente en `main`.
+Los seis certificados ya tienen implementación local; falta ensayo real. La
+reparación de audios requiere diagnóstico en dispositivo. No trabajar en `main`.
 
 **Prioridad actual: funciones antes que animaciones.** JN-1A añade
 **Practicar → Juegos individuales → Salto a la cima** para estudiantes demo.
@@ -49,7 +57,7 @@ Ver [alcance y pendientes](docs/COBERTURA_DEL_BANCO.md).
 **MA-2A implementada localmente:** [reglas y backend del mapa](docs/MAPA_APRENDIZAJE.md).
 **MA-2B implementada localmente:** editor del mapa en panel, demo y pruebas.
 **MA-2C implementada localmente:** mapa en las lecciones Flutter, consulta de bases
-y navegación sin bloqueos. Sigue **MA-3: repaso diferido**,
+y navegación sin bloqueos. **MA-3A/B/C también implementadas localmente; sigue PR-I1**,
 manteniendo P5/D3 y las animaciones pausadas.
 Ver [SALTO_A_LA_CIMA.md](docs/SALTO_A_LA_CIMA.md).
 El prototipo de Sabi que sigue abajo se conserva, pero sus animaciones están pausadas.
@@ -85,8 +93,8 @@ Pomodoro por cuenta y los informes Flutter con fuentes separadas:
 [PROFESOR_P4_B.md](docs/PROFESOR_P4_B.md). **P4-C está implementada localmente:**
 solicitud del profesor, aprobación por ADMIN en el panel y bloqueo de acceso
 institucional mientras no se aprueba. Ver [PROFESOR_P4_C.md](docs/PROFESOR_P4_C.md).
-**Sigue preparar P5:** resolver commits previos de Guardián, revisar migraciones,
-desplegar con autorización y ensayar el módulo del profesor. La revisión visual
+**P5 permanece pausada:** cuando se autorice, comprobar los commits actuales,
+revisar migraciones, desplegar con autorización y ensayar el módulo del profesor. La revisión visual
 del panel y la prueba en dispositivos siguen pendientes.
 D3 se retoma después de P5; las entregas locales no equivalen a pruebas en teléfonos.
 Verificación P4-C: 502 pruebas Flutter aprobadas, 4 remotas omitidas y análisis
@@ -103,7 +111,13 @@ La aplicación inicia en modo demostración para poder revisar navegación y dis
 
 La interfaz inicia con fondo blanco y permite que el estudiante elija modo claro, oscuro o automático según el dispositivo desde `Más > Preferencias`.
 
-Último ajuste de **7F-C3-D2-F:** eliminación confirmada de temas y subtemas
+### Antecedentes de entregas (no son la siguiente tarea)
+
+Las descripciones siguientes conservan el estado al entregarse. El panel actual
+guarda/publica directamente cuando está autorizado, sin revisión editorial
+obligatoria. Consultar ADMIN_PANEL y el inventario vigente antes de ejecutar pasos.
+
+Ajuste de **7F-C3-D2-F:** eliminación confirmada de temas y subtemas
 en borrador vacío, nunca publicados ni usados. Disponible localmente en el panel
 y backend; no elimina dependientes ni contenido en cascada. Sin cambios de código
 Flutter, migraciones o despliegue. Guía en `backend/EDITORIAL_DRAFT_DELETION.md`

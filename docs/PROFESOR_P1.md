@@ -1,5 +1,11 @@
 # Profesor P1 — métricas, textos y navegación
 
+> Ficha de entrega histórica. P1–P4-C ya tienen implementación local; P5 y D3
+> siguen pausadas. Próxima entrega global: PR-I1. No repetir los siguientes pasos
+> históricos ni comandos de staging sin revisar el estado actual.
+>
+> Orden vigente: [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
+
 Entrega local del 12 de septiembre de 2026. Forma parte del cierre docente
 P1–P5, autorizado antes de D3. No equivale a la entrega completa del profesor.
 

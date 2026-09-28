@@ -1,5 +1,11 @@
 # P4-C — Solicitud y aprobación de instituciones
 
+> Estado al 28 de septiembre: implementación local existente, ensayo P5 pausado.
+> Próxima entrega global PR-I1. La advertencia histórica de Guardián sin commit no
+> es diagnóstico actual: revisar Git y migraciones antes de operar.
+>
+> Orden vigente: [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
+
 Entrega local: 17 de septiembre de 2026. **No está desplegada.**
 
 ## Qué cambia

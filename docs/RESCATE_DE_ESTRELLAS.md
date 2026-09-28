@@ -142,5 +142,6 @@ generado un APK ni ejecutado toda la suite del proyecto para esta entrega.
 4. **Arte y animaciones al final:** Sabi, burbujas, liberación, conexión de estrellas
    y celebraciones; decidir audios antes de solicitar nuevas descargas.
 
-Después continúan JN-4 Escudo, MA-1 cobertura del banco,
-MA-2 mapa de aprendizaje y MA-3 repaso diferido. Esta demo no cierra esas tareas.
+Actualización del 28 de septiembre: Escudo retirado, MA-1 básica y MA-2/3 locales
+listas. MA-1 reportes y ensayos reales siguen pendientes. Continúa PR-I1 según
+[ruta vigente](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo), no recrear esos módulos.

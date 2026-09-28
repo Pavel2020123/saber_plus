@@ -37,7 +37,7 @@ Los cambios de demo no llegan a Supabase y se pierden al reiniciar.
 - ESLint de los nuevos archivos TypeScript aprobado.
 
 Contrato y detalles: `backend/BANK_COVERAGE.md` en SaberPlus-Backend.
-Actualización del 27 de septiembre: MA-2A backend local implementado; siguiente
-entrega **MA-3 — Repaso diferido**; MA-2B/C están implementadas localmente. [MA-2](MAPA_APRENDIZAJE.md) orienta entre temas
-sin bloquear contenido. MA-3 repaso diferido sigue después. P5/D3 y animaciones
+Actualización del 28 de septiembre: MA-2A/B/C y MA-3A/B/C locales listas; siguiente
+entrega **PR-I1 — Reglas y contratos competitivos**. [MA-2](MAPA_APRENDIZAJE.md) orienta entre temas
+sin bloquear contenido. MA-1 no queda cerrada por avanzar. P5/D3 y animaciones
 siguen pausados; anuncios y recuperación mediante anuncios se definirán en 8C–8D.

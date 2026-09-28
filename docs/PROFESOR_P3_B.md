@@ -1,5 +1,10 @@
 # Profesor P3-B — pantallas, práctica dirigida y seguimiento
 
+> Ficha histórica: P4-A/B/C también se entregó localmente. P5/D3 pausadas;
+> próxima entrega global PR-I1. No repetir P4 por la indicación histórica de abajo.
+>
+> Orden vigente: [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
+
 Entrega local del 13 de septiembre de 2026. Completa la implementación local P3
 iniciada en P3-A. **Sigue P4: sincronización de tiempo estudiado y evolución**;
 después P5 (ensayo integrado real) y D3 (panel editorial real).

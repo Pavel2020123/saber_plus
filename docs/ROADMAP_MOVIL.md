@@ -11,12 +11,17 @@ como referencia; no se repiten las funciones ya implementadas.
 
 ## Estado actual
 
+Actualizado al 28 de septiembre de 2026. Orden operativo único:
+[ruta vigente](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
+Las casillas de etapas antiguas documentan implementación, no certifican despliegue
+ni pruebas físicas. Los «siguientes» de una entrega histórica no cambian esta ruta.
+
 Cambio del 27 de septiembre: **JN-4 Escudo retirado** de app/backend, no reimplementarlo.
 Catálogo ampliado a **90 insignias (ocho juegos e instituciones)**; la asignación
 por temporada sigue pendiente. [Inventario vigente](INSIGNIAS_Y_JUEGOS_VIGENTES.md).
 Las menciones a implementación de Escudo más abajo son antecedentes, no trabajo activo.
 
-Entrega más reciente (27 de septiembre): **MA-2A reglas y backend del mapa**,
+Entrega del 27 de septiembre: **MA-2A reglas y backend del mapa**,
 implementada localmente, migración no desplegada. [Alcance](MAPA_APRENDIZAJE.md).
 MA-2B editor del panel implementado/probado localmente (88 pruebas del panel).
 MA-2C Flutter implementada localmente.
@@ -45,7 +50,7 @@ en reparar audios en ramas independientes; ver
 [GUIA_TRABAJO_COMPANEROS.md](GUIA_TRABAJO_COMPANEROS.md).
 
 Acuerdo del 18 de septiembre: **P5 y la conexión real D3 quedan pausadas**,
-no terminadas. Se registran tres juegos nuevos con Sabi y tres mejoras académicas
+no terminadas. Se registraron tres juegos nuevos con Sabi y tres mejoras académicas
 en [SABI_Y_JUEGOS_APROBADOS.md](SABI_Y_JUEGOS_APROBADOS.md). Están aprobados como
 alcance futuro; JN-1A demo, JN-1B backend y JN-1C cliente remoto implementados
 localmente, sin despliegue ni ensayo real en producción.
@@ -55,11 +60,10 @@ animaciones al final.** [Salto a la cima](SALTO_A_LA_CIMA.md) inicia esta entreg
 JN-1A demo, JN-1B backend y JN-1C cliente listos localmente. JN-2A demo de
 [Rescate de estrellas](RESCATE_DE_ESTRELLAS.md) implementada el 19 de septiembre;
 JN-2B backend implementado localmente el 23 de septiembre y JN-2C cliente remoto el 24;
-falta ensayo real. JN-4A [Escudo demo](ESCUDO_DEL_CONOCIMIENTO.md) implementada el 24;
-JN-4B backend implementado y probado localmente, sin despliegue;
-JN-4C cliente remoto implementado localmente, sin ensayo real;
+falta ensayo real. JN-4 [Escudo](ESCUDO_DEL_CONOCIMIENTO.md) tuvo entregas A/B/C,
+pero fue retirado el 27: no es juego pendiente de despliegue ni desarrollo.
 MA-1 [cobertura básica](COBERTURA_DEL_BANCO.md) implementada localmente, con reportes
-académicos y ensayo real pendientes; MA-2A/B/C locales listas, sigue MA-3 según
+académicos y ensayo real pendientes; MA-2A/B/C y MA-3A/B/C locales listas, sigue PR-I1 según
 SABI_Y_JUEGOS_APROBADOS.md. [Duelo fantasma con Sabi](SABI_DUELO_FANTASMA.md)
 queda pausado; se conserva su prototipo sin darlo por arte final.
 

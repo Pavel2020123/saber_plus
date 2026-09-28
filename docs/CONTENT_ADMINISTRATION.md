@@ -1,5 +1,12 @@
 # Administración y publicación de contenido
 
+> Lectura actual: el panel se carga por página, área → tema → subtema, y guardar
+> válido publica directamente con permisos. No imponer revisión editorial ni Excel.
+> D2-F ya tiene pruebas PostgreSQL locales; D3 está pausada. Los hitos de abajo
+> conservan su fecha de entrega. Próxima entrega global PR-I1.
+>
+> Orden vigente: [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
+
 SaberPlus usará un panel web privado para que el equipo administre temas,
 lecciones, casos, preguntas y recursos. Flutter consume únicamente contenido
 publicado por la API NestJS; nunca escribe directamente en Supabase.

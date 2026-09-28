@@ -3,7 +3,10 @@
 Revisión: 7 de septiembre de 2026. Fuente comparada: auditoría anterior aportada
 por el equipo, que situaba el proyecto al terminar 7E.
 
-**Último avance: 7F-C3-D2-F (PostgreSQL local). Sigue cierre visual/operativo y D3.**
+**Documento histórico de conciliación, no ruta actual.** Al 28 de septiembre,
+MA-3C está implementada localmente y sigue PR-I1; P5/D3 pausadas.
+Consultar [ruta vigente](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
+El avance de la comparación original era 7F-C3-D2-F (PostgreSQL local).
 Actualización posterior a la conciliación: retiro de escrituras heredadas y
 bloqueo común por área implementados localmente; no desplegados. La comparación
 original fue documental. Implementado localmente no significa probado

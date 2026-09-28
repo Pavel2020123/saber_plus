@@ -45,7 +45,8 @@ conocimiento con el potenciador escudo de combo de Trivia o las mecánicas de Gu
 esas funciones pertenecen a juegos conservados y no se retiran.
 
 Las descripciones previas de JN-4 son historia, no tareas futuras. La siguiente
-entrega funcional es **MA-3 — Repaso diferido**; MA-2B/C implementadas localmente.
+entrega funcional es **PR-I1 — Reglas y contratos competitivos**;
+MA-2A/B/C y MA-3A/B/C implementadas localmente al 28 de septiembre.
 P5/D3, despliegue, asignación anual y animaciones finales siguen pendientes.
 
 ## Verificación

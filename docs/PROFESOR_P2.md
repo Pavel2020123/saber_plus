@@ -1,5 +1,10 @@
 # Profesor P2 — ficha individual de evidencia
 
+> Ficha histórica: P2, P3 y P4-C están implementadas localmente. P5/D3 pausadas;
+> próxima entrega global PR-I1. El «sigue P3» de la entrega describe aquella fecha.
+>
+> Orden vigente: [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
+
 Entrega local del 12 de septiembre de 2026. Continúa P1; D3 sigue después de
 P3, P4 y P5. No implica despliegue ni verificación con cuentas reales.
 

@@ -1,5 +1,11 @@
 # Profesor P4-B — sincronización y evolución en Flutter
 
+> Estado al 28 de septiembre: P4-C ya implementada localmente; P5/D3 pausadas.
+> Próxima entrega global PR-I1. SQLite v9 describe esta entrega; MA-3B migró después
+> a v10. Nunca repetir respuestas y/n de `git add -p`: revisar cada diff actual.
+>
+> Orden vigente: [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
+
 Entrega local del 14 de septiembre de 2026. Implementa el cliente del contrato
 P4-A; **sigue P4-C: aprobación institucional, y después P5**, antes de D3. No se desplegó
 en Render ni se modificó Supabase. No se añadieron paquetes ni audios.

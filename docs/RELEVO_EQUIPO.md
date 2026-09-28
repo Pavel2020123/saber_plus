@@ -1,21 +1,28 @@
 # Relevo del equipo — empezar aquí
 
-Actualizado: 27 de septiembre de 2026. Encargo del propietario: los compañeros
+Actualizado: 28 de septiembre de 2026. Encargo del propietario: los compañeros
 pueden auditar y continuar las etapas acordadas mientras él no esté trabajando.
 Esta guía es la ruta operativa; no certifica una auditoría completa del código.
 El inventario detallado sigue en [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md).
 
-**Decisión posterior de este día:** [insignias y juegos vigentes](INSIGNIAS_Y_JUEGOS_VIGENTES.md).
+**Decisión del 27 de septiembre:** [insignias y juegos vigentes](INSIGNIAS_Y_JUEGOS_VIGENTES.md).
 90 diseños integrados: ocho juegos y colección institucional. JN-4 Escudo retirado
 de app/backend; no continuar su desarrollo, despliegue como juego ni animaciones.
 
-**Último avance:** MA-2A backend y MA-2B panel implementados y probados localmente;
-sigue **MA-3 repaso diferido**: MA-2C Flutter también está implementada localmente.
-Ver [MAPA_APRENDIZAJE.md](MAPA_APRENDIZAJE.md)
-y [revisión acotada](REVISION_REANUDACION_2026-09-27.md). No rehacer MA-2A ni afirmar
-que el ensayo real del mapa está terminado. El editor y la tarjeta Flutter están implementados.
-Las instrucciones MA-2B conservadas abajo son referencia del alcance ya entregado,
-no trabajo por repetir. Los compañeros aún no habían comenzado según el propietario.
+**Último avance funcional:** MA-3C agenda de repasos integrada en Flutter.
+MA-2A/B/C y MA-3A/B/C están implementadas localmente; falta ensayo real.
+**Siguiente: PR-I1 — reglas y contratos competitivos**, no volver a programar MA-3.
+Punto de partida observado: Flutter `f6221c4`, backend `52abde2`; comprobar HEAD
+al retomar, no hacer reset a estos commits ni asumir que están desplegados.
+Guías: [mapa](MAPA_APRENDIZAJE.md), [repaso](REPASO_DIFERIDO.md),
+[ruta única vigente](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo) y
+[prompt copiable](PROMPT_RELEVO.md). El compañero comienza ahora: coordinar rama
+y responsable con el propietario para no trabajar los dos sobre los mismos archivos.
+
+Si dos documentos discrepan, las decisiones confirmadas más recientes y la ruta
+vigente gobiernan el orden; los contratos específicos explican el comportamiento.
+Una discrepancia contrato/código se registra y consulta, no se resuelve inventando
+reglas. Historial/auditorías fechadas son evidencia histórica, no instrucciones actuales.
 
 ## 1. Antes de programar: comprender y auditar ambos repositorios
 
@@ -448,7 +455,7 @@ cd "C:\Proyectos\saber_plus"
 git status --short
 git switch main
 git pull --ff-only origin main
-git switch -c feat/ma2-mapa-aprendizaje
+git switch -c docs/pri1-reglas-competitivas
 ```
 
 Repetir desde `C:\Proyectos\SaberPlus-Backend` si la entrega lo necesita. **Si hay
@@ -514,8 +521,9 @@ Comandos exactos de cd, git add y git commit para CADA repositorio:
 
 > Lee docs/RELEVO_EQUIPO.md y sus referencias, revisa el estado Git de Flutter y
 > SaberPlus-Backend y audita antes de modificar. El propietario delegó continuación
-> local al equipo. Sigue MA-3 tras revisar el estado; MA-2A backend, MA-2B panel y
-> MA-2C Flutter ya tienen implementación y pruebas locales. No rehagas MA-1
+> local al equipo. Sigue PR-I1 tras revisar el estado; MA-2A/B/C y MA-3A/B/C
+> ya tienen implementación y pruebas locales. Consulta las reglas aún propuestas
+> antes de programar rankings o conceder insignias. No rehagas MA-1
 > básica ni los juegos existentes. P5/D3 y despliegues están pausados. Respeta top50,
 > todas las insignias anuales, seis certificados y estudio gratuito; animaciones al
 > final. Trabaja una entrega acotada, añade pruebas, actualiza etapas y entrega rutas

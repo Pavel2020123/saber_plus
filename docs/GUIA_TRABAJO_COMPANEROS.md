@@ -1,6 +1,6 @@
 # SaberPlus — guía de trabajo para compañeros
 
-Actualizado: 27 de septiembre de 2026. Leer antes de modificar código.
+Actualizado: 28 de septiembre de 2026. Leer antes de modificar código.
 
 **Nueva delegación:** el propietario deja temporalmente la continuación al equipo.
 Leer primero [RELEVO_EQUIPO.md](RELEVO_EQUIPO.md): auditoría y ruta completa de etapas.
@@ -10,8 +10,9 @@ de compañeros a esas dos tareas. No autoriza despliegues ni operaciones en base
 ## 1. Acuerdo del equipo
 
 Los compañeros pueden auditar y continuar las etapas aprobadas en ramas distintas,
-revisando el estado y retomando MA-3 (MA-2A/B/C implementadas localmente).
-Ver MAPA_APRENDIZAJE.md. Coordinar integración y decisiones pendientes con
+revisando el estado y retomando PR-I1 (MA-2A/B/C y MA-3A/B/C implementadas localmente).
+Ver [ruta vigente](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo) y
+[prompt para el asistente](PROMPT_RELEVO.md). Coordinar integración y decisiones pendientes con
 el propietario. También pueden revisar certificados y reparar audios según esta guía.
 El contenido académico lo cargarán después el propietario y un compañero desde el
 panel ADMIN. Las pruebas en celulares se harán entre los tres.

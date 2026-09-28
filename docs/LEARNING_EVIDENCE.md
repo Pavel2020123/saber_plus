@@ -1,5 +1,11 @@
 # 7F-C2-B2 — Diagnóstico por temas y subtemas
 
+> La entrega siguiente histórica (7F-C3) ya tiene panel implementado localmente.
+> Al 28 de septiembre sigue PR-I1; P5/D3 están pausadas. MA-2/3 no sustituyen ni
+> relajan los mínimos de evidencia de este contrato.
+>
+> Orden vigente: [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
+
 ## Entrega
 
 Pantalla `Progreso > Ver diagnóstico por temas`, también accesible al terminar
