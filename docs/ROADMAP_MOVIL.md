@@ -19,7 +19,8 @@ Las menciones a implementación de Escudo más abajo son antecedentes, no trabaj
 Entrega más reciente (27 de septiembre): **MA-2A reglas y backend del mapa**,
 implementada localmente, migración no desplegada. [Alcance](MAPA_APRENDIZAJE.md).
 MA-2B editor del panel implementado/probado localmente (88 pruebas del panel).
-Siguiente: **MA-2C Flutter**, luego MA-3. Sin despliegue ni ensayo real.
+MA-2C Flutter implementada localmente. Siguiente: **MA-3 repaso diferido**.
+Sin despliegue ni ensayo real.
 
 Historial desde el inicio: [HISTORIAL_ETAPAS.md](HISTORIAL_ETAPAS.md).
 Entrega visual previa: PR-I3A, catálogo visual de 40 insignias, top 50. No equivale
@@ -56,7 +57,7 @@ falta ensayo real. JN-4A [Escudo demo](ESCUDO_DEL_CONOCIMIENTO.md) implementada 
 JN-4B backend implementado y probado localmente, sin despliegue;
 JN-4C cliente remoto implementado localmente, sin ensayo real;
 MA-1 [cobertura básica](COBERTURA_DEL_BANCO.md) implementada localmente, con reportes
-académicos y ensayo real pendientes; MA-2A/B locales listas, siguen MA-2C y MA-3 según
+académicos y ensayo real pendientes; MA-2A/B/C locales listas, sigue MA-3 según
 SABI_Y_JUEGOS_APROBADOS.md. [Duelo fantasma con Sabi](SABI_DUELO_FANTASMA.md)
 queda pausado; se conserva su prototipo sin darlo por arte final.
 

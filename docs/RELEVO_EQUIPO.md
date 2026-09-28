@@ -10,9 +10,10 @@ El inventario detallado sigue en [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md).
 de app/backend; no continuar su desarrollo, despliegue como juego ni animaciones.
 
 **Último avance:** MA-2A backend y MA-2B panel implementados y probados localmente;
-sigue **MA-2C Flutter**. Ver [MAPA_APRENDIZAJE.md](MAPA_APRENDIZAJE.md)
+sigue **MA-3 repaso diferido**: MA-2C Flutter también está implementada localmente.
+Ver [MAPA_APRENDIZAJE.md](MAPA_APRENDIZAJE.md)
 y [revisión acotada](REVISION_REANUDACION_2026-09-27.md). No rehacer MA-2A ni afirmar
-que ya existe interfaz móvil del mapa. El editor administrativo sí está implementado.
+que el ensayo real del mapa está terminado. El editor y la tarjeta Flutter están implementados.
 Las instrucciones MA-2B conservadas abajo son referencia del alcance ya entregado,
 no trabajo por repetir. Los compañeros aún no habían comenzado según el propietario.
 
@@ -139,7 +140,7 @@ Esta entrega documental no vuelve a ejecutar las suites de la app.
 
 ## 5. Orden de continuación y fichas de trabajo
 
-**Revisar estado → MA-2C → MA-3 → PR-I1.** MA-2A y MA-2B ya están implementadas
+**Revisar estado → MA-3 → PR-I1.** MA-2A, MA-2B y MA-2C ya están implementadas
 localmente; la auditoría completa sigue sin certificarse. Completar PR-I2–6
 según dependencias; C5 es necesario antes de fotos reales. Los bloques editoriales,
 seguridad, comerciales y despliegues se coordinan después, sin saltar sus requisitos.
@@ -506,8 +507,8 @@ Comandos exactos de cd, git add y git commit para CADA repositorio:
 
 > Lee docs/RELEVO_EQUIPO.md y sus referencias, revisa el estado Git de Flutter y
 > SaberPlus-Backend y audita antes de modificar. El propietario delegó continuación
-> local al equipo. Sigue MA-2C Flutter tras revisar el estado; MA-2A backend y MA-2B
-> panel ya tienen implementación y pruebas locales. No rehagas MA-1
+> local al equipo. Sigue MA-3 tras revisar el estado; MA-2A backend, MA-2B panel y
+> MA-2C Flutter ya tienen implementación y pruebas locales. No rehagas MA-1
 > básica ni los juegos existentes. P5/D3 y despliegues están pausados. Respeta top50,
 > todas las insignias anuales, seis certificados y estudio gratuito; animaciones al
 > final. Trabaja una entrega acotada, añade pruebas, actualiza etapas y entrega rutas

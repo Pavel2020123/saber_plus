@@ -10,7 +10,7 @@ de compañeros a esas dos tareas. No autoriza despliegues ni operaciones en base
 ## 1. Acuerdo del equipo
 
 Los compañeros pueden auditar y continuar las etapas aprobadas en ramas distintas,
-revisando el estado y retomando MA-2C (MA-2A backend y MA-2B panel implementadas localmente).
+revisando el estado y retomando MA-3 (MA-2A/B/C implementadas localmente).
 Ver MAPA_APRENDIZAJE.md. Coordinar integración y decisiones pendientes con
 el propietario. También pueden revisar certificados y reparar audios según esta guía.
 El contenido académico lo cargarán después el propietario y un compañero desde el

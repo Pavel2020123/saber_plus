@@ -6,7 +6,7 @@ Actualizado: 27 de septiembre de 2026.
 |---|---|---|
 | MA-2A | Implementada/probada localmente | Grafo de subtemas, persistencia, consulta y edición ADMIN en API |
 | MA-2B | Implementada/probada localmente | Editor del mapa en panel, demo y pruebas de UI/HTTP |
-| MA-2C | Siguiente | Integración Flutter, navegación, evidencia y pruebas |
+| MA-2C | Implementada/probada localmente | Tarjeta Flutter, recorrido, navegación y progreso de lectura sin atribuir dominio |
 | Ensayo real | Pendiente, infraestructura pausada | Migración/despliegue autorizado y recorrido panel → API → app |
 
 ## Qué quedó hecho en MA-2A
@@ -61,7 +61,31 @@ Proteger cambios sin guardar, limpiar sesión y evitar respuestas tardías.
 Crear equivalente demo en memoria que valide ciclos/publicación y pruebas del panel.
 No conectar a Supabase para probar la demo. Dejar MA-2C como siguiente al cerrar.
 
-## Instrucción para MA-2C
+## MA-2C — entrega Flutter
+
+Ruta: Estudiar → área → lección → Mapa de aprendizaje. La tarjeta diferencia
+carga, error con reintento, vacío y recorrido. Las bases directas se identifican
+dentro de la lista ordenada de antecedentes. Abre lecciones disponibles y recarga
+el catálogo al navegar para no conservar contenido retirado. Lista con carga
+de filas bajo demanda; no construye 5000 tarjetas a la vez.
+
+El progreso existente solo etiqueta «Lección completada, no dominio acreditado».
+No inventa falencias, no concede XP, no bloquea estudio ni cambia certificados.
+La sesión gobierna el proveedor: una respuesta anterior no restaura el mapa al
+cerrar sesión. Repositorios remoto y demo separados; ningún fallback silencioso.
+La demo usa el catálogo demo existente y listas vacías, sin relaciones ficticias.
+
+Archivos: `lib/features/study/domain/learning_map.dart`,
+`data/learning_map_repository.dart`, `presentation/learning_map_card.dart` y
+su integración en `study_lesson_page.dart`. Pruebas: `test/learning_map_test.dart`.
+
+Validación local: 14 pruebas seleccionadas (mapa, modelos de estudio y repositorio
+remoto). Incluyen rutas, contenido retirado, texto grande, cierre de sesión,
+contrato y reintento. No equivale a pruebas físicas o ensayo panel/API/app real.
+No se modificó el backend ni se desplegó/migró Supabase. Sigue **MA-3 — repaso
+diferido**; P5/D3, revisión visual física y animaciones siguen pendientes/pausadas.
+
+### Alcance original de MA-2C (referencia)
 
 Reutilizar estudio y evidencia académica. API GET por subtema ofrece bases directas
 y recorrido ordenado. Mostrar orientación y navegación a lecciones, sin bloquear

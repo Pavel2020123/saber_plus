@@ -6,7 +6,15 @@ Actualizado: 27 de septiembre de 2026.
 y retiro de JN-4 Escudo por no tener insignias y petición expresa del propietario.
 Código móvil/motor backend eliminados, API antigua 410, historial/migraciones sin
 borrar. [Detalle](INSIGNIAS_Y_JUEGOS_VIGENTES.md). Las entregas anteriores JN-4 son
-históricas; no volver a incluirlas en pendientes. Sigue MA-2C.
+históricas; no volver a incluirlas en pendientes. Sigue MA-3.
+
+## Entrega posterior — MA-2C Flutter
+
+Tarjeta de mapa en lecciones, consulta autenticada, recorrido de bases y navegación.
+Sin bloqueo ni dominio inferido: solo muestra progreso de lectura existente.
+Demo separada sin vínculos ficticios. 14 pruebas seleccionadas aprobadas; falta
+ensayo real y revisión física. No hubo cambios backend ni despliegues.
+Sigue MA-3. Detalles y archivos en [MAPA_APRENDIZAJE.md](MAPA_APRENDIZAJE.md).
 
 ## Entrega posterior del 27 de septiembre — MA-2B
 

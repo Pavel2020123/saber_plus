@@ -22,6 +22,7 @@ import '../../resume/data/drift_learning_resume_repository.dart';
 import '../../resume/domain/learning_resume_models.dart';
 import '../domain/study_models.dart';
 import 'study_providers.dart';
+import 'learning_map_card.dart';
 
 class StudyLessonPage extends ConsumerStatefulWidget {
   const StudyLessonPage({
@@ -289,6 +290,7 @@ class _LessonContent extends ConsumerWidget {
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         const SizedBox(height: 22),
+        LearningMapCard(request: (area: area, subtopicId: subtopic.id)),
         if (!subtopic.hasLearningResource)
           const _NoResources()
         else ...[

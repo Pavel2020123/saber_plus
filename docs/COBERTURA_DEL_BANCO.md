@@ -38,6 +38,6 @@ Los cambios de demo no llegan a Supabase y se pierden al reiniciar.
 
 Contrato y detalles: `backend/BANK_COVERAGE.md` en SaberPlus-Backend.
 Actualización del 27 de septiembre: MA-2A backend local implementado; siguiente
-entrega **MA-2C — Mapa en Flutter**; MA-2B panel está implementada localmente. [MA-2](MAPA_APRENDIZAJE.md) orienta entre temas
+entrega **MA-3 — Repaso diferido**; MA-2B/C están implementadas localmente. [MA-2](MAPA_APRENDIZAJE.md) orienta entre temas
 sin bloquear contenido. MA-3 repaso diferido sigue después. P5/D3 y animaciones
 siguen pausados; anuncios y recuperación mediante anuncios se definirán en 8C–8D.
