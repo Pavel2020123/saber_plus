@@ -45,7 +45,7 @@ conocimiento con el potenciador escudo de combo de Trivia o las mecánicas de Gu
 esas funciones pertenecen a juegos conservados y no se retiran.
 
 Las descripciones previas de JN-4 son historia, no tareas futuras. La siguiente
-entrega funcional permanece **MA-2B — Editor del mapa en el panel**; después MA-2C.
+entrega funcional es **MA-2C — Mapa en Flutter**; MA-2B panel implementada localmente.
 P5/D3, despliegue, asignación anual y animaciones finales siguen pendientes.
 
 ## Verificación

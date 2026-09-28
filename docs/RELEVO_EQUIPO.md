@@ -9,10 +9,12 @@ El inventario detallado sigue en [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md).
 90 diseños integrados: ocho juegos y colección institucional. JN-4 Escudo retirado
 de app/backend; no continuar su desarrollo, despliegue como juego ni animaciones.
 
-**Último avance:** MA-2A backend implementado y probado localmente; sigue **MA-2B**
-editor del panel, luego MA-2C Flutter. Ver [MAPA_APRENDIZAJE.md](MAPA_APRENDIZAJE.md)
+**Último avance:** MA-2A backend y MA-2B panel implementados y probados localmente;
+sigue **MA-2C Flutter**. Ver [MAPA_APRENDIZAJE.md](MAPA_APRENDIZAJE.md)
 y [revisión acotada](REVISION_REANUDACION_2026-09-27.md). No rehacer MA-2A ni afirmar
-que ya existe interfaz del mapa. Los compañeros aún no habían comenzado según el propietario.
+que ya existe interfaz móvil del mapa. El editor administrativo sí está implementado.
+Las instrucciones MA-2B conservadas abajo son referencia del alcance ya entregado,
+no trabajo por repetir. Los compañeros aún no habían comenzado según el propietario.
 
 ## 1. Antes de programar: comprender y auditar ambos repositorios
 
@@ -137,7 +139,7 @@ Esta entrega documental no vuelve a ejecutar las suites de la app.
 
 ## 5. Orden de continuación y fichas de trabajo
 
-**Revisar estado → MA-2B → MA-2C → MA-3 → PR-I1.** MA-2A ya está implementada
+**Revisar estado → MA-2C → MA-3 → PR-I1.** MA-2A y MA-2B ya están implementadas
 localmente; la auditoría completa sigue sin certificarse. Completar PR-I2–6
 según dependencias; C5 es necesario antes de fotos reales. Los bloques editoriales,
 seguridad, comerciales y despliegues se coordinan después, sin saltar sus requisitos.
@@ -504,8 +506,8 @@ Comandos exactos de cd, git add y git commit para CADA repositorio:
 
 > Lee docs/RELEVO_EQUIPO.md y sus referencias, revisa el estado Git de Flutter y
 > SaberPlus-Backend y audita antes de modificar. El propietario delegó continuación
-> local al equipo. Sigue MA-2B, editor del panel, tras revisar el estado; MA-2A backend
-> ya tiene implementación y pruebas locales. Luego MA-2C Flutter. No rehagas MA-1
+> local al equipo. Sigue MA-2C Flutter tras revisar el estado; MA-2A backend y MA-2B
+> panel ya tienen implementación y pruebas locales. No rehagas MA-1
 > básica ni los juegos existentes. P5/D3 y despliegues están pausados. Respeta top50,
 > todas las insignias anuales, seis certificados y estudio gratuito; animaciones al
 > final. Trabaja una entrega acotada, añade pruebas, actualiza etapas y entrega rutas

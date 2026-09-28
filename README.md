@@ -14,7 +14,7 @@ Instituciones tiene colección propia. Los diseños aún no son premios concedid
 
 **Compañeros que retoman el proyecto:** empezar por [RELEVO_EQUIPO.md](docs/RELEVO_EQUIPO.md).
 Incluye auditoría inicial, ambos repositorios, alcance de cada etapa, reglas que
-conservar, ramas, pruebas y ejemplos de commits. Próxima entrega funcional: MA-2B.
+conservar, ramas, pruebas y ejemplos de commits. Próxima entrega funcional: MA-2C.
 
 **Historial desde la primera etapa:** [HISTORIAL_ETAPAS.md](docs/HISTORIAL_ETAPAS.md).
 Incluye entregas, cambios de alcance y referencias a todos los commits registrados.
@@ -44,7 +44,8 @@ anterior se conserva en el historial Git, no en el catálogo activo de juegos.
 **MA-1: cobertura básica del banco implementada localmente** en el panel y backend.
 Ver [alcance y pendientes](docs/COBERTURA_DEL_BANCO.md).
 **MA-2A implementada localmente:** [reglas y backend del mapa](docs/MAPA_APRENDIZAJE.md).
-No hay pantalla móvil todavía. Sigue **MA-2B: editor del mapa en el panel**,
+**MA-2B implementada localmente:** editor del mapa en panel, demo y pruebas.
+No hay pantalla móvil todavía. Sigue **MA-2C: mapa en Flutter**,
 manteniendo P5/D3 y las animaciones pausadas.
 Ver [SALTO_A_LA_CIMA.md](docs/SALTO_A_LA_CIMA.md).
 El prototipo de Sabi que sigue abajo se conserva, pero sus animaciones están pausadas.
