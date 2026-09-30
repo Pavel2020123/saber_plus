@@ -1,5 +1,7 @@
 # SaberPlus — etapas pendientes y ruta vigente del equipo
 
+**Actualización del 30 de septiembre de 2026:** entregada la [matriz PR-I1 de ocho juegos, fórmulas y carencias de servidor](PR_I1_AUDITORIA_FORMULAS.md), siguiendo el [plan maestro del propietario](PLAN_MAESTRO_COMPETITIVO.md). Regresión dirigida: 84 pruebas backend y 69 Flutter aprobadas. Próximo paso: revisión de fórmulas, penalizaciones y reconexión; después completar infraestructura PR-I1. No comenzar PR-I2 ni considerar esta auditoría cierre de PR-I1. Las reglas confirmadas del nuevo plan prevalecen sobre propuestas históricas inferiores.
+
 Actualizado: 28 de septiembre de 2026, tras MA-3C. Listado para compartir con el equipo.
 
 **Ruta operativa del relevo:** [RELEVO_EQUIPO.md](RELEVO_EQUIPO.md).

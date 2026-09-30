@@ -1,5 +1,7 @@
 # Índice de documentación de SaberPlus
 
+**30 de septiembre — PR-I1, primer entregable:** [auditoría de los ocho juegos y fórmulas propuestas](PR_I1_AUDITORIA_FORMULAS.md), con evidencia de código y regresión local; [plan maestro confirmado](PLAN_MAESTRO_COMPETITIVO.md). Pendiente revisión de fórmulas por el propietario antes de implementación; PR-I1 no cerrado y PR-I2 no iniciado.
+
 Actualizado: 28 de septiembre de 2026. Inventario del README y todos los Markdown
 bajo `docs/`. No sustituye contratos ni acredita auditoría completa del código.
 El README de recursos iOS es una plantilla de plataforma, no una etapa del producto.

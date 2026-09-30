@@ -1,5 +1,7 @@
 # Relevo del equipo — empezar aquí
 
+**Relevo PR-I1 del 30 de septiembre:** [auditoría y propuestas listas para revisión](PR_I1_AUDITORIA_FORMULAS.md), [plan maestro confirmado](PLAN_MAESTRO_COMPETITIVO.md). Rama Flutter `docs/pr-i1-auditoria-formulas`, HEAD base `8a1a497`; backend auditado `main` / `fb27225`. Solo documentación nueva, sin migraciones ni cambios de runtime. 84 pruebas backend y 69 Flutter aprobadas. Esperar revisión del propietario antes de congelar fórmulas; PR-I1 sigue abierto y PR-I2 no comienza. Conservar cambios previos en `pubspec.yaml` y `pubspec.lock`. Los datos inferiores conservan su fecha histórica.
+
 Actualizado: 28 de septiembre de 2026. Encargo del propietario: los compañeros
 pueden auditar y continuar las etapas acordadas mientras él no esté trabajando.
 Esta guía es la ruta operativa; no certifica una auditoría completa del código.
