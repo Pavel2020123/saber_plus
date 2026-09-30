@@ -1,0 +1,47 @@
+{
+  "node": "24.14.1",
+  "npm": "11.11.0",
+  "logs": [
+    {
+      "file": "saberplus-backend-ci-fixed.log",
+      "sha256": "0266c714a1b9e11af20c9f9b5584721d8bbcb1e163d3b98942686cb0cb33104f",
+      "bytes": 4182
+    },
+    {
+      "file": "saberplus-build.log",
+      "sha256": "b8ba6f5fea5d01dc02473202dde6cc9fe8e014cbe6338c5c681fc2e30fc125c3",
+      "bytes": 810
+    },
+    {
+      "file": "saberplus-jest.log",
+      "sha256": "11f11dc88b3d80fd99368c065d4a919db3008c9fd4a3d2d9d9e3594eb7f5383d",
+      "bytes": 1040
+    }
+  ],
+  "backend": {
+    "ci": "PASS",
+    "build": "PASS",
+    "jest": {
+      "suites": 84,
+      "passed": 847
+    },
+    "lint": {
+      "errors": 111,
+      "warnings": 11
+    },
+    "runnerUnitTests": 11,
+    "postgres": "ENOENT initdb.exe"
+  },
+  "flutter": {
+    "version": "3.44.9",
+    "dart": "3.12.2",
+    "analyze": "PASS",
+    "tests": 631,
+    "skipped": 4,
+    "apk": "PKIX TLS Gradle"
+  },
+  "admin": {
+    "checkedModules": 22,
+    "tests": 88
+  }
+}

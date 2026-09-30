@@ -1,0 +1,919 @@
+[
+  {
+    "file": "backend/src/gamificacion/certificado-html.service.ts",
+    "errors": 21,
+    "warnings": 0,
+    "messages": [
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 1,
+        "column": 9,
+        "message": "Replace `·Injectable,·Logger,·ServiceUnavailableException·` with `␍⏎··Injectable,␍⏎··Logger,␍⏎··ServiceUnavailableException,␍⏎`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 15,
+        "column": 24,
+        "message": "Replace `/[&<>\"']/g,·(char)·=>` with `␍⏎····/[&<>\"']/g,␍⏎····(char)·=>␍⏎·····`"
+      },
+      {
+        "rule": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "line": 15,
+        "column": 46,
+        "message": "This assertion is unnecessary since it does not change the type of the expression."
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 16,
+        "column": 1,
+        "message": "Replace `····'&':·'&amp;',·'<':·'&lt;',·'>':·'&gt;',·'\"':·'&quot;',` with `········'&':·'&amp;',␍⏎········'<':·'&lt;',␍⏎········'>':·'&gt;',␍⏎········'\"':·'&quot;',␍⏎·······`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 17,
+        "column": 3,
+        "message": "Replace `})[char]!` with `····})[char]!,␍⏎··`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 29,
+        "column": 32,
+        "message": "Replace `·?·'Certificado·de·curso·completo'` with `␍⏎······?·'Certificado·de·curso·completo'␍⏎·····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 36,
+        "column": 34,
+        "message": "Replace `·day:·'numeric',·month:·'long',` with `␍⏎······day:·'numeric',␍⏎······month:·'long',␍⏎·····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 42,
+        "column": 29,
+        "message": "Insert `␍⏎·····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 54,
+        "column": 22,
+        "message": "Replace `·throw·new·ServiceUnavailableException('Se·está·preparando·otro·certificado.·Intenta·nuevamente·en·unos·segundos.'` with `␍⏎······throw·new·ServiceUnavailableException(␍⏎········'Se·está·preparando·otro·certificado.·Intenta·nuevamente·en·unos·segundos.',␍⏎······`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 66,
+        "column": 31,
+        "message": "Insert `␍⏎·········`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 70,
+        "column": 27,
+        "message": "Replace `Array.from(document.images).map((image)·=>·image.decode())` with `␍⏎··········Array.from(document.images).map((image)·=>·image.decode()),␍⏎········`"
+      },
+      {
+        "rule": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "line": 71,
+        "column": 24,
+        "message": "This assertion is unnecessary since it does not change the type of the expression."
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 73,
+        "column": 57,
+        "message": "Insert `␍⏎·········`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 74,
+        "column": 39,
+        "message": "Insert `␍⏎·········`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 76,
+        "column": 26,
+        "message": "Insert `␍⏎········`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 77,
+        "column": 9,
+        "message": "Replace `format:·'A4',·landscape:·true,` with `··format:·'A4',␍⏎··········landscape:·true,␍⏎·········`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 78,
+        "column": 9,
+        "message": "Replace `printBackground:·true,` with `··printBackground:·true,␍⏎·········`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 79,
+        "column": 7,
+        "message": "Replace `})` with `··}),␍⏎······`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 82,
+        "column": 24,
+        "message": "Replace `'No·se·pudo·renderizar·el·certificado·HTML.·Verificar·navegador·y·assets·del·servidor.'` with `␍⏎········'No·se·pudo·renderizar·el·certificado·HTML.·Verificar·navegador·y·assets·del·servidor.',␍⏎······`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 83,
+        "column": 45,
+        "message": "Replace `'No·pudimos·preparar·el·PDF.·Intenta·nuevamente·más·tarde.'` with `␍⏎········'No·pudimos·preparar·el·PDF.·Intenta·nuevamente·más·tarde.',␍⏎······`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 90,
+        "column": 18,
+        "message": "Replace `·this.ocupado·=·false;` with `␍⏎········this.ocupado·=·false;␍⏎·····`"
+      }
+    ]
+  },
+  {
+    "file": "backend/src/gamificacion/certificados-curso.service.spec.ts",
+    "errors": 29,
+    "warnings": 0,
+    "messages": [
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 1,
+        "column": 9,
+        "message": "Replace `·ForbiddenException,·GoneException,·NotFoundException·` with `␍⏎··ForbiddenException,␍⏎··GoneException,␍⏎··NotFoundException,␍⏎`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 3,
+        "column": 9,
+        "message": "Replace `·CertificadoHtmlService,·construirHtml,·escaparHtml·` with `␍⏎··CertificadoHtmlService,␍⏎··construirHtml,␍⏎··escaparHtml,␍⏎`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 4,
+        "column": 9,
+        "message": "Replace `·AREAS_CERTIFICADO,·CertificadosCursoService,·nombreCertificado·` with `␍⏎··AREAS_CERTIFICADO,␍⏎··CertificadosCursoService,␍⏎··nombreCertificado,␍⏎`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 12,
+        "column": 48,
+        "message": "Replace `{·subtema,·usuario·}·as·unknown·as·PrismaService,·html·as·unknown·as·CertificadoHtmlService` with `␍⏎····{·subtema,·usuario·}·as·unknown·as·PrismaService,␍⏎····html·as·unknown·as·CertificadoHtmlService,␍⏎··`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 13,
+        "column": 60,
+        "message": "Replace `·tema:·{·area·},·progresotemas:·completada·?·[{·id:·'progreso'·}]·:·[]` with `␍⏎····tema:·{·area·},␍⏎····progresotemas:·completada·?·[{·id:·'progreso'·}]·:·[],␍⏎·`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 26,
+        "column": 37,
+        "message": "Replace `·id:·'CURSO_COMPLETO',·total:·5,·completadas:·0` with `␍⏎······id:·'CURSO_COMPLETO',␍⏎······total:·5,␍⏎······completadas:·0,␍⏎···`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 30,
+        "column": 41,
+        "message": "Replace `leccion('MATEMATICAS',·true),·leccion('MATEMATICAS',·false),·leccion('INGLES',·true)` with `␍⏎······leccion('MATEMATICAS',·true),␍⏎······leccion('MATEMATICAS',·false),␍⏎······leccion('INGLES',·true),␍⏎····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 32,
+        "column": 76,
+        "message": "Replace `·total:·2,·completadas:·1,·disponible:·false` with `␍⏎······total:·2,␍⏎······completadas:·1,␍⏎······disponible:·false,␍⏎···`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 38,
+        "column": 40,
+        "message": "Replace `AREAS_CERTIFICADO.slice(0,·4).map((area)·=>·leccion(area.id,·true))` with `␍⏎······AREAS_CERTIFICADO.slice(0,·4).map((area)·=>·leccion(area.id,·true)),␍⏎····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 40,
+        "column": 40,
+        "message": "Replace `AREAS_CERTIFICADO.map((area)·=>·leccion(area.id,·true))` with `␍⏎······AREAS_CERTIFICADO.map((area)·=>·leccion(area.id,·true)),␍⏎····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 46,
+        "column": 51,
+        "message": "Insert `␍⏎······`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 47,
+        "column": 7,
+        "message": "Replace `where:·{·AND:·[{·estadoContenido:·'PUBLICADO'·},·{·tema:·{·estadoContenido:·'PUBLICADO'·}·},·{}]` with `··where:·{␍⏎··········AND:·[␍⏎············{·estadoContenido:·'PUBLICADO'·},␍⏎············{·tema:·{·estadoContenido:·'PUBLICADO'·}·},␍⏎············{},␍⏎··········],␍⏎·······`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 48,
+        "column": 1,
+        "message": "Replace `······select:·expect.objectContaining({` with `········select:·expect.objectContaining({␍⏎·········`"
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-assignment",
+        "severity": 2,
+        "line": 48,
+        "column": 7,
+        "message": "Unsafe assignment of an `any` value."
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 49,
+        "column": 1,
+        "message": "Replace `········where:·{·usuarioId:·'usuario-1',·completado:·true,·porcentaje:·{·gte:·100·}·},` with `············where:·{␍⏎··············usuarioId:·'usuario-1',␍⏎··············completado:·true,␍⏎··············porcentaje:·{·gte:·100·},␍⏎············},␍⏎···········`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 50,
+        "column": 7,
+        "message": "Replace `}` with `····},␍⏎·······`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 51,
+        "column": 5,
+        "message": "Replace `})` with `··}),␍⏎····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 56,
+        "column": 77,
+        "message": "Replace `NotFoundException` with `␍⏎········NotFoundException,␍⏎······`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 58,
+        "column": 18,
+        "message": "Replace `service.generar('usuario-1',·'MATEMATICAS')` with `␍⏎······service.generar('usuario-1',·'MATEMATICAS'),␍⏎····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 66,
+        "column": 54,
+        "message": "Replace `·where:·{·id:·'usuario-1'·},·select:·{·nombre:·true·}` with `␍⏎······where:·{·id:·'usuario-1'·},␍⏎······select:·{·nombre:·true·},␍⏎···`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 67,
+        "column": 47,
+        "message": "Replace `expect.objectContaining({·nombre:·'Juan·David·Ospino·Pérez',·area:·'Matemáticas',·cursoCompleto:·false·})` with `␍⏎······expect.objectContaining({␍⏎········nombre:·'Juan·David·Ospino·Pérez',␍⏎········area:·'Matemáticas',␍⏎········cursoCompleto:·false,␍⏎······}),␍⏎····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 68,
+        "column": 32,
+        "message": "Replace `'certificado-matematicas-juan-david-ospino-perez.pdf'` with `␍⏎······'certificado-matematicas-juan-david-ospino-perez.pdf',␍⏎····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 69,
+        "column": 61,
+        "message": "Replace `'certificado-ingles-ana.pdf'` with `␍⏎······'certificado-ingles-ana.pdf',␍⏎····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 73,
+        "column": 21,
+        "message": "Replace `.mockResolvedValueOnce([leccion('INGLES',·true)]).mockResolvedValueOnce([leccion('INGLES',·true),·leccion('INGLES',·false)` with `␍⏎······.mockResolvedValueOnce([leccion('INGLES',·true)])␍⏎······.mockResolvedValueOnce([␍⏎········leccion('INGLES',·true),␍⏎········leccion('INGLES',·false),␍⏎······`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 75,
+        "column": 81,
+        "message": "Replace `ForbiddenException` with `␍⏎······ForbiddenException,␍⏎····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 81,
+        "column": 74,
+        "message": "Replace `'Completa·tu·nombre'` with `␍⏎······'Completa·tu·nombre',␍⏎····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 86,
+        "column": 51,
+        "message": "Replace `{}·as·GamificacionService,·service` with `␍⏎······{}·as·GamificacionService,␍⏎······service,␍⏎····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 87,
+        "column": 67,
+        "message": "Replace `GoneException` with `␍⏎······GoneException,␍⏎····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 92,
+        "column": 41,
+        "message": "Replace `·nombre,·area:·'Matemáticas',·cursoCompleto:·false,·fecha:·new·Date('2026-09-20T12:00:00Z'),·demostracion:·true` with `␍⏎······nombre,␍⏎······area:·'Matemáticas',␍⏎······cursoCompleto:·false,␍⏎······fecha:·new·Date('2026-09-20T12:00:00Z'),␍⏎······demostracion:·true,␍⏎···`"
+      }
+    ]
+  },
+  {
+    "file": "backend/src/gamificacion/certificados-curso.service.ts",
+    "errors": 19,
+    "warnings": 0,
+    "messages": [
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 1,
+        "column": 9,
+        "message": "Replace `·BadRequestException,·ForbiddenException,·Injectable,·NotFoundException·` with `␍⏎··BadRequestException,␍⏎··ForbiddenException,␍⏎··Injectable,␍⏎··NotFoundException,␍⏎`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 16,
+        "column": 26,
+        "message": "Replace `.normalize('NFD')` with `␍⏎····.normalize('NFD')␍⏎····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 17,
+        "column": 19,
+        "message": "Replace `.replace(/[^a-z0-9]+/g,·'-').replace(/^-+|-+$/g,·'')` with `␍⏎····.replace(/[^a-z0-9]+/g,·'-')␍⏎····.replace(/^-+|-+$/g,·'')␍⏎····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 23,
+        "column": 15,
+        "message": "Replace `private·readonly·prisma:·PrismaService,·private·readonly·html:·CertificadoHtmlService` with `␍⏎····private·readonly·prisma:·PrismaService,␍⏎····private·readonly·html:·CertificadoHtmlService,␍⏎··`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 39,
+        "column": 42,
+        "message": "Replace `(leccion)·=>·leccion.progresotemas.length·>·0` with `␍⏎········(leccion)·=>·leccion.progresotemas.length·>·0,␍⏎······`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 41,
+        "column": 12,
+        "message": "Replace `·titulo,·completadas,` with `␍⏎········titulo,␍⏎········completadas,␍⏎·······`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 47,
+        "column": 13,
+        "message": "Replace `...areas,` with `␍⏎······...areas,␍⏎·····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 48,
+        "column": 7,
+        "message": "Replace `id:·'CURSO_COMPLETO',` with `··id:·'CURSO_COMPLETO',␍⏎·······`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 49,
+        "column": 7,
+        "message": "Replace `completadas,·total:·5,·disponible:·completadas·===·5,` with `··completadas,␍⏎········total:·5,␍⏎········disponible:·completadas·===·5,␍⏎·······`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 50,
+        "column": 5,
+        "message": "Replace `}` with `··},␍⏎····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 54,
+        "column": 9,
+        "message": "Replace `tipo·!==·'CURSO_COMPLETO'·&&·!AREAS_CERTIFICADO.some((area)·=>·area.id·===·tipo)` with `␍⏎······tipo·!==·'CURSO_COMPLETO'·&&␍⏎······!AREAS_CERTIFICADO.some((area)·=>·area.id·===·tipo)␍⏎····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 55,
+        "column": 35,
+        "message": "Replace `'Solo·existen·certificados·de·las·cinco·áreas·y·del·curso·completo.'` with `␍⏎········'Solo·existen·certificados·de·las·cinco·áreas·y·del·curso·completo.',␍⏎······`"
+      },
+      {
+        "rule": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "line": 57,
+        "column": 25,
+        "message": "This assertion is unnecessary since it does not change the type of the expression."
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 57,
+        "column": 61,
+        "message": "Replace `(item)·=>·item.id·===·tipo` with `␍⏎······(item)·=>·item.id·===·tipo,␍⏎····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 59,
+        "column": 36,
+        "message": "Replace `'Completa·todas·las·lecciones·publicadas·para·descargar·este·certificado.'` with `␍⏎········'Completa·todas·las·lecciones·publicadas·para·descargar·este·certificado.',␍⏎······`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 62,
+        "column": 32,
+        "message": "Insert `␍⏎·····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 65,
+        "column": 33,
+        "message": "Insert `␍⏎·····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 67,
+        "column": 30,
+        "message": "Insert `␍⏎·····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 68,
+        "column": 48,
+        "message": "Insert `␍⏎·····`"
+      }
+    ]
+  },
+  {
+    "file": "backend/src/gamificacion/gamificacion.controller.ts",
+    "errors": 2,
+    "warnings": 0,
+    "messages": [
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 32,
+        "column": 29,
+        "message": "Replace `'Los·logros·son·insignias.·Los·certificados·se·entregan·solo·por·áreas·y·por·el·curso·completo.·Actualiza·la·aplicación.'` with `␍⏎······'Los·logros·son·insignias.·Los·certificados·se·entregan·solo·por·áreas·y·por·el·curso·completo.·Actualiza·la·aplicación.',␍⏎····`"
+      },
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 46,
+        "column": 49,
+        "message": "Replace `␍⏎······request.usuario.sub,␍⏎······tipo,␍⏎····` with `request.usuario.sub,·tipo`"
+      }
+    ]
+  },
+  {
+    "file": "backend/src/gamificacion/gamificacion.module.ts",
+    "errors": 1,
+    "warnings": 0,
+    "messages": [
+      {
+        "rule": "prettier/prettier",
+        "severity": 2,
+        "line": 11,
+        "column": 15,
+        "message": "Replace `GamificacionService,·CertificadosCursoService,·CertificadoHtmlService` with `␍⏎····GamificacionService,␍⏎····CertificadosCursoService,␍⏎····CertificadoHtmlService,␍⏎··`"
+      }
+    ]
+  },
+  {
+    "file": "backend/src/guardian/guardian.controller.spec.ts",
+    "errors": 6,
+    "warnings": 0,
+    "messages": [
+      {
+        "rule": "@typescript-eslint/no-unsafe-assignment",
+        "severity": 2,
+        "line": 14,
+        "column": 9,
+        "message": "Unsafe assignment of an `any` value."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-assignment",
+        "severity": 2,
+        "line": 19,
+        "column": 9,
+        "message": "Unsafe assignment of an `any` value."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-member-access",
+        "severity": 2,
+        "line": 19,
+        "column": 33,
+        "message": "Unsafe member access [2] on an `any` value."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-assignment",
+        "severity": 2,
+        "line": 33,
+        "column": 45,
+        "message": "Unsafe assignment of an `any` value."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-assignment",
+        "severity": 2,
+        "line": 38,
+        "column": 25,
+        "message": "Unsafe assignment of an `any` value."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-assignment",
+        "severity": 2,
+        "line": 46,
+        "column": 25,
+        "message": "Unsafe assignment of an `any` value."
+      }
+    ]
+  },
+  {
+    "file": "backend/src/guardian/guardian.rules.spec.ts",
+    "errors": 0,
+    "warnings": 4,
+    "messages": [
+      {
+        "rule": "@typescript-eslint/no-unsafe-argument",
+        "severity": 1,
+        "line": 15,
+        "column": 26,
+        "message": "Unsafe argument of type `any[]` assigned to a parameter of type `{ esCorrecta: boolean; }[]`."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-argument",
+        "severity": 1,
+        "line": 18,
+        "column": 26,
+        "message": "Unsafe argument of type `any[]` assigned to a parameter of type `{ esCorrecta: boolean; }[]`."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-argument",
+        "severity": 1,
+        "line": 23,
+        "column": 26,
+        "message": "Unsafe argument of type `any[]` assigned to a parameter of type `{ esCorrecta: boolean; }[]`."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-argument",
+        "severity": 1,
+        "line": 26,
+        "column": 26,
+        "message": "Unsafe argument of type `any[]` assigned to a parameter of type `{ esCorrecta: boolean; }[]`."
+      }
+    ]
+  },
+  {
+    "file": "backend/src/guardian/guardian.service.spec.ts",
+    "errors": 30,
+    "warnings": 7,
+    "messages": [
+      {
+        "rule": "@typescript-eslint/no-unsafe-assignment",
+        "severity": 2,
+        "line": 53,
+        "column": 11,
+        "message": "Unsafe assignment of an `any` value."
+      },
+      {
+        "rule": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "line": 85,
+        "column": 20,
+        "message": "This assertion is unnecessary since it does not change the type of the expression."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-return",
+        "severity": 2,
+        "line": 88,
+        "column": 54,
+        "message": "Unsafe return of a value of type `any`."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-member-access",
+        "severity": 2,
+        "line": 88,
+        "column": 56,
+        "message": "Unsafe member access .question on an `any` value."
+      },
+      {
+        "rule": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "line": 112,
+        "column": 16,
+        "message": "This assertion is unnecessary since it does not change the type of the expression."
+      },
+      {
+        "rule": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "line": 126,
+        "column": 12,
+        "message": "This assertion is unnecessary since it does not change the type of the expression."
+      },
+      {
+        "rule": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "line": 134,
+        "column": 16,
+        "message": "This assertion is unnecessary since it does not change the type of the expression."
+      },
+      {
+        "rule": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "line": 135,
+        "column": 20,
+        "message": "This assertion is unnecessary since it does not change the type of the expression."
+      },
+      {
+        "rule": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "line": 149,
+        "column": 20,
+        "message": "This assertion is unnecessary since it does not change the type of the expression."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-assignment",
+        "severity": 2,
+        "line": 150,
+        "column": 11,
+        "message": "Unsafe assignment of an `any` value."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-member-access",
+        "severity": 2,
+        "line": 150,
+        "column": 51,
+        "message": "Unsafe member access .question on an `any` value."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-argument",
+        "severity": 1,
+        "line": 152,
+        "column": 51,
+        "message": "Unsafe argument of type `any` assigned to a parameter of type `string`."
+      },
+      {
+        "rule": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "line": 156,
+        "column": 23,
+        "message": "This assertion is unnecessary since it does not change the type of the expression."
+      },
+      {
+        "rule": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "line": 165,
+        "column": 31,
+        "message": "This assertion is unnecessary since it does not change the type of the expression."
+      },
+      {
+        "rule": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "line": 194,
+        "column": 16,
+        "message": "This assertion is unnecessary since it does not change the type of the expression."
+      },
+      {
+        "rule": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "line": 217,
+        "column": 11,
+        "message": "This assertion is unnecessary since it does not change the type of the expression."
+      },
+      {
+        "rule": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "line": 234,
+        "column": 25,
+        "message": "This assertion is unnecessary since it does not change the type of the expression."
+      },
+      {
+        "rule": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "line": 234,
+        "column": 25,
+        "message": "This assertion is unnecessary since it does not change the type of the expression."
+      },
+      {
+        "rule": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "line": 247,
+        "column": 22,
+        "message": "This assertion is unnecessary since it does not change the type of the expression."
+      },
+      {
+        "rule": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "line": 257,
+        "column": 5,
+        "message": "This assertion is unnecessary since it does not change the type of the expression."
+      },
+      {
+        "rule": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "line": 261,
+        "column": 18,
+        "message": "This assertion is unnecessary since it does not change the type of the expression."
+      },
+      {
+        "rule": "@typescript-eslint/require-await",
+        "severity": 2,
+        "line": 331,
+        "column": 32,
+        "message": "Async arrow function has no 'await' expression."
+      },
+      {
+        "rule": "@typescript-eslint/require-await",
+        "severity": 2,
+        "line": 334,
+        "column": 42,
+        "message": "Async arrow function has no 'await' expression."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-argument",
+        "severity": 1,
+        "line": 337,
+        "column": 26,
+        "message": "Unsafe argument of type `any` assigned to a parameter of type `ArrayLike<unknown> | { [s: string]: unknown; }`."
+      },
+      {
+        "rule": "@typescript-eslint/require-await",
+        "severity": 2,
+        "line": 341,
+        "column": 38,
+        "message": "Async arrow function has no 'await' expression."
+      },
+      {
+        "rule": "@typescript-eslint/require-await",
+        "severity": 2,
+        "line": 355,
+        "column": 45,
+        "message": "Async arrow function has no 'await' expression."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-assignment",
+        "severity": 2,
+        "line": 356,
+        "column": 13,
+        "message": "Unsafe assignment of an `any` value."
+      },
+      {
+        "rule": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "line": 356,
+        "column": 24,
+        "message": "This assertion is unnecessary since it does not change the type of the expression."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-argument",
+        "severity": 1,
+        "line": 356,
+        "column": 33,
+        "message": "Unsafe argument of type `any` assigned to a parameter of type `string`."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-member-access",
+        "severity": 2,
+        "line": 356,
+        "column": 39,
+        "message": "Unsafe member access .id on an `any` value."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-argument",
+        "severity": 1,
+        "line": 357,
+        "column": 16,
+        "message": "Unsafe argument of type `any` assigned to a parameter of type `string`."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-member-access",
+        "severity": 2,
+        "line": 357,
+        "column": 20,
+        "message": "Unsafe member access .id on an `any` value."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-argument",
+        "severity": 1,
+        "line": 357,
+        "column": 24,
+        "message": "Unsafe argument of type `any` assigned to a parameter of type `{ id: string; area: AreaIcfes; preguntas: JsonValue; dificultad: Dificultad; respuestas: JsonValue; subtemaId: string; usuarioId: string; estado: string; version: number; finalizadoEn: Date; creadoEn: Date; venceEn: Date; }`."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-return",
+        "severity": 2,
+        "line": 358,
+        "column": 7,
+        "message": "Unsafe return of a value of type `any`."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-argument",
+        "severity": 1,
+        "line": 386,
+        "column": 56,
+        "message": "Unsafe spread of an `any[]` array type."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-argument",
+        "severity": 1,
+        "line": 393,
+        "column": 69,
+        "message": "Unsafe spread of an `any[]` array type."
+      },
+      {
+        "rule": "@typescript-eslint/no-unsafe-return",
+        "severity": 2,
+        "line": 398,
+        "column": 7,
+        "message": "Unsafe return of a value of type `any`."
+      }
+    ]
+  },
+  {
+    "file": "backend/src/guardian/guardian.service.ts",
+    "errors": 3,
+    "warnings": 0,
+    "messages": [
+      {
+        "rule": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "line": 134,
+        "column": 28,
+        "message": "This assertion is unnecessary since it does not change the type of the expression."
+      },
+      {
+        "rule": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "line": 144,
+        "column": 22,
+        "message": "This assertion is unnecessary since the receiver accepts the original type of the expression."
+      },
+      {
+        "rule": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "line": 210,
+        "column": 23,
+        "message": "This assertion is unnecessary since the receiver accepts the original type of the expression."
+      }
+    ]
+  }
+]
