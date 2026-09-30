@@ -1,5 +1,7 @@
 # Relevo del equipo — empezar aquí
 
+**Relevo PR-I1 del 30 de septiembre — estado vigente:** [diseño `xpRulesVersion = 1` y precisiones resueltos, sección 12](PR_I1_AUDITORIA_FORMULAS.md#12-diseño-numérico-aprobado--xprulesversion--1). Half-up, Q=10..30 inmutable, R por disponibilidad activa y acciones/presencia definidos. Tira por abandono usa Qpartida, no R; penalización atómica con saldos y secuencia. No quedan ambigüedades de producto identificadas; bloqueos de 12.7 son requisitos técnicos previos a habilitación. Rama Flutter `docs/pr-i1-auditoria-formulas`, HEAD `93ef500`; backend `main` / `fb27225`. **DETENERSE: no implementar código/runtime/Prisma/migraciones/endpoints/ledger/balances, no commit ni push, no PR-I2.** PR-I1 sigue abierto. No volver a pedir aprobación de reglas resueltas. 84 pruebas backend y 69 Flutter son de la auditoría inicial, no de V1 implementada. Conservar cambios previos en `pubspec.yaml` y `pubspec.lock`. Los datos e instrucciones inferiores son históricos y no amplían la autorización.
+
 Actualizado: 28 de septiembre de 2026. Encargo del propietario: los compañeros
 pueden auditar y continuar las etapas acordadas mientras él no esté trabajando.
 Esta guía es la ruta operativa; no certifica una auditoría completa del código.
