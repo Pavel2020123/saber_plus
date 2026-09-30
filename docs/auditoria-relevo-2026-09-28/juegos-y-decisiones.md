@@ -1,0 +1,82 @@
+# Ocho juegos y decisiones previas a PR-I1
+
+Revisión del código en los HEAD identificados en el informe principal. «Autoritativo» describe el cálculo del servidor, no acredita despliegue, resistencia a todas las trampas ni autorización para activar un ranking. Las pruebas actuales son unitarias; no se ejecutaron partidas entre dispositivos.
+
+## Matriz competitiva
+
+| Juego | Backend autoritativo | Intento persistido | Respuestas | Resultado servidor | XP | Fuente XP | Idempotencia | Ayudas | Offline | Replay | Evidencia histórica | Apto competitivo actualmente | Razón |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Trivia Rush | Sí, modo remoto | IntentoTriviaRush y preguntas | TriviaRushRespuesta | Puntaje, combo, aciertos y tiempos servidor | No concede XP general ni competitivo | Ninguna liquidación XP localizada | UUID de operación, restricciones únicas y comparación de reenvío | Potenciadores con concesión validada; marca asistido | Demo local; remoto requiere red | Recuperación del intento y respuestas; no premio por reenvío | Intentos, versión de reglas, asistido, respuestas | No; candidato técnico | Falta regla de XP, elegibilidad, temporada y libro de aportes |
+| Duelo fantasma | Motor remoto de Trivia Rush | Comparte IntentoTriviaRush | Comparte respuestas de Trivia | Fantasma derivado del mejor intento no asistido, no puntaje subido por cliente | No | Ninguna | Hereda motor Trivia | Fantasma excluye asistidos; hay que decidir elegibilidad del desafío | Récord demo en preferencias; competitivo no | Checkpoints del intento anterior | Existe historial Trivia, sin identidad persistida de juego Fantasma separada | No | No atribuir el mismo intento a dos juegos sin decisión; definir modos comparables |
+| Salto a la cima | Sí, remoto | IntentoCima, snapshot JSON | JSON del intento | Reglas: meta 5, máximo 12 preguntas, avance/retroceso | No | Ninguna | Bloqueo transaccional, clave de operación y recuperación | Sin concesión competitiva de ayudas localizada | Demo local; remoto no | Reenvío/reanudación; no reconstrucción audiovisual | Intento, versión, tiempos y snapshot | No; candidato técnico | Reglas XP y elegibilidad pendientes; ensayo PostgreSQL/dispositivo pendiente |
+| Tira y afloja | Sí, online; CPU es local | PartidaTiraAfloja | TiraAflojaRespuesta | Cuerda, rondas, ganador y eventos versionados | No | Ninguna | Clave de respuesta, único por ronda/usuario y evento/versión | CPU y online deben separarse | CPU local; online exige conexión | Sincronización desde versión y recuperación de sala | Preguntas, respuestas, eventos, fechas | No | P1 de privacidad; además faltan XP competitivo y criterios de desconexión/abandono |
+| Guardián | Sí, remoto | IntentoGuardian | Snapshot/respuestas JSON | 8 preguntas, objetivo 6 aciertos, 3 escudos | No | Ninguna | Claves de operación y bloqueo del intento/usuario | Escudos forman parte de reglas; no confundir con ayuda externa | Demo local; remoto no | Recuperación/reenvío | Estado e historial dentro del intento | No; candidato técnico | Reglas competitivas y prueba de integración pendientes |
+| Memoria | No | Sin intento backend | Locales | No | No XP remoto | Ninguna | No hay recibo de resultado servidor | Reglas locales | Sí, con contenido disponible | Reinicio local | Sin evidencia competitiva servidor | No | Cliente controla partida/resultado; no convertir puntaje local en XP verificable |
+| Batallas | Sí | Batalla, participantes y preguntas | BatallaRespuesta | Ganador/empate, resultado y XP | General: 40 victoria / 25 empate / 15 derrota; +10 perfecta si elegible | BatallaParticipante.xpGanado y Usuario.xpTotal | CAS xpLiquidadoEn, únicos de respuestas; liquidación transaccional | Sin ayudas competitivas localizadas; modos difieren | Remoto requiere red | Recuperación de estado; respuestas y liquidación protegidas | Respuestas, participantes, estadísticas, bloqueos/reportes | No para nuevo PR-I2; base más cercana | XP actual no es un libro competitivo por temporada. Validar concurrencia del cupo entre partidas distintas |
+| Rescate de estrellas | Sí, remoto | IntentoRescateEstrellas, snapshot JSON | JSON del intento | Objetivo 6 estrellas, máximo 10 preguntas, constelaciones de 3; fallo no resta | No | Ninguna | Claves, bloqueo y único parcial de intento activo | No concesión de ayuda localizada | Demo local; remoto no | Recuperación/reenvío | Versión, snapshot y resultado | No; candidato técnico | Mismas decisiones de XP/temporada y evidencia de integración pendientes |
+
+Batallas: máximo 5 partidas premiadas en las últimas 24 horas y menos de 2 enfrentamientos finalizados previos contra ese rival en esa ventana. La comparación del rival cuenta partidas finalizadas, no solamente premiadas. El CAS impide doble liquidación de **la misma** batalla; no demuestra exclusión mutua de cupos en dos batallas distintas del mismo usuario. Es una hipótesis de concurrencia a probar en PostgreSQL, no una explotación reproducida.
+
+## Trazas concretas
+
+Todas las rutas/símbolos HTTP, DTO y guards están en [endpoints.md](endpoints.md). Los archivos siguientes son relativos a `lib/` en Flutter y `backend/src/` en Backend.
+
+| Juego | Cadena Flutter → transporte → backend → persistencia |
+|---|---|
+| Trivia Rush | features/games/trivia_rush/presentation/trivia_rush_providers.dart → data/remote_trivia_rush_repository.dart → /trivia-rush/intentos → TriviaRushController (JwtGuard + EmailVerificadoGuard; validación ESTUDIANTE en servicio al crear) → TriviaRushService → modelos TriviaRush*. Presentación de resultado no incrementa xpTotal |
+| Fantasma | features/games/ghost_duel/presentation/ghost_duel_providers.dart → data/remote_ghost_duel_repository.dart → /trivia-rush/fantasma + motor Trivia Rush → TriviaRushService.obtenerFantasma → IntentoTriviaRush/TriviaRushRespuesta. saveIfBetter remoto verifica leyendo servidor; SharedPreferencesGhostDuelRepository es demo |
+| Cima | features/games/summit/presentation/summit_providers.dart → data/remote_summit_repository.dart → SummitController → SummitService → IntentoCima. Guards declarados en matriz B; ownership dentro del servicio; summit.rules.ts calcula transición |
+| Tira | features/games/tug_of_war/presentation/tug_of_war_providers.dart → data/tug_realtime_client.dart → HTTP /tira-afloja y namespace Socket.IO /tira-afloja → TiraAflojaController/Gateway → TiraAflojaService → PartidaTiraAfloja y tablas de eventos/respuestas. Autenticación en handshake; pertenencia en cada operación del servicio |
+| Guardián | features/games/guardian/data/guardian_repository.dart → GuardianController → GuardianService → IntentoGuardian; guardian.rules.ts. Separación explícita de demo_guardian_repository.dart |
+| Memoria | features/games/memory_match/presentation/memory_match_setup_page.dart → memory_match_page.dart → domain/memory_match_models.dart y contenido local. No controller/Prisma/XP correspondiente |
+| Batallas | features/battles/presentation/battle_providers.dart → data/remote_battle_repository.dart → BatallasController → BatallasService → BatallaPregunta/BatallaRespuesta/BatallaParticipante → liquidación CAS → xpTotal y BatallaEstadistica |
+| Rescate | features/games/star_rescue/presentation/star_rescue_providers.dart → data/remote_star_rescue_repository.dart → StarRescueController → StarRescueService → IntentoRescateEstrellas; star-rescue.rules.ts |
+
+El servidor de Fantasma selecciona intentos FINALIZADO/EXPIRADO del mismo usuario, áreas, duración y versión; exige asistido=false y ordena por puntaje, aciertos, mejor combo y fecha final. Reconstruye checkpoints con puntos/tiempos persistidos. Esto verifica el récord, pero no crea una segunda competición independiente.
+
+## Matriz de decisiones
+
+Fuente de acuerdos/propuestas: [PERFILES_RANKINGS_INSIGNIAS.md](../PERFILES_RANKINGS_INSIGNIAS.md), [INSIGNIAS_Y_JUEGOS_VIGENTES.md](../INSIGNIAS_Y_JUEGOS_VIGENTES.md) y [ETAPAS_PENDIENTES.md](../ETAPAS_PENDIENTES.md). CONFIRMADO significa alcance documental ya acordado, no implementación. PROPUESTO sigue necesitando aceptación. Esta tabla no diseña migraciones ni implementa PR-I1.
+
+| Regla | Estado | Comportamiento actual | Propuesta documentada | Decisión necesaria | Impacto técnico | Evidencia |
+|---|---|---|---|---|---|---|
+| XP Trivia Rush | NECESITA DECISIÓN | Puntaje servidor, XP=sin concesión | XP competitivo propio | Fórmula, duración/dificultad y límites de repetición | Registro de aporte verificable | TriviaRushService |
+| XP Fantasma | NECESITA DECISIÓN | Comparte intento Trivia; sin XP | Ranking propio cuando verificable | Qué evento pertenece a Fantasma; evitar doble atribución | Identidad de modo y elegibilidad | obtenerFantasma |
+| XP Cima | NECESITA DECISIÓN | Resultado sin XP | Competitivo separado | Fórmula por victoria/avance/fallo/repetición | Liquidación por intento | SummitService |
+| XP Tira | NECESITA DECISIÓN | Online/CPU, sin XP | Solo partidas verificables | Victoria/empate/abandono, CPU y desconexión | Elegibilidad + reparación privacidad previa | TiraAflojaService |
+| XP Guardián | NECESITA DECISIÓN | Resultado sin XP | Competitivo separado | Puntuar aciertos, escudos y derrota | Regla versionada | GuardianService |
+| XP Memoria | NECESITA DECISIÓN | Solo local | No conceder por resultado no verificable | Excluir inicialmente o desarrollar autoridad antes | Motor/persistencia si entra | memory_match_page.dart |
+| XP Batallas | NECESITA DECISIÓN | XP general 40/25/15 +10 | Separar competitivo | Reutilizar o cambiar fórmula/cupos/modos | No reinterpretar XP histórico automáticamente | liquidación BatallasService |
+| XP Rescate | NECESITA DECISIÓN | Resultado sin XP | Competitivo separado | Fórmula, derrota y repetición | Regla versionada | StarRescueService |
+| General vs competitivo | PROPUESTO | xpTotal mezcla actividades; no saldo por juego | Separar y preservar general | Confirmar separación y reglas de suma | Contabilidad específica por juego | RankingService; perfiles §reglas 2 |
+| Ayudas | PROPUESTO | Trivia marca asistido; concesiones | Excluir ayudas que alteran competencia | Precisar cuáles, por juego; tratamiento recreativo | Elegibilidad auditable | TriviaRushPotenciador |
+| Offline | PROPUESTO | Demos/local; colas de estudio y repaso | Excluir resultados no verificables | Confirmar exclusión; reconexión no equivale a offline válido | No confiar en puntaje cliente | repositorios demo/remotos |
+| Partida verificable | PROPUESTO | Grados de evidencia distintos | Servidor concede una vez | Mínimos: intento, respuestas, versión, tiempos, cierre | Condición previa a activar juego | Matriz competitiva |
+| Top 50 | CONFIRMADO | Flutter pide 50, API admite 100 | Top 50; propia fuera del top | No requiere reabrir alcance; falta ajustar contrato en fase autorizada | Límite servidor y tests | DTO ranking; perfiles alcance |
+| Ranking global por juego | CONFIRMADO | Global de XP general | Separado por juego | Reglas específicas aún pendientes | Contrato nuevo/versionado | perfiles alcance |
+| Ranking institucional | PROPUESTO | Estudiantes de institución actual | Suma de aportes ganados siendo miembro; promedio complementario | Confirmar suma, muestra mínima y participantes activos | Agregados y atribución histórica | perfiles regla 7 |
+| Semana/mes | NECESITA DECISIÓN | Ventanas móviles 7/30 días | Vistas informativas, sin colección permanente | Móviles o calendario; mantenerlas y significado | Límites temporales explícitos | obtenerFechaDesde |
+| Temporada anual | PROPUESTO | No existe entidad de temporada | Ranking del año y consulta histórica | Fechas y tratamiento del primer año parcial | Identidad/versionado de temporada | perfiles regla 1 |
+| Cierre anual | PROPUESTO | No hay cierre ni premios | Puesto al cierre, no puesto alcanzado momentáneamente | Confirmar regla y plazo de revisión | Cierre idempotente y snapshot | perfiles regla 5 |
+| Zona horaria | PROPUESTO | Date servidor; no cierre anual | America/Bogota | Confirmar para frontera anual y filtros | Conversión de fechas verificable | perfiles regla 5 |
+| Reinicio | PROPUESTO | xpTotal acumulado | Competitivo anual vuelve a cero; total/historial permanecen | Confirmar | Consulta por temporada; no borrar historial | perfiles regla 5 |
+| XP histórico | PROPUESTO | General e intentos de juegos distintos | No inventar XP competitivo pasado | Arranque sin retroactividad o criterios verificables explícitos | Migración solo tras decisión | perfiles regla 3 |
+| Desempate | PROPUESTO | Posiciones compartidas 1,1,3; orden alias | Primero quien alcanzó XP, luego clave estable | Confirmar si se eliminan puestos compartidos | Registrar tiempo de alcance/correcciones | perfiles regla 4 |
+| Insignias | CONFIRMADO | Catálogo 90 imágenes, no concesiones | Ocho juegos + institución; diez rangos hasta 50; anuales acumulables | Mecánica de cierre pendiente | Concesión e historial aún inexistentes | INSIGNIAS_Y_JUEGOS_VIGENTES |
+| Mostrar todas | CONFIRMADO | Catálogo visual | Todas las obtenidas, sin máximo tres; años anteriores visibles | Ninguna sobre límite; UI posterior | Consulta por juego/año | perfiles alcance |
+| Invalidación | NECESITA DECISIÓN | No libro competitivo corregible | Correcciones auditadas | Quién, razones, plazos, apelación y efecto en premios | Trazabilidad/reversión | perfiles regla 5 |
+| Correcciones tras cierre | NECESITA DECISIÓN | No existe | No duplicar ni borrar silenciosamente premios | Revocar/reemitir; notificar; recalcular terceros | Versiones del cierre | perfiles regla 5 |
+| Institución al ganar XP | PROPUESTO | Membresía actual mueve ámbito de XP pasado | Congelar institución del aporte | Confirmar y tratamiento de sin institución | Atribución temporal | RankingService |
+| Cambio/salida de institución | NECESITA DECISIÓN | Gestión actual de membresía/grupos | Sin traslado de XP histórico | Frecuencia, solicitud, capacidad, grupo y aportes | Transacciones y auditoría | perfiles reglas 7/10 |
+| Privacidad académica | CONFIRMADO | Ranking privado por alias; Tira filtra nombre | Nombre certificado/correo/diagnósticos privados | Resolver P1; identidad pública separada | DTO y controles de exposición | perfiles regla 6 |
+| @usuario | CONFIRMADO | No hay identificador público único | Buscar por @usuario/nombre público | Normalización, reservados, cambios y reutilización | Unicidad y moderación | perfiles descubrimiento |
+| Perfil público | CONFIRMADO | No existe | Visibilidad controlada; cuentas actuales no públicas automáticamente | Valores iniciales, audiencia y reportes/bloqueo | Contrato nuevo; no ampliar ranking v1 silenciosamente | perfiles descubrimiento |
+| Profesor/admin como jugador | CONFIRMADO | Ranking filtra ESTUDIANTE | Profesor con perfil funcional, no jugador | Aclarar derechos de consulta; no participación competitiva | Autorización uniforme por juego | RankingService; perfiles |
+| Directorio institucional | CONFIRMADO | No directorio público nuevo completo | Aprobadas y activas, nombre/ubicación/tipo | Campos públicos y búsqueda normalizada | Paginación, privacidad | perfiles alcance |
+| Código institucional privado | CONFIRMADO | Códigos actuales son de grupo | Código separado controlado por propietario | Vigencia, cupos, usos, rotación, intentos | Hash, consumo atómico; no publicar código | perfiles regla 9 |
+| Permisos de grupo existentes | NECESITA DECISIÓN | También profesores asignados/administradores | No restringir silenciosamente | Mantener o migrar permisos de códigos de grupo | Compatibilidad y comunicación | perfiles regla 9 |
+| Logo/identidad institucional | CONFIRMADO | API permite propietario/administrador | Solo propietario actual | Transferencia, eliminación y Storage pendientes | Ajuste permisos y archivos en fase autorizada | perfiles alcance; logo-upload |
+| Solicitudes estudiantiles | CONFIRMADO | Solicitudes existentes son del equipo docente | Alumno solicita; propietario decide | Delegación a administradores; plazos; una activa | Estados, capacidad, notificación privada | perfiles regla 8 |
+| Primeros juegos PR-I2 | NECESITA DECISIÓN | Ninguno tiene contrato competitivo anual | Activar solo motores verificables | Elegir subconjunto tras cerrar XP; no prometer ocho simultáneos | Ensayos y activación por juego | Matriz competitiva |
+
+Antes de diseñar PR-I1, responder las filas NECESITA DECISIÓN y aceptar/modificar las PROPUESTO. No se ha convertido ninguna propuesta en acuerdo.

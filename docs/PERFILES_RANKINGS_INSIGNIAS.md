@@ -56,7 +56,10 @@ públicos. PR-I3 completo NO queda cerrado con este catálogo visual.
 
 ## Lo existente y lo que debemos extender
 
-El ranking actual es global/institucional, por semana/mes/total, hasta 50 entradas,
+El ranking actual es global/institucional, por semana/mes/total. Flutter solicita
+50 entradas, pero la auditoría de relevo comprobó que el DTO backend permite hasta
+100; el máximo acordado de 50 todavía no está impuesto en el servidor. Ver
+[evidencia del relevo](AUDITORIA_RELEVO_2026-09-28.md). El ranking responde
 con alias y XP; no expone perfiles públicos ni identifica cuentas ajenas. Su contrato
 Flutter rechaza campos extra. Se necesita un contrato nuevo/versionado, no añadir
 datos públicos a ese contrato silenciosamente.

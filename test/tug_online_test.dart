@@ -13,6 +13,51 @@ import 'package:saber_plus/features/games/tug_of_war/presentation/tug_online_pag
 import 'package:saber_plus/features/games/tug_of_war/presentation/animation/tug_arena.dart';
 
 void main() {
+  test(
+    'referencias A/B permiten ganador y presencia sin identidad privada',
+    () async {
+      final client = _FakeRealtimeClient();
+      final controller = TugOnlineController(client);
+      for (final side in ['A', 'B']) {
+        final other = side == 'A' ? 'B' : 'A';
+        final payload = _snapshotJson(
+          status: 'FINALIZADA',
+          side: side,
+          result: 'JUGADOR_$side',
+          winnerId: side,
+          rival: true,
+        );
+        final match = payload['partida'] as Map<String, dynamic>;
+        match['yo'] = {
+          'id': side,
+          'nombre': 'Jugador $side',
+          'fotoPerfil': null,
+        };
+        match['rival'] = {
+          'id': other,
+          'nombre': 'Jugador $other',
+          'fotoPerfil': null,
+        };
+        final snapshot = TugOnlineSnapshot.fromJson(payload);
+        expect(snapshot.winner, TugWinner.player);
+        expect(snapshot.me.avatarUrl, isNull);
+        expect(snapshot.rival?.avatarUrl, isNull);
+        expect(snapshot.rival?.name, 'Jugador $other');
+        client.add(TugRealtimeState(snapshot));
+        await _flush();
+        client.add(TugRealtimePresence(userId: other, connected: false));
+        await _flush();
+        expect(controller.state.rivalConnected, isFalse);
+        client.add(TugRealtimePresence(userId: other, connected: true));
+        await _flush();
+        expect(controller.state.rivalConnected, isTrue);
+        match['ganadorId'] = other;
+        expect(TugOnlineSnapshot.fromJson(payload).winner, TugWinner.cpu);
+      }
+      controller.dispose();
+    },
+  );
+
   test('construye la ruta del multijugador con filtro de área', () {
     const config = TugOnlineConfig(area: AcademicArea.mathematics);
     final restored = TugOnlineConfig.tryFromUri(

@@ -1,0 +1,6333 @@
+[
+  {
+    "file": "Flutter:README.md",
+    "line": 27,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:README.md",
+    "line": 42,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:README.md",
+    "line": 48,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:README.md",
+    "line": 58,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:README.md",
+    "line": 134,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:README.md",
+    "line": 162,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:README.md",
+    "line": 165,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:README.md",
+    "line": 191,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:android/app/build.gradle.kts",
+    "line": 19,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:android/app/build.gradle.kts",
+    "line": 32,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:assets/data/reference_library.json",
+    "line": 57,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ADMIN_PANEL.md",
+    "line": 13,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ADMIN_PANEL.md",
+    "line": 46,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ADMIN_PANEL.md",
+    "line": 60,
+    "tags": [
+      "todo",
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ADMIN_PANEL.md",
+    "line": 72,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ADMIN_PANEL.md",
+    "line": 80,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ADMIN_PANEL.md",
+    "line": 96,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ADMIN_PANEL.md",
+    "line": 151,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ADMIN_PANEL.md",
+    "line": 177,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ADMIN_PANEL.md",
+    "line": 197,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ADMIN_PANEL.md",
+    "line": 203,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ADMIN_PANEL.md",
+    "line": 225,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ARQUITECTURA_Y_ESTRUCTURA.md",
+    "line": 17,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ARQUITECTURA_Y_ESTRUCTURA.md",
+    "line": 44,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ARQUITECTURA_Y_ESTRUCTURA.md",
+    "line": 89,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ARQUITECTURA_Y_ESTRUCTURA.md",
+    "line": 112,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ARQUITECTURA_Y_ESTRUCTURA.md",
+    "line": 199,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ARQUITECTURA_Y_ESTRUCTURA.md",
+    "line": 216,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ARQUITECTURA_Y_ESTRUCTURA.md",
+    "line": 293,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ARQUITECTURA_Y_ESTRUCTURA.md",
+    "line": 297,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/AUDITORIA_DATOS_2026-09-09.md",
+    "line": 32,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/AUDITORIA_PROYECTO_2026-09-09.md",
+    "line": 37,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/AUDITORIA_PROYECTO_2026-09-09.md",
+    "line": 52,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/AUDITORIA_UX_2026-09-09.md",
+    "line": 43,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/AUDITORIA_UX_2026-09-09.md",
+    "line": 50,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/AUTH_CONTRACT.md",
+    "line": 7,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/BUSINESS_MODEL.md",
+    "line": 40,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/COBERTURA_DEL_BANCO.md",
+    "line": 20,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/COBERTURA_DEL_BANCO.md",
+    "line": 24,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/COBERTURA_DEL_BANCO.md",
+    "line": 28,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/COBERTURA_DEL_BANCO.md",
+    "line": 30,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/CONCILIACION_ROADMAP.md",
+    "line": 28,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/CONCILIACION_ROADMAP.md",
+    "line": 41,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/CONTENT_ADMINISTRATION.md",
+    "line": 96,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/CONTENT_ADMINISTRATION.md",
+    "line": 101,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/CONTENT_ADMINISTRATION.md",
+    "line": 112,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/CONTENT_ADMINISTRATION.md",
+    "line": 114,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/CONTENT_ADMINISTRATION.md",
+    "line": 119,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/CONTENT_ADMINISTRATION.md",
+    "line": 126,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ESCUDO_DEL_CONOCIMIENTO.md",
+    "line": 11,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ESCUDO_DEL_CONOCIMIENTO.md",
+    "line": 12,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ESCUDO_DEL_CONOCIMIENTO.md",
+    "line": 28,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ESCUDO_DEL_CONOCIMIENTO.md",
+    "line": 33,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ESCUDO_DEL_CONOCIMIENTO.md",
+    "line": 37,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ESCUDO_DEL_CONOCIMIENTO.md",
+    "line": 41,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ESCUDO_DEL_CONOCIMIENTO.md",
+    "line": 47,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ESCUDO_DEL_CONOCIMIENTO.md",
+    "line": 53,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ESCUDO_DEL_CONOCIMIENTO.md",
+    "line": 94,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ESCUDO_DEL_CONOCIMIENTO.md",
+    "line": 95,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ESCUDO_DEL_CONOCIMIENTO.md",
+    "line": 133,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ETAPAS_PENDIENTES.md",
+    "line": 46,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ETAPAS_PENDIENTES.md",
+    "line": 109,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ETAPAS_PENDIENTES.md",
+    "line": 112,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ETAPAS_PENDIENTES.md",
+    "line": 170,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ETAPAS_PENDIENTES.md",
+    "line": 172,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ETAPAS_PENDIENTES.md",
+    "line": 271,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ETAPAS_PENDIENTES.md",
+    "line": 272,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ETAPAS_PENDIENTES.md",
+    "line": 281,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ETAPAS_PENDIENTES.md",
+    "line": 304,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ETAPAS_PENDIENTES.md",
+    "line": 325,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ETAPAS_PENDIENTES.md",
+    "line": 337,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ETAPAS_PENDIENTES.md",
+    "line": 348,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ETAPAS_PENDIENTES.md",
+    "line": 372,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ETAPAS_PENDIENTES.md",
+    "line": 479,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ETAPAS_PENDIENTES.md",
+    "line": 567,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ETAPAS_PENDIENTES.md",
+    "line": 642,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/FLASHCARDS.md",
+    "line": 32,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/FLUTTER_STAGING_CONNECTION.md",
+    "line": 19,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/FLUTTER_STAGING_CONNECTION.md",
+    "line": 40,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/FUNCIONALIDADES_PARA_EL_EQUIPO.md",
+    "line": 26,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/FUNCIONALIDADES_PARA_EL_EQUIPO.md",
+    "line": 72,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/FUNCIONALIDADES_PARA_EL_EQUIPO.md",
+    "line": 140,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/FUNCIONALIDADES_PARA_EL_EQUIPO.md",
+    "line": 141,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/FUNCIONALIDADES_PARA_EL_EQUIPO.md",
+    "line": 235,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/FUNCIONALIDADES_PARA_EL_EQUIPO.md",
+    "line": 255,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/FUNCIONALIDADES_PARA_EL_EQUIPO.md",
+    "line": 262,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/GAMES_PRODUCTION_CHECKLIST.md",
+    "line": 35,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/GAME_POLISH_GUARDIAN.md",
+    "line": 39,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/GAME_POLISH_GUARDIAN.md",
+    "line": 59,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/GAME_POLISH_GUARDIAN.md",
+    "line": 61,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/GAME_POLISH_GUARDIAN.md",
+    "line": 70,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/GAME_POLISH_GUARDIAN.md",
+    "line": 97,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/GAME_POLISH_GUARDIAN.md",
+    "line": 126,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/GUIA_TRABAJO_COMPANEROS.md",
+    "line": 164,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/GUIA_TRABAJO_COMPANEROS.md",
+    "line": 171,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/GUIA_TRABAJO_COMPANEROS.md",
+    "line": 275,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/GUIA_TRABAJO_COMPANEROS.md",
+    "line": 300,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/HISTORIAL_ETAPAS.md",
+    "line": 27,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/HISTORIAL_ETAPAS.md",
+    "line": 51,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/HISTORIAL_ETAPAS.md",
+    "line": 59,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/HISTORIAL_ETAPAS.md",
+    "line": 184,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/HISTORIAL_ETAPAS.md",
+    "line": 192,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/HISTORIAL_ETAPAS.md",
+    "line": 196,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/HISTORIAL_ETAPAS.md",
+    "line": 235,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/HISTORIAL_ETAPAS.md",
+    "line": 236,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/HISTORIAL_ETAPAS.md",
+    "line": 241,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/HISTORIAL_ETAPAS.md",
+    "line": 418,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/HISTORIAL_ETAPAS.md",
+    "line": 421,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/LEARNING_EVIDENCE.md",
+    "line": 27,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/LEARNING_EVIDENCE.md",
+    "line": 47,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/LEARNING_EVIDENCE.md",
+    "line": 50,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/LEARNING_EVIDENCE.md",
+    "line": 55,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/MAPA_APRENDIZAJE.md",
+    "line": 9,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/MAPA_APRENDIZAJE.md",
+    "line": 37,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/MAPA_APRENDIZAJE.md",
+    "line": 47,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/MAPA_APRENDIZAJE.md",
+    "line": 62,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/MAPA_APRENDIZAJE.md",
+    "line": 63,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/MAPA_APRENDIZAJE.md",
+    "line": 76,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/MAPA_APRENDIZAJE.md",
+    "line": 77,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/MAPA_APRENDIZAJE.md",
+    "line": 97,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROFESOR_P2.md",
+    "line": 24,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROFESOR_P3_A.md",
+    "line": 41,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROFESOR_P3_A.md",
+    "line": 48,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROFESOR_P3_A.md",
+    "line": 49,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROFESOR_P3_B.md",
+    "line": 18,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROFESOR_P3_B.md",
+    "line": 24,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROFESOR_P3_B.md",
+    "line": 46,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROFESOR_P3_B.md",
+    "line": 58,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROFESOR_P3_B.md",
+    "line": 72,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROFESOR_P4_A.md",
+    "line": 34,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROFESOR_P4_A.md",
+    "line": 39,
+    "tags": [
+      "demo",
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROFESOR_P4_A.md",
+    "line": 40,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROFESOR_P4_B.md",
+    "line": 40,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROFESOR_P4_B.md",
+    "line": 71,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROFESOR_P4_B.md",
+    "line": 85,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROFESOR_P4_C.md",
+    "line": 35,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROFESOR_P4_C.md",
+    "line": 39,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROFESOR_P4_C.md",
+    "line": 40,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROFESOR_P4_C.md",
+    "line": 41,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROFESOR_P4_C.md",
+    "line": 46,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROMPT_RELEVO.md",
+    "line": 28,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROMPT_RELEVO.md",
+    "line": 29,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROMPT_RELEVO.md",
+    "line": 76,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/PROMPT_RELEVO.md",
+    "line": 96,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/RELEVO_EQUIPO.md",
+    "line": 39,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/RELEVO_EQUIPO.md",
+    "line": 46,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/RELEVO_EQUIPO.md",
+    "line": 107,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/RELEVO_EQUIPO.md",
+    "line": 110,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/RELEVO_EQUIPO.md",
+    "line": 158,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/RELEVO_EQUIPO.md",
+    "line": 183,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/RELEVO_EQUIPO.md",
+    "line": 194,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/RELEVO_EQUIPO.md",
+    "line": 219,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/RELEVO_EQUIPO.md",
+    "line": 386,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/RELEVO_EQUIPO.md",
+    "line": 420,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/RELEVO_EQUIPO.md",
+    "line": 467,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/RELEVO_EQUIPO.md",
+    "line": 469,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/REPASO_DIFERIDO.md",
+    "line": 90,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/REPASO_DIFERIDO.md",
+    "line": 107,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/REPASO_DIFERIDO.md",
+    "line": 124,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/RESCATE_DE_ESTRELLAS.md",
+    "line": 20,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/RESCATE_DE_ESTRELLAS.md",
+    "line": 21,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/RESCATE_DE_ESTRELLAS.md",
+    "line": 46,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/RESCATE_DE_ESTRELLAS.md",
+    "line": 57,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/RESCATE_DE_ESTRELLAS.md",
+    "line": 71,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/RESCATE_DE_ESTRELLAS.md",
+    "line": 81,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/RESCATE_DE_ESTRELLAS.md",
+    "line": 91,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/RESCATE_DE_ESTRELLAS.md",
+    "line": 101,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ROADMAP_MOVIL.md",
+    "line": 5,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ROADMAP_MOVIL.md",
+    "line": 55,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ROADMAP_MOVIL.md",
+    "line": 60,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ROADMAP_MOVIL.md",
+    "line": 216,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ROADMAP_MOVIL.md",
+    "line": 217,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ROADMAP_MOVIL.md",
+    "line": 246,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ROADMAP_MOVIL.md",
+    "line": 271,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ROADMAP_MOVIL.md",
+    "line": 275,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ROADMAP_MOVIL.md",
+    "line": 279,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ROADMAP_MOVIL.md",
+    "line": 284,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ROADMAP_MOVIL.md",
+    "line": 288,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ROADMAP_MOVIL.md",
+    "line": 303,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/ROADMAP_MOVIL.md",
+    "line": 311,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/SABI_DUELO_FANTASMA.md",
+    "line": 117,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/SABI_Y_JUEGOS_APROBADOS.md",
+    "line": 12,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/SABI_Y_JUEGOS_APROBADOS.md",
+    "line": 14,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/SABI_Y_JUEGOS_APROBADOS.md",
+    "line": 33,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/SABI_Y_JUEGOS_APROBADOS.md",
+    "line": 35,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/SALTO_A_LA_CIMA.md",
+    "line": 3,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/SALTO_A_LA_CIMA.md",
+    "line": 42,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/SALTO_A_LA_CIMA.md",
+    "line": 47,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/SALTO_A_LA_CIMA.md",
+    "line": 48,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/SALTO_A_LA_CIMA.md",
+    "line": 70,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/SALTO_A_LA_CIMA.md",
+    "line": 76,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/SALTO_A_LA_CIMA.md",
+    "line": 111,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/SALTO_A_LA_CIMA.md",
+    "line": 117,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/SALTO_A_LA_CIMA.md",
+    "line": 124,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/SIMULACRO_150.md",
+    "line": 46,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/SYLLABUS_COUNTDOWN.md",
+    "line": 32,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/TEACHER_FREE_PLAN.md",
+    "line": 30,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/TEACHER_INSTITUTION_FOUNDATION.md",
+    "line": 62,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/TUG_OF_WAR.md",
+    "line": 48,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:docs/TUG_OF_WAR_BACKEND_CONTRACT.md",
+    "line": 11,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/core/sync/sync_queue_page.dart",
+    "line": 143,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/academic/domain/academic_models.dart",
+    "line": 469,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/academic/domain/academic_models.dart",
+    "line": 471,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/academic/domain/academic_models.dart",
+    "line": 478,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/academic/domain/academic_models.dart",
+    "line": 493,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/academic/presentation/academic_home_controller.dart",
+    "line": 12,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/announcements/data/demo_announcement_repository.dart",
+    "line": 10,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/announcements/data/demo_announcement_repository.dart",
+    "line": 26,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/announcements/presentation/announcements_page.dart",
+    "line": 102,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/auth/presentation/login_page.dart",
+    "line": 79,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/auth/presentation/login_page.dart",
+    "line": 181,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/auth/presentation/session_controller.dart",
+    "line": 195,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/battles/data/demo_battle_repository.dart",
+    "line": 33,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/battles/data/demo_battle_repository.dart",
+    "line": 163,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/battles/data/demo_battle_repository.dart",
+    "line": 221,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/battles/data/demo_battle_repository.dart",
+    "line": 226,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/battles/data/demo_battle_repository.dart",
+    "line": 227,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/battles/data/demo_battle_repository.dart",
+    "line": 228,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/battles/data/demo_battle_repository.dart",
+    "line": 229,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/battles/data/demo_battle_repository.dart",
+    "line": 232,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/battles/data/demo_battle_repository.dart",
+    "line": 235,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/battles/data/demo_battle_repository.dart",
+    "line": 240,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/battles/data/demo_battle_repository.dart",
+    "line": 241,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/battles/data/demo_battle_repository.dart",
+    "line": 242,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/battles/data/demo_battle_repository.dart",
+    "line": 243,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/battles/data/demo_battle_repository.dart",
+    "line": 246,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/flashcards/presentation/deferred_review_page.dart",
+    "line": 111,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/flashcards/presentation/deferred_review_providers.dart",
+    "line": 10,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/games/guardian/data/demo_guardian_repository.dart",
+    "line": 6,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/games/guardian/data/demo_guardian_repository.dart",
+    "line": 42,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/games/guardian/presentation/guardian_page.dart",
+    "line": 275,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/games/guardian/presentation/guardian_page.dart",
+    "line": 318,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/games/guardian/presentation/guardian_page.dart",
+    "line": 322,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/games/star_rescue/presentation/star_rescue_page.dart",
+    "line": 25,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/games/star_rescue/presentation/star_rescue_page.dart",
+    "line": 246,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/games/star_rescue/presentation/star_rescue_providers.dart",
+    "line": 17,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/games/summit/data/demo_summit_repository.dart",
+    "line": 7,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/games/summit/presentation/summit_page.dart",
+    "line": 277,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/games/summit/presentation/summit_providers.dart",
+    "line": 17,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/gamification/presentation/course_certificates_section.dart",
+    "line": 67,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/gamification/presentation/course_certificates_section.dart",
+    "line": 76,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/gamification/presentation/course_certificates_section.dart",
+    "line": 121,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/gamification/presentation/course_certificates_section.dart",
+    "line": 130,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/gamification/presentation/streak_flame_style.dart",
+    "line": 42,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/historical_simulations/data/demo_historical_simulation_repository.dart",
+    "line": 14,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/historical_simulations/data/demo_historical_simulation_repository.dart",
+    "line": 24,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_institution_group_repository.dart",
+    "line": 9,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_institution_group_repository.dart",
+    "line": 15,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_institution_group_repository.dart",
+    "line": 16,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_institution_group_repository.dart",
+    "line": 18,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_institution_group_repository.dart",
+    "line": 47,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_institution_group_repository.dart",
+    "line": 53,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_institution_group_repository.dart",
+    "line": 54,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_institution_group_repository.dart",
+    "line": 56,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_institution_group_repository.dart",
+    "line": 82,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_institution_group_repository.dart",
+    "line": 84,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_institution_group_repository.dart",
+    "line": 142,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_institution_group_repository.dart",
+    "line": 144,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_institution_group_repository.dart",
+    "line": 180,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_institution_group_repository.dart",
+    "line": 184,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_institution_group_repository.dart",
+    "line": 187,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_institution_group_repository.dart",
+    "line": 190,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_basic_analytics_repository.dart",
+    "line": 30,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_detailed_analytics_repository.dart",
+    "line": 14,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_detailed_analytics_repository.dart",
+    "line": 16,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_detailed_analytics_repository.dart",
+    "line": 34,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_detailed_analytics_repository.dart",
+    "line": 36,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_detailed_analytics_repository.dart",
+    "line": 93,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_detailed_analytics_repository.dart",
+    "line": 95,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_detailed_analytics_repository.dart",
+    "line": 121,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_detailed_analytics_repository.dart",
+    "line": 125,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_institution_repository.dart",
+    "line": 25,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_institution_repository.dart",
+    "line": 41,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_institution_repository.dart",
+    "line": 42,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_institution_repository.dart",
+    "line": 43,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_institution_repository.dart",
+    "line": 44,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_institution_repository.dart",
+    "line": 53,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_institution_repository.dart",
+    "line": 54,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_institution_repository.dart",
+    "line": 56,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_institution_repository.dart",
+    "line": 66,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_institution_repository.dart",
+    "line": 68,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_institution_repository.dart",
+    "line": 69,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_institution_repository.dart",
+    "line": 85,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_institution_repository.dart",
+    "line": 151,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_institution_repository.dart",
+    "line": 175,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_institution_repository.dart",
+    "line": 178,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_institution_repository.dart",
+    "line": 314,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_institution_repository.dart",
+    "line": 316,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_priority_repository.dart",
+    "line": 11,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_priority_repository.dart",
+    "line": 12,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_priority_repository.dart",
+    "line": 13,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_priority_repository.dart",
+    "line": 15,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_priority_repository.dart",
+    "line": 17,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_priority_repository.dart",
+    "line": 31,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_priority_repository.dart",
+    "line": 33,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_priority_repository.dart",
+    "line": 40,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_priority_repository.dart",
+    "line": 59,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/demo_teacher_priority_repository.dart",
+    "line": 65,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/data/institution_approval_repository.dart",
+    "line": 166,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/presentation/institution_group_providers.dart",
+    "line": 12,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/presentation/institution_group_providers.dart",
+    "line": 15,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/presentation/teacher_basic_analytics_page.dart",
+    "line": 107,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/presentation/teacher_basic_analytics_providers.dart",
+    "line": 12,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/presentation/teacher_basic_analytics_providers.dart",
+    "line": 17,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/presentation/teacher_detailed_analytics_providers.dart",
+    "line": 12,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/presentation/teacher_detailed_analytics_providers.dart",
+    "line": 17,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/presentation/teacher_priorities_page.dart",
+    "line": 78,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/institutions/presentation/teacher_priorities_page.dart",
+    "line": 106,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/learning_evidence/data/learning_evidence_repository.dart",
+    "line": 55,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/learning_evidence/data/learning_evidence_repository.dart",
+    "line": 66,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/learning_evidence/data/learning_evidence_repository.dart",
+    "line": 77,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/learning_evidence/data/learning_evidence_repository.dart",
+    "line": 90,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/learning_evidence/data/learning_evidence_repository.dart",
+    "line": 101,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/practice/data/demo_practice_repository.dart",
+    "line": 18,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/practice/data/demo_practice_repository.dart",
+    "line": 25,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/practice/data/demo_practice_repository.dart",
+    "line": 31,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/practice/data/demo_practice_repository.dart",
+    "line": 51,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/practice/data/demo_practice_repository.dart",
+    "line": 108,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/practice/data/demo_practice_repository.dart",
+    "line": 109,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/practice/data/demo_practice_repository.dart",
+    "line": 115,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/practice/data/demo_practice_repository.dart",
+    "line": 166,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/practice/data/demo_practice_repository.dart",
+    "line": 169,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/practice/data/demo_practice_repository.dart",
+    "line": 189,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/practice/data/demo_practice_repository.dart",
+    "line": 198,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/practice/data/demo_practice_repository.dart",
+    "line": 207,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/practice/data/demo_practice_repository.dart",
+    "line": 216,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/practice/data/demo_practice_repository.dart",
+    "line": 225,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/practice/data/demo_practice_repository.dart",
+    "line": 241,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/practice/data/demo_practice_repository.dart",
+    "line": 242,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/practice/data/demo_practice_repository.dart",
+    "line": 243,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/practice/data/demo_practice_repository.dart",
+    "line": 266,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/practice/data/demo_practice_repository.dart",
+    "line": 267,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/practice/data/demo_practice_repository.dart",
+    "line": 268,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/practice/presentation/practice_hub_page.dart",
+    "line": 206,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/practice/presentation/time_trial_setup_page.dart",
+    "line": 124,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/progress/data/demo_progress_repository.dart",
+    "line": 104,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/referrals/data/demo_referral_repository.dart",
+    "line": 11,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/referrals/data/demo_referral_repository.dart",
+    "line": 18,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/search/data/catalog_academic_search_repository.dart",
+    "line": 14,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/search/data/catalog_academic_search_repository.dart",
+    "line": 18,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/search/data/catalog_academic_search_repository.dart",
+    "line": 22,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/search/data/catalog_academic_search_repository.dart",
+    "line": 23,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/search/data/catalog_academic_search_repository.dart",
+    "line": 34,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/search/data/catalog_academic_search_repository.dart",
+    "line": 37,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/search/presentation/academic_search_page.dart",
+    "line": 67,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study/data/learning_map_repository.dart",
+    "line": 30,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study/data/learning_map_repository.dart",
+    "line": 42,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study/data/local_offline_content_repository.dart",
+    "line": 141,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study/domain/study_models.dart",
+    "line": 41,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study/domain/study_models.dart",
+    "line": 56,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study/domain/study_models.dart",
+    "line": 60,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study/presentation/offline_downloads_page.dart",
+    "line": 182,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study/presentation/study_area_page.dart",
+    "line": 95,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study/presentation/study_area_page.dart",
+    "line": 124,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study/presentation/study_providers.dart",
+    "line": 19,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study/presentation/syllabus_countdown_page.dart",
+    "line": 294,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study_time/data/demo_study_time_repository.dart",
+    "line": 11,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study_time/data/demo_study_time_repository.dart",
+    "line": 12,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study_time/data/demo_study_time_repository.dart",
+    "line": 18,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study_time/data/demo_study_time_repository.dart",
+    "line": 19,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study_time/data/demo_study_time_repository.dart",
+    "line": 25,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study_time/data/demo_study_time_repository.dart",
+    "line": 26,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study_time/data/study_evolution_repository.dart",
+    "line": 88,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study_time/domain/study_evolution.dart",
+    "line": 117,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study_time/domain/study_evolution.dart",
+    "line": 205,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study_time/presentation/study_time_page.dart",
+    "line": 48,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study_time/presentation/study_time_page.dart",
+    "line": 88,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:lib/features/study_time/presentation/study_time_page.dart",
+    "line": 123,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/course_certificates_test.dart",
+    "line": 68,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/course_certificates_test.dart",
+    "line": 70,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/course_certificates_test.dart",
+    "line": 74,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/course_certificates_test.dart",
+    "line": 75,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/deferred_review_page_test.dart",
+    "line": 54,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/deferred_review_page_test.dart",
+    "line": 55,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/deferred_review_page_test.dart",
+    "line": 58,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/deferred_review_page_test.dart",
+    "line": 107,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/deferred_review_page_test.dart",
+    "line": 112,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/deferred_review_page_test.dart",
+    "line": 154,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/deferred_review_page_test.dart",
+    "line": 155,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/demo_data_date_stability_test.dart",
+    "line": 38,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/environment_test.dart",
+    "line": 11,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/guardian_test.dart",
+    "line": 26,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/guardian_test.dart",
+    "line": 70,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/guardian_test.dart",
+    "line": 306,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/guardian_test.dart",
+    "line": 307,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/institution_approval_test.dart",
+    "line": 20,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/institution_approval_test.dart",
+    "line": 75,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/institution_groups_test.dart",
+    "line": 72,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/institution_groups_test.dart",
+    "line": 153,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/learning_evidence_page_test.dart",
+    "line": 12,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/learning_evidence_test.dart",
+    "line": 109,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/learning_evidence_test.dart",
+    "line": 147,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/learning_map_test.dart",
+    "line": 152,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/learning_map_test.dart",
+    "line": 181,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/learning_map_test.dart",
+    "line": 186,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/practice_session_page_test.dart",
+    "line": 145,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/practice_session_page_test.dart",
+    "line": 146,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/practice_session_page_test.dart",
+    "line": 483,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/reference_library_test.dart",
+    "line": 70,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Flutter:test/remote_star_rescue_repository_test.dart",
+    "line": 166,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/remote_star_rescue_repository_test.dart",
+    "line": 406,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/remote_study_repository_test.dart",
+    "line": 71,
+    "tags": [
+      "temp"
+    ]
+  },
+  {
+    "file": "Flutter:test/remote_study_repository_test.dart",
+    "line": 72,
+    "tags": [
+      "temp"
+    ]
+  },
+  {
+    "file": "Flutter:test/remote_study_repository_test.dart",
+    "line": 89,
+    "tags": [
+      "temp"
+    ]
+  },
+  {
+    "file": "Flutter:test/remote_summit_repository_test.dart",
+    "line": 323,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/staging_connection_probe_test.dart",
+    "line": 193,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/star_rescue_remote_page_test.dart",
+    "line": 31,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/star_rescue_remote_page_test.dart",
+    "line": 64,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/star_rescue_remote_page_test.dart",
+    "line": 84,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/star_rescue_remote_page_test.dart",
+    "line": 137,
+    "tags": [
+      "fake"
+    ]
+  },
+  {
+    "file": "Flutter:test/star_rescue_test.dart",
+    "line": 64,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/star_rescue_test.dart",
+    "line": 76,
+    "tags": [
+      "fake"
+    ]
+  },
+  {
+    "file": "Flutter:test/star_rescue_test.dart",
+    "line": 175,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/star_rescue_test.dart",
+    "line": 197,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/star_rescue_test.dart",
+    "line": 202,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/star_rescue_test.dart",
+    "line": 253,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/star_rescue_test.dart",
+    "line": 357,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/star_rescue_test.dart",
+    "line": 358,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/star_rescue_test.dart",
+    "line": 365,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/star_rescue_test.dart",
+    "line": 374,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/study_evolution_test.dart",
+    "line": 142,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/study_evolution_test.dart",
+    "line": 211,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/study_evolution_test.dart",
+    "line": 297,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/study_evolution_test.dart",
+    "line": 304,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/study_evolution_test.dart",
+    "line": 318,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/study_evolution_test.dart",
+    "line": 336,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/study_evolution_test.dart",
+    "line": 392,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/study_time_sync_ui_test.dart",
+    "line": 74,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/study_time_sync_ui_test.dart",
+    "line": 115,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/study_time_sync_ui_test.dart",
+    "line": 116,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/summit_game_test.dart",
+    "line": 64,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/summit_game_test.dart",
+    "line": 75,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/summit_game_test.dart",
+    "line": 104,
+    "tags": [
+      "fake"
+    ]
+  },
+  {
+    "file": "Flutter:test/summit_game_test.dart",
+    "line": 105,
+    "tags": [
+      "fake"
+    ]
+  },
+  {
+    "file": "Flutter:test/summit_game_test.dart",
+    "line": 167,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/summit_game_test.dart",
+    "line": 172,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/summit_game_test.dart",
+    "line": 246,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/summit_game_test.dart",
+    "line": 298,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/summit_game_test.dart",
+    "line": 299,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/summit_game_test.dart",
+    "line": 306,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/summit_game_test.dart",
+    "line": 315,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/summit_remote_page_test.dart",
+    "line": 31,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/summit_remote_page_test.dart",
+    "line": 51,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/summit_remote_page_test.dart",
+    "line": 104,
+    "tags": [
+      "fake"
+    ]
+  },
+  {
+    "file": "Flutter:test/syllabus_countdown_test.dart",
+    "line": 16,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/syllabus_countdown_test.dart",
+    "line": 17,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/syllabus_countdown_test.dart",
+    "line": 73,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_basic_analytics_test.dart",
+    "line": 141,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_detailed_analytics_test.dart",
+    "line": 132,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_detailed_analytics_test.dart",
+    "line": 137,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_institution_test.dart",
+    "line": 55,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_institution_test.dart",
+    "line": 103,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_p1_test.dart",
+    "line": 180,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_p1_test.dart",
+    "line": 182,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_p1_test.dart",
+    "line": 183,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_p1_test.dart",
+    "line": 184,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_p1_test.dart",
+    "line": 185,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_p1_test.dart",
+    "line": 186,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_p1_test.dart",
+    "line": 204,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_p1_test.dart",
+    "line": 206,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_p1_test.dart",
+    "line": 208,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_p1_test.dart",
+    "line": 209,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_p1_test.dart",
+    "line": 210,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_priorities_test.dart",
+    "line": 18,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_priorities_test.dart",
+    "line": 188,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_priorities_test.dart",
+    "line": 291,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_priorities_test.dart",
+    "line": 296,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_priorities_test.dart",
+    "line": 305,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_priorities_test.dart",
+    "line": 309,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_priorities_test.dart",
+    "line": 324,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_priorities_test.dart",
+    "line": 330,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_priorities_test.dart",
+    "line": 374,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_priorities_test.dart",
+    "line": 393,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_priorities_test.dart",
+    "line": 415,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_priorities_test.dart",
+    "line": 423,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_student_evidence_test.dart",
+    "line": 90,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_student_evidence_test.dart",
+    "line": 95,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/teacher_student_evidence_test.dart",
+    "line": 190,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/ux_accessibility_regression_test.dart",
+    "line": 27,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 142,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 143,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 197,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 198,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 217,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 244,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 245,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 274,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 275,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 307,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 315,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 316,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 346,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 347,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 383,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 384,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 419,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 420,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 462,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 463,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 503,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 504,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 545,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 546,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 587,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 588,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 599,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 621,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 622,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 666,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 667,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 680,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 685,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 689,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 702,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 703,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 739,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 740,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 753,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 782,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 783,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 808,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 809,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 842,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 850,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 851,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 875,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 876,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 942,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 943,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 969,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 970,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 998,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 999,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 1049,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 1050,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 1107,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 1108,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 1131,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 1150,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 1151,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 1158,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 1173,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 1186,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 1187,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 1208,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 1209,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 1244,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 1245,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 1518,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 1519,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 1528,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 1553,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 1554,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Flutter:test/widget_test.dart",
+    "line": 1561,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:.github/workflows/backend-ci.yml",
+    "line": 27,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:.gitignore",
+    "line": 22,
+    "tags": [
+      "temp"
+    ]
+  },
+  {
+    "file": "Backend:README.md",
+    "line": 12,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:README.md",
+    "line": 28,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/EDITORIAL_TOOLS.md",
+    "line": 3,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/EDITORIAL_TOOLS.md",
+    "line": 12,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/EDITORIAL_TOOLS.md",
+    "line": 16,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/EDITORIAL_TOOLS.md",
+    "line": 17,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/EDITORIAL_TOOLS.md",
+    "line": 28,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/EDITORIAL_TOOLS.md",
+    "line": 30,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/EDITORIAL_TOOLS.md",
+    "line": 33,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/EDITORIAL_TOOLS.md",
+    "line": 42,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/EDITORIAL_TOOLS.md",
+    "line": 53,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/EDITORIAL_TOOLS.md",
+    "line": 70,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/EDITORIAL_TOOLS.md",
+    "line": 71,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/EDITORIAL_TOOLS.md",
+    "line": 72,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Backend:admin/EDITORIAL_TOOLS.md",
+    "line": 80,
+    "tags": [
+      "demo",
+      "todo"
+    ]
+  },
+  {
+    "file": "Backend:admin/EDITORIAL_TOOLS.md",
+    "line": 100,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/EDITORIAL_TOOLS.md",
+    "line": 120,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/EDITORIAL_TOOLS.md",
+    "line": 125,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/README.md",
+    "line": 8,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/README.md",
+    "line": 61,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/README.md",
+    "line": 91,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/README.md",
+    "line": 120,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/README.md",
+    "line": 137,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/README.md",
+    "line": 151,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/README.md",
+    "line": 199,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/README.md",
+    "line": 219,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/README.md",
+    "line": 234,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/README.md",
+    "line": 279,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/README.md",
+    "line": 303,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Backend:admin/README.md",
+    "line": 339,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/README.md",
+    "line": 356,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/README.md",
+    "line": 381,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/README.md",
+    "line": 382,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/README.md",
+    "line": 394,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/README.md",
+    "line": 398,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/check.mjs",
+    "line": 6,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/check.mjs",
+    "line": 7,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/check.mjs",
+    "line": 9,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/check.mjs",
+    "line": 10,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/check.mjs",
+    "line": 11,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 4,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 5,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 6,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 7,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 8,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 9,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 31,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 37,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 43,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 49,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 57,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 59,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 64,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 66,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 71,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 73,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 88,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 94,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 96,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 101,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 102,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 106,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 222,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-api.mjs",
+    "line": 239,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-bank-coverage.mjs",
+    "line": 1,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-editorial-review.mjs",
+    "line": 41,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-editorial-tools.mjs",
+    "line": 94,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-editorial-tools.mjs",
+    "line": 131,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-editorial-tools.mjs",
+    "line": 225,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-editorial-tools.mjs",
+    "line": 307,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-institution-approval.mjs",
+    "line": 78,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-learning-map.mjs",
+    "line": 31,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/demo-question-bank.mjs",
+    "line": 11,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/package.json",
+    "line": 11,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/app.mjs",
+    "line": 59,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/app.mjs",
+    "line": 189,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/app.mjs",
+    "line": 192,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/app.mjs",
+    "line": 195,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/app.mjs",
+    "line": 196,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/app.mjs",
+    "line": 197,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/app.mjs",
+    "line": 198,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/app.mjs",
+    "line": 201,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/app.mjs",
+    "line": 473,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/app.mjs",
+    "line": 495,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/app.mjs",
+    "line": 533,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/app.mjs",
+    "line": 549,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/app.mjs",
+    "line": 550,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/editorial-tools.mjs",
+    "line": 358,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/index.html",
+    "line": 68,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/index.html",
+    "line": 69,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/index.html",
+    "line": 73,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/index.html",
+    "line": 123,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/index.html",
+    "line": 124,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/index.html",
+    "line": 351,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/institution-approval.mjs",
+    "line": 32,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/institution-approval.mjs",
+    "line": 35,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/institution-approval.mjs",
+    "line": 55,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/institution-approval.mjs",
+    "line": 56,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/question-editor.mjs",
+    "line": 160,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/question-editor.mjs",
+    "line": 161,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/question-editor.mjs",
+    "line": 369,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/question-fields.mjs",
+    "line": 78,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/public/styles.css",
+    "line": 328,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/server.mjs",
+    "line": 5,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/server.mjs",
+    "line": 68,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/server.mjs",
+    "line": 70,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/server.mjs",
+    "line": 71,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/server.mjs",
+    "line": 83,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/server.mjs",
+    "line": 100,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/server.mjs",
+    "line": 125,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/server.mjs",
+    "line": 127,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/server.mjs",
+    "line": 130,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/server.mjs",
+    "line": 133,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/bank-coverage.test.mjs",
+    "line": 3,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/bank-coverage.test.mjs",
+    "line": 18,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/bank-coverage.test.mjs",
+    "line": 28,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/bank-coverage.test.mjs",
+    "line": 72,
+    "tags": [
+      "fake"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/bank-coverage.test.mjs",
+    "line": 90,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/bank-coverage.test.mjs",
+    "line": 91,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/bank-coverage.test.mjs",
+    "line": 98,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/bank-coverage.test.mjs",
+    "line": 100,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-review.test.mjs",
+    "line": 9,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-review.test.mjs",
+    "line": 20,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-review.test.mjs",
+    "line": 35,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-review.test.mjs",
+    "line": 100,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-review.test.mjs",
+    "line": 119,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-review.test.mjs",
+    "line": 123,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 22,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 25,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 36,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 115,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 164,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 167,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 168,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 181,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 183,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 187,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 191,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 192,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 219,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 223,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 225,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 232,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 235,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 241,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 243,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 290,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 293,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 363,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 364,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 412,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 414,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 415,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 431,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 433,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 434,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 459,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 461,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 462,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 485,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 487,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 488,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 491,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 494,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 580,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 589,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 592,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 597,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 624,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 629,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 640,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/editorial-tools.test.mjs",
+    "line": 661,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/institution-approval-ui.test.mjs",
+    "line": 20,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/institution-approval.test.mjs",
+    "line": 5,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/institution-approval.test.mjs",
+    "line": 6,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/institution-approval.test.mjs",
+    "line": 22,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/learning-map.test.mjs",
+    "line": 3,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/learning-map.test.mjs",
+    "line": 16,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/learning-map.test.mjs",
+    "line": 73,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/learning-map.test.mjs",
+    "line": 74,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/learning-map.test.mjs",
+    "line": 77,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/learning-map.test.mjs",
+    "line": 79,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/learning-map.test.mjs",
+    "line": 80,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/learning-map.test.mjs",
+    "line": 81,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/lesson-editor.test.mjs",
+    "line": 14,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/lesson-editor.test.mjs",
+    "line": 25,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/lesson-editor.test.mjs",
+    "line": 29,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/lesson-editor.test.mjs",
+    "line": 31,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/lesson-editor.test.mjs",
+    "line": 61,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/lesson-editor.test.mjs",
+    "line": 63,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/lesson-editor.test.mjs",
+    "line": 86,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/lesson-editor.test.mjs",
+    "line": 102,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/lesson-editor.test.mjs",
+    "line": 105,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/lesson-editor.test.mjs",
+    "line": 106,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/panel.test.mjs",
+    "line": 22,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/panel.test.mjs",
+    "line": 23,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/panel.test.mjs",
+    "line": 26,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/panel.test.mjs",
+    "line": 32,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/panel.test.mjs",
+    "line": 53,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/panel.test.mjs",
+    "line": 81,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/panel.test.mjs",
+    "line": 126,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/panel.test.mjs",
+    "line": 130,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/panel.test.mjs",
+    "line": 131,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/panel.test.mjs",
+    "line": 133,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/panel.test.mjs",
+    "line": 156,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/panel.test.mjs",
+    "line": 157,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/panel.test.mjs",
+    "line": 159,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/panel.test.mjs",
+    "line": 178,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/panel.test.mjs",
+    "line": 179,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/panel.test.mjs",
+    "line": 187,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/panel.test.mjs",
+    "line": 262,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/panel.test.mjs",
+    "line": 271,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/panel.test.mjs",
+    "line": 272,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/panel.test.mjs",
+    "line": 273,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/panel.test.mjs",
+    "line": 277,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/question-editor.test.mjs",
+    "line": 14,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/question-editor.test.mjs",
+    "line": 30,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/question-editor.test.mjs",
+    "line": 41,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/question-editor.test.mjs",
+    "line": 45,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/question-editor.test.mjs",
+    "line": 47,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/question-editor.test.mjs",
+    "line": 50,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/question-editor.test.mjs",
+    "line": 52,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/question-editor.test.mjs",
+    "line": 55,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/question-editor.test.mjs",
+    "line": 62,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/question-editor.test.mjs",
+    "line": 72,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/question-editor.test.mjs",
+    "line": 75,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/question-editor.test.mjs",
+    "line": 78,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/question-editor.test.mjs",
+    "line": 90,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/question-editor.test.mjs",
+    "line": 105,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/question-editor.test.mjs",
+    "line": 120,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/question-editor.test.mjs",
+    "line": 127,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/question-editor.test.mjs",
+    "line": 156,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/question-editor.test.mjs",
+    "line": 226,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/simple-content.test.mjs",
+    "line": 7,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/simple-content.test.mjs",
+    "line": 11,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/simple-content.test.mjs",
+    "line": 55,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/simple-content.test.mjs",
+    "line": 56,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:admin/test/simple-content.test.mjs",
+    "line": 59,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/.gitignore",
+    "line": 46,
+    "tags": [
+      "temp"
+    ]
+  },
+  {
+    "file": "Backend:backend/.gitignore",
+    "line": 47,
+    "tags": [
+      "temp"
+    ]
+  },
+  {
+    "file": "Backend:backend/BANK_COVERAGE.md",
+    "line": 37,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/BANK_COVERAGE.md",
+    "line": 40,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/BANK_COVERAGE.md",
+    "line": 42,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/EDITORIAL_CLOZE.md",
+    "line": 6,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/EDITORIAL_DRAFT_DELETION.md",
+    "line": 44,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/EDITORIAL_DRAFT_DELETION.md",
+    "line": 46,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/EDITORIAL_DRAFT_DELETION.md",
+    "line": 58,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/EDITORIAL_DRAFT_DELETION.md",
+    "line": 69,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/EDITORIAL_LEGACY_INDEX.md",
+    "line": 24,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Backend:backend/EDITORIAL_LEGACY_INDEX.md",
+    "line": 63,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Backend:backend/EDITORIAL_LEGACY_RETIREMENT.md",
+    "line": 30,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/EDITORIAL_LEGACY_RETIREMENT.md",
+    "line": 71,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/INSTITUTION_APPROVAL.md",
+    "line": 68,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/INSTITUTION_APPROVAL.md",
+    "line": 69,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/INSTITUTION_APPROVAL.md",
+    "line": 87,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/KNOWLEDGE_SHIELD.md",
+    "line": 9,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/KNOWLEDGE_SHIELD.md",
+    "line": 26,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Backend:backend/KNOWLEDGE_SHIELD.md",
+    "line": 55,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/LEARNING_MAP.md",
+    "line": 12,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/LEARNING_MAP.md",
+    "line": 22,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Backend:backend/LEARNING_MAP.md",
+    "line": 42,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Backend:backend/LEARNING_MAP.md",
+    "line": 54,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Backend:backend/LEARNING_MAP.md",
+    "line": 99,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/PROFESOR_P3_A.md",
+    "line": 51,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Backend:backend/PROFESOR_P3_A.md",
+    "line": 147,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/PROFESOR_P3_A.md",
+    "line": 154,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/STAR_RESCUE.md",
+    "line": 4,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/STAR_RESCUE.md",
+    "line": 9,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/STAR_RESCUE.md",
+    "line": 27,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Backend:backend/STAR_RESCUE.md",
+    "line": 60,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/SUMMIT_CHALLENGE.md",
+    "line": 4,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/SUMMIT_CHALLENGE.md",
+    "line": 22,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Backend:backend/SUMMIT_CHALLENGE.md",
+    "line": 56,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/SUMMIT_CHALLENGE.md",
+    "line": 92,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/docs/ACADEMIC_CATALOG.md",
+    "line": 20,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Backend:backend/docs/LEARNING_EVIDENCE.md",
+    "line": 23,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/academic-catalog.service.spec.ts",
+    "line": 61,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/academic-catalog.service.spec.ts",
+    "line": 62,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/academic-catalog.service.spec.ts",
+    "line": 99,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/academic-catalog.service.spec.ts",
+    "line": 100,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/academic-classification.spec.ts",
+    "line": 79,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/admin-plan.service.spec.ts",
+    "line": 25,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/bank-coverage.spec.ts",
+    "line": 37,
+    "tags": [
+      "fake"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/content-import.service.spec.ts",
+    "line": 24,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/content-lifecycle.service.spec.ts",
+    "line": 107,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/editorial-lock.spec.ts",
+    "line": 17,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/editorial-review.service.spec.ts",
+    "line": 191,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/editorial-review.service.spec.ts",
+    "line": 192,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/editorial-review.service.spec.ts",
+    "line": 194,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/legacy-editorial-write.guard.spec.ts",
+    "line": 45,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/legacy-question-index.service.spec.ts",
+    "line": 242,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/legacy-question-index.service.spec.ts",
+    "line": 246,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/legacy-question-index.service.spec.ts",
+    "line": 247,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/legacy-question-index.service.spec.ts",
+    "line": 248,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/lesson-editor.service.spec.ts",
+    "line": 120,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/lesson-editor.service.spec.ts",
+    "line": 230,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/lesson-editor.service.spec.ts",
+    "line": 231,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/lesson-editor.service.spec.ts",
+    "line": 362,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/lesson-editor.service.spec.ts",
+    "line": 363,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/lesson-editor.service.spec.ts",
+    "line": 364,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/lesson-editor.service.spec.ts",
+    "line": 365,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/question-editor.service.spec.ts",
+    "line": 128,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/question-editor.service.spec.ts",
+    "line": 129,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/question-reclassification.service.spec.ts",
+    "line": 184,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/question-reclassification.service.spec.ts",
+    "line": 259,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/admin/question-reclassification.service.spec.ts",
+    "line": 309,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/anuncios/anuncios.service.spec.ts",
+    "line": 55,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/auth/auth-registration-role.service.spec.ts",
+    "line": 25,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/auth/auth-registration-role.service.spec.ts",
+    "line": 44,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/auth/auth-security.service.spec.ts",
+    "line": 13,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/auth/auth-security.service.spec.ts",
+    "line": 34,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/auth/auth-security.service.spec.ts",
+    "line": 143,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/auth/auth.module.ts",
+    "line": 21,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/auth/jwt.guard.spec.ts",
+    "line": 31,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/auth/jwt.guard.spec.ts",
+    "line": 42,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/batallas/batallas.service.spec.ts",
+    "line": 110,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/diagnostico/diagnostico.service.spec.ts",
+    "line": 110,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/diagnostico/diagnostico.service.spec.ts",
+    "line": 225,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/diagnostico/learning-evidence.service.spec.ts",
+    "line": 38,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/gamificacion/certificado-html.service.ts",
+    "line": 28,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/gamificacion/certificados-curso.service.spec.ts",
+    "line": 95,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/gamificacion/templates/certificado.html",
+    "line": 35,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/gamificacion/templates/certificado.html",
+    "line": 36,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/gamificacion/templates/certificado.html",
+    "line": 61,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/institucion/administracion-institucion.service.spec.ts",
+    "line": 54,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/institucion/alertas-riesgo.service.ts",
+    "line": 203,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/institucion/analitica-basica.service.spec.ts",
+    "line": 17,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/institucion/analitica-basica.service.spec.ts",
+    "line": 22,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/institucion/analitica-basica.service.spec.ts",
+    "line": 81,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/institucion/estudiante-import.service.ts",
+    "line": 197,
+    "tags": [
+      "todo"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/institucion/grupo.service.spec.ts",
+    "line": 31,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/institucion/grupo.service.spec.ts",
+    "line": 37,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/institucion/grupo.service.spec.ts",
+    "line": 64,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/institucion/grupo.service.spec.ts",
+    "line": 76,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/institucion/institucion.service.spec.ts",
+    "line": 28,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/institucion/institucion.service.spec.ts",
+    "line": 34,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/institucion/institucion.service.spec.ts",
+    "line": 39,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/institucion/vinculacion-grupo.service.spec.ts",
+    "line": 62,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/institucion/vinculacion-grupo.service.spec.ts",
+    "line": 72,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/institucion/vinculacion-grupo.service.spec.ts",
+    "line": 154,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/simulacro/repaso-adaptativo.service.spec.ts",
+    "line": 75,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/simulacro/repaso-adaptativo.service.spec.ts",
+    "line": 80,
+    "tags": [
+      "mock"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/simulacro/simulacro-seed-retired.spec.ts",
+    "line": 8,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/simulacro/simulacro.service.ts",
+    "line": 896,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/src/simulacro/simulacro.service.ts",
+    "line": 902,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/tool/preview_course_certificate.cjs",
+    "line": 11,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/tool/preview_course_certificate.cjs",
+    "line": 12,
+    "tags": [
+      "demo"
+    ]
+  },
+  {
+    "file": "Backend:backend/tool/preview_course_certificate.cjs",
+    "line": 13,
+    "tags": [
+      "demo"
+    ]
+  }
+]

@@ -1,0 +1,1770 @@
+[
+  {
+    "repo": "Flutter",
+    "file": "README.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "SaberPlus móvil",
+    "headings": [
+      "SaberPlus móvil",
+      "Auditoría y resumen para el equipo",
+      "Retomar el proyecto después de la pausa",
+      "Ejecutar la etapa actual",
+      "Antecedentes de entregas (no son la siguiente tarea)",
+      "Configuración por ambiente",
+      "Calidad",
+      "Validación real de autenticación"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/ACADEMIC_ACTIVITY_REPORT.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Resumen semanal y comparativo mensual",
+    "headings": [
+      "Resumen semanal y comparativo mensual",
+      "Semana actual",
+      "Comparación mensual",
+      "Disponibilidad y sincronización"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/ACADEMIC_CATALOG.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "7F-C2-B1 — Base del catálogo académico",
+    "headings": [
+      "7F-C2-B1 — Base del catálogo académico",
+      "Terminado localmente",
+      "Siguientes entregas",
+      "Commits separados"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/ACADEMIC_CONTRACT.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Contrato académico móvil",
+    "headings": [
+      "Contrato académico móvil",
+      "Inicio académico",
+      "Diagnóstico inicial",
+      "Plan semanal",
+      "Alcance de recomendaciones"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/ACADEMIC_PROFILE.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Perfil académico central",
+    "headings": [
+      "Perfil académico central",
+      "Fuentes actuales",
+      "Objetivo personal",
+      "Orientación académica"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/ACADEMIC_SEARCH.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Búsqueda académica móvil",
+    "headings": [
+      "Búsqueda académica móvil",
+      "Fuente de los resultados",
+      "Protección de preguntas",
+      "Evolución pendiente"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/ADMIN_PANEL.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "7F-C3-D2-F — Verificación PostgreSQL local",
+    "headings": [
+      "7F-C3-D2-F — Verificación PostgreSQL local",
+      "Qué se puede hacer",
+      "Abrir la demostración",
+      "Alcance de C3-D1 y bloqueo de lanzamiento",
+      "Reglas del editor de lecciones (C3-B)",
+      "Reglas de CLOZE (C3-D2-D)",
+      "Reglas de preguntas y casos (C3-C)",
+      "Verificación y límites",
+      "Etapas que siguen",
+      "Repetir PostgreSQL sin tocar bases existentes",
+      "Commits de D2-F"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/ANSWER_STREAK_FEEDBACK.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Feedback de rachas de aciertos",
+    "headings": [
+      "Feedback de rachas de aciertos",
+      "Comportamiento",
+      "Recurso sonoro"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/ARQUITECTURA_Y_ESTRUCTURA.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "SaberPlus: estructura y arquitectura para el equipo",
+    "headings": [
+      "SaberPlus: estructura y arquitectura para el equipo",
+      "1. ¿Qué arquitectura usamos?",
+      "2. Cómo se conectan las piezas",
+      "3. Repositorios y carpetas",
+      "Aplicación móvil: `saber_plus`",
+      "Backend y panel: `SaberPlus-Backend`",
+      "4. Capas de Flutter con un ejemplo real",
+      "Qué pertenece a `core`",
+      "Familias de funcionalidades",
+      "5. Organización del backend",
+      "6. Panel y organización del contenido",
+      "7. Persistencia, entornos y seguridad",
+      "8. Cómo trabajar sin interferir con otros",
+      "9. Comandos de desarrollo y comprobación",
+      "App Flutter",
+      "Backend",
+      "Panel en demostración",
+      "10. Estado y documentación que debe leerse",
+      "Resumen para una sustentación"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/ASYNC_BATTLES.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Batallas asíncronas",
+    "headings": [
+      "Batallas asíncronas",
+      "Formas de jugar",
+      "Privacidad y convivencia",
+      "Rutas del backend",
+      "Reglas contra abuso",
+      "Acceso en Flutter"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/AUDITORIA_DATOS_2026-09-09.md",
+    "classification": "HISTORICO / CONTRATO O PROCEDIMIENTO; contrastar con ruta vigente",
+    "title": "Auditoría focalizada: sesión, red y persistencia móvil",
+    "headings": [
+      "Auditoría focalizada: sesión, red y persistencia móvil",
+      "Hallazgos corregidos",
+      "Migración local",
+      "Verificación realizada",
+      "Límites y pendientes"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/AUDITORIA_PROYECTO_2026-09-09.md",
+    "classification": "HISTORICO / CONTRATO O PROCEDIMIENTO; contrastar con ruta vigente",
+    "title": "Auditoría de SaberPlus — 9 de septiembre de 2026",
+    "headings": [
+      "Auditoría de SaberPlus — 9 de septiembre de 2026",
+      "Resultado y alcance",
+      "Hallazgos corregidos",
+      "Persistencia y compatibilidad",
+      "Dependencias",
+      "Calidad y organización",
+      "Verificaciones",
+      "APK comprobado",
+      "Riesgos y trabajo que sigue pendiente",
+      "Guardar los cambios"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/AUDITORIA_UX_2026-09-09.md",
+    "classification": "HISTORICO / CONTRATO O PROCEDIMIENTO; contrastar con ruta vigente",
+    "title": "Auditoría de navegación y experiencia de uso — 9 de septiembre de 2026",
+    "headings": [
+      "Auditoría de navegación y experiencia de uso — 9 de septiembre de 2026",
+      "Alcance y límites",
+      "Correcciones realizadas",
+      "Pruebas ejecutadas",
+      "Verificaciones pendientes antes de publicar",
+      "Estado de la etapa"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/AUTH_CONTRACT.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Contrato real de autenticación",
+    "headings": [
+      "Contrato real de autenticación",
+      "Endpoints y cuerpos",
+      "Respuestas principales",
+      "Sesión y errores",
+      "Limitaciones pendientes del backend",
+      "Evidencia de integración"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/BUSINESS_MODEL.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Modelo de negocio móvil",
+    "headings": [
+      "Modelo de negocio móvil",
+      "Estudiantes",
+      "Profesores e instituciones",
+      "Publicidad recompensada",
+      "Plataformas y cobro",
+      "Seguridad publicitaria"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/CAREER_ORIENTATION.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Orientación de carreras y universidades",
+    "headings": [
+      "Orientación de carreras y universidades",
+      "Afinidad académica",
+      "Oferta oficial",
+      "Admisión"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/COBERTURA_DEL_BANCO.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "MA-1 — Cobertura básica del banco",
+    "headings": [
+      "MA-1 — Cobertura básica del banco",
+      "Cómo probar la demo",
+      "Verificación"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/COMMUNITY_TOOLS.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Anuncios, referidos, soporte y calculadora",
+    "headings": [
+      "Anuncios, referidos, soporte y calculadora",
+      "Tablón de anuncios",
+      "Referidos",
+      "Soporte",
+      "Calculadora de puntaje",
+      "Puesta en marcha"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/CONCILIACION_ROADMAP.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Comparación con el listado anterior 7F–9A",
+    "headings": [
+      "Comparación con el listado anterior 7F–9A",
+      "Lo que ya no debemos contar como trabajo desde cero",
+      "Correspondencia de todas las macroetapas anteriores",
+      "Pendientes que se hicieron explícitos al recuperar el listado",
+      "Evidencia local y límites de la revisión"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/CONTENT_ADMINISTRATION.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Administración y publicación de contenido",
+    "headings": [
+      "Administración y publicación de contenido",
+      "Flujo editorial",
+      "Validaciones de publicación",
+      "Rutas de estado vigentes desde C3-D1/D2-A",
+      "Prueba manual prevista",
+      "Importación segura disponible en 7F-C2-A",
+      "Estado del panel y próximas entregas de 7F-C"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/CONTENT_IMPORT_FORMAT.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Importación masiva de contenido",
+    "headings": [
+      "Importación masiva de contenido",
+      "Formatos admitidos",
+      "Hoja `Preguntas`",
+      "Hoja `Lecciones`",
+      "Hoja `Casos`",
+      "Catálogos y autoría",
+      "Contrato administrativo",
+      "Controles aplicados"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/CONTINUE_LEARNING.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Continúa donde quedaste",
+    "headings": [
+      "Continúa donde quedaste",
+      "Persistencia",
+      "Relación con las prácticas",
+      "Límite actual"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/DAILY_MISTAKE_REVIEW.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Repaso de errores del día",
+    "headings": [
+      "Repaso de errores del día",
+      "Funcionamiento",
+      "Protección y límite actual"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/DIFFICULT_QUESTIONS.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Preguntas difíciles",
+    "headings": [
+      "Preguntas difíciles",
+      "Datos locales",
+      "Repaso"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/ESCUDO_DEL_CONOCIMIENTO.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "JN-4 — Escudo del conocimiento",
+    "headings": [
+      "JN-4 — Escudo del conocimiento",
+      "Estado y alcance",
+      "Reglas provisionales v1",
+      "Implementación demo JN-4A",
+      "Cómo probar",
+      "JN-4B — Backend local (24 de septiembre)",
+      "JN-4C — Cliente remoto",
+      "Entregas pendientes"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/ETAPAS_PENDIENTES.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "SaberPlus — etapas pendientes y ruta vigente del equipo",
+    "headings": [
+      "SaberPlus — etapas pendientes y ruta vigente del equipo",
+      "Ruta vigente del equipo",
+      "Trabajo paralelo del equipo",
+      "Ampliación vigente — Sabi, dos juegos nuevos y tres mejoras académicas",
+      "Punto de reanudación — leer primero al volver a trabajar",
+      "Cierre del módulo profesor — antes de D3",
+      "P4-C — Verificación de nuevas instituciones (antes de P5)",
+      "Preparación de P5 cuando se autorice retomarla, antes de D3",
+      "Repositorios y contexto que se deben conservar",
+      "Información que se debe pedir al retomar D3 (después de P1–P5)",
+      "Instrucción lista para copiar en una nueva sesión",
+      "1. 7F-C3-D2 — Legado y unificación editorial",
+      "2. 7F-C3-D3 — Conectar el panel al backend y ensayo editorial real",
+      "Orden de ejecución",
+      "Criterios para darla por terminada",
+      "Alcance original que se conserva",
+      "3. 7F-C4 — Catálogo versionado y sincronización Flutter/Drift",
+      "4. 7F-C5 — Imágenes y archivos persistentes",
+      "5. 7F-C6 — Auditoría, versiones y recuperación editorial",
+      "6. 7F-B3-B y 6F-P — Integración móvil, despliegues y Guardián",
+      "7. Cierre de identidad, contratos y seguridad",
+      "8. Contratos académicos pendientes de etapas anteriores",
+      "9. Seis certificados: cinco áreas y curso completo",
+      "10. Etapas 8C–8D — Publicidad y recompensas reales",
+      "11. Etapas 8A–8B — Derechos comerciales, Billing y plan sin anuncios",
+      "12. Etapas 8E–8I y cierre 7J — Producción, calidad y publicación",
+      "Contenido y operación editorial (cierre 7J)",
+      "8E — Privacidad, documentación y licencias",
+      "8F — Seguridad, rendimiento y observabilidad",
+      "UI-F — Diseño final de la app (antes de 8G)",
+      "8G — Pruebas integrales y beta",
+      "8H — Entrega técnica iOS, sin publicación comercial",
+      "8I — Google Play",
+      "13. Etapa 9A — Mantenimiento posterior al lanzamiento",
+      "Mejoras opcionales recuperadas del listado anterior",
+      "Fuera del lanzamiento inicial / no son etapas pendientes obligatorias"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/EXAM_COUNTDOWN.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Contador global del examen",
+    "headings": [
+      "Contador global del examen",
+      "Fuente de verdad",
+      "Comportamiento"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/FAVORITES.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Favoritos académicos",
+    "headings": [
+      "Favoritos académicos",
+      "Alcance actual",
+      "Límite conocido"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/FLASHCARDS.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Flashcards académicas",
+    "headings": [
+      "Flashcards académicas",
+      "Fuente de las tarjetas",
+      "Sesiones",
+      "Persistencia",
+      "Accesibilidad"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/FLUTTER_STAGING_CONNECTION.md",
+    "classification": "HISTORICO / CONTRATO O PROCEDIMIENTO; contrastar con ruta vigente",
+    "title": "7F-B3-A — Flutter conectado al servidor de staging",
+    "headings": [
+      "7F-B3-A — Flutter conectado al servidor de staging",
+      "Entrega terminada",
+      "Ejecutar en Android o iOS",
+      "Prueba automatizada contra el servidor (solo lectura)",
+      "7F-B3-B — Validación integral aún pendiente",
+      "Commit de esta entrega (solo Flutter)"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/FUNCIONALIDADES_PARA_EL_EQUIPO.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "SaberPlus — funcionalidades y estado para el equipo",
+    "headings": [
+      "SaberPlus — funcionalidades y estado para el equipo",
+      "Qué estamos construyendo",
+      "1. Cuentas y navegación",
+      "2. Inicio y organización académica",
+      "3. Diagnóstico y evidencia de aprendizaje",
+      "4. Práctica, simulacros y resultados",
+      "5. Repaso y organización personal",
+      "6. Hábitos y bienestar",
+      "7. Juegos",
+      "8. Rachas, XP, logros y certificados",
+      "9. Perfil y orientación",
+      "10. Profesores, grupos e instituciones",
+      "11. Comunidad y soporte",
+      "12. Descargas y sincronización",
+      "13. Panel de administración de contenido",
+      "14. Modelo comercial y lanzamiento",
+      "Qué sigue"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/GAMES_PRODUCTION_CHECKLIST.md",
+    "classification": "HISTORICO / CONTRATO O PROCEDIMIENTO; contrastar con ruta vigente",
+    "title": "Insumos pendientes para publicar los juegos",
+    "headings": [
+      "Insumos pendientes para publicar los juegos",
+      "1. Audios y licencias",
+      "2. Contenido académico",
+      "3. Contrato autoritativo de Trivia Rush",
+      "4. Récord fantasma en la nube",
+      "5. Persistencia sugerida",
+      "6. AdMob y plan sin anuncios",
+      "7. Datos que no deben registrarse"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/GAME_POLISH_GUARDIAN.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "6F-P — Pulido de juegos, racha y desafío del guardián",
+    "headings": [
+      "6F-P — Pulido de juegos, racha y desafío del guardián",
+      "Qué cambió",
+      "Racha: apariencia y reglas reales",
+      "Nuevo juego: Desafío del guardián",
+      "Contrato y protección backend",
+      "Activarlo en la nube (pendiente de operación)",
+      "Audio y verificación manual",
+      "Commits separados",
+      "Verificación de esta entrega",
+      "Cómo confirmar los cambios"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/GAMIFICATION_CONTRACT.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Contrato móvil de gamificación",
+    "headings": [
+      "Contrato móvil de gamificación",
+      "Resumen protegido",
+      "XP",
+      "Experiencia móvil",
+      "Estados visuales de la racha",
+      "Certificados de áreas y curso (integración local, 22 de septiembre)"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/GHOST_DUEL.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Duelo fantasma",
+    "headings": [
+      "Duelo fantasma",
+      "Reglas implementadas",
+      "Audio opcional pendiente"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/GROUP_LINKING.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Grupos y vinculación segura",
+    "headings": [
+      "Grupos y vinculación segura",
+      "Flujo del estudiante",
+      "Permisos",
+      "Protección de los códigos",
+      "Rutas del backend",
+      "Estudiante",
+      "Equipo docente",
+      "Despliegue"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/GUIA_TRABAJO_COMPANEROS.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "SaberPlus — guía de trabajo para compañeros",
+    "headings": [
+      "SaberPlus — guía de trabajo para compañeros",
+      "1. Acuerdo del equipo",
+      "2. Repositorios y lectura inicial",
+      "Primera descarga y rama propia",
+      "Continuar solamente si no hay cambios propios sin guardar.",
+      "3. Certificados: solo seis tipos",
+      "Implementación local del 22 de septiembre",
+      "4. Audios: reparar los existentes antes de añadir más",
+      "Inventario actual",
+      "Archivos de entrada",
+      "A1 — Diagnóstico y reparación",
+      "A2 — Propuestas para juegos nuevos",
+      "5. Contenido y panel ADMIN: tarea posterior compartida",
+      "6. Reglas para no pisarse cambios",
+      "Guardar y entregar una rama",
+      "Añadir únicamente los archivos de la tarea (ejemplo de audio):",
+      "Añadir por su ruta los demás archivos que realmente se modificaron.",
+      "7. Pruebas conjuntas y entrega final"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/HISTORIAL_ETAPAS.md",
+    "classification": "HISTORICO / CONTRATO O PROCEDIMIENTO; contrastar con ruta vigente",
+    "title": "Historial completo de etapas de SaberPlus",
+    "headings": [
+      "Historial completo de etapas de SaberPlus",
+      "Relevo documental del 28 de septiembre",
+      "Entrega del 28 de septiembre — MA-3C agenda y flashcards",
+      "Entrega del 28 de septiembre — MA-3B persistencia y sincronización",
+      "Entrega anterior — MA-3A reglas del repaso diferido",
+      "Entrega posterior — MA-2C Flutter",
+      "Entrega posterior del 27 de septiembre — MA-2B",
+      "Cómo leer este documento",
+      "1 — Cimientos móviles",
+      "2 — Autenticación y sesión",
+      "3 — Diagnóstico y aprendizaje",
+      "4 — Práctica y simulacros",
+      "5 — Progreso y funcionamiento local",
+      "6 — Hábitos, orientación, comunidad y juegos",
+      "Gamificación, certificados y herramientas personales",
+      "Simulacros avanzados y bienestar",
+      "Perfil académico y orientación",
+      "Juegos e integración 6F/6G",
+      "7A–7E — Profesor e institución",
+      "7F — Infraestructura y administración de contenido",
+      "Auditorías y simplificaciones posteriores",
+      "P1–P5 — Cierre y ampliación docente",
+      "Ampliación de Sabi, juegos y aprendizaje",
+      "Certificados definitivos y PR-I — última ampliación",
+      "Plataforma web temporal",
+      "Etapas futuras 8 y 9",
+      "Registro Git verificable",
+      "Anexo A — repositorio móvil",
+      "Anexo B — repositorio backend/panel"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/HISTORICAL_SIMULATIONS.md",
+    "classification": "HISTORICO / CONTRATO O PROCEDIMIENTO; contrastar con ruta vigente",
+    "title": "Banco autorizado de simulacros por año",
+    "headings": [
+      "Banco autorizado de simulacros por año",
+      "Experiencia móvil",
+      "Contrato propuesto para el backend",
+      "Catálogo",
+      "Abrir jornada",
+      "Calificar jornada",
+      "Cómo cargar ediciones después",
+      "Demostración"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/INDICE_DOCUMENTACION.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Índice de documentación de SaberPlus",
+    "headings": [
+      "Índice de documentación de SaberPlus",
+      "Cómo leer sin perder la ruta",
+      "Jerarquía y mantenimiento",
+      "Documentación del otro repositorio",
+      "Inventario",
+      "Empezar aquí y decidir el trabajo",
+      "Historia y auditorías fechadas (no ruta actual)",
+      "Instituciones, profesor y comunidad",
+      "Juegos, insignias, Sabi y audio",
+      "API, panel, infraestructura, privacidad y comercio",
+      "Estudio, práctica y herramientas personales"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/INSIGNIAS_Y_JUEGOS_VIGENTES.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Insignias y juegos vigentes — 27 de septiembre de 2026",
+    "headings": [
+      "Insignias y juegos vigentes — 27 de septiembre de 2026",
+      "JN-4 — Escudo del conocimiento retirado",
+      "Verificación"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/INSTITUTION_ADMINISTRATION.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Administración institucional",
+    "headings": [
+      "Administración institucional",
+      "Permisos",
+      "Solicitudes",
+      "Invitaciones",
+      "Auditoría",
+      "Rutas del backend",
+      "Despliegue"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/LEARNING_EVIDENCE.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "7F-C2-B2 — Diagnóstico por temas y subtemas",
+    "headings": [
+      "7F-C2-B2 — Diagnóstico por temas y subtemas",
+      "Entrega",
+      "Cómo probar",
+      "Ruta verificada y commits"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/MAPA_APRENDIZAJE.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "MA-2 — Mapa de aprendizaje",
+    "headings": [
+      "MA-2 — Mapa de aprendizaje",
+      "Qué quedó hecho en MA-2A",
+      "MA-2B — entrega local y recorrido para probar",
+      "Alcance original de MA-2B (referencia)",
+      "MA-2C — entrega Flutter",
+      "Alcance original de MA-2C (referencia)"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/MEMORY_MATCH.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Memoria académica",
+    "headings": [
+      "Memoria académica",
+      "Contenido y niveles",
+      "Pistas y modelo comercial",
+      "Audio pendiente",
+      "Siguiente evolución"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/MOTION.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Movimiento y transiciones",
+    "headings": [
+      "Movimiento y transiciones",
+      "Parámetros",
+      "Dónde se aplica",
+      "Accesibilidad",
+      "Sonido y vibración"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/NATIONAL_SCORE_COMPARISON.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Comparación con referencias nacionales",
+    "headings": [
+      "Comparación con referencias nacionales",
+      "Referencias incorporadas",
+      "Límites de interpretación",
+      "Actualización futura"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/OFFICIAL_OPPORTUNITIES.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Becas y oportunidades oficiales",
+    "headings": [
+      "Becas y oportunidades oficiales",
+      "Catálogo verificado",
+      "Límites de elegibilidad",
+      "Actualización futura"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/OFFLINE_CONTENT.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Contenido sin conexión",
+    "headings": [
+      "Contenido sin conexión",
+      "Qué se guarda",
+      "Separación y limpieza",
+      "Límites deliberados"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/OFFLINE_SYNC.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Sincronización segura sin conexión",
+    "headings": [
+      "Sincronización segura sin conexión",
+      "Lista permitida",
+      "Persistencia y envío",
+      "Resolución de conflictos",
+      "Migración local",
+      "Límite del contrato actual"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/PERFILES_RANKINGS_INSIGNIAS.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Perfiles, rankings e insignias — ampliación acordada",
+    "headings": [
+      "Perfiles, rankings e insignias — ampliación acordada",
+      "Entrega PR-I3A — arte disponible",
+      "Alcance solicitado",
+      "Lo existente y lo que debemos extender",
+      "Reglas propuestas para cerrar antes de implementar",
+      "Descubrimiento y presentación social",
+      "Etapas nuevas PR-I",
+      "Rangos gráficos comunes (10 por familia, hasta el puesto 50)",
+      "Prompts de imágenes",
+      "BASE — pegar en cada solicitud",
+      "TR — Trivia Rush (`badge_trivia_rush_<rango>.png`)",
+      "CI — Salto a la cima (`badge_summit_<rango>.png`)",
+      "TA — Tira y afloja (`badge_tug_of_war_<rango>.png`)",
+      "FA — Duelo fantasma (`badge_ghost_duel_<rango>.png`)",
+      "ME — Memoria (`badge_memory_<rango>.png`)",
+      "GU — Desafío del Guardián (`badge_guardian_<rango>.png`)",
+      "BA — Batallas asíncronas (`badge_async_battle_<rango>.png`)",
+      "RE — Rescate de estrellas (`badge_star_rescue_<rango>.png`)",
+      "ES — Cancelado",
+      "IN — Instituciones (`badge_institution_<rango>.png`)",
+      "VARIANTE — añadir a cada combinación"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/POMODORO.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Pomodoro de enfoque",
+    "headings": [
+      "Pomodoro de enfoque",
+      "Comportamiento",
+      "Límites de esta entrega"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/PRACTICE_CONTRACT.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Contrato móvil de práctica y preguntas aleatorias",
+    "headings": [
+      "Contrato móvil de práctica y preguntas aleatorias",
+      "Abrir un intento",
+      "Calificar",
+      "Preguntas aleatorias",
+      "Borrador local y reanudación",
+      "Protección frente a envíos duplicados",
+      "Alcance de la Etapa 4A",
+      "Alcance de la Etapa 4B",
+      "Alcance de la Etapa 4C",
+      "Simulacro completo por área",
+      "Historial",
+      "Repaso de errores del día"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/PREFERENCES_NOTIFICATIONS.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Preferencias y notificaciones locales",
+    "headings": [
+      "Preferencias y notificaciones locales",
+      "Apariencia",
+      "Recordatorio diario",
+      "Alcance actual",
+      "Publicación"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/PROFESOR_P1.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Profesor P1 — métricas, textos y navegación",
+    "headings": [
+      "Profesor P1 — métricas, textos y navegación",
+      "Cambios",
+      "Verificación",
+      "Límites y continuación",
+      "Comandos locales de comprobación",
+      "Commits de esta entrega"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/PROFESOR_P2.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Profesor P2 — ficha individual de evidencia",
+    "headings": [
+      "Profesor P2 — ficha individual de evidencia",
+      "Qué incorpora",
+      "Seguridad y consistencia",
+      "Verificación",
+      "Pendiente real y continuación",
+      "Commits"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/PROFESOR_P3_A.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Profesor P3-A — base de prioridades docentes",
+    "headings": [
+      "Profesor P3-A — base de prioridades docentes",
+      "Qué se preparó",
+      "Evidencia",
+      "Siguiente paso exacto: P3-B",
+      "Commits y rutas"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/PROFESOR_P3_B.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Profesor P3-B — pantallas, práctica dirigida y seguimiento",
+    "headings": [
+      "Profesor P3-B — pantallas, práctica dirigida y seguimiento",
+      "Cómo usarlo",
+      "Profesor",
+      "Estudiante",
+      "Persistencia, reintentos y privacidad",
+      "Verificación y límites",
+      "Comandos de verificación",
+      "Commits y rutas"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/PROFESOR_P4_A.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Profesor P4-A — base del tiempo y evolución",
+    "headings": [
+      "Profesor P4-A — base del tiempo y evolución",
+      "Qué quedó preparado",
+      "Decisiones obligatorias para P4-B",
+      "Verificación",
+      "Commits y rutas"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/PROFESOR_P4_B.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Profesor P4-B — sincronización y evolución en Flutter",
+    "headings": [
+      "Profesor P4-B — sincronización y evolución en Flutter",
+      "Qué puede hacer cada usuario",
+      "Persistencia, reintentos y sesión",
+      "Contrato y estados de pantalla",
+      "Verificación local",
+      "Lo que falta antes de D3",
+      "Commits y rutas"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/PROFESOR_P4_C.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "P4-C — Solicitud y aprobación de instituciones",
+    "headings": [
+      "P4-C — Solicitud y aprobación de instituciones",
+      "Qué cambia",
+      "Cómo probar localmente",
+      "Siguiente: preparación y ensayo P5",
+      "Commits (no ejecutados)"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/PROGRESS_CONTRACT.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Contrato móvil de progreso y cuaderno de errores",
+    "headings": [
+      "Contrato móvil de progreso y cuaderno de errores",
+      "Panel de progreso",
+      "Cuaderno de errores",
+      "Alcance de la Etapa 5A",
+      "Etapa 5E: escritura aplazada segura",
+      "Etapa 5B: repaso adaptativo",
+      "Alcance completado de la Etapa 5B"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/PROMPT_RELEVO.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Prompt para continuar SaberPlus con otro chat",
+    "headings": [
+      "Prompt para continuar SaberPlus con otro chat",
+      "Entrega al compañero"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/RANKING_PRIVACY.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Ranking con privacidad por defecto",
+    "headings": [
+      "Ranking con privacidad por defecto",
+      "Información visible",
+      "Alcances y períodos",
+      "Defensa en Flutter"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/REFERENCE_LIBRARY.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Biblioteca académica móvil",
+    "headings": [
+      "Biblioteca académica móvil",
+      "Fuente de verdad actual",
+      "Funcionamiento móvil"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/RELEVO_EQUIPO.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Relevo del equipo — empezar aquí",
+    "headings": [
+      "Relevo del equipo — empezar aquí",
+      "1. Antes de programar: comprender y auditar ambos repositorios",
+      "2. Descargar y conservar los dos proyectos",
+      "3. Preparación local y pruebas",
+      "4. Decisiones que no se deben cambiar accidentalmente",
+      "5. Orden de continuación y fichas de trabajo",
+      "MA-1 — Cerrar cobertura (base ya implementada)",
+      "MA-2 — Mapa de aprendizaje (A/B/C implementadas localmente)",
+      "MA-3 — Repaso diferido",
+      "PR-I1 — Reglas y contratos competitivos",
+      "PR-I2 — Rankings por juego",
+      "PR-I3 — Insignias por temporada",
+      "PR-I4 — Mejorar perfil y búsqueda de estudiantes",
+      "PR-I5 — Perfil institucional, búsqueda e ingresos",
+      "PR-I6 — Ranking institucional",
+      "PR-I7 — Ensayo competitivo y social",
+      "P5 — Cierre docente real (pausado)",
+      "D2 y D3 — Legado y panel real (D3 pausado)",
+      "7F-C4 — Catálogo y sincronización",
+      "7F-C5 — Archivos persistentes (dependencia de fotos)",
+      "7F-C6 — Versiones y recuperación editorial",
+      "7F-B3-B / 6F-P — Integración móvil y juegos reales",
+      "Identidad, contratos y seguridad (bloque 7)",
+      "Contratos académicos remotos (bloque 8)",
+      "Certificados (bloque 9)",
+      "8A–8B — Billing y derechos comerciales",
+      "8C–8D — Anuncios, racha y comodines",
+      "Cierre 7J — Contenido y operación editorial",
+      "8E — Privacidad y licencias",
+      "8F — Seguridad, rendimiento y operación",
+      "UI-F — Azul y animaciones finales (antes de beta)",
+      "8G — Integral y beta",
+      "8H — Entrega iOS",
+      "8I — Google Play",
+      "9A — Mantenimiento",
+      "6. Cómo hacer cambios sin pisarse",
+      "7. Cierre obligatorio de cada entrega",
+      "8. Mensaje para retomar con otro asistente"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/RENDER_STAGING_DEPLOYMENT.md",
+    "classification": "HISTORICO / CONTRATO O PROCEDIMIENTO; contrastar con ruta vigente",
+    "title": "Backend HTTPS de staging en Render",
+    "headings": [
+      "Backend HTTPS de staging en Render",
+      "Alcance de este primer ambiente",
+      "1. Publicar la configuracion del backend",
+      "2. Crear el Blueprint",
+      "3. Variables solicitadas por Render",
+      "4. Comprobar el despliegue",
+      "5. Conectar Flutter a staging",
+      "6. Migraciones y siguientes despliegues",
+      "Referencias oficiales"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/REPASO_DIFERIDO.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "MA-3 — Repaso diferido",
+    "headings": [
+      "MA-3 — Repaso diferido",
+      "Política inicial v1",
+      "Implementación MA-3A",
+      "MA-3B — contrato y sincronización, no improvisar",
+      "MA-3C — UI y práctica",
+      "Reanudación y commits"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/RESCATE_DE_ESTRELLAS.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "JN-2 — Rescate de estrellas",
+    "headings": [
+      "JN-2 — Rescate de estrellas",
+      "Estado: JN-2A/B/C implementadas localmente; pendiente ensayo real",
+      "JN-2C — Cliente remoto y recuperación segura",
+      "Estado del cliente Flutter (JN-2A)",
+      "Reglas iniciales ajustables",
+      "Flujo de prueba",
+      "Organización y límites",
+      "Verificación",
+      "Próximas entregas"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/REVISION_REANUDACION_2026-09-27.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Revisión acotada de reanudación — 27 de septiembre de 2026",
+    "headings": [
+      "Revisión acotada de reanudación — 27 de septiembre de 2026"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/ROADMAP_MOVIL.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Roadmap móvil de SaberPlus",
+    "headings": [
+      "Roadmap móvil de SaberPlus",
+      "Estado actual",
+      "Etapa 1 - Cimientos móviles",
+      "Etapa 2 - Identidad real",
+      "Etapa 3 - Diagnóstico y aprendizaje",
+      "Etapa 4 - Práctica y simulacros",
+      "Etapa 5 - Progreso y modo sin conexión",
+      "Etapa 6 - Comunidad y gamificación",
+      "Entrega adicional 6F-P — juegos y racha",
+      "Etapa 7 - Profesor e institución",
+      "Etapa 7F - Supabase y despliegue de la API",
+      "Etapa 7F-C - Administración de contenido",
+      "Etapa 8 - Comercio y publicación",
+      "Etapa 9A - Operación posterior al lanzamiento",
+      "Decisiones comerciales confirmadas",
+      "Decisión de infraestructura",
+      "Decisiones pendientes que no debe inventar Flutter"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/SABI_DUELO_FANTASMA.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Sabi — primera renovación: Duelo fantasma",
+    "headings": [
+      "Sabi — primera renovación: Duelo fantasma",
+      "Cómo ver la muestra",
+      "Objetivo elegido",
+      "Decisión técnica propuesta, no dependencia instalada",
+      "Recursos que se prepararán",
+      "Secuencia propuesta",
+      "Integración con el código existente",
+      "Entregas pequeñas",
+      "Criterios de aceptación futura",
+      "Fuentes consultadas para elegir herramienta",
+      "Verificación reproducible"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/SABI_Y_JUEGOS_APROBADOS.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Sabi y ampliaciones aprobadas",
+    "headings": [
+      "Sabi y ampliaciones aprobadas",
+      "Orden funcional propuesto para continuar por entregas",
+      "Un protagonista compartido",
+      "Juegos nuevos: dos vigentes y uno retirado",
+      "JN-1 — Salto a la cima",
+      "JN-2 — Rescate de estrellas",
+      "JN-4 — Escudo del conocimiento (histórico, retirado)",
+      "Renovación de juegos existentes: dirección acordada",
+      "Tres mejoras académicas seleccionadas",
+      "Condiciones para las futuras entregas"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/SALTO_A_LA_CIMA.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "JN-1 — Salto a la cima",
+    "headings": [
+      "JN-1 — Salto a la cima",
+      "Estado: JN-1A demo, JN-1B backend y JN-1C cliente remoto implementados localmente",
+      "Reglas iniciales de prueba",
+      "Cómo probar",
+      "Separación y seguridad",
+      "JN-1B — Backend completado localmente",
+      "JN-1C — Flutter remoto",
+      "Ensayo real cuando se retome infraestructura",
+      "Siguientes entregas de este juego",
+      "Verificación"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/SCORE_PROJECTION.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Proyección orientativa de puntaje",
+    "headings": [
+      "Proyección orientativa de puntaje",
+      "Referencia oficial",
+      "Evidencia usada por SaberPlus",
+      "Confianza y rango"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/SESSION_SECURITY_WELLBEING.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Sesión por dispositivo, integridad y descansos",
+    "headings": [
+      "Sesión por dispositivo, integridad y descansos",
+      "Identidad de la instalación",
+      "Contrato pendiente para un único dispositivo",
+      "Integridad del simulacro AM/PM",
+      "Descanso saludable de tres minutos"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/SIMULACRO_150.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Simulacro de 150 preguntas AM/PM",
+    "headings": [
+      "Simulacro de 150 preguntas AM/PM",
+      "Flujo móvil",
+      "Contrato utilizado actualmente",
+      "Contenido y derechos",
+      "Modo demostración"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/SIMULATION_COMPARISON.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Comparación entre simulacros",
+    "headings": [
+      "Comparación entre simulacros",
+      "Fuente de los datos",
+      "Criterios visuales",
+      "Contrato pendiente para una comparación completa"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/STUDY_CONTRACT.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Contrato de contenido académico móvil",
+    "headings": [
+      "Contrato de contenido académico móvil",
+      "Árbol académico",
+      "Recursos",
+      "Limitación detectada en imágenes legadas",
+      "Alcance de la Etapa 3C"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/STUDY_TIME.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Tiempo total estudiado",
+    "headings": [
+      "Tiempo total estudiado",
+      "Qué tiempo se registra",
+      "Persistencia y privacidad"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/SUPABASE_DEPLOYMENT.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Supabase para el backend de SaberPlus",
+    "headings": [
+      "Supabase para el backend de SaberPlus",
+      "Separacion de ambientes",
+      "1. Crear el proyecto de desarrollo",
+      "2. Crear el usuario exclusivo de Prisma",
+      "3. Preparar las conexiones locales",
+      "4. Validar y aplicar migraciones",
+      "5. Comprobar la base",
+      "6. Despliegue del backend",
+      "Estado verificado de desarrollo",
+      "Referencias oficiales"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/SYLLABUS_COUNTDOWN.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Countdown del temario por materia",
+    "headings": [
+      "Countdown del temario por materia",
+      "Fuentes de verdad",
+      "Cálculo",
+      "Estados seguros"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/TEACHER_FREE_PLAN.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Profesor gratuito e indicadores básicos",
+    "headings": [
+      "Profesor gratuito e indicadores básicos",
+      "Límites",
+      "Indicadores básicos",
+      "Publicidad moderada",
+      "Despliegue"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/TEACHER_INSTITUTION_FOUNDATION.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Base de profesor e institución",
+    "headings": [
+      "Base de profesor e institución",
+      "Registro de profesor",
+      "Estados del vínculo",
+      "Crear una institución (flujo histórico sustituido por aprobación P4-C)",
+      "Solicitar ingreso",
+      "Persistencia"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/TEACHER_NO_ADS_PLAN.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Plan institucional sin anuncios",
+    "headings": [
+      "Plan institucional sin anuncios",
+      "Capacidades",
+      "Alcance docente",
+      "Exportaciones",
+      "Experiencia móvil"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/TIME_TRIALS.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Pruebas contrarreloj",
+    "headings": [
+      "Pruebas contrarreloj",
+      "Experiencia móvil",
+      "Limitación conocida del backend actual",
+      "Iniciar",
+      "Calificar"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/TRIVIA_RUSH.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Trivia Rush",
+    "headings": [
+      "Trivia Rush",
+      "Reglas implementadas",
+      "Protección del banco",
+      "Audio incorporado"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/TRIVIA_RUSH_BACKEND_CONTRACT.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Contrato backend de Trivia Rush",
+    "headings": [
+      "Contrato backend de Trivia Rush",
+      "Rutas",
+      "Crear o recuperar un intento",
+      "Responder",
+      "Potenciadores",
+      "Cierre",
+      "Récord fantasma",
+      "Estado público",
+      "Persistencia y reglas"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/TUG_OF_WAR.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Tira y afloja",
+    "headings": [
+      "Tira y afloja",
+      "Estado actual: experiencia local animada",
+      "Reglas de la partida",
+      "Dificultad del rival",
+      "Frontera de seguridad",
+      "Secuencias visuales y sonoras",
+      "Recursos visuales",
+      "Multijugador en construcción"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/TUG_OF_WAR_BACKEND_CONTRACT.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Contrato del backend de Tira y afloja",
+    "headings": [
+      "Contrato del backend de Tira y afloja",
+      "Estado de la integracion",
+      "Autenticacion",
+      "Endpoints",
+      "Buscar o recuperar una partida",
+      "Consultar la partida abierta",
+      "Sincronizar estado y eventos",
+      "Confirmar que el jugador esta listo",
+      "Responder una ronda",
+      "Abandonar",
+      "Estado recibido por Flutter",
+      "Reglas autoritativas",
+      "Seguridad y siguiente entrega",
+      "Conexion en tiempo real",
+      "Mensajes que envia Flutter",
+      "Mensajes que recibe Flutter",
+      "Reconexion",
+      "Cliente Flutter"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "docs/licenses/AUDIO_LICENSES.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Registro de licencias de audio",
+    "headings": [
+      "Registro de licencias de audio"
+    ]
+  },
+  {
+    "repo": "Flutter",
+    "file": "ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Launch Screen Assets",
+    "headings": [
+      "Launch Screen Assets"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "README.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "SaberPlus Backend",
+    "headings": [
+      "SaberPlus Backend",
+      "Estructura",
+      "Desarrollo local",
+      "Verificacion",
+      "Despliegue"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "admin/EDITORIAL_TOOLS.md",
+    "classification": "HISTORICO / CONTRATO O PROCEDIMIENTO; contrastar con ruta vigente",
+    "title": "7F-C3-D2-E — Formularios CLOZE y revisión del banco antiguo",
+    "headings": [
+      "7F-C3-D2-E — Formularios CLOZE y revisión del banco antiguo",
+      "Abrir y probar",
+      "Corrección de acceso durante D2-F",
+      "Completar espacios",
+      "Lotes y coincidencias",
+      "Reclasificación",
+      "Seguridad y fallos",
+      "Verificación y siguiente paso"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "admin/README.md",
+    "classification": "CONTEXTO HISTORICO CONCILIADO EN NOTA DE RELEVO",
+    "title": "Panel administrativo de SaberPlus",
+    "headings": [
+      "Panel administrativo de SaberPlus",
+      "MA-1 — Cobertura básica (24 de septiembre de 2026)",
+      "Flujo actual: guardar y publicar (22 de septiembre de 2026)",
+      "Diseño actualizado a partir del administrador de Icfes_Vida (23 de septiembre)",
+      "Protecciones y límites",
+      "Historial de entregas anteriores",
+      "Probar sin cuenta ni base de datos",
+      "Conectar con el backend real",
+      "Seguridad y comportamiento",
+      "Verificación",
+      "Siguientes partes de 7F-C3",
+      "Contrato y límites de C3-B",
+      "Preguntas y casos: 7F-C3-C",
+      "Revisión y publicación: C3-D1",
+      "MA-2B — Mapa de aprendizaje (implementación local)"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "backend/AUDITORIA_BACKEND_2026-09-09.md",
+    "classification": "HISTORICO / CONTRATO O PROCEDIMIENTO; contrastar con ruta vigente",
+    "title": "Auditoría del backend de SaberPlus",
+    "headings": [
+      "Auditoría del backend de SaberPlus",
+      "Alcance y límites",
+      "Problemas corregidos",
+      "Verificación",
+      "Pendientes importantes antes de producción",
+      "Fuentes de los avisos de dependencias",
+      "Entrega y organización"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "backend/BANK_COVERAGE.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "MA-1 — Cobertura básica del banco",
+    "headings": [
+      "MA-1 — Cobertura básica del banco",
+      "Qué muestran los conteos",
+      "API y seguridad",
+      "Prueba manual",
+      "Verificación local"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "backend/DEFERRED_REVIEW.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "MA-3B — Agenda de repaso diferido",
+    "headings": [
+      "MA-3B — Agenda de repaso diferido",
+      "Contrato v1",
+      "Tiempo e idempotencia",
+      "Persistencia y pruebas"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "backend/EDITORIAL_CLOZE.md",
+    "classification": "HISTORICO / CONTRATO O PROCEDIMIENTO; contrastar con ruta vigente",
+    "title": "7F-C3-D2-D — Edición y revisión especializada de CLOZE",
+    "headings": [
+      "7F-C3-D2-D — Edición y revisión especializada de CLOZE",
+      "Contrato compatible con Flutter",
+      "API (solo ADMIN editorial)",
+      "Concurrencia y publicación",
+      "Verificar sin base real"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "backend/EDITORIAL_DRAFT_DELETION.md",
+    "classification": "HISTORICO / CONTRATO O PROCEDIMIENTO; contrastar con ruta vigente",
+    "title": "D2-F — Eliminación de borradores vacíos",
+    "headings": [
+      "D2-F — Eliminación de borradores vacíos",
+      "Alcance",
+      "Concurrencia y respuesta",
+      "Probar en demo",
+      "Verificación"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "backend/EDITORIAL_LEGACY_INDEX.md",
+    "classification": "HISTORICO / CONTRATO O PROCEDIMIENTO; contrastar con ruta vigente",
+    "title": "7F-C3-D2-B — Indexación acotada de preguntas antiguas",
+    "headings": [
+      "7F-C3-D2-B — Indexación acotada de preguntas antiguas",
+      "Qué hace y qué no hace",
+      "API protegida con ADMIN",
+      "Reanudación y fallos",
+      "Cómo interpretar los resultados",
+      "Operación real pendiente y autorización",
+      "Pruebas"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "backend/EDITORIAL_LEGACY_RETIREMENT.md",
+    "classification": "HISTORICO / CONTRATO O PROCEDIMIENTO; contrastar con ruta vigente",
+    "title": "7F-C3-D2-A — Una sola vía de escritura editorial",
+    "headings": [
+      "7F-C3-D2-A — Una sola vía de escritura editorial",
+      "Cambio de compatibilidad",
+      "Concurrencia",
+      "Antes de desplegar/activar",
+      "Verificación local"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "backend/EDITORIAL_POSTGRES_TESTS.md",
+    "classification": "HISTORICO / CONTRATO O PROCEDIMIENTO; contrastar con ruta vigente",
+    "title": "7F-C3-D2-F — Verificación editorial con PostgreSQL desechable",
+    "headings": [
+      "7F-C3-D2-F — Verificación editorial con PostgreSQL desechable",
+      "Ejecutar en este equipo",
+      "Aislamiento",
+      "Qué se comprueba",
+      "Límites y estado de la etapa"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "backend/EDITORIAL_RECLASSIFICATION.md",
+    "classification": "HISTORICO / CONTRATO O PROCEDIMIENTO; contrastar con ruta vigente",
+    "title": "7F-C3-D2-C — Reclasificación de preguntas sin uso registrado",
+    "headings": [
+      "7F-C3-D2-C — Reclasificación de preguntas sin uso registrado",
+      "Por qué no se mueve cualquier pregunta",
+      "API",
+      "Condiciones",
+      "Escritura y concurrencia",
+      "Activación pendiente",
+      "Verificación"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "backend/INSTITUTION_APPROVAL.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "P4-C — Aprobación de instituciones",
+    "headings": [
+      "P4-C — Aprobación de instituciones",
+      "Flujo",
+      "Contrato y seguridad",
+      "Evidencia, transición y límites",
+      "Verificación local",
+      "Antes de desplegar"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "backend/KNOWLEDGE_SHIELD.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "JN-4B — Escudo del conocimiento",
+    "headings": [
+      "JN-4B — Escudo del conocimiento",
+      "Reglas v1",
+      "API",
+      "Integridad y privacidad",
+      "Migración y verificación"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "backend/LEARNING_MAP.md",
+    "classification": "CONTEXTO HISTORICO CONCILIADO EN NOTA DE RELEVO",
+    "title": "MA-2A — Reglas y backend del mapa de aprendizaje",
+    "headings": [
+      "MA-2A — Reglas y backend del mapa de aprendizaje",
+      "Regla de producto",
+      "API versión 1",
+      "Integridad, permisos y concurrencia",
+      "Migración y verificación",
+      "Próximo: MA-2B, no rehacer el backend"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "backend/PAGOS_HEREDADOS_RETIRADOS.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Retiro de pasarelas heredadas — 12 de septiembre de 2026",
+    "headings": [
+      "Retiro de pasarelas heredadas — 12 de septiembre de 2026",
+      "Verificación",
+      "Despliegue pendiente"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "backend/PROFESOR_P2.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "P2 — seguimiento individual por temas",
+    "headings": [
+      "P2 — seguimiento individual por temas",
+      "Contrato",
+      "Interpretación compartida",
+      "Verificación y límites"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "backend/PROFESOR_P3_A.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "Profesor P3-A — prioridades docentes: persistencia y API",
+    "headings": [
+      "Profesor P3-A — prioridades docentes: persistencia y API",
+      "Comportamiento acordado para implementar el cliente",
+      "API v1",
+      "Seguridad, persistencia y concurrencia",
+      "Verificación local",
+      "Migración y continuación pendientes",
+      "Commit sin mezclar los cambios anteriores de Guardián"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "backend/PROFESOR_P3_B.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "P3-B — inicio seguro de práctica dirigida",
+    "headings": [
+      "P3-B — inicio seguro de práctica dirigida",
+      "Contrato añadido",
+      "Verificación",
+      "Commit"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "backend/PROFESOR_P4_A.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "P4-A — API de tiempo registrado y evolución",
+    "headings": [
+      "P4-A — API de tiempo registrado y evolución",
+      "Decisiones de medición",
+      "API autenticada v1",
+      "POST /tiempo-estudio/me/pomodoros",
+      "GET /tiempo-estudio/me?dias=30",
+      "GET /instituciones/me/estudiantes/:estudianteId/evolucion?dias=30",
+      "Persistencia y despliegue pendiente",
+      "Verificación local"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "backend/README.md",
+    "classification": "CONTEXTO HISTORICO CONCILIADO EN NOTA DE RELEVO",
+    "title": "API de SaberPlus",
+    "headings": [
+      "API de SaberPlus",
+      "Comandos",
+      "Escudo del conocimiento — retirado",
+      "Base de datos",
+      "Certificados de finalización"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "backend/STAR_RESCUE.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "JN-2B — Rescate de estrellas: backend",
+    "headings": [
+      "JN-2B — Rescate de estrellas: backend",
+      "Reglas versión 1",
+      "API",
+      "Estado público",
+      "Persistencia y seguridad",
+      "Verificación reproducible"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "backend/SUMMIT_CHALLENGE.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "JN-1B — Salto a la cima: contrato del servidor",
+    "headings": [
+      "JN-1B — Salto a la cima: contrato del servidor",
+      "Reglas versión 1",
+      "Rutas",
+      "Estado público y reintentos",
+      "Banco y seguridad",
+      "Verificación local",
+      "Pendiente",
+      "Cambios anteriores en el repositorio"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "backend/docs/ACADEMIC_CATALOG.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "7F-C2-B1 — Catálogo académico",
+    "headings": [
+      "7F-C2-B1 — Catálogo académico",
+      "Modelo y contrato",
+      "Validaciones y compatibilidad",
+      "Pendiente y verificación"
+    ]
+  },
+  {
+    "repo": "Backend",
+    "file": "backend/docs/LEARNING_EVIDENCE.md",
+    "classification": "REFERENCIA / CONTRATO; no acredita despliegue",
+    "title": "7F-C2-B2 — Diagnóstico por evidencia acumulada",
+    "headings": [
+      "7F-C2-B2 — Diagnóstico por evidencia acumulada",
+      "Contrato",
+      "Política inicial v1",
+      "Compatibilidad y despliegue",
+      "Verificación"
+    ]
+  }
+]
