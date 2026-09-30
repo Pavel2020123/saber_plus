@@ -1,11 +1,11 @@
 # PR-I1 — Auditoría de los ocho juegos y fórmulas propuestas
 
-Fecha: 30 de septiembre de 2026. Estado: **auditoría aceptada, calibración revisada y estructuras congeladas documentalmente; coeficientes POR APROBAR; PR-I1 no cerrado**.
+Fecha: 30 de septiembre de 2026. Estado: **diseño numérico aprobado y congelado documentalmente como `xpRulesVersion = 1`; implementación NO autorizada; PR-I1 no cerrado**.
 Autoridad de producto: [plan maestro recibido](PLAN_MAESTRO_COMPETITIVO.md), conservado íntegro.
-Las cifras de las rondas anteriores se conservan como historial de propuestas y calibración, no como importes aprobados ni `xpRulesVersion` publicado.
+Las cifras de las rondas anteriores se conservan como historial superado. Solo la sección 12 contiene las reglas numéricas V1 aprobadas. Congelar el diseño no publica ni activa `xpRulesVersion` en runtime.
 No se implementa XP competitivo, ranking, premios ni migraciones en esta entrega.
 
-**Criterio vigente — tercera ronda:** la sección 11 congela las decisiones estructurales confirmadas por el propietario y prevalece sobre propuestas y alternativas anteriores. Las secciones 4 y 10 conservan los cálculos históricos, incluidos los que motivaron rechazos; no son fórmulas para implementar. `floor(S/10)`, el bono de preguntas no utilizadas de Cima, el pago por rondas favorables de Tira y la eficiencia de Memoria que ignora pistas quedan descartados como solución definitiva. **Coeficientes exactos, penalización nominal, tiempos de reconexión e importe de victoria por abandono siguen POR APROBAR.** `xpRulesVersion` no se congela todavía; la congelación es solo estructural y documental.
+**Criterio vigente — quinta ronda:** [sección 12: diseño aprobado `xpRulesVersion = 1`](#12-diseño-numérico-aprobado--xprulesversion--1). Coeficientes, penalizaciones, reconexión y victoria por abandono están aprobados para documentación. También quedaron resueltos half-up, Q=10..30 inmutable, R por disponibilidad activa en servidor, acción/presencia y secuencia atómica de penalización. **Tira por abandono usa Qpartida, no R.** Las secciones 4, 5, 10 y 11 conservan antecedentes superados; sus «POR APROBAR» no son pendientes actuales. La sección 12.7 recoge requisitos técnicos de habilitación, no decisiones de producto abiertas.
 
 ## 1. Línea base y alcance
 
@@ -50,7 +50,7 @@ Los límites de mensajes protegen infraestructura; no son límites diarios de pa
 
 ## 4. Historial de la primera propuesta numérica — no vigente como fórmula definitiva
 
-Esta sección conserva la propuesta que se calibró en la sección 10. Las estructuras vigentes están en la sección 11: los números siguientes no están aprobados y las estructuras descartadas no deben recuperarse de esta tabla. En particular, los importes de victoria por abandono de 20/40 y su equiparación con victoria normal son antecedentes, no decisiones actuales.
+Esta sección conserva la propuesta que se calibró en la sección 10. Las reglas vigentes están en la sección 12: las expresiones siguientes están superadas, aunque algún coeficiente aislado coincida con V1. Las estructuras descartadas no deben recuperarse de esta tabla. Los importes históricos de victoria por abandono y su equiparación con victoria normal son antecedentes, no decisiones actuales.
 
 ### Criterio de diseño
 
@@ -88,9 +88,9 @@ Decisión vigente: quien abandona no conserva recompensa positiva parcial de esa
 
 No penalizar búsqueda sin rival, invitación rechazada, práctica offline, error del servidor ni sesión aún no iniciada competitivamente. Una derrota por rendimiento no usa esta tabla. No atribuir abandono por un fallo de la aplicación observado solo en cliente.
 
-## 5. Reconexión propuesta y resolución de ausencias
+## 5. Historial de reconexión propuesta — plazos superados por V1 en sección 12
 
-Los plazos siguientes siguen siendo propuestas, no tiempos aprobados. En todos los casos prevalece la decisión confirmada de la sección 11: victoria por abandono solo con evidencia servidor de partida competitiva activa, participación válida, presencia suficiente y abandono definitivo del rival. Si ambos están ausentes sin evidencia suficiente de un jugador presente, no hay ganador ni recompensa positiva; cada abandono se procesa según evidencia individual.
+Los plazos siguientes son antecedentes, no tiempos activos: V1 aprueba 20 s para Trivia/Duelo, 30 s para Tira y 24 h para los otros cinco juegos (sección 12). Se conserva la discusión de presencia y cierre para trazabilidad; no reutilizar los 15 s de Trivia/Duelo ni los 60 s de Memoria aquí propuestos originalmente.
 
 | Juego | Política propuesta, aún no implementada |
 |---|---|
@@ -156,13 +156,13 @@ Para cerrar PR-I1 posteriormente hacen falta migraciones, ledger/proyección, ve
 
 Archivos propios: este informe; copia íntegra `PLAN_MAESTRO_COMPETITIVO.md`; enlaces de estado en índice, etapas y relevo. Migraciones, endpoints ejecutables, servicios y contratos de runtime modificados: **ninguno**. Las rutas existentes auditadas son `/trivia-rush/intentos` y `/trivia-rush/fantasma`, `/salto-cima/intentos`, `/tira-afloja`, `/guardian/intentos`, `/batallas`, `/rescate-estrellas/intentos`; Memoria aún no tiene API.
 
-El plan maestro conserva el encargo original; la sección 11 registra las decisiones estructurales vigentes de la tercera ronda. La primera referencia del Duelo sin bono, el abandono sin premio parcial, ambos ausentes sin ganador, `alcanzadoEn`, temporada e institución ya no son decisiones abiertas. Quedan exactamente cuatro grupos pendientes: coeficientes exactos de XP de los ocho juegos; penalización nominal por abandono; tiempos de reconexión por juego; importe de victoria validada por abandono.
+El plan maestro conserva el encargo original; la sección 11 registra la tercera ronda histórica y la sección 12 contiene el diseño numérico V1 vigente. Los cuatro grupos antes pendientes —coeficientes, penalización nominal, reconexión e importe por victoria de abandono— quedaron aprobados para documentación. Las precisiones técnicas que no se pueden inferir de la evidencia actual se registran en 12.7, sin reabrir ni modificar las cifras aprobadas.
 
-**Punto de revisión:** aprobar o ajustar estas propuestas antes de programar/congelar `xpRulesVersion`. No pasar a PR-I2. Esta pausa procede expresamente de «El propietario revisará esa matriz y aprobará las fórmulas antes de implementar el sistema competitivo definitivo» en el plan recibido; no es una aprobación adicional inventada.
+**Punto de revisión vigente:** diseño de `xpRulesVersion = 1` congelado documentalmente. El propietario ordenó detenerse sin implementación, commit, push ni PR-I2. La aprobación del diseño numérico no autoriza esas acciones.
 
 ## 10. Historial de calibración — segunda ronda revisada, importes NO aprobados
 
-**Lectura histórica:** los escenarios y alternativas siguientes explican las decisiones posteriores; no representan las estructuras vigentes. La sección 11 descarta `floor(S/10)`, U en Cima, R en Tira (también `min(R,4)`) y eficiencia que ignore pistas en Memoria, y separa victoria normal de victoria por abandono. Los máximos numéricos calculados aquí no son techos aprobados del futuro sistema.
+**Lectura histórica:** los escenarios y alternativas siguientes explican las decisiones posteriores; no representan las reglas vigentes de la sección 12. La tercera ronda (sección 11) descartó `floor(S/10)`, U en Cima, R favorable en Tira (también `min(R,4)`) y eficiencia que ignore pistas en Memoria, y separó victoria normal de victoria por abandono. Los máximos numéricos calculados aquí no son techos V1 aprobados.
 
 ### 10.1 Método y límites de la comparación
 
@@ -260,9 +260,9 @@ Se ejecutaron cálculos locales en memoria, sin escribir código de producto, im
 
 La regresión de **84 backend y 69 Flutter** de la sección 8 pertenece a la primera entrega, no se volvió a ejecutar ni se presenta como validación de la calibración. Los únicos cambios de esta ronda son documentales; los importes siguen siendo propuestas. No hay migraciones, ledger, balances, API nueva, backend de Memoria, cambios de runtime, commit, push ni PR-I2.
 
-## 11. Decisiones estructurales congeladas — criterio vigente de la tercera ronda
+## 11. Historial de decisiones estructurales — tercera ronda, completada por V1
 
-La calibración quedó revisada por el propietario. Esta sección es el criterio vigente y prevalece sobre las fórmulas, alternativas e importes históricos de las secciones 4 y 10. **Congelación documental de estructuras, no de coeficientes ni de `xpRulesVersion`.** No autoriza runtime, migraciones, endpoints, ledger, balances ni PR-I2.
+Esta sección conserva lo confirmado y lo que faltaba en la tercera ronda. **Sus pendientes numéricos quedaron resueltos por la cuarta ronda, sección 12, que prevalece.** No son listas activas de decisiones abiertas. Permanecen las decisiones de arquitectura, fecha de alcance, temporada e institución compatibles con V1. Se conserva el historial sin autorizar runtime, migraciones, endpoints, ledger, balances ni PR-I2.
 
 ### Estructuras de XP confirmadas para los ocho juegos
 
@@ -326,9 +326,9 @@ Estas decisiones actualizan el estado de las propuestas técnicas de secciones a
 
 Requiere historial efectivo de membresías y orden transaccional determinista ante cierre/cambio simultáneos. Una liquidación posterior debe consultar ese historial; **no usar `Usuario.institucionId` actual** para reconstruir una membresía pasada. El XP ya devengado nunca se transfiere al cambiar de institución. La regla de temporada terminal también sitúa el resultado de abandono de una partida cruzada en esa temporada; no tomar XP general ni otro juego para cubrir una penalización. Las correcciones se vinculan al evento/año/institución originales y, si cambian el balance con delta efectivo no nulo, actualizan `alcanzadoEn` conforme a la regla confirmada. No se permite editar fechas retrospectivamente ni duplicar aportes.
 
-### Decisiones pendientes y punto de parada
+### Pendientes históricos de la tercera ronda — resueltos documentalmente en V1
 
-Quedan abiertos **exactamente estos cuatro grupos de decisiones**:
+En aquella ronda quedaban abiertos los siguientes cuatro grupos, ahora resueltos por la sección 12:
 
 1. **Coeficientes exactos de XP de los ocho juegos**, dentro de las estructuras confirmadas: bases, bonos y cotas; incluye el peso de pistas/eficiencia de Memoria y la calibración de Tira para no incentivar oscilación deliberada.
 2. **Penalización nominal por abandono.** No queda pendiente el piso cero ni la pérdida de recompensa positiva parcial: ambos están confirmados.
@@ -338,3 +338,174 @@ Quedan abiertos **exactamente estos cuatro grupos de decisiones**:
 No se mantienen como pendientes el primer Duelo sin bono de victoria/empate, ambos ausentes sin ganador/premio positivo, fecha de alcance, temporada terminal, institución al resultado terminal, separación de liquidaciones ni abandono sin recompensa parcial. No se reabren las estructuras descartadas. `xpRulesVersion` permanece sin congelar hasta resolver los valores pendientes.
 
 **Entrega de esta tercera ronda:** se actualizó únicamente `docs/PR_I1_AUDITORIA_FORMULAS.md`. Se conservaron los cálculos de calibración como historial y se revisó su estado frente a las decisiones confirmadas; no se ejecutaron pruebas de runtime ni se atribuyen nuevos resultados a las pruebas anteriores. `pubspec.yaml` y `pubspec.lock` conservan sus cambios previos, sin modificación en esta ronda. Misma rama/HEAD de la sección 1, sin commit ni push. No se modificó código ni se implementaron runtime, migraciones, endpoints, ledger, balances o PR-I2. **Detenerse para revisión del propietario.**
+
+## 12. Diseño numérico aprobado — xpRulesVersion = 1
+
+**Estado vigente, quinta ronda:** reglas y precisiones aprobadas por el propietario exclusivamente para documentación. `xpRulesVersion = 1` identifica este diseño determinista. No se implementa ni publica versión alguna en código, runtime, Prisma, migraciones, endpoints, ledger o balances. PR-I1 sigue abierto; PR-I2 no comienza.
+
+### 12.1 Determinismo y dominio de evidencia
+
+**Misma evidencia autoritativa + misma `xpRulesVersion` = mismo XP.** No hay recompensas aleatorias, bandas con selección random ni sorteo de importes. La selección del contenido del juego, si existe, es anterior al cálculo: el conjunto efectivamente asignado y sus resultados forman parte de la evidencia fijada. No se vuelve a sortear ni a leer un banco mutable para decidir un premio ya determinado.
+
+El servidor fija y valida configuración, denominadores, resultado terminal, ayudas y contadores. El cliente no puede enviar ni elegir XP, Q, R o resultado para cobrar. No acreditar un origen inexistente, no competitivo, ajeno, insuficiente o ya liquidado. Cambiar `xpRulesVersion` nunca permite pagar de nuevo la misma fuente/participante. XP competitivo sigue separado de `Usuario.xpTotal`; se conserva el XP general.
+
+Todo XP positivo calculado usa **`roundHalfUp(x) = floor(x + 0.5)`**, independientemente del lenguaje/runtime. Ejemplos: 12,49 → 12; 12,50 → 13; 12,51 → 13. Las penalizaciones nominales ya son enteras. En las fórmulas normales de la tabla siguiente, la notación original `round(...)` significa exclusivamente `roundHalfUp(...)`. No redondear componentes por separado cuando la fórmula pide una sola operación (Trivia redondea la suma completa). Preservar fracciones exactas hasta redondear evita discrepancias de coma flotante; no usar redondeo bancario, truncamiento ni selección aleatoria.
+
+Dominios necesarios: denominadores positivos, contadores enteros no negativos y coherentes con el replay. En Trivia `0≤M≤C≤Q`; en Duelo/Batallas `0≤C≤Q`; en Tira `0≤C≤R≤Qpartida`; en Memoria, al completar tablero `P∈{6,8,10}`, `Mov≥P` y `A≥0`. No resolver división por cero usando 1 ni convertir un banco incompleto en uno válido reduciendo el denominador. Los máximos normales son límites derivados de evidencia válida, no una autorización para recortar resultados imposibles y acreditarlos de todos modos.
+
+**Q de Trivia/Duelo, resuelto:** cantidad de preguntas fijadas por servidor en el snapshot competitivo inmutable al inicio; **10≤Q≤30** para acreditar XP competitivo. Sin al menos 10 preguntas válidas, la sesión no acredita XP competitivo. No rellenar ni cambiar Q dinámicamente después de iniciar. En Duelo, Q/configuración deben ser compatibles con el fantasma fijado al inicio; no adaptar el denominador al resultado final.
+
+**R de Tira, resuelto:** rondas competitivas efectivamente presentadas por servidor a ese jugador. Una ronda cuenta exactamente una vez cuando queda activa en servidor, tiene pregunta fijada y está disponible para respuesta. Retry/reconexión no la vuelve a contar. Una cancelación técnica anterior a su activación no cuenta; una ronda válidamente presentada y no respondida **sí cuenta en R**, sin aumentar C. Presentación se define por ese estado autoritativo, no por una confirmación visual del teléfono ni por contar mensajes WebSocket. R sigue siendo el denominador del resultado **normal**, no de la victoria por abandono.
+
+### 12.2 Ocho fórmulas normales V1 — aprobadas
+
+Esta tabla reemplaza todas las propuestas numéricas de las secciones 4 y 10. Se aplica a resultados normales elegibles, nunca para conservar XP parcial de una partida abandonada. Las ayudas oficiales no invalidan por sí mismas una partida. Offline iniciado offline no concede XP; profesores/administradores no compiten.
+
+| Juego | Variables servidor | Fórmula V1 aprobada | Límites y condiciones |
+|---|---|---|---|
+| Trivia Rush | C: respuestas finales correctas; Q: preguntas competitivas asignadas; M: combo máximo verificable. | `XP = round(70*C/Q + 30*M/Q)` | Rango **0..100**. Aporte de combo limitado a **30 XP**. Q válido fijado por servidor; no acreditar banco competitivo insuficiente. Usar combo máximo, no puntaje S ni suma de multiplicadores. |
+| Duelo fantasma | C: aciertos finales válidos; Q: preguntas competitivas asignadas; resultado contra fantasma fijado por backend al inicio. | `base = round(80*C/Q)`; añadir **20** victoria, **10** empate, **0** derrota. | Máximo **100**. Primer intento sin fantasma: bono resultado **0**, genera referencia. Debe distinguirse de Trivia en backend antes de habilitar competitivo. |
+| Salto a la cima | H: máxima altura alcanzada, 0..5; V: victoria, 0/1. | `XP = 15*H + 25*V` | Máximo **100**. Sin bono por preguntas no utilizadas ni velocidad. Repetir una altura no aumenta H. |
+| Tira y afloja | C: aciertos propios válidos; **R: rondas presentadas al jugador**. | `rendimiento = round(60*C/R)`; añadir **40** victoria, **20** empate, **0** derrota. | Máximo normal **100**. R **ya no significa rondas favorables** como en propuestas antiguas. No pagar por cada ronda favorable acumulada ni premiar oscilación deliberada. Validez del empate y ausencia se comprueban antes del bono. |
+| Guardián | C: aciertos válidos; E: escudos restantes; V: victoria, 0/1. | `XP = 10*C + V*(10 + 10*E)` | Máximo **100**: 6 aciertos y 3 escudos con victoria. Sin victoria no hay bono por escudos ni el bono fijo de 10. |
+| Memoria | P: parejas del nivel; Mov: movimientos válidos; A: pistas oficiales utilizadas. | `XP = 5*P + round(50*P/(Mov+A))` | Perfecto sin ayudas: P=6 → **80**, P=8 → **90**, P=10 → **100**. Pistas legales y verificadas cuentan contra eficiencia, con peso **1** en el denominador. Se liquida al completar el tablero, no por iniciarlo o abandonarlo. Hasta existir motor autoritativo backend: **XP competitivo = 0**. |
+| Batallas | Q: banco completo, **8** Carrera fantasma / **8** Duelo Relámpago / **10** Supervivencia; C: aciertos válidos; B: base de resultado. | B=**100** victoria, **75** empate, **50** derrota; `XP = round(B*C/Q)` | Máximo **100**. C=0 → **0**, incluso con victoria normal. Q nunca es N respondidas; no acreditar banco incompleto/degradado. Sin bono adicional de perfección de propuestas anteriores. |
+| Rescate de estrellas | S: estrellas; K: constelaciones; V: victoria, 0/1. | `XP = 10*S + 10*K + 20*V` | Máximo **100**: S=6, K=2, V=1. Contadores reconstruidos desde respuestas verificadas; no siguen aumentando después del cierre. |
+
+Efectos documentados: Duelo con C=Q tiene 80 en primer intento/derrota, 90 en empate y 100 en victoria. Memoria ya no iguala gratuitamente el máximo sin ayuda: con `Mov=P,A=1` resulta **73/84/95** para 6/8/10 parejas, frente a **80/90/100** sin pista. Tira no recibe un incremento por R favorable: C/R=1 con victoria vale 100 tanto en dos como en veinte rondas. Una igualdad normal válida en Tira con C=0 produce **20** según la fórmula aprobada; la antigua excepción que anulaba ese bono está superada. Si ambos están ausentes, prevalece 12.5 y no se acredita ese empate. No extender la regla C=0 de Batallas a otros casos sin autorización.
+
+### 12.3 Abandono V1 — importes nominales y piso
+
+Quien abandona **no conserva XP positivo parcial de esa partida**. Registrar evento de abandono/penalización con evidencia individual. No liquidar primero el rendimiento positivo para restarle después la multa.
+
+| Juego | Delta nominal V1 |
+|---|---:|
+| Trivia Rush | -10 |
+| Duelo fantasma | -10 |
+| Salto a la cima | -10 |
+| Tira y afloja | -15 |
+| Guardián | -10 |
+| Memoria | -10, solo cuando sea competitiva con motor autoritativo |
+| Batallas | -15 |
+| Rescate de estrellas | -10 |
+
+Piso del balance competitivo: **0**. Para saldo previo válido B≥0 y penalización nominal -p, `deltaAplicado = -min(B,p)`, `balancePosterior = B + deltaAplicado`. Registrar **delta nominal y delta aplicado**, incluso si aplicado=0. Ejemplo Tira: B=7 → nominal -15, aplicado -7, saldo 0; B=0 → nominal -15, aplicado 0. El saldo es del mismo usuario/juego/temporada, no se toma XP general ni de otro juego.
+
+**Sin penalización creciente automática por reincidencia en V1.** Conservar evidencia para análisis futuro; jugar repetidamente no prueba fraude. El mismo abandono conserva su nominal; el delta aplicado depende del saldo previo y la secuencia, registrados como evidencia de liquidación.
+
+**Orden atómico confirmado para penalización** (diseño, no implementación):
+
+1. Resolver idempotencia por fuente/participante.
+2. Bloquear `BalanceCompetitivo`.
+3. Leer `saldoAntes`.
+4. Calcular `deltaNominal`.
+5. Calcular `deltaAplicado = max(deltaNominal, -saldoAntes)`.
+6. Crear evento ledger.
+7. Actualizar saldo (`saldoDespués = saldoAntes + deltaAplicado`).
+8. Incrementar versión/secuencia monotónica del balance.
+9. Actualizar `alcanzadoEn` si `deltaAplicado != 0`.
+10. Commit de la transacción.
+
+El evento conserva `saldoAntes`, `deltaNominal`, `deltaAplicado`, `saldoDespués` y versión/secuencia aplicada, suficientes para replay. Los nombres concretos podrán adaptarse a Prisma. Evento, saldo y secuencia forman una sola transacción; un fallo revierte todo. La versión aplicada al evento corresponde al incremento del paso 8, aunque su inserción sea el paso 6. La resolución de idempotencia debe impedir que dos liquidaciones concurrentes del mismo origen pasen a aplicar dos veces: un reintento recupera el evento existente, sin incrementar nuevamente la secuencia. Un evento nuevo con delta efectivo cero conserva la auditoría e incrementa secuencia, pero no cambia `alcanzadoEn`. El «commit» de esta lista es de base de datos en el diseño futuro; **no autoriza commit Git ni ejecutar transacciones reales ahora**.
+
+### 12.4 Reconexión V1 — políticas aprobadas
+
+| Juego | Ventana V1 |
+|---|---|
+| Trivia Rush | **20 segundos**, reloj continúa. |
+| Duelo fantasma | **20 segundos**, reloj continúa. |
+| Tira y afloja | **30 segundos**. |
+| Salto a la cima | Sesión recuperable hasta la ventana actual de **24 h**. |
+| Guardián | **24 h**. |
+| Rescate de estrellas | **24 h**. |
+| Batallas | Ventana asíncrona de **24 h**. |
+| Memoria futura autoritativa | **24 h**. |
+
+No interpretar desconexión breve como abandono antes de aplicar la política correspondiente. Las ventanas actuales de sesión se cuentan desde su creación/plazo fijado; no se renuevan automáticamente cada vez que se reconecta. No convertir las 24 h asíncronas en exigencia de conexión continua. Para Memoria futura no hay aún sesión servidor a la que aplicar el plazo; deberá persistirse antes de activar competitivo. Los latidos/presencia y el orden entre vencimiento normal y abandono requieren evidencia y contrato durable; ver 12.7. Estas ventanas sustituyen los plazos históricos de la sección 5.
+
+### 12.5 Victoria por abandono V1 y ambos ausentes
+
+Tipo de liquidación separado de victoria normal. Aplicar solo cuando el servidor valida **partida competitiva activa, participantes válidos, abandono definitivo y presencia/evidencia suficiente** del jugador que permanece. Los cuatro requisitos son conjuntos; el reporte de un cliente o un socket desconectado no bastan.
+
+Si quien permanece no realizó **ninguna acción competitiva válida**, XP por victoria de abandono = **0**. Si existe participación válida y los denominadores/evidencia son válidos:
+
+| Juego | Performance | XP de victoria por abandono |
+|---|---|---|
+| Tira y afloja | **`roundHalfUp(60*C/Qpartida)`**, Qpartida = cantidad máxima de preguntas fijada en el snapshot competitivo de esa partida. | `min(80, performance + 20)` |
+| Batallas | `roundHalfUp(60*C/Q)`, Q = banco competitivo completo 8/8/10. | `min(80, performance + 20)` |
+
+Máximo por victoria de abandono: **80**. No reutilizar la recompensa completa de victoria normal ni sumarla a otro premio del mismo origen. **Tira por abandono no usa C/R:** esa definición de la cuarta ronda queda expresamente superada para evitar un rendimiento artificialmente perfecto por abandono temprano. Qpartida no se reduce a rondas jugadas ni se rellena después de iniciar.
+
+**Acción válida y presencia, definiciones aprobadas:**
+
+- **Tira:** al menos una respuesta aceptada por servidor. Ready, abrir pantalla y heartbeat no cuentan como acción competitiva. Al vencer la gracia del rival, quien permanece no está también en gracia y existe presencia/conexión autenticada válida posterior a la desconexión del rival. Persistir ambos hechos; no inferirlos del último mensaje del cliente.
+- **Batallas:** al menos una respuesta competitiva aceptada después de activarse la batalla. Al ser asíncrona **no requiere heartbeat** ni conexión simultánea; la participación y el abandono se validan con acciones y estado/plazo servidor.
+
+Una respuesta incorrecta aceptada es acción válida aunque no aumente C. Con C=0, al menos una acción válida y demás condiciones cumplidas, XP por abandono del rival = 20; sin respuesta válida propia = 0. No exigir C>0 ni contar ready/heartbeat para fabricar participación. En Batallas, no tratar falta de heartbeat como ausencia: aplicar su ventana asíncrona y evidencia individual.
+
+**Ambos ausentes:** sin ganador y sin recompensa positiva. Procesar cada abandono conforme a su evidencia. No fabricar una victoria del último cliente que consultó ni sancionar al otro solo por una afirmación del rival. Esta regla tiene precedencia sobre bonos normales de empate o victoria.
+
+### 12.6 Reglas transversales conservadas y comprobaciones documentales
+
+Ledger como fuente de verdad, balance como proyección e idempotencia por fuente/participante siguen aprobados **solo como diseño**. Cualquier delta competitivo efectivo no nulo que cambie balance actualiza `alcanzadoEn` (resultado, penalización o corrección); delta cero no lo modifica. Temporada anual Bogotá por fecha servidor del resultado terminal, íntegra aunque cruce año. Institución por membresía válida en esa misma fecha; liquidación tardía consulta historial, no `Usuario.institucionId` actual. XP ya devengado no se transfiere. Correcciones vinculadas al origen, auditadas, sin edición silenciosa.
+
+| Caso sintético de cálculo V1 | XP resultante |
+|---|---:|
+| Trivia C=Q=M=30 | 100 |
+| Trivia C=15, Q=30, M=5 | 40 |
+| Duelo C=Q, primer intento / empate / victoria | 80 / 90 / 100 |
+| Cima H=4,V=0 / H=5,V=1 | 60 / 100 |
+| Tira C=R, victoria / empate | 100 / 80 |
+| Guardián C=6,E=3,V=1 / C=6,E=1,V=1 | 100 / 80 |
+| Memoria P=6/8/10, Mov=P,A=0 | 80 / 90 / 100 |
+| Memoria P=6/8/10, Mov=P,A=1 | 73 / 84 / 95 |
+| Batallas C=0, victoria normal / C=4,Q=8, victoria normal | 0 / 50 |
+| Rescate S=6,K=2,V=1 | 100 |
+| Tira abandono rival, C=1,R=1,Qpartida=20 y participación validada | 23 |
+| Tira abandono rival, C=Qpartida y participación validada | 80 |
+| Batallas abandono rival, C=4,Q=8 y participación validada | 50 |
+| Victoria por abandono sin acciones válidas propias | 0 |
+
+Son sustituciones matemáticas, no telemetría ni pruebas de runtime. Half-up ya está resuelto: Batallas victoria C=1,Q=8 da **13**; Memoria P=6,Mov=8,A=0 da **68**. En el ejemplo de abandono temprano de Tira (C=1,R=1,Qpartida=20), la fórmula superada daba 80 y la vigente da **23**. Se precisa el diseño V1 aún no implementado, sin pagar ni recalcular premios reales. No se volvió a ejecutar la regresión de 84 backend/69 Flutter de la primera entrega.
+
+### 12.7 Precisiones resueltas y requisitos técnicos de habilitación
+
+**No quedan ambigüedades de producto identificadas para `xpRulesVersion = 1` en el alcance revisado. No se detecta contradicción técnica interna con las precisiones aprobadas.** La quinta ronda resuelve los puntos de la cuarta; las diferencias frente al runtime actual son requisitos técnicos de PR-I1, no decisiones de producto por volver a aprobar.
+
+| Punto antes señalado | Resolución vigente / requisito técnico |
+|---|---|
+| Redondeo | Half-up explícito e independiente del runtime: `floor(x+0.5)`. Mantener precisión hasta el único redondeo indicado; nominales negativos enteros. |
+| Q de Trivia/Duelo | Snapshot inmutable al inicio con **10≤Q≤30**. Sin al menos 10 válidas no acredita XP; sin relleno posterior. Duelo exige Q/configuración compatibles con fantasma fijado. Persistir y validar estos hechos. |
+| R de Tira | Contar una vez la ronda activa en servidor con pregunta fijada y disponible para respuesta de ese jugador. No contar cancelada antes de activar ni duplicar por retry/reconexión. No respondidas válidamente presentadas sí cuentan. No exigir confirmación visual del teléfono. |
+| Participación y presencia | Tira: respuesta aceptada; ready/pantalla/heartbeat no son acción. Al vencer gracia rival: restante fuera de gracia y presencia/conexión autenticada válida posterior a desconexión rival. Batallas: respuesta aceptada tras activación, sin heartbeat por ser asíncrona. Falta implementar/persistir estos contratos. |
+| Cierre y reconexión | Aplicar ventanas aprobadas sin tratar microcorte como abandono. Serializar estado, retorno, plazo y cierre; conservar marcas servidor durables. Es requisito técnico, no una nueva elección de tiempos. |
+| Oscilación en Tira | Fórmula normal V1 sin cambios: C/R representa precisión; no paga por terreno recuperado ni rondas favorables. Partida larga/oscilante no es fraude automático. Conservar **rival, rondas, movimientos, respuestas, resultado, duración y abandono** para análisis antifraude futuro; no imponer sanciones/topes por duración o repetición. |
+| Abandono temprano en Tira | Performance usa **Qpartida** fijado en snapshot, nunca R. C=1,R=1,Qpartida=20 da 3 de performance +20 =**23**, no 80. El abandono no reduce el banco del denominador. |
+| Piso e idempotencia | Orden atómico de 12.3: idempotencia, lock, saldo previo, nominal/aplicado, ledger, saldo, secuencia, fecha de alcance, commit transaccional. Registrar saldos y secuencia para replay; reintento no duplica evento ni versión. |
+
+Que prolongar con más aciertos pueda mejorar C/R es una propiedad de la medida de precisión, **no una contradicción ni una decisión pendiente**. No se cambia la fórmula por ese motivo. Un empate normal válido con C=0 sigue dando 20; ambos ausentes no reciben premio. Las fórmulas y su precedencia son explícitas.
+
+**Capacidad por juego con la evidencia actual (no equivale a estar habilitado):**
+
+| Juego | Qué puede reconstruirse hoy | Qué impide acreditar V1 completa hoy |
+|---|---|---|
+| Trivia Rush | C, combo máximo M, preguntas asignadas y reloj desde intentos/respuestas. | Implementar snapshot competitivo inmutable y validación aprobada Q=10..30; no usar banco mutable como evidencia. Faltan presencia/cierre durable y liquidación idempotente. |
+| Duelo fantasma | Respuestas, aciertos y récord limpio reconstruido en motor de Trivia. | No persiste modo separado ni fantasma fijado al inicio; no se puede adjudicar retrospectivamente qué referencia enfrentó. Implementar Q=10..30 compatible con referencia, cierre y presencia según contrato aprobado. |
+| Cima | H y victoria mediante replay de snapshot privado. | Aritmética normal viable con evidencia actual; faltan metadatos competitivos, cierre durable a 24 h y liquidación/correcciones auditadas. |
+| Tira y afloja | Respuestas correctas, rondas/eventos y resultado servidor. | Persistir R según activación/disponibilidad por jugador, Qpartida inmutable y presencia suficiente; implementar cierre durable. No contar mensajes WebSocket ni exigir confirmación visual. |
+| Guardián | C, E y V mediante replay de snapshot privado. | Aritmética normal viable; faltan cierre durable, contexto competitivo y liquidación/correcciones auditadas. |
+| Memoria | Solo estado local Flutter. | P/Mov/A y cierre no son autoridad servidor; no hay intento online verificable. Mantener XP competitivo **0**; no convertir partidas locales pasadas en competitivas. |
+| Batallas | C, modo, resultado y cantidad asignada. | Selector admite degradación a 1 pregunta; exigir 8/8/10 antes de competir. Falta snapshot, idempotencia/replay de acciones y evidencia de abandono/presencia. No reutilizar XP general ni sus límites diarios. |
+| Rescate | S, K y V por replay de snapshot privado. | Aritmética normal viable; falta contexto competitivo, cierre durable y liquidación/correcciones auditadas. |
+
+Transversalmente no existe aún ledger/balance competitivo común ni historial suficiente para reconstruir todas las membresías estudiantiles en la fecha terminal. No inferir institución histórica desde la actual ni inventar XP retroactivo. **Memoria sin autoridad backend, Duelo sin modo/fantasma inicial persistido, presencia/abandono durable, historial institucional y banco degradado de Batallas son requisitos técnicos que PR-I1 debe resolver antes de habilitar el juego correspondiente, no decisiones de producto pendientes.** Implementación posterior expresamente **no autorizada ahora**.
+
+### 12.8 Entrega de congelación documental y parada
+
+Rama observada: `docs/pr-i1-auditoria-formulas`. HEAD Flutter al comenzar esta cuarta ronda: `93ef5004ba1a79f58a9209f39726ef3bcf599d4e`; backend consultado: `fb27225d96376c3867418d9f5a1a53030d2256c0`. La sección 1 conserva los HEAD de la auditoría original; no confundirlos con el nuevo punto de partida. No se crearon commits ni se hizo push en esta ronda.
+
+Archivos modificados en esta ronda: este informe y los avisos vigentes de `ETAPAS_PENDIENTES.md`, `RELEVO_EQUIPO.md` e `INDICE_DOCUMENTACION.md`, necesarios para que no sigan pidiendo aprobar importes ya aprobados ni autoricen implementación por inferencia. El plan maestro original se conserva íntegro. `pubspec.yaml` y `pubspec.lock` no se modifican; sus cambios previos se preservan.
+
+**Congelado y precisado en quinta ronda:** diseño `xpRulesVersion = 1`, ocho fórmulas normales deterministas con half-up, Q de Trivia/Duelo inmutable entre 10 y 30, R por disponibilidad activa, acciones/presencia explícitas, Tira por abandono con Qpartida, penalización atómica con saldos y secuencia auditables. Se conservan importes nominales, piso, ventanas, máximo 80 y cero sin acción válida para victoria por abandono, ambos ausentes sin ganador/premio. No se identifican ambigüedades de producto ni contradicciones técnicas internas; 12.7 contiene requisitos técnicos de habilitación.
+
+**DETENERSE para revisión.** No implementar código, runtime, Prisma, migraciones, endpoints, ledger ni balances. No hacer commit ni push. No comenzar PR-I2. Diseño aprobado no significa etapa implementada ni PR-I1 cerrado.

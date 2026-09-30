@@ -1,6 +1,6 @@
 # Índice de documentación de SaberPlus
 
-**30 de septiembre — PR-I1, primer entregable:** [auditoría de los ocho juegos y fórmulas propuestas](PR_I1_AUDITORIA_FORMULAS.md), con evidencia de código y regresión local; [plan maestro confirmado](PLAN_MAESTRO_COMPETITIVO.md). Pendiente revisión de fórmulas por el propietario antes de implementación; PR-I1 no cerrado y PR-I2 no iniciado.
+**30 de septiembre — PR-I1 V1:** [diseño aprobado y precisiones resueltas de `xpRulesVersion = 1`, sección 12](PR_I1_AUDITORIA_FORMULAS.md#12-diseño-numérico-aprobado--xprulesversion--1). Half-up, denominadores, presencia y penalización atómica definidos; Tira por abandono usa Qpartida. No quedan ambigüedades de producto identificadas; requisitos técnicos de habilitación en 12.7. Historial superado conservado. Detenerse: implementación, commit, push y PR-I2 no autorizados. PR-I1 no cerrado. [Plan maestro original](PLAN_MAESTRO_COMPETITIVO.md) conservado.
 
 Actualizado: 28 de septiembre de 2026. Inventario del README y todos los Markdown
 bajo `docs/`. No sustituye contratos ni acredita auditoría completa del código.
