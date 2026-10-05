@@ -1,13 +1,151 @@
 # SaberPlus — etapas pendientes y ruta vigente del equipo
 
-**Estado vigente — 30 de septiembre de 2026:** [PR-I1, sección 12: diseño `xpRulesVersion = 1` aprobado y precisiones resueltas](PR_I1_AUDITORIA_FORMULAS.md#12-diseño-numérico-aprobado--xprulesversion--1). Half-up; Q=10..30 inmutable en Trivia/Duelo; R por disponibilidad activa; acción/presencia explícitas; Tira por abandono usa Qpartida; penalización atómica con saldos/secuencia auditables. No quedan ambigüedades de producto identificadas; 12.7 enumera requisitos técnicos antes de habilitar juegos. **Detenerse: implementación, commit, push y PR-I2 NO autorizados.** PR-I1 no cerrado. 84 pruebas backend y 69 Flutter son de la auditoría inicial, no de V1 implementada. [Plan maestro original](PLAN_MAESTRO_COMPETITIVO.md) conservado.
+## PR-I2 / I2-4 — integración Flutter local (5 de octubre de 2026)
 
-Actualizado: 28 de septiembre de 2026, tras MA-3C. Listado para compartir con el equipo.
+Esta actualización prevalece sobre el estado histórico PR-I1 de abajo para este
+checkpoint. Backend verificado en `9e9f2f9`, rama `feat/pr-i2-competitive-rankings`;
+PR-I1 integrado/cerrado para esta ruta; Backend I2-1, I2-2 e I2-3 completados
+en su rama según el contexto confirmado del propietario.
+Flutter exclusivamente en `saber_plus_pr_i2`, rama
+`feat/pr-i2-competitive-ranking-flutter`, base `6903816`. Ambos árboles estaban
+limpios al iniciar. Backend y Flutter original no modificados.
+
+I2-4 implementado y validado localmente. La revisión humana de código y pruebas
+ya se realizó; la documentación quedó conciliada y queda la revisión final antes
+de autorizar el cierre/publicación del propietario. **No desplegado y no declara
+PR-I2 completo**. Durante la implementación de I2-4
+se conservaron los seis archivos existentes y se añadieron cinco archivos de
+pruebas/fixtures. Dependencias y configuración de análisis permanecen intactas.
+
+### Arquitectura y experiencia
+
+[Modelos](../lib/features/ranking/domain/competitive_ranking_models.dart),
+[repositorio](../lib/features/ranking/data/competitive_ranking_repository.dart),
+[providers](../lib/features/ranking/presentation/competitive_ranking_providers.dart)
+y [pantalla](../lib/features/ranking/presentation/competitive_ranking_page.dart).
+Acceso desde el ranking general, que conserva `/ranking`; nueva consulta
+`GET /ranking/competitivo` solamente con juego y temporada, usando Dio/JWT
+existentes. Parsing estricto, tres estados, TOP/posición propia del servidor,
+errores HTTP seguros y estado Riverpod separado. Año sugerido con UTC−5 de Bogotá
+y reloj local editable; no es autoridad sobre la temporada devengada. Seis juegos
+integrados (Cima, Guardián, Rescate, Trivia, Duelo y Tira); Memoria/Batallas
+no disponibles. Demo no inventa clasificaciones ni abre el cliente HTTP: pide
+una cuenta de estudiante.
+
+El botón «Ver ranking competitivo» de [RankingPage](../lib/features/ranking/presentation/ranking_page.dart)
+abre una pantalla independiente y permite volver al ranking general conservando
+su selección. Catálogo de ocho juegos, año editable 1..9999, TOP 50, bloque propio
+incluso en posición 51, carga, reintento y actualización por gesto. Los resultados
+anteriores no se muestran como el nuevo filtro durante una consulta pendiente.
+SIN_PARTICIPANTES (total 0) y NO_DISPONIBLE (total null) tienen mensajes distintos.
+
+El parser exige campos públicos exactos, enteros/rangos, orden y coherencia de
+TOP/posición propia; rechaza datos privados, respuestas malformadas o de otro
+juego/año. Nunca calcula XP, posiciones o alias. No envía usuarioId, institución,
+limite, filtros legacy ni body. El provider remoto recibe el Dio existente y
+su interceptor/session security; no duplica almacenamiento ni verificación JWT.
+HTTP 400 indica entrada inválida, 401 sesión no válida, 403 acceso prohibido;
+500/503 y fallos de red muestran mensaje seguro y reintento. No se muestran
+bodies remotos, SQL, Prisma, UUID o detalles internos, ni se convierten fallos
+en rankings vacíos. Error al actualizar por gesto queda observable en Riverpod
+y finaliza el gesto sin una excepción asíncrona secundaria.
+
+### Validación con Flutter 3.47.0 / Dart 3.13.0
+
+SDK usado explícitamente: `C:\Users\luisk\Documents\flutter_3_47_0\bin`.
+El propietario resolvió el bloqueo externo y confirmó pub get con lock obligatorio.
+Aquí se verificaron versión local, package_config (las siete versiones coinciden
+con el lock publicado) y ausencia de diferencias Git en pubspec.yaml,
+pubspec.lock y analysis_options.yaml. `--no-pub` conserva esa resolución preparada.
+
+```powershell
+$sdk = 'C:\Users\luisk\Documents\flutter_3_47_0\bin'
+& "$sdk\flutter.bat" analyze --no-pub
+& "$sdk\flutter.bat" test --no-pub test/competitive_ranking_models_test.dart test/competitive_ranking_repository_test.dart test/competitive_ranking_providers_test.dart test/competitive_ranking_page_test.dart test/ranking_test.dart test/ranking_badge_catalog_test.dart test/auth_interceptor_test.dart --reporter expanded
+git diff --check
+git diff --exit-code -- pubspec.yaml pubspec.lock analysis_options.yaml
+```
+
+Se ejecutó dart format de ese mismo SDK sobre los cinco Dart de implementación,
+cuatro suites nuevas y el fixture. Pruebas finales: **81/81**, siete archivos,
+exit 0, 14 s indicados por el reporter, sin omitidos reportados.
+Análisis final de todo el proyecto: **sin issues, exit 0, 51,5 s**.
+`git diff --check` correcto; diez enlaces locales de esta sección comprobados.
+pubspec.yaml, pubspec.lock y analysis_options.yaml sin diferencias frente a HEAD.
+[Modelos](../test/competitive_ranking_models_test.dart): estados, límites,
+privacidad, enteros, TOP/propio, anomalías y límite anual de Bogotá.
+[Repositorio](../test/competitive_ranking_repository_test.dart): GET/query/body,
+JWT del interceptor real, logout, estados 200, errores 400/401/403/500/503 y
+respuesta de otro filtro. Transporte simulado, sin acceso a backend remoto.
+[Providers](../test/competitive_ranking_providers_test.dart): carga, filtros,
+respuesta antigua tardía, error/reintento, independencia legacy, Dio existente y demo.
+[Widgets](../test/competitive_ranking_page_test.dart): TOP/puesto 51, filtros/carga,
+estados, errores/reintento/gesto, año inválido y navegación ida/vuelta a ranking general.
+[Fixture ficticio](../test/helpers/competitive_ranking_fixture.dart).
+Se conservaron y ejecutaron ranking_test, ranking_badge_catalog_test y
+auth_interceptor_test sin cambios, incluyendo los assets existentes del catálogo;
+no se crean ni conceden insignias.
+
+Incidencias intermedias conservadas: primer análisis exit 1, dos avisos de llaves
+en pruebas nuevas, corregidos. Primera batería **79/80**, un fallo al construir
+un fixture negativo (lista tipada no aceptaba null antes del parser); se cambió
+su construcción a lista Object? y se mantuvo la aserción de rechazo.
+Prueba aislada adicional de actualización por gesto **0/1**, reprodujo excepción
+asíncrona en onRefresh; corrección acotada en pantalla y regresión incluida en
+el 81/81 final. Logs locales en TEMP: sp-i2-4-tests-347-1.log,
+sp-i2-4-refresh-regression-before.log, sp-i2-4-tests-347-final.log y
+sp-i2-4-analyze-347-final.log.
+
+### Antecedente SDK resuelto (no es bloqueo vigente)
+
+La preparación anterior con Flutter **3.44.9 / Dart 3.12.2** fijaba clock 1.1.2,
+intl 0.20.2, matcher 0.12.19, meta 1.18.0, stack_trace 1.12.1,
+test_api 0.7.11 y vector_math 2.2.0. El lock publicado usa respectivamente
+1.1.3, 0.20.3, 0.12.20, 1.19.0, 1.12.2, 0.7.12 y 2.4.2.
+`flutter pub get --offline` resolvió esas siete diferencias; no se añadió una
+dependencia. `flutter pub get --offline --enforce-lockfile` terminó exit 1:
+`Unable to satisfy pubspec.yaml using pubspec.lock`. Las versiones fijadas se
+comprobaron en los pubspec del SDK flutter/flutter_test/flutter_localizations.
+Se restituyó únicamente el lock generado en esta copia a su contenido de HEAD.
+El propietario instaló después Flutter 3.47.0 de forma aislada, sin modificar
+dependencias; las validaciones vigentes son las de la sección anterior.
+
+Análisis inicial antes de implementar: `flutter analyze --no-pub`, sin issues,
+65,1 s, con resolución local del SDK; no prueba compatibilidad del lock publicado.
+Se formatearon los cinco archivos Dart afectados; entonces no había pruebas
+focalizadas ni certificación funcional, completadas en esta continuación.
+Análisis del avance: primera ejecución exit 1 con 12 avisos nuevos (casts,
+llaves y resultado refresh); corregidos. Segunda ejecución exit 0, sin issues,
+28,3 s, usando la resolución local previa y `--no-pub`. Esto no elimina el
+bloqueo de compatibilidad del lock en aquel momento. `git diff --check` y cuatro
+enlaces nuevos eran correctos. No se había ejecutado `flutter test`.
+
+### Continuidad y límites
+
+Conciliación documental realizada. Siguiente acción: revisión final de I2-4 antes de
+autorizar commit/publicación del propietario. I2-5 es el siguiente checkpoint
+una vez aprobado I2-4; **no iniciarlo automáticamente**. Para I2-5, probar esta
+navegación y el contrato contra Backend
+I2-3 en un entorno local autorizado, con sesión real, correcciones/balances,
+posición fuera del TOP, errores de acceso y regresión global. Las pruebas de
+cliente usan transporte/repositorios simulados, no certifican una conexión
+extremo a extremo, uso en teléfono ni capacidad productiva. No se ejecutó la
+suite Flutter global; se validó el alcance afectado. El año sugerido depende
+del reloj del dispositivo y siempre puede corregirse manualmente.
+B1/B2 (roles/RLS reales, migraciones remotas, HMAC, capacidad y operación
+productiva) siguen fuera de alcance. No hay despliegue ni flags activados.
+
+**Estado histórico — 30 de septiembre de 2026 (superado como ruta activa):** [PR-I1, sección 12: diseño `xpRulesVersion = 1` aprobado y precisiones resueltas](PR_I1_AUDITORIA_FORMULAS.md#12-diseño-numérico-aprobado--xprulesversion--1). Half-up; Q=10..30 inmutable en Trivia/Duelo; R por disponibilidad activa; acción/presencia explícitas; Tira por abandono usa Qpartida; penalización atómica con saldos/secuencia auditables. En aquella auditoría no quedaban ambigüedades de producto identificadas; 12.7 enumeraba requisitos técnicos antes de habilitar juegos. **En esa fecha, implementación, commit, push y PR-I2 no estaban autorizados y PR-I1 seguía abierto.** Los recuentos de 84 pruebas backend y 69 Flutter corresponden a la auditoría inicial, no a V1 implementada. [Plan maestro original](PLAN_MAESTRO_COMPETITIVO.md) conservado; el estado actual PR-I1/PR-I2 es el de la sección I2-4 superior.
+
+Antecedente de este listado: actualización del 28 de septiembre de 2026, tras MA-3C.
+Ruta PR-I1/PR-I2 conciliada al 5 de octubre de 2026 en este documento.
 
 **Ruta operativa del relevo:** [RELEVO_EQUIPO.md](RELEVO_EQUIPO.md).
-Los compañeros revisan ambos repositorios y continúan PR-I1.
+Para PR-I1/PR-I2, prevalece el estado actual de este documento sobre las
+instrucciones históricas de relevo: PR-I1 integrado; I2-4 pendiente de cierre/publicación.
 MA-3A/B/C (reglas, persistencia, sincronización y agenda) implementadas localmente.
-Siguiente: **PR-I1 — reglas y contratos competitivos**; ensayo real de MA-3 pendiente.
+Siguiente: **revisión final/cierre de I2-4; después I2-5 con autorización**;
+ensayo real de MA-3 pendiente.
 Ver [REPASO_DIFERIDO.md](REPASO_DIFERIDO.md); no confundir implementación con despliegue.
 MA-2C Flutter implementada/probada localmente; ensayo real pendiente.
 MA-2B (editor del panel) implementada y probada localmente; no repetirla.
@@ -36,8 +174,8 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | MA-1 — Cobertura | Base local; faltan reportes académicos de preguntas, revisión visual y ensayo real. No confundirlos con reportes de jugadores. | Entrega acotada coordinada; no pierde su pendiente al avanzar a PR-I. |
 | MA-2A/B/C — Mapa | API, panel y Flutter locales. Falta recorrido real panel → API → app. | Infraestructura autorizada, junto a D3/C4. |
 | MA-3A/B/C — Repaso diferido | Reglas, persistencia, API, agenda y flashcards locales. Falta ensayo físico/reconexión/reinstalación. | Infraestructura autorizada. No repetir implementación. |
-| **PR-I1 — Diseño V1 congelado, etapa abierta** | Reglas y precisiones de `xpRulesVersion = 1` resueltas documentalmente. Restan requisitos técnicos de habilitación en 12.7, no decisiones de producto pendientes. | Detenerse. No implementar runtime, Prisma, migraciones, endpoints, ledger o balances; no commit/push ni PR-I2. |
-| PR-I2 — Ranking por juego | Top 50 y posición propia, aportes idempotentes verificables; activar solo juegos con evidencia segura. | PR-I1 y motores autoritativos; no inventar XP pasado. |
+| **PR-I1 — Antecedente integrado/cerrado para esta ruta** | Infraestructura e integración competitiva local de seis juegos, según el estado documental confirmado. No es la siguiente etapa activa. | Despliegue/activación y requisitos operativos B1/B2 siguen separados y pendientes; no reabrir salvo defecto concreto demostrado. |
+| **PR-I2 — Ranking por juego** | Backend I2-1/I2-2/I2-3 completados. Flutter I2-4 implementado y validado localmente (81/81, analyze limpio); revisión humana de código/pruebas realizada y documentación conciliada. Quedan revisión final y cierre/publicación del propietario. | I2-5 es el siguiente checkpoint una vez aprobado I2-4, sin inicio automático. PR-I2 completo y despliegue no declarados; E2E real, teléfono y suite Flutter global pendientes. |
 | PR-I3 — Insignias anuales | PR-I3A gráfico ya tiene 90 imágenes. Faltan concesión real, cierre idempotente, historial permanente y correcciones auditadas. | PR-I1/2. Todas las ganadas, sin límite de tres; años anteriores permanecen. |
 | PR-I4 — Perfil/personas | Perfil sobrio, identidad pública y búsqueda; todas las insignias por juego/año, detalle al tocar, visibilidad y protección de datos. | PR-I1–3; C5 antes de fotos reales. Avatar existente mientras tanto, sin fingir carga persistente. |
 | PR-I5 — Instituciones | Directorio aprobado, perfil/logo del propietario, solicitudes estudiantiles/avisos y código institucional privado. Profesor con foto, no jugador. | Reutilizar P4-C y grupos; PR-I1 y C5 para archivos. No sustituir código de grupo silenciosamente. |
@@ -64,8 +202,10 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | 8I — Google Play | Firma/AAB, ficha, declaraciones, revisión y lanzamiento gradual. | Beta, privacidad y autorización; comprobar requisitos de la cuenta al ejecutar. |
 | 9A — Mantenimiento | Responsables, soporte, monitoreo, contenido, costos, seguridad y actualizaciones. | Preparar operación antes de publicar; ejecución continua después. |
 
-**Secuencia inmediata:** revisar estado y línea base → PR-I1 (resolver decisiones)
-→ PR-I2 → PR-I3 → PR-I4/5/6 por dependencias. Adelantar C5 si se necesitan fotos;
+**Secuencia inmediata:** confirmar estado y conservar cambios → revisión final
+de I2-4 (documentación conciliada) → cierre/publicación por el propietario → I2-5
+cuando se autorice → PR-I3 → PR-I4/5/6 por dependencias. PR-I1 es antecedente integrado,
+no punto de reinicio. Adelantar C5 si se necesitan fotos;
 no saltar permisos ni simular que la infraestructura funciona. P5 → D3 se retoman
 solo al autorizarse; ensayos MA-2/3, certificados, juegos y PR-I7 siguen abiertos
 hasta tener evidencia real. MA-1, seguridad y contratos se planifican sin perderlos.
@@ -84,12 +224,15 @@ con año dinámico, conservando 2026 al obtener 2027 y temporadas posteriores.
 Alcance, diferencias con
 lo existente, reglas propuestas, dependencias y prompts identificados en
 [PERFILES_RANKINGS_INSIGNIAS.md](PERFILES_RANKINGS_INSIGNIAS.md).
-Son siete entregas adicionales, con PR-I3A visual implementada y el resto pendiente; no se cuentan como parte
-de los 13 bloques históricos ni sustituyen P5/D3. Preparar PR-I1 y los assets puede
-adelantarse; JN-2B/C ya tienen backend y cliente locales. JN-4 se retiró del alcance.
+Son siete entregas adicionales, con PR-I1 integrado, Backend I2-1/I2-2/I2-3
+completados, Flutter I2-4 local validado y PR-I3A visual implementada; los demás
+pendientes conservan su estado. No se cuentan como parte de los 13 bloques
+históricos ni sustituyen P5/D3. JN-2B/C ya tienen backend y cliente locales.
+JN-4 se retiró del alcance.
 MA-1 cobertura básica
 implementada localmente; reportes académicos pendientes. MA-2A backend local listo;
-MA-2B panel, MA-2C Flutter y MA-3A/B/C locales listos; sigue PR-I1.
+MA-2B panel, MA-2C Flutter y MA-3A/B/C locales listos; sigue el cierre de I2-4
+y posteriormente I2-5, con autorización.
 
 Guía para compañeros: [GUIA_TRABAJO_COMPANEROS.md](GUIA_TRABAJO_COMPANEROS.md).
 Certificados: **cinco por área y uno final por las cinco**, integrados localmente
@@ -99,7 +242,8 @@ Audios: investigar el reporte de que solo se escucha Tira y afloja; las llamadas
 existentes no prueban reproducción real. Reparar primero y luego agregar efectos
 coordinados a juegos nuevos. Contenido desde ADMIN más adelante; pruebas entre los tres.
 Cada compañero trabaja en su rama/PR; el propietario revisa e incorpora. Este reparto
-no cambia la siguiente entrega PR-I1 ni reabre animaciones/P5/D3.
+no cambia la revisión final de I2-4 y la continuidad autorizada hacia I2-5,
+ni reabre animaciones/P5/D3.
 
 ## Ampliación vigente — Sabi, dos juegos nuevos y tres mejoras académicas
 
@@ -116,7 +260,8 @@ JN-2B tiene backend/migración locales y JN-2C cliente remoto con recuperación,
 sin despliegue ni ensayo real. JN-4 Escudo ya no es un juego activo ni pendiente.
 MA-1 [cobertura básica](COBERTURA_DEL_BANCO.md) implementada localmente; reportes
 académicos, revisión visual y ensayo real pendientes. MA-2A backend implementado
-localmente; MA-2B/C y MA-3A/B/C listas localmente; sigue PR-I1.
+localmente; MA-2B/C y MA-3A/B/C listas localmente; la ruta competitiva actual
+es cierre de I2-4 y después I2-5 con autorización.
 G-SABI-1B se conserva como prototipo pausado,
 sin aprobación artística; las celebraciones y renovación visual no se hacen ahora.
 Son alcance adicional, no implementado en producción;
@@ -144,7 +289,11 @@ No son trece etapas originales nuevas. La comparación con el listado anterior
 
 ## Punto de reanudación — leer primero al volver a trabajar
 
-Orden vigente: **revisar estado → PR-I1**, según RELEVO_EQUIPO.
+Orden vigente: **confirmar estado y preservar los cambios → revisión final de
+I2-4 (documentación conciliada) → cierre/publicación del propietario → I2-5
+con autorización**. PR-I1 está integrado/cerrado para esta ruta; Backend
+I2-1/I2-2/I2-3 completados y Flutter I2-4 validado localmente. No reiniciar PR-I1
+ni iniciar I2-5 automáticamente por instrucciones históricas de RELEVO_EQUIPO.
 MA-2A/B/C y MA-3A/B/C están implementadas localmente; no rehacerlas.
 Cuando se autorice retomar infraestructura, completar P5 antes de 7F-C3-D3.
 P1, P2 y **P3-A/P3-B (prioridades, pantallas y práctica dirigida)** tienen entregas
@@ -288,13 +437,19 @@ despliegues reales durante la integración Flutter.
 
 ### Instrucción lista para copiar en una nueva sesión
 
-> Lee `docs/RELEVO_EQUIPO.md`, arquitectura e inventario de pendientes. Audita ambos
-> repositorios, conserva los cambios y registra la línea base. Continúa PR-I1;
-> MA-2A/B/C y MA-3A/B/C ya están implementadas localmente. Consulta las reglas
-> competitivas propuestas antes de implementarlas. MA-1
+> Lee primero el estado vigente I2-4 y la ruta de `docs/ETAPAS_PENDIENTES.md`;
+> consulta `docs/RELEVO_EQUIPO.md`, arquitectura e inventario como referencias,
+> distinguiendo sus antecedentes históricos. Confirma rama, HEAD y cambios existentes.
+> PR-I1 ya está integrado; Backend I2-1/I2-2/I2-3 completados y Flutter I2-4
+> implementado/validado localmente, con revisión humana de código y pruebas realizada.
+> La documentación quedó conciliada; la siguiente acción es revisión final antes de
+> autorizar cierre/publicación del propietario. I2-5 sigue después de aprobar I2-4, pero no
+> debe iniciarse automáticamente. PR-I2 no se declara completo ni desplegado;
+> faltan E2E real contra Backend, teléfono y suite Flutter global.
+> MA-2A/B/C y MA-3A/B/C ya están implementadas localmente. MA-1
 > básica y los juegos nuevos ya tienen implementación local. P5/D3 siguen pausados
 > hasta autorización. No confundas implementación con despliegue. Actualiza etapas,
-> pruebas y limitaciones, y entrega comandos de commit con rutas de ambos repositorios.
+> pruebas y limitaciones según el alcance autorizado; conserva los cambios existentes.
 > No pidas secretos ni hagas commits, despliegues o migraciones reales automáticamente.
 
 ## 1. 7F-C3-D2 — Legado y unificación editorial
