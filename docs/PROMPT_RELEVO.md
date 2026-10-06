@@ -1,6 +1,6 @@
 # Prompt para continuar SaberPlus con otro chat
 
-Actualizado: 28 de septiembre de 2026, después de MA-3C.
+Actualizado: 5 de octubre de 2026, tras recepción de PR-I2 hasta I2-4.
 Copiar el bloque siguiente al asistente que tenga acceso local a **ambos repositorios**.
 Cambiar las rutas de ejemplo por las del computador del compañero. Este prompt
 no habilita despliegues ni hace falta compartir contraseñas. Dar acceso GitHub
@@ -18,7 +18,7 @@ Antes de editar:
 1. Lee AGENTS.md si existe. Revisa git status, rama, HEAD y diferencias locales
    en ambos repositorios. Conserva cambios ajenos; no reset, force push ni borrados.
 2. Lee README.md y docs/RELEVO_EQUIPO.md. La fuente del orden actual es la sección
-   “Ruta vigente del equipo” de docs/ETAPAS_PENDIENTES.md. Usa
+   superior “Estado vigente” de docs/ETAPAS_PENDIENTES.md. Usa
    docs/INDICE_DOCUMENTACION.md para localizar contratos. Lee arquitectura,
    HISTORIAL_ETAPAS, PERFILES_RANKINGS_INSIGNIAS, INSIGNIAS_Y_JUEGOS_VIGENTES,
    MAPA_APRENDIZAJE y REPASO_DIFERIDO. En backend lee sus README, admin/README,
@@ -28,19 +28,27 @@ Antes de editar:
    y registra una línea base. Distingue demo, código local, despliegue y prueba real.
    Una lectura de documentos no es una auditoría completa de todo el código.
 
-Punto de partida: MA-3C está implementada localmente. MA-2A/B/C y MA-3A/B/C no se
-rehacen. Referencias observadas: Flutter f6221c4 y backend 52abde2; pueden existir
-commits posteriores. No retrocedas a esos hashes ni asumas que están desplegados.
-MA-1 tiene cobertura básica; siguen pendientes reportes académicos y ensayo real.
-La siguiente entrega es PR-I1 — reglas y contratos competitivos.
+Punto de partida verificado: Flutter 1921ba9 (PR #3) y backend 66b5aa2 (PR #6)
+fusionados; pueden existir commits posteriores. No volver a esos hashes ni asumir
+despliegue. MA-2A/B/C y MA-3A/B/C locales no se rehacen. PR-I1 integrado por
+5216383; I2-1/2/3 y la consulta Flutter I2-4 están implementados. Sigue I2-5.
+MA-1 mantiene reportes académicos y ensayo real pendientes.
 
-Primera tarea PR-I1: inventaría la evidencia verificable de los ocho juegos y el
-ranking existente. Prepara una matriz “confirmado / propuesta / decisión pendiente”
-con contratos afectados. Confirma con el propietario XP elegible por juego, ayudas,
-empates, ámbito, zona horaria/cierre anual, aportes institucionales, privacidad y
-permisos/códigos que aún sean propuestas. No conviertas propuestas en acuerdos ni
-concedas insignias/XP antes de cerrar reglas. Si falta una respuesta, avanza solo
-en inspección, documentación y pruebas de lo existente, sin inventar esa decisión.
+I2-5: validar app/API/PostgreSQL juntos en entorno local aislado. Leer también
+backend/docs/PR_I2_RANKINGS.md y el runner PostgreSQL antes de usarlo. Probar sesión
+real, TOP 50, puesto propio fuera del TOP, vacío, no disponible, correcciones de
+balances, errores de acceso, privacidad y ranking legacy. Ejecutar regresión global
+Flutter/backend y PostgreSQL completo; prueba física aparte. Si falta Docker o el
+entorno seguro, documentar el límite, no sustituirlo por Supabase ni inventar datos.
+No declarar cierre por pruebas con mocks ni activar flags productivos.
+
+No reabrir reglas aprobadas: Trivia usa resultado definitivo para combo; Duelo solo
+compara puntuación (empate por igualdad, sin fantasma solo XP base); Tira conserva
+precedencia de resultado normal/plazo global/gracia, UNKNOWN no equivale a abandono
+y gracias simultáneas cancelan sin XP/penalización. Memoria/Batallas NO_DISPONIBLE
+no son un defecto de I2-4 ni su implementación pertenece a PR-I2. La conexión de
+admisión/presencia de clientes de juegos requiere alcance propio antes de activar
+competición; consultar ranking no demuestra que las partidas ya generen ese XP.
 
 Acuerdos que debes conservar:
 - Ocho juegos vigentes y 90 imágenes: consulta el inventario. Taller de inventos
@@ -85,7 +93,7 @@ Forma de trabajo:
   afectado la ruta real y comandos git add con archivos precisos, git diff --cached
   y git commit con mensaje. No hagas commit/push/merge automáticamente.
 
-Empieza por informar el estado encontrado y el alcance de PR-I1. No intentes
+Empieza por informar el estado encontrado y los requisitos locales de I2-5. No intentes
 resolver todas las etapas en una sola entrega.
 ```
 

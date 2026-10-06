@@ -1,6 +1,16 @@
 # Historial completo de etapas de SaberPlus
 
-Actualizado: 28 de septiembre de 2026.
+Actualizado: 5 de octubre de 2026.
+
+## Recepción del trabajo de Luis y correcciones I2-4
+
+Confirmados merges PR-I1 backend `5216383`, PR-I2 backend `66b5aa2` y Flutter
+`1921ba9`. El relevo de Luis documentó correctamente el alcance anterior al merge:
+contrato/lector/API I2-1/2/3 y consulta Flutter I2-4, no E2E ni producción.
+Se preservan motores, fórmulas aprobadas, ranking legacy y gates desactivados.
+Corregida adaptación del ranking con teclado/texto ampliado y añadidas regresiones.
+Actualizadas entradas documentales; sigue I2-5 con PostgreSQL aislado y prueba real.
+No se ejecutaron despliegues, migraciones remotas ni activación competitiva.
 
 Este documento conserva entregas y sus próximos pasos **en aquella fecha**.
 No ejecutar un «sigue» histórico como ruta actual: manda

@@ -22,6 +22,64 @@ Future<void> showPage(WidgetTester tester, TestCompetitiveRepository repo) =>
       ),
     );
 void main() {
+  for (final scenario in [
+    (name: 'texto grande', scale: 2.0, keyboard: 0.0, error: false),
+    (name: 'error con teclado', scale: 1.0, keyboard: 280.0, error: true),
+    (
+      name: 'error, teclado y texto grande',
+      scale: 2.0,
+      keyboard: 280.0,
+      error: true,
+    ),
+  ]) {
+    testWidgets('pantalla pequeña sin desbordes: ${scenario.name}', (
+      tester,
+    ) async {
+      tester.view.physicalSize = const Size(320, 568);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      final repo = TestCompetitiveRepository((q) async {
+        if (scenario.error) {
+          throw const ApiError(
+            code: '503',
+            message:
+                'No pudimos cargar el ranking competitivo. Inténtalo de nuevo.',
+          );
+        }
+        return fixtureBoard(game: q.game, season: q.season);
+      });
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            competitiveRankingRepositoryProvider.overrideWithValue(repo),
+          ],
+          child: MaterialApp(
+            builder: (context, child) => MediaQuery(
+              data: MediaQuery.of(context).copyWith(
+                textScaler: TextScaler.linear(scenario.scale),
+                viewInsets: EdgeInsets.only(bottom: scenario.keyboard),
+              ),
+              child: child!,
+            ),
+            home: const CompetitiveRankingPage(),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull);
+      if (scenario.error) {
+        await tester.drag(find.byType(NestedScrollView), const Offset(0, -350));
+        await tester.pumpAndSettle();
+        await tester.ensureVisible(find.text('Reintentar'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Reintentar'));
+        await tester.pumpAndSettle();
+        expect(repo.queries.length, 2);
+        expect(tester.takeException(), isNull);
+      }
+    });
+  }
   testWidgets('TOP y mi posición 51 se muestran sin calcular XP ni posición', (
     tester,
   ) async {

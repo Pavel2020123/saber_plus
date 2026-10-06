@@ -1,6 +1,53 @@
 # SaberPlus — etapas pendientes y ruta vigente del equipo
 
-## PR-I2 / I2-4 — integración Flutter local (5 de octubre de 2026)
+## Estado vigente tras recibir el trabajo de Luis — 5 de octubre de 2026
+
+Git local confirma Flutter PR #3 integrado en `1921ba9` y backend PR #6
+integrado en `66b5aa2`; PR-I1 ya estaba integrado por `5216383`.
+El informe de Luis describe el momento anterior a esos merges: sus menciones
+a PR abiertos y revisión para publicar son históricas, no tareas pendientes.
+
+**Siguiente checkpoint: I2-5, validación integrada y cierre de PR-I2.**
+I2-1/2/3 (API) e I2-4 (consulta Flutter) se conservan; no rehacerlos. El cierre
+requiere PostgreSQL aislado, sesión y API reales locales, navegación, privacidad,
+TOP/posición propia, estados vacíos/no disponibles, correcciones y ranking legacy.
+La regresión PostgreSQL completa y la prueba física siguen pendientes.
+
+Auditoría de recepción: build y 1.258 pruebas backend correctas; Flutter analyze
+limpio y suite global 691 aprobadas/4 omitidas (requieren entorno real); panel
+88 aprobadas. Son resultados anteriores a la corrección visual de esta entrega,
+no evidencia E2E. Se corrigen filtros y errores del ranking para pantalla pequeña,
+teclado y texto ampliado, con pruebas de regresión propias.
+
+Validación posterior a la corrección: `flutter analyze --no-pub` sin incidencias;
+91/91 pruebas dirigidas (ranking competitivo, ranking legacy, catálogo, interceptor
+y Tira), incluidas tres regresiones nuevas de accesibilidad/teclado y reintento.
+585 enlaces locales comprobados entre ambos repositorios, ninguno ausente;
+`git diff --check` correcto. La suite global no se repitió tras este ajuste visual;
+su resultado de recepción no se presenta como validación posterior del cambio.
+
+I2-4 consulta rankings, **no activa partidas competitivas en Flutter**. El cableado
+de admisión/presencia de los clientes de juego debe validarse y planificarse antes
+de activar competición; no introducirlo silenciosamente en I2-5 ni inferir que
+ya funciona por tener lector de rankings. Memoria/Batallas siguen NO_DISPONIBLE:
+su integración competitiva es otro alcance, no un requisito oculto de PR-I2.
+
+Se conservan las decisiones de Luis: Trivia cuenta el resultado definitivo para
+la racha; Duelo empata por puntuación y sin fantasma solo otorga XP base; Tira
+respeta la precedencia terminal/gracia/global, UNKNOWN no implica abandono y
+gracias simultáneas cancelan sin XP ni penalización. No reabrir esas reglas.
+
+B1/B2 productivos, Render/Supabase, P5/D3, migraciones remotas y flags siguen
+pendientes y no se ejecutan en esta entrega. Después de cerrar I2-5: PR-I3 y
+PR-I4/5/6/7 según dependencias. El resto del inventario inferior se conserva.
+El relevo de Luis también reportó deuda histórica de lint backend (111 errores,
+11 avisos) y dependencias (4 high, 3 moderate). No son recuentos vigentes ni se
+declaran resueltos: repetir análisis no mutante y auditoría de dependencias antes
+de producción, priorizando riesgo; no ejecutar `npm audit fix --force` a ciegas.
+Para continuar usar [PROMPT_RELEVO](PROMPT_RELEVO.md). Esta sección prevalece
+sobre las menciones históricas inferiores a publicar/cerrar I2-4.
+
+## Histórico: PR-I2 / I2-4 antes de la fusión (5 de octubre de 2026)
 
 Esta actualización prevalece sobre el estado histórico PR-I1 de abajo para este
 checkpoint. Backend verificado en `9e9f2f9`, rama `feat/pr-i2-competitive-rankings`;
@@ -175,7 +222,7 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | MA-2A/B/C — Mapa | API, panel y Flutter locales. Falta recorrido real panel → API → app. | Infraestructura autorizada, junto a D3/C4. |
 | MA-3A/B/C — Repaso diferido | Reglas, persistencia, API, agenda y flashcards locales. Falta ensayo físico/reconexión/reinstalación. | Infraestructura autorizada. No repetir implementación. |
 | **PR-I1 — Antecedente integrado/cerrado para esta ruta** | Infraestructura e integración competitiva local de seis juegos, según el estado documental confirmado. No es la siguiente etapa activa. | Despliegue/activación y requisitos operativos B1/B2 siguen separados y pendientes; no reabrir salvo defecto concreto demostrado. |
-| **PR-I2 — Ranking por juego** | Backend I2-1/I2-2/I2-3 completados. Flutter I2-4 implementado y validado localmente (81/81, analyze limpio); revisión humana de código/pruebas realizada y documentación conciliada. Quedan revisión final y cierre/publicación del propietario. | I2-5 es el siguiente checkpoint una vez aprobado I2-4, sin inicio automático. PR-I2 completo y despliegue no declarados; E2E real, teléfono y suite Flutter global pendientes. |
+| **PR-I2 — Ranking por juego** | Backend I2-1/I2-2/I2-3 y Flutter I2-4 fusionados (`66b5aa2` / `1921ba9`). Recepción con suite Flutter global correcta; correcciones visuales locales posteriores. | Sigue I2-5: E2E local real, regresión PostgreSQL completa y teléfono pendientes. PR-I2 no cerrado ni desplegado. No implica admisión competitiva de los clientes de juegos. |
 | PR-I3 — Insignias anuales | PR-I3A gráfico ya tiene 90 imágenes. Faltan concesión real, cierre idempotente, historial permanente y correcciones auditadas. | PR-I1/2. Todas las ganadas, sin límite de tres; años anteriores permanecen. |
 | PR-I4 — Perfil/personas | Perfil sobrio, identidad pública y búsqueda; todas las insignias por juego/año, detalle al tocar, visibilidad y protección de datos. | PR-I1–3; C5 antes de fotos reales. Avatar existente mientras tanto, sin fingir carga persistente. |
 | PR-I5 — Instituciones | Directorio aprobado, perfil/logo del propietario, solicitudes estudiantiles/avisos y código institucional privado. Profesor con foto, no jugador. | Reutilizar P4-C y grupos; PR-I1 y C5 para archivos. No sustituir código de grupo silenciosamente. |
@@ -202,9 +249,9 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | 8I — Google Play | Firma/AAB, ficha, declaraciones, revisión y lanzamiento gradual. | Beta, privacidad y autorización; comprobar requisitos de la cuenta al ejecutar. |
 | 9A — Mantenimiento | Responsables, soporte, monitoreo, contenido, costos, seguridad y actualizaciones. | Preparar operación antes de publicar; ejecución continua después. |
 
-**Secuencia inmediata:** confirmar estado y conservar cambios → revisión final
-de I2-4 (documentación conciliada) → cierre/publicación por el propietario → I2-5
-cuando se autorice → PR-I3 → PR-I4/5/6 por dependencias. PR-I1 es antecedente integrado,
+**Secuencia inmediata:** conservar cambios → entregar correcciones locales de I2-4
+→ preparar entorno aislado y validar I2-5 → PR-I3 → PR-I4/5/6 por dependencias.
+Los merges I2-3/I2-4 ya ocurrieron. PR-I1 es antecedente integrado,
 no punto de reinicio. Adelantar C5 si se necesitan fotos;
 no saltar permisos ni simular que la infraestructura funciona. P5 → D3 se retoman
 solo al autorizarse; ensayos MA-2/3, certificados, juegos y PR-I7 siguen abiertos
@@ -289,11 +336,10 @@ No son trece etapas originales nuevas. La comparación con el listado anterior
 
 ## Punto de reanudación — leer primero al volver a trabajar
 
-Orden vigente: **confirmar estado y preservar los cambios → revisión final de
-I2-4 (documentación conciliada) → cierre/publicación del propietario → I2-5
-con autorización**. PR-I1 está integrado/cerrado para esta ruta; Backend
-I2-1/I2-2/I2-3 completados y Flutter I2-4 validado localmente. No reiniciar PR-I1
-ni iniciar I2-5 automáticamente por instrucciones históricas de RELEVO_EQUIPO.
+Orden vigente: **preservar cambios → correcciones locales I2-4 → preparar y
+validar I2-5 en entorno aislado**. PR-I1 y PR-I2 hasta I2-4 están fusionados.
+No reiniciar PR-I1 ni volver a pedir el merge de los PR #3/#6. No sustituir
+el entorno aislado por una base real ni desplegar automáticamente.
 MA-2A/B/C y MA-3A/B/C están implementadas localmente; no rehacerlas.
 Cuando se autorice retomar infraestructura, completar P5 antes de 7F-C3-D3.
 P1, P2 y **P3-A/P3-B (prioridades, pantallas y práctica dirigida)** tienen entregas
@@ -442,10 +488,9 @@ despliegues reales durante la integración Flutter.
 > distinguiendo sus antecedentes históricos. Confirma rama, HEAD y cambios existentes.
 > PR-I1 ya está integrado; Backend I2-1/I2-2/I2-3 completados y Flutter I2-4
 > implementado/validado localmente, con revisión humana de código y pruebas realizada.
-> La documentación quedó conciliada; la siguiente acción es revisión final antes de
-> autorizar cierre/publicación del propietario. I2-5 sigue después de aprobar I2-4, pero no
-> debe iniciarse automáticamente. PR-I2 no se declara completo ni desplegado;
-> faltan E2E real contra Backend, teléfono y suite Flutter global.
+> Los PR #3/#6 ya están fusionados. Sigue preparar I2-5 en entorno local aislado.
+> PR-I2 no se declara completo ni desplegado; faltan E2E real contra Backend,
+> PostgreSQL completo y teléfono. La suite Flutter global pasó en recepción.
 > MA-2A/B/C y MA-3A/B/C ya están implementadas localmente. MA-1
 > básica y los juegos nuevos ya tienen implementación local. P5/D3 siguen pausados
 > hasta autorización. No confundas implementación con despliegue. Actualiza etapas,

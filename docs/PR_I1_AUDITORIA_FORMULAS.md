@@ -1,5 +1,10 @@
 # PR-I1 — Auditoría de los ocho juegos y fórmulas propuestas
 
+> Actualización de estado, 5 de octubre: PR-I1 ya está integrado y PR-I2 alcanza
+> I2-4 fusionada. Las restricciones de implementación/publicación inferiores son
+> históricas. Las reglas aprobadas se conservan; para continuar manda
+> [ETAPAS_PENDIENTES](ETAPAS_PENDIENTES.md), no las órdenes de septiembre.
+
 Fecha: 30 de septiembre de 2026. Estado: **diseño numérico aprobado y congelado documentalmente como `xpRulesVersion = 1`; implementación NO autorizada; PR-I1 no cerrado**.
 Autoridad de producto: [plan maestro recibido](PLAN_MAESTRO_COMPETITIVO.md), conservado íntegro.
 Las cifras de las rondas anteriores se conservan como historial superado. Solo la sección 12 contiene las reglas numéricas V1 aprobadas. Congelar el diseño no publica ni activa `xpRulesVersion` en runtime.

@@ -1,5 +1,11 @@
 # Índice de documentación de SaberPlus
 
+**Estado vigente, 5 de octubre:** PR-I1 y PR-I2 hasta I2-4 fusionados en ambos
+repositorios. Sigue I2-5; no hay cierre E2E/productivo. Leer el estado superior de
+[ETAPAS_PENDIENTES](ETAPAS_PENDIENTES.md) y [PROMPT_RELEVO](PROMPT_RELEVO.md).
+El índice y la nota de septiembre inferiores se conservan como historial;
+sus instrucciones de detener PR-I2 o comenzar PR-I1 están superadas.
+
 **30 de septiembre — PR-I1 V1:** [diseño aprobado y precisiones resueltas de `xpRulesVersion = 1`, sección 12](PR_I1_AUDITORIA_FORMULAS.md#12-diseño-numérico-aprobado--xprulesversion--1). Half-up, denominadores, presencia y penalización atómica definidos; Tira por abandono usa Qpartida. No quedan ambigüedades de producto identificadas; requisitos técnicos de habilitación en 12.7. Historial superado conservado. Detenerse: implementación, commit, push y PR-I2 no autorizados. PR-I1 no cerrado. [Plan maestro original](PLAN_MAESTRO_COMPETITIVO.md) conservado.
 
 Actualizado: 28 de septiembre de 2026. Inventario del README y todos los Markdown
@@ -10,7 +16,7 @@ El README de recursos iOS es una plantilla de plataforma, no una etapa del produ
 
 1. [RELEVO_EQUIPO](RELEVO_EQUIPO.md): repositorios, ramas, pruebas y entrega.
 2. [Ruta vigente](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo): estados y dependencias;
-   próxima entrega PR-I1. MA-3C ya implementada localmente, ensayo real pendiente.
+   próxima entrega I2-5. MA-3C ya implementada localmente, ensayo real pendiente.
 3. [Arquitectura](ARQUITECTURA_Y_ESTRUCTURA.md) y contrato de la función elegida.
 4. [PROMPT_RELEVO](PROMPT_RELEVO.md): bloque completo para el nuevo asistente.
 

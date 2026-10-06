@@ -8,7 +8,9 @@ Este repositorio móvil nunca almacena credenciales de PostgreSQL o Supabase.
 
 ## Auditoría y resumen para el equipo
 
-**Relevo actualizado al 28 de septiembre de 2026:** la ruta vigente está en
+**Relevo actualizado al 5 de octubre de 2026:** PR-I1 y PR-I2 hasta I2-4 ya
+están integrados. Sigue **I2-5**, validación integrada pendiente; no equivale
+a despliegue ni activación. La ruta vigente está en
 [ETAPAS_PENDIENTES.md](docs/ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
 Leer [RELEVO_EQUIPO.md](docs/RELEVO_EQUIPO.md) antes de cambiar código;
 [prompt para otro chat](docs/PROMPT_RELEVO.md) e
@@ -21,7 +23,7 @@ Instituciones tiene colección propia. Los diseños aún no son premios concedid
 
 **Compañeros que retoman el proyecto:** empezar por [RELEVO_EQUIPO.md](docs/RELEVO_EQUIPO.md).
 Incluye auditoría inicial, ambos repositorios, alcance de cada etapa, reglas que
-conservar, ramas, pruebas y ejemplos de commits. Próxima entrega: PR-I1.
+conservar, ramas, pruebas y ejemplos de commits. Próxima entrega: I2-5.
 **MA-3A/B/C implementadas localmente:** [repaso diferido](docs/REPASO_DIFERIDO.md).
 Agenda en Progreso → Flashcards → Repasos pendientes y próximos, con cuenta real.
 La demo mantiene práctica libre; falta ensayo con dispositivo/backend desplegado.
@@ -57,7 +59,7 @@ Ver [alcance y pendientes](docs/COBERTURA_DEL_BANCO.md).
 **MA-2A implementada localmente:** [reglas y backend del mapa](docs/MAPA_APRENDIZAJE.md).
 **MA-2B implementada localmente:** editor del mapa en panel, demo y pruebas.
 **MA-2C implementada localmente:** mapa en las lecciones Flutter, consulta de bases
-y navegación sin bloqueos. **MA-3A/B/C también implementadas localmente; sigue PR-I1**,
+y navegación sin bloqueos. **MA-3A/B/C también implementadas localmente; sigue I2-5**,
 manteniendo P5/D3 y las animaciones pausadas.
 Ver [SALTO_A_LA_CIMA.md](docs/SALTO_A_LA_CIMA.md).
 El prototipo de Sabi que sigue abajo se conserva, pero sus animaciones están pausadas.

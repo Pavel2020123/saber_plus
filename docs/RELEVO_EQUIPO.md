@@ -1,5 +1,20 @@
 # Relevo del equipo — empezar aquí
 
+## Reanudación vigente — 5 de octubre de 2026
+
+Flutter `1921ba9` y backend `66b5aa2` contienen los PR #3 y #6 fusionados.
+PR-I1 e I2-1/2/3/4 están integrados localmente. Sigue **I2-5**, todavía sin
+validación integrada ni cierre productivo. Leer primero el estado superior de
+[ETAPAS_PENDIENTES](ETAPAS_PENDIENTES.md) y el [prompt actualizado](PROMPT_RELEVO.md).
+No repetir aprobación de reglas ni implementación; corregir defectos concretos.
+P5/D3, B1/B2, despliegue y activación siguen pendientes. No operar bases remotas.
+
+## Archivo histórico de relevo (no ejecutar sus órdenes de siguiente etapa)
+
+Todo el relevo inferior conserva lo conocido en septiembre. Sus frases «estado
+vigente», «DETENERSE», «sigue PR-I1» y hashes no son el estado de octubre.
+Los acuerdos de producto y precauciones siguen aplicando; la ruta actual es la superior.
+
 **Relevo PR-I1 del 30 de septiembre — estado vigente:** [diseño `xpRulesVersion = 1` y precisiones resueltos, sección 12](PR_I1_AUDITORIA_FORMULAS.md#12-diseño-numérico-aprobado--xprulesversion--1). Half-up, Q=10..30 inmutable, R por disponibilidad activa y acciones/presencia definidos. Tira por abandono usa Qpartida, no R; penalización atómica con saldos y secuencia. No quedan ambigüedades de producto identificadas; bloqueos de 12.7 son requisitos técnicos previos a habilitación. Rama Flutter `docs/pr-i1-auditoria-formulas`, HEAD `93ef500`; backend `main` / `fb27225`. **DETENERSE: no implementar código/runtime/Prisma/migraciones/endpoints/ledger/balances, no commit ni push, no PR-I2.** PR-I1 sigue abierto. No volver a pedir aprobación de reglas resueltas. 84 pruebas backend y 69 Flutter son de la auditoría inicial, no de V1 implementada. Conservar cambios previos en `pubspec.yaml` y `pubspec.lock`. Los datos e instrucciones inferiores son históricos y no amplían la autorización.
 
 Actualizado: 28 de septiembre de 2026. Encargo del propietario: los compañeros
