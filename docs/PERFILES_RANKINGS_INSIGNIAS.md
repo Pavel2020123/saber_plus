@@ -33,6 +33,11 @@ públicos. PR-I3 completo NO queda cerrado con este catálogo visual.
 
 ## Alcance solicitado
 
+Ampliación del 5 de octubre: [PR-I5-T y PR-I6-T](ORIENTACION_Y_TERRITORIO.md)
+detallan ubicación con catálogo oficial, filtros dependientes departamento/municipio
+y ranking institucional territorial. No cambian premios nacionales ni exponen la
+ubicación privada del estudiante. OV-1 se planifica por separado en el mismo documento.
+
 - Perfil estudiantil sobrio y cuidado, foto/avatar, experiencia e insignias.
 - Mostrar todas las insignias de ranking vigentes obtenidas, sin límite de tres.
   Si destaca en todos los juegos, todas aparecen en su perfil, organizadas por juego.

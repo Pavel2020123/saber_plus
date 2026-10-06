@@ -2,6 +2,12 @@
 
 ## Estado vigente tras recibir el trabajo de Luis — 5 de octubre de 2026
 
+Ampliación acordada: [filtros territoriales y orientación por intereses](ORIENTACION_Y_TERRITORIO.md).
+PR-I5-T: departamento/municipio en instituciones; PR-I6-T: ranking institucional
+territorial; OV-1A/B/C/D: cuestionario orientativo, persistencia privada, resultados
+y Sabi por profesión. Planificados, no implementados. I2-5 conserva prioridad;
+OV-1 se programa antes de UI-F/beta, sin convertir afinidad en diagnóstico.
+
 Git local confirma Flutter PR #3 integrado en `1921ba9` y backend PR #6
 integrado en `66b5aa2`; PR-I1 ya estaba integrado por `5216383`.
 El informe de Luis describe el momento anterior a esos merges: sus menciones
@@ -228,6 +234,8 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | PR-I5 — Instituciones | Directorio aprobado, perfil/logo del propietario, solicitudes estudiantiles/avisos y código institucional privado. Profesor con foto, no jugador. | Reutilizar P4-C y grupos; PR-I1 y C5 para archivos. No sustituir código de grupo silenciosamente. |
 | PR-I6 — Ranking institucional | Aportes mientras se pertenece a institución, sin traslado/doble conteo del XP histórico; agregados públicos. | PR-I1/2/5 y reglas confirmadas. |
 | PR-I7 — Ensayo social | Dos cuentas/dispositivos, privacidad, fotos, solicitudes, ayudas/empates y cierre anual conservando años anteriores. | Despliegue autorizado; coordinar con P5/D3, sin alterar reloj de producción. |
+| PR-I5-T / PR-I6-T — Territorio | Catálogo DIVIPOLA, departamento/municipio en directorio y ranking institucional; posición por ámbito sin cambiar XP ni premios nacionales. | Extensiones de PR-I5/6, no reemplazos; definir sede e histórico antes de implementar. Ver ORIENTACION_Y_TERRITORIO. |
+| OV-1A/B/C/D — Orientación por intereses | Cuestionario propio revisado, resultado privado y explicable, carreras para explorar y Sabi por profesión. Complementa orientación académica, no test psicológico validado. | Tras bloque competitivo/social y antes de UI-F/beta; fuentes oficiales, privacidad y revisión de contenido. |
 | P1–P4-C / P5 — Profesor | P1–P4-C locales; P5 es despliegue y ensayo real docente, aprobación institucional, roles, grupos, prioridades y tiempo. | **P5 pausada**. Pedir URL/cuentas/entorno autorizado, nunca contraseñas. Antes de D3. |
 | 7F-C3-D2 — Legado | Herramientas locales; faltan revisión visual y operación de legado autorizada con respaldo. | No borrar ni reclasificar contenido usado; preparar D3. |
 | 7F-C3-D3 — Panel real | Conectar ADMIN a backend vigente y confirmar publicación/persistencia real. | **Pausada**, después de P5 y controles D2. Demo no cierra esta etapa. |
