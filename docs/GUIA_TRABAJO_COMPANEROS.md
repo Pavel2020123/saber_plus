@@ -1,6 +1,6 @@
 # SaberPlus — guía de trabajo para compañeros
 
-Actualizado: 28 de septiembre de 2026. Leer antes de modificar código.
+Actualizado: 7 de octubre de 2026. Leer antes de modificar código.
 
 **Nueva delegación:** el propietario deja temporalmente la continuación al equipo.
 Leer primero [RELEVO_EQUIPO.md](RELEVO_EQUIPO.md): auditoría y ruta completa de etapas.
@@ -9,16 +9,17 @@ de compañeros a esas dos tareas. No autoriza despliegues ni operaciones en base
 
 ## 1. Acuerdo del equipo
 
-Los compañeros pueden auditar y continuar las etapas aprobadas en ramas distintas,
-revisando el estado y retomando PR-I1 (MA-2A/B/C y MA-3A/B/C implementadas localmente).
+Los compañeros pueden auditar y continuar una entrega acordada en main,
+coordinando archivos. I2-5 es el checkpoint actual; no reiniciar PR-I1.
+MA-2A/B/C y MA-3A/B/C están implementadas localmente.
 Ver [ruta vigente](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo) y
 [prompt para el asistente](PROMPT_RELEVO.md). Coordinar integración y decisiones pendientes con
 el propietario. También pueden revisar certificados y reparar audios según esta guía.
 El contenido académico lo cargarán después el propietario y un compañero desde el
 panel ADMIN. Las pruebas en celulares se harán entre los tres.
 
-No trabajar ni subir cambios directamente en `main`. Cada entrega se revisa en un
-Pull Request (PR) y **el propietario decide cuándo incorporarla**. No desplegar,
+Main es la decisión actual del propietario; rama/PR solo si se acuerda para
+trabajo simultáneo. Revisar cada entrega antes de commit/push; no publicar automáticamente. No desplegar,
 aplicar migraciones ni usar credenciales de producción por cuenta propia.
 
 Esta guía distingue trabajo local integrado de pruebas y despliegues pendientes.
@@ -41,14 +42,14 @@ Leer en Flutter: `README.md`, esta guía, `docs/ETAPAS_PENDIENTES.md`,
 `docs/GAMIFICATION_CONTRACT.md`, `docs/RESCATE_DE_ESTRELLAS.md` y
 `docs/SABI_Y_JUEGOS_APROBADOS.md`. Verificar si existe `AGENTS.md` y seguirlo.
 
-### Primera descarga y rama propia
+### Primera descarga y coordinación
 
 Abrir una terminal en una carpeta de trabajo elegida por cada compañero:
 
 ```powershell
 git clone https://github.com/Pavel2020123/saber_plus.git
 cd saber_plus
-git switch -c feat/audios-juegos
+git switch main
 flutter pub get
 flutter analyze
 flutter run
@@ -62,13 +63,12 @@ git status --short
 # Continuar solamente si no hay cambios propios sin guardar.
 git switch main
 git pull --ff-only origin main
-git switch -c feat/audios-juegos
+git switch main
 ```
 
-Para certificados usar `feat/certificados-curso`. Para trabajar en el servidor,
-clonar `SaberPlus-Backend.git` por separado y crear esa rama también allí.
-Las ramas y los commits de ambos repositorios son independientes: mencionar los
-dos PR si una entrega cambia API y Flutter. Cada PC puede usar rutas diferentes.
+Para trabajar en el servidor, clonar `SaberPlus-Backend.git` por separado.
+Los commits de ambos repositorios son independientes: documentar los dos si una
+entrega cambia API y Flutter. Cada PC puede usar rutas diferentes.
 
 ## 3. Certificados: solo seis tipos
 
@@ -119,7 +119,7 @@ Ubicaciones:
 
 Los compañeros pueden **revisar el diseño, accesibilidad y textos**, y probar
 los seis tipos con cuentas de ensayo después del despliegue. Hacer cambios solo
-en rama propia y PR. No emitir certificados manualmente ni modificar reglas de
+en una entrega coordinada. No emitir certificados manualmente ni modificar reglas de
 desbloqueo sin acordarlo con el propietario. Queda pendiente la prueba integrada
 con base real y el navegador del servicio de Render.
 
@@ -252,7 +252,7 @@ No modificar autenticación, pagos, rachas, XP, datos académicos ni despliegues
 “arreglo adicional” de certificados/audio. Si hace falta, documentar y acordar una
 tarea separada. No hacer cambios masivos de formato ni actualizar dependencias sin motivo.
 
-### Guardar y entregar una rama
+### Guardar y entregar cambios revisados
 
 ```powershell
 git status --short
@@ -262,15 +262,17 @@ git add lib/core/feedback/game_audio_feedback.dart test/game_audio_feedback_test
 # Añadir por su ruta los demás archivos que realmente se modificaron.
 git diff --cached
 git commit -m "fix: corregir reproduccion de audios de juegos"
-git push -u origin feat/audios-juegos
+# Solo cuando el propietario autorice publicar:
+git push origin main
 ```
 
 Para certificados: mensaje sugerido `feat: crear plantilla de certificados por area y curso`
-y subir la rama `feat/certificados-curso`. No usar `git add .` sin revisar, `push --force`,
+solo si se creó esa función; para correcciones usar un mensaje fix preciso.
+No usar `git add .` sin revisar, `push --force`,
 `reset --hard`, ni subir `.env`, contraseñas, compilaciones o bases de datos.
 
-En GitHub abrir un **Pull Request hacia `main`**, asignarlo al propietario y NO
-fusionarlo ustedes. Incluir objetivo, archivos tocados, comandos/resultados de pruebas,
+Entregar al propietario el diff para revisión; si se acordó rama, usar PR sin
+fusionarlo automáticamente. Incluir objetivo, archivos tocados, comandos/resultados de pruebas,
 capturas/PDF de muestra o video de sonido, limitaciones y posibles cambios de contrato.
 Si hay conflicto en archivos compartidos, avisar; no aceptar todo “ours/theirs” a ciegas.
 
@@ -284,7 +286,7 @@ flutter test test/game_audio_feedback_test.dart test/answer_streak_feedback_test
 Para un cambio de servidor: desde `SaberPlus-Backend/backend`, compilar con
 `npm run build` y ejecutar las pruebas pertinentes. No ejecutar migraciones reales
 ni scripts que lean credenciales de staging/producción para probar una plantilla.
-El propietario revisa los PR, coordina compatibilidad y realiza la integración.
+El propietario revisa las entregas y coordina compatibilidad e integración.
 
 ## 7. Pruebas conjuntas y entrega final
 

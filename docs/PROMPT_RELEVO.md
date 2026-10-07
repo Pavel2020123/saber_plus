@@ -1,117 +1,91 @@
 # Prompt para continuar SaberPlus con otro chat
 
-## Actualización prioritaria — 6 de octubre de 2026
-
-Leer primero [la validación local](VALIDACION_LOCAL_I2_5_2026-10-06.md) y su
-informe backend. I2-5 sigue abierto por comprobación física incompleta y pendientes
-registrados. La regresión PostgreSQL completa ya pasó 347/347 en este PC;
-no repetir el bloqueo histórico de Docker como estado vigente. Flutter final
-694 pass/9 skip; los cinco tests nuevos opt-in pasaron contra API local real.
-Conservar `analysis_options.yaml` ajeno; revisar cambios sin commit/push automático.
-Trabajar en main según decisión del propietario. El bloque anterior del 5 de
-octubre queda subordinado a este estado y al superior de ETAPAS_PENDIENTES.
-
-Actualizado: 5 de octubre de 2026, tras recepción de PR-I2 hasta I2-4.
-Copiar el bloque siguiente al asistente que tenga acceso local a **ambos repositorios**.
-Cambiar las rutas de ejemplo por las del computador del compañero. Este prompt
-no habilita despliegues ni hace falta compartir contraseñas. Dar acceso GitHub
-privado a cada compañero; no volver públicos los repositorios para usarlo.
+Actualizado: 7 de octubre de 2026. Copiar el bloque completo; adaptar rutas.
+Fuente única del orden: [ETAPAS_PENDIENTES](ETAPAS_PENDIENTES.md).
+Evidencia y límites: [conciliación](CONCILIACION_2026_10_07.md).
+Se necesitan los dos repositorios y permisos de acceso si corresponde; no cambiar
+su visibilidad para usar este prompt ni compartir contraseñas.
 
 ```text
 Vas a continuar SaberPlus, no crear otra app ni reescribir el proyecto.
-Trabajo en estos dos repositorios independientes:
-- Flutter Android/iOS: C:\Proyectos\saber_plus
-- API NestJS/Prisma y panel web: C:\Proyectos\SaberPlus-Backend
-Confirma las rutas reales antes de ejecutar comandos. Si falta el backend o no
-tienes acceso, avisa; no inventes endpoints ni trabajes en Icfes_Vida.
+
+Repositorios independientes en el PC del propietario:
+- Flutter: C:\Users\LENOVO 14ALC6\Desktop\SaberPLus\saber_plus
+- NestJS/Prisma y ADMIN: C:\Users\LENOVO 14ALC6\Desktop\SaberPlus-Backend
+En otro PC confirma rutas; no trabajes en Icfes_Vida ni inventes un backend.
 
 Antes de editar:
-1. Lee AGENTS.md si existe. Revisa git status, rama, HEAD y diferencias locales
-   en ambos repositorios. Conserva cambios ajenos; no reset, force push ni borrados.
-2. Lee README.md y docs/RELEVO_EQUIPO.md. La fuente del orden actual es la sección
-   superior “Estado vigente” de docs/ETAPAS_PENDIENTES.md. Usa
-   docs/INDICE_DOCUMENTACION.md para localizar contratos. Lee arquitectura,
-   HISTORIAL_ETAPAS, PERFILES_RANKINGS_INSIGNIAS, INSIGNIAS_Y_JUEGOS_VIGENTES,
-   MAPA_APRENDIZAJE y REPASO_DIFERIDO. En backend lee sus README, admin/README,
-   package.json, módulos relevantes y esquema/migraciones antes de proponer cambios.
-3. Audita el flujo de la entrega (UI → proveedor/controlador → repositorio → API
-   → autorización → servicio → Prisma → respuesta/caché), busca pruebas existentes
-   y registra una línea base. Distingue demo, código local, despliegue y prueba real.
-   Una lectura de documentos no es una auditoría completa de todo el código.
+1. Lee AGENTS.md aplicables; verifica git status, rama, HEAD y diferencias en
+   ambos repositorios. Preserva cambios ajenos; no reset ni force-push.
+2. Lee README, docs/ETAPAS_PENDIENTES (estado superior y tabla activa),
+   CONCILIACION_2026_10_07, RELEVO_EQUIPO, INDICE_DOCUMENTACION y arquitectura.
+   Usa HISTORIAL_ETAPAS como historia, no como instrucciones actuales.
+   En backend lee README, backend/docs/README, PR_I2_RANKINGS, admin/README,
+   contratos afectados, package.json y migraciones.
+3. Audita el flujo concreto UI → controlador → repositorio → API → permisos →
+   servicio → Prisma → respuesta. Leer documentación no equivale a auditar todo.
+4. Trabaja en main por decisión del propietario, coordinando archivos con el
+   equipo. Rama/PR solo si se acuerda. No commit/push/merge automático.
 
-Punto de partida verificado: Flutter 1921ba9 (PR #3) y backend 66b5aa2 (PR #6)
-fusionados; pueden existir commits posteriores. No volver a esos hashes ni asumir
-despliegue. MA-2A/B/C y MA-3A/B/C locales no se rehacen. PR-I1 integrado por
-5216383; I2-1/2/3 y la consulta Flutter I2-4 están implementados. Sigue I2-5.
-MA-1 mantiene reportes académicos y ensayo real pendientes.
+Estado:
+- PR-I1 integrado (5216383); I2-1/2/3 backend (66b5aa2) y Flutter I2-4 (1921ba9)
+  integrados. Son referencias, no commits a los que volver.
+- Validación del compañero publicada: 9583d90 y 8bf32aa. Evidencia del día 6:
+  PostgreSQL 347/347 y otros 102; Jest 1258; Flutter 694 pass/9 opt-in skip;
+  auth/ranking HTTP 6/6, corrección 5/5. No repetir todo por leer una orden vieja.
+- Revisión día 7: panel normal 88/88, producción audit 0 tras cb14338;
+  lint backend 603 errores/150 avisos. Panel falló antes en otro equipo:
+  no se reprodujo aquí, causa no resuelta. Registra entorno al comparar.
+- APK instalada no equivale a recorrido Android; juegos/audio físicos e iOS
+  no acreditados. I2-5 sigue abierto: completar recorrido y sus criterios.
+- No usar fixtures de ranking como prueba de partidas competitivas verificadas.
+- No confundir flags apagados por defecto con estado remoto inspeccionado.
 
-I2-5: validar app/API/PostgreSQL juntos en entorno local aislado. Leer también
-backend/docs/PR_I2_RANKINGS.md y el runner PostgreSQL antes de usarlo. Probar sesión
-real, TOP 50, puesto propio fuera del TOP, vacío, no disponible, correcciones de
-balances, errores de acceso, privacidad y ranking legacy. Ejecutar regresión global
-Flutter/backend y PostgreSQL completo; prueba física aparte. Si falta Docker o el
-entorno seguro, documentar el límite, no sustituirlo por Supabase ni inventar datos.
-No declarar cierre por pruebas con mocks ni activar flags productivos.
+Ruta:
+I2-5 → IC-1 (clientes de seis juegos) → IC-2 (Memoria competitiva) →
+IC-3 (Batallas competitivas) → PR-I3 → PR-I4/5/6/7 por dependencias.
+QA-1 (CI Flutter/deuda) y DOC-1 (higiene/acceso) son entregas de apoyo.
+IC son integraciones locales, no activación productiva. PR-I3 puede prepararse
+contra contratos, pero premios reales exigen integración validada por juego.
+C5 antes de fotos persistentes. P5 → D3 solo al autorizarse.
+Territorio PR-I5-T/6-T y orientación OV-1 siguen planificados.
+UI-F azul/Sabi al final de funciones/integraciones, antes de beta y tienda.
 
-No reabrir reglas aprobadas: Trivia usa resultado definitivo para combo; Duelo solo
-compara puntuación (empate por igualdad, sin fantasma solo XP base); Tira conserva
-precedencia de resultado normal/plazo global/gracia, UNKNOWN no equivale a abandono
-y gracias simultáneas cancelan sin XP/penalización. Memoria/Batallas NO_DISPONIBLE
-no son un defecto de I2-4 ni su implementación pertenece a PR-I2. La conexión de
-admisión/presencia de clientes de juegos requiere alcance propio antes de activar
-competición; consultar ranking no demuestra que las partidas ya generen ese XP.
+Conservar:
+- Ocho juegos, 90 imágenes: ocho familias de juego y una institucional.
+  Taller de inventos y Escudo retirados; no reconstruirlos.
+- TOP 50. Puestos 1–5 y rangos 6–10, 11–20, 21–30, 31–40, 41–50.
+  Todas las insignias ganadas por juego/año; años anteriores permanecen.
+  Arte integrado no es premio concedido.
+- Reglas competitivas aprobadas: no cambiar fórmulas por cerrar una integración.
+  Memoria/Batallas NO_DISPONIBLE hasta sus entregas. XP autoritativo en servidor.
+- Perfil sobrio, alias, búsqueda y privacidad. No exponer correos, falencias
+  ni alumnos privados. Profesor no jugador.
+- Institución requiere ADMIN P4-C. Solicitud/código institucional no son el
+  código de grupo actual. No cambiar permisos silenciosamente.
+- Seis certificados: cinco áreas + curso; todas las lecciones publicadas,
+  área vacía no certifica. Nombre registrado. HTML/PDF ya existe.
+- ADMIN: área → tema → subtema → contenido/preguntas; guardar válido publica
+  directamente. Conservar duplicados, versiones, concurrencia e historial.
+  No imponer Excel ni revisión editorial obligatoria.
+- MA-2/3 locales no se rehacen; faltan ensayos reales. MA-1 conserva reportes pendientes.
+- Estudio estudiantil gratuito; pago quita anuncios y añade cosméticos.
+  Billing/Ads pendientes; no Wompi/ePayco, chat ni tutores.
+- Android/iOS conservados; lanzamiento comercial inicial solo Google Play.
 
-Acuerdos que debes conservar:
-- Ocho juegos vigentes y 90 imágenes: consulta el inventario. Taller de inventos
-  y Escudo del conocimiento están cancelados/retirados; no los reconstruyas.
-- Top 50 por juego. Puestos 1–5 individuales; rangos 6–10, 11–20, 21–30, 31–40,
-  41–50. Mostrar TODAS las insignias ganadas por juego/año, nunca máximo tres.
-  Mismo arte con año dinámico; una insignia anual obtenida no desaparece en el
-  año siguiente. El catálogo visual PR-I3A no equivale a premios concedidos.
-- Perfil sobrio, alias/identidad pública y búsqueda respetando visibilidad.
-  No publicar automáticamente nombres privados, correos, falencias ni alumnos
-  de una institución. Profesor no participa como jugador.
-- Instituciones requieren aprobación ADMIN P4-C. Reutilizar roles/grupos actuales.
-  Las futuras solicitudes de estudiantes y el código institucional no son los
-  códigos de grupo existentes; no cambiar permisos silenciosamente.
-- Solo seis certificados: cinco áreas y uno por las cinco. Todas las lecciones
-  publicadas del área; área vacía no concede certificado. Nombre registrado.
-  Ya hay HTML/PDF integrado: revisar/probar, no crear otro sistema por logros.
-- Panel sencillo área → tema → subtema → contenido/preguntas. Guardar válido
-  publica directamente con permisos; conservar duplicados, concurrencia y uso
-  histórico. No añadir revisión editorial obligatoria ni exigir Excel.
-- Estudio estudiantil gratuito; pago elimina anuncios y añade cosméticos.
-  Google Play Billing pendiente; no ePayco/Wompi, tutores ni chat.
-- Fotos persistentes dependen de C5. Acabado azul S+, botones y animaciones
-  profesionales de Sabi al final, antes de 8G y publicación. No hacerlo ahora.
-- P5/D3, Render/Supabase y operaciones reales siguen pausadas. No migrar,
-  desplegar, crear cuentas reales ni activar pagos/anuncios sin autorización.
-  Android e iOS se conservan; publicación comercial inicial solo Google Play.
+Entrega:
+- Un alcance acotado con pruebas de regresión. No cambiar servicios remotos,
+  aplicar migraciones reales, usar secretos ni activar pagos/anuncios/competición.
+- No repetir pruebas pesadas sin necesidad y sin entorno seguro disponible.
+  No sustituir una prueba local por Supabase. Explicar qué sí se ejecutó.
+- npm run lint puede modificar código: para diagnóstico usar ESLint sin --fix.
+  No ocultar fallos ni omisiones para conseguir checks verdes.
+- Actualizar estado superior del roadmap, accesos README/relevo e historial;
+  preservar informes originales. No dejar dos rutas vigentes.
+- Entregar etapa, cambios, validaciones y pendientes. Por cada repo afectado,
+  dar ruta real, git add de archivos precisos, git diff --cached y mensaje de
+  commit. GitHub visibilidad/protección no verificadas: no asumirlas ni cambiarlas.
 
-Forma de trabajo:
-- Coordina responsable y archivos con el equipo; una rama por entrega y por repo,
-  no main. Si hay cambios locales, consérvalos antes de cambiar de rama/actualizar.
-- Una entrega acotada por vez; contratos antes de UI, permisos siempre en servidor,
-  reintentos idempotentes, sin fallback demo silencioso. No ampliar el alcance.
-- Usa pruebas locales y, cuando corresponda, PostgreSQL temporal según el runner
-  documentado; jamás sustituyas su conexión por Supabase. No pidas secretos.
-- Corrige fallos relacionados y añade regresión; registra fallos previos y
-  limitaciones. No afirmes pruebas en iOS/Android físicos si no se hicieron.
-- Actualiza README, ruta de ETAPAS_PENDIENTES, RELEVO_EQUIPO, HISTORIAL_ETAPAS,
-  contrato de la entrega y este prompt si cambió el punto de reanudación.
-- Al finalizar indica etapa/alcance, archivos, pruebas/resultados, qué no está
-  desplegado, decisiones pendientes y siguiente etapa. Entrega por cada repo
-  afectado la ruta real y comandos git add con archivos precisos, git diff --cached
-  y git commit con mensaje. No hagas commit/push/merge automáticamente.
-
-Empieza por informar el estado encontrado y los requisitos locales de I2-5. No intentes
-resolver todas las etapas en una sola entrega.
+Empieza por comprobar el estado y proponer el alcance restante de I2-5.
+No intentes ejecutar todo el roadmap ni publicar automáticamente.
 ```
-
-## Entrega al compañero
-
-Publicar primero los commits documentales y comprobar que el compañero puede
-descargar los dos repositorios. Para código local no necesita claves de Supabase.
-La demo del panel se inicia con `npm run demo` desde `SaberPlus-Backend/admin`;
-sus datos no llegan a la base real. Las instrucciones detalladas de instalación,
-ramas, pruebas y cierre están en RELEVO_EQUIPO.

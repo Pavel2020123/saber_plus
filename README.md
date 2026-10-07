@@ -8,9 +8,12 @@ Este repositorio móvil nunca almacena credenciales de PostgreSQL o Supabase.
 
 ## Auditoría y resumen para el equipo
 
-**Relevo actualizado al 5 de octubre de 2026:** PR-I1 y PR-I2 hasta I2-4 ya
-están integrados. Sigue **I2-5**, validación integrada pendiente; no equivale
-a despliegue ni activación. La ruta vigente está en
+**Relevo actualizado al 7 de octubre de 2026:** PR-I1 y PR-I2 hasta I2-4
+integrados. I2-5 tiene regresión PostgreSQL e integración HTTP documentadas;
+falta recorrido Android y cierre de criterios. Después: IC-1/2/3 (clientes de
+juegos, Memoria y Batallas), PR-I3 y bloque social. Ver
+[conciliación y resultados actuales](docs/CONCILIACION_2026_10_07.md).
+No equivale a despliegue ni activación. La ruta vigente está en
 [ETAPAS_PENDIENTES.md](docs/ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
 Leer [RELEVO_EQUIPO.md](docs/RELEVO_EQUIPO.md) antes de cambiar código;
 [prompt para otro chat](docs/PROMPT_RELEVO.md) e
@@ -23,7 +26,7 @@ Instituciones tiene colección propia. Los diseños aún no son premios concedid
 
 **Compañeros que retoman el proyecto:** empezar por [RELEVO_EQUIPO.md](docs/RELEVO_EQUIPO.md).
 Incluye auditoría inicial, ambos repositorios, alcance de cada etapa, reglas que
-conservar, ramas, pruebas y ejemplos de commits. Próxima entrega: I2-5.
+conservar, coordinación en main, pruebas y ejemplos de commits. Próxima entrega: I2-5.
 **MA-3A/B/C implementadas localmente:** [repaso diferido](docs/REPASO_DIFERIDO.md).
 Agenda en Progreso → Flashcards → Repasos pendientes y próximos, con cuenta real.
 La demo mantiene práctica libre; falta ensayo con dispositivo/backend desplegado.
@@ -36,9 +39,11 @@ Explica las capas de Flutter, el backend NestJS, el panel, la persistencia y có
 
 **Trabajo de compañeros:** leer [GUIA_TRABAJO_COMPANEROS.md](docs/GUIA_TRABAJO_COMPANEROS.md).
 Documenta seis certificados integrados localmente (cinco áreas y curso completo), reparación/verificación
-de audios, pruebas conjuntas y entregas en ramas mediante Pull Request.
+de audios y pruebas conjuntas. Sus instrucciones antiguas de ramas quedan
+sustituidas por la política vigente del [prompt](docs/PROMPT_RELEVO.md): `main`
+por decisión del propietario, cambios coordinados y sin commit/push automático.
 Los seis certificados ya tienen implementación local; falta ensayo real. La
-reparación de audios requiere diagnóstico en dispositivo. No trabajar en `main`.
+reparación de audios requiere diagnóstico en dispositivo.
 
 **Prioridad actual: funciones antes que animaciones.** JN-1A añade
 **Practicar → Juegos individuales → Salto a la cima** para estudiantes demo.

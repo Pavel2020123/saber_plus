@@ -1,6 +1,11 @@
 # Perfiles, rankings e insignias — ampliación acordada
 
-Estado: planificación con catálogo visual PR-I3A integrado localmente. Taller de inventos
+Estado al 7 de octubre: PR-I1 y PR-I2 hasta I2-4 integrados; I2-5 abierto.
+Catálogo visual PR-I3A integrado, concesión de premios todavía pendiente.
+IC-1/2/3 cubren clientes, Memoria y Batallas. La [ruta vigente](ETAPAS_PENDIENTES.md)
+define el orden; premios requieren resultados verificados del juego correspondiente.
+
+Antecedente: planificación con catálogo visual PR-I3A integrado localmente. Taller de inventos
 continúa cancelado. Sabi conserva su nombre y diseño maestro. No se generan imágenes aquí.
 
 ## Entrega PR-I3A — arte disponible

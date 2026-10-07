@@ -1,6 +1,18 @@
 # Historial completo de etapas de SaberPlus
 
-Actualizado: 5 de octubre de 2026.
+Actualizado: 7 de octubre de 2026.
+
+## Validación I2-5 y conciliación documental, 6–7 de octubre
+
+Validación registrada en `9583d90` (Flutter) y `8bf32aa` (backend); antecedentes
+locales conservados en `64ade5a` y `cc6e158`. `cb14338` corrigió proxy-addr.
+El día 7: panel 88/88, audit producción 0 y lint 603 errores/150 avisos en el PC
+de Pavel. Se revisó, no repitió, toda la evidencia del día 6. I2-5 sigue abierto
+por recorrido físico incompleto y cierre de criterios.
+
+Esta conciliación asigna IC-1/2/3 a clientes, Memoria y Batallas; QA-1/DOC-1 a
+CI/deuda e higiene. No implementa esas etapas. Conserva main como decisión del
+propietario; no autoriza publicación ni servicios. [Detalle](CONCILIACION_2026_10_07.md).
 
 ## Recepción del trabajo de Luis y correcciones I2-4
 

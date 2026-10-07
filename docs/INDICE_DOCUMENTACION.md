@@ -3,8 +3,11 @@
 - [Orientación por intereses y territorio](ORIENTACION_Y_TERRITORIO.md): nuevas
   entregas PR-I5-T/PR-I6-T/OV-1, criterios de privacidad y colección propuesta de Sabi.
 
-**Estado vigente, 5 de octubre:** PR-I1 y PR-I2 hasta I2-4 fusionados en ambos
-repositorios. Sigue I2-5; no hay cierre E2E/productivo. Leer el estado superior de
+**Estado vigente, 7 de octubre:** PR-I1 y PR-I2 hasta I2-4 fusionados.
+I2-5 tiene regresión e integración HTTP documentadas, pero falta cierre físico.
+[Conciliación](CONCILIACION_2026_10_07.md): resultados, política y límites.
+IC-1/2/3 cubren pendientes competitivos; QA-1/DOC-1 son apoyo.
+No hay cierre productivo. Leer el estado superior de
 [ETAPAS_PENDIENTES](ETAPAS_PENDIENTES.md) y [PROMPT_RELEVO](PROMPT_RELEVO.md).
 El índice y la nota de septiembre inferiores se conservan como historial;
 sus instrucciones de detener PR-I2 o comenzar PR-I1 están superadas.

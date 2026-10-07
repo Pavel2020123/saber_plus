@@ -1,23 +1,23 @@
 # Relevo del equipo — empezar aquí
 
-## Reanudación vigente — 6 de octubre de 2026
+## Reanudación vigente — 7 de octubre de 2026
 
-[Validación y entrega revisable](VALIDACION_LOCAL_I2_5_2026-10-06.md): regresión
-competitiva real completa 347/347 y otros nueve modos PostgreSQL 102 pruebas.
-Login/ranking Flutter real comprobado con fixtures, APK separada instalada.
-**I2-5 abierto**: falta recorrido físico completo; panel predeterminado, lint y
-audit mantienen incidencias. No confundir serial panel 88/88 con npm test limpio.
-No commit/push ni operaciones remotas. Consultar listas exactas de archivos y
-limpieza en ambos informes antes de continuar; lo siguiente es histórico.
+Leer [ETAPAS_PENDIENTES](ETAPAS_PENDIENTES.md), única fuente del orden,
+[conciliación](CONCILIACION_2026_10_07.md) y [prompt copiable](PROMPT_RELEVO.md).
+PR-I1 y PR-I2 hasta I2-4 integrados; **I2-5 abierto**. Ya hay regresión
+PostgreSQL completa e integración HTTP del compañero; falta recorrido físico
+y cierre de criterios. No reiniciar PR-I1 ni tratar toda la validación como pendiente.
 
-## Reanudación vigente — 5 de octubre de 2026
+Resultados reejecutados día 7: panel normal 88/88 y audit producción 0;
+lint 603 errores/150 avisos. El fallo previo del panel no se reprodujo, causa
+sin confirmar. El informe del día 6 conserva sus recuentos originales.
+Validación ya publicada en ambos repositorios; nuevas publicaciones no son automáticas.
 
-Flutter `1921ba9` y backend `66b5aa2` contienen los PR #3 y #6 fusionados.
-PR-I1 e I2-1/2/3/4 están integrados localmente. Sigue **I2-5**, todavía sin
-validación integrada ni cierre productivo. Leer primero el estado superior de
-[ETAPAS_PENDIENTES](ETAPAS_PENDIENTES.md) y el [prompt actualizado](PROMPT_RELEVO.md).
-No repetir aprobación de reglas ni implementación; corregir defectos concretos.
-P5/D3, B1/B2, despliegue y activación siguen pendientes. No operar bases remotas.
+Después: IC-1/2/3 (clientes, Memoria y Batallas), PR-I3 y bloque social.
+QA-1/DOC-1 son apoyo, C5 antes de fotos. No activar servicios por integrar código.
+Trabajo en main por decisión del propietario; coordinar archivos y preservar cambios.
+P5/D3 y operaciones remotas siguen pausadas. Visibilidad/protección de GitHub
+no verificadas; no afirmar repos privados ni modificar accesos.
 
 ## Archivo histórico de relevo (no ejecutar sus órdenes de siguiente etapa)
 
@@ -81,8 +81,8 @@ Supabase aloja PostgreSQL; Render ejecuta la API. Ni Flutter ni el panel reciben
 
 ## 2. Descargar y conservar los dos proyectos
 
-El propietario debe conceder acceso GitHub a **ambos repositorios privados**. No es
-necesario hacerlos públicos ni compartir su cuenta, contraseña o token. Si aparece
+El compañero necesita acceso GitHub a ambos repositorios; si son privados, el
+propietario debe concederlo. No cambiar visibilidad ni compartir contraseña/token. Si aparece
 «Repository not found», comprobar invitación/acceso y cuenta autenticada.
 
 Ejemplo para un compañero: crear `C:\Proyectos` y abrir allí una terminal. Si ya
@@ -474,15 +474,15 @@ no añadirlos por iniciativa propia ni resucitar Taller de inventos.
 
 ## 6. Cómo hacer cambios sin pisarse
 
-Elegir una etapa y responsable, anunciar archivos previstos y crear una rama por
-entrega en cada repo afectado. No trabajar directamente en main. Antes de actualizar:
+Elegir una etapa y responsable y anunciar archivos previstos. La política actual
+es main, coordinando cambios; rama/PR solo si se acuerda. Antes de actualizar:
 
 ```powershell
 cd "C:\Proyectos\saber_plus"
 git status --short
 git switch main
 git pull --ff-only origin main
-git switch -c docs/pri1-reglas-competitivas
+# No cambiar a una rama nueva sin acordarlo con el propietario.
 ```
 
 Repetir desde `C:\Proyectos\SaberPlus-Backend` si la entrega lo necesita. **Si hay

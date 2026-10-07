@@ -158,7 +158,9 @@ No se dan por probados todos los modos en Android/iOS reales por tener tests.
   registrado. Todas las lecciones publicadas del área completadas; área vacía
   no habilita PDF. Final exige las cinco áreas. Implementación local y descarga privada.
 - Catálogo de 90 insignias (ocho juegos e instituciones), no premios ganados.
-  Rankings por juego y asignación anual permanente permanecen pendientes PR-I1–7.
+  Infraestructura PR-I1 y consulta PR-I2 hasta I2-4 integradas; I2-5 abierto.
+  IC-1/2/3 cubren clientes y juegos competitivos pendientes. Asignación anual
+  permanente y perfiles sociales siguen pendientes PR-I3–7.
 
 Pendiente: ensayo real de los seis certificados y contrato
 real de gracia/congelamiento/recuperación de racha. La apariencia de hielo no
@@ -277,8 +279,11 @@ desplegar ese retiro en Render; las tablas históricas se conservan.
 
 ## Qué sigue
 
-**PR-I1: reglas y contratos competitivos.** Después PR-I2–6 por dependencias,
-con C5 antes de fotos reales. MA-2/3 locales no se rehacen. P5/D3 siguen pausadas.
+**Completar I2-5**, aprovechando la regresión e integración ya documentadas.
+Después IC-1 (seis clientes competitivos), IC-2 (Memoria), IC-3 (Batallas) y
+PR-I3–7 por dependencias, con C5 antes de fotos reales. QA-1/DOC-1 son apoyo.
+MA-2/3 locales no se rehacen. P5/D3 siguen pausadas. El orden vigente está en
+[ETAPAS_PENDIENTES](ETAPAS_PENDIENTES.md); no se acreditan despliegues.
 No desaparecen MA-1 reportes, C4/C5/C6, identidad/seguridad, contratos académicos,
 ensayos de certificados/juegos, monetización, acabado azul/animaciones y publicación.
 
