@@ -1,5 +1,16 @@
 # Prompt para continuar SaberPlus con otro chat
 
+## Actualización prioritaria — 6 de octubre de 2026
+
+Leer primero [la validación local](VALIDACION_LOCAL_I2_5_2026-10-06.md) y su
+informe backend. I2-5 sigue abierto por comprobación física incompleta y pendientes
+registrados. La regresión PostgreSQL completa ya pasó 347/347 en este PC;
+no repetir el bloqueo histórico de Docker como estado vigente. Flutter final
+694 pass/9 skip; los cinco tests nuevos opt-in pasaron contra API local real.
+Conservar `analysis_options.yaml` ajeno; revisar cambios sin commit/push automático.
+Trabajar en main según decisión del propietario. El bloque anterior del 5 de
+octubre queda subordinado a este estado y al superior de ETAPAS_PENDIENTES.
+
 Actualizado: 5 de octubre de 2026, tras recepción de PR-I2 hasta I2-4.
 Copiar el bloque siguiente al asistente que tenga acceso local a **ambos repositorios**.
 Cambiar las rutas de ejemplo por las del computador del compañero. Este prompt

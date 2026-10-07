@@ -1,5 +1,17 @@
 # SaberPlus — etapas pendientes y ruta vigente del equipo
 
+## Estado vigente — validación local del 6 de octubre de 2026
+
+**I2-5 abierto.** [Informe de esta ejecución](VALIDACION_LOCAL_I2_5_2026-10-06.md):
+PostgreSQL competitivo completo 347/347, dirigido 12/12 y otros nueve modos
+102 pruebas aprobadas; API/login/ranking Flutter real 6/6 y corrección 5/5.
+Flutter global final 694 aprobadas/9 opt-in omitidas; backend Jest 1.258/1.258.
+APK local separada compilada e instalada; falta completar comprobación física.
+Panel predeterminado falla, serial 88/88; lint 567 errores/150 avisos;
+audit 13 paquetes afectados, producción 1 critical. No declarar todo aprobado.
+Trabajo autorizado en main, sin commit/push. B1/B2, P5/D3 y activación no se cierran.
+El estado del 5 de octubre siguiente se conserva como antecedente histórico.
+
 ## Estado vigente tras recibir el trabajo de Luis — 5 de octubre de 2026
 
 Ampliación acordada: [filtros territoriales y orientación por intereses](ORIENTACION_Y_TERRITORIO.md).

@@ -1,5 +1,15 @@
 # Relevo del equipo — empezar aquí
 
+## Reanudación vigente — 6 de octubre de 2026
+
+[Validación y entrega revisable](VALIDACION_LOCAL_I2_5_2026-10-06.md): regresión
+competitiva real completa 347/347 y otros nueve modos PostgreSQL 102 pruebas.
+Login/ranking Flutter real comprobado con fixtures, APK separada instalada.
+**I2-5 abierto**: falta recorrido físico completo; panel predeterminado, lint y
+audit mantienen incidencias. No confundir serial panel 88/88 con npm test limpio.
+No commit/push ni operaciones remotas. Consultar listas exactas de archivos y
+limpieza en ambos informes antes de continuar; lo siguiente es histórico.
+
 ## Reanudación vigente — 5 de octubre de 2026
 
 Flutter `1921ba9` y backend `66b5aa2` contienen los PR #3 y #6 fusionados.
