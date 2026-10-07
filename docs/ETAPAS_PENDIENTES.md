@@ -12,7 +12,28 @@ audit 13 paquetes afectados, producción 1 critical. No declarar todo aprobado.
 Trabajo autorizado en main, sin commit/push. B1/B2, P5/D3 y activación no se cierran.
 El estado del 5 de octubre siguiente se conserva como antecedente histórico.
 
-## Estado vigente tras recibir el trabajo de Luis — 5 de octubre de 2026
+## Antecedente — pruebas en el PC de Pavel, 5 de octubre de 2026
+
+Docker ya estaba instalado. Se ejecutó en este equipo el ranking contra PostgreSQL
+temporal real: **12/12 pruebas aprobadas**, 61 migraciones y limpieza de esa base
+confirmada. Build backend correcto. No equivalía a Flutter conectado ni al cierre.
+
+La regresión completa quedó bloqueada antes de sus pruebas: Docker falló al
+extraer la imagen Linux con `read-only file system`. Queda pendiente recuperar
+Docker y confirmar limpieza de los recursos temporales de esa segunda ejecución
+en este PC. Se encontraron solo 0,21 GB libres en C:; Docker devolvió HTTP 500
+y la limpieza falló. No borrar archivos personales ni purgar volúmenes globalmente.
+No se tocó Supabase/Render. Detalles y recursos en el otro repositorio:
+`backend/docs/PR_I2_RANKINGS.md`, sección de la primera ejecución de Pavel.
+Host Node 24.11.1 frente al 24.14.1 fijado: alinear antes de certificar este entorno.
+Android 15 detectado por USB, sin prueba app/API/base en aquella ejecución.
+
+Los resultados posteriores del PC del compañero figuran arriba y no acreditan
+limpieza de Docker en el PC de Pavel. I2-5 continúa abierta por los pendientes
+del informe del 6 de octubre, no por falta de una ejecución PostgreSQL completa
+en el equipo del compañero.
+
+## Histórico tras recibir el trabajo de Luis — 5 de octubre de 2026
 
 Ampliación acordada: [filtros territoriales y orientación por intereses](ORIENTACION_Y_TERRITORIO.md).
 PR-I5-T: departamento/municipio en instituciones; PR-I6-T: ranking institucional
