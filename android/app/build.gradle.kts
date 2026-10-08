@@ -28,6 +28,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            // Opt-in local validation APK: never replace the normal installation.
+            if (providers.gradleProperty("saberplusValidationApk").orNull == "true") {
+                applicationIdSuffix = ".i2validation"
+            }
+        }
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.

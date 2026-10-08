@@ -2,8 +2,9 @@
 
 **Actualización del 8 de octubre:** [IC-1A](IC1_CIMA.md) añade selección competitiva
 explícita para cuenta real, confirmada por la API existente. El modo normal/demo
-sigue sin XP; la app no calcula premios competitivos. Pendiente ensayo real de
-liquidación única, sin despliegue ni activación productiva. Las descripciones
+sigue sin XP; la app no calcula premios competitivos. IC-1A2 validó localmente
+Android/API/ledger: una concesión de 100 XP sin duplicación y normal sin XP.
+Sin despliegue ni activación productiva. Las descripciones
 JN-1 siguientes documentan la base no competitiva que se conserva.
 
 ## Estado: JN-1A demo, JN-1B backend y JN-1C cliente remoto implementados localmente
