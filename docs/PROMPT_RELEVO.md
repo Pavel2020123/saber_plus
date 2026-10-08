@@ -6,6 +6,11 @@ Evidencia y límites: [conciliación](CONCILIACION_2026_10_07.md).
 Se necesitan los dos repositorios y permisos de acceso si corresponde; no cambiar
 su visibilidad para usar este prompt ni compartir contraseñas.
 
+Para continuar **pruebas Android/API/Docker**, entregar además
+[guía y prompt operativo](RELEVO_PRUEBAS_LOCALES.md). El siguiente paso exacto
+se lee del [checkpoint vivo](ETAPAS_PENDIENTES.md#checkpoint-de-relevo-de-pruebas),
+que debe actualizarse después de cada prueba, incluso si se interrumpe el chat.
+
 ```text
 Vas a continuar SaberPlus, no crear otra app ni reescribir el proyecto.
 
@@ -18,7 +23,8 @@ Antes de editar:
 1. Lee AGENTS.md aplicables; verifica git status, rama, HEAD y diferencias en
    ambos repositorios. Preserva cambios ajenos; no reset ni force-push.
 2. Lee README, docs/ETAPAS_PENDIENTES (estado superior y tabla activa),
-   IC1_CIMA, IC1_GUARDIAN, I2_5_RECORRIDO_ANDROID, ENSAYO_ACADEMICO_LOCAL,
+   checkpoint de relevo, RELEVO_PRUEBAS_LOCALES, IC1_CIMA, IC1_GUARDIAN,
+   I2_5_RECORRIDO_ANDROID, ENSAYO_ACADEMICO_LOCAL,
    CONCILIACION_2026_10_07, RELEVO_EQUIPO, INDICE_DOCUMENTACION y arquitectura.
    Usa HISTORIAL_ETAPAS como historia, no como instrucciones actuales.
    En backend lee README, backend/docs/README, PR_I2_RANKINGS, admin/README,
@@ -39,8 +45,9 @@ Estado:
   no se reprodujo aquí, causa no resuelta. Registra entorno al comparar.
 - El propietario completó el recorrido Android de rankings; criterios funcionales
   revisados el día 8. Cierre operativo/limpieza y QA-1 siguen pendientes, no repetir
-  todo el recorrido ni afirmar validación productiva. Juegos/audio físicos e iOS
-  no acreditados. Ensayo académico local confirma edición/progreso y versiones
+  todo el recorrido ni afirmar validación productiva. Cima/Guardián físicos
+  acreditados en sus actas locales; otros juegos/audio e iOS no acreditados.
+  Ensayo académico local confirma edición/progreso y versiones
   de preguntas, con historial anterior preservado en PostgreSQL.
 - IC-1A Cima: cliente local implementado (modo explícito, confirmación del servidor,
   recuperación, rechazo OFF sin fallback y acceso al ranking). IC-1A2 aprobada
@@ -101,11 +108,17 @@ Entrega:
   No ocultar fallos ni omisiones para conseguir checks verdes.
 - Actualizar estado superior del roadmap, accesos README/relevo e historial;
   preservar informes originales. No dejar dos rutas vigentes.
+- Después de CADA prueba, actualizar acta del juego y checkpoint vivo con resultado
+  humano/HTTP/SQL por separado, límites y siguiente acción. Docker local, USB de
+  datos, depuración/autorización y pantalla encendida según RELEVO_PRUEBAS_LOCALES.
+  Unidades no requieren contraseña; integración usa archivo ficticio privado nuevo,
+  jamás credenciales de otro PC ni ese archivo en APK. Nueva base cambia JWT/login.
 - Entregar etapa, cambios, validaciones y pendientes. Por cada repo afectado,
   dar ruta real, git add de archivos precisos, git diff --cached y mensaje de
   commit. GitHub visibilidad/protección no verificadas: no asumirlas ni cambiarlas.
 
-Empieza por comprobar el estado y continuar IC-1C Rescate con su contrato existente.
+Empieza por comprobar el checkpoint VIGENTE del roadmap; al escribir este prompt
+era IC-1C Rescate, pero respeta avances posteriores registrados. Usa su contrato existente.
 Consulta IC1_GUARDIAN para lo ya validado; conserva
 los pendientes operativos de I2-5; no los ocultes al avanzar. En el PC del
 propietario la API/panel de ensayo solo duran dos horas: verifica disponibilidad

@@ -2,6 +2,11 @@
 
 ## Reanudación vigente — 8 de octubre de 2026
 
+Para continuar pruebas con otro PC/chat: [guía operativa Docker/USB y prompt](RELEVO_PRUEBAS_LOCALES.md)
+y [checkpoint vivo de cada prueba](ETAPAS_PENDIENTES.md#checkpoint-de-relevo-de-pruebas).
+Actualizar acta y checkpoint después de cada caso; no esperar al final ni copiar
+credenciales/base del PC anterior. Leer ambos repositorios antes de continuar.
+
 [I2-5](I2_5_RECORRIDO_ANDROID.md): recorrido Android y criterios funcionales
 revisados, limpieza operativa y QA-1 conservados. [Ensayo académico](ENSAYO_ACADEMICO_LOCAL.md)
 confirmado en su alcance local; no cierra P5/D3. [IC-1A Cima](IC1_CIMA.md)

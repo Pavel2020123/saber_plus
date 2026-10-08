@@ -2,6 +2,16 @@
 
 Actualizado: 8 de octubre de 2026.
 
+## Relevo operativo de pruebas para compañeros — 8 de octubre
+
+Guía Docker local/Android USB, APK separada, credenciales ficticias privadas,
+pruebas unitarias versus integración, preparación/limpieza y prompt copiables.
+Checkpoint vivo en ETAPAS_PENDIENTES obligatorio tras cada caso, con último
+resultado, evidencia/límites y siguiente acción. Comienza IC-1C Rescate, no repetir
+Cima/Guardián aprobados salvo regresión. Mirror backend pide ambos repositorios.
+No se corrieron nuevas pruebas de juegos por esta entrega documental.
+Ver [guía operativa](RELEVO_PRUEBAS_LOCALES.md).
+
 ## IC-1B2 — checkpoints físicos del Guardián, 8 de octubre
 
 Android/API/PostgreSQL local: rechazo OFF sin intento, admisión ON, recuperación

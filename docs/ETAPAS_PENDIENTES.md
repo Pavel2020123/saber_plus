@@ -17,6 +17,43 @@ documentación; revisar cambios acumulados antes de agruparlos. No push automát
 I2-5 tiene [criterios funcionales revisados](I2_5_RECORRIDO_ANDROID.md);
 limpieza/cierre operativo y deuda QA-1 siguen separados y pendientes.
 
+## Checkpoint de relevo de pruebas
+
+**Actualizar este bloque después de CADA prueba, no solo al acabar el juego.**
+Preparación, guion, credenciales ficticias, USB/Docker y prompt para el compañero:
+[RELEVO_PRUEBAS_LOCALES](RELEVO_PRUEBAS_LOCALES.md).
+
+- **Etapa activa:** IC-1C, Rescate de estrellas competitivo.
+- **Último checkpoint aprobado:** IC-1B2 Guardián, abandono competitivo real local
+  −10, saldo130 →120. SQL acredita evento único y cuatro intentos totales;
+  victoria normal sin evento. [Acta completa](IC1_GUARDIAN.md).
+- **Siguiente paso exacto:** auditar contrato/cliente actual de Rescate y cambios
+  recibidos; integrar modalidad competitiva explícita y confirmación del servidor
+  con tests dirigidos. Todavía no implementado/ensayado en esta entrega. Después
+  APK separada y recorrido físico OFF/ON/recuperación/red/resultado/ledger/ranking.
+- **Base/credenciales:** nueva sesión propia en cada PC mediante Docker/harness;
+  no reutilizar contraseña, token, ID de intento ni carpeta temporal de este chat.
+  Los saldos100/120 documentados son históricos, no fixtures que copiar.
+- **Último entorno de pruebas:** API loopback43187, panel4173, Android USB,
+  APK `.i2validation`, admisión local OFF al cerrar Guardián. Disponibilidad actual
+  no garantizada: harness dura2h; verificar o recrear antes de continuar.
+- **Evidencia automática previa:** Flutter analyze limpio, global732 pass/9 opt-in
+  skip; Guardián34 dirigidas, backend23/23, control IPC8/8. No sustituye pruebas
+  del nuevo juego ni autoriza repetir toda regresión SQL sin necesidad.
+- **Cambios guardados:** Flutter `fa8d796` (cierre Cima), `c36c0cc` (Guardián);
+  backend `25dc8e4` (harness/Cima), `1774476` (acta Guardián). Push remoto no
+  verificado en este relevo; publicar cambios acordados y comprobar pull en ambos.
+- **No probado/no cerrado:** Rescate/Trivia/Duelo/Tira competitivos móviles,
+  IC-2/3, TTL24h/pérdida real de acuse posterior al guardado del Guardián,
+  audio/iOS/producción y cierre operativo I2-5/QA-1. Mantener esos límites.
+- **Entrega siguiente:** acta `docs/IC1_RESCATE.md` al empezar + espejo backend;
+  completar cada checkpoint con resultado humano/HTTP/SQL y siguiente acción.
+  Un commit por juego tras validación; la guía de relevo puede tener commit documental.
+
+Si el juego activo cambia, modificar campos y enlaces de este bloque y las entradas
+README/relevo/prompt/índice; preservar actas históricas. Si un caso falla, el
+siguiente paso es diagnosticar/reparar y reprobar ESE caso, no saltarlo ni cerrar etapa.
+
 **Ensayo académico local validado en su alcance:** [acta](ENSAYO_ACADEMICO_LOCAL.md)
 antes de IC-1, según decisión posterior del propietario. Panel HTTP 2/2 y estudio
 Flutter/API 1/1 aprobados; lectura, práctica, progreso y edición manual de lección
@@ -326,7 +363,7 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | MA-2A/B/C — Mapa | API, panel y Flutter locales. Falta recorrido real panel → API → app. | Infraestructura autorizada, junto a D3/C4. |
 | MA-3A/B/C — Repaso diferido | Reglas, persistencia, API, agenda y flashcards locales. Falta ensayo físico/reconexión/reinstalación. | Infraestructura autorizada. No repetir implementación. |
 | **PR-I1 — Antecedente integrado/cerrado para esta ruta** | Infraestructura e integración competitiva local de seis juegos, según el estado documental confirmado. No es la siguiente etapa activa. | Despliegue/activación y requisitos operativos B1/B2 siguen separados y pendientes; no reabrir salvo defecto concreto demostrado. |
-| **PR-I2 — Ranking por juego** | Backend I2-1/2/3 y Flutter I2-4 fusionados. I2-5 cuenta con regresión PostgreSQL completa e integración HTTP real documentadas. | Falta recorrido Android y cierre de criterios/incidencias. No cerrado ni desplegado; no implica admisión competitiva de juegos. |
+| **PR-I2 — Ranking por juego** | Backend I2-1/2/3 y Flutter I2-4 fusionados. I2-5 cuenta con regresión PostgreSQL, integración HTTP y recorrido Android funcional revisado documentados. | Faltan cierre operativo/limpieza y deuda QA-1; no repetir el recorrido aprobado por una orden histórica. No implica despliegue ni admisión productiva de juegos. |
 | **IC-1 — Clientes competitivos de seis juegos** | En curso: Cima y Guardián validados en su alcance local Android/API/ledger. Guardián: 34 tests dirigidos, global 732/9 omitidas; victoria, recuperación/red/reintento/ranking/normal/derrota/abandono físicos. Siguiente IC-1C Rescate, luego Trivia, Duelo y Tira. Reutilizar motores y contratos propios. | Cima y Guardián: victoria de 100 XP única, sin XP normal. Guardián además derrota +30 por 3 aciertos y abandono −10, balance final 120. No equivale a producción ni cierra toda IC-1. Ver IC1_CIMA e IC1_GUARDIAN. |
 | **IC-2 — Memoria competitiva** | Planificado: definir contrato autoritativo compatible con reglas aprobadas, integrar resultado verificable al ledger/ranking y cliente móvil. No rehacer el juego normal. | Tras revisar infraestructura común/IC-1. Resolver explícitamente cualquier regla faltante; pruebas de permisos, repetición, fraude, desconexión, XP y ranking. Mantener NO_DISPONIBLE hasta integrar y validar, sin activación productiva automática. |
 | **IC-3 — Batallas competitivas** | Planificado: integrar al sistema competitivo las batallas asíncronas existentes, conservando permisos, vencimientos y reglas aprobadas. | Reutilizar IC-1/infraestructura y contrato de Batallas. Probar ambos participantes, empates/vencimientos, resultados concurrentes y liquidación única; cliente/API/ranking coherentes. No inventar fórmulas; NO_DISPONIBLE hasta validar. |

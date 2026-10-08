@@ -8,6 +8,11 @@ Este repositorio móvil nunca almacena credenciales de PostgreSQL o Supabase.
 
 ## Auditoría y resumen para el equipo
 
+**Compañeros que continúan las pruebas:** empezar por
+[checkpoint vigente](docs/ETAPAS_PENDIENTES.md#checkpoint-de-relevo-de-pruebas) y
+[guía Docker/Android USB con prompt copiable](docs/RELEVO_PRUEBAS_LOCALES.md).
+Registrar cada caso y su siguiente paso antes de avanzar; se necesitan ambos repos.
+
 **Actualización del 8 de octubre:** recorrido Android y criterios funcionales
 de I2-5 revisados; limpieza operativa y deuda QA-1 pendientes. Ensayo académico
 local confirmado: publicación, progreso y conservación de versiones anteriores.

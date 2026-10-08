@@ -1,5 +1,8 @@
 # Índice de documentación de SaberPlus
 
+- [Relevo de pruebas locales: Docker, Android USB y prompt](RELEVO_PRUEBAS_LOCALES.md).
+- [Checkpoint vivo: última prueba y siguiente acción](ETAPAS_PENDIENTES.md#checkpoint-de-relevo-de-pruebas).
+
 **8 de octubre:** [criterios funcionales de I2-5 revisados](I2_5_RECORRIDO_ANDROID.md),
 [ensayo académico local](ENSAYO_ACADEMICO_LOCAL.md) e
 [IC-1A/IC-1A2 Cima](IC1_CIMA.md), validada con Android/API/ledger local;
