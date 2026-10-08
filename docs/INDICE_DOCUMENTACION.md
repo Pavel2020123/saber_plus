@@ -2,7 +2,11 @@
 
 **8 de octubre:** [criterios funcionales de I2-5 revisados](I2_5_RECORRIDO_ANDROID.md),
 [ensayo académico local](ENSAYO_ACADEMICO_LOCAL.md) e
-[IC-1A Cima](IC1_CIMA.md), cliente local preparado; siguiente IC-1A2 app/API/ledger.
+[IC-1A/IC-1A2 Cima](IC1_CIMA.md), validada con Android/API/ledger local;
+[IC-1B Guardián](IC1_GUARDIAN.md) implementada y validada localmente, 34 pruebas
+dirigidas; siguiente IC-1C Rescate. Cima/Guardián: victoria de 100 XP única,
+recuperación/reintento/ranking y normal sin XP. Guardián además derrota +30 por
+3 aciertos y abandono −10, saldo 120. Otros cuatro clientes pendientes.
 Limpieza operativa y QA-1 pendientes; sin cierre productivo. Prevalece sobre
 las notas históricas siguientes y se mantiene en la ruta vigente.
 

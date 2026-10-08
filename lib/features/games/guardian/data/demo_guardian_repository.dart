@@ -11,10 +11,22 @@ class DemoGuardianRepository implements GuardianRepository {
   final Map<String, (String, String)> _keys = {};
 
   @override
+  GuardianPendingAnswer? get pending => null;
+
+  @override
   Future<GuardianAttempt?> active() async =>
       _attempt?.isActive == true ? _attempt : null;
   @override
-  Future<GuardianAttempt> start(GuardianConfig config) async {
+  Future<GuardianAttempt> start(
+    GuardianConfig config, {
+    bool competitive = false,
+  }) async {
+    if (competitive) {
+      throw const ApiError(
+        code: 'demo_competitive',
+        message: 'La demo no admite partidas competitivas.',
+      );
+    }
     if (_attempt?.isActive == true) return _attempt!;
     final session = await _practice.startRandomPractice(
       RandomPracticeConfig(

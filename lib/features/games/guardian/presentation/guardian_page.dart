@@ -9,6 +9,9 @@ import '../../../../core/network/api_error.dart';
 import '../../../academic/domain/academic_models.dart';
 import '../../../auth/presentation/session_controller.dart';
 import '../../../practice/domain/practice_models.dart';
+import '../../../ranking/domain/competitive_ranking_models.dart';
+import '../../../ranking/presentation/competitive_ranking_page.dart';
+import '../../../ranking/presentation/competitive_ranking_providers.dart';
 import '../../../study/presentation/study_providers.dart';
 import '../../trivia_rush/data/remote_trivia_rush_repository.dart';
 import '../data/guardian_repository.dart';
@@ -20,6 +23,17 @@ class GuardianPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final repository = ref.watch(guardianRepositoryProvider);
+    if (repository == null) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Desafío del guardián')),
+        body: const Padding(
+          padding: EdgeInsets.all(24),
+          child: Text(
+            'Este juego está disponible para estudiantes con sesión iniciada. No se cargarán datos de prueba en cuentas reales.',
+          ),
+        ),
+      );
+    }
     // Cambiar de cuenta descarta el estado visual y cualquier envío pendiente.
     return _GuardianGame(key: ObjectKey(repository), repository: repository);
   }
@@ -43,6 +57,8 @@ class _GuardianGameState extends ConsumerState<_GuardianGame> {
   String? _error;
   bool _loading = true;
   bool _busy = false;
+  bool _ready = false;
+  bool _competitive = false;
   // Se conserva en errores de red: un reintento nunca crea otra respuesta.
   ({String question, String answer, String key})? _pending;
 
@@ -74,12 +90,30 @@ class _GuardianGameState extends ConsumerState<_GuardianGame> {
       if (!mounted) return;
       setState(() {
         _attempt = attempt;
+        _ready = true;
+        final pending = widget.repository.pending;
+        _pending = pending == null
+            ? null
+            : (
+                question: pending.questionId,
+                answer: pending.answerId,
+                key: pending.idempotencyKey,
+              );
+        _selected = pending?.answerId;
+        _feedback = null;
+        if (attempt != null) {
+          _competitive = attempt.isCompetitive;
+          _area = attempt.config.area;
+          _difficulty = attempt.config.difficulty;
+          _subtopic = attempt.config.subtopicId;
+        }
         _loading = false;
       });
     } on Object catch (error) {
       if (mounted) {
         setState(() {
           _error = _message(error);
+          _ready = false;
           _loading = false;
         });
       }
@@ -87,7 +121,7 @@ class _GuardianGameState extends ConsumerState<_GuardianGame> {
   }
 
   Future<void> _start() async {
-    if (_busy) return;
+    if (_busy || !_ready) return;
     setState(() {
       _busy = true;
       _error = null;
@@ -99,6 +133,7 @@ class _GuardianGameState extends ConsumerState<_GuardianGame> {
           difficulty: _difficulty,
           subtopicId: _subtopic,
         ),
+        competitive: _competitive,
       );
       if (!mounted) return;
       setState(() {
@@ -231,8 +266,10 @@ class _GuardianGameState extends ConsumerState<_GuardianGame> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('¿Cerrar este desafío?'),
-        content: const Text(
-          'Se conservarán las respuestas confirmadas, pero no podrás continuar esta partida. Para retomarla después, simplemente vuelve atrás sin abandonarla.',
+        content: Text(
+          _attempt!.isCompetitive
+              ? 'El servidor aplicará las reglas competitivas de abandono. Salir de esta pantalla no equivale a abandonar: puedes retomarla antes de que venza.'
+              : 'Se conservarán las respuestas confirmadas, pero no podrás continuar esta partida. Para retomarla después, simplemente vuelve atrás sin abandonarla.',
         ),
         actions: [
           TextButton(
@@ -322,6 +359,17 @@ class _GuardianGameState extends ConsumerState<_GuardianGame> {
                         'Modo demo · ejemplos repetidos, sin progreso real. La dificultad y el subtema se aplican al banco real.',
                       ),
                     ),
+                  if (!demo)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: Text(
+                        attempt?.isCompetitive == true
+                            ? 'Partida competitiva · resultado verificado por el servidor'
+                            : attempt != null || !_competitive
+                            ? 'Modo normal · sin XP competitivo'
+                            : 'Modo competitivo solicitado · admisión pendiente',
+                      ),
+                    ),
                   GuardianScene(
                     energy: attempt?.energy ?? 6,
                     shield: attempt?.shield ?? 3,
@@ -404,7 +452,7 @@ class _GuardianGameState extends ConsumerState<_GuardianGame> {
       ),
       const SizedBox(height: 8),
       const Text(
-        'Consigue 6 aciertos antes de cometer 3 errores. Hasta 8 preguntas, sin presión de tiempo ni potenciadores. Los resultados son de esta partida: no modifican tu diagnóstico ni tu XP.',
+        'Consigue 6 aciertos antes de cometer 3 errores. Hasta 8 preguntas, sin presión de tiempo ni potenciadores. Los resultados no modifican tu diagnóstico; en modo normal no conceden XP competitivo.',
       ),
       const SizedBox(height: 8),
       const Text(
@@ -434,6 +482,7 @@ class _GuardianGameState extends ConsumerState<_GuardianGame> {
       const SizedBox(height: 16),
       DropdownButtonFormField<PracticeDifficulty>(
         initialValue: _difficulty,
+        isExpanded: true,
         decoration: const InputDecoration(labelText: 'Dificultad'),
         items: [
           for (final difficulty in PracticeDifficulty.values)
@@ -483,9 +532,25 @@ class _GuardianGameState extends ConsumerState<_GuardianGame> {
         ),
       ),
       const SizedBox(height: 24),
+      if (!(ref.watch(sessionControllerProvider).user?.isDemo ?? false))
+        SwitchListTile(
+          key: const Key('guardian-competitive-mode'),
+          title: const Text('Competir en el ranking'),
+          subtitle: const Text(
+            'El servidor debe habilitar este modo. La XP se confirma allí, no desde la app. La modalidad no cambia durante la partida.',
+          ),
+          value: _competitive,
+          onChanged: _busy || !_ready
+              ? null
+              : (value) => setState(() => _competitive = value),
+        ),
+      if (!_ready)
+        const Text(
+          'Primero debemos recuperar el estado del servidor. Reintenta la conexión; no se iniciará una partida demo.',
+        ),
       FilledButton.icon(
         key: const Key('guardian-start'),
-        onPressed: _busy ? null : _start,
+        onPressed: _busy || !_ready ? null : _start,
         icon: const Icon(Icons.shield_outlined),
         label: Text(_busy ? 'Preparando…' : 'Desafiar al guardián'),
       ),
@@ -590,12 +655,41 @@ class _GuardianGameState extends ConsumerState<_GuardianGame> {
         .map((r) => '${r.question.themeName} · ${r.question.subtopicName}')
         .toSet();
     return [
-      Text(title, style: Theme.of(context).textTheme.headlineSmall),
+      Text(
+        title,
+        key: const Key('guardian-result'),
+        style: Theme.of(context).textTheme.headlineSmall,
+      ),
       const SizedBox(height: 8),
       Text(
         '${attempt.correct} aciertos y ${attempt.mistakes} errores en ${attempt.review.length} respuestas.',
       ),
       const SizedBox(height: 16),
+      if (attempt.isCompetitive) ...[
+        const Text(
+          'El servidor verifica y liquida esta partida. El ranking puede tardar en actualizarse; esta pantalla no concede ni calcula XP.',
+        ),
+        TextButton.icon(
+          key: const Key('guardian-open-ranking'),
+          onPressed: () {
+            ref.invalidate(
+              competitiveBoardProvider((
+                game: CompetitiveGame.guardian,
+                season: suggestedCompetitiveSeason(DateTime.now()),
+              )),
+            );
+            Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => const CompetitiveRankingPage(
+                  initialGame: CompetitiveGame.guardian,
+                ),
+              ),
+            );
+          },
+          icon: const Icon(Icons.leaderboard_outlined),
+          label: const Text('Consultar ranking del Guardián'),
+        ),
+      ],
       if (topics.isEmpty)
         const Text('No hay errores confirmados para repasar en esta partida.')
       else ...[
@@ -637,7 +731,9 @@ class _GuardianGameState extends ConsumerState<_GuardianGame> {
         ),
       const SizedBox(height: 20),
       FilledButton(
+        key: const Key('guardian-new'),
         onPressed: () => setState(() {
+          _competitive = attempt.isCompetitive;
           _attempt = null;
           _feedback = null;
           _error = null;
@@ -655,6 +751,8 @@ class _GuardianGameState extends ConsumerState<_GuardianGame> {
   }
 
   String _message(Object error) => error is ApiError
-      ? error.message
+      ? error.code == 'COMPETITIVE_SOLO_DISABLED'
+            ? 'El servidor todavía no admite partidas competitivas. Puedes desactivar el modo competitivo para practicar sin XP.'
+            : error.message
       : 'No pudimos cargar el desafío. Revisa tu conexión e inténtalo de nuevo.';
 }

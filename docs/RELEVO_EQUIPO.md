@@ -5,9 +5,16 @@
 [I2-5](I2_5_RECORRIDO_ANDROID.md): recorrido Android y criterios funcionales
 revisados, limpieza operativa y QA-1 conservados. [Ensayo académico](ENSAYO_ACADEMICO_LOCAL.md)
 confirmado en su alcance local; no cierra P5/D3. [IC-1A Cima](IC1_CIMA.md)
-implementado en Flutter, sin modificar runtime backend ni activar flags.
-Siguiente IC-1A2: ensayo app/API con banco sintético suficiente y liquidación
-real única, recuperación y admisión OFF. No declarar toda IC-1 completada.
+implementado en Flutter y validado con Android/API/ledger local: un evento
+autoritativo de 100 XP, recuperación/red/reintento, admisión OFF y normal sin XP.
+Solo el harness temporal tuvo activación por IPC; runtime productivo intacto.
+[IC-1B1 Guardián](IC1_GUARDIAN.md) implementado con recuperación cifrada y
+34 pruebas dirigidas aprobadas. IC-1B2 acredita localmente victoria/100 XP únicos,
+recuperación/red/reintento/ranking y normal sin XP; derrota +30 por 3 aciertos,
+abandono −10 y saldo final 120 confirmados. Siguiente IC-1C Rescate.
+No repetir lo acreditado. Decisión nueva: un commit por juego después
+de pruebas/documentación, revisando cambios acumulados; sin push automático.
+No declarar toda IC-1 completada ni activar producción.
 Leer ruta vigente y prompt actualizado; notas del 7 siguientes son antecedentes.
 
 ## Antecedente de reanudación — 7 de octubre de 2026

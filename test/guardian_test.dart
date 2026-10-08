@@ -16,6 +16,7 @@ import 'package:saber_plus/features/games/guardian/domain/guardian_models.dart';
 import 'package:saber_plus/features/games/guardian/presentation/guardian_page.dart';
 import 'package:saber_plus/features/games/guardian/presentation/guardian_scene.dart';
 import 'package:saber_plus/features/practice/domain/practice_models.dart';
+import 'helpers/guardian_fixture.dart';
 
 const _config = GuardianConfig(
   area: AcademicArea.mathematics,
@@ -101,26 +102,34 @@ void main() {
               Response(
                 requestOptions: options,
                 statusCode: 200,
-                data: _response(),
+                data: guardianState(
+                  count: options.path.endsWith('/respuestas') ? 1 : 0,
+                  legacy: true,
+                ),
               ),
             );
           },
         ),
       );
-      final repository = RemoteGuardianRepository(dio);
+      final repository = RemoteGuardianRepository(
+        dio,
+        GuardianHarness().store,
+        scope: 'test',
+      );
+      await repository.active();
       await repository.start(_config);
       expect(request.data, {'area': 'MATEMATICAS', 'dificultad': 'MEDIO'});
       final attempt = await repository.answer(
         id: 'attempt',
         questionId: 'q1',
         answerId: 'a1',
-        idempotencyKey: 'stable-key',
+        idempotencyKey: guardianRequestKey,
       );
       expect(request.path, '/guardian/intentos/attempt/respuestas');
       expect(request.data, {
         'preguntaId': 'q1',
         'respuestaId': 'a1',
-        'idempotencyKey': 'stable-key',
+        'idempotencyKey': guardianRequestKey,
       });
       expect(attempt.question!.options.length, 2);
       expect(
@@ -140,7 +149,11 @@ void main() {
         ),
       ),
     );
-    final repository = RemoteGuardianRepository(dio);
+    final repository = RemoteGuardianRepository(
+      dio,
+      GuardianHarness().store,
+      scope: 'test',
+    );
     expect(await repository.active(), isNull);
     body = {
       ..._response(),

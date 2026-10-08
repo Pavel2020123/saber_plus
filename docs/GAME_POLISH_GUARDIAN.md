@@ -1,5 +1,11 @@
 # 6F-P — Pulido de juegos, racha y desafío del guardián
 
+**Actualización IC-1B1, 8 de octubre:** [cliente competitivo](IC1_GUARDIAN.md)
+implementado y ensayo local Android/API/ledger validado (IC-1B2); siguiente
+IC-1C Rescate. Las menciones históricas de abajo
+a «sin XP» se aplican al modo normal/demo y al progreso académico: el modo
+competitivo explícito usa liquidación autoritativa en backend, nunca XP en Flutter.
+
 Entrega adicional solicitada antes de retomar las etapas de contenido. No cambia
 la numeración ni sustituye las tareas pendientes del roadmap.
 

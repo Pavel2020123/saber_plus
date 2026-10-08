@@ -11,9 +11,15 @@ Este repositorio móvil nunca almacena credenciales de PostgreSQL o Supabase.
 **Actualización del 8 de octubre:** recorrido Android y criterios funcionales
 de I2-5 revisados; limpieza operativa y deuda QA-1 pendientes. Ensayo académico
 local confirmado: publicación, progreso y conservación de versiones anteriores.
-Comenzó [IC-1A, cliente competitivo de Cima](docs/IC1_CIMA.md): selección y
-recuperación implementadas, pendiente partida app/API con XP real liquidada una
-sola vez. No equivale a despliegue ni activación productiva. Esta actualización
+[IC-1A/IC-1A2 Cima](docs/IC1_CIMA.md) validada localmente en Android/API/ledger:
+una concesión real de 100 XP, recuperación/red/reintento, OFF y normal sin XP.
+[IC-1B1 Guardián](docs/IC1_GUARDIAN.md) implementada: modo explícito y recuperación
+cifrada de envíos; 34 pruebas dirigidas aprobadas. IC-1B2 local confirma victoria,
+100 XP únicos, recuperación/reintento/ranking y normal sin XP; derrota +30 por
+3 aciertos y abandono −10, saldo final 120. Guardián validado localmente;
+siguiente IC-1C Rescate de estrellas. IC-1 no completada. Git según autorización:
+el propietario pide un commit por juego después de sus pruebas y documentación.
+No equivale a activación productiva. Esta actualización
 prevalece sobre el relevo histórico del 7 inmediatamente siguiente.
 
 **Relevo actualizado al 7 de octubre de 2026:** PR-I1 y PR-I2 hasta I2-4

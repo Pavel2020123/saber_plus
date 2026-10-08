@@ -5,8 +5,8 @@
 IC-1A e IC-1A2 validadas en el ensayo local Android/API/PostgreSQL del 8 de
 octubre: partida competitiva real, liquidación única y práctica normal sin XP.
 No cierra los otros cinco clientes de IC-1 ni activa producción. El cliente
-[IC-1B1 Guardián](IC1_GUARDIAN.md) está implementado; siguiente IC-1B2,
-ensayo físico/ledger del Guardián, reutilizando su contrato existente.
+[IC-1B Guardián](IC1_GUARDIAN.md) también está validado en su alcance local;
+siguiente IC-1C, Rescate de estrellas, reutilizando su contrato existente.
 La revisión funcional de I2-5 y el ensayo académico están documentados en
 [el acta Android](I2_5_RECORRIDO_ANDROID.md) y
 [el ensayo académico](ENSAYO_ACADEMICO_LOCAL.md).

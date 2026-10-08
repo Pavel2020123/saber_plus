@@ -2,6 +2,45 @@
 
 Actualizado: 8 de octubre de 2026.
 
+## IC-1B2 — checkpoints físicos del Guardián, 8 de octubre
+
+Android/API/PostgreSQL local: rechazo OFF sin intento, admisión ON, recuperación
+del mismo ID, error de red previo al guardado/reintento único, victoria con
+admisión de nuevo OFF. SQL acredita 6/6 y evento GUARDIAN único de 100 XP.
+Ranking/reapertura/dos actualizaciones conservan balance; victoria normal 6/6
+no crea evento y mantiene 100. Derrota 3 aciertos/3 errores: evento +30, saldo130.
+Abandono sin responder: evento −10, saldo final120. SQL acredita un evento por
+cada intento competitivo, ninguno normal. IC-1B local validada; sigue IC-1C Rescate.
+No probado
+acuse perdido después de guardar, iOS ni producción. Ver IC1_GUARDIAN.
+
+## IC-1B1 — Guardián competitivo Flutter implementado, 8 de octubre
+
+Modo explícito confirmado por servidor, sin fallback; recuperación cifrada por
+API/cuenta y selección/UUID pendientes persistidos antes de enviar. Resultado
+enlaza al ranking correcto sin inventar XP. Se conserva motor/contrato y se corrige
+overflow del selector con texto grande. 34 pruebas dirigidas aprobadas; global
+732 aprobadas/9 opt-in omitidas y analyze limpio. Backend Guardián 23/23 en tres
+suites y control IPC 8/8. Pendiente IC-1B2 físico/ledger.
+APK separada arm64 compilada e instalada por USB con Success; base propia tiene
+0 intentos/eventos GUARDIAN al comenzar. Interacción manual y liquidación pendientes.
+Sin nueva migración ni runtime productivo modificado. Decisión inicial de diferir
+commits hasta Tira reemplazada por un commit por juego tras pruebas/documentación.
+Ver [guía del Guardián](IC1_GUARDIAN.md).
+
+## IC-1A2 — Cima Android/API/ledger local validada, 8 de octubre
+
+APK de pruebas separada instalada tras cambiar cable USB; la app habitual se
+conservó. Doce preguntas sintéticas, control de admisión IPC local y ocho tests
+aprobados. Propietario confirma rechazo OFF, admisión ON, recuperación al cerrar,
+error de red/reintento, victoria aun con admisión nuevamente OFF y ranking.
+SQL acredita un único evento de la partida real: 100 XP, puesto 1 en Cima 2026.
+Lecturas posteriores no duplican; otra victoria normal conserva ese balance.
+No se probó pérdida de acuse posterior al guardado. No cambia producción,
+fórmulas, migraciones remotas ni otros juegos. Siguiente IC-1B Guardián; IC-1
+continúa abierta. Ver [acta de Cima](IC1_CIMA.md). El apartado de preparación
+inmediatamente siguiente conserva su estado histórico anterior al ensayo.
+
 ## Recorrido Android, ensayo académico e IC-1A — 7–8 de octubre
 
 Propietario confirmó recorrido Android de rankings. Se revisaron sus criterios

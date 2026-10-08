@@ -2,10 +2,18 @@
 
 ## Estado vigente — 8 de octubre de 2026
 
-**Trabajo actual: [IC-1A — cliente competitivo de Cima](IC1_CIMA.md).**
-Selección de modo, recuperación, rechazo de admisión OFF y enlace al ranking
-implementados localmente. Siguiente: IC-1A2, ensayo app/API con doce preguntas,
-liquidación única y recuperación; todavía no realizado ni IC-1 completada.
+**Última entrega: [IC-1B1 — cliente del Guardián implementado](IC1_GUARDIAN.md).**
+34 pruebas dirigidas aprobadas; IC-1B2 local confirma victoria (100 XP únicos),
+recuperación/red/reintento, ranking sin duplicación y normal sin XP. Derrota +30
+por 3 aciertos y abandono −10 verificados; saldo final 120. Guardián validado
+en su alcance local; no repetir lo ya acreditado.
+[IC-1A/IC-1A2 — Cima validada localmente](IC1_CIMA.md):
+Android/API/PostgreSQL: victoria competitiva, una concesión real de 100 XP,
+recuperación/red/reintento, admisión OFF y práctica normal sin XP confirmados.
+Siguiente: IC-1C, Rescate de estrellas. IC-1 sigue en curso: faltan integrar/validar
+Rescate, Trivia, Duelo y Tira; no hay activación productiva.
+Decisión vigente del propietario: un commit por juego al terminar sus pruebas y
+documentación; revisar cambios acumulados antes de agruparlos. No push automático.
 I2-5 tiene [criterios funcionales revisados](I2_5_RECORRIDO_ANDROID.md);
 limpieza/cierre operativo y deuda QA-1 siguen separados y pendientes.
 
@@ -319,7 +327,7 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | MA-3A/B/C — Repaso diferido | Reglas, persistencia, API, agenda y flashcards locales. Falta ensayo físico/reconexión/reinstalación. | Infraestructura autorizada. No repetir implementación. |
 | **PR-I1 — Antecedente integrado/cerrado para esta ruta** | Infraestructura e integración competitiva local de seis juegos, según el estado documental confirmado. No es la siguiente etapa activa. | Despliegue/activación y requisitos operativos B1/B2 siguen separados y pendientes; no reabrir salvo defecto concreto demostrado. |
 | **PR-I2 — Ranking por juego** | Backend I2-1/2/3 y Flutter I2-4 fusionados. I2-5 cuenta con regresión PostgreSQL completa e integración HTTP real documentadas. | Falta recorrido Android y cierre de criterios/incidencias. No cerrado ni desplegado; no implica admisión competitiva de juegos. |
-| **IC-1 — Clientes competitivos de seis juegos** | En curso: IC-1A Cima, cliente local implementado; falta IC-1A2 app/API/ledger real. Guardián, Rescate, Trivia, Duelo y Tira pendientes. Reutilizar repositorios/motores y contrato de cada juego; no imponer presencia de Trivia a Cima. | Criterios funcionales I2-5 revisados; entregar juego por juego. Aceptación: partida app/API real produce XP una sola vez; reintento/cierre/red no duplican ni inventan abandono; flags OFF y flujo no competitivo siguen funcionando. Sin XP concedido por cliente. Ver IC1_CIMA. |
+| **IC-1 — Clientes competitivos de seis juegos** | En curso: Cima y Guardián validados en su alcance local Android/API/ledger. Guardián: 34 tests dirigidos, global 732/9 omitidas; victoria, recuperación/red/reintento/ranking/normal/derrota/abandono físicos. Siguiente IC-1C Rescate, luego Trivia, Duelo y Tira. Reutilizar motores y contratos propios. | Cima y Guardián: victoria de 100 XP única, sin XP normal. Guardián además derrota +30 por 3 aciertos y abandono −10, balance final 120. No equivale a producción ni cierra toda IC-1. Ver IC1_CIMA e IC1_GUARDIAN. |
 | **IC-2 — Memoria competitiva** | Planificado: definir contrato autoritativo compatible con reglas aprobadas, integrar resultado verificable al ledger/ranking y cliente móvil. No rehacer el juego normal. | Tras revisar infraestructura común/IC-1. Resolver explícitamente cualquier regla faltante; pruebas de permisos, repetición, fraude, desconexión, XP y ranking. Mantener NO_DISPONIBLE hasta integrar y validar, sin activación productiva automática. |
 | **IC-3 — Batallas competitivas** | Planificado: integrar al sistema competitivo las batallas asíncronas existentes, conservando permisos, vencimientos y reglas aprobadas. | Reutilizar IC-1/infraestructura y contrato de Batallas. Probar ambos participantes, empates/vencimientos, resultados concurrentes y liquidación única; cliente/API/ranking coherentes. No inventar fórmulas; NO_DISPONIBLE hasta validar. |
 | **QA-1 — CI Flutter y deuda de validación** | Pendiente: workflow de dependencias con lock, analyze y test; identificar suites opt-in y no confundirlas con pruebas reales. Clasificar lint backend y fallos intermitentes del panel. | Antes de beta; puede avanzar tras I2-5 o en una entrega de apoyo acordada. Versiones reproducibles, sin secretos, sin desactivar pruebas para poner checks en verde; baseline solo explícita y revisada. |
@@ -352,8 +360,8 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | 8I — Google Play | Firma/AAB, ficha, declaraciones, revisión y lanzamiento gradual. | Beta, privacidad y autorización; comprobar requisitos de la cuenta al ejecutar. |
 | 9A — Mantenimiento | Responsables, soporte, monitoreo, contenido, costos, seguridad y actualizaciones. | Preparar operación antes de publicar; ejecución continua después. |
 
-**Secuencia inmediata:** IC-1A2 Cima (cliente ya preparado), conservando el
-cierre operativo pendiente de I2-5 → restantes clientes IC-1
+**Secuencia inmediata:** IC-1C Rescate (Cima y Guardián validados localmente),
+conservando el cierre operativo pendiente de I2-5 → restantes clientes IC-1
 → IC-2 → IC-3 → PR-I3 → PR-I4/5/6/7 por dependencias. QA-1/DOC-1 son apoyo
 planificado, no autorizan cambios automáticos ni bloquean por sí solos toda entrega.
 Los merges I2-3/I2-4 ya ocurrieron. PR-I1 es antecedente integrado,

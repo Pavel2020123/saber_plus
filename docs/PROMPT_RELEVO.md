@@ -18,7 +18,7 @@ Antes de editar:
 1. Lee AGENTS.md aplicables; verifica git status, rama, HEAD y diferencias en
    ambos repositorios. Preserva cambios ajenos; no reset ni force-push.
 2. Lee README, docs/ETAPAS_PENDIENTES (estado superior y tabla activa),
-   IC1_CIMA, I2_5_RECORRIDO_ANDROID, ENSAYO_ACADEMICO_LOCAL,
+   IC1_CIMA, IC1_GUARDIAN, I2_5_RECORRIDO_ANDROID, ENSAYO_ACADEMICO_LOCAL,
    CONCILIACION_2026_10_07, RELEVO_EQUIPO, INDICE_DOCUMENTACION y arquitectura.
    Usa HISTORIAL_ETAPAS como historia, no como instrucciones actuales.
    En backend lee README, backend/docs/README, PR_I2_RANKINGS, admin/README,
@@ -43,16 +43,25 @@ Estado:
   no acreditados. Ensayo académico local confirma edición/progreso y versiones
   de preguntas, con historial anterior preservado en PostgreSQL.
 - IC-1A Cima: cliente local implementado (modo explícito, confirmación del servidor,
-  recuperación, rechazo OFF sin fallback y acceso al ranking). Pendiente IC-1A2:
-  doce preguntas sintéticas distintas, partida app/API y liquidación única real.
-  No usar pruebas con dobles ni balances del harness como evidencia de ese pago.
+  recuperación, rechazo OFF sin fallback y acceso al ranking). IC-1A2 aprobada
+  localmente: Android/API/ledger, una concesión real de 100 XP, recuperación,
+  desconexión previa al POST/reintento, OFF y normal sin XP. No se probó pérdida
+  del acuse después de guardar. Ocho tests nuevos del control IPC local aprobados.
+  El pago de Cima procede de la partida, no del fixture sintético de Trivia.
+  IC-1B1 Guardián implementado: recuperación cifrada/pending, modo estricto y
+  34 tests dirigidos aprobados. IC-1B2 local acredita victoria/100 XP únicos,
+  recuperación/red/reintento/ranking y normal sin XP, derrota +30 por 3 aciertos
+  y abandono −10, saldo final 120. IC-1B validada en ese alcance local.
+  Siguiente IC-1C Rescate; otros cuatro clientes pendientes. Sin activación remota.
+  Propietario ahora pide un commit por juego tras pruebas/documentación; revisar
+  cambios acumulados antes de agruparlos. No push ni cambios ajenos automáticos.
 - El conflicto editorial EDITOR_STALE se resolvió recargando; incluir contadores
   de uso en la revisión sigue como hallazgo a evaluar, no como defecto corregido.
 - No usar fixtures de ranking como prueba de partidas competitivas verificadas.
 - No confundir flags apagados por defecto con estado remoto inspeccionado.
 
 Ruta:
-I2-5 → IC-1 (clientes de seis juegos) → IC-2 (Memoria competitiva) →
+I2-5 funcional revisado → IC-1C Rescate y restantes IC-1 (Cima/Guardián locales validados) → IC-2 (Memoria competitiva) →
 IC-3 (Batallas competitivas) → PR-I3 → PR-I4/5/6/7 por dependencias.
 QA-1 (CI Flutter/deuda) y DOC-1 (higiene/acceso) son entregas de apoyo.
 IC son integraciones locales, no activación productiva. PR-I3 puede prepararse
@@ -96,7 +105,8 @@ Entrega:
   dar ruta real, git add de archivos precisos, git diff --cached y mensaje de
   commit. GitHub visibilidad/protección no verificadas: no asumirlas ni cambiarlas.
 
-Empieza por comprobar el estado y continuar IC-1A2 según IC1_CIMA. Conserva
+Empieza por comprobar el estado y continuar IC-1C Rescate con su contrato existente.
+Consulta IC1_GUARDIAN para lo ya validado; conserva
 los pendientes operativos de I2-5; no los ocultes al avanzar. En el PC del
 propietario la API/panel de ensayo solo duran dos horas: verifica disponibilidad
 y propiedad antes de usar o cerrar esos recursos.

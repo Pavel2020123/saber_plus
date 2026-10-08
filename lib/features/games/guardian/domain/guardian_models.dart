@@ -53,6 +53,7 @@ class GuardianAttempt {
     required this.expiresAt,
     required this.review,
     this.question,
+    this.isCompetitive = false,
   });
   static const target = 6;
   static const shields = 3;
@@ -63,6 +64,9 @@ class GuardianAttempt {
   final DateTime expiresAt;
   final List<GuardianReview> review;
   final PracticeQuestion? question;
+
+  /// Admission confirmed by the server, not a locally awarded score.
+  final bool isCompetitive;
   bool get isActive => status == GuardianStatus.active;
   int get correct => review.where((r) => r.isCorrect).length;
   int get mistakes => review.length - correct;
@@ -70,6 +74,9 @@ class GuardianAttempt {
   int get energy => (target - correct).clamp(0, target);
   Iterable<GuardianReview> get toReinforce => review.where((r) => !r.isCorrect);
   factory GuardianAttempt.fromJson(Map<String, dynamic> json) {
+    if (json.containsKey('competitive') && json['competitive'] is! bool) {
+      throw const FormatException('Modalidad competitiva inválida.');
+    }
     final rules = Map<String, dynamic>.from(json['reglas'] as Map);
     if (rules['version'] != 1 ||
         rules['target'] != target ||
@@ -81,6 +88,7 @@ class GuardianAttempt {
     }
     return GuardianAttempt(
       id: json['id'] as String,
+      isCompetitive: json['competitive'] == true,
       config: GuardianConfig(
         area: AcademicArea.fromBackend(json['area'] as String),
         difficulty: PracticeDifficulty.fromBackend(
@@ -111,9 +119,51 @@ class GuardianAttempt {
   }
 }
 
+class GuardianPendingAnswer {
+  const GuardianPendingAnswer({
+    required this.attemptId,
+    required this.questionId,
+    required this.answerId,
+    required this.idempotencyKey,
+  });
+  final String attemptId;
+  final String questionId;
+  final String answerId;
+  final String idempotencyKey;
+  Map<String, dynamic> toJson() => {
+    'attemptId': attemptId,
+    'questionId': questionId,
+    'answerId': answerId,
+    'idempotencyKey': idempotencyKey,
+  };
+  factory GuardianPendingAnswer.fromJson(Map<String, dynamic> json) {
+    final pending = GuardianPendingAnswer(
+      attemptId: json['attemptId'] as String,
+      questionId: json['questionId'] as String,
+      answerId: json['answerId'] as String,
+      idempotencyKey: json['idempotencyKey'] as String,
+    );
+    if ([
+          pending.attemptId,
+          pending.questionId,
+          pending.answerId,
+        ].any((id) => id.isEmpty) ||
+        !RegExp(
+          r'^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$',
+        ).hasMatch(pending.idempotencyKey)) {
+      throw const FormatException('Envío pendiente inválido.');
+    }
+    return pending;
+  }
+}
+
 abstract interface class GuardianRepository {
+  GuardianPendingAnswer? get pending;
   Future<GuardianAttempt?> active();
-  Future<GuardianAttempt> start(GuardianConfig config);
+  Future<GuardianAttempt> start(
+    GuardianConfig config, {
+    bool competitive = false,
+  });
   Future<GuardianAttempt> get(String id);
   Future<GuardianAttempt> answer({
     required String id,
