@@ -59,6 +59,7 @@ class RemoteSummitRepository implements SummitRepository {
     Map<String, dynamic>? data,
     bool nullable = false,
     String? expectedId,
+    bool? expectedCompetitive,
   }) async {
     _check();
     try {
@@ -78,6 +79,10 @@ class RemoteSummitRepository implements SummitRepository {
       if (expectedId != null && result.id != expectedId) {
         throw const FormatException('El servidor devolvió otra partida.');
       }
+      if (expectedCompetitive != null &&
+          result.isCompetitive != expectedCompetitive) {
+        throw const FormatException('El servidor devolvió otra modalidad.');
+      }
       return result;
     } on DioException catch (e) {
       if (e.response?.statusCode == 404) {
@@ -94,6 +99,10 @@ class RemoteSummitRepository implements SummitRepository {
   Future<SummitAttempt> _accept(SummitAttempt result) async {
     _check();
     final pending = _pending;
+    if (_current?.id == result.id &&
+        _current!.isCompetitive != result.isCompetitive) {
+      throw const FormatException('La modalidad de la partida cambió.');
+    }
     final keep =
         pending != null &&
         !result.finished &&
@@ -142,6 +151,7 @@ class RemoteSummitRepository implements SummitRepository {
     String? themeId,
     String? subtopicId,
     PracticeDifficulty? difficulty,
+    bool competitive = false,
   }) => _exclusive(() async {
     if (!_restored || _pending != null) {
       throw const ApiError(
@@ -151,11 +161,14 @@ class RemoteSummitRepository implements SummitRepository {
     }
     final result = (await _request(
       '/salto-cima/intentos',
+      expectedCompetitive: competitive,
       data: {
         'area': area.backendValue,
         'temaId': ?themeId,
         'subtemaId': ?subtopicId,
         if (difficulty != null) 'dificultad': difficulty.backendValue,
+        // Omit in normal play for compatibility with older non-competitive APIs.
+        if (competitive) 'competitive': true,
       },
     ))!;
     return _accept(result);

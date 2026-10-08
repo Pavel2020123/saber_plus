@@ -1,6 +1,39 @@
 # SaberPlus — etapas pendientes y ruta vigente del equipo
 
-## Estado vigente — 7 de octubre de 2026
+## Estado vigente — 8 de octubre de 2026
+
+**Trabajo actual: [IC-1A — cliente competitivo de Cima](IC1_CIMA.md).**
+Selección de modo, recuperación, rechazo de admisión OFF y enlace al ranking
+implementados localmente. Siguiente: IC-1A2, ensayo app/API con doce preguntas,
+liquidación única y recuperación; todavía no realizado ni IC-1 completada.
+I2-5 tiene [criterios funcionales revisados](I2_5_RECORRIDO_ANDROID.md);
+limpieza/cierre operativo y deuda QA-1 siguen separados y pendientes.
+
+**Ensayo académico local validado en su alcance:** [acta](ENSAYO_ACADEMICO_LOCAL.md)
+antes de IC-1, según decisión posterior del propietario. Panel HTTP 2/2 y estudio
+Flutter/API 1/1 aprobados; lectura, práctica, progreso y edición manual de lección
+panel → Android confirmados por el propietario (7–8 de octubre). Edición manual
+de pregunta y práctica nueva comprobadas: PostgreSQL conserva ambos intentos,
+cada uno con su versión y explicación. Caso académico acotado validado;
+la revisión editorial incluye contadores de uso y produjo un conflicto resuelto
+al recargar (mejora pendiente de evaluación). No cierra D3/P5
+productivos ni borra la revisión final de I2-5. Se reutiliza infraestructura local.
+
+**Antecedente del 7 de octubre: recorrido funcional Android confirmado por el propietario.**
+Ver [acta de resultados y límites](I2_5_RECORRIDO_ANDROID.md). API/base temporal
+cerradas y enlace USB retirado; dos carpetas de sesiones antiguas pendientes de
+limpieza. I2-5 queda en revisión final de criterios, no pendiente de repetir todo
+el recorrido. QA-1 conserva lint/intermitencias; ADMIN solo HTTP, ranking general
+vacío y rechazo de token por nueva clave explícitamente diferenciados. Después IC-1.
+La sesión académica del 8 fue reactivada posteriormente: no asumir que la
+limpieza de la sesión del 7 la cierre. Los párrafos de preparación siguientes
+son históricos respecto al acta y la revisión de criterios del 8.
+
+Reanudación: [acta y recorrido Android](I2_5_RECORRIDO_ANDROID.md). Panel 88/88
+en tres repeticiones; lint clasificado. Después se preparó API aislada y APK:
+HTTP auth/ranking 6/6, panel real 2/2; segunda API tras reanudar, auth/ranking
+6/6. Primer intento USB falló; tras reconectar, instalación sin streaming exitosa
+y actividad lanzada. Recorrido físico aún pendiente de observación.
 
 **Siguiente: completar I2-5, no reiniciar PR-I1 ni I2-4.** La regresión competitiva
 347/347 y la integración HTTP ya tienen evidencia del compañero; falta recorrido
@@ -286,7 +319,7 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | MA-3A/B/C — Repaso diferido | Reglas, persistencia, API, agenda y flashcards locales. Falta ensayo físico/reconexión/reinstalación. | Infraestructura autorizada. No repetir implementación. |
 | **PR-I1 — Antecedente integrado/cerrado para esta ruta** | Infraestructura e integración competitiva local de seis juegos, según el estado documental confirmado. No es la siguiente etapa activa. | Despliegue/activación y requisitos operativos B1/B2 siguen separados y pendientes; no reabrir salvo defecto concreto demostrado. |
 | **PR-I2 — Ranking por juego** | Backend I2-1/2/3 y Flutter I2-4 fusionados. I2-5 cuenta con regresión PostgreSQL completa e integración HTTP real documentadas. | Falta recorrido Android y cierre de criterios/incidencias. No cerrado ni desplegado; no implica admisión competitiva de juegos. |
-| **IC-1 — Clientes competitivos de seis juegos** | Planificado: Cima, Guardián, Rescate, Trivia, Duelo y Tira. Auditar/reutilizar repositorios y motores existentes; cablear admisión, presencia, recuperación, reconexión y resultado terminal autorizado. | Después de I2-5; entregar juego por juego. Aceptación: partida app/API real produce XP una sola vez; reintento/cierre/red no duplican ni inventan abandono; flags OFF y flujo no competitivo siguen funcionando. Sin XP concedido por cliente. |
+| **IC-1 — Clientes competitivos de seis juegos** | En curso: IC-1A Cima, cliente local implementado; falta IC-1A2 app/API/ledger real. Guardián, Rescate, Trivia, Duelo y Tira pendientes. Reutilizar repositorios/motores y contrato de cada juego; no imponer presencia de Trivia a Cima. | Criterios funcionales I2-5 revisados; entregar juego por juego. Aceptación: partida app/API real produce XP una sola vez; reintento/cierre/red no duplican ni inventan abandono; flags OFF y flujo no competitivo siguen funcionando. Sin XP concedido por cliente. Ver IC1_CIMA. |
 | **IC-2 — Memoria competitiva** | Planificado: definir contrato autoritativo compatible con reglas aprobadas, integrar resultado verificable al ledger/ranking y cliente móvil. No rehacer el juego normal. | Tras revisar infraestructura común/IC-1. Resolver explícitamente cualquier regla faltante; pruebas de permisos, repetición, fraude, desconexión, XP y ranking. Mantener NO_DISPONIBLE hasta integrar y validar, sin activación productiva automática. |
 | **IC-3 — Batallas competitivas** | Planificado: integrar al sistema competitivo las batallas asíncronas existentes, conservando permisos, vencimientos y reglas aprobadas. | Reutilizar IC-1/infraestructura y contrato de Batallas. Probar ambos participantes, empates/vencimientos, resultados concurrentes y liquidación única; cliente/API/ranking coherentes. No inventar fórmulas; NO_DISPONIBLE hasta validar. |
 | **QA-1 — CI Flutter y deuda de validación** | Pendiente: workflow de dependencias con lock, analyze y test; identificar suites opt-in y no confundirlas con pruebas reales. Clasificar lint backend y fallos intermitentes del panel. | Antes de beta; puede avanzar tras I2-5 o en una entrega de apoyo acordada. Versiones reproducibles, sin secretos, sin desactivar pruebas para poner checks en verde; baseline solo explícita y revisada. |
@@ -319,7 +352,8 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | 8I — Google Play | Firma/AAB, ficha, declaraciones, revisión y lanzamiento gradual. | Beta, privacidad y autorización; comprobar requisitos de la cuenta al ejecutar. |
 | 9A — Mantenimiento | Responsables, soporte, monitoreo, contenido, costos, seguridad y actualizaciones. | Preparar operación antes de publicar; ejecución continua después. |
 
-**Secuencia inmediata:** completar I2-5 aprovechando su evidencia → IC-1
+**Secuencia inmediata:** IC-1A2 Cima (cliente ya preparado), conservando el
+cierre operativo pendiente de I2-5 → restantes clientes IC-1
 → IC-2 → IC-3 → PR-I3 → PR-I4/5/6/7 por dependencias. QA-1/DOC-1 son apoyo
 planificado, no autorizan cambios automáticos ni bloquean por sí solos toda entrega.
 Los merges I2-3/I2-4 ya ocurrieron. PR-I1 es antecedente integrado,

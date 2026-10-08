@@ -1,5 +1,11 @@
 # Índice de documentación de SaberPlus
 
+**8 de octubre:** [criterios funcionales de I2-5 revisados](I2_5_RECORRIDO_ANDROID.md),
+[ensayo académico local](ENSAYO_ACADEMICO_LOCAL.md) e
+[IC-1A Cima](IC1_CIMA.md), cliente local preparado; siguiente IC-1A2 app/API/ledger.
+Limpieza operativa y QA-1 pendientes; sin cierre productivo. Prevalece sobre
+las notas históricas siguientes y se mantiene en la ruta vigente.
+
 - [Orientación por intereses y territorio](ORIENTACION_Y_TERRITORIO.md): nuevas
   entregas PR-I5-T/PR-I6-T/OV-1, criterios de privacidad y colección propuesta de Sabi.
 

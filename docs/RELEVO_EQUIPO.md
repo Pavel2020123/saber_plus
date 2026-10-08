@@ -1,6 +1,16 @@
 # Relevo del equipo — empezar aquí
 
-## Reanudación vigente — 7 de octubre de 2026
+## Reanudación vigente — 8 de octubre de 2026
+
+[I2-5](I2_5_RECORRIDO_ANDROID.md): recorrido Android y criterios funcionales
+revisados, limpieza operativa y QA-1 conservados. [Ensayo académico](ENSAYO_ACADEMICO_LOCAL.md)
+confirmado en su alcance local; no cierra P5/D3. [IC-1A Cima](IC1_CIMA.md)
+implementado en Flutter, sin modificar runtime backend ni activar flags.
+Siguiente IC-1A2: ensayo app/API con banco sintético suficiente y liquidación
+real única, recuperación y admisión OFF. No declarar toda IC-1 completada.
+Leer ruta vigente y prompt actualizado; notas del 7 siguientes son antecedentes.
+
+## Antecedente de reanudación — 7 de octubre de 2026
 
 Leer [ETAPAS_PENDIENTES](ETAPAS_PENDIENTES.md), única fuente del orden,
 [conciliación](CONCILIACION_2026_10_07.md) y [prompt copiable](PROMPT_RELEVO.md).

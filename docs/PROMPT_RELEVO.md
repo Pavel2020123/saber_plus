@@ -1,6 +1,6 @@
 # Prompt para continuar SaberPlus con otro chat
 
-Actualizado: 7 de octubre de 2026. Copiar el bloque completo; adaptar rutas.
+Actualizado: 8 de octubre de 2026. Copiar el bloque completo; adaptar rutas.
 Fuente única del orden: [ETAPAS_PENDIENTES](ETAPAS_PENDIENTES.md).
 Evidencia y límites: [conciliación](CONCILIACION_2026_10_07.md).
 Se necesitan los dos repositorios y permisos de acceso si corresponde; no cambiar
@@ -18,6 +18,7 @@ Antes de editar:
 1. Lee AGENTS.md aplicables; verifica git status, rama, HEAD y diferencias en
    ambos repositorios. Preserva cambios ajenos; no reset ni force-push.
 2. Lee README, docs/ETAPAS_PENDIENTES (estado superior y tabla activa),
+   IC1_CIMA, I2_5_RECORRIDO_ANDROID, ENSAYO_ACADEMICO_LOCAL,
    CONCILIACION_2026_10_07, RELEVO_EQUIPO, INDICE_DOCUMENTACION y arquitectura.
    Usa HISTORIAL_ETAPAS como historia, no como instrucciones actuales.
    En backend lee README, backend/docs/README, PR_I2_RANKINGS, admin/README,
@@ -36,8 +37,17 @@ Estado:
 - Revisión día 7: panel normal 88/88, producción audit 0 tras cb14338;
   lint backend 603 errores/150 avisos. Panel falló antes en otro equipo:
   no se reprodujo aquí, causa no resuelta. Registra entorno al comparar.
-- APK instalada no equivale a recorrido Android; juegos/audio físicos e iOS
-  no acreditados. I2-5 sigue abierto: completar recorrido y sus criterios.
+- El propietario completó el recorrido Android de rankings; criterios funcionales
+  revisados el día 8. Cierre operativo/limpieza y QA-1 siguen pendientes, no repetir
+  todo el recorrido ni afirmar validación productiva. Juegos/audio físicos e iOS
+  no acreditados. Ensayo académico local confirma edición/progreso y versiones
+  de preguntas, con historial anterior preservado en PostgreSQL.
+- IC-1A Cima: cliente local implementado (modo explícito, confirmación del servidor,
+  recuperación, rechazo OFF sin fallback y acceso al ranking). Pendiente IC-1A2:
+  doce preguntas sintéticas distintas, partida app/API y liquidación única real.
+  No usar pruebas con dobles ni balances del harness como evidencia de ese pago.
+- El conflicto editorial EDITOR_STALE se resolvió recargando; incluir contadores
+  de uso en la revisión sigue como hallazgo a evaluar, no como defecto corregido.
 - No usar fixtures de ranking como prueba de partidas competitivas verificadas.
 - No confundir flags apagados por defecto con estado remoto inspeccionado.
 
@@ -86,6 +96,9 @@ Entrega:
   dar ruta real, git add de archivos precisos, git diff --cached y mensaje de
   commit. GitHub visibilidad/protección no verificadas: no asumirlas ni cambiarlas.
 
-Empieza por comprobar el estado y proponer el alcance restante de I2-5.
+Empieza por comprobar el estado y continuar IC-1A2 según IC1_CIMA. Conserva
+los pendientes operativos de I2-5; no los ocultes al avanzar. En el PC del
+propietario la API/panel de ensayo solo duran dos horas: verifica disponibilidad
+y propiedad antes de usar o cerrar esos recursos.
 No intentes ejecutar todo el roadmap ni publicar automáticamente.
 ```

@@ -5,7 +5,11 @@ import '../domain/competitive_ranking_models.dart';
 import 'competitive_ranking_providers.dart';
 
 class CompetitiveRankingPage extends ConsumerStatefulWidget {
-  const CompetitiveRankingPage({super.key});
+  const CompetitiveRankingPage({
+    super.key,
+    this.initialGame = CompetitiveGame.trivia,
+  });
+  final CompetitiveGame initialGame;
   @override
   ConsumerState<CompetitiveRankingPage> createState() =>
       _CompetitiveRankingPageState();
@@ -13,7 +17,7 @@ class CompetitiveRankingPage extends ConsumerStatefulWidget {
 
 class _CompetitiveRankingPageState
     extends ConsumerState<CompetitiveRankingPage> {
-  CompetitiveGame _game = CompetitiveGame.trivia;
+  late CompetitiveGame _game;
   late int _season;
   late TextEditingController _year;
   String? _yearError;
@@ -21,6 +25,7 @@ class _CompetitiveRankingPageState
   @override
   void initState() {
     super.initState();
+    _game = widget.initialGame;
     _season = suggestedCompetitiveSeason(DateTime.now());
     _year = TextEditingController(text: '$_season');
   }

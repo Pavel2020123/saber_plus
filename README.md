@@ -8,6 +8,14 @@ Este repositorio móvil nunca almacena credenciales de PostgreSQL o Supabase.
 
 ## Auditoría y resumen para el equipo
 
+**Actualización del 8 de octubre:** recorrido Android y criterios funcionales
+de I2-5 revisados; limpieza operativa y deuda QA-1 pendientes. Ensayo académico
+local confirmado: publicación, progreso y conservación de versiones anteriores.
+Comenzó [IC-1A, cliente competitivo de Cima](docs/IC1_CIMA.md): selección y
+recuperación implementadas, pendiente partida app/API con XP real liquidada una
+sola vez. No equivale a despliegue ni activación productiva. Esta actualización
+prevalece sobre el relevo histórico del 7 inmediatamente siguiente.
+
 **Relevo actualizado al 7 de octubre de 2026:** PR-I1 y PR-I2 hasta I2-4
 integrados. I2-5 tiene regresión PostgreSQL e integración HTTP documentadas;
 falta recorrido Android y cierre de criterios. Después: IC-1/2/3 (clientes de

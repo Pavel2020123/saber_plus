@@ -29,6 +29,17 @@ Future<SummitAttempt> send(
 }
 
 void main() {
+  test(
+    'demo refuses competitive admission without inventing an attempt',
+    () async {
+      final repo = DemoSummitRepository();
+      await expectLater(
+        repo.start(AcademicArea.mathematics, competitive: true),
+        throwsA(isA<ApiError>()),
+      );
+      expect(repo.current, null);
+    },
+  );
   test('correct climbs, wrong descends one, floor zero and peak preserved', () {
     var p = const SummitProgress.initial().answer(false);
     expect(p.step, 0);

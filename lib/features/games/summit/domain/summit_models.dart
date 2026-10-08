@@ -57,6 +57,7 @@ class SummitAttempt {
     this.lastMovement = 0,
     this.status,
     this.expiresAt,
+    this.isCompetitive = false,
   });
   final String id;
   final AcademicArea area;
@@ -66,9 +67,15 @@ class SummitAttempt {
   final int lastMovement;
   final String? status;
   final DateTime? expiresAt;
+
+  /// Server-confirmed admission, not a local entitlement to XP.
+  final bool isCompetitive;
   bool get finished => status == null ? progress.finished : status != 'ACTIVO';
 
   factory SummitAttempt.fromJson(Map<String, dynamic> json) {
+    if (json.containsKey('competitive') && json['competitive'] is! bool) {
+      throw const FormatException('Modalidad de partida inválida.');
+    }
     final rules = json['reglas'] as Map;
     if (rules['version'] != 1 ||
         rules['target'] != SummitProgress.target ||
@@ -127,6 +134,7 @@ class SummitAttempt {
       question: question,
       status: status,
       expiresAt: DateTime.parse(json['venceEn'] as String),
+      isCompetitive: json['competitive'] == true,
       lastCorrect: last?['esCorrecta'] as bool?,
       lastMovement: movement,
     );
@@ -170,6 +178,7 @@ abstract interface class SummitRepository {
     String? themeId,
     String? subtopicId,
     PracticeDifficulty? difficulty,
+    bool competitive = false,
   });
   Future<SummitAttempt> answer({
     required String attemptId,

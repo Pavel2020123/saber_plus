@@ -6,6 +6,9 @@ import '../../../../core/config/resource_url.dart';
 import '../../../../core/network/api_error.dart';
 import '../../../academic/domain/academic_models.dart';
 import '../../../practice/domain/practice_models.dart';
+import '../../../ranking/domain/competitive_ranking_models.dart';
+import '../../../ranking/presentation/competitive_ranking_page.dart';
+import '../../../ranking/presentation/competitive_ranking_providers.dart';
 import '../../../study/presentation/study_providers.dart';
 import '../../trivia_rush/data/remote_trivia_rush_repository.dart';
 import '../domain/summit_models.dart';
@@ -50,6 +53,7 @@ class _SummitGameState extends ConsumerState<_SummitGame> {
   String? _themeId;
   String? _subtopicId;
   PracticeDifficulty? _difficulty;
+  bool _competitive = false;
   late bool _feedback = _attempt?.lastCorrect != null;
   ({String question, String answer, String key})? _pending;
 
@@ -72,6 +76,7 @@ class _SummitGameState extends ConsumerState<_SummitGame> {
       setState(() {
         _ready = true;
         _attempt = result;
+        _competitive = result?.isCompetitive ?? _competitive;
         _pending = pending == null
             ? null
             : (
@@ -96,8 +101,10 @@ class _SummitGameState extends ConsumerState<_SummitGame> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('¿Abandonar el ascenso?'),
-        content: const Text(
-          'La partida quedará cerrada y no podrás continuarla. Puedes salir de esta pantalla sin abandonarla para retomarla después.',
+        content: Text(
+          _attempt!.isCompetitive
+              ? 'La partida quedará cerrada. El servidor aplicará las reglas competitivas de abandono. Salir de esta pantalla no equivale a abandonar: puedes retomarla antes de que venza.'
+              : 'La partida quedará cerrada y no podrás continuarla. Puedes salir de esta pantalla sin abandonarla para retomarla después.',
         ),
         actions: [
           TextButton(
@@ -144,7 +151,9 @@ class _SummitGameState extends ConsumerState<_SummitGame> {
   });
 
   String _message(Object e) => e is ApiError
-      ? e.message
+      ? e.code == 'COMPETITIVE_SOLO_DISABLED'
+            ? 'El servidor todavía no admite partidas competitivas. Puedes desactivar el modo competitivo para practicar sin XP.'
+            : e.message
       : 'No se pudo completar la operación. Intenta de nuevo.';
 
   Future<void> _start() async {
@@ -159,6 +168,7 @@ class _SummitGameState extends ConsumerState<_SummitGame> {
         themeId: _themeId,
         subtopicId: _subtopicId,
         difficulty: _difficulty,
+        competitive: _competitive,
       );
       if (!mounted) return;
       setState(() {
@@ -244,6 +254,10 @@ class _SummitGameState extends ConsumerState<_SummitGame> {
             Text(
               widget.repository.isDemo
                   ? 'DEMOSTRACIÓN · Sin XP ni cambios en tu diagnóstico'
+                  : attempt?.isCompetitive == true
+                  ? 'PARTIDA COMPETITIVA · XP confirmada solo por el servidor'
+                  : attempt == null && _competitive
+                  ? 'MODO COMPETITIVO · Pendiente de admisión del servidor'
                   : 'PARTIDA EN LÍNEA · Sin XP ni cambios en tu diagnóstico',
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
@@ -350,6 +364,19 @@ class _SummitGameState extends ConsumerState<_SummitGame> {
             }),
     ),
     if (!widget.repository.isDemo) ..._filters(),
+    if (!widget.repository.isDemo)
+      SwitchListTile(
+        key: const Key('summit-competitive-mode'),
+        contentPadding: EdgeInsets.zero,
+        title: const Text('Competir en el ranking'),
+        subtitle: const Text(
+          'El servidor debe habilitar este modo. La XP se confirma allí; no se concede desde la app. El modo no cambia durante la partida.',
+        ),
+        value: _competitive,
+        onChanged: _busy
+            ? null
+            : (value) => setState(() => _competitive = value),
+      ),
     const SizedBox(height: 20),
     FilledButton(
       key: const Key('summit-start'),
@@ -531,11 +558,38 @@ class _SummitGameState extends ConsumerState<_SummitGame> {
     const Text(
       'Este resultado describe solo esta partida; no determina tus falencias académicas.',
     ),
+    if (attempt.isCompetitive) ...[
+      const SizedBox(height: 12),
+      const Text(
+        'El resultado quedó confirmado. La liquidación de XP se procesa en el servidor y puede tardar en aparecer en el ranking. La app no calcula ni acredita premios.',
+      ),
+      OutlinedButton.icon(
+        key: const Key('summit-open-ranking'),
+        onPressed: () {
+          ref.invalidate(
+            competitiveBoardProvider((
+              game: CompetitiveGame.summit,
+              season: suggestedCompetitiveSeason(DateTime.now()),
+            )),
+          );
+          Navigator.of(context).push<void>(
+            MaterialPageRoute(
+              builder: (_) => const CompetitiveRankingPage(
+                initialGame: CompetitiveGame.summit,
+              ),
+            ),
+          );
+        },
+        icon: const Icon(Icons.leaderboard_outlined),
+        label: const Text('Consultar ranking de Salto a la cima'),
+      ),
+    ],
     const SizedBox(height: 16),
     FilledButton(
       key: const Key('summit-restart'),
       onPressed: () => setState(() {
         _area = attempt.area;
+        _competitive = attempt.isCompetitive;
         _attempt = null;
         _feedback = false;
         _error = null;

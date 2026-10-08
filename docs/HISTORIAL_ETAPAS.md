@@ -1,6 +1,25 @@
 # Historial completo de etapas de SaberPlus
 
-Actualizado: 7 de octubre de 2026.
+Actualizado: 8 de octubre de 2026.
+
+## Recorrido Android, ensayo académico e IC-1A — 7–8 de octubre
+
+Propietario confirmó recorrido Android de rankings. Se revisaron sus criterios
+funcionales; permanecen limpieza operativa y QA-1, no producción. Ensayo académico
+local confirmó lección/práctica, progreso al 100 % y edición manual de pregunta:
+nuevo intento usa versión publicada y anterior conserva versión archivada.
+EDITOR_STALE se resolvió recargando; revisión que incluye contadores queda como
+hallazgo pendiente, no arreglado silenciosamente.
+
+[IC-1A Cima](IC1_CIMA.md): cliente con solicitud competitiva explícita, modalidad
+confirmada por servidor, recuperación/idempotencia existentes, flag OFF sin
+fallback, demo sin competición y enlace a ranking de Cima sin XP inventada.
+Pendiente IC-1A2 partida real app/API/ledger. No migraciones ni cambios del runtime
+backend, fórmulas, flags o animaciones; trabajo local sin commit/push automático.
+Validación final: Flutter analyze sin incidencias y suite global 707 aprobadas,
+9 opt-in omitidas; primera pasada falló un test nuevo de accesibilidad por su
+guion de desplazamiento, corregido y reejecutado sin eliminar el caso. Ranking
+dirigido 66 Flutter/43 backend. No nueva APK ni prueba física de IC-1A todavía.
 
 ## Validación I2-5 y conciliación documental, 6–7 de octubre
 

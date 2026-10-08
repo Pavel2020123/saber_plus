@@ -46,7 +46,11 @@ class DemoSummitRepository implements SummitRepository {
     String? themeId,
     String? subtopicId,
     PracticeDifficulty? difficulty,
+    bool competitive = false,
   }) async {
+    if (competitive) {
+      _conflict('La demostración no admite partidas competitivas.');
+    }
     if (_busy) _conflict('Espera a que termine el envío.');
     final previous = _current;
     if (previous != null && !previous.finished) {

@@ -109,6 +109,148 @@ Future<SummitAttempt> answer(
 
 void main() {
   test(
+    'competitive admission is a strict server boolean, legacy stays normal',
+    () {
+      expect(SummitAttempt.fromJson(state()).isCompetitive, false);
+      expect(
+        SummitAttempt.fromJson({...state(), 'competitive': true}).isCompetitive,
+        true,
+      );
+      expect(
+        SummitAttempt.fromJson({
+          ...state(),
+          'competitive': false,
+        }).isCompetitive,
+        false,
+      );
+      for (final invalid in [null, 'true', 1]) {
+        expect(
+          () => SummitAttempt.fromJson({...state(), 'competitive': invalid}),
+          throwsFormatException,
+        );
+      }
+    },
+  );
+  test(
+    'competitive start sends only explicit admission and server confirms mode',
+    () async {
+      final h = Harness();
+      final r = h.repo();
+      await r.restore();
+      h.handler = (_) => {...state(), 'competitive': true};
+      final result = await r.start(AcademicArea.mathematics, competitive: true);
+      expect(h.requests.last.data, {
+        'area': 'MATEMATICAS',
+        'competitive': true,
+      });
+      expect(result.isCompetitive, true);
+      expect(r.current, same(result));
+    },
+  );
+  test(
+    'disabled admission does not retry as normal or create local progress',
+    () async {
+      final h = Harness();
+      final r = h.repo();
+      await r.restore();
+      h.handler = (o) => throw DioException(
+        requestOptions: o,
+        response: Response(
+          requestOptions: o,
+          statusCode: 403,
+          data: {'code': 'COMPETITIVE_SOLO_DISABLED', 'message': 'Not enabled'},
+        ),
+        type: DioExceptionType.badResponse,
+      );
+      await expectLater(
+        r.start(AcademicArea.mathematics, competitive: true),
+        throwsA(
+          isA<ApiError>().having(
+            (e) => e.code,
+            'code',
+            'COMPETITIVE_SOLO_DISABLED',
+          ),
+        ),
+      );
+      expect(r.current, null);
+      expect(await h.store.read('api:student'), null);
+      expect(h.values.values.single, 'null');
+      expect(h.requests.where((o) => o.method == 'POST'), hasLength(1));
+    },
+  );
+  test('wrong admission mode is not silently accepted', () async {
+    for (final requested in [false, true]) {
+      final h = Harness();
+      final r = h.repo();
+      await r.restore();
+      h.handler = (_) => {...state(), 'competitive': !requested};
+      await expectLater(
+        r.start(AcademicArea.mathematics, competitive: requested),
+        throwsFormatException,
+      );
+      expect(r.current, null);
+      expect(await h.store.read('api:student'), null);
+      expect(h.values.values.single, 'null');
+    }
+  });
+  test(
+    'lost competitive start acknowledgment recovers without a second POST',
+    () async {
+      final h = Harness();
+      final r = h.repo();
+      await r.restore();
+      h.handler = (o) => throw h.lost(o);
+      await expectLater(
+        r.start(AcademicArea.mathematics, competitive: true),
+        throwsA(isA<ApiError>()),
+      );
+      r.dispose();
+      h.handler = (_) => {...state(), 'competitive': true};
+      final restored = h.repo();
+      expect((await restored.restore())!.isCompetitive, true);
+      expect(h.requests.where((o) => o.method == 'POST'), hasLength(1));
+    },
+  );
+  test(
+    'answer cannot flip mode, pending UUID remains available for recovery',
+    () async {
+      final h = Harness();
+      final r = h.repo();
+      h.handler = (_) => {...state(), 'competitive': true};
+      await r.restore();
+      h.handler = (_) => state(count: 1);
+      await expectLater(answer(r), throwsFormatException);
+      expect(r.current!.isCompetitive, true);
+      expect(r.current!.progress.answered, 0);
+      expect(r.pending!.requestKey, key);
+      h.handler = (_) => {...state(count: 1), 'competitive': true};
+      await r.restore();
+      expect(r.pending, null);
+      expect(r.current!.progress.answered, 1);
+      expect(
+        h.requests.where((o) => o.path.endsWith('/respuestas')),
+        hasLength(1),
+      );
+    },
+  );
+  test(
+    'repeated terminal competitive reads do not send any XP or new answers',
+    () async {
+      final h = Harness();
+      h.handler = (_) => {
+        ...state(count: 5, status: 'VICTORIA'),
+        'competitive': true,
+      };
+      final r = h.repo();
+      final first = await r.restore();
+      expect(first!.isCompetitive, true);
+      expect(first.finished, true);
+      await r.restore();
+      expect(h.requests.every((o) => o.method == 'GET'), true);
+      expect(r.pending, null);
+    },
+  );
+  test(
     'newer active attempt takes precedence over a saved terminal attempt',
     () async {
       final h = Harness();
