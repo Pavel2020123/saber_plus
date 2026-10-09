@@ -1,6 +1,17 @@
 # Historial completo de etapas de SaberPlus
 
-Actualizado: 8 de octubre de 2026.
+## Acuerdo de alcance — 9 de octubre de 2026
+
+[Alcance de noviembre](ALCANCE_V1_NOVIEMBRE_2026.md): competición inicial solo Cima, Guardián y
+Rescate. Después de Rescate: instituciones. Se conservan test vocacional OV-1,
+perfiles, todas las insignias anuales, territorio y demás funciones acordadas.
+Las otras integraciones competitivas se aplazan; no se borra código ni modos
+normales. Las secuencias anteriores quedan como antecedentes. Consultar el
+roadmap vivo; la sustentación no acredita producción. Cambio documental, sin
+nuevas pruebas ni despliegue.
+
+Actualizado: 9 de octubre de 2026. El acuerdo superior conserva los resultados
+del día 8 y cambia prioridades, no el estado de implementación o validación.
 
 ## Relevo operativo de pruebas para compañeros — 8 de octubre
 

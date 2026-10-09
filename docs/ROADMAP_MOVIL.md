@@ -11,7 +11,11 @@ como referencia; no se repiten las funciones ya implementadas.
 
 ## Estado actual
 
-Actualizado al 28 de septiembre de 2026. Orden operativo único:
+Actualizado al 9 de octubre de 2026. [Alcance de noviembre](ALCANCE_V1_NOVIEMBRE_2026.md):
+competición inicial Cima/Guardián/Rescate; después de Rescate, instituciones.
+OV-1, perfiles, insignias anuales y demás funciones permanecen. Se aplazan solo
+las otras integraciones competitivas, sin borrar código ni modos normales.
+Orden operativo único:
 [ruta vigente](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
 Las casillas de etapas antiguas documentan implementación, no certifican despliegue
 ni pruebas físicas. Los «siguientes» de una entrega histórica no cambian esta ruta.
@@ -25,7 +29,8 @@ Entrega del 27 de septiembre: **MA-2A reglas y backend del mapa**,
 implementada localmente, migración no desplegada. [Alcance](MAPA_APRENDIZAJE.md).
 MA-2B editor del panel implementado/probado localmente (88 pruebas del panel).
 MA-2C Flutter implementada localmente.
-MA-3A/B/C implementadas localmente; continuar **PR-I1 reglas y contratos competitivos**.
+MA-3A/B/C implementadas localmente; PR-I1 fue la continuación histórica y ya está
+integrado. No reiniciarlo; usar el checkpoint vigente.
 Detalles: [REPASO_DIFERIDO.md](REPASO_DIFERIDO.md).
 Sin despliegue ni ensayo real.
 

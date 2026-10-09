@@ -1,6 +1,12 @@
 # Perfiles, rankings e insignias — ampliación acordada
 
-Estado al 7 de octubre: PR-I1 y PR-I2 hasta I2-4 integrados; I2-5 abierto.
+Prioridad del 9 de octubre: [alcance V1](ALCANCE_V1_NOVIEMBRE_2026.md).
+Perfiles, todas las insignias por año, instituciones y territorio se conservan.
+Competición inicial Cima/Guardián/Rescate; las otras integraciones se aplazan,
+sin eliminar su arte ni conceder premios de juegos no validados.
+Después de Rescate: instituciones. OV-1 sigue incluido en su bloque propio.
+
+Antecedente al 7 de octubre: PR-I1 y PR-I2 hasta I2-4 integrados; I2-5 abierto.
 Catálogo visual PR-I3A integrado, concesión de premios todavía pendiente.
 IC-1/2/3 cubren clientes, Memoria y Batallas. La [ruta vigente](ETAPAS_PENDIENTES.md)
 define el orden; premios requieren resultados verificados del juego correspondiente.
@@ -33,8 +39,9 @@ Se conservan los originales (aproximadamente 85 MB); optimizar recursos antes de
 publicar sigue pendiente. No se modificaron ni regeneraron las ilustraciones.
 
 No se conceden insignias desde XP global ni se inventan posiciones/años. Siguen
-pendientes PR-I1/2, la asignación real, el cierre anual persistente y los perfiles
-públicos. PR-I3 completo NO queda cerrado con este catálogo visual.
+pendientes la asignación real, el cierre anual persistente y los perfiles
+públicos. PR-I1 ya está integrado; PR-I2 conserva el cierre operativo documentado.
+PR-I3 completo NO queda cerrado con este catálogo visual.
 
 ## Alcance solicitado
 

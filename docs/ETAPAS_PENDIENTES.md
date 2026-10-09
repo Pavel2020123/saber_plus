@@ -1,6 +1,12 @@
 # SaberPlus — etapas pendientes y ruta vigente del equipo
 
-## Estado vigente — 8 de octubre de 2026
+## Estado vigente — 9 de octubre de 2026
+
+**Acuerdo vigente:** [alcance de noviembre](ALCANCE_V1_NOVIEMBRE_2026.md).
+Solo se aplazan integraciones competitivas de otros juegos: V1 incluye Cima,
+Guardián y Rescate. Se mantienen OV-1, perfiles, insignias, instituciones y todas
+las demás funcionalidades acordadas. Después de Rescate: instituciones.
+Este orden sustituye las secuencias históricas inferiores, no sus evidencias.
 
 **Última entrega: [IC-1B1 — cliente del Guardián implementado](IC1_GUARDIAN.md).**
 34 pruebas dirigidas aprobadas; IC-1B2 local confirma victoria (100 XP únicos),
@@ -10,8 +16,8 @@ en su alcance local; no repetir lo ya acreditado.
 [IC-1A/IC-1A2 — Cima validada localmente](IC1_CIMA.md):
 Android/API/PostgreSQL: victoria competitiva, una concesión real de 100 XP,
 recuperación/red/reintento, admisión OFF y práctica normal sin XP confirmados.
-Siguiente: IC-1C, Rescate de estrellas. IC-1 sigue en curso: faltan integrar/validar
-Rescate, Trivia, Duelo y Tira; no hay activación productiva.
+Siguiente: IC-1C, Rescate de estrellas. Trivia, Duelo y Tira competitivos,
+IC-2 e IC-3 quedan para una entrega posterior; no hay activación productiva.
 Decisión vigente del propietario: un commit por juego al terminar sus pruebas y
 documentación; revisar cambios acumulados antes de agruparlos. No push automático.
 I2-5 tiene [criterios funcionales revisados](I2_5_RECORRIDO_ANDROID.md);
@@ -24,6 +30,8 @@ Preparación, guion, credenciales ficticias, USB/Docker y prompt para el compañ
 [RELEVO_PRUEBAS_LOCALES](RELEVO_PRUEBAS_LOCALES.md).
 
 - **Etapa activa:** IC-1C, Rescate de estrellas competitivo.
+- **Al cerrar Rescate:** instituciones PR-I5/P4-C y PR-I5-T, con C5 si necesita
+  archivos persistentes. No continuar automáticamente con Trivia/IC-2/IC-3.
 - **Último checkpoint aprobado:** IC-1B2 Guardián, abandono competitivo real local
   −10, saldo130 →120. SQL acredita evento único y cuatro intentos totales;
   victoria normal sin evento. [Acta completa](IC1_GUARDIAN.md).
@@ -352,7 +360,15 @@ que deba volver a imponerse al administrador. D3 verifica el flujo simplificado.
 
 ## Ruta vigente del equipo
 
-Esta tabla es el punto único para decidir **qué sigue**, no un reemplazo de las
+Orden vigente: **Rescate → instituciones/territorio → académico/profesor/panel
+→ insignias/perfiles → ranking institucional/ensayo social → OV-1 → cierre
+funcional/comercial → UI-F → validación/sustentación → lanzamiento/operación**.
+Detalle y criterios de los diez bloques: [alcance V1](ALCANCE_V1_NOVIEMBRE_2026.md).
+Se adelantan dependencias como C5; P5/D3 requieren autorización. No se aplaza
+ninguna funcionalidad no lúdica por este recorte. Los juegos competitivos restantes
+se retoman después; sus modos normales/código se conservan.
+
+Esta tabla es el inventario único de pendientes, no un reemplazo de las
 fichas detalladas inferiores y de RELEVO_EQUIPO. Un estado local no acredita
 despliegue, pruebas en teléfono ni producción. No hay un número simple de etapas:
 los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese plan.
@@ -364,9 +380,9 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | MA-3A/B/C — Repaso diferido | Reglas, persistencia, API, agenda y flashcards locales. Falta ensayo físico/reconexión/reinstalación. | Infraestructura autorizada. No repetir implementación. |
 | **PR-I1 — Antecedente integrado/cerrado para esta ruta** | Infraestructura e integración competitiva local de seis juegos, según el estado documental confirmado. No es la siguiente etapa activa. | Despliegue/activación y requisitos operativos B1/B2 siguen separados y pendientes; no reabrir salvo defecto concreto demostrado. |
 | **PR-I2 — Ranking por juego** | Backend I2-1/2/3 y Flutter I2-4 fusionados. I2-5 cuenta con regresión PostgreSQL, integración HTTP y recorrido Android funcional revisado documentados. | Faltan cierre operativo/limpieza y deuda QA-1; no repetir el recorrido aprobado por una orden histórica. No implica despliegue ni admisión productiva de juegos. |
-| **IC-1 — Clientes competitivos de seis juegos** | En curso: Cima y Guardián validados en su alcance local Android/API/ledger. Guardián: 34 tests dirigidos, global 732/9 omitidas; victoria, recuperación/red/reintento/ranking/normal/derrota/abandono físicos. Siguiente IC-1C Rescate, luego Trivia, Duelo y Tira. Reutilizar motores y contratos propios. | Cima y Guardián: victoria de 100 XP única, sin XP normal. Guardián además derrota +30 por 3 aciertos y abandono −10, balance final 120. No equivale a producción ni cierra toda IC-1. Ver IC1_CIMA e IC1_GUARDIAN. |
-| **IC-2 — Memoria competitiva** | Planificado: definir contrato autoritativo compatible con reglas aprobadas, integrar resultado verificable al ledger/ranking y cliente móvil. No rehacer el juego normal. | Tras revisar infraestructura común/IC-1. Resolver explícitamente cualquier regla faltante; pruebas de permisos, repetición, fraude, desconexión, XP y ranking. Mantener NO_DISPONIBLE hasta integrar y validar, sin activación productiva automática. |
-| **IC-3 — Batallas competitivas** | Planificado: integrar al sistema competitivo las batallas asíncronas existentes, conservando permisos, vencimientos y reglas aprobadas. | Reutilizar IC-1/infraestructura y contrato de Batallas. Probar ambos participantes, empates/vencimientos, resultados concurrentes y liquidación única; cliente/API/ranking coherentes. No inventar fórmulas; NO_DISPONIBLE hasta validar. |
+| **IC-1 — Clientes competitivos de seis juegos** | En curso: Cima y Guardián validados en su alcance local Android/API/ledger. Guardián: 34 tests dirigidos, global 732/9 omitidas; victoria, recuperación/red/reintento/ranking/normal/derrota/abandono físicos. Siguiente IC-1C Rescate, luego instituciones. Trivia, Duelo y Tira competitivos aplazados fuera del bloque inicial V1. Reutilizar motores y contratos propios. | Cima y Guardián: victoria de 100 XP única, sin XP normal. Guardián además derrota +30 por 3 aciertos y abandono −10, balance final 120. No equivale a producción ni cierra toda IC-1. Ver IC1_CIMA e IC1_GUARDIAN. |
+| **IC-2 — Memoria competitiva** | Aplazado fuera del bloque inicial V1: definir contrato autoritativo compatible con reglas aprobadas, integrar resultado verificable al ledger/ranking y cliente móvil. No rehacer el juego normal. | Retomar después, con nueva priorización; no es requisito para instituciones/OV-1. Resolver explícitamente cualquier regla faltante; pruebas de permisos, repetición, fraude, desconexión, XP y ranking. Mantener NO_DISPONIBLE hasta integrar y validar, sin activación productiva automática. |
+| **IC-3 — Batallas competitivas** | Aplazado fuera del bloque inicial V1: integrar al sistema competitivo las batallas asíncronas existentes, conservando permisos, vencimientos y reglas aprobadas. | Reutilizar IC-1/infraestructura y contrato de Batallas. Probar ambos participantes, empates/vencimientos, resultados concurrentes y liquidación única; cliente/API/ranking coherentes. No inventar fórmulas; NO_DISPONIBLE hasta validar. |
 | **QA-1 — CI Flutter y deuda de validación** | Pendiente: workflow de dependencias con lock, analyze y test; identificar suites opt-in y no confundirlas con pruebas reales. Clasificar lint backend y fallos intermitentes del panel. | Antes de beta; puede avanzar tras I2-5 o en una entrega de apoyo acordada. Versiones reproducibles, sin secretos, sin desactivar pruebas para poner checks en verde; baseline solo explícita y revisada. |
 | **DOC-1 — Higiene y acceso de repositorios** | Pendiente: clasificar archivo accidental/temporales, conservar entregables deliberados y revisar reglas de ignore. Verificar con el propietario visibilidad/protección de GitHub. | Limpieza acotada con diff y aprobación para borrar; sin cambiar acceso ni reescribir historial automáticamente. El pitch PDF no se considera basura por su extensión. |
 | PR-I3 — Insignias anuales | PR-I3A gráfico ya tiene 90 imágenes. Faltan concesión real, cierre idempotente, historial permanente y correcciones auditadas. | PR-I1/2; premios de cada juego requieren integración IC validada. Puede prepararse el contrato común antes de terminar todos los juegos. Todas las ganadas, sin límite de tres; años anteriores permanecen. |
@@ -398,8 +414,9 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | 9A — Mantenimiento | Responsables, soporte, monitoreo, contenido, costos, seguridad y actualizaciones. | Preparar operación antes de publicar; ejecución continua después. |
 
 **Secuencia inmediata:** IC-1C Rescate (Cima y Guardián validados localmente),
-conservando el cierre operativo pendiente de I2-5 → restantes clientes IC-1
-→ IC-2 → IC-3 → PR-I3 → PR-I4/5/6/7 por dependencias. QA-1/DOC-1 son apoyo
+conservando el cierre operativo pendiente de I2-5 → instituciones PR-I5/P4-C y
+PR-I5-T → demás bloques del orden vigente anterior. IC-2/3 y los restantes
+clientes competitivos IC-1 quedan aplazados. QA-1/DOC-1 son apoyo
 planificado, no autorizan cambios automáticos ni bloquean por sí solos toda entrega.
 Los merges I2-3/I2-4 ya ocurrieron. PR-I1 es antecedente integrado,
 no punto de reinicio. Adelantar C5 si se necesitan fotos;
@@ -631,7 +648,10 @@ despliegues reales durante la integración Flutter.
    y el origen desde el que se abrirá el panel. No solicitar ni copiar secretos
    en este documento, Git o la aplicación.
 
-### Instrucción lista para copiar en una nueva sesión
+### Instrucción histórica del 7 de octubre — no usar para continuar
+
+Sustituida el 9 de octubre por [PROMPT_RELEVO](PROMPT_RELEVO.md) y el
+checkpoint superior. Se conserva como antecedente, no como ruta vigente.
 
 > Lee primero el estado vigente del 7 de octubre y la ruta de `docs/ETAPAS_PENDIENTES.md`;
 > consulta `docs/RELEVO_EQUIPO.md`, arquitectura e inventario como referencias,

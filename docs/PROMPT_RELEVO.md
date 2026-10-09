@@ -1,6 +1,6 @@
 # Prompt para continuar SaberPlus con otro chat
 
-Actualizado: 8 de octubre de 2026. Copiar el bloque completo; adaptar rutas.
+Actualizado: 9 de octubre de 2026. Copiar el bloque completo; adaptar rutas.
 Fuente única del orden: [ETAPAS_PENDIENTES](ETAPAS_PENDIENTES.md).
 Evidencia y límites: [conciliación](CONCILIACION_2026_10_07.md).
 Se necesitan los dos repositorios y permisos de acceso si corresponde; no cambiar
@@ -22,7 +22,7 @@ En otro PC confirma rutas; no trabajes en Icfes_Vida ni inventes un backend.
 Antes de editar:
 1. Lee AGENTS.md aplicables; verifica git status, rama, HEAD y diferencias en
    ambos repositorios. Preserva cambios ajenos; no reset ni force-push.
-2. Lee README, docs/ETAPAS_PENDIENTES (estado superior y tabla activa),
+2. Lee README, docs/ALCANCE_V1_NOVIEMBRE_2026, docs/ETAPAS_PENDIENTES (estado superior y tabla activa),
    checkpoint de relevo, RELEVO_PRUEBAS_LOCALES, IC1_CIMA, IC1_GUARDIAN,
    I2_5_RECORRIDO_ANDROID, ENSAYO_ACADEMICO_LOCAL,
    CONCILIACION_2026_10_07, RELEVO_EQUIPO, INDICE_DOCUMENTACION y arquitectura.
@@ -59,7 +59,7 @@ Estado:
   34 tests dirigidos aprobados. IC-1B2 local acredita victoria/100 XP únicos,
   recuperación/red/reintento/ranking y normal sin XP, derrota +30 por 3 aciertos
   y abandono −10, saldo final 120. IC-1B validada en ese alcance local.
-  Siguiente IC-1C Rescate; otros cuatro clientes pendientes. Sin activación remota.
+  Siguiente IC-1C Rescate; otros clientes competitivos aplazados. Sin activación remota.
   Propietario ahora pide un commit por juego tras pruebas/documentación; revisar
   cambios acumulados antes de agruparlos. No push ni cambios ajenos automáticos.
 - El conflicto editorial EDITOR_STALE se resolvió recargando; incluir contadores
@@ -68,8 +68,13 @@ Estado:
 - No confundir flags apagados por defecto con estado remoto inspeccionado.
 
 Ruta:
-I2-5 funcional revisado → IC-1C Rescate y restantes IC-1 (Cima/Guardián locales validados) → IC-2 (Memoria competitiva) →
-IC-3 (Batallas competitivas) → PR-I3 → PR-I4/5/6/7 por dependencias.
+IC-1C Rescate → instituciones PR-I5/P4-C/PR-I5-T → académico/profesor/panel →
+insignias/perfiles → ranking institucional/ensayo social → OV-1 → cierre funcional
+y comercial → UI-F → validación/sustentación → lanzamiento/operación.
+Solo competición Cima/Guardián/Rescate para V1. Trivia/Duelo/Tira/IC-2/IC-3
+competitivos después; preservar código y modos normales. No seguir con Trivia
+al cerrar Rescate. No aplazar OV-1, perfiles ni otras funciones sin nueva decisión.
+Meta académica 15 de noviembre: no garantiza cierre ni publicación en Play.
 QA-1 (CI Flutter/deuda) y DOC-1 (higiene/acceso) son entregas de apoyo.
 IC son integraciones locales, no activación productiva. PR-I3 puede prepararse
 contra contratos, pero premios reales exigen integración validada por juego.

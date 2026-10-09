@@ -1,6 +1,6 @@
 # Relevo de pruebas locales — Docker, Android USB y juegos
 
-Actualizado: 8 de octubre de 2026. Guía operativa para el propietario, compañeros
+Actualizado: 9 de octubre de 2026. Guía operativa para el propietario, compañeros
 y sus chats. **El punto vivo de continuación está en
 [ETAPAS_PENDIENTES — checkpoint](ETAPAS_PENDIENTES.md#checkpoint-de-relevo-de-pruebas)**.
 Si avanzamos, actualizar ese bloque y el acta del juego; no empezar desde una
@@ -60,10 +60,15 @@ iniciado ni acreditado su partida competitiva física en esta entrega.
 | Cima, IC-1A/A2 | [Acta](IC1_CIMA.md): victoria real local +100, OFF, recuperación, red/reintento, no duplicación y normal sin XP | No repetir salvo cambio relacionado/regresión concreta |
 | Guardián, IC-1B1/B2 | [Acta](IC1_GUARDIAN.md): victoria +100, derrota con 3 aciertos +30, abandono −10, balance final120; normal sin evento, recuperación/red/ranking | No repetir salvo cambio relacionado; evidencia pertenece a aquella sesión |
 | Rescate, IC-1C | Cliente normal remoto existente; integración/ensayo competitivo pendientes | [Base y contrato](RESCATE_DE_ESTRELLAS.md), backend `STAR_RESCUE.md`; crear acta IC1_RESCATE al empezar |
-| Trivia, después de Rescate | Integración/ensayo competitivo móvil pendientes | [Contrato](TRIVIA_RUSH_BACKEND_CONTRACT.md); revisar presencia real, no copiar la de Tira |
-| Duelo fantasma, después de Trivia | Integración/ensayo competitivo móvil pendientes | [Base](GHOST_DUEL.md), contrato compartido de Trivia; récord propio limpio, no rival humano ficticio |
-| Tira y afloja, después de Duelo | Integración/ensayo competitivo móvil pendientes | [Contrato](TUG_OF_WAR_BACKEND_CONTRACT.md); dos participantes reales de prueba, Socket.IO, reloj y presencia |
-| Memoria IC-2 / Batallas IC-3 | Competición NO_DISPONIBLE hasta implementar y validar | Seguir roadmap: contratos autoritativos/ledger, no inventar integración por ver el juego normal |
+| Trivia | Competición aplazada fuera del bloque inicial V1 | [Contrato](TRIVIA_RUSH_BACKEND_CONTRACT.md); conservar modo normal |
+| Duelo fantasma | Competición aplazada fuera del bloque inicial V1 | [Base](GHOST_DUEL.md); conservar modo normal |
+| Tira y afloja | Competición aplazada fuera del bloque inicial V1 | [Contrato](TUG_OF_WAR_BACKEND_CONTRACT.md); al retomarlo probar dos participantes reales |
+| Memoria IC-2 / Batallas IC-3 | Competición aplazada; NO_DISPONIBLE hasta implementar y validar | Conservar código; no confundir juego normal con competición integrada |
+
+**Después de Rescate: instituciones**, no otro juego. Leer
+[alcance acordado](ALCANCE_V1_NOVIEMBRE_2026.md): OV-1, perfiles, insignias,
+territorio y demás funcionalidades permanecen. Esta guía conserva procedimientos
+de pruebas de juegos aplazados para cuando se autorice retomarlos.
 
 Los balances y IDs históricos no se copian a la base nueva. Los 61 participantes
 de Trivia sembrados por el harness son **fixtures sintéticos**, no partidas
@@ -308,6 +313,9 @@ Decide el siguiente paso desde el roadmap ACTUAL: inicialmente era IC-1C Rescate
 pero si ya avanzaron, respeta el último checkpoint. Cima y Guardián tienen pruebas
 locales reales registradas: no repetir todo salvo regresión concreta. Memoria y
 Batallas requieren IC-2/3; no están listas competitivamente por existir como juegos.
+Lee ALCANCE_V1_NOVIEMBRE_2026: después de Rescate sigue instituciones. Solo se
+aplazan competiciones de Trivia/Duelo/Tira/Memoria/Batallas; conservar sus modos
+normales y todas las demás funciones, incluido OV-1, perfiles e insignias anuales.
 
 Usa Docker LOCAL Linux y el harness backend/tool/local_ranking_validation.mjs.
 Prepara dependencias/compilación según manifests; no uses .env, Supabase ni Render.

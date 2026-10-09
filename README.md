@@ -1,5 +1,15 @@
 # SaberPlus móvil
 
+## Acuerdo de alcance — 9 de octubre de 2026
+
+[Alcance de noviembre](docs/ALCANCE_V1_NOVIEMBRE_2026.md): competición inicial solo Cima, Guardián y
+Rescate. Después de Rescate: instituciones. Se conservan test vocacional OV-1,
+perfiles, todas las insignias anuales, territorio y demás funciones acordadas.
+Las otras integraciones competitivas se aplazan; no se borra código ni modos
+normales. Las secuencias anteriores quedan como antecedentes. Consultar el
+roadmap vivo; la sustentación no acredita producción. Cambio documental, sin
+nuevas pruebas ni despliegue.
+
 Aplicación Flutter para la experiencia móvil de SaberPlus. El proyecto se está construyendo por etapas a partir del informe técnico de migración.
 
 El backend oficial se mantiene por separado en

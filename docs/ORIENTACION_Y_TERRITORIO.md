@@ -1,7 +1,9 @@
 # Orientación por intereses y filtros territoriales
 
-Plan acordado el 5 de octubre de 2026. Solo planificación, no implementado.
-No desplaza I2-5 ni modifica reglas de XP, insignias o admisión competitiva.
+Plan acordado el 5 de octubre; prioridad actualizada el 9 de octubre de 2026.
+Solo planificación, no implementado. OV-1 y territorio permanecen en el
+[alcance V1](ALCANCE_V1_NOVIEMBRE_2026.md); el recorte solo afecta competiciones.
+No modifica reglas de XP, insignias o admisión competitiva.
 
 ## PR-I5-T — Ubicación y directorio institucional
 
@@ -105,7 +107,8 @@ nuevos ingresos, graduados o demanda laboral.
 
 ## Orden y fuentes
 
-- I2-5 mantiene prioridad. PR-I5-T se integra en PR-I5; PR-I6-T en PR-I6.
+- Después de Rescate se retoma PR-I5 con PR-I5-T; PR-I6-T se integra en PR-I6.
+  Conservar deuda operativa I2-5 sin repetir su recorrido funcional aprobado.
 - OV-1 puede desarrollarse como entrega independiente después del bloque
   competitivo/social, antes de UI-F y de la beta. No exige terminar ilustraciones
   para diseñar el contenido, pero sí revisión antes de publicar recomendaciones.
