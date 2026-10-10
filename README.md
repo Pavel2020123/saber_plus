@@ -1,5 +1,8 @@
 # SaberPlus móvil
 
+**Etapa actual: [PR-I5A — instituciones](docs/PR_I5_DIRECTORIO.md).**
+Base del directorio implementada en backend; siguiente: conectarla a Flutter.
+
 **IC-1C Rescate, cierre local 10 de octubre:** [acta](docs/IC1_RESCATE.md).
 Cliente/tests/Android/API/SQL aprobados en su alcance local; saldo final80 tras
 dos abandonos distintos. Push manual/cierre operativo separados. Después: instituciones.

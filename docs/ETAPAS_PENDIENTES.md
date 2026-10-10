@@ -2,6 +2,13 @@
 
 ## Estado vigente — 10 de octubre de 2026
 
+**En curso: [PR-I5A — directorio institucional](PR_I5_DIRECTORIO.md).**
+Base backend de listado/búsqueda/detalle aprobado implementada; falta cliente
+Flutter y ensayo real. Después PR-I5-T, perfil y solicitudes estudiantiles.
+P4-C se reutiliza. Rescate guardado en `df53768` (app) y `3fdf699` (backend);
+push no verificado. Este checkpoint sustituye menciones inferiores a commits
+pendientes o a servicios activos: esas describen la sesión de pruebas anterior.
+
 **Acuerdo vigente:** [alcance de noviembre](ALCANCE_V1_NOVIEMBRE_2026.md).
 Solo se aplazan integraciones competitivas de otros juegos: V1 incluye Cima,
 Guardián y Rescate. Se mantienen OV-1, perfiles, insignias, instituciones y todas
