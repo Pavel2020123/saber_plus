@@ -1,5 +1,9 @@
 # Índice de documentación de SaberPlus
 
+**IC-1C Rescate, cierre local 10 de octubre:** [acta](IC1_RESCATE.md).
+Cliente/tests/Android/API/SQL aprobados en su alcance local; saldo final80 tras
+dos abandonos distintos. Push manual/cierre operativo separados. Después: instituciones.
+
 ## Acuerdo de alcance — 9 de octubre de 2026
 
 [Alcance de noviembre](ALCANCE_V1_NOVIEMBRE_2026.md): competición inicial solo Cima, Guardián y

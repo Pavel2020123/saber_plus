@@ -48,6 +48,9 @@ class StarRescueAttempt {
     this.abandoned = false,
     this.status,
     this.expiresAt,
+    this.isCompetitive = false,
+    this.lastQuestionId,
+    this.lastAnswerId,
   });
   final String id;
   final AcademicArea area;
@@ -57,10 +60,18 @@ class StarRescueAttempt {
   final bool abandoned;
   final String? status;
   final DateTime? expiresAt;
+
+  /// Competitive admission confirmed by the server; never a local reward.
+  final bool isCompetitive;
+  final String? lastQuestionId;
+  final String? lastAnswerId;
   bool get finished =>
       status == null ? abandoned || progress.finished : status != 'ACTIVO';
 
   factory StarRescueAttempt.fromJson(Map<String, dynamic> json) {
+    if (json.containsKey('competitive') && json['competitive'] is! bool) {
+      throw const FormatException('Modalidad competitiva inválida.');
+    }
     final rules = json['reglas'];
     if (rules is! Map ||
         rules['version'] != 1 ||
@@ -139,6 +150,13 @@ class StarRescueAttempt {
       abandoned: status == 'ABANDONADO',
       status: status,
       expiresAt: DateTime.parse(json['venceEn'] as String),
+      isCompetitive: json['competitive'] == true,
+      lastQuestionId: last == null
+          ? null
+          : (last as Map)['preguntaId'] as String,
+      lastAnswerId: last == null
+          ? null
+          : (last as Map)['respuestaId'] as String,
     );
   }
 }
@@ -190,6 +208,7 @@ abstract interface class StarRescueRepository {
     String? themeId,
     String? subtopicId,
     PracticeDifficulty? difficulty,
+    bool competitive = false,
   });
   Future<StarRescueAttempt> answer({
     required String attemptId,

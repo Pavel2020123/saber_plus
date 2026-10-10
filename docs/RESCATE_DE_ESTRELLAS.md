@@ -1,6 +1,14 @@
 # JN-2 — Rescate de estrellas
 
-Actualizado: 24 de septiembre de 2026.
+Actualizado: 10 de octubre de 2026.
+
+**IC-1C competitivo integrado localmente:** [acta y siguiente prueba](IC1_RESCATE.md).
+Selector explícito, modalidad confirmada/persistida, recuperación y ranking.
+62 tests dirigidos Flutter y32 backend aprobados; HTTP/SQL local confirma victoria
+competitiva100 única y normal sin evento. Recorrido Android/API/SQL aprobado:
+recuperación/red, parcial2 estrellas/+20 y dos abandonos100→90→80; ver límites
+y pendientes operativos en el acta. Después: instituciones, no otro juego.
+El texto JN-2 inferior describe el antecedente normal, que no concede XP competitivo.
 
 ## Estado: JN-2A/B/C implementadas localmente; pendiente ensayo real
 

@@ -1,6 +1,6 @@
 # SaberPlus — etapas pendientes y ruta vigente del equipo
 
-## Estado vigente — 9 de octubre de 2026
+## Estado vigente — 10 de octubre de 2026
 
 **Acuerdo vigente:** [alcance de noviembre](ALCANCE_V1_NOVIEMBRE_2026.md).
 Solo se aplazan integraciones competitivas de otros juegos: V1 incluye Cima,
@@ -8,7 +8,7 @@ Guardián y Rescate. Se mantienen OV-1, perfiles, insignias, instituciones y tod
 las demás funcionalidades acordadas. Después de Rescate: instituciones.
 Este orden sustituye las secuencias históricas inferiores, no sus evidencias.
 
-**Última entrega: [IC-1B1 — cliente del Guardián implementado](IC1_GUARDIAN.md).**
+**Antecedente aprobado: [IC-1B — Guardián](IC1_GUARDIAN.md).**
 34 pruebas dirigidas aprobadas; IC-1B2 local confirma victoria (100 XP únicos),
 recuperación/red/reintento, ranking sin duplicación y normal sin XP. Derrota +30
 por 3 aciertos y abandono −10 verificados; saldo final 120. Guardián validado
@@ -16,7 +16,11 @@ en su alcance local; no repetir lo ya acreditado.
 [IC-1A/IC-1A2 — Cima validada localmente](IC1_CIMA.md):
 Android/API/PostgreSQL: victoria competitiva, una concesión real de 100 XP,
 recuperación/red/reintento, admisión OFF y práctica normal sin XP confirmados.
-Siguiente: IC-1C, Rescate de estrellas. Trivia, Duelo y Tira competitivos,
+IC-1C Rescate integrado; recorrido funcional Android/API/SQL aprobado en su
+alcance documentado, incluido contraste final100→90→80 tras dos abandonos.
+Entrega para commit autorizada el10 de octubre; push a cargo del propietario.
+Cierre operativo separado. No repetir toda la batería. [Acta](IC1_RESCATE.md).
+Trivia, Duelo y Tira competitivos,
 IC-2 e IC-3 quedan para una entrega posterior; no hay activación productiva.
 Decisión vigente del propietario: un commit por juego al terminar sus pruebas y
 documentación; revisar cambios acumulados antes de agruparlos. No push automático.
@@ -29,16 +33,77 @@ limpieza/cierre operativo y deuda QA-1 siguen separados y pendientes.
 Preparación, guion, credenciales ficticias, USB/Docker y prompt para el compañero:
 [RELEVO_PRUEBAS_LOCALES](RELEVO_PRUEBAS_LOCALES.md).
 
-- **Etapa activa:** IC-1C, Rescate de estrellas competitivo.
+- **Última etapa funcional local aprobada:** IC-1C, Rescate competitivo.
+- **Checkpoint actual del 10 de octubre (prevalece sobre el historial inferior):**
+  API43187 y panel4173 reiniciados, ambos HTTP200; Android USB autorizado y
+  reverse43187. Nueva sesión propia con 61 migraciones y credenciales nuevas.
+  Supervisor corregido (12 pruebas/control parcial runtime aprobados el día9).
+  SOLO ON confirmado con ACK. Preparación automática nueva: test HTTP Flutter
+  1/1, intento `f41e7c58-6731-480e-80d0-331a04b8874b` VICTORIA/6 estrellas,
+  SQL evento único+100/saldo100. No es victoria humana ni copia de saldos antiguos.
+  Dos abandonos aprobados en Android/SQL: `6547f9e8-a774-48fe-a755-aca249d98bbf`
+  y `000db488-a45b-4bdd-b8ef-bffa08ce1819`, cada uno ABANDONADO v1 liquidado,
+  0 respuestas y evento único−10. Usuario confirma100→90→80 tras refrescar;
+  SQL confirma 3 intentos/3 eventos (+100,−10,−10), saldo80.
+  SOLO OFF con ACK enabled:false; API/panel siguen activos por ahora. No se cambió
+  refresco automático: lectura inicial/manual tras liquidación (reconciliador30s).
+  Guardado autorizado: un commit de Rescate por repositorio; push manual del
+  propietario. Mensajes y alcance en el acta; después instituciones.
+  Cierre operativo y límites no ensayados separados. No repetir batería aprobada.
+  Sesiones anteriores/IDs inferiores son históricos.
+- **Preparación del 9 de octubre:** nueva sesión local propia levantada; backend
+  compilado, 61 migraciones en PostgreSQL temporal, API `/health/ready` y panel
+  HTTP 200. Android USB autorizado, reverse43187 y app `.i2validation` existente
+  abierta, sin reinstalar. Node local 24.11.1 (distinto del 24.14.1 declarado;
+  no acredita entorno reproducible de CI). No se jugó ni validó Rescate todavía:
+  el cliente inspeccionado no incluye modalidad competitiva. Credenciales nuevas
+  privadas; vigencia del entorno limitada a dos horas desde su arranque.
 - **Al cerrar Rescate:** instituciones PR-I5/P4-C y PR-I5-T, con C5 si necesita
   archivos persistentes. No continuar automáticamente con Trivia/IC-2/IC-3.
-- **Último checkpoint aprobado:** IC-1B2 Guardián, abandono competitivo real local
-  −10, saldo130 →120. SQL acredita evento único y cuatro intentos totales;
+- **Historial de checkpoints del 9 de octubre:** IC-1C2 Rescate, selector competitivo y rechazo
+  de admisión OFF confirmado por el usuario en Android. SQL posterior: 0 intentos
+  de Rescate para student, sin creación accidental. API health200. [Acta](IC1_RESCATE.md).
+  Guardián conserva su cierre anterior: abandono −10, saldo120, evento único;
   victoria normal sin evento. [Acta completa](IC1_GUARDIAN.md).
-- **Siguiente paso exacto:** auditar contrato/cliente actual de Rescate y cambios
-  recibidos; integrar modalidad competitiva explícita y confirmación del servidor
-  con tests dirigidos. Todavía no implementado/ensayado en esta entrega. Después
-  APK separada y recorrido físico OFF/ON/recuperación/red/resultado/ledger/ranking.
+- **Historial del recorrido ya realizado (no es la siguiente instrucción):** auditar contrato/cliente actual de Rescate y cambios
+  recibidos solo si avanzaron. IC-1C ya integra modalidad explícita, confirmación
+  y persistencia del servidor: 62 tests Flutter/32 backend aprobados, HTTP normal
+  y competitivo + SQL único100 con cuenta zero. [Acta](IC1_RESCATE.md).
+  Siguiente: recorrido físico OFF/ON/recuperación/red/resultado/
+  ledger/ranking. APK separada compilada/verificada e instalada por USB con
+  Success; app abierta, reverse43187 y API health200. Analyze final limpio;
+  suite global 754 aprobadas/10 opt-in omitidas, cero fallos. SOLO OFF confirmado
+  con ACK antes del caso físico. Rechazo OFF ya aprobado; siguiente: habilitar
+  admisión ON ya aprobada: usuario ve «11+1»; SQL confirma intento ACTIVO
+  competitivo v1, MATEMATICAS/BASICO, 0 respuestas y sin evento XP.
+  ID `a6ec3648-24ee-47d0-91f8-e59b2b68b9ab`. Recuperación tras cerrar/reabrir
+  aprobada por usuario; SQL confirma mismo intento/0 respuestas/sin XP.
+  Corte USB reverse aprobado: usuario confirma error al enviar 12 para «11+1»;
+  SQL mantiene 0 respuestas/sin XP. Enlace restablecido, reverse43187/API health200.
+  Reintento aprobado: «Liberaste una estrella», mismo intento ACTIVO competitivo,
+  exactamente 1 respuesta guardada y sin evento XP. Continuidad con SOLO OFF
+  (ACK enabled:false) aprobada: segunda estrella confirmada; SQL mismo intento
+  ACTIVO competitivo, 2 respuestas, sin XP en ese checkpoint. Victoria posterior
+  confirmada SQL: 6 respuestas, competitivo v1 liquidado, exactamente 1 evento
+  +100 y saldo Rescate100. Ranking aprobado por usuario: posición propia100 XP
+  y cuenta automática zero100 XP; SQL posterior conserva un único evento propio.
+  Reapertura aprobada: usuario confirma victoria y ranking100; SQL mismo intento
+  VICTORIA/6 respuestas, único evento+100/saldo100. Sin duplicación.
+  Victoria normal aprobada en Android/SQL: intento
+  `9322a923-cece-46a8-b840-fe3dc76e497c`, VICTORIA/6 respuestas, modalidad normal,
+  sin filtro dificultad. No generó evento; conserva saldo Rescate100/evento previo
+  único. Siguiente: agotamiento parcial y abandono competitivos. Admision local
+  habilitada ON con ACK enabled:true para agotamiento parcial. Guion siguiente:
+  Matemáticas/Básica competitivo. Variante real del usuario aprobada: 2 aciertos,
+  8 errores/10 respuestas, AGOTADO competitivo v1 liquidado; intento
+  `0f5c72cd-6dca-49b2-9fb6-831be4310bf2`, evento único+20/saldo Rescate120.
+  Guion anterior 3 aciertos/+40 no ejecutado. Abandono SQL aprobado: usuario hizo
+  2 intentos diferentes, cada uno ABANDONADO/0 respuestas, evento único−10;
+  saldo120→110→100. Usuario cree ver solo−10: siguiente reabrir ranking y confirmar
+  saldo100 visible. No afirmar fallo/caché sin verificar. Al solicitar admisión OFF,
+  harness terminó con «Unexpected end of JSON input» y confirmó eliminación de
+  API/PostgreSQL propios, sin ACK OFF. SQL previo al cierre documentado; contraste
+  visual final pendiente. No reutilizar IDs/saldos para fabricar otro ensayo.
 - **Base/credenciales:** nueva sesión propia en cada PC mediante Docker/harness;
   no reutilizar contraseña, token, ID de intento ni carpeta temporal de este chat.
   Los saldos100/120 documentados son históricos, no fixtures que copiar.
@@ -51,12 +116,13 @@ Preparación, guion, credenciales ficticias, USB/Docker y prompt para el compañ
 - **Cambios guardados:** Flutter `fa8d796` (cierre Cima), `c36c0cc` (Guardián);
   backend `25dc8e4` (harness/Cima), `1774476` (acta Guardián). Push remoto no
   verificado en este relevo; publicar cambios acordados y comprobar pull en ambos.
-- **No probado/no cerrado:** Rescate/Trivia/Duelo/Tira competitivos móviles,
+- **No probado/no cerrado:** Trivia/Duelo/Tira competitivos móviles,
   IC-2/3, TTL24h/pérdida real de acuse posterior al guardado del Guardián,
   audio/iOS/producción y cierre operativo I2-5/QA-1. Mantener esos límites.
-- **Entrega siguiente:** acta `docs/IC1_RESCATE.md` al empezar + espejo backend;
-  completar cada checkpoint con resultado humano/HTTP/SQL y siguiente acción.
-  Un commit por juego tras validación; la guía de relevo puede tener commit documental.
+- **Entrega siguiente:** revisar diff/commits de Rescate y luego instituciones
+  PR-I5/P4-C/PR-I5-T. Push manual del propietario tras guardar esta entrega.
+  Actas de Rescate ya aprobadas localmente; no repetirlas salvo
+  regresión demostrada. Cierre operativo del entorno antes de finalizar la sesión.
 
 Si el juego activo cambia, modificar campos y enlaces de este bloque y las entradas
 README/relevo/prompt/índice; preservar actas históricas. Si un caso falla, el
@@ -380,7 +446,7 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | MA-3A/B/C — Repaso diferido | Reglas, persistencia, API, agenda y flashcards locales. Falta ensayo físico/reconexión/reinstalación. | Infraestructura autorizada. No repetir implementación. |
 | **PR-I1 — Antecedente integrado/cerrado para esta ruta** | Infraestructura e integración competitiva local de seis juegos, según el estado documental confirmado. No es la siguiente etapa activa. | Despliegue/activación y requisitos operativos B1/B2 siguen separados y pendientes; no reabrir salvo defecto concreto demostrado. |
 | **PR-I2 — Ranking por juego** | Backend I2-1/2/3 y Flutter I2-4 fusionados. I2-5 cuenta con regresión PostgreSQL, integración HTTP y recorrido Android funcional revisado documentados. | Faltan cierre operativo/limpieza y deuda QA-1; no repetir el recorrido aprobado por una orden histórica. No implica despliegue ni admisión productiva de juegos. |
-| **IC-1 — Clientes competitivos de seis juegos** | En curso: Cima y Guardián validados en su alcance local Android/API/ledger. Guardián: 34 tests dirigidos, global 732/9 omitidas; victoria, recuperación/red/reintento/ranking/normal/derrota/abandono físicos. Siguiente IC-1C Rescate, luego instituciones. Trivia, Duelo y Tira competitivos aplazados fuera del bloque inicial V1. Reutilizar motores y contratos propios. | Cima y Guardián: victoria de 100 XP única, sin XP normal. Guardián además derrota +30 por 3 aciertos y abandono −10, balance final 120. No equivale a producción ni cierra toda IC-1. Ver IC1_CIMA e IC1_GUARDIAN. |
+| **IC-1 — Clientes competitivos de seis juegos** | Bloque V1 local aprobado: Cima, Guardián y Rescate en alcance Android/API/SQL documentado. Rescate: 62 dirigidas/32 backend, global754/10 opt-in anterior; victoria100 única, normal sin evento, recuperación/red/reintento, parcial2 estrellas/+20 y abandono−10 por intento. Supervisor12 tests/CI y runtime; contraste final100→90→80 aprobado. Commits/cierre operativo pendientes; después instituciones. Trivia, Duelo y Tira competitivos aplazados, conservar motores/modos normales. | No equivale a producción ni cierra toda IC-1. Límites/ensayos no realizados en IC1_CIMA, IC1_GUARDIAN e IC1_RESCATE. Sin modificar fórmulas ni refresco automático del ranking. |
 | **IC-2 — Memoria competitiva** | Aplazado fuera del bloque inicial V1: definir contrato autoritativo compatible con reglas aprobadas, integrar resultado verificable al ledger/ranking y cliente móvil. No rehacer el juego normal. | Retomar después, con nueva priorización; no es requisito para instituciones/OV-1. Resolver explícitamente cualquier regla faltante; pruebas de permisos, repetición, fraude, desconexión, XP y ranking. Mantener NO_DISPONIBLE hasta integrar y validar, sin activación productiva automática. |
 | **IC-3 — Batallas competitivas** | Aplazado fuera del bloque inicial V1: integrar al sistema competitivo las batallas asíncronas existentes, conservando permisos, vencimientos y reglas aprobadas. | Reutilizar IC-1/infraestructura y contrato de Batallas. Probar ambos participantes, empates/vencimientos, resultados concurrentes y liquidación única; cliente/API/ranking coherentes. No inventar fórmulas; NO_DISPONIBLE hasta validar. |
 | **QA-1 — CI Flutter y deuda de validación** | Pendiente: workflow de dependencias con lock, analyze y test; identificar suites opt-in y no confundirlas con pruebas reales. Clasificar lint backend y fallos intermitentes del panel. | Antes de beta; puede avanzar tras I2-5 o en una entrega de apoyo acordada. Versiones reproducibles, sin secretos, sin desactivar pruebas para poner checks en verde; baseline solo explícita y revisada. |

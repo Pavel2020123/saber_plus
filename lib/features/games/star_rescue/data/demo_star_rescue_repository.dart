@@ -48,8 +48,12 @@ class DemoStarRescueRepository implements StarRescueRepository {
     String? themeId,
     String? subtopicId,
     PracticeDifficulty? difficulty,
+    bool competitive = false,
   }) async {
     _check();
+    if (competitive) {
+      _fail('La demostración no admite partidas competitivas.');
+    }
     final previous = _current;
     if (previous != null && !previous.finished) {
       if (previous.area != area) {

@@ -6,6 +6,9 @@ import '../../../../core/network/api_error.dart';
 import '../../../academic/domain/academic_models.dart';
 import '../../../practice/domain/practice_models.dart';
 import '../../../study/presentation/study_providers.dart';
+import '../../../ranking/domain/competitive_ranking_models.dart';
+import '../../../ranking/presentation/competitive_ranking_page.dart';
+import '../../../ranking/presentation/competitive_ranking_providers.dart';
 import '../../trivia_rush/data/remote_trivia_rush_repository.dart';
 import '../domain/star_rescue_models.dart';
 import 'star_rescue_providers.dart';
@@ -51,6 +54,7 @@ class _RescueGameState extends ConsumerState<_RescueGame> {
   String? _themeId;
   String? _subtopicId;
   PracticeDifficulty? _difficulty;
+  bool _competitive = false;
   ({String question, String answer, String key})? _pending;
   @override
   void initState() {
@@ -71,6 +75,7 @@ class _RescueGameState extends ConsumerState<_RescueGame> {
       setState(() {
         _ready = true;
         _attempt = result;
+        if (result != null) _competitive = result.isCompetitive;
         _pending = pending == null
             ? null
             : (
@@ -84,11 +89,7 @@ class _RescueGameState extends ConsumerState<_RescueGame> {
       _top();
     } on Object catch (e) {
       if (mounted) {
-        setState(
-          () => _error = e is ApiError
-              ? e.message
-              : 'No se pudo recuperar el rescate. Reintenta la sincronización.',
-        );
+        setState(() => _error = _message(e));
       }
     } finally {
       if (mounted) setState(() => _busy = false);
@@ -118,6 +119,7 @@ class _RescueGameState extends ConsumerState<_RescueGame> {
       if (!mounted) return;
       setState(() {
         _attempt = attempt;
+        _competitive = attempt.isCompetitive;
         _feedback = feedback;
         _selected = null;
         _pending = null;
@@ -125,11 +127,7 @@ class _RescueGameState extends ConsumerState<_RescueGame> {
       _top();
     } on Object catch (e) {
       if (mounted) {
-        setState(
-          () => _error = e is ApiError
-              ? e.message
-              : 'No se pudo completar la operación. Reintenta; no perderás estrellas por este fallo.',
-        );
+        setState(() => _error = _message(e));
       }
     } finally {
       if (mounted) setState(() => _busy = false);
@@ -169,7 +167,9 @@ class _RescueGameState extends ConsumerState<_RescueGame> {
       builder: (context) => AlertDialog(
         title: const Text('¿Abandonar el rescate?'),
         content: Text(
-          widget.repository.isDemo
+          _attempt!.isCompetitive
+              ? 'El servidor aplicará las reglas competitivas de abandono. Puedes salir sin abandonar y retomar la partida antes de que venza.'
+              : widget.repository.isDemo
               ? 'El rescate quedará cerrado. Si solo sales de esta pantalla, puedes retomarlo mientras no cierres la app ni cambies de cuenta.'
               : 'El rescate quedará cerrado. Puedes salir sin abandonarlo y retomarlo durante 24 horas desde su inicio.',
         ),
@@ -213,6 +213,10 @@ class _RescueGameState extends ConsumerState<_RescueGame> {
             Text(
               widget.repository.isDemo
                   ? 'DEMOSTRACIÓN · Sin XP ni cambios en tu diagnóstico'
+                  : attempt?.isCompetitive == true
+                  ? 'PARTIDA COMPETITIVA · Resultado verificado por el servidor'
+                  : attempt == null && _competitive
+                  ? 'MODO COMPETITIVO SOLICITADO · Admisión pendiente'
                   : 'PARTIDA EN LÍNEA · Sin XP ni cambios en tu diagnóstico',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
@@ -317,6 +321,18 @@ class _RescueGameState extends ConsumerState<_RescueGame> {
             }),
     ),
     if (!widget.repository.isDemo) ..._filters(),
+    if (!widget.repository.isDemo)
+      SwitchListTile(
+        key: const Key('rescue-competitive-mode'),
+        title: const Text('Competir en el ranking'),
+        subtitle: const Text(
+          'El servidor confirma el resultado y el XP. En modo normal practicas sin XP competitivo.',
+        ),
+        value: _competitive,
+        onChanged: _busy
+            ? null
+            : (value) => setState(() => _competitive = value),
+      ),
     const SizedBox(height: 20),
     FilledButton(
       key: const Key('rescue-start'),
@@ -328,6 +344,7 @@ class _RescueGameState extends ConsumerState<_RescueGame> {
                 themeId: _themeId,
                 subtopicId: _subtopicId,
                 difficulty: _difficulty,
+                competitive: _competitive,
               ),
             ),
       child: Text(_busy ? 'Preparando…' : 'Comenzar rescate'),
@@ -503,6 +520,32 @@ class _RescueGameState extends ConsumerState<_RescueGame> {
     const Text(
       'Este resultado corresponde solo a esta partida; no determina tus falencias académicas.',
     ),
+    if (attempt.isCompetitive) ...[
+      const SizedBox(height: 12),
+      const Text(
+        'El servidor verifica y liquida esta partida. El ranking puede tardar en actualizarse.',
+      ),
+      TextButton.icon(
+        key: const Key('rescue-open-ranking'),
+        onPressed: () {
+          ref.invalidate(
+            competitiveBoardProvider((
+              game: CompetitiveGame.rescue,
+              season: suggestedCompetitiveSeason(DateTime.now()),
+            )),
+          );
+          Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (_) => const CompetitiveRankingPage(
+                initialGame: CompetitiveGame.rescue,
+              ),
+            ),
+          );
+        },
+        icon: const Icon(Icons.leaderboard_outlined),
+        label: const Text('Consultar ranking de Rescate'),
+      ),
+    ],
     const SizedBox(height: 16),
     FilledButton(
       key: const Key('rescue-restart'),
@@ -521,6 +564,12 @@ class _RescueGameState extends ConsumerState<_RescueGame> {
       child: const Text('Preparar otro rescate'),
     ),
   ];
+
+  String _message(Object error) => error is ApiError
+      ? error.code == 'COMPETITIVE_SOLO_DISABLED'
+            ? 'El servidor todavía no admite partidas competitivas. Puedes desactivar el modo competitivo para practicar sin XP.'
+            : error.message
+      : 'No se pudo confirmar el rescate. Recupera la partida o reintenta el envío.';
 }
 
 class _StarRescueImage extends StatefulWidget {

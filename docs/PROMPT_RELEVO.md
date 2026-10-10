@@ -59,7 +59,14 @@ Estado:
   34 tests dirigidos aprobados. IC-1B2 local acredita victoria/100 XP únicos,
   recuperación/red/reintento/ranking y normal sin XP, derrota +30 por 3 aciertos
   y abandono −10, saldo final 120. IC-1B validada en ese alcance local.
-  Siguiente IC-1C Rescate; otros clientes competitivos aplazados. Sin activación remota.
+  IC-1C Rescate integrado localmente: 62 tests Flutter/32 backend; HTTP/SQL local
+  normal sin evento y victoria competitiva100 única con cuenta zero. Acta IC1_RESCATE.
+  Recorrido Android/API/SQL local aprobado el10 de octubre: victoria100 única,
+  recuperación/red/reintento, ranking/reapertura, normal sin evento, agotamiento
+  2 estrellas/+20 y abandono−10 por intento. Contraste nuevo100→90→80 aprobado.
+  Supervisor corregido (JSON parcial no cierra sesión), 12 tests/CI y runtime.
+  Otros clientes competitivos aplazados; sin activación remota. Ver checkpoint
+  para cierre operativo/commits y seguir con instituciones, no repetir pruebas.
   Propietario ahora pide un commit por juego tras pruebas/documentación; revisar
   cambios acumulados antes de agruparlos. No push ni cambios ajenos automáticos.
 - El conflicto editorial EDITOR_STALE se resolvió recargando; incluir contadores

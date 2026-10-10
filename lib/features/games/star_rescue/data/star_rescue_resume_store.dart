@@ -6,15 +6,20 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../domain/star_rescue_models.dart';
 
 class StarRescueResume {
-  const StarRescueResume(this.attemptId, [this.pending]);
+  const StarRescueResume(this.attemptId, [this.pending, this.isCompetitive]);
   final String attemptId;
   final StarRescuePendingAnswer? pending;
+  final bool? isCompetitive;
   Map<String, dynamic> toJson() => {
     'attemptId': attemptId,
     'pending': pending?.toJson(),
+    if (isCompetitive != null) 'competitive': isCompetitive,
   };
   factory StarRescueResume.fromJson(Map<String, dynamic> json) {
     final id = json['attemptId'] as String;
+    if (json.containsKey('competitive') && json['competitive'] is! bool) {
+      throw const FormatException('Modalidad guardada inválida.');
+    }
     final pending = json['pending'] == null
         ? null
         : StarRescuePendingAnswer.fromJson(
@@ -23,7 +28,7 @@ class StarRescueResume {
     if (id.isEmpty || (pending != null && pending.attemptId != id)) {
       throw const FormatException('Registro de recuperación inválido.');
     }
-    return StarRescueResume(id, pending);
+    return StarRescueResume(id, pending, json['competitive'] as bool?);
   }
 }
 

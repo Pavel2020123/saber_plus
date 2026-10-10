@@ -50,16 +50,17 @@ que continúe. Un commit local no aparece en otro PC hasta hacer push/pull.
 
 ## 2. Checkpoint inicial y qué no repetir
 
-Al crear esta guía, la siguiente entrega es **IC-1C: Rescate de estrellas**:
-auditar e implementar su admisión/modalidad competitiva contra el contrato existente,
-probar unitariamente y luego ejecutar recorrido Android/API/ledger. No se ha
-iniciado ni acreditado su partida competitiva física en esta entrega.
+Etapa actual **IC-1C: Rescate de estrellas**: cliente competitivo integrado y
+tests dirigidos/HTTP/SQL aprobados en el alcance de [su acta](IC1_RESCATE.md).
+Recorrido Android/API/ledger local aprobado el10 de octubre, incluidos dos
+abandonos distintos100→90→80. Guardado autorizado; push manual/cierre operativo
+separados, no repetir batería.
 
 | Juego | Evidencia actual | Continuación |
 |---|---|---|
 | Cima, IC-1A/A2 | [Acta](IC1_CIMA.md): victoria real local +100, OFF, recuperación, red/reintento, no duplicación y normal sin XP | No repetir salvo cambio relacionado/regresión concreta |
 | Guardián, IC-1B1/B2 | [Acta](IC1_GUARDIAN.md): victoria +100, derrota con 3 aciertos +30, abandono −10, balance final120; normal sin evento, recuperación/red/ranking | No repetir salvo cambio relacionado; evidencia pertenece a aquella sesión |
-| Rescate, IC-1C | Cliente normal remoto existente; integración/ensayo competitivo pendientes | [Base y contrato](RESCATE_DE_ESTRELLAS.md), backend `STAR_RESCUE.md`; crear acta IC1_RESCATE al empezar |
+| Rescate, IC-1C | 62 tests Flutter/32 backend; Android/API/SQL aprobados: victoria100 única, recuperación/red/reintento, normal sin evento, agotamiento2 estrellas/+20, abandono−10 por intento y contraste100→90→80. Supervisor12 tests/CI y runtime | [Acta](IC1_RESCATE.md); commits/cierre operativo y después instituciones; no repetir batería |
 | Trivia | Competición aplazada fuera del bloque inicial V1 | [Contrato](TRIVIA_RUSH_BACKEND_CONTRACT.md); conservar modo normal |
 | Duelo fantasma | Competición aplazada fuera del bloque inicial V1 | [Base](GHOST_DUEL.md); conservar modo normal |
 | Tira y afloja | Competición aplazada fuera del bloque inicial V1 | [Contrato](TUG_OF_WAR_BACKEND_CONTRACT.md); al retomarlo probar dos participantes reales |

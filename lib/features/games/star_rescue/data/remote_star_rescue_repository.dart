@@ -60,6 +60,8 @@ class RemoteStarRescueRepository implements StarRescueRepository {
     Map<String, dynamic>? data,
     bool nullable = false,
     String? expectedId,
+    bool? expectedCompetitive,
+    Map<String, dynamic>? expectedFilters,
   }) async {
     _check();
     try {
@@ -79,6 +81,19 @@ class RemoteStarRescueRepository implements StarRescueRepository {
       if (expectedId != null && result.id != expectedId) {
         throw const FormatException('El servidor devolvió otra partida.');
       }
+      if (expectedCompetitive != null &&
+          result.isCompetitive != expectedCompetitive) {
+        throw const FormatException('El servidor devolvió otra modalidad.');
+      }
+      if (expectedFilters != null) {
+        for (final filter in expectedFilters.entries) {
+          if ((expectedCompetitive == true ||
+                  (response.data as Map).containsKey(filter.key)) &&
+              (response.data as Map)[filter.key] != filter.value) {
+            throw const FormatException('El servidor devolvió otros filtros.');
+          }
+        }
+      }
       return result;
     } on DioException catch (e) {
       if (e.response?.statusCode == 404) {
@@ -94,13 +109,31 @@ class RemoteStarRescueRepository implements StarRescueRepository {
 
   Future<StarRescueAttempt> _accept(StarRescueAttempt result) async {
     _check();
+    if (_current?.id == result.id &&
+        (_current!.isCompetitive != result.isCompetitive ||
+            _current!.area != result.area ||
+            result.progress.answered < _current!.progress.answered ||
+            result.progress.stars < _current!.progress.stars)) {
+      throw const FormatException(
+        'La modalidad o el estado del rescate cambió.',
+      );
+    }
     final pending = _pending;
+    if (pending != null &&
+        result.id == pending.attemptId &&
+        result.lastQuestionId == pending.questionId &&
+        result.lastAnswerId != pending.answerId) {
+      throw const FormatException('El servidor confirmó otra respuesta.');
+    }
     final keep =
         pending != null &&
         !result.finished &&
         result.id == pending.attemptId &&
         result.question?.id == pending.questionId;
-    await store.save(scope, StarRescueResume(result.id, keep ? pending : null));
+    await store.save(
+      scope,
+      StarRescueResume(result.id, keep ? pending : null, result.isCompetitive),
+    );
     _check();
     _pending = keep ? pending : null;
     return _current = result;
@@ -132,6 +165,13 @@ class RemoteStarRescueRepository implements StarRescueRepository {
       _current = null;
       _pending = null;
     } else {
+      if (saved?.attemptId == result.id &&
+          saved?.isCompetitive != null &&
+          saved!.isCompetitive != result.isCompetitive) {
+        throw const FormatException(
+          'La modalidad guardada del rescate cambió.',
+        );
+      }
       await _accept(result);
     }
     _restored = true;
@@ -143,6 +183,7 @@ class RemoteStarRescueRepository implements StarRescueRepository {
     String? themeId,
     String? subtopicId,
     PracticeDifficulty? difficulty,
+    bool competitive = false,
   }) => _exclusive(() async {
     if (!_restored || _pending != null) {
       throw const ApiError(
@@ -152,13 +193,23 @@ class RemoteStarRescueRepository implements StarRescueRepository {
     }
     final result = (await _request(
       '/rescate-estrellas/intentos',
+      expectedCompetitive: competitive,
+      expectedFilters: {
+        'temaId': themeId,
+        'subtemaId': subtopicId,
+        'dificultad': difficulty?.backendValue,
+      },
       data: {
         'area': area.backendValue,
         'temaId': ?themeId,
         'subtemaId': ?subtopicId,
         if (difficulty != null) 'dificultad': difficulty.backendValue,
+        if (competitive) 'competitive': true,
       },
     ))!;
+    if (result.area != area) {
+      throw const FormatException('El servidor devolvió otra área.');
+    }
     return _accept(result);
   });
   @override
@@ -203,7 +254,10 @@ class RemoteStarRescueRepository implements StarRescueRepository {
           requestKey: requestKey,
         );
     // Persistence must succeed before any POST; failures never become local grading.
-    await store.save(scope, StarRescueResume(attemptId, submission));
+    await store.save(
+      scope,
+      StarRescueResume(attemptId, submission, _current!.isCompetitive),
+    );
     _check();
     _pending = submission;
     final result = (await _request(
