@@ -2,12 +2,28 @@
 
 ## Estado vigente — 10 de octubre de 2026
 
-**En curso: [PR-I5A — directorio institucional](PR_I5_DIRECTORIO.md).**
-Base backend de listado/búsqueda/detalle aprobado implementada; falta cliente
-Flutter y ensayo real. Después PR-I5-T, perfil y solicitudes estudiantiles.
+**Cierre local: [PR-I5A/B — directorio institucional](PR_I5_DIRECTORIO.md).**
+Base backend y cliente Flutter de listado/búsqueda/detalle implementados;
+8 pruebas dirigidas Flutter aprobadas; suite completa 762 aprobadas/10 opt-in
+omitidas y analyze sin incidencias. Ensayo HTTP/PostgreSQL/Android aprobado.
+Siguiente implementación:
+PR-I5-T, después perfil y solicitudes estudiantiles.
 P4-C se reutiliza. Rescate guardado en `df53768` (app) y `3fdf699` (backend);
 push no verificado. Este checkpoint sustituye menciones inferiores a commits
 pendientes o a servicios activos: esas describen la sesión de pruebas anterior.
+
+**Ensayo PR-I5A/B aprobado:** nueva base temporal propia, API43187/panel4173
+HTTP200 y Android autorizado/reverse43187. Integración HTTP/PostgreSQL del
+directorio aprobada (25 visibles,4 ocultas,páginas20/5); APK nueva compilada.
+Instalación USB Success; usuario confirma login y primera pantalla del directorio
+con instituciones de ensayo, Página1 y Siguiente. Usuario también confirma
+búsqueda única, vacío, Página2 con cinco instituciones21–25 y detalle de ensayo01
+con texto informativo sin afiliación ficticia. Error de red confirmado tras
+retirar reverse43187; recuperación con Reintentar confirmada tras restaurarlo.
+Ensayo01 suspendida en base propia: HTTP detalle404/búsqueda0,24 aprobadas restantes.
+Usuario confirma en Android ficha no disponible y ausencia en listado/búsqueda.
+Este cierre cubre el directorio, no P4-C/P5, grupos, producción ni toda PR-I5.
+Ver acta PR_I5_DIRECTORIO.
 
 **Acuerdo vigente:** [alcance de noviembre](ALCANCE_V1_NOVIEMBRE_2026.md).
 Solo se aplazan integraciones competitivas de otros juegos: V1 incluye Cima,

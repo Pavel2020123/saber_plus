@@ -1,7 +1,8 @@
 # SaberPlus móvil
 
-**Etapa actual: [PR-I5A — instituciones](docs/PR_I5_DIRECTORIO.md).**
-Base del directorio implementada en backend; siguiente: conectarla a Flutter.
+**Etapa actual: [PR-I5A/B — instituciones](docs/PR_I5_DIRECTORIO.md).**
+Directorio backend y cliente Flutter implementados: Más → Buscar instituciones.
+Ensayo local HTTP/PostgreSQL/Android aprobado; siguiente: departamento/municipio PR-I5-T.
 
 **IC-1C Rescate, cierre local 10 de octubre:** [acta](docs/IC1_RESCATE.md).
 Cliente/tests/Android/API/SQL aprobados en su alcance local; saldo final80 tras

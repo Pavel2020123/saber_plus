@@ -1210,6 +1210,11 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Más'));
     await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('open-study-time')),
+      200,
+      scrollable: find.byType(Scrollable).last,
+    );
     await tester.tap(find.byKey(const Key('open-study-time')));
     await tester.pumpAndSettle();
 

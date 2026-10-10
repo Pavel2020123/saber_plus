@@ -40,6 +40,13 @@ class MorePage extends ConsumerWidget {
             onTap: () => context.push('/student/more/institution'),
           ),
           _MenuTile(
+            key: const Key('open-institution-directory'),
+            icon: Icons.search_rounded,
+            title: 'Buscar instituciones',
+            subtitle: 'Explora el directorio de instituciones aprobadas',
+            onTap: () => context.push('/student/more/institution-directory'),
+          ),
+          _MenuTile(
             key: const Key('open-favorites'),
             icon: Icons.bookmarks_outlined,
             title: 'Mis favoritos',
