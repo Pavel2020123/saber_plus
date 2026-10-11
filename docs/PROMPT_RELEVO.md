@@ -1,6 +1,11 @@
 # Prompt para continuar SaberPlus con otro chat
 
-Actualizado: 9 de octubre de 2026. Copiar el bloque completo; adaptar rutas.
+Actualizado: 11 de octubre de 2026. Copiar el bloque completo; adaptar rutas.
+Checkpoint del 11 de octubre: PR-I5-T1/T2/T3/T4 implementadas;
+16 pruebas PostgreSQL T2 aprobadas y T5 cerrado localmente con panel/Android.
+Seguir con perfil institucional y solicitudes estudiantiles de PR-I5; no repetir
+juegos/T5. Leer [acta territorial](PR_I5_T_TERRITORIO.md), incluidos límites del
+cierre. No confundir pruebas locales con despliegue ni asumir servicios activos.
 Fuente única del orden: [ETAPAS_PENDIENTES](ETAPAS_PENDIENTES.md).
 Evidencia y límites: [conciliación](CONCILIACION_2026_10_07.md).
 Se necesitan los dos repositorios y permisos de acceso si corresponde; no cambiar

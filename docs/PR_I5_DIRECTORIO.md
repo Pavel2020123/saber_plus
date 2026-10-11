@@ -1,6 +1,9 @@
 # PR-I5 — Instituciones: checkpoint de implementación
 
-Actualizado: 10 de octubre de 2026.
+Actualizado: 11 de octubre de 2026. **Contrato vigente T4:** filtros por nombre,
+departamento y municipio; lista/detalle incluyen ubicación oficial opcional.
+Sigue [T5 ensayo conjunto](PR_I5_T_TERRITORIO.md). Los apartados PR-I5A/B
+conservan su alcance histórico anterior a T4, no limitan el contrato actual.
 
 Rescate IC-1C quedó validado localmente; commits `df53768` (app) y `3fdf699`
 (backend). No se ha verificado el push en este checkpoint.
@@ -10,7 +13,7 @@ Rescate IC-1C quedó validado localmente; commits `df53768` (app) y `3fdf699`
 Implementadas rutas autenticadas para buscar instituciones aprobadas y consultar
 su identidad pública. Listado de 20 por página, búsqueda por nombre, `hayMas`,
 validación y detalle con 404 uniforme para registros ocultos o inexistentes.
-Por ahora solo se publican ID y nombre; no códigos, contactos ni expedientes.
+En PR-I5A solo se publicaban ID y nombre; sin códigos de ingreso, contactos ni expedientes.
 
 Validación backend: 29 pruebas dirigidas aprobadas (16 directorio, 13 aprobación),
 TypeScript sin errores y formato conforme. Sin ensayo PostgreSQL/Android ni suite
@@ -36,8 +39,8 @@ de otra consulta. Los providers se invalidan al cambiar de cuenta. La demo usa
 ejemplos explícitos y nunca sustituye una caída de la API real.
 
 No modifica el ingreso por códigos de grupos ni ofrece una solicitud estudiantil
-ficticia. Por ahora se ve nombre e identidad; ubicación, logo y afiliación esperan
-sus contratos. El backend con PR-I5A debe estar ejecutándose para usar modo real;
+ficticia. En PR-I5B se veía nombre e identidad; ubicación se añadió en T4,
+logo y afiliación aún esperan sus contratos. Para modo real debe ejecutarse el backend actualizado;
 En la implementación inicial no se operaron servicios; el ensayo posterior con
 API y APK está registrado más abajo.
 
@@ -90,7 +93,8 @@ una nueva consulta; no se implementó actualización en tiempo real.
 recorrido Android documentados. No acredita despliegue remoto, iOS, aprobación
 ADMIN P4-C, flujo docente/grupos físico ni etapas posteriores de institución.
 Servicios de sesión efímera: comprobar estado y vigencia antes de reutilizarlos.
-La próxima etapa es PR-I5-T. No repetir automáticamente toda esta batería.
+Continuación actual: [PR-I5-T1/T2/T3/T4 implementadas](PR_I5_T_TERRITORIO.md);
+sigue T5 ensayo territorial conjunto. No repetir automáticamente toda esta batería.
 
 ### Continuación
 
@@ -112,4 +116,4 @@ Leer primero [ETAPAS_PENDIENTES](ETAPAS_PENDIENTES.md) y descargar ambos repos.
 No reiniciar la batería de Rescate ni asumir servicios vivos desde su acta.
 Las pruebas Jest usan dobles de base de datos; el script local posterior usa
 PostgreSQL real y el recorrido físico tiene confirmación del usuario. Mantener
-esas evidencias separadas. Siguiente implementación: PR-I5-T (punto 2).
+esas evidencias separadas. Siguiente entrega: PR-I5-T5 (ensayo conjunto).

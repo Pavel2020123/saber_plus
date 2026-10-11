@@ -1,13 +1,122 @@
 # SaberPlus — etapas pendientes y ruta vigente del equipo
 
-## Estado vigente — 10 de octubre de 2026
+## Estado vigente — 11 de octubre de 2026
+
+**PR-I5-T5 cerrada localmente:** usuario confirma aprobación final inmediata,
+ficha/historial conservados y estado aprobado en Android. Directorio territorial,
+red/reintento, legado, suspensión, solicitud, petición de información/restauración,
+reenvío sin duplicados y corrección territorial ADMIN probados. Ver límites y
+evidencia en [acta territorial](PR_I5_T_TERRITORIO.md). Sin despliegue ni validación iOS.
+**Siguiente bloque: PR-I5 — perfil institucional y solicitudes estudiantiles.**
+Regresión final: Flutter **769 aprobadas / 10 opt-in omitidas**, panel **95
+aprobadas**; formato y análisis Flutter correctos, sintaxis panel 23 módulos.
+Push manual pendiente del propietario; consultar `git log` para los commits.
+Los checkpoints de ensayo inferiores
+son históricos y no ordenan repetir las pruebas ya cerradas.
 
 **Cierre local: [PR-I5A/B — directorio institucional](PR_I5_DIRECTORIO.md).**
 Base backend y cliente Flutter de listado/búsqueda/detalle implementados;
 8 pruebas dirigidas Flutter aprobadas; suite completa 762 aprobadas/10 opt-in
 omitidas y analyze sin incidencias. Ensayo HTTP/PostgreSQL/Android aprobado.
-Siguiente implementación:
-PR-I5-T, después perfil y solicitudes estudiantiles.
+**PR-I5-T1 implementada:** catálogo oficial DANE/API territorial, 59 pruebas
+dirigidas aprobadas y compilación/carga desde dist verificadas. No hay cambio
+visual ni migración en T1. Regresión backend: 113 suites / 1.304 pruebas aprobadas.
+[Acta y desglose](PR_I5_T_TERRITORIO.md).
+**PR-I5-T2 implementada y probada localmente:** persistencia/revisión ADMIN,
+compatibilidad sin clasificar legado, auditoría y protección de concurrencia.
+66 pruebas dirigidas; regresión 1.311/114 suites; 16 casos PostgreSQL reales
+aprobados con migración aditiva (62 totales). Sin despliegue ni prueba visual nueva.
+**PR-I5-T3 implementada:** selectores dependientes en solicitud Flutter y revisión
+ADMIN, restauración, carga/error/reintento y descarte de respuestas tardías.
+ADMIN exige ubicación para aprobar y permite corregirla sin suspender.
+**PR-I5-T4 implementada:** filtros opcionales departamento/municipio + nombre
+antes de paginar, ubicación pública segura y controles Flutter con Todos.
+T5 cerrada localmente; siguiente: perfil institucional y solicitudes.
+T1–T5 se guardan coordinadamente en ambos repositorios al finalizar este cierre.
+El harness local admite ahora
+la única migración territorial pendiente mediante lista explícita; las demás
+migraciones se leen de HEAD. No requiere commit para este ensayo local.
+T3: Flutter 765 aprobadas/10 opt-in omitidas y analyze limpio; panel 93 aprobadas
+y check 23 módulos. Pruebas y límites en el acta territorial; sin ensayo celular T3.
+T4: regresión Flutter **769 aprobadas/10 opt-in omitidas**, analyze limpio;
+backend **1.319 aprobadas/114 suites**, build correcto. Guion territorial T5
+preparado y comprobado de sintaxis. **T5 iniciado el 11 de octubre:** Docker local
+operativo, Android USB autorizado, 62 migraciones aplicadas en PostgreSQL propio,
+API43187/panel4173 HTTP200. Guion territorial HTTP/PostgreSQL aprobado: nacional
+20/5, Amazonas20/1, Cesar2, Bogotá1, vacío y códigos inválidos. APK actual ARM64
+de ensayo compilada, paquete i2validation comprobado, instalación USB Success
+y actividad abierta. Usuario confirma login nuevo y directorio nacional con
+instituciones de ensayo, Página 1, Siguiente y Filtrar por ubicación.
+Amazonas/Leticia y Página 2 con una institución confirmados en Android con captura.
+Ajuste visual localizado del directorio confirmado en Android: etiquetas legibles
+y funcionamiento conservado, sin cambiar filtros/paginación.
+Usuario confirma: cambiar a Cesar limpia municipio y vuelve a Página 1;
+Valledupar muestra dos instituciones sin siguiente página.
+Usuario confirma Bogotá con una institución y Antioquia sin municipio con
+búsqueda vacía, sin error de conexión.
+Usuario confirma búsqueda «ensayo 22» con Cesar/Valledupar y limpieza de ubicación
+conservando nombre y resultado.
+Usuario confirma que vaciar nombre recupera Página 1 nacional y ensayo 25 muestra
+ubicación pendiente de clasificar, sin departamento/municipio inventados.
+Usuario confirma error «No pudimos cargar el directorio» tras retirar reverse43187.
+Enlace USB restaurado; usuario confirma que Reintentar recupera el listado sin
+cerrar la app ni iniciar sesión otra vez. Usuario confirma «Reintentar departamentos»
+sin opciones inventadas al reabrir filtros sin conexión. Enlace USB restaurado.
+Usuario confirma recuperación del catálogo y de las dos instituciones de
+Cesar/Valledupar. Usuario confirma que cambiar rápidamente Amazonas → Cesar
+mantiene Cesar y que Valledupar muestra dos instituciones.
+Usuario abrió ensayo 01; suspendida solo esa institución ficticia en la base
+temporal. HTTP aprobado: detalle 404, búsqueda vacía y 24 aprobadas restantes.
+Usuario confirma que ensayo 01 ya no aparece en Android tras actualizar; detalle
+no disponible comprobado por HTTP 404, sin confirmación humana separada del mensaje.
+Usuario confirma formulario de solicitud abierto con profesor ficticio.
+**Siguiente confirmación humana:** envío de solicitud ficticia Amazonas/Leticia;
+después persistencia y revisión ADMIN.
+Corrección UX durante el ensayo: ocultar encabezado inicial de solicitud cuando
+ya existe registro, conservar estado y detalles. Cinco pruebas de aprobación
+aprobadas; confirmación visual de esta corrección pendiente.
+Bloqueo del ensayo móvil: al reabrir solicitud hubo timeout; API health 200 y
+servicios locales activos, pero ADB sin dispositivos. Próximo paso: reconectar
+Android, restaurar reverse43187 y repetir solicitud antes de revisión ADMIN.
+Enlace restablecido: Android autorizado, reverse43187 verificado y API health 200.
+Usuario confirma carga de solicitud/estado y corrección del encabezado tras
+restablecer USB. Nombres en lugar de códigos en ficha de solicitud: mejora
+propuesta, no implementada. Siguiente confirmación humana: entrar al panel local
+con ADMIN ficticio y abrir solicitud para pedir información antes de aprobar.
+Usuario confirma solicitud visible en panel ADMIN local. Siguiente prueba:
+guardar Requiere información y comprobar restauración de Amazonas/Leticia en Android.
+Actualización: usuario eligió Aprobada y confirma institución aprobada en Android;
+petición de información/restauración editable sigue sin ensayo humano.
+Corregido panel que conservaba Pendiente tras guardar: sincroniza filtro/listado
+con estado guardado y conserva ficha. 95 pruebas panel aprobadas, 23 módulos con
+sintaxis correcta. Siguiente: recargar panel, comprobar aprobación y probar
+corrección territorial auditada; confirmación humana del ajuste pendiente.
+Usuario confirma Aprobada en panel recargado. Próxima prueba: corrección ADMIN
+a Cesar/Valledupar, historial y reflejo en app/directorio; no acredita todavía
+una nueva transición visual al guardar ni la petición de información.
+Usuario confirma corrección a Cesar/Valledupar, Aprobada conservada, ficha abierta
+e historial. Siguiente: actualizar estado en Android y comprobar directorio con
+ubicación ADMIN corregida; petición de información sigue pendiente de ensayo humano.
+Última respuesta móvil confirma presencia de institución; falta precisar códigos
+20/20001 y ausencia bajo Amazonas/Leticia. No acreditar todo el recorrido todavía.
+Actualización: desde estudiante, institución presente en Cesar/Valledupar y ausente
+en Amazonas/Leticia confirmados; otras instituciones visibles allí. Falta confirmar
+búsqueda exacta por nombre, códigos en ficha profesor y petición de información.
+Usuario confirma búsqueda exacta bajo Amazonas/Leticia vacía; ubicación ADMIN
+corregida reflejada en directorio. Próximo paso: profesor ficticio adicional para
+petición de información y restauración editable sin revertir aprobación existente.
+Cuenta local adicional teacher-review@example.invalid preparada; misma contraseña
+privada de sesión. Usuario confirma formulario abierto y finalización del envío
+de SaberPlus Ensayo Corrección (Amazonas/Leticia). Usuario confirma Requiere
+información guardada en ADMIN, actualización inmediata de filtro/listado y ficha
+abierta; en Android formulario editable con Amazonas/Leticia conservados.
+Siguiente: corregir evidencia y reenviar, comprobar mismo registro Pendiente
+con territorio y texto corregido en ADMIN.
+Usuario confirma reenvío sin duplicados: una sola solicitud Pendiente con nueva
+evidencia y Amazonas/Leticia conservados. Siguiente: aprobación final, panel
+actualizado inmediatamente, historial y estado aprobado en Android.
+Cierre posterior: aprobación final confirmada; T5 cerrada localmente con los
+límites del acta. Esta secuencia conserva las confirmaciones históricas del ensayo.
 P4-C se reutiliza. Rescate guardado en `df53768` (app) y `3fdf699` (backend);
 push no verificado. Este checkpoint sustituye menciones inferiores a commits
 pendientes o a servicios activos: esas describen la sesión de pruebas anterior.
@@ -56,7 +165,13 @@ limpieza/cierre operativo y deuda QA-1 siguen separados y pendientes.
 Preparación, guion, credenciales ficticias, USB/Docker y prompt para el compañero:
 [RELEVO_PRUEBAS_LOCALES](RELEVO_PRUEBAS_LOCALES.md).
 
-- **Última etapa funcional local aprobada:** IC-1C, Rescate competitivo.
+- **Último ensayo físico aprobado:** PR-I5-T5, territorio/directorio y revisión institucional.
+- **Checkpoint de implementación vigente:** PR-I5-T1/T2/T3/T4 implementadas;
+  T5 cerrada localmente; seguir con perfil institucional y solicitudes. 16 casos
+  SQL reales T2 aprobados y ensayo nuevo de 62 migraciones/API/panel/Android.
+  Al retomar verificar servicios y credenciales temporales; no asumirlos activos.
+  [Desglose, evidencia y límites](PR_I5_T_TERRITORIO.md). El bloque de Rescate
+  siguiente describe una sesión anterior, no servicios activos confirmados.
 - **Checkpoint actual del 10 de octubre (prevalece sobre el historial inferior):**
   API43187 y panel4173 reiniciados, ambos HTTP200; Android USB autorizado y
   reverse43187. Nueva sesión propia con 61 migraciones y credenciales nuevas.
@@ -479,7 +594,7 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | PR-I5 — Instituciones | Directorio aprobado, perfil/logo del propietario, solicitudes estudiantiles/avisos y código institucional privado. Profesor con foto, no jugador. | Reutilizar P4-C y grupos; PR-I1 y C5 para archivos. No sustituir código de grupo silenciosamente. |
 | PR-I6 — Ranking institucional | Aportes mientras se pertenece a institución, sin traslado/doble conteo del XP histórico; agregados públicos. | PR-I1/2/5 y reglas confirmadas. |
 | PR-I7 — Ensayo social | Dos cuentas/dispositivos, privacidad, fotos, solicitudes, ayudas/empates y cierre anual conservando años anteriores. | Despliegue autorizado; coordinar con P5/D3, sin alterar reloj de producción. |
-| PR-I5-T / PR-I6-T — Territorio | Catálogo DIVIPOLA, departamento/municipio en directorio y ranking institucional; posición por ámbito sin cambiar XP ni premios nacionales. | Extensiones de PR-I5/6, no reemplazos; definir sede e histórico antes de implementar. Ver ORIENTACION_Y_TERRITORIO. |
+| PR-I5-T / PR-I6-T — Territorio | T1–T4 implementadas y T5 ensayo integrado cerrado localmente; 16 casos SQL reales T2 aprobados. Ranking territorial posterior, sin cambiar XP ni premios nacionales. | Extensiones de PR-I5/6; sin despliegue; una sede representada por registro, multisede e histórico pendientes. Ver PR_I5_T_TERRITORIO y ORIENTACION_Y_TERRITORIO. |
 | OV-1A/B/C/D — Orientación por intereses | Cuestionario propio revisado, resultado privado y explicable, carreras para explorar y Sabi por profesión. Complementa orientación académica, no test psicológico validado. | Tras bloque competitivo/social y antes de UI-F/beta; fuentes oficiales, privacidad y revisión de contenido. |
 | P1–P4-C / P5 — Profesor | P1–P4-C locales; P5 es despliegue y ensayo real docente, aprobación institucional, roles, grupos, prioridades y tiempo. | **P5 pausada**. Pedir URL/cuentas/entorno autorizado, nunca contraseñas. Antes de D3. |
 | 7F-C3-D2 — Legado | Herramientas locales; faltan revisión visual y operación de legado autorizada con respaldo. | No borrar ni reclasificar contenido usado; preparar D3. |

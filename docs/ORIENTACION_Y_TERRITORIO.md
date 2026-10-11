@@ -1,7 +1,11 @@
 # Orientación por intereses y filtros territoriales
 
 Plan acordado el 5 de octubre; prioridad actualizada el 9 de octubre de 2026.
-Solo planificación, no implementado. OV-1 y territorio permanecen en el
+Actualización del 11 de octubre: [PR-I5-T1/T2/T3](PR_I5_T_TERRITORIO.md)
+catálogo/API, persistencia/revisión, selectores y filtros implementados; T5 cerrado
+localmente con API/PostgreSQL/panel/Android. Siguiente: perfil y solicitudes PR-I5.
+16 casos PostgreSQL T2 aprobados; OV-1 y PR-I6-T siguen planificados.
+OV-1 y territorio permanecen en el
 [alcance V1](ALCANCE_V1_NOVIEMBRE_2026.md); el recorte solo afecta competiciones.
 No modifica reglas de XP, insignias o admisión competitiva.
 

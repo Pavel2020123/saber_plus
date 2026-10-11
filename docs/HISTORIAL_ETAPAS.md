@@ -1,5 +1,31 @@
 # Historial completo de etapas de SaberPlus
 
+**11 de octubre — PR-I5-T5, cierre local:** filtros territoriales/nombre/paginación,
+red/reintento, legado, suspensión, solicitud, petición de información, restauración,
+reenvío sin duplicados, aprobación y corrección ADMIN auditada comprobados con
+API/PostgreSQL/panel/Android. Correcciones UX localizadas en directorio/solicitud
+y sincronización de estado del panel. Sin despliegue ni iOS. Siguiente: perfil
+institucional y solicitudes PR-I5. [Evidencia y límites](PR_I5_T_TERRITORIO.md).
+Las notas inferiores conservan el estado histórico al terminar cada entrega.
+
+**11 de octubre — PR-I5-T4:** filtros territoriales + nombre antes de paginar en
+API; filtros dependientes Flutter con Todos, reinicio de página y respuestas
+tardías aisladas. Ubicación oficial pública sin exponer contactos/códigos de
+ingreso. Legado sin ubicación aparece nacionalmente. Sigue T5; guion y resultados
+en [acta territorial](PR_I5_T_TERRITORIO.md). Sin despliegue ni prueba física T4.
+
+**11 de octubre — PR-I5-T3:** formulario territorial Flutter y revisión ADMIN
+implementados, demo adaptada y pruebas automatizadas. En ese cierre seguían T4 y T5
+ensayo conjunto en celular. Sin commit, push ni despliegue en este checkpoint.
+Ver evidencia y límites en [acta territorial](PR_I5_T_TERRITORIO.md).
+
+**10 de octubre — PR-I5A/B y PR-I5-T1:** directorio aprobado en ensayo
+API/PostgreSQL/Android; luego catálogo territorial DANE/API implementado y
+probado automáticamente. T1 no incluye UI, persistencia ni ranking territorial.
+Después se completó T2: persistencia/revisión administrativa, 16 casos SQL reales
+y regresión backend 1.311 aprobados. Sin migración remota. En ese cierre seguía T3 según
+[acta territorial](PR_I5_T_TERRITORIO.md).
+
 **IC-1C Rescate, cierre local 10 de octubre:** [acta](IC1_RESCATE.md).
 Cliente/tests/Android/API/SQL aprobados en su alcance local; saldo final80 tras
 dos abandonos distintos. Push manual/cierre operativo separados. Después: instituciones.

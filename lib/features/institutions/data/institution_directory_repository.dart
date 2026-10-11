@@ -11,14 +11,28 @@ class RemoteInstitutionDirectoryRepository
   Future<InstitutionDirectoryPageData> search({
     required String query,
     required int page,
+    String? department,
+    String? municipality,
   }) async {
     if (page < 1 || page > 10000 || query.length > 120) {
       throw ArgumentError('Consulta fuera de los límites del directorio.');
     }
+    if ((department != null && !RegExp(r'^\d{2}$').hasMatch(department)) ||
+        (municipality != null &&
+            (department == null ||
+                !RegExp(r'^\d{5}$').hasMatch(municipality) ||
+                !municipality.startsWith(department)))) {
+      throw ArgumentError('Filtro territorial inválido.');
+    }
     try {
       final response = await _dio.get<Map<String, dynamic>>(
         '/instituciones/directorio',
-        queryParameters: {'q': query.trim(), 'pagina': page},
+        queryParameters: {
+          'q': query.trim(),
+          'pagina': page,
+          'departamentoCodigo': ?department,
+          'municipioCodigo': ?municipality,
+        },
       );
       final data = response.data;
       if (data == null ||
@@ -37,7 +51,15 @@ class RemoteInstitutionDirectoryRepository
             if (row is! Map<String, dynamic>) {
               throw const FormatException('Institución inválida.');
             }
-            return PublicInstitution.fromJson(row);
+            final item = PublicInstitution.fromJson(row);
+            if ((department != null && item.departmentCode != department) ||
+                (municipality != null &&
+                    item.municipalityCode != municipality)) {
+              throw const FormatException(
+                'Resultado fuera del filtro territorial.',
+              );
+            }
+            return item;
           }),
         ),
         page: page,
@@ -67,20 +89,32 @@ class RemoteInstitutionDirectoryRepository
 class DemoInstitutionDirectoryRepository
     implements InstitutionDirectoryRepository {
   static const _items = [
-    PublicInstitution(id: 'demo-central', name: 'Colegio Central (ejemplo)'),
+    PublicInstitution(
+      id: 'demo-central',
+      name: 'Colegio Central (ejemplo)',
+      departmentCode: '91',
+      municipalityCode: '91001',
+      locationLabel: 'Leticia · Amazonas',
+    ),
     PublicInstitution(id: 'demo-norte', name: 'Instituto del Norte (ejemplo)'),
   ];
   @override
   Future<InstitutionDirectoryPageData> search({
     required String query,
     required int page,
+    String? department,
+    String? municipality,
   }) async => InstitutionDirectoryPageData(
     items: page == 1
         ? _items
               .where(
-                (item) => item.name.toLowerCase().contains(
-                  query.trim().toLowerCase(),
-                ),
+                (item) =>
+                    (department == null || item.departmentCode == department) &&
+                    (municipality == null ||
+                        item.municipalityCode == municipality) &&
+                    item.name.toLowerCase().contains(
+                      query.trim().toLowerCase(),
+                    ),
               )
               .toList()
         : [],

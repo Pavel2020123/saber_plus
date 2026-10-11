@@ -5,6 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:saber_plus/core/network/api_error.dart';
 import 'package:saber_plus/features/institutions/data/institution_approval_repository.dart';
 import 'package:saber_plus/features/institutions/presentation/institution_approval_page.dart';
+import 'package:saber_plus/features/institutions/data/institution_territory_repository.dart';
+import 'package:saber_plus/features/institutions/presentation/institution_territory_field.dart';
 
 const application = <String, dynamic>{
   'revision': 0,
@@ -115,18 +117,42 @@ void main() {
         ProviderScope(
           overrides: [
             institutionApprovalRepositoryProvider.overrideWithValue(repo),
+            institutionTerritoryRepositoryProvider.overrideWithValue(
+              DemoInstitutionTerritoryRepository(),
+            ),
           ],
           child: const MaterialApp(home: InstitutionApprovalPage()),
         ),
       );
       await tester.pumpAndSettle();
+      final department = find.byKey(
+        const ValueKey('territory-department-none'),
+      );
+      await tester.scrollUntilVisible(
+        department,
+        150,
+        scrollable: find.byType(Scrollable).first,
+      );
+      tester.widget<DropdownButtonFormField<String>>(department).onChanged!(
+        '11',
+      );
+      await tester.pumpAndSettle();
+      tester
+          .widget<DropdownButtonFormField<String>>(
+            find.byKey(const ValueKey('territory-municipality-11-none')),
+          )
+          .onChanged!('11001');
+      await tester.pumpAndSettle();
       for (final name in [
         'nombre',
-        'ciudad',
         'correoInstitucional',
         'contacto',
         'evidencia',
       ]) {
+        if (name == 'nombre') {
+          await tester.drag(find.byType(ListView), const Offset(0, 1000));
+          await tester.pumpAndSettle();
+        }
         final field = find.byKey(Key('application-$name'));
         await tester.scrollUntilVisible(
           field,
@@ -167,10 +193,15 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('Pendiente de revisión'), findsOneWidget);
       expect(
+        find.text('Solicita la aprobación de tu institución'),
+        findsNothing,
+      );
+      expect(
         find.byKey(const Key('submit-institution-application')),
         findsNothing,
       );
       expect(find.text('Aprobar'), findsNothing);
+      expect((await repo.load()).request!.data['municipioCodigo'], '11001');
       expect(tester.takeException(), null);
     },
   );

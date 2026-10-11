@@ -14,12 +14,22 @@ final institutionDirectoryRepositoryProvider =
       return RemoteInstitutionDirectoryRepository(ref.watch(dioProvider));
     });
 
-typedef DirectoryQuery = ({String query, int page});
+typedef DirectoryQuery = ({
+  String query,
+  int page,
+  String? department,
+  String? municipality,
+});
 final institutionDirectoryProvider = FutureProvider.autoDispose
     .family<InstitutionDirectoryPageData, DirectoryQuery>(
       (ref, query) => ref
           .watch(institutionDirectoryRepositoryProvider)
-          .search(query: query.query, page: query.page),
+          .search(
+            query: query.query,
+            page: query.page,
+            department: query.department,
+            municipality: query.municipality,
+          ),
     );
 final institutionDirectoryDetailProvider = FutureProvider.autoDispose
     .family<PublicInstitution, String>(

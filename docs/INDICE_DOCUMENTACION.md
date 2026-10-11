@@ -1,5 +1,9 @@
 # Índice de documentación de SaberPlus
 
+**11 de octubre: [PR-I5-T territorio](PR_I5_T_TERRITORIO.md).** T1/T2 catálogo/API
+y persistencia/revisión, T3 formularios y T4 filtros implementados; T5 cerrado
+localmente con panel/Android. Seguir con perfil institucional y solicitudes PR-I5.
+
 **IC-1C Rescate, cierre local 10 de octubre:** [acta](IC1_RESCATE.md).
 Cliente/tests/Android/API/SQL aprobados en su alcance local; saldo final80 tras
 dos abandonos distintos. Push manual/cierre operativo separados. Después: instituciones.

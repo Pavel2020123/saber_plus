@@ -10,6 +10,8 @@ import 'package:saber_plus/features/institutions/presentation/institution_admini
 import 'package:saber_plus/features/institutions/presentation/teacher_institution_providers.dart';
 import 'package:saber_plus/features/institutions/presentation/institution_approval_page.dart';
 import 'package:saber_plus/features/institutions/data/institution_approval_repository.dart';
+import 'package:saber_plus/features/institutions/data/institution_territory_repository.dart';
+import 'package:saber_plus/features/institutions/presentation/institution_territory_field.dart';
 
 void main() {
   test('interpreta el vínculo y el rol institucional sin listar personas', () {
@@ -164,6 +166,9 @@ void main() {
             teacherInstitutionRepositoryProvider.overrideWithValue(repository),
             institutionApprovalRepositoryProvider.overrideWithValue(
               DemoInstitutionApprovalRepository(),
+            ),
+            institutionTerritoryRepositoryProvider.overrideWithValue(
+              DemoInstitutionTerritoryRepository(),
             ),
           ],
           child: const MaterialApp(home: TeacherDashboardPage()),

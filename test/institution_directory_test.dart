@@ -7,19 +7,30 @@ import 'package:saber_plus/features/institutions/data/institution_directory_repo
 import 'package:saber_plus/features/institutions/domain/institution_directory.dart';
 import 'package:saber_plus/features/institutions/presentation/institution_directory_page.dart';
 import 'package:saber_plus/features/institutions/presentation/institution_directory_providers.dart';
+import 'package:saber_plus/features/institutions/presentation/institution_territory_field.dart';
+import 'package:saber_plus/features/institutions/data/institution_territory_repository.dart';
 
 class FakeDirectory implements InstitutionDirectoryRepository {
   final calls = <DirectoryQuery>[];
   Future<InstitutionDirectoryPageData> Function(String, int)? load;
+  Future<InstitutionDirectoryPageData> Function(DirectoryQuery)? filteredLoad;
   bool fail = false;
   int details = 0;
   @override
   Future<InstitutionDirectoryPageData> search({
     required String query,
     required int page,
+    String? department,
+    String? municipality,
   }) async {
-    calls.add((query: query, page: page));
+    calls.add((
+      query: query,
+      page: page,
+      department: department,
+      municipality: municipality,
+    ));
     if (fail) throw Exception('offline');
+    if (filteredLoad != null) return filteredLoad!(calls.last);
     if (load != null) return load!(query, page);
     return InstitutionDirectoryPageData(
       items: [PublicInstitution(id: 'id-$page', name: 'Colegio $page')],
@@ -40,12 +51,170 @@ Future<void> mount(WidgetTester tester, InstitutionDirectoryRepository repo) =>
       ProviderScope(
         overrides: [
           institutionDirectoryRepositoryProvider.overrideWithValue(repo),
+          institutionTerritoryRepositoryProvider.overrideWithValue(
+            DemoInstitutionTerritoryRepository(),
+          ),
         ],
         child: const MaterialApp(home: InstitutionDirectoryPage()),
       ),
     );
 
 void main() {
+  testWidgets(
+    'respuesta tardía de otro departamento no sustituye el filtro actual',
+    (tester) async {
+      tester.view.physicalSize = const Size(500, 1200);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      final late = Completer<InstitutionDirectoryPageData>();
+      final repo = FakeDirectory()
+        ..filteredLoad = (q) => q.department == '91'
+            ? late.future
+            : Future.value(
+                InstitutionDirectoryPageData(
+                  items: [
+                    PublicInstitution(
+                      id: 'new',
+                      name: q.department == '20'
+                          ? 'Resultado Cesar'
+                          : 'Nacional',
+                    ),
+                  ],
+                  page: 1,
+                  hasMore: false,
+                ),
+              );
+      await mount(tester, repo);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Filtrar por ubicación'));
+      await tester.pumpAndSettle();
+      tester
+          .widget<DropdownButtonFormField<String>>(
+            find.byKey(const ValueKey('directory-department-all')),
+          )
+          .onChanged!('91');
+      await tester.pump();
+      await tester.pump();
+      tester
+          .widget<DropdownButtonFormField<String>>(
+            find.byKey(const ValueKey('directory-department-91')),
+          )
+          .onChanged!('20');
+      await tester.pumpAndSettle();
+      late.complete(
+        const InstitutionDirectoryPageData(
+          items: [PublicInstitution(id: 'old', name: 'Resultado obsoleto')],
+          page: 1,
+          hasMore: false,
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('Resultado Cesar'), findsOneWidget);
+      expect(find.text('Resultado obsoleto'), findsNothing);
+    },
+  );
+  test(
+    'remoto envía filtros y rechaza resultados fuera de la región',
+    () async {
+      final dio = Dio();
+      RequestOptions? captured;
+      dio.interceptors.add(
+        InterceptorsWrapper(
+          onRequest: (options, handler) {
+            captured = options;
+            handler.resolve(
+              Response(
+                requestOptions: options,
+                data: {
+                  'instituciones': [
+                    {'id': 'x', 'nombre': 'Colegio', 'ubicacion': null},
+                  ],
+                  'pagina': 1,
+                  'hayMas': false,
+                },
+              ),
+            );
+          },
+        ),
+      );
+      final repo = RemoteInstitutionDirectoryRepository(dio);
+      await expectLater(
+        repo.search(
+          query: '',
+          page: 1,
+          department: '05',
+          municipality: '05001',
+        ),
+        throwsFormatException,
+      );
+      expect(captured!.queryParameters, {
+        'q': '',
+        'pagina': 1,
+        'departamentoCodigo': '05',
+        'municipioCodigo': '05001',
+      });
+      await expectLater(
+        repo.search(query: '', page: 1, municipality: '05001'),
+        throwsArgumentError,
+      );
+    },
+  );
+  test(
+    'demo sin ubicación solo aparece sin filtro, no se inventa región',
+    () async {
+      final repo = DemoInstitutionDirectoryRepository();
+      expect((await repo.search(query: '', page: 1)).items.length, 2);
+      expect(
+        (await repo.search(
+          query: '',
+          page: 1,
+          department: '91',
+        )).items.single.municipalityCode,
+        '91001',
+      );
+      expect(
+        (await repo.search(query: '', page: 1, department: '20')).items,
+        isEmpty,
+      );
+    },
+  );
+  testWidgets('cambiar departamento limpia municipio y reinicia paginación', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(500, 1200);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final repo = FakeDirectory();
+    await mount(tester, repo);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Siguiente'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Filtrar por ubicación'));
+    await tester.pumpAndSettle();
+    void select(String key, String value) => tester
+        .widget<DropdownButtonFormField<String>>(find.byKey(ValueKey(key)))
+        .onChanged!(value);
+    select('directory-department-all', '91');
+    await tester.pumpAndSettle();
+    expect(repo.calls.last.page, 1);
+    expect(repo.calls.last.department, '91');
+    select('directory-municipality-all', '91001');
+    await tester.pumpAndSettle();
+    expect(repo.calls.last.municipality, '91001');
+    expect(find.text('Amazonas · Leticia'), findsOneWidget);
+    expect(find.textContaining('Filtro territorial:'), findsNothing);
+    select('directory-department-91', '20');
+    await tester.pumpAndSettle();
+    expect(repo.calls.last.department, '20');
+    expect(repo.calls.last.municipality, null);
+    await tester.tap(find.text('Todas las ubicaciones'));
+    await tester.pumpAndSettle();
+    expect(repo.calls.last.department, null);
+    expect(repo.calls.last.page, 1);
+    expect(tester.takeException(), null);
+  });
   test('remoto usa GET paginado y detalle sin enviar códigos', () async {
     final dio = Dio();
     final calls = <RequestOptions>[];
@@ -125,7 +294,12 @@ void main() {
     await tester.enterText(find.byType(TextField), 'Norte');
     await tester.tap(find.text('Buscar'));
     await tester.pumpAndSettle();
-    expect(repo.calls.last, (query: 'Norte', page: 1));
+    expect(repo.calls.last, (
+      query: 'Norte',
+      page: 1,
+      department: null,
+      municipality: null,
+    ));
   });
   testWidgets('error permite reintentar sin fabricar resultados', (
     tester,

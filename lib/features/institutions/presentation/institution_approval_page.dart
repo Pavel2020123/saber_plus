@@ -6,6 +6,8 @@ import '../../../core/network/api_error.dart';
 import '../../auth/presentation/session_controller.dart';
 import '../data/institution_approval_repository.dart';
 import 'teacher_institution_providers.dart';
+import 'institution_territory_field.dart';
+import '../data/institution_territory_repository.dart';
 
 final institutionApprovalRepositoryProvider =
     Provider<InstitutionApprovalRepository>((ref) {
@@ -51,6 +53,8 @@ class _InstitutionApprovalPageState
   var _working = false, _declared = false;
   String? _loaded, _message;
   List<String>? _matches;
+  InstitutionTerritorySelection? _territory;
+  String? _originalMunicipality;
   @override
   void dispose() {
     _cancel.cancel();
@@ -123,6 +127,8 @@ class _InstitutionApprovalPageState
               }
               _loaded = key;
               _declared = false;
+              _territory = null;
+              _originalMunicipality = row?.data['municipioCodigo'] as String?;
             }
             return Form(
               key: _form,
@@ -133,14 +139,19 @@ class _InstitutionApprovalPageState
                     const Text(
                       'Demostración: esta solicitud no llega al equipo de SaberPlus.',
                     ),
-                  const Text(
-                    'Solicita la aprobación de tu institución',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'El equipo de SaberPlus comprobará que representas a la institución. Los grupos y el seguimiento se habilitan después de aprobarla.',
-                  ),
+                  if (row == null) ...[
+                    const Text(
+                      'Solicita la aprobación de tu institución',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'El equipo de SaberPlus comprobará que representas a la institución. Los grupos y el seguimiento se habilitan después de aprobarla.',
+                    ),
+                  ],
                   if (row != null)
                     Card(
                       child: Padding(
@@ -156,6 +167,17 @@ class _InstitutionApprovalPageState
                               ),
                             ),
                             Text(row.message),
+                            if (!data.canEdit) ...[
+                              Text('Ciudad declarada: ${row.field('ciudad')}'),
+                              if (row.data['municipioCodigo'] != null)
+                                Text(
+                                  'Ubicación territorial registrada: ${row.data['departamentoCodigo']} / ${row.data['municipioCodigo']}.',
+                                )
+                              else
+                                const Text(
+                                  'Ubicación territorial pendiente de clasificar; no se deduce de la ciudad declarada.',
+                                ),
+                            ],
                             if (data.transitionUntil != null)
                               Text(
                                 'Plazo de revisión: ${data.transitionUntil!.toLocal().day}/${data.transitionUntil!.toLocal().month}/${data.transitionUntil!.toLocal().year}. Pide al propietario que complete la información.',
@@ -176,7 +198,21 @@ class _InstitutionApprovalPageState
                             ? 'No encontramos coincidencias. El equipo revisará posibles duplicados.'
                             : 'Posibles coincidencias:\n${_matches!.join('\n')}\nSi es tu institución, solicita una invitación a su responsable.',
                       ),
-                    _field('ciudad', 'Ciudad o municipio', min: 2),
+                    if (row?.field('ciudad').isNotEmpty ?? false)
+                      Text(
+                        'Ciudad declarada anteriormente: ${row!.field('ciudad')}',
+                      ),
+                    InstitutionTerritoryField(
+                      key: ValueKey('application-territory-$key'),
+                      repository: ref.watch(
+                        institutionTerritoryRepositoryProvider,
+                      ),
+                      initialDepartment:
+                          row?.data['departamentoCodigo'] as String?,
+                      initialMunicipality: _originalMunicipality,
+                      enabled: !_working,
+                      onChanged: (value) => _territory = value,
+                    ),
                     _field(
                       'correoInstitucional',
                       'Correo de contacto institucional',
@@ -314,6 +350,12 @@ class _InstitutionApprovalPageState
 
   Future<void> _submit(int revision) async {
     if (!(_form.currentState?.validate() ?? false)) return;
+    if (_territory == null) {
+      setState(
+        () => _message = 'Selecciona departamento y municipio de la sede.',
+      );
+      return;
+    }
     if (!_declared) {
       setState(
         () => _message =
@@ -329,9 +371,17 @@ class _InstitutionApprovalPageState
       await ref.read(institutionApprovalRepositoryProvider).submit({
         'revision': revision,
         'declaracion': true,
+        'departamentoCodigo': _territory!.department.code,
+        'municipioCodigo': _territory!.municipality.code,
+        'ciudad':
+            _originalMunicipality == _territory!.municipality.code &&
+                _fields['ciudad']!.text.isNotEmpty
+            ? _fields['ciudad']!.text.trim()
+            : _territory!.municipality.name,
         for (final field in _fields.entries)
-          if (field.key != 'referenciaUrl' ||
-              field.value.text.trim().isNotEmpty)
+          if (field.key != 'ciudad' &&
+              (field.key != 'referenciaUrl' ||
+                  field.value.text.trim().isNotEmpty))
             field.key: field.value.text.trim(),
       }, cancelToken: _cancel);
       if (!mounted || _cancel.isCancelled) return;

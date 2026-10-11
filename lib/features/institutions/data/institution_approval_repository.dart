@@ -27,6 +27,16 @@ class InstitutionApplication {
         ].any((key) => json[key] is! String)) {
       throw const FormatException('Solicitud institucional inválida');
     }
+    final department = json['departamentoCodigo'],
+        municipality = json['municipioCodigo'];
+    if ((department != null || municipality != null) &&
+        (department is! String ||
+            municipality is! String ||
+            !RegExp(r'^\d{2}$').hasMatch(department) ||
+            !RegExp(r'^\d{5}$').hasMatch(municipality) ||
+            !municipality.startsWith(department))) {
+      throw const FormatException('Ubicación institucional inválida');
+    }
   }
   final Map<String, dynamic> data;
   String get state => data['estado'] as String;

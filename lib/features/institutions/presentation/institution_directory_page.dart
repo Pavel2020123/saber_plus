@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../data/institution_directory_repository.dart';
 import 'institution_directory_providers.dart';
+import 'institution_directory_filters.dart';
 
 class InstitutionDirectoryPage extends ConsumerStatefulWidget {
   const InstitutionDirectoryPage({super.key});
@@ -15,6 +16,14 @@ class _InstitutionDirectoryPageState
   final _search = TextEditingController();
   var _query = '';
   var _page = 1;
+  String? _department, _municipality;
+  bool _filtersVisible = false;
+  DirectoryQuery get _key => (
+    query: _query,
+    page: _page,
+    department: _department,
+    municipality: _municipality,
+  );
   @override
   void dispose() {
     _search.dispose();
@@ -27,13 +36,29 @@ class _InstitutionDirectoryPageState
       _query = _search.text.trim();
       _page = 1;
     });
-    ref.invalidate(institutionDirectoryProvider((query: _query, page: _page)));
+    ref.invalidate(institutionDirectoryProvider(_key));
   }
 
   @override
   Widget build(BuildContext context) {
-    final key = (query: _query, page: _page);
+    final key = _key;
     final state = ref.watch(institutionDirectoryProvider(key));
+    final locationNames = <String>[];
+    if (_department != null) {
+      final departments = ref.watch(directoryDepartmentsProvider).asData?.value;
+      for (final option in departments?.options ?? []) {
+        if (option.code == _department) locationNames.add(option.name);
+      }
+      if (_municipality != null) {
+        final municipalities = ref
+            .watch(directoryMunicipalitiesProvider(_department!))
+            .asData
+            ?.value;
+        for (final option in municipalities?.options ?? []) {
+          if (option.code == _municipality) locationNames.add(option.name);
+        }
+      }
+    }
     final demo =
         ref.watch(institutionDirectoryRepositoryProvider)
             is DemoInstitutionDirectoryRepository;
@@ -71,13 +96,56 @@ class _InstitutionDirectoryPageState
               decoration: const InputDecoration(
                 labelText: 'Nombre de la institución',
                 prefixIcon: Icon(Icons.search),
+                counterText: '',
               ),
             ),
+            const SizedBox(height: 12),
             FilledButton.icon(
+              style: FilledButton.styleFrom(
+                minimumSize: const Size.fromHeight(48),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+              ),
               onPressed: _submit,
               icon: const Icon(Icons.search),
               label: const Text('Buscar'),
             ),
+            const SizedBox(height: 16),
+            OutlinedButton.icon(
+              icon: const Icon(Icons.tune, size: 20),
+              onPressed: () =>
+                  setState(() => _filtersVisible = !_filtersVisible),
+              label: Text(
+                _filtersVisible
+                    ? 'Ocultar filtros de ubicación'
+                    : 'Filtrar por ubicación',
+              ),
+            ),
+            if (locationNames.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Row(
+                  children: [
+                    const Icon(Icons.location_on_outlined, size: 18),
+                    const SizedBox(width: 8),
+                    Expanded(child: Text(locationNames.join(' · '))),
+                  ],
+                ),
+              ),
+            if (_filtersVisible)
+              Padding(
+                padding: const EdgeInsets.only(top: 12, bottom: 8),
+                child: InstitutionDirectoryFilters(
+                  department: _department,
+                  municipality: _municipality,
+                  onChanged: (department, municipality) => setState(() {
+                    _department = department;
+                    _municipality = municipality;
+                    _page = 1;
+                  }),
+                ),
+              ),
             const SizedBox(height: 16),
             if (_query.isNotEmpty) Text('Resultados para «$_query»'),
             state.when(
@@ -114,6 +182,10 @@ class _InstitutionDirectoryPageState
                       child: ListTile(
                         leading: const Icon(Icons.school_outlined),
                         title: Text(item.name),
+                        subtitle: Text(
+                          item.locationLabel ??
+                              'Ubicación pendiente de clasificar',
+                        ),
                         trailing: const Icon(Icons.chevron_right),
                         onTap: () => Navigator.of(context).push(
                           MaterialPageRoute<void>(
@@ -188,6 +260,9 @@ class InstitutionDirectoryDetailPage extends ConsumerWidget {
                   Text(
                     item.name,
                     style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                  Text(
+                    item.locationLabel ?? 'Ubicación pendiente de clasificar',
                   ),
                   const SizedBox(height: 16),
                   const Text(

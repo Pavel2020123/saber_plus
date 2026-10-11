@@ -1,10 +1,18 @@
 # Relevo de pruebas locales — Docker, Android USB y juegos
 
-Actualizado: 9 de octubre de 2026. Guía operativa para el propietario, compañeros
+Actualizado: 11 de octubre de 2026. Guía operativa para el propietario, compañeros
 y sus chats. **El punto vivo de continuación está en
 [ETAPAS_PENDIENTES — checkpoint](ETAPAS_PENDIENTES.md#checkpoint-de-relevo-de-pruebas)**.
 Si avanzamos, actualizar ese bloque y el acta del juego; no empezar desde una
 captura antigua ni una instrucción de chat que contradiga el repositorio actual.
+
+**Checkpoint del 11 de octubre: PR-I5-T5 cerrado localmente.** Docker/USB,
+62 migraciones, guion territorial HTTP/PostgreSQL, panel y recorrido Android
+aprobados en el alcance del acta. Siguiente: perfil institucional y solicitudes
+PR-I5. Verificar servicios al retomar, no asumirlos activos. El harness admite solo
+la migración territorial pendiente por ruta explícita; previas vienen de HEAD.
+Consultar [acta territorial](PR_I5_T_TERRITORIO.md). Las secciones de juegos
+inferiores son antecedentes y procedimientos, no orden para repetirlos.
 
 ## 1. Qué recibir y leer antes de trabajar
 

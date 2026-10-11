@@ -1,8 +1,13 @@
 # SaberPlus móvil
 
-**Etapa actual: [PR-I5A/B — instituciones](docs/PR_I5_DIRECTORIO.md).**
-Directorio backend y cliente Flutter implementados: Más → Buscar instituciones.
-Ensayo local HTTP/PostgreSQL/Android aprobado; siguiente: departamento/municipio PR-I5-T.
+**Etapa actual: [PR-I5-T — territorio institucional](docs/PR_I5_T_TERRITORIO.md).**
+T1/T2: catálogo DANE/API y persistencia/revisión implementados en backend;
+16 casos PostgreSQL T2 aprobados. T3 selectores Flutter/ADMIN implementados el
+11 de octubre; T4 filtros del directorio implementados y **T5 cerrado localmente**
+con API/PostgreSQL/panel/Android. Siguiente: perfil institucional y solicitudes
+estudiantiles de PR-I5. No acredita despliegue ni validación iOS.
+[Directorio PR-I5A/B](docs/PR_I5_DIRECTORIO.md)
+conserva su ensayo local HTTP/PostgreSQL/Android aprobado.
 
 **IC-1C Rescate, cierre local 10 de octubre:** [acta](docs/IC1_RESCATE.md).
 Cliente/tests/Android/API/SQL aprobados en su alcance local; saldo final80 tras
