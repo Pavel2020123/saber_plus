@@ -1,5 +1,16 @@
 # Relevo de pruebas locales — Docker, Android USB y juegos
 
+**Checkpoint más reciente,12 de octubre: perfil PR-I5-C1C.** Preparación aprobada
+con63 migraciones, API43187, 15 HTTP/PostgreSQL +3 Flutter/API reales y APK instalada.
+Pruebas humanas 1–6 aprobadas (incluido límite500/guardado, SQL500/revisión12).
+Pruebas 7 y 8 aprobadas: fallo/red/borrador y recuperación/consulta/guardado.
+Reverse43187 restaurado. Prueba9 aprobada: conflicto/consulta/guardado recuperado,
+SQL revisión15. Prueba10 aprobada: «Seguir editando» conserva y «Salir» descarta;
+reapertura y SQL confirman publicado intacto/revisión15. **C1C local cerrada:**
+10/10 humanas; siguiente C2, logo institucional. No acredita despliegue remoto.
+Ver [acta del perfil](PR_I5_C_PERFIL.md). Harness admite rutas explícitas territorial
+y perfil pendientes; restantes migraciones desde HEAD. La nota T5 inferior es histórica.
+
 Actualizado: 11 de octubre de 2026. Guía operativa para el propietario, compañeros
 y sus chats. **El punto vivo de continuación está en
 [ETAPAS_PENDIENTES — checkpoint](ETAPAS_PENDIENTES.md#checkpoint-de-relevo-de-pruebas)**.

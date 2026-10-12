@@ -9,6 +9,7 @@ import '../../institutions/domain/teacher_institution_models.dart';
 import '../../institutions/presentation/teacher_institution_providers.dart';
 import '../../institutions/presentation/teacher_metrics_layout.dart';
 import '../../institutions/presentation/institution_approval_page.dart';
+import '../../institutions/presentation/institution_profile_page.dart';
 
 class TeacherDashboardPage extends ConsumerStatefulWidget {
   const TeacherDashboardPage({super.key});
@@ -141,6 +142,17 @@ class _TeacherDashboardPageState extends ConsumerState<TeacherDashboardPage> {
                       : null,
                 ),
               },
+              if (data.status == TeacherInstitutionStatus.linked &&
+                  data.institution?.verificationState == 'APROBADA')
+                OutlinedButton.icon(
+                  icon: const Icon(Icons.school_outlined),
+                  label: const Text('Perfil institucional'),
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => const InstitutionProfilePage(),
+                    ),
+                  ),
+                ),
             ],
           ),
         ),

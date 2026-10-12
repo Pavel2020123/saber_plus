@@ -266,6 +266,17 @@ class InstitutionDirectoryDetailPage extends ConsumerWidget {
                   ),
                   const SizedBox(height: 16),
                   const Text(
+                    'Sobre la institución',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    item.description?.trim().isNotEmpty == true
+                        ? item.description!
+                        : 'Esta institución todavía no ha añadido una presentación pública.',
+                  ),
+                  const SizedBox(height: 24),
+                  const Text(
                     'Consultar esta ficha no te vincula a la institución. Las solicitudes de ingreso desde el directorio estarán disponibles en una próxima actualización.',
                   ),
                 ],

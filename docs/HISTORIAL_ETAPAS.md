@@ -1,5 +1,15 @@
 # Historial completo de etapas de SaberPlus
 
+**11 de octubre — PR-I5-C1B:** editor de presentación pública en panel docente,
+solo propietario edita, borrador protegido y revisión antes de reenviar.
+Repositorio remoto/demo y pruebas dirigidas; análisis sin incidencias.
+Pendiente C1C integrado, migración y APK; no cierre completo de C1/PR-I5.
+
+**11 de octubre — PR-I5-C1A:** contrato de perfil público con revisión y auditoría,
+lectura Flutter, 45 pruebas backend y 21 Flutter dirigidas aprobadas. Build backend
+correcto. Sin migrar/desplegar/probar en celular. Falta editor C1B y ensayo;
+[detalle y límites](PR_I5_C_PERFIL.md). No cierra toda PR-I5.
+
 **11 de octubre — PR-I5-T5, cierre local:** filtros territoriales/nombre/paginación,
 red/reintento, legado, suspensión, solicitud, petición de información, restauración,
 reenvío sin duplicados, aprobación y corrección ADMIN auditada comprobados con

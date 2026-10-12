@@ -5,9 +5,11 @@ class PublicInstitution {
     this.departmentCode,
     this.municipalityCode,
     this.locationLabel,
+    this.description,
   });
   final String id;
   final String name;
+  final String? description;
   final String? departmentCode, municipalityCode, locationLabel;
 
   factory PublicInstitution.fromJson(Map<String, dynamic> json) {
@@ -16,8 +18,19 @@ class PublicInstitution {
     if (id is! String || id.isEmpty || name is! String || name.trim().isEmpty) {
       throw const FormatException('Identidad institucional inválida.');
     }
+    final description = json['descripcion'];
+    if (description != null &&
+        (description is! String || description.length > 500)) {
+      throw const FormatException('Presentación institucional inválida.');
+    }
     final location = json['ubicacion'];
-    if (location == null) return PublicInstitution(id: id, name: name);
+    if (location == null) {
+      return PublicInstitution(
+        id: id,
+        name: name,
+        description: description as String?,
+      );
+    }
     if (location is! Map ||
         location['departamentoCodigo'] is! String ||
         location['municipioCodigo'] is! String ||
@@ -37,6 +50,7 @@ class PublicInstitution {
     return PublicInstitution(
       id: id,
       name: name,
+      description: description as String?,
       departmentCode: location['departamentoCodigo'] as String,
       municipalityCode: location['municipioCodigo'] as String,
       locationLabel:

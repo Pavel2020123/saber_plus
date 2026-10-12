@@ -1,6 +1,27 @@
 # Prompt para continuar SaberPlus con otro chat
 
+**12 de octubre, checkpoint vigente:** C1C tiene preparación y pruebas automáticas
+reales aprobadas (15 HTTP/SQL +3 Flutter/API), migración en base temporal y APK
+instalada. Pruebas humanas 1–6 aprobadas: propietario/editor, docente lector,
+publicación (UX corregida), conservación tras cierre/reapertura y presentación
+vacía confirmada por propietario/estudiante y límite500/guardado (SQL500/revisión12).
+Prueba 7 aprobada (error sin red, borrador conservado y Guardar bloqueado).
+Prueba 8 aprobada: consulta conserva borrador y guardado recuperado vuelve a lectura.
+Prueba 9 aprobada: conflicto conserva borrador, bloquea reenvío, consulta recupera
+guardado y éxito vuelve a lectura. SQL confirma «borrador ficticio», revisión15.
+Prueba10 aprobada: «Seguir editando» conserva borrador; «Salir» lo descarta.
+Reabrir muestra «borrador ficticio»; SQL confirma revisión15 sin escritura nueva.
+**C1C completada localmente (10/10 humanas). Siguiente: C2, logo institucional.**
+No repetir estas pruebas salvo regresión; despliegue Supabase/Render no validado.
+Leer PR_I5_C_PERFIL.md; verificar supervisor/USB y credenciales nuevas al retomar.
+
 Actualizado: 11 de octubre de 2026. Copiar el bloque completo; adaptar rutas.
+**Continuación vigente: C1B implementada en Flutter; seguir C1C, ensayo integrado
+del perfil (HTTP/PostgreSQL temporal/Android).** Migración no aplicada todavía.
+No repetir T5 ni implementar otra vez el editor. Ver PR_I5_C_PERFIL.md.
+**Checkpoint más reciente: PR-I5-C1A implementada. Continuar C1B (editor del
+propietario), no repetir T5.** Leer [contrato y pendientes](PR_I5_C_PERFIL.md).
+La migración del perfil no está aplicada; faltan HTTP/SQL real/Android de C1.
 Checkpoint del 11 de octubre: PR-I5-T1/T2/T3/T4 implementadas;
 16 pruebas PostgreSQL T2 aprobadas y T5 cerrado localmente con panel/Android.
 Seguir con perfil institucional y solicitudes estudiantiles de PR-I5; no repetir

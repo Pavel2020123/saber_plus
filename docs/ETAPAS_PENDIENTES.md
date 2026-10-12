@@ -1,6 +1,33 @@
 # SaberPlus — etapas pendientes y ruta vigente del equipo
 
-## Estado vigente — 11 de octubre de 2026
+## Estado vigente — 12 de octubre de 2026
+
+**PR-I5-C1C completada localmente:** 15 HTTP/PostgreSQL reales y 3 Flutter/API aprobadas,
+63 migraciones aplicadas solo en base temporal propia. APK nueva instalada por
+USB (Success). **Prueba humana 1 aprobada: propietario abre editor**.
+Pruebas humanas 2 y 3 aprobadas: docente solo lectura y guardado/consulta estudiantil.
+Pruebas humanas 1–7 aprobadas, incluido límite500/guardado (SQL500/revisión12),
+error sin conexión, borrador conservado y Guardar bloqueado.
+Prueba 8 aprobada: consulta conserva borrador y guardado exitoso vuelve a lectura.
+Prueba 9 aprobada: edición externa revisión13→14; conflicto sin sobrescritura,
+borrador conservado y Guardar bloqueado; consulta recupera edición y guardado
+exitoso vuelve a lectura. SQL confirma «borrador ficticio», revisión15.
+Prueba10 aprobada: «Seguir editando» conserva y «Salir» descarta sin publicar.
+Reapertura confirmada y SQL revisión15 intacta. **10/10 pruebas humanas aprobadas.**
+Siguiente: C2, logo institucional. Supabase/Render siguen sin validación de este cambio.
+[Acta del perfil](PR_I5_C_PERFIL.md).
+Este checkpoint actualiza las notas anteriores de migración/instalación pendientes.
+
+**PR-I5-C1B código implementado:** editor docente/propietario, revisión,
+borrador conservado y consulta antes de reenviar. **Sigue C1C: ensayo integrado**
+HTTP/PostgreSQL temporal/Android. Migración aún pendiente; C1 y PR-I5 no cerradas.
+Ver [perfil institucional](PR_I5_C_PERFIL.md). Prevalece sobre checkpoint C1A inferior.
+
+**PR-I5-C1A implementada:** contrato seguro de presentación pública institucional
+y lectura en Flutter. **Siguiente: C1B, formulario del propietario y ensayo**;
+después logo C2 y solicitudes estudiantiles. Migración C1A todavía no aplicada;
+no arrancar API nueva contra esquema antiguo. [Alcance y relevo](PR_I5_C_PERFIL.md).
+Este checkpoint precisa el siguiente bloque de las notas históricas inferiores.
 
 **PR-I5-T5 cerrada localmente:** usuario confirma aprobación final inmediata,
 ficha/historial conservados y estado aprobado en Android. Directorio territorial,
@@ -160,6 +187,25 @@ I2-5 tiene [criterios funcionales revisados](I2_5_RECORRIDO_ANDROID.md);
 limpieza/cierre operativo y deuda QA-1 siguen separados y pendientes.
 
 ## Checkpoint de relevo de pruebas
+
+**12 de octubre — perfil C1C:** preparación SQL/API/USB y APK completada,
+15 HTTP/SQL +3 Flutter/API reales aprobadas. Base temporal con63 migraciones,
+API43187, sin panel nuevo. **Prueba humana 1 confirmada**: propietario/editor.
+**Prueba humana 2 confirmada**: docente lector sin edición ni guardar.
+**Prueba humana 3 confirmada**: guardado, cierre de edición y texto público
+actualizado en ficha del estudiante. **Prueba humana 4 confirmada**: cierre/reapertura
+manual conserva texto. **Prueba humana 5 confirmada**: vacío guardado y estado
+vacío confirmado por propietario/estudiante. **Prueba humana 6 confirmada**:
+límite500/guardado, SQL500/revisión12. **Prueba humana 7 confirmada**:
+error sin red, borrador conservado y Guardar bloqueado.
+**Prueba humana 8 confirmada**: consulta conserva borrador y guardado recuperado
+vuelve a lectura. **Prueba humana 9 confirmada**: conflicto conserva borrador,
+consulta recupera guardado y SQL confirma revisión15. **Prueba10 confirmada**:
+«Seguir editando» conserva, «Salir» descarta sin publicar; SQL revisión15 intacta.
+**C1C completada localmente; siguiente C2, logo institucional.**
+Nuevo perfil abre en lectura, edición por botón.
+Ver [acta C1C](PR_I5_C_PERFIL.md) para cuentas, comandos y reanudación.
+Al retomar verificar servicios y credenciales actuales.
 
 **Actualizar este bloque después de CADA prueba, no solo al acabar el juego.**
 Preparación, guion, credenciales ficticias, USB/Docker y prompt para el compañero:
