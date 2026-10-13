@@ -1,5 +1,11 @@
 # SaberPlus V1 — Alcance de noviembre de 2026
 
+**Actualización de coordinación, 12 de octubre:** OV-1 se adelanta en paralelo:
+el compañero desarrolla orientación vocacional y el propietario instituciones.
+La numeración inferior agrupa funcionalidades; ya no exige esperar al bloque 5
+para comenzar el 6. Ver [reparto y criterios](TRABAJO_PARALELO.md). Se conserva
+el alcance de producto y la revisión de contenido antes de publicar el test.
+
 Decisión del propietario: **9 de octubre de 2026**. Objetivo de sustentación:
 15 de noviembre de 2026; es una meta, no una garantía de terminar todo.
 Este acuerdo corrige la propuesta que aplazaba también funcionalidades sociales

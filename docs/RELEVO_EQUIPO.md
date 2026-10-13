@@ -1,5 +1,10 @@
 # Relevo del equipo — empezar aquí
 
+**Trabajo paralelo acordado:** propietario → instituciones (sigue C2C);
+compañero → test vocacional OV-1 (comienza A, después B/C/D), sin esperar C2C.
+Ver [responsables, ramas y entrega](TRABAJO_PARALELO.md). Este acuerdo sustituye
+la secuencia estricta de OV-1 y el trabajo individual directo en main.
+
 ## Continuación vigente — 12 de octubre de 2026
 
 **Siguiente: PR-I5-C2C, ensayo integrado del logo institucional.**
@@ -64,7 +69,7 @@ Validación ya publicada en ambos repositorios; nuevas publicaciones no son auto
 
 Después: IC-1/2/3 (clientes, Memoria y Batallas), PR-I3 y bloque social.
 QA-1/DOC-1 son apoyo, C5 antes de fotos. No activar servicios por integrar código.
-Trabajo en main por decisión del propietario; coordinar archivos y preservar cambios.
+Trabajo por ramas de frente según TRABAJO_PARALELO; preservar cambios ajenos.
 P5/D3 y operaciones remotas siguen pausadas. Visibilidad/protección de GitHub
 no verificadas; no afirmar repos privados ni modificar accesos.
 
@@ -524,14 +529,14 @@ no añadirlos por iniciativa propia ni resucitar Taller de inventos.
 ## 6. Cómo hacer cambios sin pisarse
 
 Elegir una etapa y responsable y anunciar archivos previstos. La política actual
-es main, coordinando cambios; rama/PR solo si se acuerda. Antes de actualizar:
+usa ramas por frente según TRABAJO_PARALELO.md; main es la base de integración. Antes de actualizar:
 
 ```powershell
 cd "C:\Proyectos\saber_plus"
 git status --short
 git switch main
 git pull --ff-only origin main
-# No cambiar a una rama nueva sin acordarlo con el propietario.
+# Después seleccionar/crear la rama de tu frente según TRABAJO_PARALELO.md.
 ```
 
 Repetir desde `C:\Proyectos\SaberPlus-Backend` si la entrega lo necesita. **Si hay

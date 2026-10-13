@@ -1,5 +1,10 @@
 # Prompt para continuar SaberPlus con otro chat
 
+**Trabajo paralelo acordado:** propietario → instituciones (sigue C2C);
+compañero → test vocacional OV-1 (comienza A, después B/C/D), sin esperar C2C.
+Ver [responsables, ramas y entrega](TRABAJO_PARALELO.md). Este acuerdo sustituye
+la secuencia estricta de OV-1 y el trabajo individual directo en main.
+
 ## Continuación vigente — 12 de octubre de 2026
 
 **Siguiente: PR-I5-C2C, ensayo integrado del logo institucional.**
@@ -33,8 +38,10 @@ Antes de editar:
    contratos afectados, package.json y migraciones.
 3. Audita el flujo concreto UI → controlador → repositorio → API → permisos →
    servicio → Prisma → respuesta. Leer documentación no equivale a auditar todo.
-4. Trabaja en main por decisión del propietario, coordinando archivos con el
-   equipo. Rama/PR solo si se acuerda. No commit/push/merge automático.
+4. Lee TRABAJO_PARALELO.md y elige tu frente: propietario instituciones;
+   compañero OV-1. Usa su rama en ambos repos; no editar main directamente.
+   No commit/push/merge automático. C2C es la continuación del propietario,
+   no la tarea del compañero.
 
 Estado vigente al 12 de octubre de 2026:
 - C2A/backend y C2B/Flutter implementadas. Sigue C2C: leer docs/PR_I5_C2_LOGO.md
@@ -84,10 +91,12 @@ Antecedentes (no son el siguiente trabajo):
 - No usar fixtures de ranking como prueba de partidas competitivas verificadas.
 - No confundir flags apagados por defecto con estado remoto inspeccionado.
 
-Ruta:
-C2C logo → solicitudes estudiantiles/avisos de PR-I5 → académico/profesor/panel →
-insignias/perfiles → ranking institucional/ensayo social → OV-1 → cierre funcional
-y comercial → UI-F → validación/sustentación → lanzamiento/operación.
+Ruta por responsable:
+Propietario: C2C logo → solicitudes estudiantiles/avisos de PR-I5.
+Compañero en paralelo: OV-1A → B → C → D, sin esperar instituciones.
+El resto del roadmap (académico/profesor/panel, insignias/perfiles, ranking
+institucional/ensayo social y cierre funcional/comercial) se coordina al integrar.
+Ambos frentes deben entregar sus validaciones antes de UI-F/beta/lanzamiento.
 Solo competición Cima/Guardián/Rescate para V1. Trivia/Duelo/Tira/IC-2/IC-3
 competitivos después; preservar código y modos normales. No seguir con Trivia
 al cerrar Rescate. No aplazar OV-1, perfiles ni otras funciones sin nueva decisión.

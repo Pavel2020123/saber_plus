@@ -1,5 +1,10 @@
 # Relevo de pruebas locales — Docker, Android USB y juegos
 
+**Trabajo paralelo acordado:** propietario → instituciones (sigue C2C);
+compañero → test vocacional OV-1 (comienza A, después B/C/D), sin esperar C2C.
+Ver [responsables, ramas y entrega](TRABAJO_PARALELO.md). Este acuerdo sustituye
+la secuencia estricta de OV-1 y el trabajo individual directo en main.
+
 **Siguiente: PR-I5-C2C, logo institucional.** Código C2A/B implementado; migración
 y ensayo SQL/HTTP/Android pendientes. [Guion](PR_I5_C2_LOGO.md): sesión nueva,
 fixtures C1, seis casos reales y ocho comprobaciones en celular. C1 ya terminado.
@@ -50,7 +55,7 @@ Repetir en `C:\Users\LENOVO 14ALC6\Desktop\SaberPlus-Backend`.
 Con trabajo limpio y propietario coordinado: `git pull --ff-only origin main` en
 cada repo. Si hay cambios locales, **parar y revisar diff**, no borrarlos ni hacer
 stash/reset a ciegas. Si divergen las ramas, no forzar el pull. El propietario
-autorizó trabajar en main; coordinar que dos personas no editen el mismo módulo.
+acordó ramas por frente para trabajo paralelo; no editar el mismo módulo sin coordinar.
 Antes de clonar elegir carpetas vacías; no clonar encima de un proyecto existente.
 
 Lectura inicial:
@@ -311,7 +316,7 @@ En cada repo: `git status --short`, `git diff`; `git add` de archivos explícito
 Mensajes sugeridos: `feat: integrar y validar Rescate competitivo` (Flutter) y
 `docs: registrar validacion competitiva de Rescate` (backend si solo hubo docs);
 si cambió código backend, describirlo en el mensaje, no decir solo docs.
-Dar al propietario ruta, archivos, hash y comandos `git push origin main` en
+Dar al propietario ruta, archivos, hash y comandos de push de la rama del frente en
 ambos repos. Push solo cuando se acuerde. No git add . ni incluir .env/temporales.
 Mientras un checkpoint está a medias, es válido publicar documentación de progreso
 autorizada para relevo, dejando claro que el juego **no está cerrado**.
@@ -326,8 +331,11 @@ antes de guardar evidencia ni tocar el del compañero. El siguiente PC crea otro
 
 ```text
 Continúa SaberPlus desde el checkpoint vigente, no desde el historial del chat.
+Primero identifica tu frente en TRABAJO_PARALELO.md: este guion C2C es para el
+propietario. Si eres el compañero de OV-1, usa el prompt específico de ese
+documento y sus criterios; no prepares fixtures/pruebas del logo por este guion.
 Tengo los dos repositorios (Flutter saber_plus y SaberPlus-Backend con backend/admin).
-Verifica rutas, main, git status/HEAD y cambios recibidos. Preserva trabajo ajeno.
+Verifica rutas, rama de tu frente, git status/HEAD y cambios recibidos. Preserva trabajo ajeno.
 Lee AGENTS si existe, README de ambos, docs/ETAPAS_PENDIENTES (bloque Checkpoint
 de relevo de pruebas), docs/RELEVO_PRUEBAS_LOCALES, PROMPT_RELEVO,
 ARQUITECTURA_Y_ESTRUCTURA, acta del juego activo y sus contratos/código/tests.

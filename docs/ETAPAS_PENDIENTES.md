@@ -1,5 +1,10 @@
 # SaberPlus — etapas pendientes y ruta vigente del equipo
 
+**Trabajo paralelo acordado:** propietario → instituciones (sigue C2C);
+compañero → test vocacional OV-1 (comienza A, después B/C/D), sin esperar C2C.
+Ver [responsables, ramas y entrega](TRABAJO_PARALELO.md). Este acuerdo sustituye
+la secuencia estricta de OV-1 y el trabajo individual directo en main.
+
 ## Estado vigente — 12 de octubre de 2026
 
 **PR-I5-C2A/C2B implementadas:** logo con selección/vista previa, validación real,
@@ -601,9 +606,12 @@ que deba volver a imponerse al administrador. D3 verifica el flujo simplificado.
 
 ## Ruta vigente del equipo
 
-Orden vigente: **Rescate → instituciones/territorio → académico/profesor/panel
-→ insignias/perfiles → ranking institucional/ensayo social → OV-1 → cierre
-funcional/comercial → UI-F → validación/sustentación → lanzamiento/operación**.
+Orden vigente por frentes: **propietario: instituciones (C2C y solicitudes);
+compañero: OV-1A/B/C/D en paralelo, sin esperar al bloque social**.
+Después se coordinan los bloques restantes: académico/profesor/panel,
+insignias/perfiles, ranking institucional/ensayo social y cierre funcional/comercial;
+UI-F → validación/sustentación → lanzamiento/operación. Rescate y territorio
+tienen cierres locales registrados; no son tareas nuevas del compañero.
 Detalle y criterios de los diez bloques: [alcance V1](ALCANCE_V1_NOVIEMBRE_2026.md).
 Se adelantan dependencias como C5; P5/D3 requieren autorización. No se aplaza
 ninguna funcionalidad no lúdica por este recorte. Los juegos competitivos restantes
@@ -632,7 +640,7 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | PR-I6 — Ranking institucional | Aportes mientras se pertenece a institución, sin traslado/doble conteo del XP histórico; agregados públicos. | PR-I1/2/5 y reglas confirmadas. |
 | PR-I7 — Ensayo social | Dos cuentas/dispositivos, privacidad, fotos, solicitudes, ayudas/empates y cierre anual conservando años anteriores. | Despliegue autorizado; coordinar con P5/D3, sin alterar reloj de producción. |
 | PR-I5-T / PR-I6-T — Territorio | T1–T4 implementadas y T5 ensayo integrado cerrado localmente; 16 casos SQL reales T2 aprobados. Ranking territorial posterior, sin cambiar XP ni premios nacionales. | Extensiones de PR-I5/6; sin despliegue; una sede representada por registro, multisede e histórico pendientes. Ver PR_I5_T_TERRITORIO y ORIENTACION_Y_TERRITORIO. |
-| OV-1A/B/C/D — Orientación por intereses | Cuestionario propio revisado, resultado privado y explicable, carreras para explorar y Sabi por profesión. Complementa orientación académica, no test psicológico validado. | Tras bloque competitivo/social y antes de UI-F/beta; fuentes oficiales, privacidad y revisión de contenido. |
+| OV-1A/B/C/D — Orientación por intereses | Cuestionario propio revisado, resultado privado y explicable, carreras para explorar y Sabi por profesión. Complementa orientación académica, no test psicológico validado. | En paralelo a instituciones por acuerdo del 12 de octubre; antes de UI-F/beta; fuentes oficiales, privacidad y revisión de contenido. |
 | P1–P4-C / P5 — Profesor | P1–P4-C locales; P5 es despliegue y ensayo real docente, aprobación institucional, roles, grupos, prioridades y tiempo. | **P5 pausada**. Pedir URL/cuentas/entorno autorizado, nunca contraseñas. Antes de D3. |
 | 7F-C3-D2 — Legado | Herramientas locales; faltan revisión visual y operación de legado autorizada con respaldo. | No borrar ni reclasificar contenido usado; preparar D3. |
 | 7F-C3-D3 — Panel real | Conectar ADMIN a backend vigente y confirmar publicación/persistencia real. | **Pausada**, después de P5 y controles D2. Demo no cierra esta etapa. |

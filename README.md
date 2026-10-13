@@ -1,5 +1,10 @@
 # SaberPlus móvil
 
+**Trabajo paralelo acordado:** propietario → instituciones (sigue C2C);
+compañero → test vocacional OV-1 (comienza A, después B/C/D), sin esperar C2C.
+Ver [responsables, ramas y entrega](docs/TRABAJO_PARALELO.md). Este acuerdo sustituye
+la secuencia estricta de OV-1 y el trabajo individual directo en main.
+
 **Actual: C2A/C2B implementadas — logo institucional.** Selección/vista previa,
 validación, persistencia PostgreSQL y permisos del propietario. Sigue C2C:
 ensayo SQL/HTTP/Android. Migración C2 no aplicada.

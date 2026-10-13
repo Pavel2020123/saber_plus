@@ -1,5 +1,10 @@
 # Orientación por intereses y filtros territoriales
 
+**Trabajo paralelo acordado:** propietario → instituciones (sigue C2C);
+compañero → test vocacional OV-1 (comienza A, después B/C/D), sin esperar C2C.
+Ver [responsables, ramas y entrega](TRABAJO_PARALELO.md). Este acuerdo sustituye
+la secuencia estricta de OV-1 y el trabajo individual directo en main.
+
 Plan acordado el 5 de octubre; prioridad actualizada el 9 de octubre de 2026.
 Actualización del 11 de octubre: [PR-I5-T1/T2/T3](PR_I5_T_TERRITORIO.md)
 catálogo/API, persistencia/revisión, selectores y filtros implementados; T5 cerrado
@@ -113,8 +118,8 @@ nuevos ingresos, graduados o demanda laboral.
 
 - Después de Rescate se retoma PR-I5 con PR-I5-T; PR-I6-T se integra en PR-I6.
   Conservar deuda operativa I2-5 sin repetir su recorrido funcional aprobado.
-- OV-1 puede desarrollarse como entrega independiente después del bloque
-  competitivo/social, antes de UI-F y de la beta. No exige terminar ilustraciones
+- OV-1 se desarrolla por el compañero en paralelo a instituciones, según el
+  acuerdo del 12 de octubre, antes de UI-F y de la beta. No exige terminar ilustraciones
   para diseñar el contenido, pero sí revisión antes de publicar recomendaciones.
 - [DANE — DIVIPOLA](https://www.dane.gov.co/index.php/component/content/article/488-division-polistico-administrativa?Itemid=5039&catid=72): catálogo territorial.
 - [MEN — Descubre Tú](https://www.mineducacion.gov.co/1759/w3-printer-358122.html): antecedente de orientación basada en intereses, expectativas y aptitudes; no es validación de nuestro cuestionario.
