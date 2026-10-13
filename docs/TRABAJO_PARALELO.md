@@ -1,5 +1,7 @@
 # Trabajo paralelo: instituciones y orientación vocacional
 
+**Primera lectura para cualquier colaborador:** [INICIO_Y_TRABAJO_EN_EQUIPO.md](INICIO_Y_TRABAJO_EN_EQUIPO.md). Esta guía explica clonado, ramas, PR, pruebas, relevos y el reparto futuro propuesto. Este documento conserva las decisiones vigentes de los dos frentes.
+
 Acuerdo del 12 de octubre de 2026. Dos frentes simultáneos, no dos aplicaciones.
 Este reparto actualiza la antigua secuencia que hacía esperar OV-1 hasta cerrar
 instituciones. No cambia las reglas de producto ni declara etapas terminadas.

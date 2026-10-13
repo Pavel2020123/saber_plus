@@ -1,5 +1,7 @@
 # Índice de documentación de SaberPlus
 
+- [Guía de incorporación y trabajo paralelo](INICIO_Y_TRABAJO_EN_EQUIPO.md): primer día, responsabilidades, ramas, actas, PR e integración de ambos repositorios.
+
 - [Auditoría documental del 13 de octubre](AUDITORIA_DOCUMENTAL_2026_10_13.md).
 - [Checkpoint OV-1 del compañero](CHECKPOINT_OV1.md).
 - [Checkpoint C2C del propietario](PR_I5_C2_LOGO.md#checkpoint-del-propietario).
