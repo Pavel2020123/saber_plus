@@ -45,6 +45,7 @@ class RemoteInstitutionProfileRepository
         description: expected,
         revision: current.revision + 1,
         canEdit: true,
+        logoUrl: current.logoUrl,
       );
     } on DioException catch (error) {
       throw ApiError.fromDioException(error);

@@ -51,7 +51,8 @@ Guardado posterior cierra editor y publica el borrador. SQL confirma texto real
 «borrador ficticio», revisión15. **Prueba10 aprobada:** «Seguir editando» conserva
 borrador; «Salir» lo descarta. Reapertura muestra publicado anterior y SQL confirma
 «borrador ficticio»/revisión15 sin modificación. **10/10 pruebas humanas aprobadas.**
-Siguiente: C2, logo institucional. No implica despliegue o validación remota.
+C2A/B ya implementadas; sigue [C2C, ensayo del logo](PR_I5_C2_LOGO.md).
+No implica despliegue o validación remota.
 
 ### Antecedentes de preparación (resueltos; no son pendientes actuales)
 Prueba 9 preparada: usuario confirma borrador en el editor (versión13). Una
@@ -160,7 +161,7 @@ formato aplicado y `git diff --check` correcto. No se ejecutó suite completa.
 No se ha aplicado migración ni instalado APK de este incremento. Los resultados
 de C1A inferiores son históricos, no una ejecución nueva del backend.
 
-## Siguiente paso exacto: C1C — ensayo integrado
+## Guion C1C original — completado localmente el 12 de octubre
 
 Los puntos 1–3 del plan original siguiente están implementados; continuar 4–5.
 

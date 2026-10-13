@@ -5,11 +5,13 @@ class InstitutionProfile {
     required this.description,
     required this.revision,
     required this.canEdit,
+    this.logoUrl,
   });
   final String id, name;
   final String? description;
   final int revision;
   final bool canEdit;
+  final String? logoUrl;
 
   factory InstitutionProfile.fromJson(Map<String, dynamic> json) {
     final id = json['id'],
@@ -32,8 +34,21 @@ class InstitutionProfile {
       description: description as String?,
       revision: revision,
       canEdit: canEdit,
+      logoUrl: institutionLogoPath(json['logoUrl']),
     );
   }
+}
+
+// Solo la ruta propia: nunca enviar la sesión a una URL indicada por un tercero.
+String? institutionLogoPath(Object? value) {
+  if (value == null) return null;
+  if (value is! String ||
+      !RegExp(
+        r'^/instituciones/directorio/[0-9a-f-]{36}/logo/[1-9]\d{0,9}$',
+      ).hasMatch(value)) {
+    throw const FormatException('Logo institucional inválido.');
+  }
+  return value;
 }
 
 abstract interface class InstitutionProfileRepository {

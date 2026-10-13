@@ -1,6 +1,10 @@
 # Relevo de pruebas locales — Docker, Android USB y juegos
 
-**Checkpoint más reciente,12 de octubre: perfil PR-I5-C1C.** Preparación aprobada
+**Siguiente: PR-I5-C2C, logo institucional.** Código C2A/B implementado; migración
+y ensayo SQL/HTTP/Android pendientes. [Guion](PR_I5_C2_LOGO.md): sesión nueva,
+fixtures C1, seis casos reales y ocho comprobaciones en celular. C1 ya terminado.
+
+**Ensayo anterior completado,12 de octubre: perfil PR-I5-C1C.** Preparación aprobada
 con63 migraciones, API43187, 15 HTTP/PostgreSQL +3 Flutter/API reales y APK instalada.
 Pruebas humanas 1–6 aprobadas (incluido límite500/guardado, SQL500/revisión12).
 Pruebas 7 y 8 aprobadas: fallo/red/borrador y recuperación/consulta/guardado.
@@ -9,9 +13,9 @@ SQL revisión15. Prueba10 aprobada: «Seguir editando» conserva y «Salir» des
 reapertura y SQL confirman publicado intacto/revisión15. **C1C local cerrada:**
 10/10 humanas; siguiente C2, logo institucional. No acredita despliegue remoto.
 Ver [acta del perfil](PR_I5_C_PERFIL.md). Harness admite rutas explícitas territorial
-y perfil pendientes; restantes migraciones desde HEAD. La nota T5 inferior es histórica.
+y perfil pendientes; restantes migraciones desde HEAD. La nota T5 inferior es histórica. La allowlist actual también admite la migración C2 del logo.
 
-Actualizado: 11 de octubre de 2026. Guía operativa para el propietario, compañeros
+Actualizado: 12 de octubre de 2026. Guía operativa para el propietario, compañeros
 y sus chats. **El punto vivo de continuación está en
 [ETAPAS_PENDIENTES — checkpoint](ETAPAS_PENDIENTES.md#checkpoint-de-relevo-de-pruebas)**.
 Si avanzamos, actualizar ese bloque y el acta del juego; no empezar desde una
@@ -67,9 +71,9 @@ son referencias históricas, **no destinos para checkout/reset**. Nuevos commits
 pueden avanzar; verificar su disponibilidad remota antes de pedir al compañero
 que continúe. Un commit local no aparece en otro PC hasta hacer push/pull.
 
-## 2. Checkpoint inicial y qué no repetir
+## 2. Antecedentes: checkpoint inicial y qué no repetir
 
-Etapa actual **IC-1C: Rescate de estrellas**: cliente competitivo integrado y
+Antecedente **IC-1C: Rescate de estrellas** (no es la etapa actual): cliente competitivo integrado y
 tests dirigidos/HTTP/SQL aprobados en el alcance de [su acta](IC1_RESCATE.md).
 Recorrido Android/API/ledger local aprobado el10 de octubre, incluidos dos
 abandonos distintos100→90→80. Guardado autorizado; push manual/cierre operativo
@@ -329,8 +333,11 @@ de relevo de pruebas), docs/RELEVO_PRUEBAS_LOCALES, PROMPT_RELEVO,
 ARQUITECTURA_Y_ESTRUCTURA, acta del juego activo y sus contratos/código/tests.
 Audita el flujo afectado y nuevos cambios antes de continuar. No rehagas motores.
 
-Decide el siguiente paso desde el roadmap ACTUAL: inicialmente era IC-1C Rescate,
-pero si ya avanzaron, respeta el último checkpoint. Cima y Guardián tienen pruebas
+Al 12 de octubre sigue PR-I5-C2C: logo institucional. Leer PR_I5_C2_LOGO.md:
+sesión nueva, fixtures C1, seis casos HTTP/PostgreSQL y ocho pruebas Android.
+C2A/B están implementadas; migración C2 no aplicada y APK C2 no instalada.
+C1C y territorio T5 ya cerraron localmente. Si avanzaron, respeta el checkpoint.
+Cima, Guardián y Rescate tienen pruebas
 locales reales registradas: no repetir todo salvo regresión concreta. Memoria y
 Batallas requieren IC-2/3; no están listas competitivamente por existir como juegos.
 Lee ALCANCE_V1_NOVIEMBRE_2026: después de Rescate sigue instituciones. Solo se

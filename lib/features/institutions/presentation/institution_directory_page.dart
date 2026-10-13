@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../data/institution_directory_repository.dart';
 import 'institution_directory_providers.dart';
 import 'institution_directory_filters.dart';
+import 'institution_logo.dart';
 
 class InstitutionDirectoryPage extends ConsumerStatefulWidget {
   const InstitutionDirectoryPage({super.key});
@@ -180,7 +181,7 @@ class _InstitutionDirectoryPageState
                   for (final item in data.items)
                     Card(
                       child: ListTile(
-                        leading: const Icon(Icons.school_outlined),
+                        leading: InstitutionLogo(path: item.logoUrl, size: 40),
                         title: Text(item.name),
                         subtitle: Text(
                           item.locationLabel ??
@@ -255,7 +256,7 @@ class InstitutionDirectoryDetailPage extends ConsumerWidget {
               data: (item) => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(Icons.school_outlined, size: 56),
+                  InstitutionLogo(path: item.logoUrl, size: 80),
                   const SizedBox(height: 16),
                   Text(
                     item.name,

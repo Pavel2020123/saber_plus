@@ -1,3 +1,5 @@
+import 'institution_profile.dart';
+
 class PublicInstitution {
   const PublicInstitution({
     required this.id,
@@ -6,10 +8,12 @@ class PublicInstitution {
     this.municipalityCode,
     this.locationLabel,
     this.description,
+    this.logoUrl,
   });
   final String id;
   final String name;
   final String? description;
+  final String? logoUrl;
   final String? departmentCode, municipalityCode, locationLabel;
 
   factory PublicInstitution.fromJson(Map<String, dynamic> json) {
@@ -29,6 +33,7 @@ class PublicInstitution {
         id: id,
         name: name,
         description: description as String?,
+        logoUrl: institutionLogoPath(json['logoUrl']),
       );
     }
     if (location is! Map ||
@@ -51,6 +56,7 @@ class PublicInstitution {
       id: id,
       name: name,
       description: description as String?,
+      logoUrl: institutionLogoPath(json['logoUrl']),
       departmentCode: location['departamentoCodigo'] as String,
       municipalityCode: location['municipioCodigo'] as String,
       locationLabel:

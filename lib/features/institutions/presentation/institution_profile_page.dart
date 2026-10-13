@@ -5,6 +5,8 @@ import '../../auth/presentation/session_controller.dart';
 import '../data/institution_profile_repository.dart';
 import '../domain/institution_profile.dart';
 import 'institution_directory_providers.dart';
+import 'institution_logo.dart';
+import 'institution_logo_page.dart';
 
 final institutionProfileRepositoryProvider =
     Provider<InstitutionProfileRepository>((ref) {
@@ -25,7 +27,15 @@ class InstitutionProfilePage extends ConsumerWidget {
       key: ValueKey((user?.id, repository)),
       repository: repository,
       isDemo: user?.isDemo == true,
-      onSaved: (id) => ref.invalidate(institutionDirectoryDetailProvider(id)),
+      onSaved: (id) {
+        ref.invalidate(institutionDirectoryDetailProvider(id));
+        ref.invalidate(institutionDirectoryProvider);
+      },
+      onLogo: user?.isDemo == true
+          ? null
+          : () => Navigator.of(context).push<void>(
+              MaterialPageRoute(builder: (_) => const InstitutionLogoPage()),
+            ),
     );
   }
 }
@@ -36,10 +46,12 @@ class InstitutionProfileEditor extends StatefulWidget {
     required this.repository,
     required this.onSaved,
     this.isDemo = false,
+    this.onLogo,
   });
   final InstitutionProfileRepository repository;
   final ValueChanged<String> onSaved;
   final bool isDemo;
+  final Future<void> Function()? onLogo;
   @override
   State<InstitutionProfileEditor> createState() =>
       _InstitutionProfileEditorState();
@@ -189,6 +201,19 @@ class _InstitutionProfileEditorState extends State<InstitutionProfileEditor> {
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(height: 12),
+                if (profile.logoUrl != null)
+                  InstitutionLogo(path: profile.logoUrl, size: 80),
+                if (profile.canEdit && widget.onLogo != null)
+                  OutlinedButton.icon(
+                    onPressed: _busy || _dirty || _mustReload
+                        ? null
+                        : () async {
+                            await widget.onLogo!();
+                            if (mounted) await _load();
+                          },
+                    icon: const Icon(Icons.image_outlined),
+                    label: const Text('Cambiar logo'),
+                  ),
                 const Text(
                   'El nombre y la ubicación aprobados se gestionan mediante la verificación institucional.',
                 ),

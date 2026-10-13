@@ -1,5 +1,14 @@
 # Historial completo de etapas de SaberPlus
 
+**12 de octubre — C2A/C2B implementadas:** editor de logo, permisos, validación,
+optimización y almacenamiento transaccional PostgreSQL. Sigue C2C integrado;
+migración C2 no aplicada. [Acta](PR_I5_C2_LOGO.md).
+
+**12 de octubre — C1C cerrada localmente:**15 HTTP/PostgreSQL +3 Flutter/API,
+diez pruebas Android, conflicto/recuperación/descarte comprobados con SQL.
+Commits Flutter `acdc4d1` y backend `ba77f79`. Sin despliegue remoto.
+[Acta C1](PR_I5_C_PERFIL.md).
+
 **11 de octubre — PR-I5-C1B:** editor de presentación pública en panel docente,
 solo propietario edita, borrador protegido y revisión antes de reenviar.
 Repositorio remoto/demo y pruebas dirigidas; análisis sin incidencias.

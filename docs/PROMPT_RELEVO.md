@@ -1,41 +1,17 @@
 # Prompt para continuar SaberPlus con otro chat
 
-**12 de octubre, checkpoint vigente:** C1C tiene preparación y pruebas automáticas
-reales aprobadas (15 HTTP/SQL +3 Flutter/API), migración en base temporal y APK
-instalada. Pruebas humanas 1–6 aprobadas: propietario/editor, docente lector,
-publicación (UX corregida), conservación tras cierre/reapertura y presentación
-vacía confirmada por propietario/estudiante y límite500/guardado (SQL500/revisión12).
-Prueba 7 aprobada (error sin red, borrador conservado y Guardar bloqueado).
-Prueba 8 aprobada: consulta conserva borrador y guardado recuperado vuelve a lectura.
-Prueba 9 aprobada: conflicto conserva borrador, bloquea reenvío, consulta recupera
-guardado y éxito vuelve a lectura. SQL confirma «borrador ficticio», revisión15.
-Prueba10 aprobada: «Seguir editando» conserva borrador; «Salir» lo descarta.
-Reabrir muestra «borrador ficticio»; SQL confirma revisión15 sin escritura nueva.
-**C1C completada localmente (10/10 humanas). Siguiente: C2, logo institucional.**
-No repetir estas pruebas salvo regresión; despliegue Supabase/Render no validado.
-Leer PR_I5_C_PERFIL.md; verificar supervisor/USB y credenciales nuevas al retomar.
+## Continuación vigente — 12 de octubre de 2026
 
-Actualizado: 11 de octubre de 2026. Copiar el bloque completo; adaptar rutas.
-**Continuación vigente: C1B implementada en Flutter; seguir C1C, ensayo integrado
-del perfil (HTTP/PostgreSQL temporal/Android).** Migración no aplicada todavía.
-No repetir T5 ni implementar otra vez el editor. Ver PR_I5_C_PERFIL.md.
-**Checkpoint más reciente: PR-I5-C1A implementada. Continuar C1B (editor del
-propietario), no repetir T5.** Leer [contrato y pendientes](PR_I5_C_PERFIL.md).
-La migración del perfil no está aplicada; faltan HTTP/SQL real/Android de C1.
-Checkpoint del 11 de octubre: PR-I5-T1/T2/T3/T4 implementadas;
-16 pruebas PostgreSQL T2 aprobadas y T5 cerrado localmente con panel/Android.
-Seguir con perfil institucional y solicitudes estudiantiles de PR-I5; no repetir
-juegos/T5. Leer [acta territorial](PR_I5_T_TERRITORIO.md), incluidos límites del
-cierre. No confundir pruebas locales con despliegue ni asumir servicios activos.
-Fuente única del orden: [ETAPAS_PENDIENTES](ETAPAS_PENDIENTES.md).
-Evidencia y límites: [conciliación](CONCILIACION_2026_10_07.md).
-Se necesitan los dos repositorios y permisos de acceso si corresponde; no cambiar
-su visibilidad para usar este prompt ni compartir contraseñas.
+**Siguiente: PR-I5-C2C, ensayo integrado del logo institucional.**
+C2A/backend y C2B/Flutter implementadas: 79 pruebas backend y 45 Flutter
+aprobadas, build y análisis correctos. APK debug compilada, no instalada en C2.
+Migración C2 no aplicada; seis casos reales HTTP/PostgreSQL y ocho pruebas
+humanas Android pendientes. No se acredita despliegue remoto ni validación iOS.
+C1C ya completó 15 HTTP/SQL, 3 Flutter/API y 10/10 pruebas humanas locales.
+Territorio T5 también cerrado localmente. No repetir esos recorridos salvo regresión.
 
-Para continuar **pruebas Android/API/Docker**, entregar además
-[guía y prompt operativo](RELEVO_PRUEBAS_LOCALES.md). El siguiente paso exacto
-se lee del [checkpoint vivo](ETAPAS_PENDIENTES.md#checkpoint-de-relevo-de-pruebas),
-que debe actualizarse después de cada prueba, incluso si se interrumpe el chat.
+Fuente única: [roadmap](ETAPAS_PENDIENTES.md#checkpoint-de-relevo-de-pruebas).
+Guion: [C2C](PR_I5_C2_LOGO.md). Copiar el bloque siguiente completo.
 
 ```text
 Vas a continuar SaberPlus, no crear otra app ni reescribir el proyecto.
@@ -60,7 +36,15 @@ Antes de editar:
 4. Trabaja en main por decisión del propietario, coordinando archivos con el
    equipo. Rama/PR solo si se acuerda. No commit/push/merge automático.
 
-Estado:
+Estado vigente al 12 de octubre de 2026:
+- C2A/backend y C2B/Flutter implementadas. Sigue C2C: leer docs/PR_I5_C2_LOGO.md
+  y backend/docs/PR_I5_C2_LOGO.md. 79 tests backend y 45 Flutter aprobados;
+  APK compilada no instalada; migración logo no aplicada. Faltan seis casos
+  HTTP/PostgreSQL reales y ocho comprobaciones Android. No asumir servicios vivos.
+- C1C completada localmente: 15 HTTP/SQL, 3 Flutter/API y 10/10 humanas.
+  Territorio T5 cerrado localmente. No rehacer esas etapas salvo regresión.
+
+Antecedentes (no son el siguiente trabajo):
 - PR-I1 integrado (5216383); I2-1/2/3 backend (66b5aa2) y Flutter I2-4 (1921ba9)
   integrados. Son referencias, no commits a los que volver.
 - Validación del compañero publicada: 9583d90 y 8bf32aa. Evidencia del día 6:
@@ -101,7 +85,7 @@ Estado:
 - No confundir flags apagados por defecto con estado remoto inspeccionado.
 
 Ruta:
-IC-1C Rescate → instituciones PR-I5/P4-C/PR-I5-T → académico/profesor/panel →
+C2C logo → solicitudes estudiantiles/avisos de PR-I5 → académico/profesor/panel →
 insignias/perfiles → ranking institucional/ensayo social → OV-1 → cierre funcional
 y comercial → UI-F → validación/sustentación → lanzamiento/operación.
 Solo competición Cima/Guardián/Rescate para V1. Trivia/Duelo/Tira/IC-2/IC-3
@@ -111,8 +95,9 @@ Meta académica 15 de noviembre: no garantiza cierre ni publicación en Play.
 QA-1 (CI Flutter/deuda) y DOC-1 (higiene/acceso) son entregas de apoyo.
 IC son integraciones locales, no activación productiva. PR-I3 puede prepararse
 contra contratos, pero premios reales exigen integración validada por juego.
-C5 antes de fotos persistentes. P5 → D3 solo al autorizarse.
-Territorio PR-I5-T/6-T y orientación OV-1 siguen planificados.
+C5 general sigue pendiente. C2 implementa solo logos privados acotados en PostgreSQL,
+no resuelve almacenamiento general de archivos. P5 → D3 solo al autorizarse.
+Territorio PR-I5-T cerrado localmente; PR-I6-T y orientación OV-1 siguen pendientes.
 UI-F azul/Sabi al final de funciones/integraciones, antes de beta y tienda.
 
 Conservar:
@@ -156,7 +141,7 @@ Entrega:
   commit. GitHub visibilidad/protección no verificadas: no asumirlas ni cambiarlas.
 
 Empieza por comprobar el checkpoint VIGENTE del roadmap; al escribir este prompt
-era IC-1C Rescate, pero respeta avances posteriores registrados. Usa su contrato existente.
+era PR-I5-C2C (logo institucional), pero respeta avances posteriores registrados. Usa su contrato existente.
 Consulta IC1_GUARDIAN para lo ya validado; conserva
 los pendientes operativos de I2-5; no los ocultes al avanzar. En el PC del
 propietario la API/panel de ensayo solo duran dos horas: verifica disponibilidad

@@ -1,5 +1,18 @@
 # Índice de documentación de SaberPlus
 
+## Continuación vigente — 12 de octubre de 2026
+
+**Siguiente: PR-I5-C2C, ensayo integrado del logo institucional.**
+C2A/backend y C2B/Flutter implementadas: 79 pruebas backend y 45 Flutter
+aprobadas, build y análisis correctos. APK debug compilada, no instalada en C2.
+Migración C2 no aplicada; seis casos reales HTTP/PostgreSQL y ocho pruebas
+humanas Android pendientes. No se acredita despliegue remoto ni validación iOS.
+C1C ya completó 15 HTTP/SQL, 3 Flutter/API y 10/10 pruebas humanas locales.
+Territorio T5 también cerrado localmente. No repetir esos recorridos salvo regresión.
+
+Consultar [acta C2](PR_I5_C2_LOGO.md) y [checkpoint vivo](ETAPAS_PENDIENTES.md#checkpoint-de-relevo-de-pruebas).
+Las notas fechadas inferiores son antecedentes, no instrucciones para repetir etapas.
+
 **11 de octubre: [PR-I5-T territorio](PR_I5_T_TERRITORIO.md).** T1/T2 catálogo/API
 y persistencia/revisión, T3 formularios y T4 filtros implementados; T5 cerrado
 localmente con panel/Android. Seguir con perfil institucional y solicitudes PR-I5.
@@ -34,7 +47,7 @@ las notas históricas siguientes y se mantiene en la ruta vigente.
 - [Orientación por intereses y territorio](ORIENTACION_Y_TERRITORIO.md): nuevas
   entregas PR-I5-T/PR-I6-T/OV-1, criterios de privacidad y colección propuesta de Sabi.
 
-**Estado vigente, 7 de octubre:** PR-I1 y PR-I2 hasta I2-4 fusionados.
+**Estado histórico, 7 de octubre:** PR-I1 y PR-I2 hasta I2-4 fusionados.
 I2-5 tiene regresión e integración HTTP documentadas, pero falta cierre físico.
 [Conciliación](CONCILIACION_2026_10_07.md): resultados, política y límites.
 IC-1/2/3 cubren pendientes competitivos; QA-1/DOC-1 son apoyo.
@@ -53,7 +66,7 @@ El README de recursos iOS es una plantilla de plataforma, no una etapa del produ
 
 1. [RELEVO_EQUIPO](RELEVO_EQUIPO.md): repositorios, ramas, pruebas y entrega.
 2. [Ruta vigente](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo): estados y dependencias;
-   próxima entrega I2-5. MA-3C ya implementada localmente, ensayo real pendiente.
+   próxima entrega C2C; verificar siempre el checkpoint vivo. MA-3C ya implementada localmente, ensayo real pendiente.
 3. [Arquitectura](ARQUITECTURA_Y_ESTRUCTURA.md) y contrato de la función elegida.
 4. [PROMPT_RELEVO](PROMPT_RELEVO.md): bloque completo para el nuevo asistente.
 

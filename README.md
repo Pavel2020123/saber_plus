@@ -1,14 +1,19 @@
 # SaberPlus móvil
 
-**En curso: [PR-I5-C — perfil institucional](docs/PR_I5_C_PERFIL.md).**
-C1A y C1B implementadas: API, lectura y editor del propietario Flutter. Siguiente
-C1C: ensayo físico del perfil. Preparación del12 de octubre: 15 HTTP/SQL +3
+**Actual: C2A/C2B implementadas — logo institucional.** Selección/vista previa,
+validación, persistencia PostgreSQL y permisos del propietario. Sigue C2C:
+ensayo SQL/HTTP/Android. Migración C2 no aplicada.
+[Implementación y guion](docs/PR_I5_C2_LOGO.md). Checkpoints inferiores históricos.
+
+**Entrega anterior: [PR-I5-C — perfil institucional](docs/PR_I5_C_PERFIL.md).**
+C1A y C1B implementadas: API, lectura y editor del propietario Flutter.
+Preparación del12 de octubre: 15 HTTP/SQL +3
 Flutter/API aprobadas; migración aplicada solo en base temporal y APK instalada.
 **C1C completada localmente:** diez pruebas humanas aprobadas y verificaciones
 SQL de persistencia/conflicto/descarte. Siguiente: C2, logo institucional.
 Esto no acredita despliegue ni pruebas en Supabase/Render.
 
-**Etapa actual: [PR-I5-T — territorio institucional](docs/PR_I5_T_TERRITORIO.md).**
+**Entrega anterior: [PR-I5-T — territorio institucional](docs/PR_I5_T_TERRITORIO.md).**
 T1/T2: catálogo DANE/API y persistencia/revisión implementados en backend;
 16 casos PostgreSQL T2 aprobados. T3 selectores Flutter/ADMIN implementados el
 11 de octubre; T4 filtros del directorio implementados y **T5 cerrado localmente**

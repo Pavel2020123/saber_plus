@@ -2,6 +2,11 @@
 
 ## Estado vigente — 12 de octubre de 2026
 
+**PR-I5-C2A/C2B implementadas:** logo con selección/vista previa, validación real,
+almacenamiento PostgreSQL, propietario exclusivo y revisión. **Sigue C2C**:
+seis casos reales HTTP/SQL y ocho comprobaciones Android. Migración C2 pendiente.
+[Acta y pasos exactos](PR_I5_C2_LOGO.md). Notas C1/T5 inferiores históricas.
+
 **PR-I5-C1C completada localmente:** 15 HTTP/PostgreSQL reales y 3 Flutter/API aprobadas,
 63 migraciones aplicadas solo en base temporal propia. APK nueva instalada por
 USB (Success). **Prueba humana 1 aprobada: propietario abre editor**.
@@ -17,17 +22,6 @@ Reapertura confirmada y SQL revisión15 intacta. **10/10 pruebas humanas aprobad
 Siguiente: C2, logo institucional. Supabase/Render siguen sin validación de este cambio.
 [Acta del perfil](PR_I5_C_PERFIL.md).
 Este checkpoint actualiza las notas anteriores de migración/instalación pendientes.
-
-**PR-I5-C1B código implementado:** editor docente/propietario, revisión,
-borrador conservado y consulta antes de reenviar. **Sigue C1C: ensayo integrado**
-HTTP/PostgreSQL temporal/Android. Migración aún pendiente; C1 y PR-I5 no cerradas.
-Ver [perfil institucional](PR_I5_C_PERFIL.md). Prevalece sobre checkpoint C1A inferior.
-
-**PR-I5-C1A implementada:** contrato seguro de presentación pública institucional
-y lectura en Flutter. **Siguiente: C1B, formulario del propietario y ensayo**;
-después logo C2 y solicitudes estudiantiles. Migración C1A todavía no aplicada;
-no arrancar API nueva contra esquema antiguo. [Alcance y relevo](PR_I5_C_PERFIL.md).
-Este checkpoint precisa el siguiente bloque de las notas históricas inferiores.
 
 **PR-I5-T5 cerrada localmente:** usuario confirma aprobación final inmediata,
 ficha/historial conservados y estado aprobado en Android. Directorio territorial,
@@ -188,37 +182,34 @@ limpieza/cierre operativo y deuda QA-1 siguen separados y pendientes.
 
 ## Checkpoint de relevo de pruebas
 
-**12 de octubre — perfil C1C:** preparación SQL/API/USB y APK completada,
-15 HTTP/SQL +3 Flutter/API reales aprobadas. Base temporal con63 migraciones,
-API43187, sin panel nuevo. **Prueba humana 1 confirmada**: propietario/editor.
-**Prueba humana 2 confirmada**: docente lector sin edición ni guardar.
-**Prueba humana 3 confirmada**: guardado, cierre de edición y texto público
-actualizado en ficha del estudiante. **Prueba humana 4 confirmada**: cierre/reapertura
-manual conserva texto. **Prueba humana 5 confirmada**: vacío guardado y estado
-vacío confirmado por propietario/estudiante. **Prueba humana 6 confirmada**:
-límite500/guardado, SQL500/revisión12. **Prueba humana 7 confirmada**:
-error sin red, borrador conservado y Guardar bloqueado.
-**Prueba humana 8 confirmada**: consulta conserva borrador y guardado recuperado
-vuelve a lectura. **Prueba humana 9 confirmada**: conflicto conserva borrador,
-consulta recupera guardado y SQL confirma revisión15. **Prueba10 confirmada**:
-«Seguir editando» conserva, «Salir» descarta sin publicar; SQL revisión15 intacta.
-**C1C completada localmente; siguiente C2, logo institucional.**
-Nuevo perfil abre en lectura, edición por botón.
-Ver [acta C1C](PR_I5_C_PERFIL.md) para cuentas, comandos y reanudación.
-Al retomar verificar servicios y credenciales actuales.
+## Continuación vigente — 12 de octubre de 2026
+
+**Siguiente: PR-I5-C2C, ensayo integrado del logo institucional.**
+C2A/backend y C2B/Flutter implementadas: 79 pruebas backend y 45 Flutter
+aprobadas, build y análisis correctos. APK debug compilada, no instalada en C2.
+Migración C2 no aplicada; seis casos reales HTTP/PostgreSQL y ocho pruebas
+humanas Android pendientes. No se acredita despliegue remoto ni validación iOS.
+C1C ya completó 15 HTTP/SQL, 3 Flutter/API y 10/10 pruebas humanas locales.
+Territorio T5 también cerrado localmente. No repetir esos recorridos salvo regresión.
+
+Leer [guion C2C](PR_I5_C2_LOGO.md). Preparar sesión local nueva, ejecutar fixtures
+C1 y después `node --test tool/test_institution_logo_local.cjs`; instalar la APK
+de ensayo y seguir sus ocho casos. Credenciales solo en archivo temporal privado.
+Registrar cada resultado humano/HTTP/SQL por separado. En esta entrega documental
+no se iniciaron servicios, no se aplicaron migraciones ni se hicieron pruebas físicas.
 
 **Actualizar este bloque después de CADA prueba, no solo al acabar el juego.**
 Preparación, guion, credenciales ficticias, USB/Docker y prompt para el compañero:
 [RELEVO_PRUEBAS_LOCALES](RELEVO_PRUEBAS_LOCALES.md).
 
-- **Último ensayo físico aprobado:** PR-I5-T5, territorio/directorio y revisión institucional.
-- **Checkpoint de implementación vigente:** PR-I5-T1/T2/T3/T4 implementadas;
+- **Último ensayo físico aprobado:** PR-I5-C1C, presentación institucional (10/10).
+- **Antecedente territorial:** PR-I5-T1/T2/T3/T4 implementadas;
   T5 cerrada localmente; seguir con perfil institucional y solicitudes. 16 casos
   SQL reales T2 aprobados y ensayo nuevo de 62 migraciones/API/panel/Android.
   Al retomar verificar servicios y credenciales temporales; no asumirlos activos.
   [Desglose, evidencia y límites](PR_I5_T_TERRITORIO.md). El bloque de Rescate
   siguiente describe una sesión anterior, no servicios activos confirmados.
-- **Checkpoint actual del 10 de octubre (prevalece sobre el historial inferior):**
+- **Histórico del 10 de octubre (no describe servicios activos hoy):**
   API43187 y panel4173 reiniciados, ambos HTTP200; Android USB autorizado y
   reverse43187. Nueva sesión propia con 61 migraciones y credenciales nuevas.
   Supervisor corregido (12 pruebas/control parcial runtime aprobados el día9).
@@ -637,7 +628,7 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | **DOC-1 — Higiene y acceso de repositorios** | Pendiente: clasificar archivo accidental/temporales, conservar entregables deliberados y revisar reglas de ignore. Verificar con el propietario visibilidad/protección de GitHub. | Limpieza acotada con diff y aprobación para borrar; sin cambiar acceso ni reescribir historial automáticamente. El pitch PDF no se considera basura por su extensión. |
 | PR-I3 — Insignias anuales | PR-I3A gráfico ya tiene 90 imágenes. Faltan concesión real, cierre idempotente, historial permanente y correcciones auditadas. | PR-I1/2; premios de cada juego requieren integración IC validada. Puede prepararse el contrato común antes de terminar todos los juegos. Todas las ganadas, sin límite de tres; años anteriores permanecen. |
 | PR-I4 — Perfil/personas | Perfil sobrio, identidad pública y búsqueda; todas las insignias por juego/año, detalle al tocar, visibilidad y protección de datos. | PR-I1–3; C5 antes de fotos reales. Avatar existente mientras tanto, sin fingir carga persistente. |
-| PR-I5 — Instituciones | Directorio aprobado, perfil/logo del propietario, solicitudes estudiantiles/avisos y código institucional privado. Profesor con foto, no jugador. | Reutilizar P4-C y grupos; PR-I1 y C5 para archivos. No sustituir código de grupo silenciosamente. |
+| PR-I5 — Instituciones | Directorio, territorio y presentación C1 probados localmente. Logo C2A/B implementado; sigue C2C (6 HTTP/SQL y 8 Android). Después solicitudes estudiantiles/avisos y código institucional privado. | Reutilizar P4-C y grupos. Logo C2 acotado en PostgreSQL; C5 general sigue pendiente. No sustituir código de grupo silenciosamente. |
 | PR-I6 — Ranking institucional | Aportes mientras se pertenece a institución, sin traslado/doble conteo del XP histórico; agregados públicos. | PR-I1/2/5 y reglas confirmadas. |
 | PR-I7 — Ensayo social | Dos cuentas/dispositivos, privacidad, fotos, solicitudes, ayudas/empates y cierre anual conservando años anteriores. | Despliegue autorizado; coordinar con P5/D3, sin alterar reloj de producción. |
 | PR-I5-T / PR-I6-T — Territorio | T1–T4 implementadas y T5 ensayo integrado cerrado localmente; 16 casos SQL reales T2 aprobados. Ranking territorial posterior, sin cambiar XP ni premios nacionales. | Extensiones de PR-I5/6; sin despliegue; una sede representada por registro, multisede e histórico pendientes. Ver PR_I5_T_TERRITORIO y ORIENTACION_Y_TERRITORIO. |
@@ -1328,8 +1319,8 @@ autorizan desarrollarlas todas ahora. Se priorizan después con el equipo.
 
 - Publicación comercial en App Store y cobros StoreKit: solo si se autorizan después.
 - Tutores y chat de asesoría: descartados del modelo.
-- Más juegos no acordados: no se agregan al camino actual. Cima y Rescate mantienen
-  sus pendientes de integración real. Taller y Escudo están cancelados.
+- Más juegos no acordados: no se agregan al camino actual. Cima y Rescate tienen ensayos locales documentados;
+  su activación productiva sigue separada. Taller y Escudo están cancelados.
 - Rediseño visual general del panel: no es prioridad; debe ser funcional y accesible.
 
 Referencias: ROADMAP_MOVIL.md, ADMIN_PANEL.md, BUSINESS_MODEL.md,

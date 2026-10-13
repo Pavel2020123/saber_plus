@@ -1,5 +1,18 @@
 # Relevo del equipo — empezar aquí
 
+## Continuación vigente — 12 de octubre de 2026
+
+**Siguiente: PR-I5-C2C, ensayo integrado del logo institucional.**
+C2A/backend y C2B/Flutter implementadas: 79 pruebas backend y 45 Flutter
+aprobadas, build y análisis correctos. APK debug compilada, no instalada en C2.
+Migración C2 no aplicada; seis casos reales HTTP/PostgreSQL y ocho pruebas
+humanas Android pendientes. No se acredita despliegue remoto ni validación iOS.
+C1C ya completó 15 HTTP/SQL, 3 Flutter/API y 10/10 pruebas humanas locales.
+Territorio T5 también cerrado localmente. No repetir esos recorridos salvo regresión.
+
+Consultar [acta C2](PR_I5_C2_LOGO.md) y [checkpoint vivo](ETAPAS_PENDIENTES.md#checkpoint-de-relevo-de-pruebas).
+Las notas fechadas inferiores son antecedentes, no instrucciones para repetir etapas.
+
 **IC-1C Rescate, cierre local 10 de octubre:** [acta](IC1_RESCATE.md).
 Cliente/tests/Android/API/SQL aprobados en su alcance local; saldo final80 tras
 dos abandonos distintos. Push manual/cierre operativo separados. Después: instituciones.
@@ -14,7 +27,7 @@ normales. Las secuencias anteriores quedan como antecedentes. Consultar el
 roadmap vivo; la sustentación no acredita producción. Cambio documental, sin
 nuevas pruebas ni despliegue.
 
-## Reanudación vigente — 8 de octubre de 2026
+## Antecedente — 8 de octubre de 2026
 
 Para continuar pruebas con otro PC/chat: [guía operativa Docker/USB y prompt](RELEVO_PRUEBAS_LOCALES.md)
 y [checkpoint vivo de cada prueba](ETAPAS_PENDIENTES.md#checkpoint-de-relevo-de-pruebas).
