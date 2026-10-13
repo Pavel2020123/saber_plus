@@ -2,7 +2,7 @@
 
 Actualizado: 11 de octubre de 2026. **Contrato vigente T4:** filtros por nombre,
 departamento y municipio; lista/detalle incluyen ubicación oficial opcional.
-Sigue [T5 ensayo conjunto](PR_I5_T_TERRITORIO.md). Los apartados PR-I5A/B
+T5 ya fue validado localmente; sigue [C2C, logo institucional](PR_I5_C2_LOGO.md). Los apartados PR-I5A/B
 conservan su alcance histórico anterior a T4, no limitan el contrato actual.
 
 Rescate IC-1C quedó validado localmente; commits `df53768` (app) y `3fdf699`
@@ -93,15 +93,15 @@ una nueva consulta; no se implementó actualización en tiempo real.
 recorrido Android documentados. No acredita despliegue remoto, iOS, aprobación
 ADMIN P4-C, flujo docente/grupos físico ni etapas posteriores de institución.
 Servicios de sesión efímera: comprobar estado y vigencia antes de reutilizarlos.
-Continuación actual: [PR-I5-T1/T2/T3/T4 implementadas](PR_I5_T_TERRITORIO.md);
-sigue T5 ensayo territorial conjunto. No repetir automáticamente toda esta batería.
+Continuación actual: [C2C, ensayo del logo](PR_I5_C2_LOGO.md).
+Territorio T1–T5 y presentación C1 cerrados localmente. No repetir automáticamente toda esta batería.
 
 ### Continuación
 
 1. Cliente mínimo PR-I5B y ensayo local conjunto con PR-I5A aprobados.
-2. Añadir PR-I5-T: departamento y municipio oficiales, selectores dependientes,
-   persistencia/revisión y filtros; no deducir ubicación a partir del nombre.
-3. Perfil institucional, edición autorizada por propietario y archivos C5.
+2. PR-I5-T implementado y T5 validado localmente; conservar evidencia.
+3. Presentación C1 validada; logo C2A/B implementado, C2C pendiente.
+   C5 para archivos generales sigue separado del almacenamiento específico C2.
 4. Solicitudes estudiantiles con respuesta visible y código institucional privado;
    conservar separados códigos y permisos de grupos/profesores.
 5. Ensayo con API/PostgreSQL y Android, documentando cada prueba.
@@ -116,4 +116,4 @@ Leer primero [ETAPAS_PENDIENTES](ETAPAS_PENDIENTES.md) y descargar ambos repos.
 No reiniciar la batería de Rescate ni asumir servicios vivos desde su acta.
 Las pruebas Jest usan dobles de base de datos; el script local posterior usa
 PostgreSQL real y el recorrido físico tiene confirmación del usuario. Mantener
-esas evidencias separadas. Siguiente entrega: PR-I5-T5 (ensayo conjunto).
+esas evidencias separadas. Siguiente del propietario: PR-I5-C2C. Compañero: OV-1A en paralelo.

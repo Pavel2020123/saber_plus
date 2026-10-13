@@ -47,6 +47,14 @@ automática de archivos perdidos. Las selecciones son borradores de esta pantall
 
 ## Relevo exacto: C2C
 
+### Checkpoint del propietario
+
+13 de octubre: C2A/B implementadas; migración C2 no aplicada, seis casos reales
+HTTP/PostgreSQL y ocho humanos Android pendientes. Siguiente: sesión local nueva
+y guion inferior. No hubo nuevas pruebas por esta revisión documental.
+El propietario registra aquí cada caso; compañero en CHECKPOINT_OV1.md.
+Consolidar el roadmap al entregar/integrar el bloque.
+
 Tener ambos repositorios actualizados. Backend:
 `C:\Users\LENOVO 14ALC6\Desktop\SaberPlus-Backend\backend`.
 Flutter: `C:\Users\LENOVO 14ALC6\Desktop\SaberPLus\saber_plus`.

@@ -37,7 +37,7 @@ y verificar fuentes oficiales cuando se prepare el catálogo de carreras.
 
 ## Primera sesión del compañero: instrucciones concretas
 
-1. Pedir acceso a los dos repositorios y comprobar que esta documentación ya
+1. Confirmar acceso de lectura y permisos de colaboración en los dos repositorios y comprobar que esta documentación ya
    está publicada. Un archivo guardado o un commit local no llega al otro PC.
    El propietario confirma los hashes publicados de ambos repos antes de empezar.
 2. Revisar `git status --short`, `git branch --show-current`, `git remote -v`
@@ -106,7 +106,9 @@ Para trabajar simultáneamente se acuerdan ramas por frente en cada repo afectad
 - `main`: base compartida, recibe cambios revisados. La regla anterior de editar
   directamente main corresponde al trabajo individual y queda sustituida aquí.
 
-Se necesitan ambos repositorios, con acceso privado. Rutas del propietario:
+Se necesitan ambos repositorios. Ambos son públicos, verificado mediante API
+GitHub el 13 de octubre de 2026; no se cambió su visibilidad. Clonar no otorga
+permisos para push: coordinar acceso de colaborador sin compartir credenciales. Rutas del propietario:
 
 ```text
 Flutter: C:\Users\LENOVO 14ALC6\Desktop\SaberPLus\saber_plus
@@ -149,6 +151,20 @@ realmente completado. En la entrega indicar ruta del repo y archivos exactos par
 `git add`; no copiar comandos que incluyan archivos inexistentes o cambios ajenos.
 
 ## Pruebas y documentación de cada entrega
+
+### Un checkpoint por frente
+
+- Instituciones: el propietario actualiza PR_I5_C2_LOGO.md, sección «Checkpoint
+  del propietario», después de cada prueba; al cerrar C2C identifica el acta siguiente.
+- OV-1: el compañero actualiza [CHECKPOINT_OV1](CHECKPOINT_OV1.md) después de cada
+  prueba/avance y su acta detallada cuando exista.
+- Roadmap general: solo el propietario consolida al recibir un bloque, integrar
+  un PR o acordar un cambio de alcance. No se edita simultáneamente tras cada caso.
+- Backend: cada responsable mantiene su acta específica; el propietario consolida
+  índices generales. Registrar resultados locales sin convertirlos en despliegue.
+
+Esta regla sustituye instrucciones antiguas de actualizar el roadmap después de
+cada prueba; conserva el registro inmediato en el checkpoint del propio frente.
 
 Cada PC usa su propia base local desechable y sus propias cuentas ficticias.
 Docker se necesita para pruebas reales PostgreSQL; el teléfono USB para Android,

@@ -1,55 +1,39 @@
-# Prompt para continuar SaberPlus con otro chat
+# Relevo general — elegir responsable antes de continuar
 
-**Trabajo paralelo acordado:** propietario → instituciones (sigue C2C);
-compañero → test vocacional OV-1 (comienza A, después B/C/D), sin esperar C2C.
-Ver [responsables, ramas y entrega](TRABAJO_PARALELO.md). Este acuerdo sustituye
-la secuencia estricta de OV-1 y el trabajo individual directo en main.
+Actualizado: 13 de octubre de 2026. Leer [reparto](TRABAJO_PARALELO.md).
+Ambos repositorios públicos según API GitHub hoy; lectura no otorga escritura.
+No cambiar visibilidad ni publicar secretos.
 
-## Continuación vigente — 12 de octubre de 2026
+## Elegir el prompt correcto
 
-**Siguiente: PR-I5-C2C, ensayo integrado del logo institucional.**
-C2A/backend y C2B/Flutter implementadas: 79 pruebas backend y 45 Flutter
-aprobadas, build y análisis correctos. APK debug compilada, no instalada en C2.
-Migración C2 no aplicada; seis casos reales HTTP/PostgreSQL y ocho pruebas
-humanas Android pendientes. No se acredita despliegue remoto ni validación iOS.
-C1C ya completó 15 HTTP/SQL, 3 Flutter/API y 10/10 pruebas humanas locales.
-Territorio T5 también cerrado localmente. No repetir esos recorridos salvo regresión.
+- Propietario: instituciones, [checkpoint C2C](PR_I5_C2_LOGO.md#checkpoint-del-propietario)
+  y prompt específico en [guía de pruebas](RELEVO_PRUEBAS_LOCALES.md#8-prompt-del-propietario--instituciones).
+- Compañero: OV-1A, [checkpoint propio](CHECKPOINT_OV1.md) y
+  [prompt del compañero](TRABAJO_PARALELO.md#prompt-para-el-compañero).
+- El roadmap general se consolida por el propietario al entregar/integrar bloques.
+  Cada equipo registra inmediatamente sus pruebas en su checkpoint, no en el ajeno.
 
-Fuente única: [roadmap](ETAPAS_PENDIENTES.md#checkpoint-de-relevo-de-pruebas).
-Guion: [C2C](PR_I5_C2_LOGO.md). Copiar el bloque siguiente completo.
+## Instrucciones comunes copiables
 
 ```text
-Vas a continuar SaberPlus, no crear otra app ni reescribir el proyecto.
+Continúa SaberPlus sin reconstruirlo. Primero identifica si tu responsable es el
+propietario (instituciones) o el compañero (OV-1). Si no está claro, pregunta.
+Lee TRABAJO_PARALELO.md y el checkpoint de ese frente; usa su prompt específico.
+Verifica rutas, AGENTS aplicables, rama, status/HEAD de ambos repositorios.
+Preserva trabajo ajeno. Ramas por frente, no implementar directamente en main.
+No reset, force-push, push, merge, despliegue ni cambios de visibilidad automáticos.
+Coordina schema.prisma, dependencias, navegación y configuración antes de editarlos.
+Inspecciona contrato/código/tests del módulo antes de cambiarlo.
+Cada prueba actualiza el acta/checkpoint propio con evidencia real y límites;
+el propietario consolida documentación general al entregar/integrar el bloque.
+No transformar unitarias en validación física ni ensayo local en despliegue.
+No usar cuentas/base de producción; no imprimir ni commitear secretos.
+Entrega rutas, archivos, pruebas ejecutadas, pendientes y siguiente acción.
+Usa mensajes de commit específicos y comandos de push de la rama, no main.
+No iniciar juegos ni repetir baterías cerradas por encontrar órdenes históricas.
+```
 
-Repositorios independientes en el PC del propietario:
-- Flutter: C:\Users\LENOVO 14ALC6\Desktop\SaberPLus\saber_plus
-- NestJS/Prisma y ADMIN: C:\Users\LENOVO 14ALC6\Desktop\SaberPlus-Backend
-En otro PC confirma rutas; no trabajes en Icfes_Vida ni inventes un backend.
-
-Antes de editar:
-1. Lee AGENTS.md aplicables; verifica git status, rama, HEAD y diferencias en
-   ambos repositorios. Preserva cambios ajenos; no reset ni force-push.
-2. Lee README, docs/ALCANCE_V1_NOVIEMBRE_2026, docs/ETAPAS_PENDIENTES (estado superior y tabla activa),
-   checkpoint de relevo, RELEVO_PRUEBAS_LOCALES, IC1_CIMA, IC1_GUARDIAN,
-   I2_5_RECORRIDO_ANDROID, ENSAYO_ACADEMICO_LOCAL,
-   CONCILIACION_2026_10_07, RELEVO_EQUIPO, INDICE_DOCUMENTACION y arquitectura.
-   Usa HISTORIAL_ETAPAS como historia, no como instrucciones actuales.
-   En backend lee README, backend/docs/README, PR_I2_RANKINGS, admin/README,
-   contratos afectados, package.json y migraciones.
-3. Audita el flujo concreto UI → controlador → repositorio → API → permisos →
-   servicio → Prisma → respuesta. Leer documentación no equivale a auditar todo.
-4. Lee TRABAJO_PARALELO.md y elige tu frente: propietario instituciones;
-   compañero OV-1. Usa su rama en ambos repos; no editar main directamente.
-   No commit/push/merge automático. C2C es la continuación del propietario,
-   no la tarea del compañero.
-
-Estado vigente al 12 de octubre de 2026:
-- C2A/backend y C2B/Flutter implementadas. Sigue C2C: leer docs/PR_I5_C2_LOGO.md
-  y backend/docs/PR_I5_C2_LOGO.md. 79 tests backend y 45 Flutter aprobados;
-  APK compilada no instalada; migración logo no aplicada. Faltan seis casos
-  HTTP/PostgreSQL reales y ocho comprobaciones Android. No asumir servicios vivos.
-- C1C completada localmente: 15 HTTP/SQL, 3 Flutter/API y 10/10 humanas.
-  Territorio T5 cerrado localmente. No rehacer esas etapas salvo regresión.
+## Evidencia histórica conservada (no es un prompt ni una orden actual)
 
 Antecedentes (no son el siguiente trabajo):
 - PR-I1 integrado (5216383); I2-1/2/3 backend (66b5aa2) y Flutter I2-4 (1921ba9)
@@ -90,70 +74,3 @@ Antecedentes (no son el siguiente trabajo):
   de uso en la revisión sigue como hallazgo a evaluar, no como defecto corregido.
 - No usar fixtures de ranking como prueba de partidas competitivas verificadas.
 - No confundir flags apagados por defecto con estado remoto inspeccionado.
-
-Ruta por responsable:
-Propietario: C2C logo → solicitudes estudiantiles/avisos de PR-I5.
-Compañero en paralelo: OV-1A → B → C → D, sin esperar instituciones.
-El resto del roadmap (académico/profesor/panel, insignias/perfiles, ranking
-institucional/ensayo social y cierre funcional/comercial) se coordina al integrar.
-Ambos frentes deben entregar sus validaciones antes de UI-F/beta/lanzamiento.
-Solo competición Cima/Guardián/Rescate para V1. Trivia/Duelo/Tira/IC-2/IC-3
-competitivos después; preservar código y modos normales. No seguir con Trivia
-al cerrar Rescate. No aplazar OV-1, perfiles ni otras funciones sin nueva decisión.
-Meta académica 15 de noviembre: no garantiza cierre ni publicación en Play.
-QA-1 (CI Flutter/deuda) y DOC-1 (higiene/acceso) son entregas de apoyo.
-IC son integraciones locales, no activación productiva. PR-I3 puede prepararse
-contra contratos, pero premios reales exigen integración validada por juego.
-C5 general sigue pendiente. C2 implementa solo logos privados acotados en PostgreSQL,
-no resuelve almacenamiento general de archivos. P5 → D3 solo al autorizarse.
-Territorio PR-I5-T cerrado localmente; PR-I6-T y orientación OV-1 siguen pendientes.
-UI-F azul/Sabi al final de funciones/integraciones, antes de beta y tienda.
-
-Conservar:
-- Ocho juegos, 90 imágenes: ocho familias de juego y una institucional.
-  Taller de inventos y Escudo retirados; no reconstruirlos.
-- TOP 50. Puestos 1–5 y rangos 6–10, 11–20, 21–30, 31–40, 41–50.
-  Todas las insignias ganadas por juego/año; años anteriores permanecen.
-  Arte integrado no es premio concedido.
-- Reglas competitivas aprobadas: no cambiar fórmulas por cerrar una integración.
-  Memoria/Batallas NO_DISPONIBLE hasta sus entregas. XP autoritativo en servidor.
-- Perfil sobrio, alias, búsqueda y privacidad. No exponer correos, falencias
-  ni alumnos privados. Profesor no jugador.
-- Institución requiere ADMIN P4-C. Solicitud/código institucional no son el
-  código de grupo actual. No cambiar permisos silenciosamente.
-- Seis certificados: cinco áreas + curso; todas las lecciones publicadas,
-  área vacía no certifica. Nombre registrado. HTML/PDF ya existe.
-- ADMIN: área → tema → subtema → contenido/preguntas; guardar válido publica
-  directamente. Conservar duplicados, versiones, concurrencia e historial.
-  No imponer Excel ni revisión editorial obligatoria.
-- MA-2/3 locales no se rehacen; faltan ensayos reales. MA-1 conserva reportes pendientes.
-- Estudio estudiantil gratuito; pago quita anuncios y añade cosméticos.
-  Billing/Ads pendientes; no Wompi/ePayco, chat ni tutores.
-- Android/iOS conservados; lanzamiento comercial inicial solo Google Play.
-
-Entrega:
-- Un alcance acotado con pruebas de regresión. No cambiar servicios remotos,
-  aplicar migraciones reales, usar secretos ni activar pagos/anuncios/competición.
-- No repetir pruebas pesadas sin necesidad y sin entorno seguro disponible.
-  No sustituir una prueba local por Supabase. Explicar qué sí se ejecutó.
-- npm run lint puede modificar código: para diagnóstico usar ESLint sin --fix.
-  No ocultar fallos ni omisiones para conseguir checks verdes.
-- Actualizar estado superior del roadmap, accesos README/relevo e historial;
-  preservar informes originales. No dejar dos rutas vigentes.
-- Después de CADA prueba, actualizar acta del juego y checkpoint vivo con resultado
-  humano/HTTP/SQL por separado, límites y siguiente acción. Docker local, USB de
-  datos, depuración/autorización y pantalla encendida según RELEVO_PRUEBAS_LOCALES.
-  Unidades no requieren contraseña; integración usa archivo ficticio privado nuevo,
-  jamás credenciales de otro PC ni ese archivo en APK. Nueva base cambia JWT/login.
-- Entregar etapa, cambios, validaciones y pendientes. Por cada repo afectado,
-  dar ruta real, git add de archivos precisos, git diff --cached y mensaje de
-  commit. GitHub visibilidad/protección no verificadas: no asumirlas ni cambiarlas.
-
-Empieza por comprobar el checkpoint VIGENTE del roadmap; al escribir este prompt
-era PR-I5-C2C (logo institucional), pero respeta avances posteriores registrados. Usa su contrato existente.
-Consulta IC1_GUARDIAN para lo ya validado; conserva
-los pendientes operativos de I2-5; no los ocultes al avanzar. En el PC del
-propietario la API/panel de ensayo solo duran dos horas: verifica disponibilidad
-y propiedad antes de usar o cerrar esos recursos.
-No intentes ejecutar todo el roadmap ni publicar automáticamente.
-```

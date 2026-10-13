@@ -1,5 +1,10 @@
 # Perfiles, rankings e insignias — ampliación acordada
 
+**Relevo vigente:** propietario PR-I5-C2C; compañero OV-1A en paralelo.
+PR-I1 integrado; I2-5 conserva cierre operativo, no recorrido funcional pendiente.
+C2 almacena logos acotados en PostgreSQL (ensayo C2C pendiente); C5 general sigue
+pendiente. Ver [reparto](TRABAJO_PARALELO.md). Las secuencias antiguas son historia.
+
 Prioridad del 9 de octubre: [alcance V1](ALCANCE_V1_NOVIEMBRE_2026.md).
 Perfiles, todas las insignias por año, instituciones y territorio se conservan.
 Competición inicial Cima/Guardián/Rescate; las otras integraciones se aplazan,
@@ -194,13 +199,13 @@ funciones necesitan una decisión de producto independiente.
 | PR-I6 — Ranking institucional | Aportes históricos por institución, suma por período, participantes activos y detalle público agregado. Probar cambios de institución y ausencia de doble conteo. |
 | PR-I7 — Ensayo integral | Migraciones/despliegue coordinados con P5/D3, dos cuentas/dispositivos, imágenes, permisos, accesibilidad, red, clasificación y cierre anual. Simular cambio de año/reintentos conservando insignias anteriores. Solo cerrar con resultados reales. |
 
-Orden vigente: JN-1A/B/C, JN-2A/B/C y MA-1 básica implementados localmente;
+Secuencia histórica de planificación (superada; no ejecutar como relevo): JN-1A/B/C, JN-2A/B/C y MA-1 básica implementados localmente;
 JN-4 está retirado, no desplegar ni reimplementar su motor.
 reportes académicos MA-1 pendientes; MA-2A/B/C y MA-3A/B/C locales listas; seguir PR-I1–6 antes
 del arte final de Sabi. PR-I1 y preparación de imágenes pueden adelantarse; PR-I2
 depende de los motores seguros de los juegos y PR-I4/5 de archivos persistentes C5.
 PR-I7 se coordina con P5, D3 y la prueba móvil. No sustituye seguridad, publicidad,
-Billing, contenido ni publicación. **PR-I1 es la próxima entrega**, porque MA-3A/B/C
+Billing, contenido ni publicación. **En esa planificación PR-I1 era la próxima entrega; hoy está integrado**, porque MA-3A/B/C
 ya está implementada localmente. Las reglas marcadas como propuestas siguen por
 confirmar: completar MA-3 no las convierte en decisiones aprobadas.
 

@@ -1,5 +1,9 @@
 # Índice de documentación de SaberPlus
 
+- [Auditoría documental del 13 de octubre](AUDITORIA_DOCUMENTAL_2026_10_13.md).
+- [Checkpoint OV-1 del compañero](CHECKPOINT_OV1.md).
+- [Checkpoint C2C del propietario](PR_I5_C2_LOGO.md#checkpoint-del-propietario).
+
 **Trabajo paralelo acordado:** propietario → instituciones (sigue C2C);
 compañero → test vocacional OV-1 (comienza A, después B/C/D), sin esperar C2C.
 Ver [responsables, ramas y entrega](TRABAJO_PARALELO.md). Este acuerdo sustituye

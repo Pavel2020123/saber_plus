@@ -15,8 +15,8 @@ El orden y los estados vivos se mantienen en
 
 ## Qué cambia y qué se conserva
 
-- Competición inicial: **Cima, Guardián y Rescate de estrellas**. Cima y Guardián
-  tienen validación local acotada; Rescate sigue pendiente. No implica producción.
+- Competición inicial: **Cima, Guardián y Rescate de estrellas**. Los tres
+  tienen validación local acotada; Rescate se validó el 10 de octubre (IC1_RESCATE.md). No implica producción.
 - Trivia, Duelo fantasma, Tira y afloja, Memoria (IC-2) y Batallas (IC-3):
   integración competitiva aplazada, no cancelada. Conservar código, contratos,
   migraciones, imágenes y modos normales existentes. Revisar estabilidad de los
@@ -40,8 +40,8 @@ el historial**. La tabla detallada del roadmap conserva cada pendiente técnico.
 
 | Orden | Alcance y correspondencia | Evidencia necesaria para cerrar |
 |---|---|---|
-| 1. Competición inicial | Terminar IC-1C Rescate. Conservar actas IC-1A Cima e IC-1B Guardián. | Modo explícito, permisos, recuperación, reintento, resultado/XP único y ranking; normal sin XP competitivo. Actas por juego con límites. |
-| 2. Instituciones | PR-I5/P4-C y PR-I5-T: aprobación ADMIN con evidencia privada, directorio por nombre/departamento/municipio, perfil institucional, solicitudes y avisos, código institucional privado. | Aprobada/rechazada/pendiente, propietario autorizado para editar, permisos de estudiantes y profesor; no confundir código de grupo con institucional. C5 antes de fotos/logo persistentes. |
+| 1. Competición inicial | IC-1C Rescate validado localmente el 10 de octubre. Conservar actas de los tres juegos; no acredita producción. | Modo explícito, permisos, recuperación, reintento, resultado/XP único y ranking; normal sin XP competitivo. Actas por juego con límites. |
+| 2. Instituciones | PR-I5/P4-C y PR-I5-T: aprobación ADMIN con evidencia privada, directorio por nombre/departamento/municipio, perfil institucional, solicitudes y avisos, código institucional privado. | Aprobada/rechazada/pendiente, propietario autorizado para editar, permisos de estudiantes y profesor; no confundir código de grupo con institucional. C2 implementa logos acotados en PostgreSQL; C2C integrado pendiente. C5 sigue pendiente para archivos generales. |
 | 3. Académico, profesor y panel | P5 → D3 cuando se autorice; C4/C6, MA-1/2/3, contratos académicos, contenido 7J y certificados. | Panel → API → app, caché/versiones sin perder progreso, mapas/repasos, seguimiento docente y PDF con nombre registrado. Cinco áreas + curso, todas las lecciones publicadas; área vacía no certifica. Reutilizar ensayo académico ya documentado. |
 | 4. Insignias y perfiles | PR-I3/4: TOP 50, premios anuales, alias/avatar/foto, búsqueda y visita a perfiles. | Todas las insignias ganadas, sin límite de tres; 2026 permanece al ganar 2027. Concesión única y correcciones auditadas; detalle muestra juego/año/posición. Premios reales solo de modalidades competitivas validadas, nunca de fixtures. Profesor no jugador. |
 | 5. Ranking institucional y ensayo social | PR-I6/6-T/7: aportes y pertenencia histórica, ámbito nacional/departamento/municipio, integración con perfiles. | Sin traslado ni doble conteo de XP histórico; filtros antes de paginar/ordenar. Dos cuentas, privacidad, solicitudes, fotos y conservación de temporadas. Filtro territorial no inventa premios regionales. |
@@ -68,9 +68,10 @@ Si la fecha peligra, informar al propietario con evidencia y pedir priorización
 **no quitar OV-1, perfiles u otras funciones silenciosamente**. Identificar en
 la presentación qué funciona localmente, qué es demo y qué falta desplegar.
 
-Después de cada prueba actualizar acta y
-[checkpoint vivo](ETAPAS_PENDIENTES.md#checkpoint-de-relevo-de-pruebas), incluso
-si no termina la etapa. El compañero debe leer ambos repositorios, auditar cambios
+Después de cada prueba actualizar acta/checkpoint del frente correspondiente,
+incluso si no termina la etapa. El propietario consolida el
+[checkpoint general](ETAPAS_PENDIENTES.md#checkpoint-de-relevo-de-pruebas) al entregar
+un bloque o integrar cambios; seguir TRABAJO_PARALELO.md. El compañero debe leer ambos repositorios, auditar cambios
 recibidos y continuar desde ese punto, no desde una orden antigua.
 Usar [prompt general](PROMPT_RELEVO.md) y
 [guía operativa de pruebas](RELEVO_PRUEBAS_LOCALES.md). No compartir secretos.

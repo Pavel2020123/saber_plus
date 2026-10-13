@@ -1,5 +1,9 @@
 # SaberPlus móvil
 
+Relevo del 13 de octubre: [Instituciones/C2C](docs/PR_I5_C2_LOGO.md#checkpoint-del-propietario)
+y [OV-1A del compañero](docs/CHECKPOINT_OV1.md), checkpoints independientes.
+[Corrección de once inconsistencias](docs/AUDITORIA_DOCUMENTAL_2026_10_13.md).
+
 **Trabajo paralelo acordado:** propietario → instituciones (sigue C2C);
 compañero → test vocacional OV-1 (comienza A, después B/C/D), sin esperar C2C.
 Ver [responsables, ramas y entrega](docs/TRABAJO_PARALELO.md). Este acuerdo sustituye

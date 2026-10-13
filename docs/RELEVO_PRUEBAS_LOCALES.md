@@ -36,8 +36,8 @@ inferiores son antecedentes y procedimientos, no orden para repetirlos.
 
 ## 1. Qué recibir y leer antes de trabajar
 
-Se necesitan **ambos repositorios privados** y permisos de acceso. No hacerlos
-públicos ni copiar contraseñas para compartirlos:
+Se necesitan ambos repositorios, públicos según API GitHub el 13 de octubre.
+Coordinar permisos de escritura; no cambiar visibilidad ni compartir credenciales:
 
 - Flutter: `https://github.com/Pavel2020123/saber_plus.git`.
 - Backend y panel: `https://github.com/Pavel2020123/SaberPlus-Backend.git`.
@@ -231,7 +231,7 @@ APK compilada no significan instalada. Ante bloqueo, revisar pantalla/cable ante
 de reinstalar; detener únicamente clientes propios, no matar procesos ajenos.
 No usar `flutter run` sin verificar configuración/paquete de esta sesión.
 
-## 6. Guion por juego y evidencia después de CADA checkpoint
+## 6. Referencia histórica de pruebas de juegos — no ejecutar para C2C/OV-1: Guion por juego y evidencia después de CADA checkpoint
 
 Antes de probar, escribir en el acta qué caso se hará, estado/flag esperado y base
 propia. Usar las reglas vigentes del servidor, no cantidades inferidas de capturas.
@@ -276,7 +276,8 @@ Después de CADA caso, antes de pedir el siguiente paso al humano:
 - Anotar fecha, versiones/HEAD, comando sin secretos, resultado/cantidad,
   selección/datos sintéticos, ID de intento/evento propio cuando sea útil,
   saldo antes/después, limitación y **exacto siguiente gesto/checkpoint**.
-- Actualizar el bloque vivo del roadmap y enlace al acta. Si terminó un juego,
+- Actualizar el checkpoint propio del frente. El propietario consolida el roadmap
+  al entregar/integrar el bloque; no editarlo simultáneamente. Si terminó un juego,
   actualizar README, índice, relevo/prompt e historial de ambos repositorios.
 - No prometer corrección sin implementarla/probarla. No afirmar toda IC-1 cerrada
   porque aprobaron Cima/Guardián. Mantener explícitos P5/D3 productivos pendientes.
@@ -327,56 +328,25 @@ solo reverse `43187`. Confirmar limpieza; si supervisor fue matado, no asumirla.
 No `docker system prune`, no borrar repos/carpetas amplias. No cerrar el entorno
 antes de guardar evidencia ni tocar el del compañero. El siguiente PC crea otro.
 
-## 8. Prompt copiable para el compañero / otro chat
+## 8. Prompt del propietario — instituciones
+
+El compañero de OV-1 usa el prompt de TRABAJO_PARALELO.md, no este.
 
 ```text
-Continúa SaberPlus desde el checkpoint vigente, no desde el historial del chat.
-Primero identifica tu frente en TRABAJO_PARALELO.md: este guion C2C es para el
-propietario. Si eres el compañero de OV-1, usa el prompt específico de ese
-documento y sus criterios; no prepares fixtures/pruebas del logo por este guion.
-Tengo los dos repositorios (Flutter saber_plus y SaberPlus-Backend con backend/admin).
-Verifica rutas, rama de tu frente, git status/HEAD y cambios recibidos. Preserva trabajo ajeno.
-Lee AGENTS si existe, README de ambos, docs/ETAPAS_PENDIENTES (bloque Checkpoint
-de relevo de pruebas), docs/RELEVO_PRUEBAS_LOCALES, PROMPT_RELEVO,
-ARQUITECTURA_Y_ESTRUCTURA, acta del juego activo y sus contratos/código/tests.
-Audita el flujo afectado y nuevos cambios antes de continuar. No rehagas motores.
-
-Al 12 de octubre sigue PR-I5-C2C: logo institucional. Leer PR_I5_C2_LOGO.md:
-sesión nueva, fixtures C1, seis casos HTTP/PostgreSQL y ocho pruebas Android.
-C2A/B están implementadas; migración C2 no aplicada y APK C2 no instalada.
-C1C y territorio T5 ya cerraron localmente. Si avanzaron, respeta el checkpoint.
-Cima, Guardián y Rescate tienen pruebas
-locales reales registradas: no repetir todo salvo regresión concreta. Memoria y
-Batallas requieren IC-2/3; no están listas competitivamente por existir como juegos.
-Lee ALCANCE_V1_NOVIEMBRE_2026: después de Rescate sigue instituciones. Solo se
-aplazan competiciones de Trivia/Duelo/Tira/Memoria/Batallas; conservar sus modos
-normales y todas las demás funciones, incluido OV-1, perfiles e insignias anuales.
-
-Usa Docker LOCAL Linux y el harness backend/tool/local_ranking_validation.mjs.
-Prepara dependencias/compilación según manifests; no uses .env, Supabase ni Render.
-El harness crea base propia, API loopback43187 y credenciales ficticias nuevas.
-Confirma propiedad del contenedor/nonce. No copies sesión/contraseña/balances del
-PC anterior. Unitarias no requieren contraseña; integración opt-in usa archivo
-privado de esa sesión. Nunca imprimir secretos ni incluirlos en Git/APK.
-
-Pídeme conectar Android por USB con cable de datos, depuración/instalar USB,
-autorización y pantalla encendida/desbloqueada. Confirma adb device, reverse43187,
-APK separada .i2validation y Success sin reemplazar la app habitual. Mantén
-terminales/harness abiertos, recuerda plazo2h y nueva autenticación si recreas base.
-
-Si el cliente competitivo pendiente aún no existe, implementa primero de forma
-acotada con contrato vigente y tests; no intentar validar el juego normal como
-competitivo. Prueba un checkpoint físico cada vez conmigo. Presencia/reloj/rivales
-según juego, no copies protocolo de otro. XP solo desde verificador/ledger real;
-fixtures de Trivia no son partidas verificadas. Si falta decisión/segundo rival,
-pregúntame; no fabricar resultados. No cambies fórmulas, arte/sonidos ni anuncios.
-
-Después de CADA checkpoint registra acción, resultado humano/HTTP/SQL por separado,
-estado, límites y siguiente paso exacto en acta del juego y bloque vivo del roadmap.
-Al finalizar actualiza README/relevo/prompt/índice/historial y espejo backend.
-Registra pass/skip/fail y lo no probado; verifica enlaces/diff. No cierres toda
-IC-1 ni producción. Un commit por juego autorizado tras pruebas/documentación;
-revisa staged y da ruta/hash/comando push por repo. No push, deploy, reset ni
-force-push automáticos. Si interrumpimos, deja checkpoint claro y cierre seguro
-del entorno propio; mi compañero seguirá desde ese bloque y no tendrá este chat.
+Soy el propietario. Continúa instituciones, PR-I5-C2C, desde
+docs/PR_I5_C2_LOGO.md, checkpoint del propietario. Mi compañero hace OV-1;
+no edites su módulo ni CHECKPOINT_OV1.md. Lee TRABAJO_PARALELO.md y AGENTS.
+Verifica ambos repositorios, cambios y rama feat/instituciones-c2c.
+Código C2A/B listo; seis casos SQL/HTTP y ocho Android siguen pendientes.
+No declarar migración aplicada ni APK instalada sin comprobarlo.
+Prepara sesión local nueva según el acta: Docker Linux, backend compilado,
+fixtures C1 y script del logo. No usar .env/Supabase/Render ni secretos anteriores.
+Para Android pide USB de datos, depuración/autorización y pantalla desbloqueada.
+Verifica dispositivo, reverse y APK de ensayo .i2validation sin reemplazar la habitual.
+Prueba un caso cada vez y registra resultado automático/HTTP/SQL/humano por separado
+en el acta del logo, incluso si se interrumpe. No cambiar juegos/XP/flags para C2C.
+Consolida roadmap general al entregar un bloque; no después de cada caso.
+Preserva permisos, presentación, concurrencia, privacidad y evidencias anteriores.
+No push/merge/despliegue automático. Al finalizar entrega rutas, cambios, pruebas,
+límites y siguiente paso; coordina archivos compartidos con el compañero.
 ```

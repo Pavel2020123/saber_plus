@@ -187,6 +187,12 @@ limpieza/cierre operativo y deuda QA-1 siguen separados y pendientes.
 
 ## Checkpoint de relevo de pruebas
 
+- Instituciones, propietario: [checkpoint C2C](PR_I5_C2_LOGO.md#checkpoint-del-propietario).
+- Orientación, compañero: [checkpoint OV-1](CHECKPOINT_OV1.md).
+- Cada frente actualiza el suyo por prueba; propietario consolida este resumen
+  al entregar/integrar bloques. No asumir que las fechas inferiores describen
+  servicios activos hoy.
+
 ## Continuación vigente — 12 de octubre de 2026
 
 **Siguiente: PR-I5-C2C, ensayo integrado del logo institucional.**
@@ -203,7 +209,10 @@ de ensayo y seguir sus ocho casos. Credenciales solo en archivo temporal privado
 Registrar cada resultado humano/HTTP/SQL por separado. En esta entrega documental
 no se iniciaron servicios, no se aplicaron migraciones ni se hicieron pruebas físicas.
 
-**Actualizar este bloque después de CADA prueba, no solo al acabar el juego.**
+**Después de cada prueba actualizar el checkpoint del frente, no ambos equipos
+este bloque.** Instituciones: propietario en PR_I5_C2_LOGO.md. OV-1: compañero
+en CHECKPOINT_OV1.md y su acta. El propietario consolida aquí al entregar/integrar
+un bloque; registrar fecha/HEAD y límites. Ver TRABAJO_PARALELO.md.
 Preparación, guion, credenciales ficticias, USB/Docker y prompt para el compañero:
 [RELEVO_PRUEBAS_LOCALES](RELEVO_PRUEBAS_LOCALES.md).
 
@@ -662,9 +671,9 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | 8I — Google Play | Firma/AAB, ficha, declaraciones, revisión y lanzamiento gradual. | Beta, privacidad y autorización; comprobar requisitos de la cuenta al ejecutar. |
 | 9A — Mantenimiento | Responsables, soporte, monitoreo, contenido, costos, seguridad y actualizaciones. | Preparar operación antes de publicar; ejecución continua después. |
 
-**Secuencia inmediata:** IC-1C Rescate (Cima y Guardián validados localmente),
-conservando el cierre operativo pendiente de I2-5 → instituciones PR-I5/P4-C y
-PR-I5-T → demás bloques del orden vigente anterior. IC-2/3 y los restantes
+**Secuencia inmediata:** propietario PR-I5-C2C → solicitudes institucionales;
+compañero OV-1A → B/C/D en paralelo. Rescate y territorio ya validados localmente;
+conservar cierre operativo pendiente de I2-5 y demás bloques del orden vigente. IC-2/3 y los restantes
 clientes competitivos IC-1 quedan aplazados. QA-1/DOC-1 son apoyo
 planificado, no autorizan cambios automáticos ni bloquean por sí solos toda entrega.
 Los merges I2-3/I2-4 ya ocurrieron. PR-I1 es antecedente integrado,

@@ -137,7 +137,7 @@ sonido al finalizar. No hay todavía notificaciones push académicas del backend
 | Tira y afloja | Las respuestas desplazan la cuerda; incluye experiencia individual y en línea | En línea requiere probar dos dispositivos, latencia y reconexión |
 | Batallas asíncronas | Desafíos entre estudiantes sin exigir que jueguen simultáneamente | Entregas, vencimientos, bloqueo de rivales y permisos se validan en backend |
 | Desafío del guardián | Alcanzar seis aciertos antes de tres errores, hasta ocho preguntas | Motor local; falta verificar despliegue y ensayo real |
-| Salto a la cima | Aciertos suben un escalón y errores bajan uno | Demo, backend y cliente remoto locales; falta ensayo real |
+| Salto a la cima | Aciertos suben un escalón y errores bajan uno | Cliente competitivo y ensayo Android/API/PostgreSQL validados localmente el 10 de octubre; no despliegue productivo |
 | Rescate de estrellas | Aciertos liberan estrellas y completan constelaciones | Demo, backend y cliente remoto locales; falta ensayo real |
 
 Ocho juegos vigentes. Taller de inventos cancelado y Escudo del conocimiento retirado;
@@ -158,7 +158,7 @@ No se dan por probados todos los modos en Android/iOS reales por tener tests.
   registrado. Todas las lecciones publicadas del área completadas; área vacía
   no habilita PDF. Final exige las cinco áreas. Implementación local y descarga privada.
 - Catálogo de 90 insignias (ocho juegos e instituciones), no premios ganados.
-  Infraestructura PR-I1 y consulta PR-I2 hasta I2-4 integradas; I2-5 abierto.
+  Infraestructura PR-I1 y consulta PR-I2 hasta I2-4 integradas; criterios funcionales I2-5 revisados en Android, cierre operativo/QA-1 pendientes.
   IC-1/2/3 cubren clientes y juegos competitivos pendientes. Asignación anual
   permanente y perfiles sociales siguen pendientes PR-I3–7.
 
@@ -279,9 +279,10 @@ desplegar ese retiro en Render; las tablas históricas se conservan.
 
 ## Qué sigue
 
-**Completar I2-5**, aprovechando la regresión e integración ya documentadas.
-Después IC-1 (seis clientes competitivos), IC-2 (Memoria), IC-3 (Batallas) y
-PR-I3–7 por dependencias, con C5 antes de fotos reales. QA-1/DOC-1 son apoyo.
+**Propietario: C2C, ensayo del logo. Compañero: OV-1A en paralelo.**
+Cima/Guardián/Rescate tienen validación local acotada; otras integraciones
+competitivas aplazadas. I2-5 mantiene cierre operativo/QA-1, no repetir por ello
+el recorrido aprobado. C2 específico no cierra C5 general. Ver TRABAJO_PARALELO.md.
 MA-2/3 locales no se rehacen. P5/D3 siguen pausadas. El orden vigente está en
 [ETAPAS_PENDIENTES](ETAPAS_PENDIENTES.md); no se acreditan despliegues.
 No desaparecen MA-1 reportes, C4/C5/C6, identidad/seguridad, contratos académicos,

@@ -1,16 +1,18 @@
 # SaberPlus — guía de trabajo para compañeros
 
-Actualizado: 7 de octubre de 2026. Leer antes de modificar código.
+Actualizado: 13 de octubre de 2026. Leer antes de modificar código.
 
-**Nueva delegación:** el propietario deja temporalmente la continuación al equipo.
+**Reparto vigente:** propietario en instituciones/C2C; compañero en OV-1A.
+Leer [trabajo paralelo](TRABAJO_PARALELO.md). Certificados y audios inferiores son
+guías de referencia, no tareas adicionales asignadas al compañero de OV-1.
 Leer primero [RELEVO_EQUIPO.md](RELEVO_EQUIPO.md): auditoría y ruta completa de etapas.
 Esta guía conserva el detalle de certificados/audios, pero ya no limita el trabajo
 de compañeros a esas dos tareas. No autoriza despliegues ni operaciones en bases reales.
 
 ## 1. Acuerdo del equipo
 
-Los compañeros pueden auditar y continuar una entrega acordada en main,
-coordinando archivos. I2-5 es el checkpoint actual; no reiniciar PR-I1.
+Cada equipo trabaja en su rama y entrega mediante PR: instituciones o OV-1.
+I2-5 conserva cierre operativo pendiente; no es el frente actual. PR-I1 ya integrado.
 MA-2A/B/C y MA-3A/B/C están implementadas localmente.
 Ver [ruta vigente](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo) y
 [prompt para el asistente](PROMPT_RELEVO.md). Coordinar integración y decisiones pendientes con
@@ -18,8 +20,7 @@ el propietario. También pueden revisar certificados y reparar audios según est
 El contenido académico lo cargarán después el propietario y un compañero desde el
 panel ADMIN. Las pruebas en celulares se harán entre los tres.
 
-Main es la decisión actual del propietario; rama/PR solo si se acuerda para
-trabajo simultáneo. Revisar cada entrega antes de commit/push; no publicar automáticamente. No desplegar,
+Main es la base de integración. Ramas independientes y PR para trabajo simultáneo. Revisar cada entrega antes de commit/push; no publicar automáticamente. No desplegar,
 aplicar migraciones ni usar credenciales de producción por cuenta propia.
 
 Esta guía distingue trabajo local integrado de pruebas y despliegues pendientes.
@@ -34,6 +35,9 @@ Las animaciones de Sabi quedan al final; esta asignación no reabre ese trabajo.
 - `Icfes_Vida` es una referencia histórica, **no el repositorio donde entregar
   cambios nuevos de SaberPlus**. No modificarlo para estas tareas.
 
+Ambos repositorios son públicos según consulta API GitHub del 13 de octubre de 2026.
+Leer/clonar no concede permiso de escritura: coordinar acceso de colaborador para
+subir ramas al origen. No cambiar visibilidad automáticamente.
 El propietario debe publicar primero esta guía y los commits que quiera compartir.
 Si un repositorio es privado, debe dar acceso a las cuentas GitHub de los compañeros;
 no compartir contraseñas, tokens ni archivos `.env`.
@@ -49,7 +53,7 @@ Abrir una terminal en una carpeta de trabajo elegida por cada compañero:
 ```powershell
 git clone https://github.com/Pavel2020123/saber_plus.git
 cd saber_plus
-git switch main
+git switch -c feat/orientacion-vocacional
 flutter pub get
 flutter analyze
 flutter run
@@ -63,7 +67,8 @@ git status --short
 # Continuar solamente si no hay cambios propios sin guardar.
 git switch main
 git pull --ff-only origin main
-git switch main
+git switch -c feat/orientacion-vocacional
+# Si ya existe, usar git switch feat/orientacion-vocacional.
 ```
 
 Para trabajar en el servidor, clonar `SaberPlus-Backend.git` por separado.
@@ -263,7 +268,7 @@ git add lib/core/feedback/game_audio_feedback.dart test/game_audio_feedback_test
 git diff --cached
 git commit -m "fix: corregir reproduccion de audios de juegos"
 # Solo cuando el propietario autorice publicar:
-git push origin main
+git push -u origin HEAD
 ```
 
 Para certificados: mensaje sugerido `feat: crear plantilla de certificados por area y curso`
@@ -271,7 +276,7 @@ solo si se creó esa función; para correcciones usar un mensaje fix preciso.
 No usar `git add .` sin revisar, `push --force`,
 `reset --hard`, ni subir `.env`, contraseñas, compilaciones o bases de datos.
 
-Entregar al propietario el diff para revisión; si se acordó rama, usar PR sin
+Entregar al propietario el diff para revisión; usar PR sin
 fusionarlo automáticamente. Incluir objetivo, archivos tocados, comandos/resultados de pruebas,
 capturas/PDF de muestra o video de sonido, limitaciones y posibles cambios de contrato.
 Si hay conflicto en archivos compartidos, avisar; no aceptar todo “ours/theirs” a ciegas.
