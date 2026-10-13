@@ -137,8 +137,8 @@ sonido al finalizar. No hay todavía notificaciones push académicas del backend
 | Tira y afloja | Las respuestas desplazan la cuerda; incluye experiencia individual y en línea | En línea requiere probar dos dispositivos, latencia y reconexión |
 | Batallas asíncronas | Desafíos entre estudiantes sin exigir que jueguen simultáneamente | Entregas, vencimientos, bloqueo de rivales y permisos se validan en backend |
 | Desafío del guardián | Alcanzar seis aciertos antes de tres errores, hasta ocho preguntas | Motor local; falta verificar despliegue y ensayo real |
-| Salto a la cima | Aciertos suben un escalón y errores bajan uno | Cliente competitivo y ensayo Android/API/PostgreSQL validados localmente el 10 de octubre; no despliegue productivo |
-| Rescate de estrellas | Aciertos liberan estrellas y completan constelaciones | Demo, backend y cliente remoto locales; falta ensayo real |
+| Salto a la cima | Aciertos suben un escalón y errores bajan uno | Cliente competitivo y ensayo Android/API/PostgreSQL validados localmente el 8 de octubre; no despliegue productivo |
+| Rescate de estrellas | Aciertos liberan estrellas y completan constelaciones | Cliente competitivo y ensayo Android/API/PostgreSQL validados localmente el 10 de octubre; cierre operativo/despliegue aún pendientes |
 
 Ocho juegos vigentes. Taller de inventos cancelado y Escudo del conocimiento retirado;
 no reintroducirlos. Renovación profesional con Sabi aplazada al acabado final.

@@ -1,5 +1,7 @@
 # SaberPlus móvil
 
+**Para incorporarse al equipo o retomar desde otro PC:** [guía de inicio y trabajo en paralelo](docs/INICIO_Y_TRABAJO_EN_EQUIPO.md). Incluye clonado, ramas por frente, pruebas, checkpoints y PR.
+
 Relevo del 13 de octubre: [Instituciones/C2C](docs/PR_I5_C2_LOGO.md#checkpoint-del-propietario)
 y [OV-1A del compañero](docs/CHECKPOINT_OV1.md), checkpoints independientes.
 [Corrección de once inconsistencias](docs/AUDITORIA_DOCUMENTAL_2026_10_13.md).

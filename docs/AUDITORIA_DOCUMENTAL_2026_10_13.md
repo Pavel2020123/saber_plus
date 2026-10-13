@@ -29,7 +29,7 @@ pruebas funcionales nuevas. Las actas históricas se conservan con sus límites.
 
 ## Decisiones/acciones pendientes del propietario
 
-- Revisar y autorizar commit/publicación de esta documentación; hoy queda local.
+- La auditoría original ya fue publicada en `main`: Flutter `64ef962` y backend `5cbc7e1`. Revisar y autorizar cualquier **nueva** entrega documental mediante ramas y PR.
 - Confirmar permisos de colaboración y acordar cada edición de archivos compartidos.
 - Acordar contenido/umbrales propuestos de OV-1A antes de publicar recomendaciones;
   no se decide puntuación vocacional en esta corrección documental.
