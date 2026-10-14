@@ -127,3 +127,48 @@ El CI conocido del Backend PR #7 continúa fuera del alcance de OV-1A y no se mo
 Revisar el diff documental completo de OV-1A y entregar la propuesta al propietario para decisión.
 
 No iniciar OV-1B automáticamente antes de registrar cuáles reglas fueron aprobadas, modificadas o rechazadas.
+
+---
+
+## Decisión del propietario — 2026-10-14
+
+El propietario comunicó la **aprobación completa y sin modificaciones** de las
+11 decisiones propuestas en OV-1A.
+
+Quedan aprobados para continuar la implementación:
+
+1. 30 preguntas.
+2. Seis familias de intereses y sus nombres.
+3. Redacción propuesta de las 30 preguntas.
+4. Escala de respuesta 0–4.
+5. Tratamiento de `No sé` como ausencia de evidencia y no como valor 0.
+6. Umbral global mínimo del 80 % de respuestas numéricas válidas.
+7. Mínimo de 3/5 respuestas válidas por familia.
+8. Presentación inicial de hasta tres familias principales.
+9. Empates sin desempates artificiales; si el empate cruza el tercer lugar, se muestran todas las familias empatadas aunque excepcionalmente sean más de tres.
+10. Versión inicial `ov1RulesVersion = 1`.
+11. Revisión de contenido obligatoria antes de publicar recomendaciones.
+
+Aclaración posterior del propietario, 2026-10-14: si un empate cruza el límite
+del tercer lugar, se mostrarán todas las familias empatadas, aunque
+excepcionalmente el resultado contenga más de tres familias.
+
+Esta aprobación corresponde a **decisiones de producto**. No equivale a
+aprobación de PR, merge, despliegue, validación científica ni revisión de
+contenido especializada.
+
+### Estado actualizado
+
+OV-1A: **aprobado como definición de producto para continuar desarrollo**.
+
+No existe todavía implementación funcional nueva de cuestionario, API o
+persistencia OV-1.
+
+### Siguiente paso exacto
+
+Preparar OV-1B: contrato y persistencia privada.
+
+Antes de modificar Backend se debe partir del `origin/main` actualizado en una
+rama/worktree propio de OV-1 y revisar arquitectura, sesión, modelos existentes
+y archivos compartidos. No modificar `schema.prisma`, migraciones,
+`app.module.ts`, dependencias ni locks sin coordinación previa.

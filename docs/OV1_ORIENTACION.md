@@ -2,13 +2,14 @@
 
 ## Estado
 
-**OV-1A — propuesta inicial para revisión del propietario.**
+**OV-1A — decisiones de producto aprobadas por el propietario el 2026-10-14. Revisión de contenido previa a publicación pendiente.**
 
-Este documento define una propuesta de contenido y reglas. No constituye
-validación psicológica o científica, no publica recomendaciones en producción
-y no implica aprobación de las decisiones pendientes.
+Este documento define el contenido y las reglas de producto aprobadas para
+continuar la implementación de OV-1. No constituye validación psicológica o
+científica y no autoriza publicar recomendaciones sin la revisión de contenido
+prevista antes de producción.
 
-Versión propuesta de reglas:
+Versión inicial aprobada de reglas:
 
 `ov1RulesVersion = 1`
 
@@ -47,18 +48,19 @@ No debe:
 Los resultados pertenecen al estudiante y su persistencia privada se definirá
 en OV-1B.
 
-## 3. Cuestionario propuesto
+## 3. Cuestionario aprobado para implementación
 
-Propuesta inicial:
+Configuración aprobada para implementación:
 
 - 30 preguntas;
 - 6 familias de intereses;
 - 5 preguntas por familia;
 - duración objetivo aproximada: 5–8 minutos.
 
-Estas cantidades están pendientes de revisión de contenido.
+Estas cantidades fueron aprobadas por el propietario para implementación.
+La revisión de contenido previa a publicación continúa pendiente.
 
-### Familias propuestas
+### Familias aprobadas para implementación
 
 1. Tecnología e ingeniería.
 2. Salud y ciencias de la vida.
@@ -70,7 +72,7 @@ Estas cantidades están pendientes de revisión de contenido.
 Las familias son una clasificación propia y explicable de SaberPlus para
 exploración. No se presentan como una taxonomía psicológica validada.
 
-## 4. Escala propuesta
+## 4. Escala aprobada
 
 Para cada afirmación:
 
@@ -90,7 +92,7 @@ Una respuesta «No sé»:
 - no entra en el denominador de puntuación;
 - reduce la cobertura de evidencia de esa familia.
 
-## 5. Preguntas propuestas
+## 5. Preguntas aprobadas para implementación
 
 ### Tecnología e ingeniería
 
@@ -140,7 +142,7 @@ D3. Me interesaría diseñar espacios, productos, imágenes o experiencias útil
 D4. Me gustaría trabajar en proyectos relacionados con naturaleza, ambiente, territorio o producción sostenible.
 D5. Disfrutaría combinar observación, creatividad y trabajo práctico para transformar una idea en algo concreto.
 
-## 6. Puntuación propuesta
+## 6. Puntuación aprobada
 
 Cada familia se calcula exclusivamente con sus respuestas válidas.
 
@@ -172,7 +174,7 @@ La puntuación no se mezcla con desempeño académico.
 
 Debe permitirse guardar y continuar en etapas posteriores.
 
-Propuesta para considerar terminado un intento:
+Para considerar terminado un intento:
 
 - al menos 80 % de las preguntas con respuesta numérica válida;
 - al menos 3 de las 5 preguntas de cada familia respondidas.
@@ -185,8 +187,7 @@ Si no se cumplen ambos criterios:
 - se informa que falta evidencia;
 - el estudiante puede continuar o corregir respuestas.
 
-Estos umbrales requieren aprobación del propietario antes de tratarse como
-regla definitiva.
+Estos umbrales fueron aprobados por el propietario como regla de producto para continuar la implementación.
 
 ## 8. Empates
 
@@ -206,10 +207,10 @@ No desempatar por:
 
 ## 9. Presentación de resultados
 
-Propuesta:
+Reglas aprobadas:
 
 - mostrar inicialmente hasta tres familias de mayor interés;
-- si existe empate en el límite del tercer lugar, aplicar la regla que apruebe el propietario, sin desempatar mediante información ajena al cuestionario;
+- si existe empate en el límite del tercer lugar, mostrar todas las familias empatadas, aunque excepcionalmente el resultado incluya más de tres familias;
 - acompañar cada familia con una explicación basada en las respuestas;
 - mostrar varias carreras o rutas para explorar;
 - permitir explorar incluso cuando la tendencia sea débil;
@@ -267,27 +268,28 @@ Ambas familias conservan la misma prioridad. No se aplica desempate adicional.
 
 23 respuestas numéricas válidas de 30.
 
-No alcanza el 80 % propuesto y no genera resultado final.
+No alcanza el 80 % aprobado y no genera resultado final.
 
-## 11. Decisiones pendientes de aprobación
+## 11. Decisiones aprobadas por el propietario
 
-Antes de considerar OV-1A aprobado, el propietario debe revisar:
+El 2026-10-14 el propietario aprobó sin modificaciones:
 
 1. número final de preguntas;
-2. seis familias propuestas y sus nombres;
+2. seis familias aprobadas y sus nombres;
 3. contenido y redacción de las preguntas;
 4. escala 0–4;
 5. tratamiento de «No sé»;
 6. umbral global del 80 %;
 7. mínimo de 3/5 respuestas por familia;
 8. presentación de hasta tres familias principales;
-9. tratamiento de un empate que incluya el límite del tercer lugar;
+9. mostrar todas las familias empatadas cuando el empate incluya el límite del tercer lugar, aunque excepcionalmente se muestren más de tres;
 10. `ov1RulesVersion = 1`;
 11. criterios de revisión de contenido antes de publicación.
 
-Hasta recibir esa revisión, estas reglas permanecen como **PROPUESTAS**.
+Estas decisiones quedan aprobadas como reglas de producto para continuar
+OV-1. La revisión de contenido previa a publicación sigue siendo obligatoria.
 
-## 12. Siguiente bloque después de aprobación
+## 12. Siguiente bloque
 
 OV-1B:
 
@@ -301,4 +303,6 @@ OV-1B:
 - retención y eliminación;
 - pruebas de aislamiento entre cuentas.
 
-No iniciar OV-1B automáticamente antes de revisar OV-1A.
+OV-1A cuenta con aprobación de producto. El siguiente bloque autorizado para
+preparación técnica es OV-1B, respetando coordinación previa para cualquier
+archivo compartido, esquema, migración o dependencia.
