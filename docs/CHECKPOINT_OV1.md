@@ -198,3 +198,72 @@ Sin XP, ranking, certificados, publicidad segmentada, publicación automática
 a docentes/instituciones, pagos, juegos ni animaciones en OV-1C.
 
 No se realizó push, merge ni despliegue.
+
+## OV-1C — experiencia móvil local (2026-10-15)
+
+En `feat/orientacion-vocacional`, sobre HEAD inicial `2463aea`, se implementó
+localmente una experiencia vocacional privada separada de la orientación
+académica. La nueva entrada **Explora tus intereses** y la ruta
+`/student/more/profile/vocational-orientation` no sustituyen **Carreras y
+universidades** ni `/student/more/profile/orientation`.
+
+La app usa el Dio autenticado para consultar el cuestionario OV-1B, comenzar o
+reanudar el intento, guardar cada selección y corrección, finalizar según la
+respuesta del servidor, consultar historial y eliminar un intento propio. No
+envía `usuarioId`, no calcula cobertura ni puntuaciones y no crea datos de
+Backend para sesiones demo. La lectura estricta rechaza versiones, escalas,
+respuestas o terminales incompatibles con el contrato. El resultado presenta
+las familias principales en el orden recibido, conserva todos los empates que
+cruzan el tercer puesto y muestra las demás familias del snapshot aparte.
+
+Se guardan las respuestas al seleccionarlas. Si falla el guardado, la respuesta
+confirmada por el servidor conserva el indicador de selección y la nueva
+respuesta aparece solo como pendiente para reintentar; no se permite finalizar
+mientras siga pendiente. Al reanudar se abre la primera pregunta sin respuesta
+en el orden del cuestionario recibido; si todas tienen respuesta, se abre la
+última para revisar o finalizar sin decidir cobertura en Flutter. Un rechazo
+`COBERTURA_INSUFICIENTE` conserva el intento editable. El cambio de cuenta
+limpia los datos privados visibles.
+
+Validación local con Flutter 3.47.0 / Dart 3.13.0: pruebas OV-1C 16/16
+aprobadas; regresión dirigida de `career_orientation_test.dart` y
+`widget_test.dart` 37/37 aprobada; `flutter analyze --no-pub` de los nueve
+archivos Dart de la implementación inicial sin incidencias y de los tres
+archivos Dart corregidos en la revisión humana también sin incidencias. Se
+aplicó `dart format` a los archivos afectados. La integración real local y la regresión global se validaron posteriormente y se registran en el cierre técnico de OV-1C. No hubo commit, push, merge
+ni despliegue durante OV-1C.
+
+Sigue pendiente una correspondencia editorial aprobada entre familias y
+carreras concretas para proponer varias opciones técnicas, tecnológicas y
+universitarias. Hasta esa revisión, la pantalla ofrece la consulta oficial de
+programas SNIES separada del resultado vocacional. También sigue pendiente la
+revisión de contenido exigida antes de publicar recomendaciones; OV-1D cubre
+Sabi y la validación profunda de accesibilidad.
+
+## Validación de cierre técnico OV-1C — 2026-10-15
+
+Después de la implementación y revisión humana se ejecutaron las siguientes
+validaciones locales:
+
+- Pruebas específicas OV-1C: 16/16 PASS.
+- Regresión dirigida de orientación académica y navegación: 37/37 PASS.
+- Integración real Flutter/Dart -> HTTP OV-1B -> PostgreSQL 17 desechable:
+  22/22 checks PASS.
+- La integración real cubrió cuestionario, inicio, respuestas numéricas,
+  `NO_SE`, reanudación, corrección, cobertura insuficiente, finalización,
+  snapshot, empates, historial, repetición y eliminación.
+- `flutter analyze --no-pub` global: 0 incidencias.
+- Suite Flutter global: 818 PASS, 13 SKIP y 0 FAIL.
+- Los 13 SKIP corresponden a pruebas opt-in que requieren variables o harness
+  externos/locales específicos; no se atribuyen como pruebas ejecutadas.
+- `git diff --check`: PASS.
+- `pubspec.yaml`, `pubspec.lock` y `analysis_options.yaml`: sin cambios.
+- Backend de referencia: limpio después de la integración.
+- PostgreSQL de integración: desechable, local y eliminado al finalizar.
+- No se utilizó Supabase, `postgres-local` ni una base remota.
+
+No hubo staging, commit, push, merge ni deploy durante las validaciones.
+
+Permanece pendiente la revisión editorial del contenido antes de publicación y
+la correspondencia aprobada entre familias y carreras concretas. OV-1D cubre
+Sabi y la validación profunda de accesibilidad.

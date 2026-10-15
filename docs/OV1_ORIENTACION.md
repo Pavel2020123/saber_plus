@@ -324,3 +324,40 @@ separado de la puntuación vocacional.
 El alcance global de juegos no agrega trabajo a OV-1: solo Cima, Guardián y
 Rescate forman la competición inicial V1; las demás integraciones competitivas
 quedan aplazadas.
+
+## Estado móvil OV-1C — 2026-10-15
+
+La implementación Flutter local consume OV-1B mediante una ruta vocacional
+privada nueva. Conserva intacta la orientación académica previa. El servidor es
+la autoridad para el cuestionario, las respuestas confirmadas, la cobertura,
+el resultado, los empates, el historial y la eliminación. La sesión demo
+explica que la exploración privada no está disponible; no fabrica intentos.
+
+La app destaca las familias `principales` tal como llegan en el snapshot y
+permite ver también las demás familias entregadas. Los motivos visibles se
+limitan a las preguntas del snapshot y a las respuestas del propio intento.
+Los índices 0–100 no se muestran como probabilidad, aptitud ni certeza. La
+consulta oficial de programas permanece separada del cálculo.
+
+**Contenido pendiente para revisión humana:** aún no hay una correspondencia
+aprobada de cada familia con varias carreras concretas y sus vías técnicas,
+tecnológicas y universitarias. OV-1C no inventa esa correspondencia. Para
+completar las propuestas exploratorias se requiere aprobar el contenido antes
+de publicarlo. La revisión especializada de las 30 preguntas y de cualquier
+recomendación sigue siendo obligatoria. La validación profunda de accesibilidad
+y Sabi corresponden a OV-1D.
+
+## Evidencia técnica final OV-1C — 2026-10-15
+
+La experiencia móvil fue validada contra el Backend OV-1B real mediante HTTP y
+PostgreSQL 17 local desechable. El repositorio Flutter real completó 22/22
+checks de integración, incluyendo persistencia, reanudación, corrección,
+`NO_SE`, finalización autoritativa, snapshot, empate, historial, repetición y
+eliminación.
+
+Además, `flutter analyze --no-pub` global terminó sin incidencias y la suite
+Flutter completa terminó con 818 PASS, 13 SKIP y 0 FAIL. Los tests omitidos
+requieren variables o harness opt-in no utilizados en esta validación.
+
+No se modificaron dependencias ni configuración. La orientación académica
+existente continúa separada de la experiencia vocacional.
