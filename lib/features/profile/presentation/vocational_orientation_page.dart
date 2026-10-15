@@ -405,6 +405,7 @@ class _VocationalOrientationPageState
           : _loadError != null
           ? _Notice(
               text: _loadError!,
+              announce: true,
               action: FilledButton(
                 onPressed: _load,
                 child: const Text('Reintentar'),
@@ -445,11 +446,12 @@ class _VocationalOrientationPageState
       const SizedBox(height: 10),
       TextButton(
         key: const Key('vocational-open-history'),
+        style: TextButton.styleFrom(minimumSize: const Size(48, 48)),
         onPressed: _busy ? null : _openHistory,
         child: const Text('Ver mis exploraciones anteriores'),
       ),
       if (_busy) const Center(child: CircularProgressIndicator()),
-      if (_actionError != null) _Notice(text: _actionError!),
+      if (_actionError != null) _Notice(text: _actionError!, announce: true),
     ],
   );
 
@@ -468,6 +470,7 @@ class _VocationalOrientationPageState
         Semantics(
           label:
               'Pregunta ${_questionIndex + 1} de ${questionnaire.questions.length}',
+          excludeSemantics: true,
           child: Text(
             'Pregunta ${_questionIndex + 1} de ${questionnaire.questions.length}',
             key: const Key('vocational-progress'),
@@ -475,8 +478,10 @@ class _VocationalOrientationPageState
           ),
         ),
         const SizedBox(height: 8),
-        LinearProgressIndicator(
-          value: (_questionIndex + 1) / questionnaire.questions.length,
+        ExcludeSemantics(
+          child: LinearProgressIndicator(
+            value: (_questionIndex + 1) / questionnaire.questions.length,
+          ),
         ),
         const SizedBox(height: 20),
         Text(
@@ -486,21 +491,40 @@ class _VocationalOrientationPageState
         ),
         const SizedBox(height: 16),
         for (final answer in VocationalAnswer.values)
-          Card(
-            child: ListTile(
-              key: Key('vocational-answer-${answer.name}'),
-              title: Text(answer.label),
-              leading: Icon(
-                selected == answer
-                    ? Icons.radio_button_checked
-                    : Icons.radio_button_unchecked,
+          Semantics(
+            key: Key('vocational-answer-semantics-${answer.name}'),
+            label: answer.label,
+            value: selected == answer
+                ? 'Respuesta confirmada'
+                : 'Sin confirmar',
+            button: true,
+            selected: selected == answer,
+            enabled: !_busy,
+            onTap: _busy ? null : () => _save(question.id, answer),
+            child: ExcludeSemantics(
+              child: Card(
+                child: ListTile(
+                  key: Key('vocational-answer-${answer.name}'),
+                  title: Text(answer.label),
+                  leading: Icon(
+                    selected == answer
+                        ? Icons.radio_button_checked
+                        : Icons.radio_button_unchecked,
+                  ),
+                  selected: selected == answer,
+                  onTap: _busy ? null : () => _save(question.id, answer),
+                ),
               ),
-              selected: selected == answer,
-              onTap: _busy ? null : () => _save(question.id, answer),
             ),
           ),
         if (pending && _pendingAnswer != null)
-          Text('Pendiente de guardar: ${_pendingAnswer!.label}'),
+          Semantics(
+            key: const Key('vocational-pending-announcement'),
+            label: 'Pendiente de guardar: ${_pendingAnswer!.label}',
+            liveRegion: true,
+            excludeSemantics: true,
+            child: Text('Pendiente de guardar: ${_pendingAnswer!.label}'),
+          ),
         if (_busy) const Center(child: CircularProgressIndicator()),
         if (pending && _actionError != null)
           FilledButton.tonal(
@@ -508,7 +532,7 @@ class _VocationalOrientationPageState
             onPressed: _busy ? null : () => _save(question.id, _pendingAnswer!),
             child: const Text('Reintentar guardado'),
           ),
-        if (_actionError != null) _Notice(text: _actionError!),
+        if (_actionError != null) _Notice(text: _actionError!, announce: true),
         const SizedBox(height: 12),
         Wrap(
           spacing: 12,
@@ -516,6 +540,7 @@ class _VocationalOrientationPageState
           children: [
             OutlinedButton(
               key: const Key('vocational-previous'),
+              style: OutlinedButton.styleFrom(minimumSize: const Size(48, 48)),
               onPressed:
                   _busy || _pendingQuestionId != null || _questionIndex == 0
                   ? null
@@ -540,6 +565,7 @@ class _VocationalOrientationPageState
         const SizedBox(height: 8),
         TextButton(
           key: const Key('vocational-exit'),
+          style: TextButton.styleFrom(minimumSize: const Size(48, 48)),
           onPressed: _busy ? null : _load,
           child: const Text('Salir y continuar después'),
         ),
@@ -570,9 +596,16 @@ class _VocationalOrientationPageState
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    vocationalFamilyNames[familyId]!,
-                    style: Theme.of(context).textTheme.titleMedium,
+                  Semantics(
+                    key: Key('vocational-family-heading-$familyId'),
+                    container: true,
+                    header: true,
+                    label: vocationalFamilyNames[familyId]!,
+                    excludeSemantics: true,
+                    child: Text(
+                      vocationalFamilyNames[familyId]!,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                   ),
                   const SizedBox(height: 5),
                   Text(
@@ -628,6 +661,7 @@ class _VocationalOrientationPageState
         const SizedBox(height: 8),
         OutlinedButton.icon(
           key: const Key('vocational-official-programs'),
+          style: OutlinedButton.styleFrom(minimumSize: const Size(48, 48)),
           onPressed: _openPrograms,
           icon: const Icon(Icons.open_in_new),
           label: const Text('Consultar programas oficiales'),
@@ -636,13 +670,14 @@ class _VocationalOrientationPageState
         FilledButton.tonal(
           key: const Key('vocational-repeat'),
           onPressed: _busy ? null : _start,
-          child: const Text('Explorar de nuevo'),
+          child: const Text('Iniciar otra exploración de intereses'),
         ),
         TextButton(
+          style: TextButton.styleFrom(minimumSize: const Size(48, 48)),
           onPressed: _busy ? null : _openHistory,
           child: const Text('Ver mi historial'),
         ),
-        if (_actionError != null) _Notice(text: _actionError!),
+        if (_actionError != null) _Notice(text: _actionError!, announce: true),
       ],
     );
   }
@@ -665,36 +700,58 @@ class _VocationalOrientationPageState
           child: Row(
             children: [
               Expanded(
-                child: ListTile(
-                  key: Key('vocational-history-${attempt.id}'),
-                  title: Text(
-                    attempt.completed
-                        ? 'Exploración completada'
-                        : 'Exploración en progreso',
-                  ),
-                  subtitle: Text(
-                    '${attempt.startedAt.day}/${attempt.startedAt.month}/${attempt.startedAt.year}',
-                  ),
+                child: Semantics(
+                  key: Key('vocational-history-semantics-${attempt.id}'),
+                  label:
+                      'Abrir exploración ${attempt.completed ? 'completada' : 'en progreso'} del ${attempt.startedAt.day}/${attempt.startedAt.month}/${attempt.startedAt.year}',
+                  button: true,
+                  enabled: !_busy,
                   onTap: _busy ? null : () => _openAttempt(attempt.id),
+                  child: ExcludeSemantics(
+                    child: ListTile(
+                      key: Key('vocational-history-${attempt.id}'),
+                      title: Text(
+                        attempt.completed
+                            ? 'Exploración completada'
+                            : 'Exploración en progreso',
+                      ),
+                      subtitle: Text(
+                        '${attempt.startedAt.day}/${attempt.startedAt.month}/${attempt.startedAt.year}',
+                      ),
+                      onTap: _busy ? null : () => _openAttempt(attempt.id),
+                    ),
+                  ),
                 ),
               ),
-              IconButton(
-                key: Key('vocational-delete-${attempt.id}'),
-                tooltip: 'Eliminar esta exploración',
-                onPressed: _busy ? null : () => _delete(attempt.id),
-                icon: const Icon(Icons.delete_outline),
+              Semantics(
+                key: Key('vocational-delete-semantics-${attempt.id}'),
+                label:
+                    'Eliminar exploración ${attempt.completed ? 'completada' : 'en progreso'} del ${attempt.startedAt.day}/${attempt.startedAt.month}/${attempt.startedAt.year}',
+                button: true,
+                enabled: !_busy,
+                onTap: _busy ? null : () => _delete(attempt.id),
+                child: ExcludeSemantics(
+                  child: IconButton(
+                    key: Key('vocational-delete-${attempt.id}'),
+                    tooltip: 'Eliminar esta exploración',
+                    onPressed: _busy ? null : () => _delete(attempt.id),
+                    icon: const Icon(Icons.delete_outline),
+                  ),
+                ),
               ),
             ],
           ),
         ),
       if (_history.length < _historyTotal)
         TextButton(
+          style: TextButton.styleFrom(minimumSize: const Size(48, 48)),
           onPressed: _busy ? null : _moreHistory,
           child: const Text('Ver más exploraciones'),
         ),
       if (_busy) const Center(child: CircularProgressIndicator()),
-      if (_actionError != null) _Notice(text: _actionError!),
+      if (_actionError != null) _Notice(text: _actionError!, announce: true),
       TextButton(
+        style: TextButton.styleFrom(minimumSize: const Size(48, 48)),
         onPressed: _busy ? null : _load,
         child: const Text('Volver a la introducción'),
       ),
@@ -703,18 +760,33 @@ class _VocationalOrientationPageState
 }
 
 class _Notice extends StatelessWidget {
-  const _Notice({super.key, required this.text, this.action});
+  const _Notice({
+    super.key,
+    required this.text,
+    this.action,
+    this.announce = false,
+  });
   final String text;
   final Widget? action;
+  final bool announce;
 
   @override
   Widget build(BuildContext context) => Center(
-    child: Padding(
+    child: SingleChildScrollView(
       padding: const EdgeInsets.all(24),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(text, textAlign: TextAlign.center),
+          if (announce)
+            Semantics(
+              key: const Key('vocational-live-notice'),
+              label: text,
+              liveRegion: true,
+              excludeSemantics: true,
+              child: Text(text, textAlign: TextAlign.center),
+            )
+          else
+            Text(text, textAlign: TextAlign.center),
           if (action != null) ...[const SizedBox(height: 12), action!],
         ],
       ),

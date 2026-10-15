@@ -361,3 +361,20 @@ requieren variables o harness opt-in no utilizados en esta validación.
 
 No se modificaron dependencias ni configuración. La orientación académica
 existente continúa separada de la experiencia vocacional.
+
+## OV-1D1 — accesibilidad automatizada local
+
+La experiencia vocacional conserva la misma autoridad del Backend y el orden
+de familias/empates de OV-1C. El flujo local se comprobó a 320 × 640 píxeles
+lógicos con texto al 200 % en claro y oscuro. El progreso, las opciones, el
+estado confirmado o pendiente, los avisos dinámicos, los encabezados del
+resultado y las acciones del historial tienen semántica comprobable. También
+se verificaron scroll, objetivos táctiles principales y limpieza de datos
+visibles al cambiar de cuenta. OV-1D1 no incorpora movimiento decorativo.
+
+Esta es una **validación automatizada local**, no el cierre de OV-1D ni una
+validación científica. Para los siguientes bloques siguen pendientes las 12
+ilustraciones profesionales de Sabi y su revisión/aprobación visual; prueba
+humana Android; comprobación iOS; y revisión editorial del contenido antes de
+publicación. Ninguna ilustración de juegos o referencia no aprobada se usa en
+orientación vocacional.

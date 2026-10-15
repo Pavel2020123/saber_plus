@@ -267,3 +267,28 @@ No hubo staging, commit, push, merge ni deploy durante las validaciones.
 Permanece pendiente la revisión editorial del contenido antes de publicación y
 la correspondencia aprobada entre familias y carreras concretas. OV-1D cubre
 Sabi y la validación profunda de accesibilidad.
+
+## OV-1D1 — accesibilidad automatizada local (2026-10-15)
+
+La pantalla **Explora tus intereses** ahora identifica semánticamente el progreso
+«Pregunta X de 30», las seis respuestas como acciones con estado confirmado o
+sin confirmar, y la respuesta aún pendiente como aviso separado. Los errores
+de carga, guardado, cobertura e historial usan regiones dinámicas anunciables.
+Las familias principales tienen encabezados semánticos; abrir y eliminar un
+intento del historial usan etiquetas comprensibles sin leer UUID. Los botones
+locales relevantes mantienen objetivos táctiles de al menos 48 píxeles lógicos.
+No se añadieron animaciones ni se cambió el tema global.
+
+Validación dirigida con Flutter 3.47.0: seis pruebas nuevas OV-1D1 aprobadas
+en viewport lógico 320 × 640 y texto al 200 %, incluyendo tema claro/oscuro,
+introducción, cuestionario, respuesta confirmada y pendiente, errores,
+cobertura, resultado, empate, historial, semántica, privacidad al cambiar de
+cuenta y targets. OV-1C: 16/16 PASS; orientación académica y navegación:
+37/37 PASS; análisis dirigido de los dos archivos Dart afectados: sin
+incidencias; `git diff --check`: PASS. Estos resultados son locales y
+automatizados, no una prueba humana ni una validación científica.
+
+**OV-1D no está cerrado.** Quedan pendientes las 12 ilustraciones profesionales
+de Sabi, su aprobación y revisión visual, prueba humana Android, evaluación en
+iOS y revisión editorial del contenido antes de publicación. OV-1D1 no añadió
+arte ni reutilizó las insignias o el prototipo de Duelo fantasma.
