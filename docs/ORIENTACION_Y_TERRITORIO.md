@@ -91,7 +91,13 @@ bata o prenda exterior. Sin logos ajenos, texto incrustado ni estereotipos.
 Pruebas de empates, respuesta incompleta, reanudación, permisos, texto grande y
 explicaciones. Piloto antes de publicar; no certificar validez por pasar tests de código.
 
-Colección artística propuesta (no ranking estadístico de matrículas):
+**Decisión visual del 14 de octubre:** la primera versión de resultados usa seis
+variantes por familia vocacional, según [OV1_ORIENTACION](OV1_ORIENTACION.md#presentación-visual-del-resultado-con-sabi).
+Pendiente de diseño/UI; no se generan ni integran imágenes ahora. Esta precisión
+sustituye la propuesta inicial de empezar con doce ilustraciones por profesión.
+
+Colección artística histórica por carreras (ampliación futura fuera del alcance actual;
+no ranking estadístico de matrículas):
 
 | ID | Carrera / familia | Sabi |
 |---|---|---|
@@ -108,8 +114,8 @@ Colección artística propuesta (no ranking estadístico de matrículas):
 | sabi_diseno | Diseño/comunicación visual | Tableta gráfica y lápiz |
 | sabi_ambiental_agro | Ambiental/agropecuaria | Planta y libreta de campo |
 
-Empezar por estas 12 ilustraciones; son una propuesta equilibrada, no un límite
-para carreras del catálogo. Ampliar después a arquitectura, veterinaria,
+La propuesta original contemplaba estas 12 ilustraciones; no es la primera versión
+visual aprobada ni un límite para carreras del catálogo. Evaluar después arquitectura, veterinaria,
 comunicación y otras según contenido revisado. Priorizar por matrícula solo tras
 analizar SNIES con año, nivel y métrica explícitos; no confundir matriculados,
 nuevos ingresos, graduados o demanda laboral.
