@@ -172,3 +172,29 @@ Antes de modificar Backend se debe partir del `origin/main` actualizado en una
 rama/worktree propio de OV-1 y revisar arquitectura, sesión, modelos existentes
 y archivos compartidos. No modificar `schema.prisma`, migraciones,
 `app.module.ts`, dependencias ni locks sin coordinación previa.
+
+## Actualización 2026-10-14 — siguiente OV-1C
+
+OV-1A está definido y aprobado como decisión de producto en esta rama.
+El contenido continúa pendiente de revisión antes de publicación.
+
+OV-1B Backend quedó implementado y validado localmente en el repositorio
+SaberPlus-Backend, rama `feat/orientacion-vocacional`, commit `01c4b02`.
+
+Evidencia Backend de OV-1B: build PASS; Jest OV-1 31/31; PostgreSQL real 9/9;
+cadena de 65 migraciones PASS; regresión global 1405/1405.
+
+Siguiente entrega: OV-1C, experiencia móvil.
+
+Debe incluir introducción, progreso, volver/corregir respuestas,
+guardar/continuar y resultados explicables con familias y carreras para explorar.
+El resultado académico existente permanece separado.
+
+Regla específica aprobada de empates: normalmente se muestran hasta tres familias;
+si un empate cruza el corte del tercer puesto, se conservan todas las familias
+empatadas, por lo que excepcionalmente pueden mostrarse más de tres.
+
+Sin XP, ranking, certificados, publicidad segmentada, publicación automática
+a docentes/instituciones, pagos, juegos ni animaciones en OV-1C.
+
+No se realizó push, merge ni despliegue.

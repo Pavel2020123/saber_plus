@@ -306,3 +306,21 @@ OV-1B:
 OV-1A cuenta con aprobación de producto. El siguiente bloque autorizado para
 preparación técnica es OV-1B, respetando coordinación previa para cualquier
 archivo compartido, esquema, migración o dependencia.
+
+## Estado técnico cruzado — 2026-10-14
+
+OV-1B Backend quedó implementado y validado localmente en
+`SaberPlus-Backend`, rama `feat/orientacion-vocacional`, commit `01c4b02`.
+
+La persistencia privada, historial, reanudación, repetición, eliminación,
+cobertura y cálculo autoritativo del servidor quedaron cubiertos por pruebas
+unitarias/HTTP y PostgreSQL real. Esto no acredita producción ni revisión de
+contenido.
+
+OV-1C debe consumir ese contrato desde Flutter sin reemplazar la orientación
+académica existente. El catálogo de programas y enlaces oficiales permanece
+separado de la puntuación vocacional.
+
+El alcance global de juegos no agrega trabajo a OV-1: solo Cima, Guardián y
+Rescate forman la competición inicial V1; las demás integraciones competitivas
+quedan aplazadas.
