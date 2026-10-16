@@ -378,3 +378,16 @@ ilustraciones profesionales de Sabi y su revisión/aprobación visual; prueba
 humana Android; comprobación iOS; y revisión editorial del contenido antes de
 publicación. Ninguna ilustración de juegos o referencia no aprobada se usa en
 orientación vocacional.
+
+## OV-1D2A — prototipos aprobados visualmente
+
+La revisión humana aprobó Medicina, Sistemas/software y Ambiental/agro. La
+arquitectura aprobada conserva `assets/characters/sabi/reference/sabi_front.png`
+como base canónica e inmutable: Sabi no se redibuja. Ropa, accesorios y
+confeti estático son capas nativas, sin animación.
+
+Las otras nueve profesiones siguen pendientes para OV-1D2B. Estas tres
+ilustraciones aún no están conectadas a resultados ni familias; D3 realizará
+esa integración. Continúan pendientes la prueba humana Android, la
+comprobación iOS y la revisión editorial previa a publicación. La aprobación
+visual no acredita validación científica.

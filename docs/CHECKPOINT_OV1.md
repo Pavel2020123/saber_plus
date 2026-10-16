@@ -292,3 +292,18 @@ automatizados, no una prueba humana ni una validación científica.
 de Sabi, su aprobación y revisión visual, prueba humana Android, evaluación en
 iOS y revisión editorial del contenido antes de publicación. OV-1D1 no añadió
 arte ni reutilizó las insignias o el prototipo de Duelo fantasma.
+
+## OV-1D2A — tres prototipos aprobados visualmente
+
+La revisión humana aprobó Medicina, Sistemas/software y Ambiental/agro tras
+tres iteraciones visuales. La arquitectura aprobada usa
+`assets/characters/sabi/reference/sabi_front.png` como base canónica e
+inmutable: Sabi no se redibuja. Ropa, accesorios y confeti son capas nativas;
+el confeti es estático y no utiliza animación. Las previews están en
+`build/sabi-vocational-preview/`.
+
+Las otras nueve profesiones corresponden a OV-1D2B y aún no se implementan.
+Estas tres ilustraciones tampoco están conectadas a resultados o familias;
+D3 realizará esa integración. Siguen pendientes la prueba humana Android,
+la comprobación iOS y la revisión editorial previa a publicación. La
+aprobación visual no constituye validación científica.
