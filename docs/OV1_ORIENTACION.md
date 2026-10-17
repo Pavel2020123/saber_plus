@@ -386,8 +386,23 @@ arquitectura aprobada conserva `assets/characters/sabi/reference/sabi_front.png`
 como base canónica e inmutable: Sabi no se redibuja. Ropa, accesorios y
 confeti estático son capas nativas, sin animación.
 
-Las otras nueve profesiones siguen pendientes para OV-1D2B. Estas tres
+La ampliación a otras nueve profesiones corresponde a OV-1D2B. Estas tres
 ilustraciones aún no están conectadas a resultados ni familias; D3 realizará
 esa integración. Continúan pendientes la prueba humana Android, la
 comprobación iOS y la revisión editorial previa a publicación. La aprobación
 visual no acredita validación científica.
+
+## OV-1D2B — catálogo de 12 variantes aprobado visualmente
+
+El catálogo visual nativo incluye ahora 12 variantes. Las tres de D2A
+permanecen aprobadas; la revisión humana también aprobó Enfermería,
+Psicología, Derecho, Ingeniería industrial, Ingeniería civil,
+Administración, Contaduría, Educación/licenciaturas y
+Diseño/comunicación visual. Las 12 variantes están aprobadas visualmente.
+El Sabi canónico permanece intacto y todas las composiciones conservan
+capas nativas de ropa, accesorios y confeti estático, sin animación ni PNG
+profesionales de producción.
+
+No existe todavía conexión con familias, resultados o historial; OV-1D3 hará
+esa integración. Android humano, iOS y la revisión editorial siguen pendientes.
+La aprobación artística no equivale a validación científica.

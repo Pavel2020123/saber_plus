@@ -302,8 +302,39 @@ inmutable: Sabi no se redibuja. Ropa, accesorios y confeti son capas nativas;
 el confeti es estático y no utiliza animación. Las previews están en
 `build/sabi-vocational-preview/`.
 
-Las otras nueve profesiones corresponden a OV-1D2B y aún no se implementan.
+Las otras nueve profesiones corresponden a OV-1D2B, cuyo estado se registra abajo.
 Estas tres ilustraciones tampoco están conectadas a resultados o familias;
 D3 realizará esa integración. Siguen pendientes la prueba humana Android,
 la comprobación iOS y la revisión editorial previa a publicación. La
 aprobación visual no constituye validación científica.
+
+## OV-1D2B — catálogo de 12 variantes aprobado visualmente
+
+La revisión humana aprobó las nueve variantes adicionales de OV-1D2B.
+Medicina, Sistemas/software y Ambiental/agro conservan su aprobación D2A;
+el catálogo completo de exactamente 12 variantes queda aprobado visualmente:
+
+| Variante nueva | Diferenciación visual |
+| --- | --- |
+| Enfermería | Uniforme clínico corto turquesa y tablero de cuidados. |
+| Psicología | Cardigan lavanda, cuaderno y dos burbujas de conversación sin texto. |
+| Derecho | Traje oscuro abierto y libro jurídico con balanza gráfica. |
+| Ingeniería industrial | Chaleco naranja con bandas y diagrama de procesos. |
+| Ingeniería civil | Chaleco amarillo con bolsillos técnicos y plano de puente. |
+| Administración | Chaqueta azul verdosa y tablero de planificación con tarjetas. |
+| Contaduría | Chaleco granate, calculadora y registro cuadriculado. |
+| Educación/licenciaturas | Cardigan ocre, libro abierto y pizarra con formas. |
+| Diseño/comunicación visual | Chaqueta violeta con bolsillo, tableta gráfica y lápiz. |
+
+Todas son composiciones nativas sobre el PNG canónico intacto, con confeti
+estático. No hay animación, dependencias nuevas ni PNG profesionales de
+producción. Cada variante expone una sola imagen semántica en español.
+Las previews individuales y las hojas rotuladas de 12 y de 6 piezas se
+generan únicamente con `CAPTURE_SABI_OV1D2=true` bajo
+`build/sabi-vocational-preview/`; no se añaden a Git. Los rótulos de revisión
+usan la fuente Roboto incluida en el SDK Flutter, fuera del arte individual.
+
+Las 12 ilustraciones aún no están conectadas a familias, resultados ni
+historial. OV-1D3 realizará esa integración. Siguen pendientes la prueba humana
+Android, iOS y la revisión editorial antes de publicación. La aprobación
+artística no equivale a validación científica.
