@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/network/api_error.dart';
 import '../../auth/presentation/session_controller.dart';
+import '../../auth/domain/session.dart';
 import '../domain/institution_group_models.dart';
 import 'institution_group_providers.dart';
+import 'student_institution_code_page.dart';
 
 class StudentGroupJoinPage extends ConsumerStatefulWidget {
   const StudentGroupJoinPage({super.key});
@@ -28,6 +30,7 @@ class _StudentGroupJoinPageState extends ConsumerState<StudentGroupJoinPage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = ref.watch(sessionControllerProvider.select((s) => s.user));
     final state = ref.watch(studentGroupsControllerProvider);
     return Scaffold(
       appBar: AppBar(
@@ -56,6 +59,24 @@ class _StudentGroupJoinPageState extends ConsumerState<StudentGroupJoinPage> {
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
           children: [
             _CurrentGroups(groups: groups),
+            if (user?.role == AppRole.student &&
+                user?.isDemo == false &&
+                user?.institutionId == null) ...[
+              const SizedBox(height: 12),
+              OutlinedButton.icon(
+                key: const Key('open-student-institution-code'),
+                icon: const Icon(Icons.account_balance_outlined),
+                label: const Text('Unirme a una institución con código'),
+                onPressed: () => Navigator.of(context).push<void>(
+                  MaterialPageRoute(
+                    builder: (_) => const StudentInstitutionCodePage(),
+                  ),
+                ),
+              ),
+              const Text(
+                'Para ingresar directamente, pide el código de estudiantes al propietario. Los grupos usan otro código.',
+              ),
+            ],
             const SizedBox(height: 16),
             Card(
               child: Padding(
@@ -191,13 +212,19 @@ class _CurrentGroups extends StatelessWidget {
           const Icon(Icons.account_balance_outlined, size: 36),
           const SizedBox(height: 10),
           Text(
-            groups.groups.isEmpty ? 'Sin institución vinculada' : 'Tus grupos',
+            groups.groups.isNotEmpty
+                ? 'Tus grupos'
+                : groups.institutionId != null
+                ? 'Institución vinculada'
+                : 'Sin institución vinculada',
             style: Theme.of(context).textTheme.titleLarge,
           ),
           const SizedBox(height: 6),
           if (groups.groups.isEmpty)
-            const Text(
-              'Puedes seguir usando SaberPlus normalmente. Vincularte es opcional y requiere tu aceptación.',
+            Text(
+              groups.institutionId == null
+                  ? 'Puedes seguir usando SaberPlus normalmente. Vincularte es opcional y requiere tu aceptación.'
+                  : 'Ya perteneces a una institución, pero todavía no tienes grupos asignados. Pide a tu profesor un código de grupo cuando corresponda.',
             )
           else
             for (final group in groups.groups)

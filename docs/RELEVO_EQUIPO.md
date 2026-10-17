@@ -1,11 +1,31 @@
 # Relevo del equipo — empezar aquí
 
-**Trabajo paralelo acordado:** propietario → instituciones (sigue C2C);
+**17 de octubre, vigente:** [C4-C10/10 integrados locales cubiertos](PR_I5_C4_CODIGO.md),
+Android+19 HTTP/SQL; no10 pruebas solo manuales. APK corregida instalada,93 dirigidas
+y análisis aprobados. Regresión final893/13 opt-in omitidas;
+[cierre local consolidado/revisión Git](CIERRE_INSTITUCIONES_LOCAL.md).
+No repetir C3/C4 ni usar credenciales caducadas.
+OV-1 del compañero, sin commit institucional ni despliegue.
+Estados inferiores fechados conservan historia, no sustituyen esta continuación.
+
+**15 de octubre: C3A/B implementadas; sigue C3C integrado.** Leer
+[solicitudes estudiantiles](PR_I5_C3_SOLICITUDES.md) antes de continuar instituciones.
+Backend37 nuevas/1.411 regresión/14 HTTP/SQL; Flutter27 dirigidas aprobadas.
+Faltan integración Flutter/API y Android C3, luego código C4 y cierre institucional.
+OV-1 es del compañero; no transferirle estas pruebas. Sin commit por decisión vigente.
+
+**Actualización del14 de octubre:** C2C validada localmente (6/6 HTTP/SQL y8/8
+humanos). Próximo trabajo del propietario: solicitudes estudiantiles/avisos/código
+institucional. Leer cierre y observaciones en [acta C2](PR_I5_C2_LOGO.md).
+Las instrucciones específicas C2C inferiores se conservan como guion histórico;
+no repetirlo por defecto. El compañero mantiene su frente OV-1.
+
+**Trabajo paralelo acordado:** propietario → instituciones (sigue C3C);
 compañero → test vocacional OV-1 (comienza A, después B/C/D), sin esperar C2C.
 Ver [responsables, ramas y entrega](TRABAJO_PARALELO.md). Este acuerdo sustituye
 la secuencia estricta de OV-1 y el trabajo individual directo en main.
 
-## Continuación vigente — 12 de octubre de 2026
+## Antecedente — 12 de octubre de 2026
 
 **Siguiente: PR-I5-C2C, ensayo integrado del logo institucional.**
 C2A/backend y C2B/Flutter implementadas: 79 pruebas backend y 45 Flutter

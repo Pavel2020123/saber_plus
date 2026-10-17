@@ -1,5 +1,44 @@
 # Historial completo de etapas de SaberPlus
 
+**17 de octubre — cierre técnico institucional local consolidado:** Flutter893/13
+opt-in omitidas, backend119 suites/1.470 y panel95/95, TypeScript/análisis correctos.
+[Alcance, observaciones y propuesta de commits](CIERRE_INSTITUCIONES_LOCAL.md).
+Revisión/autorización Git pendiente, sin despliegue. P5/D3 y OV-1 conservan sus límites.
+
+**17 de octubre — C4-C10/10 guiones locales cubiertos:** evidencia mixta Android y
+19 HTTP/SQL finales, no10 manuales independientes. Dos fallos UX corregidos al
+volver/abrir solicitudes durante ingreso incierto;93 dirigidas y análisis aprobados,
+APK nueva instalada. Regresión final893 aprobadas/13 opt-in omitidas. [Acta y límites](PR_I5_C4_CODIGO.md).
+Sigue consolidación integrada/decisión de commits; sin despliegue ni commit aún.
+Entradas inferiores conservan estados históricos, no son la siguiente tarea.
+
+**16 de octubre — C4-B pantallas implementadas:** código privado del propietario,
+consulta/confirmación estudiantil, reintento con UUID estable, doble pulsación y
+cuentas protegidas. Copiar para compartir manualmente, sin dependencia nueva.
+Resultados finales en [acta C4](PR_I5_C4_CODIGO.md); C4-C humano0/10 pendiente y APK
+no instalada. El bloque C4-A inferior es antecedente backend, no siguiente entrega.
+
+**16 de octubre — C3C cerrado y C4-A backend:**10/10 humanos C3 locales con límites
+en [acta C3](PR_I5_C3_SOLICITUDES.md). Código estudiantil privado separado de código
+docente/grupo, renovación optimista, ingreso idempotente/cupo y permisos implementados.
+59 unitarias nuevas,119 suites/1.470 regresión,16 HTTP/SQL C4 y14 C3 posteriores;
+66 migraciones solo temporales. Sigue [C4-B Flutter](PR_I5_C4_CODIGO.md), C4-C humano
+pendiente0/10. Sin despliegue ni commit de instituciones; OV-1 independiente.
+
+**15 de octubre — C3A/B implementadas localmente:** solicitud estudiantil, historial,
+cancelación, aceptación/rechazo por propietario y envío incierto con UUID estable.
+Backend37 nuevas, regresión1.411/118 suites y14 HTTP/SQL; Flutter27 dirigidas
+aprobadas. [Checkpoint](PR_I5_C3_SOLICITUDES.md).65 migraciones solo temporales;
+pendientes integración Flutter/API, Android C3C y despliegue remoto.
+El compañero conserva OV-1. Sin commit institucional todavía.
+
+**14 de octubre — C2C validada localmente:**6/6 HTTP/PostgreSQL y8/8 casos humanos
+Android. Correcciones de miniatura, mensajes y marco cuadrado; regresión Flutter
+41/41 y análisis correcto. Caso8/SQL sin publicación al salir. Migración solo en
+bases temporales propias. [Cierre y observaciones](PR_I5_C2_LOGO.md): captura
+original y CI Linux sin reconfirmar, sin despliegue remoto/iOS. Siguiente:
+solicitudes estudiantiles, avisos y código institucional; OV-1 sigue separado.
+
 **12 de octubre — C2A/C2B implementadas:** editor de logo, permisos, validación,
 optimización y almacenamiento transaccional PostgreSQL. Sigue C2C integrado;
 migración C2 no aplicada. [Acta](PR_I5_C2_LOGO.md).

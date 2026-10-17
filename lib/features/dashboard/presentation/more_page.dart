@@ -6,6 +6,7 @@ import '../../../core/sync/sync_providers.dart';
 import '../../announcements/presentation/announcement_providers.dart';
 import '../../auth/presentation/session_controller.dart';
 import '../../gamification/presentation/gamification_providers.dart';
+import '../../institutions/presentation/student_request_shortcut.dart';
 
 class MorePage extends ConsumerWidget {
   const MorePage({super.key});
@@ -36,7 +37,7 @@ class MorePage extends ConsumerWidget {
             key: const Key('open-student-institution'),
             icon: Icons.account_balance_outlined,
             title: 'Mi institución y grupos',
-            subtitle: 'Consulta y acepta códigos temporales de tus profesores',
+            subtitle: 'Tu institución y los códigos de ingreso a grupos',
             onTap: () => context.push('/student/more/institution'),
           ),
           _MenuTile(
@@ -46,6 +47,7 @@ class MorePage extends ConsumerWidget {
             subtitle: 'Explora el directorio de instituciones aprobadas',
             onTap: () => context.push('/student/more/institution-directory'),
           ),
+          const StudentRequestShortcut(),
           _MenuTile(
             key: const Key('open-favorites'),
             icon: Icons.bookmarks_outlined,

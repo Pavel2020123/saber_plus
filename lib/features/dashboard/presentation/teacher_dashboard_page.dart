@@ -10,6 +10,8 @@ import '../../institutions/presentation/teacher_institution_providers.dart';
 import '../../institutions/presentation/teacher_metrics_layout.dart';
 import '../../institutions/presentation/institution_approval_page.dart';
 import '../../institutions/presentation/institution_profile_page.dart';
+import '../../institutions/presentation/student_institution_requests_page.dart';
+import '../../institutions/presentation/student_institution_code_page.dart';
 
 class TeacherDashboardPage extends ConsumerStatefulWidget {
   const TeacherDashboardPage({super.key});
@@ -142,6 +144,35 @@ class _TeacherDashboardPageState extends ConsumerState<TeacherDashboardPage> {
                       : null,
                 ),
               },
+              if (data.status == TeacherInstitutionStatus.linked &&
+                  data.memberRole == InstitutionMemberRole.owner &&
+                  data.institution?.verificationState == 'APROBADA')
+                OutlinedButton.icon(
+                  key: const Key('open-owner-student-code'),
+                  icon: const Icon(Icons.vpn_key_outlined),
+                  label: const Text('Código de estudiantes'),
+                  onPressed: () => Navigator.of(context).push<void>(
+                    MaterialPageRoute(
+                      builder: (_) =>
+                          const StudentInstitutionCodePage(owner: true),
+                    ),
+                  ),
+                ),
+              if (data.status == TeacherInstitutionStatus.linked &&
+                  data.memberRole == InstitutionMemberRole.owner &&
+                  data.institution?.verificationState == 'APROBADA')
+                OutlinedButton.icon(
+                  key: const Key('open-student-request-inbox'),
+                  icon: const Icon(Icons.how_to_reg_outlined),
+                  label: const Text('Solicitudes de estudiantes'),
+                  onPressed: () => Navigator.of(context).push<void>(
+                    MaterialPageRoute(
+                      builder: (_) => const StudentInstitutionRequestsPage(
+                        ownerInbox: true,
+                      ),
+                    ),
+                  ),
+                ),
               if (data.status == TeacherInstitutionStatus.linked &&
                   data.institution?.verificationState == 'APROBADA')
                 OutlinedButton.icon(
