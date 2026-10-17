@@ -4,7 +4,12 @@
 10/10 guiones integrados locales cubiertos, Android+19 HTTP/SQL (no10 solo manuales).
 APK corregida instalada; regresión893 aprobadas/13 opt-in omitidas.
 [Cierre institucional local consolidado](CIERRE_INSTITUCIONES_LOCAL.md): evidencia,
-observaciones y entrega Git autorizada el17; publicación/revisión pendientes, sin despliegue.
+observaciones y commits app6bab6be/API7ba93d7/lockbfce42e integrados a main
+por PR app #5/API #8; CI backend PR/main y análisis/102 dirigidas Flutter aprobados,
+sin despliegue. [Etapas ordenadas y auditoría del 17](ESTADO_Y_ORDEN_2026_10_17.md):
+MA-1R recomendado, no iniciado; OV-1 en curso con el compañero, sin entrega nueva
+verificada aquí. La auditoría inicial fue documental; la entrega posterior ejecutó
+las comprobaciones indicadas. No se repitieron ensayos físicos/SQL ni893 globales.
 [C3C10/10 humanos locales cerrado](PR_I5_C3_SOLICITUDES.md). Notas inferiores del15
 son antecedentes; no acreditan despliegue ni ordenan repetir C3.
 

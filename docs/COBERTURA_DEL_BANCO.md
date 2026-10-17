@@ -1,5 +1,10 @@
 # MA-1 — Cobertura básica del banco
 
+**17 de octubre, continuación propuesta:** tras el cierre institucional local,
+completar reportes académicos MA-1R, sin rehacer conteos/pestaña existentes.
+Ver [R1–R4 y decisiones pendientes](ESTADO_Y_ORDEN_2026_10_17.md).
+Propuesta de próxima entrega; no se inició código ni cerró MA-1 por esta nota.
+
 Entrega local: 24 de septiembre de 2026. Cambios funcionales en el repositorio
 SaberPlus-Backend; en Flutter solo se actualiza la documentación.
 
@@ -37,7 +42,7 @@ Los cambios de demo no llegan a Supabase y se pierden al reiniciar.
 - ESLint de los nuevos archivos TypeScript aprobado.
 
 Contrato y detalles: `backend/BANK_COVERAGE.md` en SaberPlus-Backend.
-Actualización del 28 de septiembre: MA-2A/B/C y MA-3A/B/C locales listas; siguiente
+Antecedente del28 de septiembre (no siguiente actual): MA-2A/B/C y MA-3A/B/C locales listas; siguiente
 entrega **PR-I1 — Reglas y contratos competitivos**. [MA-2](MAPA_APRENDIZAJE.md) orienta entre temas
 sin bloquear contenido. MA-1 no queda cerrada por avanzar. P5/D3 y animaciones
 siguen pausados; anuncios y recuperación mediante anuncios se definirán en 8C–8D.

@@ -1,15 +1,19 @@
 # Orientación por intereses y filtros territoriales
 
-**Trabajo paralelo acordado:** propietario → instituciones (sigue C2C);
-compañero → test vocacional OV-1 (comienza A, después B/C/D), sin esperar C2C.
+**Trabajo paralelo vigente del17:** propietario cerró instituciones locales;
+ya integradas a main por PR app #5/API #8, CI backend aprobado; sigue MA-1R
+propuesto. Compañero continúa OV-1 sin entrega
+verificada nueva; no se modifica su checkpoint ni se asume cierre A/B/C/D.
 Ver [responsables, ramas y entrega](TRABAJO_PARALELO.md). Este acuerdo sustituye
 la secuencia estricta de OV-1 y el trabajo individual directo en main.
 
 Plan acordado el 5 de octubre; prioridad actualizada el 9 de octubre de 2026.
 Actualización del 11 de octubre: [PR-I5-T1/T2/T3](PR_I5_T_TERRITORIO.md)
 catálogo/API, persistencia/revisión, selectores y filtros implementados; T5 cerrado
-localmente con API/PostgreSQL/panel/Android. Siguiente: perfil y solicitudes PR-I5.
-16 casos PostgreSQL T2 aprobados; OV-1 y PR-I6-T siguen planificados.
+localmente con API/PostgreSQL/panel/Android. Perfil y solicitudes posteriores
+también tienen [cierre local consolidado](CIERRE_INSTITUCIONES_LOCAL.md).
+16 casos PostgreSQL T2 aprobados; PR-I6-T sigue pendiente y OV-1 continúa con
+el compañero, sin entrega nueva verificada aquí.
 OV-1 y territorio permanecen en el
 [alcance V1](ALCANCE_V1_NOVIEMBRE_2026.md); el recorte solo afecta competiciones.
 No modifica reglas de XP, insignias o admisión competitiva.
@@ -85,13 +89,32 @@ Catálogo de programas y enlaces oficiales separados de la puntuación del test.
 
 ### OV-1D — Sabi, accesibilidad y validación
 
+Decisión de UX acordada con el propietario: primera presentación por **seis familias**,
+no una ilustración por cada carrera. Acompaña o celebra el resultado principal:
+
+| Familia | Variante orientativa |
+|---|---|
+| Tecnología e ingeniería | Sabi con estética tecnológica/de ingeniería. |
+| Salud y ciencias de la vida | Bata médica/científica. |
+| Sociedad, derecho y comunicación | Apariencia formal/comunicativa. |
+| Negocios, organización y emprendimiento | Apariencia ejecutiva/emprendedora. |
+| Educación, humanidades e idiomas | Apariencia docente/académica. |
+| Creatividad, diseño y entorno | Apariencia artística/creativa. |
+
+Es requisito visual pendiente de diseño/UI, no implementación: assets finales,
+nombres de archivo, estados y condiciones exactas por definir. No generar imágenes,
+agregar assets, render productivo ni pruebas de Android por esta corrección documental.
+Orientación exploratoria, no diagnóstico; lógica separada de académico/XP/ranking/
+certificados. Ampliación por carrera queda fuera de la primera versión.
+
 Ilustraciones estáticas primero; animaciones quedan en UI-F/Sabi. Conservar
 ajolote turquesa, branquias coral, proporciones y emblema S+ visible en camiseta,
 bata o prenda exterior. Sin logos ajenos, texto incrustado ni estereotipos.
 Pruebas de empates, respuesta incompleta, reanudación, permisos, texto grande y
 explicaciones. Piloto antes de publicar; no certificar validez por pasar tests de código.
 
-Colección artística propuesta (no ranking estadístico de matrículas):
+Antecedente artístico por carreras (propuesta del5 de octubre, **no requisito inicial
+vigente** ni ranking estadístico de matrículas). Se conserva como referencia futura:
 
 | ID | Carrera / familia | Sabi |
 |---|---|---|
@@ -108,8 +131,9 @@ Colección artística propuesta (no ranking estadístico de matrículas):
 | sabi_diseno | Diseño/comunicación visual | Tableta gráfica y lápiz |
 | sabi_ambiental_agro | Ambiental/agropecuaria | Planta y libreta de campo |
 
-Empezar por estas 12 ilustraciones; son una propuesta equilibrada, no un límite
-para carreras del catálogo. Ampliar después a arquitectura, veterinaria,
+La propuesta original planteaba estas12 ilustraciones. La primera versión vigente
+usa las seis familias anteriores; no exigir ni generar estas12 para cerrar OV-1.
+Una ampliación futura podría incluir arquitectura, veterinaria,
 comunicación y otras según contenido revisado. Priorizar por matrícula solo tras
 analizar SNIES con año, nivel y métrica explícitos; no confundir matriculados,
 nuevos ingresos, graduados o demanda laboral.

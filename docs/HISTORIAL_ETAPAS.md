@@ -1,5 +1,16 @@
 # Historial completo de etapas de SaberPlus
 
+**17 de octubre — instituciones integradas a main:** PR app #5 y backend #8
+fusionados como e679c50/388bb18. CI backend PR y main aprobado; Flutter analyze
+limpio y102 dirigidas aprobadas. [Evidencia](ESTADO_Y_ORDEN_2026_10_17.md).
+Sin OV-1, despliegue ni migraciones remotas. Auditoría documental aún sin commit.
+
+**17 de octubre — auditoría documental posterior al cierre:** commits creados
+app6bab6be/API7ba93d7/lockbfce42e; PR/CI/main no comprobados en GitHub aquí.
+[Orden posterior](ESTADO_Y_ORDEN_2026_10_17.md): MA-1R propuesto, no iniciado;
+OV-1 continúa separado con el compañero. No se ejecutaron nuevas pruebas
+funcionales ni operaciones remotas. Las entradas siguientes conservan su cronología.
+
 **17 de octubre — cierre técnico institucional local consolidado:** Flutter893/13
 opt-in omitidas, backend119 suites/1.470 y panel95/95, TypeScript/análisis correctos.
 [Alcance, observaciones y propuesta de commits](CIERRE_INSTITUCIONES_LOCAL.md).

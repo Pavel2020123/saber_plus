@@ -3,10 +3,15 @@
 **17 de octubre, checkpoint que prevalece:** [C4-C10/10 guiones integrados locales
 cubiertos](PR_I5_C4_CODIGO.md), Android+19 HTTP/SQL; no10 pruebas solo manuales.
 APK corregida instalada, regresión893 aprobadas/13 opt-in omitidas y análisis limpio.
-Leer [cierre local consolidado y propuesta Git](CIERRE_INSTITUCIONES_LOCAL.md);
-sigue publicación/revisión de commits autorizados el17. No rehacer C3/C4 ni repetir fixtures en sesión ya utilizada.
-Verificar sesión/USB/credenciales actuales antes de continuar, nunca reutilizar caducadas.
-OV-1 independiente, sin push/merge/despliegue automático.
+Leer [cierre local consolidado y commits creados](CIERRE_INSTITUCIONES_LOCAL.md):
+app6bab6be/API7ba93d7/lockbfce42e integrados a main por PR app #5/API #8.
+Merges e679c50/388bb18; CI backend PR/main aprobado y análisis Flutter/102 dirigidas
+aprobados. Sin workflow Flutter remoto. Documentación posterior separada en
+`docs/estado-post-instituciones`; publicar/revisar mediante PR, no directamente en main.
+[Orden posterior](ESTADO_Y_ORDEN_2026_10_17.md): MA-1R propuesto, no iniciado.
+No rehacer C3/C4 ni repetir fixtures. Solo si se necesita un nuevo ensayo verificar
+sesión/USB/credenciales actuales, nunca reutilizar caducadas. OV-1 del compañero
+en curso, sin entrega nueva verificada aquí; no desplegar ni migrar por este prompt.
 Entradas y prompts inferiores fechados son antecedentes, no el paso siguiente.
 
 **15 de octubre: propietario en C3C**, no repetir C2C por defecto.
@@ -28,9 +33,10 @@ No cambiar visibilidad ni publicar secretos.
 
 ## Elegir el prompt correcto
 
-- Propietario: instituciones, [checkpoint C4-C](PR_I5_C4_CODIGO.md)
-  y prompt específico en [guía de pruebas](RELEVO_PRUEBAS_LOCALES.md#8-prompt-del-propietario--instituciones).
-- Compañero: OV-1A, [checkpoint propio](CHECKPOINT_OV1.md) y
+- Propietario: [cierre institucional](CIERRE_INSTITUCIONES_LOCAL.md) y
+  [siguiente bloque propuesto](ESTADO_Y_ORDEN_2026_10_17.md); el prompt de pruebas
+  institucionales es histórico salvo regresión concreta.
+- Compañero: OV-1A/B/C/D, [checkpoint propio](CHECKPOINT_OV1.md) y
   [prompt del compañero](TRABAJO_PARALELO.md#prompt-para-el-compañero).
 - El roadmap general se consolida por el propietario al entregar/integrar bloques.
   Cada equipo registra inmediatamente sus pruebas en su checkpoint, no en el ajeno.
@@ -89,7 +95,8 @@ Antecedentes (no son el siguiente trabajo):
   2 estrellas/+20 y abandono−10 por intento. Contraste nuevo100→90→80 aprobado.
   Supervisor corregido (JSON parcial no cierra sesión), 12 tests/CI y runtime.
   Otros clientes competitivos aplazados; sin activación remota. Ver checkpoint
-  para cierre operativo/commits y seguir con instituciones, no repetir pruebas.
+  para cierre operativo I2-5/QA-1. Los commits de Rescate se autorizaron el10;
+  instituciones posterior ya tiene cierre local. No repetir esas pruebas.
   Propietario ahora pide un commit por juego tras pruebas/documentación; revisar
   cambios acumulados antes de agruparlos. No push ni cambios ajenos automáticos.
 - El conflicto editorial EDITOR_STALE se resolvió recargando; incluir contadores

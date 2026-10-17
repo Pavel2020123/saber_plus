@@ -4,9 +4,16 @@
 con Android y19 controles HTTP/SQL complementarios; no son10 pruebas solo manuales.
 APK corregida instalada, regresión final893 aprobadas/13 opt-in omitidas y análisis
 limpio. [Cierre técnico local consolidado](docs/CIERRE_INSTITUCIONES_LOCAL.md):
-backend1.470/119 suites y panel95/95. Commits locales autorizados el17; sigue
-publicación de rama/revisión, sin push/merge/despliegue automático. C3C conserva su cierre10/10 local.
-OV-1 sigue independiente. Las notas fechadas inferiores son antecedentes.
+backend1.470/119 suites y panel95/95. Commits creados: app `6bab6be`, API `7ba93d7`
+y lock `bfce42e`. **Integrados en main:** [PR #5 app](https://github.com/Pavel2020123/saber_plus/pull/5)
+y [PR #8 backend](https://github.com/Pavel2020123/SaberPlus-Backend/pull/8).
+CI backend del PR y main aprobados; analyze Flutter limpio y102 pruebas dirigidas
+aprobadas en la entrega posterior. Sin workflow Flutter; QA-1 continúa pendiente.
+[Etapas ordenadas y auditoría del 17](docs/ESTADO_Y_ORDEN_2026_10_17.md): siguiente
+recomendado MA-1R, reportes de preguntas, aún no iniciado. OV-1 continúa con el
+compañero, sin entrega nueva revisada aquí. No se repitieron ensayos físicos ni se
+desplegó. Auditoría documental en `docs/estado-post-instituciones`, publicación
+manual/PR pendientes; notas inferiores históricas.
 
 **15 de octubre — C3A/B solicitudes estudiantiles implementadas localmente.**
 Backend:37 nuevas, regresión1.411/118 suites y14 HTTP/PostgreSQL aprobadas.
@@ -23,8 +30,8 @@ Relevo del 13 de octubre: [Instituciones/C2C](docs/PR_I5_C2_LOGO.md#checkpoint-d
 y [OV-1A del compañero](docs/CHECKPOINT_OV1.md), checkpoints independientes.
 [Corrección de once inconsistencias](docs/AUDITORIA_DOCUMENTAL_2026_10_13.md).
 
-**Trabajo paralelo acordado:** propietario → consolidación integrada de instituciones tras C4-C local;
-compañero → test vocacional OV-1 (comienza A, después B/C/D), sin esperar C2C.
+**Trabajo paralelo acordado:** propietario → entrega institucional integrada y
+próximo bloque por acordar; compañero → test vocacional OV-1A/B/C/D en paralelo.
 Ver [responsables, ramas y entrega](docs/TRABAJO_PARALELO.md). Este acuerdo sustituye
 la secuencia estricta de OV-1 y el trabajo individual directo en main.
 
@@ -111,7 +118,8 @@ Instituciones tiene colección propia. Los diseños aún no son premios concedid
 
 **Compañeros que retoman el proyecto:** empezar por [RELEVO_EQUIPO.md](docs/RELEVO_EQUIPO.md).
 Incluye auditoría inicial, ambos repositorios, alcance de cada etapa, reglas que
-conservar, coordinación en main, pruebas y ejemplos de commits. Próxima entrega: I2-5.
+conservar, coordinación por ramas/PR, pruebas y ejemplos de commits. I2-5 es un
+antecedente de esa guía; la próxima entrega se consulta en la ruta vigente superior.
 **MA-3A/B/C implementadas localmente:** [repaso diferido](docs/REPASO_DIFERIDO.md).
 Agenda en Progreso → Flashcards → Repasos pendientes y próximos, con cuenta real.
 La demo mantiene práctica libre; falta ensayo con dispositivo/backend desplegado.

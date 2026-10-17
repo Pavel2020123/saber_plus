@@ -5,7 +5,10 @@ Android+19 HTTP/SQL; no10 pruebas solo manuales. APK corregida instalada,93 diri
 y análisis aprobados. Regresión final893/13 opt-in omitidas;
 [cierre local consolidado/revisión Git](CIERRE_INSTITUCIONES_LOCAL.md).
 No repetir C3/C4 ni usar credenciales caducadas.
-OV-1 del compañero, sin commit institucional ni despliegue.
+Commits app6bab6be/API7ba93d7/lockbfce42e integrados a main por PR app #5/API #8;
+CI backend PR/main aprobado y análisis Flutter/102 dirigidas aprobados.
+[Orden posterior](ESTADO_Y_ORDEN_2026_10_17.md): MA-1R propuesto, no iniciado.
+OV-1 del compañero en curso, sin entrega nueva verificada aquí ni despliegue.
 Estados inferiores fechados conservan historia, no sustituyen esta continuación.
 
 **15 de octubre: C3A/B implementadas; sigue C3C integrado.** Leer
@@ -20,8 +23,8 @@ institucional. Leer cierre y observaciones en [acta C2](PR_I5_C2_LOGO.md).
 Las instrucciones específicas C2C inferiores se conservan como guion histórico;
 no repetirlo por defecto. El compañero mantiene su frente OV-1.
 
-**Trabajo paralelo acordado:** propietario → instituciones (sigue C3C);
-compañero → test vocacional OV-1 (comienza A, después B/C/D), sin esperar C2C.
+**Trabajo paralelo vigente:** propietario → entrega institucional integrada y
+próximo bloque por acordar; compañero → OV-1A/B/C/D, retomar su checkpoint.
 Ver [responsables, ramas y entrega](TRABAJO_PARALELO.md). Este acuerdo sustituye
 la secuencia estricta de OV-1 y el trabajo individual directo en main.
 

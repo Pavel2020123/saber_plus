@@ -1,6 +1,6 @@
 # SaberPlus — funcionalidades y estado para el equipo
 
-Actualizado: 28 de septiembre de 2026. Resumen documental, no auditoría integral
+Actualizado: 17 de octubre de 2026. Resumen documental, no auditoría integral
 nueva del código. Orden y estados detallados en [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md).
 
 ## Qué estamos construyendo
@@ -136,9 +136,9 @@ sonido al finalizar. No hay todavía notificaciones push académicas del backend
 | Memoria | Encuentra parejas de fórmulas y conceptos | Reutiliza la biblioteca; revisar calidad del contenido antes del lanzamiento |
 | Tira y afloja | Las respuestas desplazan la cuerda; incluye experiencia individual y en línea | En línea requiere probar dos dispositivos, latencia y reconexión |
 | Batallas asíncronas | Desafíos entre estudiantes sin exigir que jueguen simultáneamente | Entregas, vencimientos, bloqueo de rivales y permisos se validan en backend |
-| Desafío del guardián | Alcanzar seis aciertos antes de tres errores, hasta ocho preguntas | Motor local; falta verificar despliegue y ensayo real |
+| Desafío del guardián | Alcanzar seis aciertos antes de tres errores, hasta ocho preguntas | Motor/cliente y ensayo integrado local registrados en IC1_GUARDIAN; falta despliegue autorizado, no rehacer el recorrido local |
 | Salto a la cima | Aciertos suben un escalón y errores bajan uno | Cliente competitivo y ensayo Android/API/PostgreSQL validados localmente el 10 de octubre; no despliegue productivo |
-| Rescate de estrellas | Aciertos liberan estrellas y completan constelaciones | Demo, backend y cliente remoto locales; falta ensayo real |
+| Rescate de estrellas | Aciertos liberan estrellas y completan constelaciones | Backend/cliente y ensayo Android/API/PostgreSQL local aprobados según IC1_RESCATE, incluidos recuperación y contraste de XP; no despliegue productivo |
 
 Ocho juegos vigentes. Taller de inventos cancelado y Escudo del conocimiento retirado;
 no reintroducirlos. Renovación profesional con Sabi aplazada al acabado final.
@@ -188,6 +188,11 @@ de catálogos y revisión de vigencia todavía forman parte de la preparación.
 - Una persona crea una cuenta de profesor y solicita aprobación para una nueva
   institución o vinculación a una existente; no hay contraseña institucional compartida.
 - Propietario, administradores y profesores con permisos diferenciados.
+- Directorio territorial, presentación y logo, solicitudes estudiantiles con
+  historial/decisión del propietario y código privado estudiantil tienen
+  [cierre integrado local](CIERRE_INSTITUCIONES_LOCAL.md). No promueven alumnos
+  a profesores ni asignan grupos automáticamente. Despliegue y ranking
+  institucional siguen separados; C2 no sustituye archivos generales C5.
 - Gestión de miembros, invitaciones, grupos y códigos de vinculación.
 - El estudiante acepta vincularse y compartir el seguimiento previsto.
 - Analítica básica y, según el derecho institucional, detalle por estudiante,
@@ -279,7 +284,11 @@ desplegar ese retiro en Render; las tablas históricas se conservan.
 
 ## Qué sigue
 
-**Propietario: C2C, ensayo del logo. Compañero: OV-1A en paralelo.**
+**Propietario: instituciones cerradas localmente e integradas a main (PR app #5/API #8).**
+CI backend del PR/main y análisis/102 pruebas dirigidas Flutter aprobados; sin despliegue.
+Siguiente recomendado, no iniciado: MA-1R, reportes de preguntas integrados con la
+cobertura existente. **Compañero: OV-1A/B/C/D en curso según el propietario**, sin
+entrega nueva verificada aquí. [Orden completo](ESTADO_Y_ORDEN_2026_10_17.md).
 Cima/Guardián/Rescate tienen validación local acotada; otras integraciones
 competitivas aplazadas. I2-5 mantiene cierre operativo/QA-1, no repetir por ello
 el recorrido aprobado. C2 específico no cierra C5 general. Ver TRABAJO_PARALELO.md.
