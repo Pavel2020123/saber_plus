@@ -1,17 +1,38 @@
 # SaberPlus móvil
 
+**17 de octubre, estado vigente:** [C4-C cubre10/10 guiones locales](docs/PR_I5_C4_CODIGO.md)
+con Android y19 controles HTTP/SQL complementarios; no son10 pruebas solo manuales.
+APK corregida instalada, regresión final893 aprobadas/13 opt-in omitidas y análisis
+limpio. [Cierre técnico local consolidado](docs/CIERRE_INSTITUCIONES_LOCAL.md):
+backend1.470/119 suites y panel95/95. Commits locales autorizados el17; sigue
+publicación de rama/revisión, sin push/merge/despliegue automático. C3C conserva su cierre10/10 local.
+OV-1 sigue independiente. Las notas fechadas inferiores son antecedentes.
+
+**15 de octubre — C3A/B solicitudes estudiantiles implementadas localmente.**
+Backend:37 nuevas, regresión1.411/118 suites y14 HTTP/PostgreSQL aprobadas.
+Flutter:27 dirigidas aprobadas; formulario, historial y bandeja del propietario.
+**Sigue C3C: ensayo integrado Flutter/API/Android.** [Checkpoint vigente](docs/PR_I5_C3_SOLICITUDES.md).
+Migración solo temporal, sin despliegue remoto. OV-1 sigue separado.
+Las notas C2C inferiores son antecedentes; no repetirlas por defecto.
+
+Ajuste UX durante C3C: acceso de ingreso solo con pendiente o rechazo sin consultar;
+desaparece al vincularse.86 pruebas dirigidas aprobadas y análisis limpio.
+[Detalle, lectura local y ensayo humano pendiente](docs/PR_I5_C3_SOLICITUDES.md).
+
 Relevo del 13 de octubre: [Instituciones/C2C](docs/PR_I5_C2_LOGO.md#checkpoint-del-propietario)
 y [OV-1A del compañero](docs/CHECKPOINT_OV1.md), checkpoints independientes.
 [Corrección de once inconsistencias](docs/AUDITORIA_DOCUMENTAL_2026_10_13.md).
 
-**Trabajo paralelo acordado:** propietario → instituciones (sigue C2C);
+**Trabajo paralelo acordado:** propietario → consolidación integrada de instituciones tras C4-C local;
 compañero → test vocacional OV-1 (comienza A, después B/C/D), sin esperar C2C.
 Ver [responsables, ramas y entrega](docs/TRABAJO_PARALELO.md). Este acuerdo sustituye
 la secuencia estricta de OV-1 y el trabajo individual directo en main.
 
-**Actual: C2A/C2B implementadas — logo institucional.** Selección/vista previa,
-validación, persistencia PostgreSQL y permisos del propietario. Sigue C2C:
-ensayo SQL/HTTP/Android. Migración C2 no aplicada.
+**14 de octubre: C2C validada localmente — logo institucional.** Seis casos
+HTTP/PostgreSQL y ocho humanos Android aprobados; regresión Flutter41/41.
+Migración aplicada solo en bases temporales propias. Siguen solicitudes
+estudiantiles/avisos/código institucional. Captura original y CI pendientes
+según acta; sin despliegue remoto ni validación iOS.
 [Implementación y guion](docs/PR_I5_C2_LOGO.md). Checkpoints inferiores históricos.
 
 **Entrega anterior: [PR-I5-C — perfil institucional](docs/PR_I5_C_PERFIL.md).**

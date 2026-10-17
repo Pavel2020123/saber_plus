@@ -8,7 +8,7 @@ instituciones. No cambia las reglas de producto ni declara etapas terminadas.
 
 | Equipo | Responsabilidad | Por dónde empezar |
 |---|---|---|
-| Propietario y su asistente | Instituciones: Flutter, API y ADMIN necesarios | C2C: seis casos HTTP/PostgreSQL y ocho comprobaciones Android del logo. Después solicitudes de ingreso, aceptación/rechazo, avisos y código institucional privado según contrato. |
+| Propietario y su asistente | Instituciones: Flutter, API y ADMIN necesarios | [Cierre técnico local consolidado](CIERRE_INSTITUCIONES_LOCAL.md); C4-C10/10 integrados, Flutter893/13 omitidas, backend1.470/119 suites y panel95/95. Sigue revisión/autorización de commits, sin despliegue. |
 | Compañero y su asistente | OV-1: test de intereses vocacionales, Flutter y backend necesarios | Auditar orientación existente y preparar OV-1A: preguntas propias, familias, reglas versionadas y criterios de resultado. Después OV-1B, C y D. |
 
 El compañero no tiene que esperar a que termine C2C. El propietario no asume

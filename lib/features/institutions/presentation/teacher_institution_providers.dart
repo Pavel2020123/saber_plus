@@ -9,12 +9,12 @@ import '../domain/teacher_institution_repository.dart';
 
 final teacherInstitutionRepositoryProvider =
     Provider<TeacherInstitutionRepository>((ref) {
-      final isDemo = ref.watch(
+      final identity = ref.watch(
         sessionControllerProvider.select(
-          (session) => session.user?.isDemo ?? false,
+          (session) => (session.user?.id, session.user?.isDemo ?? false),
         ),
       );
-      if (isDemo) return DemoTeacherInstitutionRepository();
+      if (identity.$2) return DemoTeacherInstitutionRepository();
       return RemoteTeacherInstitutionRepository(ref.watch(dioProvider));
     });
 

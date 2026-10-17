@@ -1,6 +1,106 @@
 # Relevo de pruebas locales — Docker, Android USB y juegos
 
-**Trabajo paralelo acordado:** propietario → instituciones (sigue C2C);
+**Consolidación posterior completada:** [cierre técnico local](CIERRE_INSTITUCIONES_LOCAL.md)
+con Flutter893/13 opt-in omitidas, backend119 suites/1.470, panel95/95 y TypeScript/
+análisis correctos. Commits locales autorizados el17; sigue publicación/revisión,
+sin push automático ni nuevos gestos Android.
+No usar los siguientes pasos de notas históricas para repetir ensayos. Observaciones
+JPEG original y CI Linux/Node/npm fijados siguen abiertas, sin operación remota.
+
+**Checkpoint vigente:** C4-C10/10 guiones integrados cubiertos, Android+19 HTTP/SQL
+finales, no10 pruebas solo manuales. Permisos/códigos/replay/traslado finales aprobados,
+snapshot sin cambios y código alternativo sintético retirado. Regresión global Flutter
+final893 aprobadas/13 opt-in omitidas, análisis limpio; sigue consolidación y decisión de commits.
+No hay siguiente gesto Android obligatorio de C4 ahora. No repetir fixtures.
+USB/API restaurados, institución APROBADA/límite original null. Sesión6fFUQb.
+Código del archivo privado inicial ya es antiguo; contraseña aún válida.
+Notas cronológicas inferiores conservan estados anteriores; no son el paso vigente.
+
+**Histórico de guion7 (cerrado arriba):** propietario confirmó fallo de renovación y controles bloqueados.
+**ReverseUSB43187 restaurado/API200**. Verificador `unchanged`: revisión1/misma
+operación/auditoría1; intento offline no renovó. Sigue Consultar código vigente
+y después mismo reintento. Baseline en tmp; no generar nueva operación ni contar
+corte como ack perdido. Falta comprobar incremento único tras reintento humano.
+
+**Último checkpoint del17:** en sesión6fFUQb, zero confirmó ingreso tras cancelar:
+vínculo visible, sin grupo automático. Cotejo SQL solo lectura aprobado: ESTUDIANTE,
+institución esperada, una solicitud CANCELADA/revisión1, un recibo/auditoría coincidente,
+cero grupos/membresías docentes. C4-C:5/10 completos (1,3,4,5,8). Usuario confirmó
+cupo agotado y consulta suspendida; ambos cotejos sin ingreso de absent. Cierre/reapertura con vínculo conservado y sin
+entrada institucional por código; persistencia de guion10 aprobada parcialmente.
+Usuario confirmó perfil público sin código privado ni copiar/generar/renovar:
+guion3 completo. Absent confirmó rechazo de formato grupo y UUID de ejemplo.
+**Restauración completada:** institución APROBADA, límite original null, ocupado1;
+absent sin vínculo/recibos/auditoría. No quedan suspensión ni cupo reducido activos.
+Usuario confirmó vista previa recuperada y fallo de red: reenvío bloqueado,
+ambos botones de consulta habilitados. **ReverseUSB43187 restaurado**, API200;
+SQL aprobó absent sin vínculo/recibos/auditoría. Sigue pulsar Consultar mi vínculo
+antes de reintentar. Corte antes de POST, no ack perdido. Guion10 parcial.
+No generar nuevos códigos ni solicitudes.
+
+**Actualización posterior de red:** usuario confirmó consulta de vínculo, reintento
+y vínculo/sin grupo. SQL posterior: absent ESTUDIANTE, cero solicitudes, un recibo/
+evento de ingreso, cero grupos/membresías docentes. No hay duplicados observados.
+Sigue cerrar sesión y entrar con student sin vínculo: no debe heredar institución,
+código ni intento. Guion9 parcial (faltan replay/traslado), guion10 parcial (cuentas/
+texto). Controles de cupo para absent sin vínculo ya no aplican; no reejecutarlos.
+No repetir preparación ni generar códigos sobre esta sesión ya utilizada.
+
+**Reanudación posterior del17:** sesión actual `saberplus-i2-local-6fFUQb`,66
+migraciones; API43187/panel4173 responden200 y enlace USB activo. APK del segundo
+fix confirmada instalada (lastUpdateTime17 de octubre00:16:19), sin reinstalar.
+Sesión mR98b6 ya retirada. Fixtures sintéticos reconstruidos: zero sin vínculo,
+solicitud PENDIENTE y código nuevo; datos privados en `c4-return-private.json` de
+la sesión actual. No se conserva el intento en memoria de la app anterior.
+Sigue iniciar sesión nueva y reproducir rechazo→solicitudes→cancelar→volver→
+reintentar; la recuperación de acciones ya fue aprobada en sesión anterior,
+pero el ingreso posterior a cancelación aún no. No registrar preparación como prueba.
+
+**17 de octubre — sesión acotada:** `saberplus-i2-local-mR98b6`,66 migraciones,
+APK corregida ya instalada (confirmado paquete Android). Zero tiene solicitud
+inicialmente PENDIENTE sintética y código nuevo; datos privados en
+`c4-return-private.json` de esa sesión, no reutilizar los del16 ni sesiones caducadas.
+Tras cancelar/volver, usuario confirmó actualización y Reintentar mismo ingreso:
+comprobación puntual aprobada. No pulsó el reintento; guion8 sigue parcial.
+Trabajo finalizado por hoy. Retomar servicios y reintento tras cancelación mañana;
+si caduca base, reconstruir fixtures sin atribuir preparación como prueba humana.
+Ver acta C4 para alcance y pendientes. No iniciar otros guiones en este cierre.
+
+**Hallazgo posterior del17:** usuario confirmó bloqueo del botón de solicitudes
+tras rechazo por pendiente. Segundo fix Flutter permite abrir solicitudes aun
+cuando falta reconciliar ingreso, manteniendo bloqueo de reenvío y consulta al
+retornar.93/93 dirigidas y analyze limpio. Nueva APK compilada e instalada por USB
+(`Success`,17 de octubre); usuario confirmó recuperación de acciones al volver.
+No confundir primera APK del16 con este segundo fix.
+
+**16 de octubre:** C4-A/B implementados, resultados finales en [acta C4](PR_I5_C4_CODIGO.md).
+Preparación C4-C completada: sesión temporal `saberplus-i2-local-gJ5KOg`,66 migraciones,
+fixtures sintéticos y APK C4-B aislada instalada por USB (`Success`). Casos humanos2/10
+completos (1 y4),2,3,5,6,7 y8 parciales. Ingreso visible confirmado y conservado al actualizar;
+renovación rechaza código anterior y acepta consulta del nuevo. Faltan cotejos y escenarios
+descritos en acta. `zero@example.invalid` canceló su solicitud; al volver reportó
+ayuda confusa de pendiente. Fix Flutter validado46 C4+46 regresiones y analyze limpio;
+sigue instalar APK corregida y repetir vuelta desde solicitudes canceladas sin ingreso
+automático. No crear otra solicitud ni cerrar guion8 sin confirmación humana.
+Detalle y límites de evidencia en acta C4.
+No usar APK C3 para acreditar C4. La base temporal C4-A fue retirada tras16 HTTP/SQL y14 C3 posteriores;
+no reutilizar credenciales. No repetir C3C10/10 ni juegos por prompts inferiores.
+OV-1 sigue independiente, commits institucionales aún pendientes.
+
+**15 de octubre: siguiente ensayo del propietario C3C — solicitudes estudiantiles.**
+Ver [acta C3](PR_I5_C3_SOLICITUDES.md). Backend y pantallas implementados;
+no hay confirmación humana C3 todavía. Validar sesión temporal nueva/65 migraciones,
+preparar propietario/lector/alumnos ficticios y APK actual antes de pedir pruebas USB.
+No usar contraseñas caducadas ni repetir juegos/C2C por prompts antiguos.
+OV-1 continúa independiente. No hacer commit hasta nueva indicación del propietario.
+
+**Actualización del14 de octubre:** C2C validada localmente (6/6 HTTP/SQL y8/8
+humanos). Próximo trabajo del propietario: solicitudes estudiantiles/avisos/código
+institucional. Leer cierre y observaciones en [acta C2](PR_I5_C2_LOGO.md).
+Las instrucciones específicas C2C inferiores se conservan como guion histórico;
+no repetirlo por defecto. El compañero mantiene su frente OV-1.
+
+**Trabajo paralelo acordado:** propietario → instituciones (sigue C3C);
 compañero → test vocacional OV-1 (comienza A, después B/C/D), sin esperar C2C.
 Ver [responsables, ramas y entrega](TRABAJO_PARALELO.md). Este acuerdo sustituye
 la secuencia estricta de OV-1 y el trabajo individual directo en main.
@@ -333,20 +433,25 @@ antes de guardar evidencia ni tocar el del compañero. El siguiente PC crea otro
 El compañero de OV-1 usa el prompt de TRABAJO_PARALELO.md, no este.
 
 ```text
-Soy el propietario. Continúa instituciones, PR-I5-C2C, desde
-docs/PR_I5_C2_LOGO.md, checkpoint del propietario. Mi compañero hace OV-1;
+Soy el propietario. C2C ya tiene cierre local y C3A/B está implementada.
+Continúa C3C desde docs/PR_I5_C3_SOLICITUDES.md. Mi compañero hace OV-1;
 no edites su módulo ni CHECKPOINT_OV1.md. Lee TRABAJO_PARALELO.md y AGENTS.
 Verifica ambos repositorios, cambios y rama feat/instituciones-c2c.
-Código C2A/B listo; seis casos SQL/HTTP y ocho Android siguen pendientes.
+C2C6/6 SQL/HTTP y8/8 Android aprobados; observar límites en acta.
+Faltan integración Flutter/API y diez casos humanos C3, después código C4.
+Revisa código/contrato y resultados antes de modificar. No repetir C2 ni juegos.
 No declarar migración aplicada ni APK instalada sin comprobarlo.
-Prepara sesión local nueva según el acta: Docker Linux, backend compilado,
-fixtures C1 y script del logo. No usar .env/Supabase/Render ni secretos anteriores.
+Prepara sesión local nueva según acta C3: Docker Linux, backend compilado,
+65 migraciones y fixtures propios de propietario/lector/alumnos sin vínculo.
+El guion test_student_institution_requests_local.cjs tiene14 casos HTTP/SQL.
+No usar .env/Supabase/Render ni secretos anteriores.
 Para Android pide USB de datos, depuración/autorización y pantalla desbloqueada.
 Verifica dispositivo, reverse y APK de ensayo .i2validation sin reemplazar la habitual.
 Prueba un caso cada vez y registra resultado automático/HTTP/SQL/humano por separado
-en el acta del logo, incluso si se interrumpe. No cambiar juegos/XP/flags para C2C.
+en el acta C3, incluso si se interrumpe. No cambiar juegos/XP/flags para C3C.
 Consolida roadmap general al entregar un bloque; no después de cada caso.
 Preserva permisos, presentación, concurrencia, privacidad y evidencias anteriores.
-No push/merge/despliegue automático. Al finalizar entrega rutas, cambios, pruebas,
+No commit todavía por decisión del propietario; tampoco push/merge/despliegue.
+Al finalizar entrega rutas, cambios, pruebas,
 límites y siguiente paso; coordina archivos compartidos con el compañero.
 ```

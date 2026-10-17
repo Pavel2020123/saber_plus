@@ -59,6 +59,58 @@ class Logos implements InstitutionLogoRepository {
 }
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  testWidgets(
+    'logo publicado conserva cuadro de 80 por 80 dentro del perfil ancho',
+    (tester) async {
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            institutionLogoBytesProvider.overrideWith((ref, path) async => png),
+          ],
+          child: MaterialApp(
+            home: Scaffold(
+              body: ListView(
+                children: [
+                  InstitutionLogo(
+                    path: '/instituciones/directorio/$id/logo/1',
+                    size: 80,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(tester.getSize(find.byType(Image)), const Size(80, 80));
+    },
+  );
+
+  test(
+    'la miniatura PNG conserva bytes originales y decodifica la selección',
+    () async {
+      final original = Uint8List.fromList(png);
+      final preview = await createInstitutionLogoPreview(original);
+      expect(preview.take(8), [137, 80, 78, 71, 13, 10, 26, 10]);
+      expect(original, png);
+    },
+  );
+
+  test(
+    'rechaza firmas falsas y JPEG truncado antes de aceptar la vista previa',
+    () async {
+      await expectLater(
+        createInstitutionLogoPreview(Uint8List.fromList([1, 2, 3])),
+        throwsFormatException,
+      );
+      await expectLater(
+        createInstitutionLogoPreview(Uint8List.fromList([255, 216, 255, 0])),
+        throwsA(isA<Exception>()),
+      );
+    },
+  );
   test('envía multipart con revisión y exige acuse correspondiente', () async {
     final dio = Dio();
     dio.interceptors.add(
@@ -174,7 +226,19 @@ void main() {
       await tester.scrollUntilVisible(find.text(label), 200);
     }
     await tester.ensureVisible(find.text(label));
-    await tester.tap(find.text(label));
+    // La decodificación nativa no avanza con el reloj simulado de pumpAndSettle.
+    await tester.runAsync(() async {
+      await tester.tap(find.text(label));
+      await tester.pump();
+      for (
+        var i = 0;
+        i < 100 && find.byType(LinearProgressIndicator).evaluate().isNotEmpty;
+        i++
+      ) {
+        await Future<void>.delayed(const Duration(milliseconds: 10));
+        await tester.pump();
+      }
+    });
     await tester.pumpAndSettle();
   }
 
@@ -206,6 +270,27 @@ void main() {
     expect(find.text('Guardar logo'), findsNothing);
     expect(l.calls, 1);
   });
+  testWidgets('imagen inválida no habilita guardar ni publica', (tester) async {
+    final p = Profiles();
+    final l = Logos(p);
+    await mount(tester, p, l, pick: () async => Uint8List.fromList([1, 2, 3]));
+    await tap(tester, 'Seleccionar imagen');
+    expect(find.text('Guardar logo'), findsNothing);
+    expect(find.textContaining('Formato no admitido'), findsOneWidget);
+    expect(l.calls, 0);
+  });
+  testWidgets('imagen demasiado grande informa tamaño y no culpa permisos', (
+    tester,
+  ) async {
+    final p = Profiles();
+    final l = Logos(p);
+    await mount(tester, p, l, pick: () async => Uint8List(3 * 1024 * 1024 + 1));
+    await tap(tester, 'Seleccionar imagen');
+    expect(find.text('Elige una imagen de hasta 3 MiB.'), findsOneWidget);
+    expect(find.textContaining('permiso'), findsNothing);
+    expect(find.text('Guardar logo'), findsNothing);
+    expect(l.calls, 0);
+  });
   testWidgets(
     'conflicto conserva selección y bloquea guardado hasta consultar',
     (tester) async {
@@ -221,6 +306,10 @@ void main() {
             )
             .onPressed,
         isNull,
+      );
+      await tester.scrollUntilVisible(
+        find.text('Vista previa · Recorte cuadrado centrado'),
+        -150,
       );
       expect(
         find.text('Vista previa · Recorte cuadrado centrado'),

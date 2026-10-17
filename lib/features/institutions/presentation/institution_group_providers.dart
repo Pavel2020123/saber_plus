@@ -9,10 +9,16 @@ import '../domain/institution_group_repository.dart';
 
 final institutionGroupRepositoryProvider = Provider<InstitutionGroupRepository>(
   (ref) {
-    final demo = ref.watch(
-      sessionControllerProvider.select((state) => state.user?.isDemo ?? false),
+    final identity = ref.watch(
+      sessionControllerProvider.select(
+        (state) => (
+          state.user?.id,
+          state.user?.isDemo ?? false,
+          state.user?.institutionId,
+        ),
+      ),
     );
-    return demo
+    return identity.$2
         ? DemoInstitutionGroupRepository()
         : RemoteInstitutionGroupRepository(ref.watch(dioProvider));
   },

@@ -1,12 +1,34 @@
 # Relevo general — elegir responsable antes de continuar
 
+**17 de octubre, checkpoint que prevalece:** [C4-C10/10 guiones integrados locales
+cubiertos](PR_I5_C4_CODIGO.md), Android+19 HTTP/SQL; no10 pruebas solo manuales.
+APK corregida instalada, regresión893 aprobadas/13 opt-in omitidas y análisis limpio.
+Leer [cierre local consolidado y propuesta Git](CIERRE_INSTITUCIONES_LOCAL.md);
+sigue publicación/revisión de commits autorizados el17. No rehacer C3/C4 ni repetir fixtures en sesión ya utilizada.
+Verificar sesión/USB/credenciales actuales antes de continuar, nunca reutilizar caducadas.
+OV-1 independiente, sin push/merge/despliegue automático.
+Entradas y prompts inferiores fechados son antecedentes, no el paso siguiente.
+
+**15 de octubre: propietario en C3C**, no repetir C2C por defecto.
+[Checkpoint de solicitudes](PR_I5_C3_SOLICITUDES.md): C3A backend y C3B app
+implementadas y probadas automáticamente; faltan integración Flutter/API y Android.
+No hacer commit todavía. El compañero mantiene OV-1, no recibe este trabajo.
+Los prompts inferiores C2C son históricos: prevalece este checkpoint.
+No asumir que servicios/USB siguen activos.
+
+**Actualización del14 de octubre:** C2C validada localmente (6/6 HTTP/SQL y8/8
+humanos). Próximo trabajo del propietario: solicitudes estudiantiles/avisos/código
+institucional. Leer cierre y observaciones en [acta C2](PR_I5_C2_LOGO.md).
+Las instrucciones específicas C2C inferiores se conservan como guion histórico;
+no repetirlo por defecto. El compañero mantiene su frente OV-1.
+
 Actualizado: 13 de octubre de 2026. Leer [reparto](TRABAJO_PARALELO.md).
 Ambos repositorios públicos según API GitHub hoy; lectura no otorga escritura.
 No cambiar visibilidad ni publicar secretos.
 
 ## Elegir el prompt correcto
 
-- Propietario: instituciones, [checkpoint C2C](PR_I5_C2_LOGO.md#checkpoint-del-propietario)
+- Propietario: instituciones, [checkpoint C4-C](PR_I5_C4_CODIGO.md)
   y prompt específico en [guía de pruebas](RELEVO_PRUEBAS_LOCALES.md#8-prompt-del-propietario--instituciones).
 - Compañero: OV-1A, [checkpoint propio](CHECKPOINT_OV1.md) y
   [prompt del compañero](TRABAJO_PARALELO.md#prompt-para-el-compañero).

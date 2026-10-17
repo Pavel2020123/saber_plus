@@ -1,8 +1,10 @@
 # PR-I5 — Instituciones: checkpoint de implementación
 
-Actualizado: 11 de octubre de 2026. **Contrato vigente T4:** filtros por nombre,
+Actualizado: 17 de octubre de 2026. **Contrato vigente T4:** filtros por nombre,
 departamento y municipio; lista/detalle incluyen ubicación oficial opcional.
-T5 ya fue validado localmente; sigue [C2C, logo institucional](PR_I5_C2_LOGO.md). Los apartados PR-I5A/B
+T5, C1/C2/C3 y C4-C ya tienen cobertura local; sigue consolidación integrada
+institucional, no despliegue. [Acta C4 y evidencia mixta](PR_I5_C4_CODIGO.md).
+Los apartados PR-I5A/B
 conservan su alcance histórico anterior a T4, no limitan el contrato actual.
 
 Rescate IC-1C quedó validado localmente; commits `df53768` (app) y `3fdf699`
