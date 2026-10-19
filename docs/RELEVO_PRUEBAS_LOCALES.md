@@ -1,19 +1,34 @@
 # Relevo de pruebas locales — Docker, Android USB y juegos
 
+**19 de octubre — continuar aquí, no en los guiones históricos:** [R4 reportes](MA1R_R4_VALIDACION_LOCAL.md),
+12/12 humanos y45/45 HTTP/PostgreSQL aprobados; backend121/1567 tras fix de concurrencia, Flutter920/13 opt-in
+omitidas, ADMIN109/build/análisis. Remate Android confirmado: R4 cerrada localmente,
+commits funcionales app `418c291`/API `a747c32` creados, documentación separada;
+siguen push manual y PR/CI. No repetir12 ni juegos/instituciones por defecto. Sesiones
+anteriores/bases automáticas limpiadas, remate en otra temporal; no asumir claves
+válidas ni servicios activos. Comando
+técnico independiente en backend: `npm run test:question-reports:postgres` (Docker
+local, sin celular/URL externa). OV-1 separado; sin push/merge/despliegue.
+
 **Consolidación posterior completada:** [cierre técnico local](CIERRE_INSTITUCIONES_LOCAL.md)
 con Flutter893/13 opt-in omitidas, backend119 suites/1.470, panel95/95 y TypeScript/
-análisis correctos. Commits locales autorizados el17; sigue publicación/revisión,
-sin push automático ni nuevos gestos Android.
+análisis correctos. Commits app6bab6be/API7ba93d7/lockbfce42e integrados a main por
+PR app #5/API #8. CI backend PR/main aprobado; Flutter analyze/102 dirigidas aprobados.
+Sin nuevos ensayos físicos/SQL. [Orden posterior](ESTADO_Y_ORDEN_2026_10_17.md):
+MA-1R/R1–R3 locales; [acta app/panel](MA1R_R3_APP_PANEL.md), sigue R4;
+OV-1 sigue con el compañero. Sin push automático ni
+nuevos gestos Android obligatorios.
 No usar los siguientes pasos de notas históricas para repetir ensayos. Observaciones
 JPEG original y CI Linux/Node/npm fijados siguen abiertas, sin operación remota.
 
 **Checkpoint vigente:** C4-C10/10 guiones integrados cubiertos, Android+19 HTTP/SQL
 finales, no10 pruebas solo manuales. Permisos/códigos/replay/traslado finales aprobados,
 snapshot sin cambios y código alternativo sintético retirado. Regresión global Flutter
-final893 aprobadas/13 opt-in omitidas, análisis limpio; sigue consolidación y decisión de commits.
+final893 aprobadas/13 opt-in omitidas, análisis limpio; consolidación y commits ya creados.
 No hay siguiente gesto Android obligatorio de C4 ahora. No repetir fixtures.
 USB/API restaurados, institución APROBADA/límite original null. Sesión6fFUQb.
-Código del archivo privado inicial ya es antiguo; contraseña aún válida.
+Código del archivo privado inicial ya era antiguo al cerrar. No asumir que la
+contraseña, servicios o sesión siguen válidos al retomar.
 Notas cronológicas inferiores conservan estados anteriores; no son el paso vigente.
 
 **Histórico de guion7 (cerrado arriba):** propietario confirmó fallo de renovación y controles bloqueados.
@@ -188,7 +203,7 @@ separados, no repetir batería.
 |---|---|---|
 | Cima, IC-1A/A2 | [Acta](IC1_CIMA.md): victoria real local +100, OFF, recuperación, red/reintento, no duplicación y normal sin XP | No repetir salvo cambio relacionado/regresión concreta |
 | Guardián, IC-1B1/B2 | [Acta](IC1_GUARDIAN.md): victoria +100, derrota con 3 aciertos +30, abandono −10, balance final120; normal sin evento, recuperación/red/ranking | No repetir salvo cambio relacionado; evidencia pertenece a aquella sesión |
-| Rescate, IC-1C | 62 tests Flutter/32 backend; Android/API/SQL aprobados: victoria100 única, recuperación/red/reintento, normal sin evento, agotamiento2 estrellas/+20, abandono−10 por intento y contraste100→90→80. Supervisor12 tests/CI y runtime | [Acta](IC1_RESCATE.md); commits/cierre operativo y después instituciones; no repetir batería |
+| Rescate, IC-1C | 62 tests Flutter/32 backend; Android/API/SQL aprobados: victoria100 única, recuperación/red/reintento, normal sin evento, agotamiento2 estrellas/+20, abandono−10 por intento y contraste100→90→80. Supervisor12 tests/CI y runtime | [Acta](IC1_RESCATE.md); guardado autorizado el10 de octubre. Instituciones posterior ya tiene cierre local; I2-5/QA-1 operativo separado. No repetir batería |
 | Trivia | Competición aplazada fuera del bloque inicial V1 | [Contrato](TRIVIA_RUSH_BACKEND_CONTRACT.md); conservar modo normal |
 | Duelo fantasma | Competición aplazada fuera del bloque inicial V1 | [Base](GHOST_DUEL.md); conservar modo normal |
 | Tira y afloja | Competición aplazada fuera del bloque inicial V1 | [Contrato](TUG_OF_WAR_BACKEND_CONTRACT.md); al retomarlo probar dos participantes reales |
@@ -433,25 +448,32 @@ antes de guardar evidencia ni tocar el del compañero. El siguiente PC crea otro
 El compañero de OV-1 usa el prompt de TRABAJO_PARALELO.md, no este.
 
 ```text
-Soy el propietario. C2C ya tiene cierre local y C3A/B está implementada.
-Continúa C3C desde docs/PR_I5_C3_SOLICITUDES.md. Mi compañero hace OV-1;
-no edites su módulo ni CHECKPOINT_OV1.md. Lee TRABAJO_PARALELO.md y AGENTS.
-Verifica ambos repositorios, cambios y rama feat/instituciones-c2c.
-C2C6/6 SQL/HTTP y8/8 Android aprobados; observar límites en acta.
-Faltan integración Flutter/API y diez casos humanos C3, después código C4.
-Revisa código/contrato y resultados antes de modificar. No repetir C2 ni juegos.
-No declarar migración aplicada ni APK instalada sin comprobarlo.
-Prepara sesión local nueva según acta C3: Docker Linux, backend compilado,
-65 migraciones y fixtures propios de propietario/lector/alumnos sin vínculo.
-El guion test_student_institution_requests_local.cjs tiene14 casos HTTP/SQL.
-No usar .env/Supabase/Render ni secretos anteriores.
-Para Android pide USB de datos, depuración/autorización y pantalla desbloqueada.
-Verifica dispositivo, reverse y APK de ensayo .i2validation sin reemplazar la habitual.
-Prueba un caso cada vez y registra resultado automático/HTTP/SQL/humano por separado
-en el acta C3, incluso si se interrumpe. No cambiar juegos/XP/flags para C3C.
-Consolida roadmap general al entregar un bloque; no después de cada caso.
-Preserva permisos, presentación, concurrencia, privacidad y evidencias anteriores.
-No commit todavía por decisión del propietario; tampoco push/merge/despliegue.
-Al finalizar entrega rutas, cambios, pruebas,
-límites y siguiente paso; coordina archivos compartidos con el compañero.
+Soy el propietario. Instituciones T/C1-C4 tiene cierre técnico local y commits
+app6bab6be/API7ba93d7/lockbfce42e. Lee CIERRE_INSTITUCIONES_LOCAL.md,
+ESTADO_Y_ORDEN_2026_10_17.md, ETAPAS_PENDIENTES.md y los AGENTS aplicables.
+Verifica ambos repositorios, status/rama/HEAD; no fuerces pull ni descartes cambios.
+PR app #5/API #8 ya integrados a main e679c50/388bb18; CI backend PR/main aprobado,
+Flutter analyze/102 dirigidas aprobados. Guarda la documentación pendiente en su
+rama separada antes de iniciar otra entrega desde main aprobado. No hagas push,
+merge adicional ni despliegue sin autorización; no repitas C2/C3/C4 por notas antiguas.
+Mi compañero continúa OV-1: no edites su módulo ni CHECKPOINT_OV1.md.
+MA-1R/R1 ya tiene flujo inicial autorizado. R2 backend local implementada:
+lee docs/MA1R_REPORTES_PREGUNTAS.md y backend/docs/MA1R_R2_BACKEND.md del otro repo.
+121 suites/1.560 aprobadas; build/TypeScript correctos, SQL escrito pero no aplicado.
+R3 app/panel local lista: lee docs/MA1R_R3_APP_PANEL.md y acta homónima backend.
+32 dirigidas Flutter y109 ADMIN aprobadas; reportesVersion=1/legacy compatibles.
+Sigue R4: preparar PostgreSQL/HTTP Nest desechable y después el recorrido Android.
+No repitas R1 ni afirmes PostgreSQL/HTTP/Android probados para reportes: R4 pendiente.
+La cobertura MA-1 ya existe; no la reconstruyas ni inventes conteos de reportes.
+No retires ni publiques preguntas automáticamente por recibir reportes.
+Coordina schema/migraciones/app.module/navegación/locks antes de tocar archivos
+compartidos. No repetir R2/R3 ni instituciones: documentar cada resultado real de R4.
+No necesitas servicios para escribir/revisar las pruebas; avisar antes de ejecutar
+la integración con DB o pedir el celular para el recorrido físico.
+Cuando toque un ensayo real usa base local desechable y cuentas ficticias;
+verifica servicios, USB de datos/depuración/pantalla desbloqueada y APK aislada.
+No reutilices secretos/sesiones viejas ni operes Supabase/Render por este prompt.
+Registra pruebas automáticas, HTTP/SQL y gestos humanos por separado.
+Consolida roadmap al entregar el bloque, conserva actas históricas y entrega
+rutas, resultados, límites, pendientes y comandos Git solo según autorización.
 ```

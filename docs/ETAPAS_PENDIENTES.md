@@ -1,7 +1,21 @@
 # SaberPlus — etapas pendientes y ruta vigente del equipo
 
-**Trabajo paralelo acordado:** propietario → instituciones (cierre local consolidado; commits autorizados, publicación/revisión pendientes);
-compañero → test vocacional OV-1 (comienza A, después B/C/D), sin esperar C2C.
+**19 de octubre, checkpoint vigente:** MA-1R/R4 cerrada localmente;12/12 humanos,
+45/45 integradas repetidas tras fix de concurrencia, regresiones y remate Android
+confirmados. [Acta R4](MA1R_R4_VALIDACION_LOCAL.md). Commits funcionales locales:
+app `418c291`, backend `a747c32`; documentación en commits separados posteriores.
+Sigue push manual del propietario y PR/CI, no repetir pruebas.
+Sin despliegue, SQL remoto ni cambios OV-1.
+Los estados del18 e inferiores son antecedentes superados como continuación.
+
+**MA-1R/R3, actualización del18:** R1/flujo inicial autorizados;
+[backend local implementado](MA1R_REPORTES_PREGUNTAS.md),121 suites/1.560 aprobadas,
+build/TypeScript correctos. [R3 app/panel local](MA1R_R3_APP_PANEL.md):32 dirigidas
+Flutter/109 ADMIN aprobadas. SQL sin aplicar; sigue R4 PostgreSQL/Nest/Android.
+
+**Trabajo paralelo acordado:** propietario → entrega institucional cerrada localmente,
+integrada a main por PR #5/#8 y MA-1R/R1–R3 locales; compañero → OV-1A/B/C/D en curso
+según el propietario, sin entrega nueva verificada en estos clones.
 Ver [responsables, ramas y entrega](TRABAJO_PARALELO.md). Este acuerdo sustituye
 la secuencia estricta de OV-1 y el trabajo individual directo en main.
 
@@ -12,8 +26,14 @@ HTTP/SQL finales para permisos/códigos/repetición/traslado. No son10 pruebas
 exclusivamente manuales. APK corregida instalada,93 dirigidas y análisis aprobados.
 Regresión Flutter global final893 aprobadas/13 opt-in omitidas. Cierre técnico local
 consolidado: backend1.470/119 suites, panel95/95 y TypeScript correctos.
-Sigue [publicación/revisión de la entrega Git autorizada](CIERRE_INSTITUCIONES_LOCAL.md),
-sin despliegue. [Evidencias/límites C4](PR_I5_C4_CODIGO.md).
+Commits creados: app `6bab6be`, backend `7ba93d7` y `bfce42e`.
+Entrega posterior: PR app #5/backend #8 integrados en main como e679c50/388bb18.
+CI backend del PR y main aprobados; Flutter analyze limpio y102 pruebas dirigidas
+aprobadas, sin workflow Flutter remoto. [Entrega](CIERRE_INSTITUCIONES_LOCAL.md),
+sin despliegue ni nuevos ensayos físicos. [Evidencias/límites C4](PR_I5_C4_CODIGO.md).
+Ver [orden posterior y auditoría del 17](ESTADO_Y_ORDEN_2026_10_17.md): MA-1R,
+reportes de preguntas, es el bloque independiente de OV-1. R1 aprobada para flujo
+inicial, R2 backend y R3 interfaz locales listas; falta R4 PostgreSQL/HTTP/Android.
 No hay suspensión/cupo reducido ni corteUSB activos. OV-1 independiente.
 
 ### Antecedente C4-B — antes del ensayo Android
@@ -687,8 +707,11 @@ que deba volver a imponerse al administrador. D3 verifica el flujo simplificado.
 
 ## Ruta vigente del equipo
 
-Orden vigente por frentes: **propietario: entrega institucional local consolidada (commits autorizados, publicación/revisión pendientes);
-compañero: OV-1A/B/C/D en paralelo, sin esperar al bloque social**.
+Orden vigente por frentes: **propietario: instituciones integradas a main y MA-1R
+R1–R3 locales; compañero: OV-1A/B/C/D en paralelo, sin entrega verificada aquí**.
+Siguiente del propietario: **MA-1R, reportes académicos y cobertura**;
+R2 backend y R3 app/panel locales listas; [checkpoint](MA1R_REPORTES_PREGUNTAS.md), sigue R4.
+[Orden completo y límites](ESTADO_Y_ORDEN_2026_10_17.md).
 Después se coordinan los bloques restantes: académico/profesor/panel,
 insignias/perfiles, ranking institucional/ensayo social y cierre funcional/comercial;
 UI-F → validación/sustentación → lanzamiento/operación. Rescate y territorio
@@ -705,23 +728,24 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 
 | Etapa/bloque | Estado y trabajo que falta | Dependencia / cuándo retomarlo |
 |---|---|---|
-| MA-1 — Cobertura | Base local; faltan reportes académicos de preguntas, revisión visual y ensayo real. No confundirlos con reportes de jugadores. | Entrega acotada coordinada; no pierde su pendiente al avanzar a PR-I. |
+| MA-1 / MA-1R — Cobertura y reportes | R1–R4 cerradas localmente.67 migraciones temporales,12/12 humanos,45/45 HTTP/PostgreSQL repetidas tras fix P2010/40001; backend121/1567, Flutter920/13 opt-in omitidas, análisis/build, ADMIN109, controles12 y remate Android confirmados. | Código guardado en app418c291/APIa747c32; documentación separada. Push manual y PR/CI pendientes según acta MA1R_R4_VALIDACION_LOCAL. Cobertura opt-in/legacy compatible. Sin SQL remoto/despliegue; retención/operación antes de publicar. OV-1 separado. |
+| MA-1R-UX1 — Ocultar y Deshacer | [Propuesta del18](MA1R_UX1_OCULTAR_DESHACER.md), pendiente de implementación: X quita de lista personal, Snackbar/progreso cinco segundos y Deshacer; proponer Ocultos/Restaurar. No borra el reporte de ADMIN ni cambia evidencia/estado/cuotas. | Después de R4, entrega funcional separada con contrato/persistencia por cuenta y pruebas. Apariencia/accesibilidad en UI-F. Otros módulos solo tras revisar reglas; no eliminación global automática. |
 | MA-2A/B/C — Mapa | API, panel y Flutter locales. Falta recorrido real panel → API → app. | Infraestructura autorizada, junto a D3/C4. |
 | MA-3A/B/C — Repaso diferido | Reglas, persistencia, API, agenda y flashcards locales. Falta ensayo físico/reconexión/reinstalación. | Infraestructura autorizada. No repetir implementación. |
 | **PR-I1 — Antecedente integrado/cerrado para esta ruta** | Infraestructura e integración competitiva local de seis juegos, según el estado documental confirmado. No es la siguiente etapa activa. | Despliegue/activación y requisitos operativos B1/B2 siguen separados y pendientes; no reabrir salvo defecto concreto demostrado. |
 | **PR-I2 — Ranking por juego** | Backend I2-1/2/3 y Flutter I2-4 fusionados. I2-5 cuenta con regresión PostgreSQL, integración HTTP y recorrido Android funcional revisado documentados. | Faltan cierre operativo/limpieza y deuda QA-1; no repetir el recorrido aprobado por una orden histórica. No implica despliegue ni admisión productiva de juegos. |
-| **IC-1 — Clientes competitivos de seis juegos** | Bloque V1 local aprobado: Cima, Guardián y Rescate en alcance Android/API/SQL documentado. Rescate: 62 dirigidas/32 backend, global754/10 opt-in anterior; victoria100 única, normal sin evento, recuperación/red/reintento, parcial2 estrellas/+20 y abandono−10 por intento. Supervisor12 tests/CI y runtime; contraste final100→90→80 aprobado. Commits/cierre operativo pendientes; después instituciones. Trivia, Duelo y Tira competitivos aplazados, conservar motores/modos normales. | No equivale a producción ni cierra toda IC-1. Límites/ensayos no realizados en IC1_CIMA, IC1_GUARDIAN e IC1_RESCATE. Sin modificar fórmulas ni refresco automático del ranking. |
+| **IC-1 — Clientes competitivos de seis juegos** | Bloque V1 local aprobado: Cima, Guardián y Rescate en alcance Android/API/SQL documentado. Rescate: 62 dirigidas/32 backend, global754/10 opt-in anterior; victoria100 única, normal sin evento, recuperación/red/reintento, parcial2 estrellas/+20 y abandono−10 por intento. Supervisor12 tests/CI y runtime; contraste final100→90→80 aprobado. Guardado autorizado registrado en su acta el10 de octubre; «después instituciones» es secuencia histórica ya recorrida. Trivia, Duelo y Tira competitivos aplazados, conservar motores/modos normales. | No equivale a producción ni cierra toda IC-1. Cierre operativo I2-5/QA-1 separado. Límites/ensayos no realizados en IC1_CIMA, IC1_GUARDIAN e IC1_RESCATE. Sin modificar fórmulas ni refresco automático del ranking. |
 | **IC-2 — Memoria competitiva** | Aplazado fuera del bloque inicial V1: definir contrato autoritativo compatible con reglas aprobadas, integrar resultado verificable al ledger/ranking y cliente móvil. No rehacer el juego normal. | Retomar después, con nueva priorización; no es requisito para instituciones/OV-1. Resolver explícitamente cualquier regla faltante; pruebas de permisos, repetición, fraude, desconexión, XP y ranking. Mantener NO_DISPONIBLE hasta integrar y validar, sin activación productiva automática. |
 | **IC-3 — Batallas competitivas** | Aplazado fuera del bloque inicial V1: integrar al sistema competitivo las batallas asíncronas existentes, conservando permisos, vencimientos y reglas aprobadas. | Reutilizar IC-1/infraestructura y contrato de Batallas. Probar ambos participantes, empates/vencimientos, resultados concurrentes y liquidación única; cliente/API/ranking coherentes. No inventar fórmulas; NO_DISPONIBLE hasta validar. |
 | **QA-1 — CI Flutter y deuda de validación** | Pendiente: workflow de dependencias con lock, analyze y test; identificar suites opt-in y no confundirlas con pruebas reales. Clasificar lint backend y fallos intermitentes del panel. | Antes de beta; puede avanzar tras I2-5 o en una entrega de apoyo acordada. Versiones reproducibles, sin secretos, sin desactivar pruebas para poner checks en verde; baseline solo explícita y revisada. |
 | **DOC-1 — Higiene y acceso de repositorios** | Pendiente: clasificar archivo accidental/temporales, conservar entregables deliberados y revisar reglas de ignore. Verificar con el propietario visibilidad/protección de GitHub. | Limpieza acotada con diff y aprobación para borrar; sin cambiar acceso ni reescribir historial automáticamente. El pitch PDF no se considera basura por su extensión. |
 | PR-I3 — Insignias anuales | PR-I3A gráfico ya tiene 90 imágenes. Faltan concesión real, cierre idempotente, historial permanente y correcciones auditadas. | PR-I1/2; premios de cada juego requieren integración IC validada. Puede prepararse el contrato común antes de terminar todos los juegos. Todas las ganadas, sin límite de tres; años anteriores permanecen. |
 | PR-I4 — Perfil/personas | Perfil sobrio, identidad pública y búsqueda; todas las insignias por juego/año, detalle al tocar, visibilidad y protección de datos. | PR-I1–3; C5 antes de fotos reales. Avatar existente mientras tanto, sin fingir carga persistente. |
-| PR-I5 — Instituciones | Cierre técnico local consolidado T/C1–C4; C4-C10/10 integrados (Android+19 HTTP/SQL, no10 solo manuales). Flutter893/13 omitidas, backend1.470/119 suites y panel95/95. Sigue revisión/commits según acta de cierre. | Observaciones JPEG original y CI Linux/Node/npm fijados pendientes. C5 general y despliegue siguen abiertos; no equivale a ranking institucional ni P5. |
+| PR-I5 — Instituciones | Cierre técnico local consolidado T/C1–C4; C4-C10/10 integrados (Android+19 HTTP/SQL, no10 solo manuales). Integrados a main por PR app #5/API #8 (e679c50/388bb18). CI backend PR/main aprobado; análisis Flutter limpio y102 dirigidas aprobadas. Regresión global893/13 y panel95/95 conservados del cierre previo. | Observación JPEG original pendiente; CI Linux/Node/npm fijados comprobado. QA-1 Flutter remoto, C5 general y despliegue abiertos; no equivale a ranking institucional ni P5. |
 | PR-I6 — Ranking institucional | Aportes mientras se pertenece a institución, sin traslado/doble conteo del XP histórico; agregados públicos. | PR-I1/2/5 y reglas confirmadas. |
 | PR-I7 — Ensayo social | Dos cuentas/dispositivos, privacidad, fotos, solicitudes, ayudas/empates y cierre anual conservando años anteriores. | Despliegue autorizado; coordinar con P5/D3, sin alterar reloj de producción. |
 | PR-I5-T / PR-I6-T — Territorio | T1–T4 implementadas y T5 ensayo integrado cerrado localmente; 16 casos SQL reales T2 aprobados. Ranking territorial posterior, sin cambiar XP ni premios nacionales. | Extensiones de PR-I5/6; sin despliegue; una sede representada por registro, multisede e histórico pendientes. Ver PR_I5_T_TERRITORIO y ORIENTACION_Y_TERRITORIO. |
-| OV-1A/B/C/D — Orientación por intereses | Cuestionario propio revisado, resultado privado y explicable, carreras para explorar y Sabi por profesión. Complementa orientación académica, no test psicológico validado. | En paralelo a instituciones por acuerdo del 12 de octubre; antes de UI-F/beta; fuentes oficiales, privacidad y revisión de contenido. |
+| OV-1A/B/C/D — Orientación por intereses | Frente del compañero en curso; entrega nueva no verificada aquí. Debe completar cuestionario revisado, resultado privado/explicable y carreras para explorar. Sabi por seis familias, requisito visual pendiente, no por cada carrera. No es diagnóstico profesional. | En paralelo por acuerdo del 12 de octubre; antes de UI-F/beta; fuentes oficiales, privacidad y revisión de contenido. Sin XP, ranking ni certificados. |
 | P1–P4-C / P5 — Profesor | P1–P4-C locales; P5 es despliegue y ensayo real docente, aprobación institucional, roles, grupos, prioridades y tiempo. | **P5 pausada**. Pedir URL/cuentas/entorno autorizado, nunca contraseñas. Antes de D3. |
 | 7F-C3-D2 — Legado | Herramientas locales; faltan revisión visual y operación de legado autorizada con respaldo. | No borrar ni reclasificar contenido usado; preparar D3. |
 | 7F-C3-D3 — Panel real | Conectar ADMIN a backend vigente y confirmar publicación/persistencia real. | **Pausada**, después de P5 y controles D2. Demo no cierra esta etapa. |
@@ -743,9 +767,10 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | 8I — Google Play | Firma/AAB, ficha, declaraciones, revisión y lanzamiento gradual. | Beta, privacidad y autorización; comprobar requisitos de la cuenta al ejecutar. |
 | 9A — Mantenimiento | Responsables, soporte, monitoreo, contenido, costos, seguridad y actualizaciones. | Preparar operación antes de publicar; ejecución continua después. |
 
-**Secuencia inmediata:** propietario publicación/revisión de commits autorizados del cierre
-institucional local consolidado (no repetir C2/C3/C4 por notas históricas);
-compañero OV-1A → B/C/D en paralelo. Rescate y territorio ya validados localmente;
+**Secuencia inmediata:** entrega PR/CI/main institucional completada; guardar
+por separado las entregas pendientes y continuar R4 sobre R2/R3 locales. No repetir
+C2/C3/C4 por notas históricas. Compañero OV-1A → B/C/D en paralelo, sin asumir
+entregas no revisadas. Rescate y territorio ya validados localmente;
 conservar cierre operativo pendiente de I2-5 y demás bloques del orden vigente. IC-2/3 y los restantes
 clientes competitivos IC-1 quedan aplazados. QA-1/DOC-1 son apoyo
 planificado, no autorizan cambios automáticos ni bloquean por sí solos toda entrega.
@@ -797,12 +822,11 @@ con protagonista compartido. Escudo fue retirado; Taller de inventos sigue cance
 También seleccionó mapa de aprendizaje, repaso diferido y cobertura del banco.
 Reglas acordadas y decisiones pendientes en [SABI_Y_JUEGOS_APROBADOS.md](SABI_Y_JUEGOS_APROBADOS.md).
 **Nuevo orden: funcionalidad primero, animaciones al final.** JN-1A tiene
-[Salto a la cima en demo local](SALTO_A_LA_CIMA.md); JN-1B backend está implementado
-y probado localmente, sin despliegue. JN-1C cliente Flutter remoto implementado;
-la prueba real queda pendiente de infraestructura. JN-2A
-[Rescate de estrellas](RESCATE_DE_ESTRELLAS.md) tiene reglas/demo implementadas.
-JN-2B tiene backend/migración locales y JN-2C cliente remoto con recuperación,
-sin despliegue ni ensayo real. JN-4 Escudo ya no es un juego activo ni pendiente.
+[Salto a la cima](SALTO_A_LA_CIMA.md) y [Rescate de estrellas](RESCATE_DE_ESTRELLAS.md)
+tienen motores, backend y clientes remotos locales, además de ensayos integrados
+Android/API/PostgreSQL registrados en [IC1_CIMA](IC1_CIMA.md) e
+[IC1_RESCATE](IC1_RESCATE.md). No acreditan despliegue productivo; no repetirlos
+por el antiguo pendiente de infraestructura. JN-4 Escudo ya no es activo ni pendiente.
 MA-1 [cobertura básica](COBERTURA_DEL_BANCO.md) implementada localmente; reportes
 académicos, revisión visual y ensayo real pendientes. MA-2A backend implementado
 localmente; MA-2B/C y MA-3A/B/C listas localmente; la ruta competitiva actual
@@ -844,8 +868,10 @@ P1, P2 y **P3-A/P3-B (prioridades, pantallas y práctica dirigida)** tienen entr
 locales. **P4-A/P4-B preparan API, persistencia, sincronización y pantallas de
 tiempo/evolución**. La implementación P4 es local; su despliegue y comprobación
 real no están cerrados. **P4-C tiene implementación local de aprobación institucional**:
-Flutter, API, migración y bandeja ADMIN. Faltan revisión visual, despliegue y ensayo
-real. **P5 permanece pausada**, con los preparativos de commits, migraciones y despliegue
+Flutter, API, migración y bandeja ADMIN. Territorio/aprobación/perfil y acceso
+estudiantil ya tienen ensayo integrado local en el cierre del17 de octubre;
+falta despliegue y ensayo en staging, no repetir ese recorrido por este texto.
+**P5 permanece pausada**, con los preparativos de commits, migraciones y despliegue
 indicados abajo; no rehacer P4-C desde cero.
 D3 sigue pendiente, no cancelada ni terminada.
 Los 13 bloques se conservan como inventario; el cierre docente se detalla como
@@ -1339,6 +1365,10 @@ un rediseño del panel ADMIN ni una etapa opcional posterior a la publicación.
   Estado planificado: no hay recorrido nuevo implementado ni validado hoy.
 - Verificar controles táctiles, texto ampliado, lectores de pantalla, pantallas
   pequeñas y adaptación Android/iOS; ajustar pruebas de widgets afectadas.
+- Unificar el patrón X/Ocultar + Snackbar/Deshacer/progreso cinco segundos de
+  [MA-1R-UX1](MA1R_UX1_OCULTAR_DESHACER.md), si ya se implementó/probó su contrato
+  personal después de R4. No usar el acabado visual para borrar incidencias ADMIN
+  ni aplicar una acción genérica a datos que no son reversibles.
 
 Orden: funciones e integraciones → UI-F y acabado de animaciones → 8G pruebas
 integrales/beta → comprobación final iOS y capturas/publicación Google Play.

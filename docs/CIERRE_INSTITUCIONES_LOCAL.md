@@ -1,7 +1,12 @@
 # Instituciones — cierre técnico local y entrega
 
 Actualizado:17 de octubre de2026. Alcance del propietario, separado de OV-1.
-**Bloque local consolidado; commits locales autorizados el17 de octubre, publicación/merge pendientes.**
+**Bloque local consolidado e integrado a main por PR app #5/backend #8.**
+Merge app `e679c50`, backend `388bb18`. CI backend del PR y main aprobados;
+Flutter analyze limpio y102 pruebas dirigidas aprobadas en la entrega posterior.
+[Enlaces y evidencia actual](ESTADO_Y_ORDEN_2026_10_17.md). QA-1 Flutter remoto pendiente.
+Las observaciones de CI de los párrafos históricos inferiores quedan resueltas
+por esta comprobación; no se resuelve por ello JPEG original ni producción.
 No equivale a producción, P5/D3 ni cierre de ranking institucional/ensayo social.
 
 ## Evidencia por entrega
@@ -61,22 +66,25 @@ no es prueba Linux/CI y no demuestra instalación con las versiones fijadas.
 Revisar CI en esa plataforma/versión antes de integrar/publicar. No bajar las
 versiones del proyecto ni desactivar controles para ocultar el aviso.
 
-## Entrega Git local autorizada — 17 de octubre
+## Antecedente: commits locales autorizados — 17 de octubre, antes del PR
 
-Ambos repos permanecen en `feat/instituciones-c2c`; no se cambió main, no hubo push,
-merge ni despliegue. El propietario autorizó crear los commits locales y hace el push.
+La entrega se preparó en `feat/instituciones-c2c`. Commits creados con autorización
+del propietario: app `6bab6be`, backend `7ba93d7` y lockfile `bfce42e`.
+En esta auditoría documental HEAD coincide con las referencias locales origin
+de esa rama en ambos clones. No se consultó GitHub para confirmar PR, CI o merge;
+no se hizo push, merge ni despliegue durante la auditoría.
 
-| Repo y ruta PowerShell | Mensaje previsto | Alcance |
+| Repo y ruta PowerShell | Mensaje del commit creado | Alcance |
 |---|---|---|
 | Flutter: `C:\Users\LENOVO 14ALC6\Desktop\SaberPLus\saber_plus` | `feat: completar solicitudes y codigo institucional estudiantil` | Cambios institucionales C2/C3/C4, permisos/menús, pruebas y actas/roadmap/relevo actualizados. |
 | Backend: `C:\Users\LENOVO 14ALC6\Desktop\SaberPlus-Backend` | `feat: completar ingreso estudiantil seguro a instituciones` | Endpoints C3/C4, DTO/servicios/pruebas, registro de módulo/limitador, schema y sus dos migraciones, helpers locales y documentación. |
-| Backend, separado y tras revisar evidencia | `chore: normalizar lockfile de dependencias opcionales` | Solo package-lock.json; no autorizar cambios de dependencias ni afirmar CI aprobado. |
+| Backend, commit separado bfce42e | `chore: normalizar lockfile de dependencias opcionales` | Solo package-lock.json; no autorizar cambios de dependencias ni afirmar CI aprobado. |
 
 No usar `git add .`, `commit -a` ni restaurar archivos por limpiar el árbol. Revisar
 `git diff`, `git diff --cached` y cada ruta; no incluir OV-1 ni archivos de sesión.
 Schema/módulo contienen C3 y C4 juntos: el commit backend debe ser coherente, no
-separarlos con selección arbitraria de hunks. Propuesta de un commit funcional
-coordinado por repo más lockfile separado. Consultar hashes finales con
+separarlos con selección arbitraria de hunks. Entrega: un commit funcional
+coordinado por repo más lockfile separado. Consultar hashes con
 `git log -3 --oneline` en cada repo; los mensajes de la tabla identifican esta entrega.
 
 ## Cuándo repetiremos pruebas fuera del PC
@@ -95,7 +103,8 @@ coordinado por repo más lockfile separado. Consultar hashes finales con
 5. **Producción autorizada:** comprobación breve y controlada después del despliegue.
    No ensayos destructivos, carga ni datos ficticios masivos en producción sin permiso.
 
-Siguiente del propietario: revisar commits locales y publicar la rama; después
-priorizar el siguiente bloque del [roadmap](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
+Siguiente del propietario: guardar/publicar por separado la documentación pendiente
+y confirmar el siguiente bloque propuesto, MA-1R reportes de preguntas, según el
+[orden del 17](ESTADO_Y_ORDEN_2026_10_17.md) y el [roadmap](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
 P5/D3 continúan pausadas; OV-1 sigue con el compañero. No abrir automáticamente
 rankings, insignias, monetización, diseño final o servicios remotos por este cierre.

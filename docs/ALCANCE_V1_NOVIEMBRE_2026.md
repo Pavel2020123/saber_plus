@@ -1,5 +1,11 @@
 # SaberPlus V1 — Alcance de noviembre de 2026
 
+**17 de octubre, continuación vigente:** instituciones cerradas en alcance técnico
+local e integradas a main vía PR app #5/backend #8; CI backend aprobado,
+análisis Flutter y102 pruebas dirigidas aprobados. Sin despliegue productivo.
+OV-1 sigue con el compañero, sin entrega nueva recibida. [Orden revisado y siguiente
+propuesto MA-1R](ESTADO_Y_ORDEN_2026_10_17.md); no se inició implementación nueva.
+
 **Actualización de coordinación, 12 de octubre:** OV-1 se adelanta en paralelo:
 el compañero desarrolla orientación vocacional y el propietario instituciones.
 La numeración inferior agrupa funcionalidades; ya no exige esperar al bloque 5
@@ -25,7 +31,7 @@ El orden y los estados vivos se mantienen en
 - Permanecen perfiles, búsqueda de personas e instituciones, fotos, todas las
   insignias ganadas por año, ranking institucional y filtros territoriales.
 - **OV-1, el test vocacional orientativo, permanece**: intereses privados,
-  resultados explicables, carreras para explorar y Sabi por profesión. No es un
+  resultados explicables, carreras para explorar y Sabi por familia vocacional. No es un
   diagnóstico psicológico ni determina lo que alguien debe estudiar.
 - Permanecen estudio, profesor, ADMIN, mapa de aprendizaje, repaso diferido,
   cobertura del banco, seis certificados, seguridad, sincronización, monetización,
@@ -41,7 +47,7 @@ el historial**. La tabla detallada del roadmap conserva cada pendiente técnico.
 | Orden | Alcance y correspondencia | Evidencia necesaria para cerrar |
 |---|---|---|
 | 1. Competición inicial | IC-1C Rescate validado localmente el 10 de octubre. Conservar actas de los tres juegos; no acredita producción. | Modo explícito, permisos, recuperación, reintento, resultado/XP único y ranking; normal sin XP competitivo. Actas por juego con límites. |
-| 2. Instituciones | PR-I5/P4-C y PR-I5-T: aprobación ADMIN con evidencia privada, directorio por nombre/departamento/municipio, perfil institucional, solicitudes y avisos, código institucional privado. | Aprobada/rechazada/pendiente, propietario autorizado para editar, permisos de estudiantes y profesor; no confundir código de grupo con institucional. C2 implementa logos acotados en PostgreSQL; C2C integrado pendiente. C5 sigue pendiente para archivos generales. |
+| 2. Instituciones | PR-I5/P4-C y PR-I5-T: aprobación ADMIN, directorio territorial, perfil/logo, solicitudes/avisos y código privado con cierre local consolidado. | C2C ya validada localmente (6 HTTP/SQL y8 humanas); C3/C4 tienen sus cierres. C4 combina Android/API/SQL, no10 solo manuales. C5 general/evidencia documental privada y staging/producción siguen pendientes; no afirmar adjuntos privados ya implementados. |
 | 3. Académico, profesor y panel | P5 → D3 cuando se autorice; C4/C6, MA-1/2/3, contratos académicos, contenido 7J y certificados. | Panel → API → app, caché/versiones sin perder progreso, mapas/repasos, seguimiento docente y PDF con nombre registrado. Cinco áreas + curso, todas las lecciones publicadas; área vacía no certifica. Reutilizar ensayo académico ya documentado. |
 | 4. Insignias y perfiles | PR-I3/4: TOP 50, premios anuales, alias/avatar/foto, búsqueda y visita a perfiles. | Todas las insignias ganadas, sin límite de tres; 2026 permanece al ganar 2027. Concesión única y correcciones auditadas; detalle muestra juego/año/posición. Premios reales solo de modalidades competitivas validadas, nunca de fixtures. Profesor no jugador. |
 | 5. Ranking institucional y ensayo social | PR-I6/6-T/7: aportes y pertenencia histórica, ámbito nacional/departamento/municipio, integración con perfiles. | Sin traslado ni doble conteo de XP histórico; filtros antes de paginar/ordenar. Dos cuentas, privacidad, solicitudes, fotos y conservación de temporadas. Filtro territorial no inventa premios regionales. |

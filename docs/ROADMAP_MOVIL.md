@@ -11,6 +11,16 @@ como referencia; no se repiten las funciones ya implementadas.
 
 ## Estado actual
 
+**17 de octubre:** instituciones locales integradas a main por PR app #5/API #8;
+CI backend PR/main aprobado y análisis/102 dirigidas Flutter aprobados, sin despliegue.
+OV-1 en curso con el compañero, sin entrega recibida.
+La vista actual del orden y próximo recomendado es
+[ESTADO_Y_ORDEN_2026_10_17](ESTADO_Y_ORDEN_2026_10_17.md).
+MA-1R/R1 autorizada y [R2 backend local](MA1R_REPORTES_PREGUNTAS.md) implementada/
+probada (121 suites/1.560), build correcto. [R3 UI local](MA1R_R3_APP_PANEL.md),18 de octubre:
+32 dirigidas Flutter/109 ADMIN aprobadas. Sigue R4 integración real;
+la nota del9 siguiente es histórica.
+
 Actualizado al 9 de octubre de 2026. [Alcance de noviembre](ALCANCE_V1_NOVIEMBRE_2026.md):
 competición inicial Cima/Guardián/Rescate; después de Rescate, instituciones.
 OV-1, perfiles, insignias anuales y demás funciones permanecen. Se aplazan solo

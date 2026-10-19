@@ -1,10 +1,29 @@
 # Índice de documentación de SaberPlus
 
+- **19 de octubre, entrada vigente:** [R4 integrada y regresiones](MA1R_R4_VALIDACION_LOCAL.md),
+  [checkpoint de reportes](MA1R_REPORTES_PREGUNTAS.md).12/12 humanos y45/45 HTTP/SQL;
+  Flutter920/13 opt-in omitidas, backend121/1567 tras fix de concurrencia, ADMIN109 y build/análisis aprobados.
+  Remate Android confirmado y R4 cerrada localmente; siguen commits/PR/CI, sin producción.
+  Entradas anteriores inferiores históricas; no repetir pruebas ya documentadas.
+
+- [MA-1R-UX1 — Ocultar de mi lista y Deshacer cinco segundos](MA1R_UX1_OCULTAR_DESHACER.md):
+  propuesta posterior a R4, sin implementación ni eliminación del reporte ADMIN.
+
+- **18 de octubre, MA-1R/R3:** [App/panel y pruebas](MA1R_R3_APP_PANEL.md),
+  [reportes académicos: checkpoint y siguiente R4](MA1R_REPORTES_PREGUNTAS.md).
+  R1/flujo autorizados; backend local121 suites/1.560 aprobadas y build correcto.
+  R3 local:32 dirigidas Flutter/109 ADMIN aprobadas. SQL sin aplicar; R4 integración pendiente.
+
 **17 de octubre, entrada vigente:** [C4 código institucional](PR_I5_C4_CODIGO.md):
 10/10 guiones integrados locales cubiertos, Android+19 HTTP/SQL (no10 solo manuales).
 APK corregida instalada; regresión893 aprobadas/13 opt-in omitidas.
 [Cierre institucional local consolidado](CIERRE_INSTITUCIONES_LOCAL.md): evidencia,
-observaciones y entrega Git autorizada el17; publicación/revisión pendientes, sin despliegue.
+observaciones y commits app6bab6be/API7ba93d7/lockbfce42e integrados a main
+por PR app #5/API #8; CI backend PR/main y análisis/102 dirigidas Flutter aprobados,
+sin despliegue. [Etapas ordenadas y auditoría del 17](ESTADO_Y_ORDEN_2026_10_17.md):
+MA-1R/R2 local implementada/probada; OV-1 en curso con el compañero, sin entrega nueva
+verificada aquí. La auditoría inicial fue documental; la entrega posterior ejecutó
+las comprobaciones indicadas. No se repitieron ensayos físicos/SQL ni893 globales.
 [C3C10/10 humanos locales cerrado](PR_I5_C3_SOLICITUDES.md). Notas inferiores del15
 son antecedentes; no acreditan despliegue ni ordenan repetir C3.
 

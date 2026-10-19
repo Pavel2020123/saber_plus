@@ -1,0 +1,138 @@
+# Etapas después de instituciones — revisión del 17 de octubre
+
+**Actualización vigente del19:** [MA-1R/R4](MA1R_R4_VALIDACION_LOCAL.md) con12/12
+humanos y45/45 PostgreSQL/HTTP, Flutter920/13 opt-in omitidas, backend121/1567 tras fix de concurrencia,
+ADMIN109 y build/análisis aprobados. Remate Android confirmado: R4 cerrada
+localmente; código guardado en app `418c291` y backend `a747c32`, documentación
+en commits separados. Sigue push manual y PR/CI. OV-1 separado,
+sin despliegue ni nuevas autorizaciones remotas. Notas del17/18 son antecedentes.
+
+Vista de coordinación; no sustituye el inventario único de
+[ETAPAS_PENDIENTES](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
+Auditoría de documentación activa de planificación/relevo, con comprobación
+acotada de MA-1 en código. No es auditoría funcional completa de los dos proyectos.
+La auditoría inicial fue documental. Las actualizaciones posteriores registran
+R2 backend y [R3 app/panel locales](MA1R_R3_APP_PANEL.md),18 de octubre;
+no hubo integración ni despliegue de MA-1R.
+
+## Qué terminó y qué significa
+
+- **Actualización posterior: etapa 1 completada el 17 de octubre.**
+  [App PR #5](https://github.com/Pavel2020123/saber_plus/pull/5) integrado en
+  `main` como `e679c5067cf70c935d4e89b6b9b6bce835e951dc`;
+  [backend PR #8](https://github.com/Pavel2020123/SaberPlus-Backend/pull/8)
+  como `388bb18e52ebd0c0309dcdd437f73397e8d6f66e`.
+  [CI del PR](https://github.com/Pavel2020123/SaberPlus-Backend/actions/runs/39071235627)
+  y [CI posterior en main](https://github.com/Pavel2020123/SaberPlus-Backend/actions/runs/39071411694)
+  aprobados: admin/verify, instalación, build, 119 suites/1.470 pruebas,
+  controles locales y auditoría de dependencias. No se desactivaron checks.
+  Flutter: análisis sin incidencias y 102 pruebas dirigidas aprobadas ahora
+  (código igual al publicado). Sin workflow Flutter; QA-1 sigue abierto.
+  No se repitieron las 893 globales ni los ensayos físicos/SQL; no despliegue.
+  Los puntos de auditoría siguientes conservan el estado anterior a esta entrega.
+- Instituciones: cierre técnico local de directorio/territorio, presentación,
+  logo, solicitudes/avisos y código estudiantil. [Acta consolidada](CIERRE_INSTITUCIONES_LOCAL.md).
+- Commits locales: app `6bab6be`; backend `7ba93d7` y lockfile `bfce42e`.
+  Al revisar, HEAD coincidía con `origin/feat/instituciones-c2c` en ambos clones.
+  Eso no acredita PR aprobado, CI verde ni merge remoto a main; no se consultaron
+  esos estados en GitHub durante esta auditoría.
+- Pruebas de cierre conservadas: Flutter 893 aprobadas/13 opt-in omitidas;
+  backend 1.470/119 suites; panel 95/95. No se repitieron al editar estos documentos.
+- No desaparecen observaciones: JPEG pequeño original y posteriores
+  staging/producción. CI Linux/Node/npm fijados ya quedó comprobado al integrar.
+  Logo acotado en PostgreSQL no cierra
+  C5 de archivos generales ni evidencia documental privada.
+- Cima/Guardián/Rescate y mapa/repaso ya tienen implementaciones y actas: no
+  rehacerlos desde cero por instrucciones históricas.
+
+## Frentes independientes
+
+**Compañero: OV-1A/B/C/D en curso según el propietario.** No se ha recibido/verificado
+su entrega en estos clones. No cambiar su código ni su CHECKPOINT_OV1, no asignarle
+perfiles/insignias automáticamente y no afirmar que terminó alguna fase.
+
+**Propietario: MA-1R, reportes de preguntas y cobertura.** R1/flujo inicial
+autorizados y R2 backend local implementada,121 suites/1.560 aprobadas; build/TS correctos.
+[Checkpoint](MA1R_REPORTES_PREGUNTAS.md): R3 app/panel local,32 dirigidas Flutter
+y109 ADMIN aprobadas; R4 integración pendiente;
+SQL sin aplicar, sin despliegue, independiente de OV-1/P5/D3.
+
+Antes de nueva implementación: guardar/publicar por separado esta documentación
+pendiente y crear rama del nuevo bloque desde main aprobado. No mezclar el próximo módulo con la entrega
+institucional ya publicada, ni hacer merge/pull sobre cambios sin guardar. Avisar
+al compañero antes de tocar schema.prisma, app.module, navegación, sesión o lockfiles.
+
+## Orden recomendado y pendientes completos
+
+| Paso | Bloque | Qué falta sin rehacer lo existente |
+|---|---|---|
+|0 | Entrega institucional — completada | PR app #5 y backend #8 integrados en main; CI backend del PR y de main aprobado, análisis Flutter/102 pruebas dirigidas aprobados. QA-1 Flutter remoto pendiente. Sin despliegue; no repetir C2/C3/C4. |
+|1 | MA-1R — Reportes académicos | R1–R3 locales; R4 en curso,67 migraciones solo DB temporal y6/12 humanos completos, caso7 listado Pendiente confirmado. Falta resto/suite específica. Propuesta posterior [UX1 Ocultar/Deshacer](MA1R_UX1_OCULTAR_DESHACER.md), no implementada ni borrado ADMIN. Sin despliegue/migración remota. |
+|2 | C5 — Archivos generales | Persistencia y permisos de imágenes/recursos/fotos/evidencia privada, límites, metadatos/licencias. Preparación local primero; proveedor y operación real requieren autorización. |
+|3 | Académico/profesor/ADMIN | P5→D3 cuando se autoricen; catálogo versionado C4 editorial y versiones/restauración C6. Ensayos de mapa MA-2, repaso MA-3, contratos de intentos/AM-PM/historial y seis certificados. Contenido7J se prepara durante el bloque, no solo al final. |
+|4 | PR-I3/PR-I4 — Insignias/perfiles | Concesión anual idempotente, historial/correcciones; TOP50 y todas las ganadas, sin límite3. Avatar/foto, alias, búsqueda/visita y privacidad. No conceder premios de modalidades competitivas no validadas. |
+|5 | PR-I6/6-T/7 — Instituciones sociales | Ranking nacional/departamento/municipio con pertenencia histórica y sin trasladar XP; ensayo social de dos cuentas/dispositivos y filtros. No es parte del cierre institucional local ya realizado. |
+|En paralelo | OV-1 — Compañero | Contenido/reglas, persistencia privada, cuestionario/resultados y validación. Sin XP, ranking ni certificados; familias exploratorias, no diagnóstico. Sabi visual por seis familias, pendiente de assets/UI. |
+|6 | Seguridad y cierre comercial | Identidad/sesión única/refresh/revocación, recuperación/eliminación y SMTP; sincronizaciones. Billing/derechos/restauración/reembolsos y anuncios/comodines verificados, ubicaciones acordadas. Sin Wompi/ePayco. |
+|7 | Contenido/calidad y privacidad | Carga ADMIN por área/tema/subtema, banco suficiente y explicaciones, fuentes/licencias y soporte. Políticas/retención/SDK reales. Complementa7J/8E, no añade Excel obligatorio. |
+|8 | UI-F/Sabi | Ventana por ventana: azul S+, botones/componentes, claro/oscuro, perfiles, accesibilidad y recorrido de bienvenida. Animaciones profesionales y audios al acabado final, después de funciones/integraciones y antes de beta/capturas. |
+|9 | QA-1/DOC-1 +8F/8G/8H | CI y deuda técnica, higiene documental, respaldo/restauración/observabilidad, beta integral, red/cuentas/roles, PDF/audio y Android real; iOS solo con entorno disponible. Seguridad/CI se trabajan desde ahora, no se aplazan hasta este paso. |
+|10 |8I/9A — Lanzamiento/operación | Firma/AAB, ficha/privacidad/revisión Play, publicación autorizada y gradual, soporte/monitoreo/contenido/costos. Smoke controlado en producción, no tests destructivos automáticos. |
+|Posterior | Competición aplazada | Trivia/Duelo/Tira competitivos, Memoria IC-2 y Batallas IC-3; conservar modos normales/motores/arte. No reincorporar Taller de inventos ni Escudo. Nueva priorización antes de activar. |
+
+El orden se puede ajustar por dependencias explícitas, no eliminando funciones.
+P5/D3 siguen pausadas: no pedir nuevas credenciales ni desplegar por leer esta tabla.
+El segundo reparto tras OV-1 sigue siendo propuesta, no asignación vigente.
+
+## Bloque vigente: MA-1R, sigue R4
+
+Evidencia actual: [Cobertura](COBERTURA_DEL_BANCO.md) y `backend/BANK_COVERAGE.md`;
+`backend/src/admin/bank-coverage.service.ts` conserva por defecto
+`reportesDisponibles:false` y `reportes:null`, y ofrece conteos con reportesVersion=1.
+R3 consume esa versión con fallback compatible. No cambiar valores a ceros
+inventados ni confundir reportes de rivales con reportes de preguntas.
+
+1. **R1 — Auditar y acordar contrato:** localizar pregunta/versión/usuario y
+   pantallas existentes, quién puede reportar, motivos, estados de revisión,
+   deduplicación/reintento y límites. Proponer reglas pendientes al propietario.
+2. **R2 — Backend:** persistencia y endpoints autorizados, auditoría/aislamiento,
+   sin publicar/retirar una pregunta automáticamente por recibir un reporte.
+3. **R3 — Panel y app:** formulario claro sin exponer respuesta anticipadamente;
+   bandeja ADMIN, indicadores de cobertura, fallos/red y confirmaciones coherentes.
+4. **R4 — Validación:** unitarias, PostgreSQL/HTTP y recorrido físico, separados en
+   acta. Solo después cerrar reportes y dejar ensayo de staging identificado.
+
+R1: auditoría/flujo autorizados. R2 implementada/probada localmente, migración no aplicada.
+[R3 app/panel](MA1R_R3_APP_PANEL.md) implementada/probada localmente; sigue R4.
+No requiere cambiar intereses vocacionales,
+monetización, juegos ni permisos docentes. Si comparte schema/rutas base con OV-1,
+coordinar migraciones/archivos antes de editar.
+
+## Correcciones de esta auditoría
+
+Se actualizaron estados de instituciones/commits en las entradas vigentes,
+alcance de noviembre (C2 ya probado), funcionalidades (Guardián/Rescate locales),
+guías de reparto/relevo que aún remitían al logo y siguientes pasos históricos de
+cobertura/mapa. Las actas antiguas no se borran ni se convierten en pruebas nuevas.
+La guía compartida de Sabi queda en seis familias, no doce carreras obligatorias;
+no se editaron CHECKPOINT_OV1 ni documentos exclusivos del compañero.
+
+Decisiones aún abiertas: integración de entregas y retención/operación de reportes,
+documentación pendiente/QA-1, entorno P5/D3, proveedor C5, reglas que falten en ranking institucional y
+productos/ubicaciones comerciales. Esta auditoría no las decide silenciosamente.
+
+## Comprobación documental
+
+- Tras registrar la integración, se comprobaron destinos de 609 enlaces locales en 29 documentos seleccionados
+  entre ambos repositorios: ninguno apunta a un archivo inexistente. Esto no
+  verifica anchors, enlaces externos ni contenido de páginas remotas.
+- `git diff --check` sin incidencias en ambos repositorios. Cambios de esta tarea
+  limitados a Markdown; sin código, migraciones, assets ni CHECKPOINT_OV1.
+- Evidencia de pruebas anteriores conservada, sin declararla reejecutada.
+- Entrega documental separada, con publicación manual/PR pendientes. La entrega posterior sí
+  integró los commits institucionales previos vía PR; no incorpora esta auditoría.
+  Conservados ahora en `docs/estado-post-instituciones`, creada desde origin/main
+  con árbol idéntico al código probado. No se descartó ni guardó en stash ningún cambio.
+  Mensaje documental en ambos repos: `docs: actualizar etapas tras integrar instituciones`.
+  Consultar el hash local con `git log -1 --oneline`; no se hace push ni merge
+  documental automáticamente por crear estos commits.

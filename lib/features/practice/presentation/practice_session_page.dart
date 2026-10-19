@@ -21,6 +21,7 @@ import '../../difficult_questions/presentation/difficult_question_providers.dart
 import '../../focus/presentation/pomodoro_card.dart';
 import '../../historical_simulations/presentation/historical_simulation_providers.dart';
 import '../../progress/presentation/progress_providers.dart';
+import '../../question_reports/presentation/question_report_page.dart';
 import '../../study/presentation/study_providers.dart';
 import '../../study_time/domain/study_time_models.dart';
 import '../../study_time/presentation/study_time_providers.dart';
@@ -855,6 +856,12 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
             session: session,
             focusLossCount: _tracksIntegrity ? _focusLossCount : 0,
             isPriority: widget.priorityId != null,
+            reportsEnabled:
+                widget.priorityId == null &&
+                !_isAdaptive &&
+                !_isHistorical &&
+                !_isOfficial &&
+                !_isTimeTrial,
             onRetry: _loadPractice,
             onExit: () => context.pop(),
             exitLabel: widget.priorityId != null
@@ -1176,6 +1183,7 @@ class _PracticeResultView extends StatelessWidget {
     required this.exitLabel,
     this.focusLossCount = 0,
     this.isPriority = false,
+    this.reportsEnabled = false,
   });
 
   final PracticeResult result;
@@ -1185,6 +1193,7 @@ class _PracticeResultView extends StatelessWidget {
   final String exitLabel;
   final int focusLossCount;
   final bool isPriority;
+  final bool reportsEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -1247,6 +1256,7 @@ class _PracticeResultView extends StatelessWidget {
             question: result.review[index],
             sourceQuestion: sourceQuestions[result.review[index].id],
             fallbackSubtopicId: session.subtopicId,
+            reportsEnabled: reportsEnabled,
           ),
           const SizedBox(height: 10),
         ],
@@ -1274,12 +1284,14 @@ class _ReviewCard extends StatelessWidget {
     required this.question,
     required this.sourceQuestion,
     required this.fallbackSubtopicId,
+    required this.reportsEnabled,
   });
 
   final int index;
   final PracticeReviewQuestion question;
   final PracticeQuestion? sourceQuestion;
   final String fallbackSubtopicId;
+  final bool reportsEnabled;
 
   @override
   Widget build(BuildContext context) => Card(
@@ -1320,6 +1332,7 @@ class _ReviewCard extends StatelessWidget {
           const SizedBox(height: 5),
           Text(explanation),
         ],
+        if (reportsEnabled) QuestionReportButton(questionId: question.id),
       ],
     ),
   );

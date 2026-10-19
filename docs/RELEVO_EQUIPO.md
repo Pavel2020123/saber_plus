@@ -1,11 +1,22 @@
 # Relevo del equipo — empezar aquí
 
+**Checkpoint del19 que prevalece:** [R4 de reportes](MA1R_R4_VALIDACION_LOCAL.md)
+con12/12 humanos,45/45 PostgreSQL/HTTP y regresiones aprobadas. Propietario:
+R4 cerrada localmente tras remate Android confirmado. Código guardado en app
+`418c291` y backend `a747c32`; documentación separada, push manual y PR/CI pendientes.
+No repetir12 ni reutilizar claves temporales (sesiones limpiadas). Compañero sigue
+OV-1, no recibe estas tareas. Sin despliegue ni push/merge por este documento.
+
 **17 de octubre, vigente:** [C4-C10/10 integrados locales cubiertos](PR_I5_C4_CODIGO.md),
 Android+19 HTTP/SQL; no10 pruebas solo manuales. APK corregida instalada,93 dirigidas
 y análisis aprobados. Regresión final893/13 opt-in omitidas;
 [cierre local consolidado/revisión Git](CIERRE_INSTITUCIONES_LOCAL.md).
 No repetir C3/C4 ni usar credenciales caducadas.
-OV-1 del compañero, sin commit institucional ni despliegue.
+Commits app6bab6be/API7ba93d7/lockbfce42e integrados a main por PR app #5/API #8;
+CI backend PR/main aprobado y análisis Flutter/102 dirigidas aprobados.
+[Orden posterior](ESTADO_Y_ORDEN_2026_10_17.md): MA-1R/R1–R3 locales,
+[acta actual](MA1R_R3_APP_PANEL.md); sigue R4 PostgreSQL/Nest/Android, no repetir UI.
+OV-1 del compañero en curso, sin entrega nueva verificada aquí ni despliegue.
 Estados inferiores fechados conservan historia, no sustituyen esta continuación.
 
 **15 de octubre: C3A/B implementadas; sigue C3C integrado.** Leer
@@ -20,8 +31,8 @@ institucional. Leer cierre y observaciones en [acta C2](PR_I5_C2_LOGO.md).
 Las instrucciones específicas C2C inferiores se conservan como guion histórico;
 no repetirlo por defecto. El compañero mantiene su frente OV-1.
 
-**Trabajo paralelo acordado:** propietario → instituciones (sigue C3C);
-compañero → test vocacional OV-1 (comienza A, después B/C/D), sin esperar C2C.
+**Trabajo paralelo vigente:** propietario → entrega institucional integrada y
+próximo bloque por acordar; compañero → OV-1A/B/C/D, retomar su checkpoint.
 Ver [responsables, ramas y entrega](TRABAJO_PARALELO.md). Este acuerdo sustituye
 la secuencia estricta de OV-1 y el trabajo individual directo en main.
 
