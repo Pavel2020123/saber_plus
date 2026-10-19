@@ -3,7 +3,9 @@
 **17 de octubre, continuación propuesta:** tras el cierre institucional local,
 completar reportes académicos MA-1R, sin rehacer conteos/pestaña existentes.
 Ver [R1–R4 y decisiones pendientes](ESTADO_Y_ORDEN_2026_10_17.md).
-Propuesta de próxima entrega; no se inició código ni cerró MA-1 por esta nota.
+R1/flujo autorizados y [R2 backend local implementada](MA1R_REPORTES_PREGUNTAS.md),
+121 suites/1.560 aprobadas. [R3 app/panel local](MA1R_R3_APP_PANEL.md),18 de octubre:
+32 dirigidas Flutter/109 ADMIN aprobadas. Sigue R4 integración real; no se cierra MA-1.
 
 Entrega local: 24 de septiembre de 2026. Cambios funcionales en el repositorio
 SaberPlus-Backend; en Flutter solo se actualiza la documentación.
@@ -17,8 +19,11 @@ Disponibilidad exige pregunta, tema, subtema y contexto opcional publicados.
 No cambia el editor simple ni agrega aprobación editorial. No modifica contenido,
 XP, diagnósticos ni partidas. Los totales no garantizan suficiencia para cada juego.
 
-**Pendiente de MA-1:** reportes académicos de preguntas. No existe ese flujo en el
-backend; el panel indica que no están disponibles, en vez de presentar un cero falso.
+**MA-1R/R2 local:** ya hay persistencia/rutas de reportes en backend, no desplegadas.
+Panel legacy conserva false/null; el consumidor R3 ya pide reportesVersion=1 y
+valida abiertos/preguntas distintas. Solo un400 al opt-in permite reconsulta legacy,
+no una falla DB/red. La bandeja Reportes permite revisar sin publicar/retirar contenido.
+Sin ese parámetro no se inventa cero ni se consulta el modelo nuevo.
 También faltan revisión visual y ensayo con servicio real. No hubo despliegue,
 migración en Supabase ni cambios en anuncios/comodines.
 

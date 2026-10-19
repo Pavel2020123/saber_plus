@@ -1,5 +1,24 @@
 # SaberPlus móvil
 
+**19 de octubre — checkpoint vigente MA-1R/R4:**12/12 humanos y45/45 pruebas
+HTTP/PostgreSQL aisladas repetidas tras fix de concurrencia aprobadas; Flutter920/13
+opt-in omitidas, backend121 suites/1567, ADMIN109, build/TypeScript y análisis
+correctos. [Acta y límites](docs/MA1R_R4_VALIDACION_LOCAL.md).
+Retirada del botón y borrador con flecha confirmados: **R4 cerrada localmente**.
+Código guardado en app `418c291` y backend `a747c32`; documentación en commit separado.
+Push manual del propietario y PR/CI pendientes. Sesiones anteriores limpiadas; remate en otra sesión
+temporal, no asumir que sigue activa. Sin despliegue,
+sin push/merge y OV-1 separado. Las entradas anteriores inferiores son
+antecedentes, no instrucciones para repetir las12 pruebas ni reutilizar claves.
+
+**18 de octubre — MA-1R/R3 app y panel locales:** [entrega y pruebas](docs/MA1R_R3_APP_PANEL.md),
+[checkpoint de reportes](docs/MA1R_REPORTES_PREGUNTAS.md).
+R1/flujo inicial autorizados; backend121 suites/1.560 aprobadas y build correcto.
+R3 incorpora formulario, Mis reportes, bandeja ADMIN y cobertura compatible.
+32 pruebas dirigidas Flutter y109 del panel aprobadas; R4 PostgreSQL/HTTP/Android pendiente.
+Regresión Flutter del18:917 aprobadas/13 opt-in omitidas y análisis sin incidencias.
+OV-1 separado, sin migración aplicada/despliegue ni cierre global de MA-1R.
+
 **17 de octubre, estado vigente:** [C4-C cubre10/10 guiones locales](docs/PR_I5_C4_CODIGO.md)
 con Android y19 controles HTTP/SQL complementarios; no son10 pruebas solo manuales.
 APK corregida instalada, regresión final893 aprobadas/13 opt-in omitidas y análisis
@@ -10,7 +29,7 @@ y [PR #8 backend](https://github.com/Pavel2020123/SaberPlus-Backend/pull/8).
 CI backend del PR y main aprobados; analyze Flutter limpio y102 pruebas dirigidas
 aprobadas en la entrega posterior. Sin workflow Flutter; QA-1 continúa pendiente.
 [Etapas ordenadas y auditoría del 17](docs/ESTADO_Y_ORDEN_2026_10_17.md): siguiente
-recomendado MA-1R, reportes de preguntas, aún no iniciado. OV-1 continúa con el
+recomendado MA-1R, reportes de preguntas: R1–R3 locales; sigue R4. OV-1 continúa con el
 compañero, sin entrega nueva revisada aquí. No se repitieron ensayos físicos ni se
 desplegó. Auditoría documental en `docs/estado-post-instituciones`, publicación
 manual/PR pendientes; notas inferiores históricas.

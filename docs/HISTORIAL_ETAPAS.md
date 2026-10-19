@@ -1,5 +1,23 @@
 # Historial completo de etapas de SaberPlus
 
+**19 de octubre — MA-1R/R4 validación local:**12/12 casos humanos aprobados,
+45/45 PostgreSQL/HTTP aislados con67 migraciones temporales y limpieza propia.
+Regresiones: Flutter920/13 opt-in omitidas/análisis limpio; backend121/1567 tras fix P2010/40001,
+ADMIN109/sintaxis26, controles12 y build/TypeScript correctos. Incidencias de build
+EPERM/timeout inicial y recuperación documentadas en [acta R4](MA1R_R4_VALIDACION_LOCAL.md).
+Se añadió acceso permanente a Mis reportes y se retiró botón inferior redundante
+de volver. APK nueva reinstalada: propietario confirmó ausencia del botón y detalle
+conservado con flecha/reapertura. R4 cerrada localmente; siguen commits/PR/CI.
+Sin despliegue, commit/push/merge ni cambios OV-1. No repetir12 por defecto.
+
+**18 de octubre — MA-1R/R3 app/panel local:** formulario posterior a calificar,
+Mis reportes, bandeja ADMIN, demo y cobertura opt-in/legacy.32 dirigidas Flutter
+y109 ADMIN aprobadas; [acta y límites](MA1R_R3_APP_PANEL.md).
+Regresión posterior Flutter del18:917 aprobadas/13 opt-in omitidas y análisis limpio.
+R2 del17 conserva121 suites/1.560 y build/TS. Sin SQL aplicado, APK, commit/push/merge/despliegue
+de R1–R3; sigue R4 PostgreSQL/Nest/Android. OV-1 separado. Las menciones inferiores
+a MA-1R propuesto describen el estado histórico antes de R1, no el paso actual.
+
 **17 de octubre — instituciones integradas a main:** PR app #5 y backend #8
 fusionados como e679c50/388bb18. CI backend PR y main aprobado; Flutter analyze
 limpio y102 dirigidas aprobadas. [Evidencia](ESTADO_Y_ORDEN_2026_10_17.md).

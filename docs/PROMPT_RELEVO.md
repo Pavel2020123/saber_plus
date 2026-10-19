@@ -1,5 +1,15 @@
 # Relevo general — elegir responsable antes de continuar
 
+**19 de octubre, continuación del propietario:** leer [R4](MA1R_R4_VALIDACION_LOCAL.md)
+y [checkpoint](MA1R_REPORTES_PREGUNTAS.md).12/12 humanos y45/45 integradas aprobadas;
+regresiones backend121/1567 tras fix de concurrencia, Flutter920/13 opt-in omitidas, ADMIN109/build/análisis.
+APK reinstalada y remate confirmado por propietario: R4 cerrada localmente.
+Código guardado en app `418c291` y backend `a747c32`; documentación separada.
+Sigue push manual del propietario y PR/CI; no repetir12 ni preparar APK
+otra vez por estas notas. Sesiones anteriores limpiadas, remate en otra temporal:
+no asumir servicios activos/credenciales válidas. Sin push/merge/despliegue automático.
+OV-1 sigue siendo el frente independiente del compañero. Prompts inferiores históricos.
+
 **17 de octubre, checkpoint que prevalece:** [C4-C10/10 guiones integrados locales
 cubiertos](PR_I5_C4_CODIGO.md), Android+19 HTTP/SQL; no10 pruebas solo manuales.
 APK corregida instalada, regresión893 aprobadas/13 opt-in omitidas y análisis limpio.
@@ -8,7 +18,10 @@ app6bab6be/API7ba93d7/lockbfce42e integrados a main por PR app #5/API #8.
 Merges e679c50/388bb18; CI backend PR/main aprobado y análisis Flutter/102 dirigidas
 aprobados. Sin workflow Flutter remoto. Documentación posterior separada en
 `docs/estado-post-instituciones`; publicar/revisar mediante PR, no directamente en main.
-[Orden posterior](ESTADO_Y_ORDEN_2026_10_17.md): MA-1R propuesto, no iniciado.
+[Orden posterior](ESTADO_Y_ORDEN_2026_10_17.md): MA-1R/R1 autorizada y
+[R2 backend local implementada](MA1R_REPORTES_PREGUNTAS.md),121 suites/1.560 aprobadas;
+[R3 app/panel local](MA1R_R3_APP_PANEL.md):32 dirigidas Flutter/109 ADMIN aprobadas.
+Sigue R4 PostgreSQL/Nest y después Android; SQL escrito no aplicado, sin despliegue.
 No rehacer C3/C4 ni repetir fixtures. Solo si se necesita un nuevo ensayo verificar
 sesión/USB/credenciales actuales, nunca reutilizar caducadas. OV-1 del compañero
 en curso, sin entrega nueva verificada aquí; no desplegar ni migrar por este prompt.

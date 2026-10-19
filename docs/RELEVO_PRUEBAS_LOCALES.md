@@ -1,11 +1,22 @@
 # Relevo de pruebas locales — Docker, Android USB y juegos
 
+**19 de octubre — continuar aquí, no en los guiones históricos:** [R4 reportes](MA1R_R4_VALIDACION_LOCAL.md),
+12/12 humanos y45/45 HTTP/PostgreSQL aprobados; backend121/1567 tras fix de concurrencia, Flutter920/13 opt-in
+omitidas, ADMIN109/build/análisis. Remate Android confirmado: R4 cerrada localmente,
+commits funcionales app `418c291`/API `a747c32` creados, documentación separada;
+siguen push manual y PR/CI. No repetir12 ni juegos/instituciones por defecto. Sesiones
+anteriores/bases automáticas limpiadas, remate en otra temporal; no asumir claves
+válidas ni servicios activos. Comando
+técnico independiente en backend: `npm run test:question-reports:postgres` (Docker
+local, sin celular/URL externa). OV-1 separado; sin push/merge/despliegue.
+
 **Consolidación posterior completada:** [cierre técnico local](CIERRE_INSTITUCIONES_LOCAL.md)
 con Flutter893/13 opt-in omitidas, backend119 suites/1.470, panel95/95 y TypeScript/
 análisis correctos. Commits app6bab6be/API7ba93d7/lockbfce42e integrados a main por
 PR app #5/API #8. CI backend PR/main aprobado; Flutter analyze/102 dirigidas aprobados.
 Sin nuevos ensayos físicos/SQL. [Orden posterior](ESTADO_Y_ORDEN_2026_10_17.md):
-MA-1R propuesto, no iniciado; OV-1 sigue con el compañero. Sin push automático ni
+MA-1R/R1–R3 locales; [acta app/panel](MA1R_R3_APP_PANEL.md), sigue R4;
+OV-1 sigue con el compañero. Sin push automático ni
 nuevos gestos Android obligatorios.
 No usar los siguientes pasos de notas históricas para repetir ensayos. Observaciones
 JPEG original y CI Linux/Node/npm fijados siguen abiertas, sin operación remota.
@@ -446,14 +457,19 @@ Flutter analyze/102 dirigidas aprobados. Guarda la documentación pendiente en s
 rama separada antes de iniciar otra entrega desde main aprobado. No hagas push,
 merge adicional ni despliegue sin autorización; no repitas C2/C3/C4 por notas antiguas.
 Mi compañero continúa OV-1: no edites su módulo ni CHECKPOINT_OV1.md.
-El siguiente bloque recomendado es MA-1R, reportes de preguntas/cobertura.
-Si confirmo que lo iniciemos, comienza R1 auditando el flujo y proponiendo el
-contrato: roles, motivos, estados, versión, dedupe, reintentos y límites.
+MA-1R/R1 ya tiene flujo inicial autorizado. R2 backend local implementada:
+lee docs/MA1R_REPORTES_PREGUNTAS.md y backend/docs/MA1R_R2_BACKEND.md del otro repo.
+121 suites/1.560 aprobadas; build/TypeScript correctos, SQL escrito pero no aplicado.
+R3 app/panel local lista: lee docs/MA1R_R3_APP_PANEL.md y acta homónima backend.
+32 dirigidas Flutter y109 ADMIN aprobadas; reportesVersion=1/legacy compatibles.
+Sigue R4: preparar PostgreSQL/HTTP Nest desechable y después el recorrido Android.
+No repitas R1 ni afirmes PostgreSQL/HTTP/Android probados para reportes: R4 pendiente.
 La cobertura MA-1 ya existe; no la reconstruyas ni inventes conteos de reportes.
 No retires ni publiques preguntas automáticamente por recibir reportes.
 Coordina schema/migraciones/app.module/navegación/locks antes de tocar archivos
-compartidos. Después: R2 backend, R3 app/ADMIN y R4 pruebas con acta propia.
-No necesitas levantar servicios para esta lectura ni para redactar el contrato.
+compartidos. No repetir R2/R3 ni instituciones: documentar cada resultado real de R4.
+No necesitas servicios para escribir/revisar las pruebas; avisar antes de ejecutar
+la integración con DB o pedir el celular para el recorrido físico.
 Cuando toque un ensayo real usa base local desechable y cuentas ficticias;
 verifica servicios, USB de datos/depuración/pantalla desbloqueada y APK aislada.
 No reutilices secretos/sesiones viejas ni operes Supabase/Render por este prompt.

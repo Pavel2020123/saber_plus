@@ -8,7 +8,7 @@ instituciones. No cambia las reglas de producto ni declara etapas terminadas.
 
 | Equipo | Responsabilidad | Por dónde empezar |
 |---|---|---|
-| Propietario y su asistente | Entrega institucional integrada y próximo bloque por acordar | [Cierre local](CIERRE_INSTITUCIONES_LOCAL.md) integrado a main por PR app #5/API #8, merges e679c50/388bb18. CI backend PR/main aprobado; análisis Flutter/102 dirigidas aprobados. Se recomienda MA-1R, todavía no iniciado. Documentación separada en docs/estado-post-instituciones; publicación/PR pendientes. [Orden](ESTADO_Y_ORDEN_2026_10_17.md). |
+| Propietario y su asistente | Instituciones integradas; MA-1R/R1–R3 locales | [Reportes](MA1R_REPORTES_PREGUNTAS.md): R1 autorizada, R2 backend121 suites/1.560 y build; R3:32 dirigidas Flutter/109 ADMIN aprobadas. SQL no aplicado; sigue R4 PostgreSQL/Nest/Android. Rama feat/ma1r-reportes-preguntas desde base documental, pendiente de integrar por PR. No modificar OV-1. |
 | Compañero y su asistente | OV-1: test de intereses vocacionales, Flutter y backend necesarios | En curso según el propietario; sin entrega nueva verificada aquí. Seguir su checkpoint para A contenido/reglas → B persistencia → C cliente → D validación, no reiniciar trabajo ya documentado en su rama. |
 
 El compañero no tiene que esperar a que termine C2C. El propietario no asume

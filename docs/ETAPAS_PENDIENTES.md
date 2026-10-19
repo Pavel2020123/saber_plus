@@ -1,7 +1,20 @@
 # SaberPlus — etapas pendientes y ruta vigente del equipo
 
+**19 de octubre, checkpoint vigente:** MA-1R/R4 cerrada localmente;12/12 humanos,
+45/45 integradas repetidas tras fix de concurrencia, regresiones y remate Android
+confirmados. [Acta R4](MA1R_R4_VALIDACION_LOCAL.md). Commits funcionales locales:
+app `418c291`, backend `a747c32`; documentación en commits separados posteriores.
+Sigue push manual del propietario y PR/CI, no repetir pruebas.
+Sin despliegue, SQL remoto ni cambios OV-1.
+Los estados del18 e inferiores son antecedentes superados como continuación.
+
+**MA-1R/R3, actualización del18:** R1/flujo inicial autorizados;
+[backend local implementado](MA1R_REPORTES_PREGUNTAS.md),121 suites/1.560 aprobadas,
+build/TypeScript correctos. [R3 app/panel local](MA1R_R3_APP_PANEL.md):32 dirigidas
+Flutter/109 ADMIN aprobadas. SQL sin aplicar; sigue R4 PostgreSQL/Nest/Android.
+
 **Trabajo paralelo acordado:** propietario → entrega institucional cerrada localmente,
-integrada a main por PR #5/#8 y siguiente bloque por acordar; compañero → OV-1A/B/C/D en curso
+integrada a main por PR #5/#8 y MA-1R/R1–R3 locales; compañero → OV-1A/B/C/D en curso
 según el propietario, sin entrega nueva verificada en estos clones.
 Ver [responsables, ramas y entrega](TRABAJO_PARALELO.md). Este acuerdo sustituye
 la secuencia estricta de OV-1 y el trabajo individual directo en main.
@@ -19,7 +32,8 @@ CI backend del PR y main aprobados; Flutter analyze limpio y102 pruebas dirigida
 aprobadas, sin workflow Flutter remoto. [Entrega](CIERRE_INSTITUCIONES_LOCAL.md),
 sin despliegue ni nuevos ensayos físicos. [Evidencias/límites C4](PR_I5_C4_CODIGO.md).
 Ver [orden posterior y auditoría del 17](ESTADO_Y_ORDEN_2026_10_17.md): MA-1R,
-reportes de preguntas, es la siguiente propuesta independiente de OV-1, no iniciada.
+reportes de preguntas, es el bloque independiente de OV-1. R1 aprobada para flujo
+inicial, R2 backend y R3 interfaz locales listas; falta R4 PostgreSQL/HTTP/Android.
 No hay suspensión/cupo reducido ni corteUSB activos. OV-1 independiente.
 
 ### Antecedente C4-B — antes del ensayo Android
@@ -694,9 +708,10 @@ que deba volver a imponerse al administrador. D3 verifica el flujo simplificado.
 ## Ruta vigente del equipo
 
 Orden vigente por frentes: **propietario: instituciones integradas a main y MA-1R
-propuesto; compañero: OV-1A/B/C/D en paralelo, sin entrega verificada aquí**.
-Siguiente recomendado del propietario: **MA-1R, reportes académicos y cobertura**,
-propuesta aún no iniciada. [Orden completo y límites](ESTADO_Y_ORDEN_2026_10_17.md).
+R1–R3 locales; compañero: OV-1A/B/C/D en paralelo, sin entrega verificada aquí**.
+Siguiente del propietario: **MA-1R, reportes académicos y cobertura**;
+R2 backend y R3 app/panel locales listas; [checkpoint](MA1R_REPORTES_PREGUNTAS.md), sigue R4.
+[Orden completo y límites](ESTADO_Y_ORDEN_2026_10_17.md).
 Después se coordinan los bloques restantes: académico/profesor/panel,
 insignias/perfiles, ranking institucional/ensayo social y cierre funcional/comercial;
 UI-F → validación/sustentación → lanzamiento/operación. Rescate y territorio
@@ -713,7 +728,8 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 
 | Etapa/bloque | Estado y trabajo que falta | Dependencia / cuándo retomarlo |
 |---|---|---|
-| MA-1 / MA-1R — Cobertura y reportes | Cobertura básica implementada; faltan reportes académicos de preguntas, revisión visual y ensayo integrado. No confundir con reportes de jugadores. MA-1R propuesta R1 contrato → R2 API → R3 panel/app → R4 pruebas, no iniciada. | Siguiente recomendado del propietario tras coordinar integración institucional; acordar reglas antes de implementar. Independiente de OV-1. |
+| MA-1 / MA-1R — Cobertura y reportes | R1–R4 cerradas localmente.67 migraciones temporales,12/12 humanos,45/45 HTTP/PostgreSQL repetidas tras fix P2010/40001; backend121/1567, Flutter920/13 opt-in omitidas, análisis/build, ADMIN109, controles12 y remate Android confirmados. | Código guardado en app418c291/APIa747c32; documentación separada. Push manual y PR/CI pendientes según acta MA1R_R4_VALIDACION_LOCAL. Cobertura opt-in/legacy compatible. Sin SQL remoto/despliegue; retención/operación antes de publicar. OV-1 separado. |
+| MA-1R-UX1 — Ocultar y Deshacer | [Propuesta del18](MA1R_UX1_OCULTAR_DESHACER.md), pendiente de implementación: X quita de lista personal, Snackbar/progreso cinco segundos y Deshacer; proponer Ocultos/Restaurar. No borra el reporte de ADMIN ni cambia evidencia/estado/cuotas. | Después de R4, entrega funcional separada con contrato/persistencia por cuenta y pruebas. Apariencia/accesibilidad en UI-F. Otros módulos solo tras revisar reglas; no eliminación global automática. |
 | MA-2A/B/C — Mapa | API, panel y Flutter locales. Falta recorrido real panel → API → app. | Infraestructura autorizada, junto a D3/C4. |
 | MA-3A/B/C — Repaso diferido | Reglas, persistencia, API, agenda y flashcards locales. Falta ensayo físico/reconexión/reinstalación. | Infraestructura autorizada. No repetir implementación. |
 | **PR-I1 — Antecedente integrado/cerrado para esta ruta** | Infraestructura e integración competitiva local de seis juegos, según el estado documental confirmado. No es la siguiente etapa activa. | Despliegue/activación y requisitos operativos B1/B2 siguen separados y pendientes; no reabrir salvo defecto concreto demostrado. |
@@ -751,8 +767,8 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | 8I — Google Play | Firma/AAB, ficha, declaraciones, revisión y lanzamiento gradual. | Beta, privacidad y autorización; comprobar requisitos de la cuenta al ejecutar. |
 | 9A — Mantenimiento | Responsables, soporte, monitoreo, contenido, costos, seguridad y actualizaciones. | Preparar operación antes de publicar; ejecución continua después. |
 
-**Secuencia inmediata:** entrega PR/CI/main institucional completada; guardar por
-separado la documentación pendiente y confirmar MA-1R antes de implementar. No repetir
+**Secuencia inmediata:** entrega PR/CI/main institucional completada; guardar
+por separado las entregas pendientes y continuar R4 sobre R2/R3 locales. No repetir
 C2/C3/C4 por notas históricas. Compañero OV-1A → B/C/D en paralelo, sin asumir
 entregas no revisadas. Rescate y territorio ya validados localmente;
 conservar cierre operativo pendiente de I2-5 y demás bloques del orden vigente. IC-2/3 y los restantes
@@ -1349,6 +1365,10 @@ un rediseño del panel ADMIN ni una etapa opcional posterior a la publicación.
   Estado planificado: no hay recorrido nuevo implementado ni validado hoy.
 - Verificar controles táctiles, texto ampliado, lectores de pantalla, pantallas
   pequeñas y adaptación Android/iOS; ajustar pruebas de widgets afectadas.
+- Unificar el patrón X/Ocultar + Snackbar/Deshacer/progreso cinco segundos de
+  [MA-1R-UX1](MA1R_UX1_OCULTAR_DESHACER.md), si ya se implementó/probó su contrato
+  personal después de R4. No usar el acabado visual para borrar incidencias ADMIN
+  ni aplicar una acción genérica a datos que no son reversibles.
 
 Orden: funciones e integraciones → UI-F y acabado de animaciones → 8G pruebas
 integrales/beta → comprobación final iOS y capturas/publicación Google Play.
