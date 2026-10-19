@@ -338,3 +338,103 @@ Las 12 ilustraciones aún no están conectadas a familias, resultados ni
 historial. OV-1D3 realizará esa integración. Siguen pendientes la prueba humana
 Android, iOS y la revisión editorial antes de publicación. La aprobación
 artística no equivale a validación científica.
+
+## OV-1D3A — auditoría del flujo y galería exploratoria local
+
+**APROBADO VISUALMENTE Y TÉCNICAMENTE para este alcance local**, pendiente de
+revisión final previa al staging. La revisión humana aprobó las ocho vistas
+de la página real: galería cerrada/abierta, otra profesión seleccionada,
+320 × 640 y su contexto, texto al 200 % y su contexto, y dark mode. El scroll
+necesario con texto al 200 % es aceptable y no se reduce la escala del texto.
+
+Preflight: rama `feat/orientacion-vocacional`, HEAD
+`2cfc35234531ba1d151a27bfbbb8b81b6a5f34e6`, igual a su remoto propio (0/0).
+`origin/main` permanece en `21e39e6c0a67c235ae4dc71d74666399246bb9a9`,
+con divergencia autorizada 7/1. El worktree inicial estaba limpio.
+
+### Flujo auditado y clasificación
+
+| Archivo real | Responsabilidad observada |
+| --- | --- |
+| `lib/features/profile/presentation/academic_profile_page.dart` | Entrada «Explora tus intereses», separada de orientación académica. Solo lectura. |
+| `lib/app/router.dart` | Ruta existente `/student/more/profile/vocational-orientation`. Solo lectura, sin rutas nuevas. |
+| `lib/features/profile/presentation/vocational_orientation_page.dart` | Introducción, preguntas, progreso, pendiente/confirmada, reintentos, cobertura, resultado, empates, historial y apertura/borrado de intentos. El detalle completado reutiliza el resultado; el activo reabre el cuestionario. |
+| `lib/features/profile/presentation/vocational_orientation_providers.dart` | Repositorio autenticado, bloqueo demo y apertura de consulta oficial. Solo lectura. |
+| `lib/features/profile/domain/vocational_orientation.dart` | Parser de las 30 preguntas, respuestas, cobertura y snapshot; conserva scores y todas las familias principales del servidor. Solo lectura. |
+| `lib/features/profile/domain/vocational_orientation_repository.dart` y `lib/features/profile/data/remote_vocational_orientation_repository.dart` | Contrato y llamadas existentes para carga, guardado, finalización, historial y borrado. Solo lectura. |
+| `lib/features/profile/presentation/sabi_profession_illustration.dart` | Catálogo aprobado. Antes de D3A solo lo usaban sus pruebas, sin Sabi en el flujo vocacional. |
+| `test/vocational_orientation_test.dart`, `test/vocational_orientation_accessibility_test.dart`, `test/sabi_vocational_prototypes_test.dart` | Contratos, flujo, privacidad, accesibilidad y catálogo visual existentes. |
+
+- **A, seguro ahora:** galería opcional en la introducción, después de las
+  acciones de comenzar/continuar e historial. Aporta una exploración visual
+  general antes del cuestionario, sin crear un intento ni interrumpirlo.
+- **B, requiere decisión editorial:** representar familias/top/empates o
+  resultados históricos con una profesión, o proponer carreras derivadas de
+  scores. No existe mapping aprobado y estas integraciones quedan bloqueadas.
+- **C, no recomendado:** alterar scoring, cobertura, persistencia, XP,
+  diagnóstico, predicciones o sharing automático; mezclar el resultado con
+  orientación académica. Los props durante las preguntas tampoco aportan una
+  función necesaria al cuestionario actual.
+
+### Integración implementada
+
+`lib/features/profile/presentation/sabi_profession_gallery.dart` presenta las
+12 variantes en el orden fijo del enum. Es un componente neutral, sin entradas
+de usuario, familia, score o resultado. Arranca cerrado, avisa que sus ejemplos
+son independientes de las respuestas y permite recorrerlos con controles
+locales de al menos 48 píxeles lógicos. No guarda la selección ni hace llamadas.
+No aparece en cuestionario, resultado, errores ni historial.
+
+Los nombres visibles residen en `SabiProfession.displayName`; se reutilizan
+también en las hojas de revisión, sin duplicar el catálogo ni los painters.
+El widget de ilustración conserva su etiqueta única en español y ahora marca
+explícitamente su límite semántico para que no se fusione con los controles
+de la galería. El PNG canónico y los dibujos aprobados permanecen intactos.
+
+Validación local dirigida con Flutter 3.47.0: formato sin cambios y analyze
+de los seis Dart afectados sin incidencias; catálogo 27 PASS / 0 FAIL /
+1 SKIP (captura opt-in); flujo vocacional 18 PASS / 0 FAIL / 0 SKIP;
+accesibilidad 6 PASS / 0 FAIL / 0 SKIP; galería 4 PASS / 0 FAIL / 1 SKIP
+(captura D3A opt-in). La galería se comprobó en
+320 × 640 y 640 × 320, texto al 200 %, claro y oscuro. `git diff --check`:
+PASS. No se ejecutó la suite global ni prueba manual en dispositivo.
+
+Las dos pruebas de integración D3A usan un repositorio en memoria: durante
+la exploración verifican que no se inicia/finaliza un intento ni se guardan
+respuestas; también conservan el objeto de resultado histórico y sus cuatro
+familias principales empatadas. Cubren la UI y su interacción con ese doble
+de prueba, no persistencia real, HTTP, Backend ni PostgreSQL. La inspección
+del componente confirma que no importa ni llama repositorios.
+
+`CAPTURE_SABI_OV1D3A` solo habilita un test con datos sintéticos locales y
+escrituras limitadas a ocho nombres bajo `build/sabi-vocational-d3a/`.
+Roboto y MaterialIcons se cargan desde el SDK exclusivamente para evidencia
+del runner; no se incorporan assets ni dependencias de producción. Las
+capturas siguen ignoradas/no rastreadas y no se regeneraron en este cierre.
+
+No existe asociación familia → profesión ni recomendación determinista.
+OV-1D3 no está completo. Android humano, iOS y revisión editorial siguen
+pendientes; las ilustraciones comunican ejemplos y no validación científica.
+
+### Checklist Android humana pendiente
+
+Todos los puntos siguientes están **sin ejecutar**. Usar una cuenta y un
+entorno de prueba autorizados y registrar dispositivo, versión Android,
+build de la app y evidencias; preparar casos de empate/cobertura suficientes
+sin alterar datos productivos.
+
+- [ ] Abrir «Explora tus intereses» desde el perfil; comprobar inicio y avisos.
+- [ ] Abrir/cerrar la galería y recorrer los 12 ámbitos; comprobar independencia respecto de las respuestas y que no crea intentos.
+- [ ] Responder las 30 preguntas, incluyendo «No sé», y comprobar el progreso.
+- [ ] Comprobar respuesta pendiente, confirmación del servidor, error de guardado y reintento sin perder la última respuesta confirmada.
+- [ ] Corregir una respuesta y navegar anterior/siguiente.
+- [ ] Salir y reanudar el intento con las respuestas confirmadas.
+- [ ] Probar cobertura insuficiente y completar/corregir antes de finalizar.
+- [ ] Verificar resultado y empate reproducible, sin desempates ni profesiones asignadas.
+- [ ] Abrir historial y detalle de intentos activos/completados; comprobar paginación si hay datos suficientes.
+- [ ] Cancelar y confirmar el borrado de un intento; comprobar su desaparición.
+- [ ] Cambiar de cuenta y comprobar que no quedan respuestas, resultados ni historial de la anterior.
+- [ ] Comprobar textos, imágenes y controles en claro/oscuro, texto grande, pantalla pequeña y orientación horizontal.
+- [ ] Confirmar legibilidad, scroll, ausencia de overflow y objetivos táctiles de al menos 48 píxeles lógicos.
+- [ ] Con TalkBack, recorrer progreso, opciones, pendiente/confirmada, avisos, familias e historial; en la galería, comprobar una imagen anunciada por vez y controles comprensibles.
+- [ ] Registrar incidencias reales; no declarar Android completado hasta revisar las evidencias. iOS y revisión editorial se validan por separado.

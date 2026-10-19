@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/network/api_error.dart';
 import '../../auth/presentation/session_controller.dart';
 import '../domain/vocational_orientation.dart';
+import 'sabi_profession_gallery.dart';
 import 'vocational_orientation_providers.dart';
 
 class VocationalOrientationPage extends ConsumerStatefulWidget {
@@ -452,6 +453,8 @@ class _VocationalOrientationPageState
       ),
       if (_busy) const Center(child: CircularProgressIndicator()),
       if (_actionError != null) _Notice(text: _actionError!, announce: true),
+      const SizedBox(height: 16),
+      const SabiProfessionGallery(key: Key('vocational-profession-gallery')),
     ],
   );
 

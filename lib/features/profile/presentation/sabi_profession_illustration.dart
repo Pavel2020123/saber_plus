@@ -13,7 +13,23 @@ enum SabiProfession {
   accounting,
   education,
   design,
-  environmentalAgro,
+  environmentalAgro;
+
+  /// Catalog captions, independent of vocational families and results.
+  String get displayName => switch (this) {
+    medicine => 'Medicina',
+    nursing => 'Enfermería',
+    psychology => 'Psicología',
+    law => 'Derecho',
+    software => 'Sistemas / software',
+    industrialEngineering => 'Ingeniería industrial',
+    civilEngineering => 'Ingeniería civil',
+    administration => 'Administración',
+    accounting => 'Contaduría',
+    education => 'Educación / licenciaturas',
+    design => 'Diseño / comunicación visual',
+    environmentalAgro => 'Ambiental / agro',
+  };
 }
 
 /// A native, static overlay on the unmodified canonical Sabi PNG.
@@ -31,6 +47,7 @@ class SabiProfessionIllustration extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Semantics(
+    container: true,
     image: true,
     label: switch (profession) {
       SabiProfession.medicine => 'Sabi con bata médica y estetoscopio',

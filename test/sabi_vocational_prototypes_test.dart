@@ -23,21 +23,6 @@ const _names = <SabiProfession, String>{
 };
 
 const _capture = bool.fromEnvironment('CAPTURE_SABI_OV1D2');
-const _titles = <SabiProfession, String>{
-  SabiProfession.medicine: 'Medicina',
-  SabiProfession.nursing: 'Enfermería',
-  SabiProfession.psychology: 'Psicología',
-  SabiProfession.law: 'Derecho',
-  SabiProfession.software: 'Sistemas / software',
-  SabiProfession.industrialEngineering: 'Ingeniería industrial',
-  SabiProfession.civilEngineering: 'Ingeniería civil',
-  SabiProfession.administration: 'Administración',
-  SabiProfession.accounting: 'Contaduría',
-  SabiProfession.education: 'Educación / licenciaturas',
-  SabiProfession.design: 'Diseño / comunicación visual',
-  SabiProfession.environmentalAgro: 'Ambiental / agro',
-};
-
 const _labels = <SabiProfession, String>{
   SabiProfession.medicine: 'Sabi con bata médica y estetoscopio',
   SabiProfession.nursing:
@@ -292,7 +277,7 @@ void main() {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    _titles[profession]!,
+                                    profession.displayName,
                                     style: const TextStyle(
                                       fontFamily: 'ReviewLabels',
                                       fontSize: 21,

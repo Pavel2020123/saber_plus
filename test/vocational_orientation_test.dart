@@ -8,6 +8,8 @@ import 'package:saber_plus/features/auth/presentation/session_controller.dart';
 import 'package:saber_plus/features/profile/data/remote_vocational_orientation_repository.dart';
 import 'package:saber_plus/features/profile/domain/vocational_orientation.dart';
 import 'package:saber_plus/features/profile/domain/vocational_orientation_repository.dart';
+import 'package:saber_plus/features/profile/presentation/sabi_profession_gallery.dart';
+import 'package:saber_plus/features/profile/presentation/sabi_profession_illustration.dart';
 import 'package:saber_plus/features/profile/presentation/vocational_orientation_page.dart';
 import 'package:saber_plus/features/profile/presentation/vocational_orientation_providers.dart';
 
@@ -542,6 +544,95 @@ void main() {
   });
 
   group('OV-1C widget', () {
+    testWidgets(
+      'OV-1D3A gallery is optional, does not write answers, and stays out of questionnaire',
+      (tester) async {
+        final repo = _MemoryVocationalRepository();
+        await tester.pumpWidget(_app(repo));
+        await tester.pumpAndSettle();
+        expect(find.byKey(const Key('vocational-start')), findsOneWidget);
+        await _tapVisible(tester, 'sabi-gallery-toggle');
+        await _tapVisible(tester, 'sabi-gallery-next');
+        expect(
+          tester
+              .widget<SabiProfessionIllustration>(
+                find.byType(SabiProfessionIllustration),
+              )
+              .profession,
+          SabiProfession.nursing,
+        );
+        expect(repo.startCalls, 0);
+        expect(repo.saveCalls, 0);
+        expect(repo.finishCalls, 0);
+        expect(repo.stored, isEmpty);
+        tester
+            .state<ScrollableState>(
+              find
+                  .descendant(
+                    of: find.byKey(const Key('vocational-intro')),
+                    matching: find.byType(Scrollable),
+                  )
+                  .first,
+            )
+            .position
+            .jumpTo(0);
+        await tester.pumpAndSettle();
+        await _tapVisible(tester, 'vocational-start');
+        expect(
+          find.byKey(const Key('vocational-questionnaire')),
+          findsOneWidget,
+        );
+        expect(find.byType(SabiProfessionGallery), findsNothing);
+        expect(find.byType(SabiProfessionIllustration), findsNothing);
+        expect(repo.active!.answers, isEmpty);
+        expect(repo.startCalls, 1);
+      },
+    );
+
+    testWidgets(
+      'OV-1D3A gallery does not represent historical results or tied families',
+      (tester) async {
+        final repo = _MemoryVocationalRepository();
+        final main = vocationalFamilyNames.keys
+            .toList()
+            .reversed
+            .take(4)
+            .toList();
+        final terminal = VocationalAttempt.parse(
+          _attempt(completed: true, result: _result(main: main)),
+        );
+        repo.stored[_id1] = terminal;
+        await tester.pumpWidget(_app(repo));
+        await tester.pumpAndSettle();
+        await _tapVisible(tester, 'sabi-gallery-toggle');
+        expect(
+          tester
+              .widget<SabiProfessionIllustration>(
+                find.byType(SabiProfessionIllustration),
+              )
+              .profession,
+          SabiProfession.medicine,
+        );
+        await _tapVisible(tester, 'vocational-open-history');
+        expect(find.byType(SabiProfessionGallery), findsNothing);
+        expect(find.byType(SabiProfessionIllustration), findsNothing);
+        await _tapVisible(tester, 'vocational-history-$_id1');
+        expect(find.byKey(const Key('vocational-result')), findsOneWidget);
+        expect(find.byType(SabiProfessionGallery), findsNothing);
+        expect(find.byType(SabiProfessionIllustration), findsNothing);
+        expect(
+          find.byKey(Key('vocational-family-${main.first}')),
+          findsOneWidget,
+        );
+        expect(repo.stored[_id1], same(terminal));
+        expect(terminal.result!.mainFamilies, main);
+        expect(terminal.result!.mainFamilies, hasLength(4));
+        expect(repo.startCalls, 0);
+        expect(repo.saveCalls, 0);
+        expect(repo.finishCalls, 0);
+      },
+    );
+
     testWidgets('demo never creates invented attempts or calls repository', (
       tester,
     ) async {

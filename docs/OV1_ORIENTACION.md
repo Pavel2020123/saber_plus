@@ -406,3 +406,30 @@ profesionales de producción.
 No existe todavía conexión con familias, resultados o historial; OV-1D3 hará
 esa integración. Android humano, iOS y la revisión editorial siguen pendientes.
 La aprobación artística no equivale a validación científica.
+
+## OV-1D3A — galería exploratoria neutral en la introducción
+
+**APROBADO VISUALMENTE Y TÉCNICAMENTE para este alcance local**, pendiente de
+revisión final previa al staging. La revisión humana aprobó la jerarquía del
+CTA, el copy neutral, la galería cerrada/abierta, la selección, 320 × 640,
+texto al 200 % y dark mode. El scroll con texto grande es aceptable.
+
+La auditoría del flujo identificó la introducción como punto categoría A:
+antes de responder, el estudiante puede conocer ejemplos visuales de ámbitos
+profesionales sin que se interpreten como resultado. Se añadió una galería
+opcional, inicialmente cerrada, después de comenzar/continuar e historial.
+Reutiliza las 12 composiciones aprobadas y su enum en orden fijo, con nombres
+del catálogo, etiquetas semánticas propias y controles locales. La selección
+no se guarda, no crea intentos y no usa respuestas, scores ni datos de cuenta.
+
+El cuestionario, la cobertura, el resultado, los empates y el historial
+mantienen el contrato existente. La galería no aparece en esos estados.
+La integración no afecta scoring ni persistencia.
+No existe todavía mapping familia → profesión ni se añadieron recomendaciones
+deterministas. Mostrar profesiones como consecuencia del resultado requiere
+decisión editorial explícita y queda bloqueado en esta etapa.
+
+OV-1D3 permanece abierto. La prueba humana Android **no se ejecutó**; su
+[checklist pendiente](CHECKPOINT_OV1.md#checklist-android-humana-pendiente)
+cubre el flujo completo y la nueva galería. iOS y revisión editorial siguen
+pendientes. Las ilustraciones son comunicación visual, no validación científica.
