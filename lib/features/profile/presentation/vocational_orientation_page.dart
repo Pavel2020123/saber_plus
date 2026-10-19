@@ -6,6 +6,7 @@ import '../../auth/presentation/session_controller.dart';
 import '../domain/vocational_orientation.dart';
 import 'sabi_profession_gallery.dart';
 import 'vocational_orientation_providers.dart';
+import 'vocational_result_overview.dart';
 
 class VocationalOrientationPage extends ConsumerStatefulWidget {
   const VocationalOrientationPage({super.key});
@@ -577,81 +578,11 @@ class _VocationalOrientationPageState
   }
 
   Widget _resultContent(BuildContext context, VocationalResult result) {
-    final byId = {for (final family in result.families) family.id: family};
     return ListView(
       key: const Key('vocational-result'),
       padding: const EdgeInsets.all(20),
       children: [
-        Text(
-          'Tus intereses declarados',
-          style: Theme.of(context).textTheme.headlineSmall,
-        ),
-        const SizedBox(height: 8),
-        Text(
-          'Respuestas válidas: ${result.validCount} de ${result.totalQuestions}. Estas familias son opciones de exploración, no un diagnóstico ni una garantía.',
-        ),
-        const SizedBox(height: 14),
-        for (final familyId in result.mainFamilies)
-          Card(
-            key: Key('vocational-family-$familyId'),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Semantics(
-                    key: Key('vocational-family-heading-$familyId'),
-                    container: true,
-                    header: true,
-                    label: vocationalFamilyNames[familyId]!,
-                    excludeSemantics: true,
-                    child: Text(
-                      vocationalFamilyNames[familyId]!,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    'Respondiste ${byId[familyId]!.validCount} de 5 preguntas de esta familia.',
-                  ),
-                  for (final question
-                      in result.questions
-                          .where(
-                            (q) =>
-                                q.family == familyId &&
-                                {
-                                  VocationalAnswer.quite,
-                                  VocationalAnswer.much,
-                                }.contains(result.answers[q.id]),
-                          )
-                          .take(2))
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: Text('Marcaste interés en: ${question.text}'),
-                    ),
-                ],
-              ),
-            ),
-          ),
-        if (result.families.any(
-          (family) => !result.mainFamilies.contains(family.id),
-        )) ...[
-          const SizedBox(height: 14),
-          Text(
-            'Otras familias del resultado',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          for (final family in result.families.where(
-            (family) => !result.mainFamilies.contains(family.id),
-          ))
-            ListTile(
-              key: Key('vocational-other-family-${family.id}'),
-              title: Text(vocationalFamilyNames[family.id]!),
-              subtitle: Text(
-                'Respondiste ${family.validCount} de ${family.totalQuestions} preguntas de esta familia.',
-              ),
-            ),
-        ],
+        VocationalResultOverview(result: result),
         const SizedBox(height: 18),
         Text(
           'Explora opciones de formación',
@@ -659,7 +590,7 @@ class _VocationalOrientationPageState
         ),
         const SizedBox(height: 6),
         const Text(
-          'Puedes revisar vías técnicas, tecnológicas y universitarias. Aún falta revisar una correspondencia entre estas familias y carreras concretas; este enlace no cambia tu resultado.',
+          'Puedes revisar vías técnicas, tecnológicas y universitarias. Los ámbitos ilustrados son ejemplos editoriales, no una lista exhaustiva ni una recomendación de carrera. Consulta los programas oficiales y sus requisitos; este enlace no cambia tu resultado.',
         ),
         const SizedBox(height: 8),
         OutlinedButton.icon(

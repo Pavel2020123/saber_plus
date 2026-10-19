@@ -433,3 +433,41 @@ OV-1D3 permanece abierto. La prueba humana Android **no se ejecutó**; su
 [checklist pendiente](CHECKPOINT_OV1.md#checklist-android-humana-pendiente)
 cubre el flujo completo y la nueva galería. iOS y revisión editorial siguen
 pendientes. Las ilustraciones son comunicación visual, no validación científica.
+
+## OV-1D3B — interpretación de resultados y ejemplos relacionados (2026-10-19)
+
+Implementación local aprobada visualmente por el propietario en las ocho
+capturas D3B y en Android físico para este alcance de demo;
+**OV-1D3 no está cerrado**. El propietario aprobó para la demo la correspondencia
+editorial familia → ámbitos descrita en el encargo. La tabla exacta está
+centralizada en `vocationalRelatedProfessions`, en
+`lib/features/profile/presentation/vocational_result_overview.dart`. Esta
+aprobación sustituye la falta de decisión editorial registrada en D3A para esos
+ejemplos; no constituye validación científica ni revisión especializada completa.
+
+El resultado comienza por «Tus intereses se orientan principalmente hacia» y
+conserva todas las familias principales y empates entregados por el servidor.
+Los ejemplos Sabi del máximo empatado son recorribles sin elegir familia ganadora;
+la sección relacionada incluye las demás principales y conserva relaciones
+múltiples. El copy declara expresamente que no es una recomendación de carrera.
+Los seis puntajes son índices de interés 0..100 del snapshot, con cobertura y
+semántica, nunca porcentajes o probabilidades. El detalle de actividades queda
+desplegable; programas oficiales, privacidad, repetición e historial se conservan.
+Scoring, modelos, HTTP, persistencia, navegación y arte canónico no cambian.
+
+Validación local final: 101 PASS, 0 FAIL, 3 SKIP opt-in en las siete suites
+dirigidas; captura D3B aparte: 1 PASS. Análisis dirigido sin incidencias, formato
+y diff comprobados. Ocho capturas sintéticas de la página real bajo
+`build/sabi-vocational-d3b/`, ignoradas por Git. La revisión física posterior
+comprobó el resultado real persistido abierto desde el historial y su navegación
+relacionada en un Samsung SM A556E, con Backend local real y PostgreSQL temporal
+mediante USB y `adb reverse`. No fue un nuevo recorrido completo de las 30
+preguntas ni un nuevo E2E automatizado real contra Backend. El recorrido completo
+y la reapertura de la app se habían probado inmediatamente antes de D3B en el
+mismo Android y Backend local. Los resultados y fallos intermedios se detallan en
+[el checkpoint vigente](CHECKPOINT_OV1.md#ov-1d3b--resultados-explicativos-y-ámbitos-editoriales-para-demo-2026-10-19).
+La revisión visual de esta UI en capturas y Android físico está aprobada para la
+demo. iOS, revisión editorial especializada previa a publicación y comprobaciones
+Android adicionales (TalkBack completo, orientación horizontal y pérdida de red)
+siguen pendientes. No acredita producción ni validación científica.
+Sin commit, push, merge, rebase ni deploy.

@@ -226,7 +226,14 @@ Future<void> _reveal(WidgetTester tester, Finder finder) async {
   tester.state<ScrollableState>(scrollable).position.jumpTo(0);
   await tester.pumpAndSettle();
   if (finder.evaluate().isEmpty) {
-    await tester.scrollUntilVisible(finder, 180, scrollable: scrollable);
+    final position = tester.state<ScrollableState>(scrollable).position;
+    final step = position.viewportDimension * .8;
+    await tester.scrollUntilVisible(
+      finder,
+      step,
+      scrollable: scrollable,
+      maxScrolls: (position.maxScrollExtent / step).ceil() + 3,
+    );
   }
 }
 

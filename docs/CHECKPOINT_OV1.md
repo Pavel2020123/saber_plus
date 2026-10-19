@@ -438,3 +438,109 @@ sin alterar datos productivos.
 - [ ] Confirmar legibilidad, scroll, ausencia de overflow y objetivos táctiles de al menos 48 píxeles lógicos.
 - [ ] Con TalkBack, recorrer progreso, opciones, pendiente/confirmada, avisos, familias e historial; en la galería, comprobar una imagen anunciada por vez y controles comprensibles.
 - [ ] Registrar incidencias reales; no declarar Android completado hasta revisar las evidencias. iOS y revisión editorial se validan por separado.
+
+## OV-1D3B — resultados explicativos y ámbitos editoriales para demo (2026-10-19)
+
+**Implementado, validado automáticamente en local y aprobado visualmente por el
+propietario en capturas y Android físico para este alcance de demo.
+OV-1D3 no está cerrado.** Base de esta entrega:
+`feat/orientacion-vocacional`, HEAD `b463f50e6fc7bcd7823e36b567c450e9fc651953`.
+El árbol estaba limpio tras la restauración de `pubspec.lock` realizada por el
+propietario; esta entrega no modifica dependencias.
+
+### Aprobación y alcance
+
+El propietario aprobó expresamente la tabla editorial de seis familias a ámbitos
+profesionales para esta demo. Sustituye el bloqueo por falta de aprobación de
+mapping registrado históricamente en D3A, exclusivamente para estos ejemplos;
+no aprueba recomendaciones científicas ni elimina la revisión especializada
+previa a publicación. La tabla exacta está centralizada en
+`vocationalRelatedProfessions`, en
+`lib/features/profile/presentation/vocational_result_overview.dart`.
+
+El resumen conserva las familias `principales` y su orden del servidor, sin
+numerarlas ni volver a calcular el corte. Los empates que cruzan el corte siguen
+completos. Para Sabi se consultan los puntajes del snapshot entre esas familias;
+si comparten el máximo, se explicita la igualdad y se pueden recorrer ejemplos
+de todas ellas sin declarar una ganadora. El orden del catálogo es editorial,
+no una preferencia profesional. Los ámbitos repetidos se muestran una sola vez
+por selector, conservando todas sus relaciones con las familias correspondientes.
+
+La pantalla presenta interpretación, ejemplos Sabi, exploración desplegable de
+ámbitos relacionados, índices de las seis familias y detalle desplegable de
+respuestas. Usa `VocationalFamilyResult.score` del servidor: índice normalizado
+0..100, sin porcentajes ni probabilidades. Las barras son solo representación;
+la etiqueta semántica incluye familia, puntaje y cobertura. Conserva respuestas
+válidas, cobertura por familia, actividades del snapshot, consulta oficial,
+repetición, historial, privacidad y límites. No cambia scoring, reglas, modelos,
+HTTP, persistencia ni navegación. Reutiliza el catálogo Sabi sin modificarlo.
+
+### Evidencia automatizada y visual local
+
+Flutter 3.47.0 / Dart 3.13.0, comandos explícitos con el SDK aislado:
+
+| Suite dirigida | PASS | FAIL | SKIP |
+| --- | ---: | ---: | ---: |
+| `vocational_orientation_test.dart` | 18 | 0 | 0 |
+| `vocational_orientation_accessibility_test.dart` | 6 | 0 | 0 |
+| `sabi_profession_gallery_test.dart` | 4 | 0 | 1 |
+| `sabi_vocational_prototypes_test.dart` | 27 | 0 | 1 |
+| `vocational_result_test.dart` | 9 | 0 | 1 |
+| `career_orientation_test.dart` y `widget_test.dart` | 37 | 0 | 0 |
+| **Total, ejecución conjunta final** | **101** | **0** | **3** |
+
+Los tres SKIP son capturas opt-in. La prueba de capturas D3B se ejecutó aparte
+con `CAPTURE_SABI_OV1D3B=true`: 1 PASS, 0 FAIL, 0 SKIP. Generó ocho PNG en
+`build/sabi-vocational-d3b/`: `result_normal`, `result_sabi`, `result_related`,
+`result_tie`, `result_small`, `result_text_200`, `result_dark`, `result_scores`.
+Son capturas de la página real con snapshots y repositorio sintéticos locales,
+no datos privados ni una nueva validación HTTP/Backend/Android. Están ignoradas
+por Git. Se reutilizaron las fuentes del SDK solo en el harness de pruebas.
+
+`dart format`: aplicado a los cinco Dart afectados; comprobación posterior sin
+cambios. `flutter analyze --no-pub` dirigido: sin incidencias. `git diff --check`:
+PASS. Las pruebas cubren tabla editorial exacta, tres principales, empates de
+máximo y corte, seis índices del servidor, relaciones múltiples, detalle,
+semántica de imagen y puntajes, targets, 320 × 640, texto al 200 %, claro/oscuro,
+historial, cuestionario, finalización y ausencia de escrituras al explorar.
+
+Fallos intermedios conservados como diagnóstico: cinco pruebas nuevas fallaron
+por liberar demasiado tarde su handle semántico; se corrigió con `try/finally`.
+La primera regresión conjunta tuvo cuatro fallos: una expectativa antigua
+prohibía incluso el aviso «No miden aptitud» y tres agotaban el recorrido de
+scroll de la pantalla anterior. Se actualizó la expectativa al aviso explícito
+y el recorrido al tamaño real del contenido, conservando las aserciones. El
+análisis detectó siete avisos de llaves en el test nuevo, corregidos antes de
+la ejecución final. No hubo fallos pendientes en las validaciones finales.
+
+El PNG canónico mantiene hash `de1e006ebb4e7fec4bd1ec771b3f29c6f28075d4`.
+Sin cambios en `pubspec.yaml`, `pubspec.lock`, `analysis_options.yaml`, router,
+assets, Backend, instituciones ni competición. Sin commit, push, merge, rebase
+ni deploy.
+
+### Revisión humana posterior aprobada
+
+El propietario revisó y aprobó las ocho capturas D3B enumeradas arriba. Además,
+la nueva UI se instaló mediante Flutter y se ejecutó en un Samsung SM A556E
+físico, conectado por USB con `adb reverse` a `http://127.0.0.1:43187`, con
+Backend local real y PostgreSQL temporal activos. Se abrió desde el historial
+un intento real previamente completado y persistido.
+
+En ese resultado se comprobaron visualmente el encabezado, las familias
+principales reales, las respuestas válidas, «Un ámbito que puedes explorar»,
+Sabi relacionado, los controles anterior/siguiente y varios ejemplos, el aviso
+«No es una recomendación de carrera», los ámbitos relacionados, los seis índices
+del servidor y sus barras, el scroll y la navegación inferior, sin overflow
+visible ni recortes graves.
+
+El recorrido real cuestionario → finalización → resultado → historial,
+reapertura del resultado y cierre/reapertura desde el icono se había comprobado
+inmediatamente antes de D3B en el mismo Android y Backend local. La revisión
+física posterior a D3B fue visual sobre el resultado persistido y su navegación;
+no fue otro recorrido completo de 30 preguntas ni un nuevo E2E automatizado
+real contra Backend.
+
+Esta aprobación no acredita iOS, producción, validación científica ni revisión
+editorial especializada completa. TalkBack completo, orientación horizontal y
+pérdida de red no se comprobaron en esta revisión y permanecen pendientes.
+OV-1D3 completo continúa abierto.

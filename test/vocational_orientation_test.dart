@@ -619,7 +619,8 @@ void main() {
         await _tapVisible(tester, 'vocational-history-$_id1');
         expect(find.byKey(const Key('vocational-result')), findsOneWidget);
         expect(find.byType(SabiProfessionGallery), findsNothing);
-        expect(find.byType(SabiProfessionIllustration), findsNothing);
+        // D3B adds editorial examples separately; the intro gallery stays absent.
+        expect(find.byType(SabiProfessionIllustration), findsOneWidget);
         expect(
           find.byKey(Key('vocational-family-${main.first}')),
           findsOneWidget,
@@ -776,7 +777,7 @@ void main() {
           findsOneWidget,
         );
         expect(repo.finishCalls, 2);
-        expect(find.textContaining('aptitud'), findsNothing);
+        expect(find.textContaining('No miden aptitud'), findsOneWidget);
         expect(find.textContaining('índice de interés'), findsNothing);
         expect(find.textContaining('XP'), findsNothing);
         expect(find.textContaining('ranking'), findsNothing);
