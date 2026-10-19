@@ -7,6 +7,7 @@ import '../../announcements/presentation/announcement_providers.dart';
 import '../../auth/presentation/session_controller.dart';
 import '../../gamification/presentation/gamification_providers.dart';
 import '../../institutions/presentation/student_request_shortcut.dart';
+import '../../question_reports/presentation/question_report_page.dart';
 
 class MorePage extends ConsumerWidget {
   const MorePage({super.key});
@@ -33,6 +34,7 @@ class MorePage extends ConsumerWidget {
             subtitle: 'Tu panorama académico en un solo lugar',
             onTap: () => context.push('/student/more/profile'),
           ),
+          const MyQuestionReportsShortcut(),
           _MenuTile(
             key: const Key('open-student-institution'),
             icon: Icons.account_balance_outlined,
