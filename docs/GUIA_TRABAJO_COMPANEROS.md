@@ -1,10 +1,11 @@
 # SaberPlus — guía de trabajo para compañeros
 
-Actualizado: 18 de octubre de 2026. Leer antes de modificar código.
+Actualizado: 19 de octubre de 2026. Leer antes de modificar código.
 
 **Reparto vigente:** propietario integró instituciones a main (PR app #5/API #8,
-CI backend aprobado); MA-1R/R1–R3 locales, sigue R4 PostgreSQL/Nest/Android.
-[Acta actual app/panel](MA1R_R3_APP_PANEL.md). Compañero continúa OV-1, sin entrega verificada nueva.
+CI backend aprobado); MA-1R/R1–R4 integradas por PR app #6/API #9, CI backend del PR aprobado.
+[Acta actual R4](MA1R_R4_VALIDACION_LOCAL.md). Siguiente recomendado: preparación local C5.
+Compañero continúa OV-1, sin entrega verificada nueva; QA-1 Flutter remoto pendiente.
 Ver [estado y orden](ESTADO_Y_ORDEN_2026_10_17.md); no editar su checkpoint.
 Leer [trabajo paralelo](TRABAJO_PARALELO.md). Certificados y audios inferiores son
 guías de referencia, no tareas adicionales asignadas al compañero de OV-1.

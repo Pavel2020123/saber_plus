@@ -19,7 +19,8 @@ en [acta R4](MA1R_R4_VALIDACION_LOCAL.md). Sin cambio de código de certificados
 API/base/credenciales humanas ya cerradas/limpiadas; no reutilizar su archivo
 privado. Bases automáticas también limpiadas. La sesión posterior de remate se
 describe abajo; APK reinstalada/retirada del botón confirmadas. Código guardado
-según entrega Git inferior; siguen push manual y PR/CI, no repetir12.
+e integrado según entrega Git inferior; siguen preparación C5 y controles de
+staging/operación separados, no repetir12.
 
 **Remate posterior del19:** por petición del propietario se levantó una sesión
 temporal nueva de API/panel/Docker y se instaló por USB la APK corregida (Success,
@@ -66,9 +67,12 @@ API independiente. R2 es el contrato efectivo y R3 registra su consumo compatibl
 ## Entrega Git del19 y dependencia documental
 
 Commits funcionales locales autorizados: Flutter `418c291`, backend/panel `a747c32`.
-Documentación en commits separados posteriores; consultar `git log` en cada repo.
-Push manual del propietario y PR/CI pendientes. Sin merge ni despliegue.
-Este checkpoint sustituye la espera para crear commits de las notas anteriores.
+Documentación: app `0a622e6`, API `6a74f55`. Publicadas e integradas en main por
+[app PR #6](https://github.com/Pavel2020123/saber_plus/pull/6) (`21757a1`) y
+[backend PR #9](https://github.com/Pavel2020123/SaberPlus-Backend/pull/9) (`eef0d40`).
+CI backend del PR aprobado; QA-1 Flutter remoto pendiente. Sin despliegue ni SQL remoto.
+Siguiente bloque recomendado: preparación local C5. Este checkpoint sustituye
+las esperas para crear commits/publicar/integrar de las notas anteriores.
 
 ### Base histórica de R1
 

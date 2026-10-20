@@ -2,10 +2,11 @@
 
 **Checkpoint del19 que prevalece:** [R4 de reportes](MA1R_R4_VALIDACION_LOCAL.md)
 con12/12 humanos,45/45 PostgreSQL/HTTP y regresiones aprobadas. Propietario:
-R4 cerrada localmente tras remate Android confirmado. Código guardado en app
-`418c291` y backend `a747c32`; documentación separada, push manual y PR/CI pendientes.
+R4 cerrada localmente tras remate Android confirmado e integrada en main por PR
+app #6/API #9 (21757a1/eef0d40). CI backend del PR aprobado; QA-1 Flutter remoto
+pendiente. Sigue preparación local C5, sin activar almacenamiento real automáticamente.
 No repetir12 ni reutilizar claves temporales (sesiones limpiadas). Compañero sigue
-OV-1, no recibe estas tareas. Sin despliegue ni push/merge por este documento.
+OV-1, no recibe estas tareas. Sin despliegue ni migraciones remotas por esta entrega.
 
 **17 de octubre, vigente:** [C4-C10/10 integrados locales cubiertos](PR_I5_C4_CODIGO.md),
 Android+19 HTTP/SQL; no10 pruebas solo manuales. APK corregida instalada,93 dirigidas

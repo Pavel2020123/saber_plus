@@ -1,5 +1,13 @@
 # Historial completo de etapas de SaberPlus
 
+**19 de octubre — MA-1R integrada en main:** [app PR #6](https://github.com/Pavel2020123/saber_plus/pull/6)
+como `21757a1` y [backend PR #9](https://github.com/Pavel2020123/SaberPlus-Backend/pull/9)
+como `eef0d40`. Commits funcionales418c291/a747c32 y documentales0a622e6/6a74f55.
+CI backend del PR aprobado (admin/verify); QA-1 Flutter remoto pendiente.
+Siguiente bloque recomendado: preparación local C5. No se repitieron pruebas físicas
+ni se aplicaron migraciones/despliegues remotos. OV-1 sigue separado.
+Las entradas anteriores en el tiempo conservan su alcance, no son órdenes vigentes.
+
 **19 de octubre — MA-1R/R4 validación local:**12/12 casos humanos aprobados,
 45/45 PostgreSQL/HTTP aislados con67 migraciones temporales y limpieza propia.
 Regresiones: Flutter920/13 opt-in omitidas/análisis limpio; backend121/1567 tras fix P2010/40001,

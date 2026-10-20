@@ -1,9 +1,14 @@
 # Índice de documentación de SaberPlus
 
+- [Auditoría documental e integración del19](AUDITORIA_DOCUMENTAL_2026_10_19.md):
+  fuentes vigentes, correcciones, orden restante y actualización para compañeros.
+
 - **19 de octubre, entrada vigente:** [R4 integrada y regresiones](MA1R_R4_VALIDACION_LOCAL.md),
   [checkpoint de reportes](MA1R_REPORTES_PREGUNTAS.md).12/12 humanos y45/45 HTTP/SQL;
   Flutter920/13 opt-in omitidas, backend121/1567 tras fix de concurrencia, ADMIN109 y build/análisis aprobados.
-  Remate Android confirmado y R4 cerrada localmente; siguen commits/PR/CI, sin producción.
+  Remate Android confirmado y R4 cerrada localmente, integrada en main por PR app #6/API #9
+  (21757a1/eef0d40), CI backend del PR aprobado. Sigue preparación C5; QA-1 Flutter remoto pendiente,
+  sin producción.
   Entradas anteriores inferiores históricas; no repetir pruebas ya documentadas.
 
 - [MA-1R-UX1 — Ocultar de mi lista y Deshacer cinco segundos](MA1R_UX1_OCULTAR_DESHACER.md):

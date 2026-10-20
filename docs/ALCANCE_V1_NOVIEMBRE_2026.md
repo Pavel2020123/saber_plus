@@ -1,10 +1,11 @@
 # SaberPlus V1 — Alcance de noviembre de 2026
 
-**17 de octubre, continuación vigente:** instituciones cerradas en alcance técnico
-local e integradas a main vía PR app #5/backend #8; CI backend aprobado,
-análisis Flutter y102 pruebas dirigidas aprobados. Sin despliegue productivo.
-OV-1 sigue con el compañero, sin entrega nueva recibida. [Orden revisado y siguiente
-propuesto MA-1R](ESTADO_Y_ORDEN_2026_10_17.md); no se inició implementación nueva.
+**19 de octubre, continuación vigente:** instituciones integradas a main vía PR
+app #5/backend #8 y MA-1R/R1–R4 vía PR app #6/backend #9. Cierre local de reportes:
+12/12 humanos,45/45 HTTP/PostgreSQL y regresiones en [acta R4](MA1R_R4_VALIDACION_LOCAL.md).
+CI backend del PR aprobado, QA-1 Flutter remoto pendiente. Sin despliegue productivo.
+OV-1 sigue con el compañero, sin entrega nueva revisada. [Orden actualizado](ESTADO_Y_ORDEN_2026_10_17.md):
+siguiente preparación local C5. El alcance inferior conserva funciones y prioridades.
 
 **Actualización de coordinación, 12 de octubre:** OV-1 se adelanta en paralelo:
 el compañero desarrolla orientación vocacional y el propietario instituciones.
@@ -27,7 +28,8 @@ El orden y los estados vivos se mantienen en
   integración competitiva aplazada, no cancelada. Conservar código, contratos,
   migraciones, imágenes y modos normales existentes. Revisar estabilidad de los
   modos que se muestren; no presentar una competición sin validar como disponible.
-- **Después de Rescate se continúa con instituciones, no con Trivia.**
+- La secuencia Rescate → instituciones ya se completó localmente; las instituciones
+  y los reportes posteriores están integrados en main. Seguir el orden actualizado superior.
 - Permanecen perfiles, búsqueda de personas e instituciones, fotos, todas las
   insignias ganadas por año, ranking institucional y filtros territoriales.
 - **OV-1, el test vocacional orientativo, permanece**: intereses privados,

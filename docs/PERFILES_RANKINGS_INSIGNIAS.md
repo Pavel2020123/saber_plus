@@ -1,8 +1,8 @@
 # Perfiles, rankings e insignias — ampliación acordada
 
-**Relevo vigente del17:** propietario con instituciones locales cerradas/commits
-integrados a main por PR app #5/API #8, CI backend aprobado;
-[siguiente propuesto MA-1R](ESTADO_Y_ORDEN_2026_10_17.md).
+**Relevo vigente del19:** instituciones integradas a main por PR app #5/API #8
+y reportes MA-1R/R1–R4 por PR app #6/API #9, CI backend del PR aprobado;
+[siguiente recomendado C5](ESTADO_Y_ORDEN_2026_10_17.md), archivos generales.
 Compañero sigue OV-1 sin entrega verificada nueva; perfiles/insignias no se le asignan
 automáticamente al terminar. Esos bloques siguen en el roadmap, sin código nuevo aquí.
 PR-I1 integrado; I2-5 conserva cierre operativo, no recorrido funcional pendiente.

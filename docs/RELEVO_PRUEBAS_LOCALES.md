@@ -3,12 +3,13 @@
 **19 de octubre — continuar aquí, no en los guiones históricos:** [R4 reportes](MA1R_R4_VALIDACION_LOCAL.md),
 12/12 humanos y45/45 HTTP/PostgreSQL aprobados; backend121/1567 tras fix de concurrencia, Flutter920/13 opt-in
 omitidas, ADMIN109/build/análisis. Remate Android confirmado: R4 cerrada localmente,
-commits funcionales app `418c291`/API `a747c32` creados, documentación separada;
-siguen push manual y PR/CI. No repetir12 ni juegos/instituciones por defecto. Sesiones
+integrada en main por PR app #6/API #9 (21757a1/eef0d40); CI backend del PR aprobado,
+QA-1 Flutter remoto pendiente. Sigue preparación local C5.
+No repetir12 ni juegos/instituciones por defecto. Sesiones
 anteriores/bases automáticas limpiadas, remate en otra temporal; no asumir claves
 válidas ni servicios activos. Comando
 técnico independiente en backend: `npm run test:question-reports:postgres` (Docker
-local, sin celular/URL externa). OV-1 separado; sin push/merge/despliegue.
+local, sin celular/URL externa). OV-1 separado; sin despliegue/migraciones remotas.
 
 **Consolidación posterior completada:** [cierre técnico local](CIERRE_INSTITUCIONES_LOCAL.md)
 con Flutter893/13 opt-in omitidas, backend119 suites/1.470, panel95/95 y TypeScript/
@@ -443,32 +444,32 @@ solo reverse `43187`. Confirmar limpieza; si supervisor fue matado, no asumirla.
 No `docker system prune`, no borrar repos/carpetas amplias. No cerrar el entorno
 antes de guardar evidencia ni tocar el del compañero. El siguiente PC crea otro.
 
-## 8. Prompt del propietario — instituciones
+## 8. Prompt vigente del propietario — después de instituciones y reportes
 
 El compañero de OV-1 usa el prompt de TRABAJO_PARALELO.md, no este.
 
 ```text
-Soy el propietario. Instituciones T/C1-C4 tiene cierre técnico local y commits
-app6bab6be/API7ba93d7/lockbfce42e. Lee CIERRE_INSTITUCIONES_LOCAL.md,
+Soy el propietario. Instituciones T/C1-C4 y reportes MA-1R/R1–R4 tienen cierre
+local y están integrados en main. Lee CIERRE_INSTITUCIONES_LOCAL.md,
 ESTADO_Y_ORDEN_2026_10_17.md, ETAPAS_PENDIENTES.md y los AGENTS aplicables.
 Verifica ambos repositorios, status/rama/HEAD; no fuerces pull ni descartes cambios.
-PR app #5/API #8 ya integrados a main e679c50/388bb18; CI backend PR/main aprobado,
-Flutter analyze/102 dirigidas aprobados. Guarda la documentación pendiente en su
-rama separada antes de iniciar otra entrega desde main aprobado. No hagas push,
-merge adicional ni despliegue sin autorización; no repitas C2/C3/C4 por notas antiguas.
+Instituciones: PR app #5/API #8 (e679c50/388bb18). Reportes: PR app #6/API #9
+(21757a1/eef0d40), CI backend aprobado. Verifica el HEAD actual y crea una rama
+para el siguiente bloque desde main actualizado, preservando cambios locales.
+No hagas push/merge adicional ni despliegue sin autorización.
+No repitas C2/C3/C4 ni reportes R1–R4 por las instrucciones históricas.
 Mi compañero continúa OV-1: no edites su módulo ni CHECKPOINT_OV1.md.
-MA-1R/R1 ya tiene flujo inicial autorizado. R2 backend local implementada:
-lee docs/MA1R_REPORTES_PREGUNTAS.md y backend/docs/MA1R_R2_BACKEND.md del otro repo.
-121 suites/1.560 aprobadas; build/TypeScript correctos, SQL escrito pero no aplicado.
-R3 app/panel local lista: lee docs/MA1R_R3_APP_PANEL.md y acta homónima backend.
-32 dirigidas Flutter y109 ADMIN aprobadas; reportesVersion=1/legacy compatibles.
-Sigue R4: preparar PostgreSQL/HTTP Nest desechable y después el recorrido Android.
-No repitas R1 ni afirmes PostgreSQL/HTTP/Android probados para reportes: R4 pendiente.
-La cobertura MA-1 ya existe; no la reconstruyas ni inventes conteos de reportes.
-No retires ni publiques preguntas automáticamente por recibir reportes.
+Lee las actas MA1R_R4_VALIDACION_LOCAL.md de ambos repositorios:12/12 humanos,
+45/45 HTTP/PostgreSQL,121 suites/1567 backend,920 Flutter/13 opt-in omitidas,
+109 ADMIN y build/análisis aprobados. SQL solo en bases temporales.
+El siguiente bloque recomendado es C5: auditar los recursos/fotos/archivos existentes,
+definir permisos, límites, metadatos y persistencia; no reconstruir el logo C2.
+Antes de implementar, confirmar el alcance de C5 con el propietario. Proveedor,
+credenciales y operaciones remotas requieren autorización; no inventar carga real.
+UX1 Ocultar/Deshacer sigue propuesta separada. P5/D3 y QA-1 conservan sus pendientes.
 Coordina schema/migraciones/app.module/navegación/locks antes de tocar archivos
-compartidos. No repetir R2/R3 ni instituciones: documentar cada resultado real de R4.
-No necesitas servicios para escribir/revisar las pruebas; avisar antes de ejecutar
+compartidos. Documentar cada resultado real del nuevo bloque en su acta.
+No necesitas servicios para auditar documentos/contratos; avisar antes de ejecutar
 la integración con DB o pedir el celular para el recorrido físico.
 Cuando toque un ensayo real usa base local desechable y cuentas ficticias;
 verifica servicios, USB de datos/depuración/pantalla desbloqueada y APK aislada.

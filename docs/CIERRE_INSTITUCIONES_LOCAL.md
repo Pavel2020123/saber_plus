@@ -104,7 +104,7 @@ coordinado por repo más lockfile separado. Consultar hashes con
    No ensayos destructivos, carga ni datos ficticios masivos en producción sin permiso.
 
 Siguiente del propietario: guardar/publicar por separado la documentación pendiente
-y confirmar el siguiente bloque propuesto, MA-1R reportes de preguntas, según el
+y consultar el siguiente bloque vigente, C5; MA-1R ya está integrado según el
 [orden del 17](ESTADO_Y_ORDEN_2026_10_17.md) y el [roadmap](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
 P5/D3 continúan pausadas; OV-1 sigue con el compañero. No abrir automáticamente
 rankings, insignias, monetización, diseño final o servicios remotos por este cierre.

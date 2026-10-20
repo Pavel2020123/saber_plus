@@ -1,11 +1,11 @@
 # MA-1 — Cobertura básica del banco
 
-**17 de octubre, continuación propuesta:** tras el cierre institucional local,
-completar reportes académicos MA-1R, sin rehacer conteos/pestaña existentes.
-Ver [R1–R4 y decisiones pendientes](ESTADO_Y_ORDEN_2026_10_17.md).
-R1/flujo autorizados y [R2 backend local implementada](MA1R_REPORTES_PREGUNTAS.md),
-121 suites/1.560 aprobadas. [R3 app/panel local](MA1R_R3_APP_PANEL.md),18 de octubre:
-32 dirigidas Flutter/109 ADMIN aprobadas. Sigue R4 integración real; no se cierra MA-1.
+**19 de octubre, estado vigente:** cobertura y reportes MA-1R/R1–R4 cerrados
+localmente e integrados en main por PR app #6/backend #9. El ensayo confirmó
+que resolver un reporte reduce el conteo abierto sin cambiar preguntas ni XP.
+[Acta R4](MA1R_R4_VALIDACION_LOCAL.md):12/12 humanos,45/45 HTTP/PostgreSQL y regresiones.
+CI backend del PR aprobado; staging/despliegue y operación siguen pendientes.
+[Orden restante](ESTADO_Y_ORDEN_2026_10_17.md): preparación local C5.
 
 Entrega local: 24 de septiembre de 2026. Cambios funcionales en el repositorio
 SaberPlus-Backend; en Flutter solo se actualiza la documentación.
@@ -24,8 +24,9 @@ Panel legacy conserva false/null; el consumidor R3 ya pide reportesVersion=1 y
 valida abiertos/preguntas distintas. Solo un400 al opt-in permite reconsulta legacy,
 no una falla DB/red. La bandeja Reportes permite revisar sin publicar/retirar contenido.
 Sin ese parámetro no se inventa cero ni se consulta el modelo nuevo.
-También faltan revisión visual y ensayo con servicio real. No hubo despliegue,
-migración en Supabase ni cambios en anuncios/comodines.
+Revisión visual del flujo de reportes/cobertura con API local real confirmada en R4.
+Falta ensayo del entorno desplegado P5/D3. No hubo migración en Supabase ni
+cambios en anuncios/comodines.
 
 ## Cómo probar la demo
 
@@ -39,7 +40,7 @@ volver y actualizar para comprobar los conteos. La demo utiliza registros reales
 en memoria (puede empezar en cero), no números ilustrativos del catálogo.
 Los cambios de demo no llegan a Supabase y se pierden al reiniciar.
 
-## Verificación
+## Verificación original del24 de septiembre
 
 - Backend: compilación aprobada; 827 pruebas Jest en 83 suites.
 - PostgreSQL temporal aislado: 4 pruebas de cobertura aprobadas.

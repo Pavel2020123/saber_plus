@@ -4,8 +4,9 @@
 y [checkpoint](MA1R_REPORTES_PREGUNTAS.md).12/12 humanos y45/45 integradas aprobadas;
 regresiones backend121/1567 tras fix de concurrencia, Flutter920/13 opt-in omitidas, ADMIN109/build/análisis.
 APK reinstalada y remate confirmado por propietario: R4 cerrada localmente.
-Código guardado en app `418c291` y backend `a747c32`; documentación separada.
-Sigue push manual del propietario y PR/CI; no repetir12 ni preparar APK
+Integrado en main por PR app #6/API #9 (21757a1/eef0d40), CI backend del PR aprobado.
+QA-1 Flutter remoto pendiente. Siguiente bloque recomendado: preparación local C5;
+no implementar ni activar storage real sin revisar permisos/alcance. No repetir12 ni preparar APK
 otra vez por estas notas. Sesiones anteriores limpiadas, remate en otra temporal:
 no asumir servicios activos/credenciales válidas. Sin push/merge/despliegue automático.
 OV-1 sigue siendo el frente independiente del compañero. Prompts inferiores históricos.

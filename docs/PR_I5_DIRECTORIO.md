@@ -2,8 +2,10 @@
 
 Actualizado: 17 de octubre de 2026. **Contrato vigente T4:** filtros por nombre,
 departamento y municipio; lista/detalle incluyen ubicación oficial opcional.
-T5, C1/C2/C3 y C4-C ya tienen cobertura local; sigue consolidación integrada
-institucional, no despliegue. [Acta C4 y evidencia mixta](PR_I5_C4_CODIGO.md).
+T5, C1/C2/C3 y C4-C ya tienen cobertura local y consolidación integrada a main
+por PR app #5/API #8. [Acta C4 y evidencia mixta](PR_I5_C4_CODIGO.md).
+Actualización del19: MA-1R posterior también integrada (PR app #6/API #9);
+sigue preparación C5 según [orden vigente](ESTADO_Y_ORDEN_2026_10_17.md), sin despliegue.
 Los apartados PR-I5A/B
 conservan su alcance histórico anterior a T4, no limitan el contrato actual.
 
@@ -118,4 +120,5 @@ Leer primero [ETAPAS_PENDIENTES](ETAPAS_PENDIENTES.md) y descargar ambos repos.
 No reiniciar la batería de Rescate ni asumir servicios vivos desde su acta.
 Las pruebas Jest usan dobles de base de datos; el script local posterior usa
 PostgreSQL real y el recorrido físico tiene confirmación del usuario. Mantener
-esas evidencias separadas. Siguiente del propietario: PR-I5-C2C. Compañero: OV-1A en paralelo.
+esas evidencias separadas. En ese checkpoint seguía C2C; ya fue cerrada después,
+según consolidación superior. Compañero OV-1 continúa en paralelo.

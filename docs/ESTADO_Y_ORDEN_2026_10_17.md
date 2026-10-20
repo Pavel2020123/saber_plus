@@ -3,17 +3,19 @@
 **Actualización vigente del19:** [MA-1R/R4](MA1R_R4_VALIDACION_LOCAL.md) con12/12
 humanos y45/45 PostgreSQL/HTTP, Flutter920/13 opt-in omitidas, backend121/1567 tras fix de concurrencia,
 ADMIN109 y build/análisis aprobados. Remate Android confirmado: R4 cerrada
-localmente; código guardado en app `418c291` y backend `a747c32`, documentación
-en commits separados. Sigue push manual y PR/CI. OV-1 separado,
+localmente e integrada a main por [app PR #6](https://github.com/Pavel2020123/saber_plus/pull/6)
+(`21757a1`) y [backend PR #9](https://github.com/Pavel2020123/SaberPlus-Backend/pull/9)
+(`eef0d40`). CI backend del PR aprobado; QA-1 Flutter remoto pendiente. Sigue C5,
+archivos generales, con preparación local. OV-1 separado,
 sin despliegue ni nuevas autorizaciones remotas. Notas del17/18 son antecedentes.
 
 Vista de coordinación; no sustituye el inventario único de
 [ETAPAS_PENDIENTES](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
 Auditoría de documentación activa de planificación/relevo, con comprobación
 acotada de MA-1 en código. No es auditoría funcional completa de los dos proyectos.
-La auditoría inicial fue documental. Las actualizaciones posteriores registran
-R2 backend y [R3 app/panel locales](MA1R_R3_APP_PANEL.md),18 de octubre;
-no hubo integración ni despliegue de MA-1R.
+La auditoría inicial del17 fue documental. Las entregas posteriores registran
+R2 backend, [R3 app/panel](MA1R_R3_APP_PANEL.md), validación R4 e integración
+Git del19. No se desplegó MA-1R ni se aplicó SQL remoto en esta entrega.
 
 ## Qué terminó y qué significa
 
@@ -51,11 +53,11 @@ no hubo integración ni despliegue de MA-1R.
 su entrega en estos clones. No cambiar su código ni su CHECKPOINT_OV1, no asignarle
 perfiles/insignias automáticamente y no afirmar que terminó alguna fase.
 
-**Propietario: MA-1R, reportes de preguntas y cobertura.** R1/flujo inicial
-autorizados y R2 backend local implementada,121 suites/1.560 aprobadas; build/TS correctos.
-[Checkpoint](MA1R_REPORTES_PREGUNTAS.md): R3 app/panel local,32 dirigidas Flutter
-y109 ADMIN aprobadas; R4 integración pendiente;
-SQL sin aplicar, sin despliegue, independiente de OV-1/P5/D3.
+**Propietario: MA-1R completada localmente e integrada.** R1–R4 y su evidencia en
+[checkpoint](MA1R_REPORTES_PREGUNTAS.md):12/12 humanos,45/45 HTTP/PostgreSQL,
+backend121 suites/1567, Flutter920/13 opt-in omitidas, ADMIN109 y análisis/build.
+PR app #6/backend #9 integrados; CI backend del PR aprobado. Solo SQL temporal,
+sin despliegue, independiente de OV-1/P5/D3. Sigue preparación local C5.
 
 Antes de nueva implementación: guardar/publicar por separado esta documentación
 pendiente y crear rama del nuevo bloque desde main aprobado. No mezclar el próximo módulo con la entrega
@@ -67,7 +69,7 @@ al compañero antes de tocar schema.prisma, app.module, navegación, sesión o l
 | Paso | Bloque | Qué falta sin rehacer lo existente |
 |---|---|---|
 |0 | Entrega institucional — completada | PR app #5 y backend #8 integrados en main; CI backend del PR y de main aprobado, análisis Flutter/102 pruebas dirigidas aprobados. QA-1 Flutter remoto pendiente. Sin despliegue; no repetir C2/C3/C4. |
-|1 | MA-1R — Reportes académicos | R1–R3 locales; R4 en curso,67 migraciones solo DB temporal y6/12 humanos completos, caso7 listado Pendiente confirmado. Falta resto/suite específica. Propuesta posterior [UX1 Ocultar/Deshacer](MA1R_UX1_OCULTAR_DESHACER.md), no implementada ni borrado ADMIN. Sin despliegue/migración remota. |
+|1 | MA-1R — Reportes académicos — completada en esta fase | R1–R4 cerradas localmente e integradas en main por PR app #6/API #9;12/12 humanos,45/45 HTTP/PostgreSQL y regresiones en acta R4. CI backend del PR aprobado. Sin despliegue/migración remota; staging y operación pendientes. [UX1 Ocultar/Deshacer](MA1R_UX1_OCULTAR_DESHACER.md) sigue propuesta separada, no implementada. |
 |2 | C5 — Archivos generales | Persistencia y permisos de imágenes/recursos/fotos/evidencia privada, límites, metadatos/licencias. Preparación local primero; proveedor y operación real requieren autorización. |
 |3 | Académico/profesor/ADMIN | P5→D3 cuando se autoricen; catálogo versionado C4 editorial y versiones/restauración C6. Ensayos de mapa MA-2, repaso MA-3, contratos de intentos/AM-PM/historial y seis certificados. Contenido7J se prepara durante el bloque, no solo al final. |
 |4 | PR-I3/PR-I4 — Insignias/perfiles | Concesión anual idempotente, historial/correcciones; TOP50 y todas las ganadas, sin límite3. Avatar/foto, alias, búsqueda/visita y privacidad. No conceder premios de modalidades competitivas no validadas. |
@@ -84,7 +86,7 @@ El orden se puede ajustar por dependencias explícitas, no eliminando funciones.
 P5/D3 siguen pausadas: no pedir nuevas credenciales ni desplegar por leer esta tabla.
 El segundo reparto tras OV-1 sigue siendo propuesta, no asignación vigente.
 
-## Bloque vigente: MA-1R, sigue R4
+## MA-1R integrada: no reiniciar R4
 
 Evidencia actual: [Cobertura](COBERTURA_DEL_BANCO.md) y `backend/BANK_COVERAGE.md`;
 `backend/src/admin/bank-coverage.service.ts` conserva por defecto
@@ -102,8 +104,9 @@ inventados ni confundir reportes de rivales con reportes de preguntas.
 4. **R4 — Validación:** unitarias, PostgreSQL/HTTP y recorrido físico, separados en
    acta. Solo después cerrar reportes y dejar ensayo de staging identificado.
 
-R1: auditoría/flujo autorizados. R2 implementada/probada localmente, migración no aplicada.
-[R3 app/panel](MA1R_R3_APP_PANEL.md) implementada/probada localmente; sigue R4.
+R1–R4 completadas localmente, migración aplicada solo a bases temporales.
+[R3 app/panel](MA1R_R3_APP_PANEL.md) y [R4](MA1R_R4_VALIDACION_LOCAL.md)
+integradas en main por los PR superiores. Próximo bloque recomendado: C5.
 No requiere cambiar intereses vocacionales,
 monetización, juegos ni permisos docentes. Si comparte schema/rutas base con OV-1,
 coordinar migraciones/archivos antes de editar.

@@ -1,5 +1,9 @@
 # MA-1R / R3 — App y panel de reportes académicos
 
+**Continuación del19:** R1–R4 cerradas localmente e integradas a main por PR app #6/API #9
+(21757a1/eef0d40); CI backend del PR aprobado. [Acta R4](MA1R_R4_VALIDACION_LOCAL.md).
+El estado del18 siguiente es histórico; no significa que falte integrar esta entrega.
+
 Actualización: **18 de octubre de 2026**. Implementación local en ambos repositorios,
 rama `feat/ma1r-reportes-preguntas`. Sin commit, push, merge ni despliegue de R1–R3.
 La base documental previa sigue siendo una dependencia de integración separada.

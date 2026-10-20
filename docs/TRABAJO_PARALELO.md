@@ -8,7 +8,7 @@ instituciones. No cambia las reglas de producto ni declara etapas terminadas.
 
 | Equipo | Responsabilidad | Por dónde empezar |
 |---|---|---|
-| Propietario y su asistente | Instituciones integradas; MA-1R/R1–R3 locales | [Reportes](MA1R_REPORTES_PREGUNTAS.md): R1 autorizada, R2 backend121 suites/1.560 y build; R3:32 dirigidas Flutter/109 ADMIN aprobadas. SQL no aplicado; sigue R4 PostgreSQL/Nest/Android. Rama feat/ma1r-reportes-preguntas desde base documental, pendiente de integrar por PR. No modificar OV-1. |
+| Propietario y su asistente | Instituciones y MA-1R/R1–R4 integradas en main | [Reportes](MA1R_REPORTES_PREGUNTAS.md): cierre local12/12 humanos,45/45 HTTP/PostgreSQL y regresiones; PR app #6/API #9 integrados, CI backend del PR aprobado. Sigue preparación local C5 al autorizar implementación. SQL solo temporal, sin despliegue. No modificar OV-1. |
 | Compañero y su asistente | OV-1: test de intereses vocacionales, Flutter y backend necesarios | En curso según el propietario; sin entrega nueva verificada aquí. Seguir su checkpoint para A contenido/reglas → B persistencia → C cliente → D validación, no reiniciar trabajo ya documentado en su rama. |
 
 El compañero no tiene que esperar a que termine C2C. El propietario no asume

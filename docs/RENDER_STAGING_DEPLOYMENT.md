@@ -20,8 +20,9 @@ es persistente. Por eso:
 - la primera solicitud despues de una pausa puede tardar;
 - las conexiones WebSocket pueden interrumpirse durante una suspension o un
   despliegue y el cliente debe reconectarse;
-- los archivos guardados en `/uploads` pueden perderse; los logos definitivos
-  se moveran a Supabase Storage antes de produccion;
+- los archivos guardados en `/uploads` pueden perderse. C2 ya implementa logos
+  institucionales acotados en PostgreSQL; C5 definirá archivos generales y su
+  proveedor persistente. No migrar logos automáticamente por esta guía histórica;
 - el correo SMTP no se probara en el plan gratuito, que bloquea los puertos SMTP
   habituales. Mas adelante se usara un proveedor con API HTTPS o un servidor
   compatible;
@@ -34,17 +35,19 @@ describe un servicio Node en la region Ohio, cercana al proyecto actual de
 Supabase. Fija una version exacta de Node, compila NestJS, inicia
 `npm run start:prod` y comprueba `/health/ready`.
 
-Antes de crear el servicio, confirmar que estos cambios ya esten en GitHub:
+El servicio ya tuvo configuración inicial. Antes de un despliegue autorizado,
+confirmar que el PR correspondiente está integrado y revisar main sin cambios locales:
 
 ```powershell
-cd "C:\Users\LENOVO 14ALC6\Desktop\SaberPLus\SaberPlus-Backend"
-git add render.yaml backend
-git commit -m "feat: crear backend oficial de SaberPlus"
-git push origin main
+cd "C:\Users\LENOVO 14ALC6\Desktop\SaberPlus-Backend"
+git status --short
+git fetch origin
+git log -5 --oneline origin/main
 ```
 
-Si la rama del equipo no es `main`, se reemplaza solamente el ultimo comando y
-se elige esa misma rama en Render.
+Los cambios nuevos se preparan en una rama y se revisan mediante PR a main en cada
+repositorio. Publicar una rama o integrar un PR no valida ni autoriza por sí solo
+desplegarla. Confirmar la rama del servicio antes de operar Render.
 
 ## 2. Crear el Blueprint
 
