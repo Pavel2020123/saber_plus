@@ -4,6 +4,15 @@ Documento de incorporación al proyecto. Revisión: 23 de septiembre de 2026.
 Describe la organización del código local, no certifica que todas las funciones
 estén desplegadas o aprobadas para producción.
 
+**Actualización del19 de octubre:** se conserva esta arquitectura. Instituciones y
+reportes académicos están integrados en main; contratos/estados vigentes en
+[etapas](ETAPAS_PENDIENTES.md) y [acta MA-1R](MA1R_R4_VALIDACION_LOCAL.md).
+El módulo Flutter `lib/features/question_reports/` separa dominio, repositorio remoto
+y presentación. La API usa `backend/src/question-reports/` con controladores, DTO,
+servicio transaccional y Prisma; el panel consume esos endpoints desde
+`admin/public/question-reports.mjs`. Los reportes no alteran calificación ni XP.
+Las bases temporales PostgreSQL de prueba se distinguen del servicio remoto Supabase.
+
 ## 1. ¿Qué arquitectura usamos?
 
 **Flutter usa una arquitectura por funcionalidades y capas, inspirada en Clean

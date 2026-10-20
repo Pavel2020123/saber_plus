@@ -84,8 +84,9 @@ Validación local: 14 pruebas seleccionadas (mapa, modelos de estudio y reposito
 remoto). Incluyen rutas, contenido retirado, texto grande, cierre de sesión,
 contrato y reintento. No equivale a pruebas físicas o ensayo panel/API/app real.
 No se modificó el backend ni se desplegó/migró Supabase durante MA-2C.
-MA-3 también se entregó localmente; sigue PR-I1. P5/D3, revisión visual física
-y animaciones siguen pendientes/pausadas.
+MA-3 también se entregó localmente; PR-I1 ya está integrado. El ensayo del mapa
+panel/API/app permanece pendiente. Seguir el [orden vigente](ESTADO_Y_ORDEN_2026_10_17.md);
+P5/D3 y animaciones conservan sus etapas separadas.
 
 ### Alcance original de MA-2C (referencia)
 

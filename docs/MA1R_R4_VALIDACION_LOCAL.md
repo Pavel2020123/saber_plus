@@ -2,15 +2,23 @@
 
 **Seguimiento del18–19 de octubre de2026. R4 cerrada localmente el19.**
 [R3 implementada](MA1R_R3_APP_PANEL.md), [checkpoint maestro](MA1R_REPORTES_PREGUNTAS.md).
-OV-1 sigue separado. Sin push/merge/despliegue ni cambios en producción.
+OV-1 sigue separado. Integración Git confirmada abajo, sin despliegue ni cambios en producción.
 
-## Entrega Git autorizada el19 de octubre
+## Entrega Git integrada el19 de octubre
 
 Commits funcionales locales: Flutter `418c291`, backend/panel `a747c32`.
-Las actas y checkpoints se guardan en commits documentales posteriores separados.
-Rama en ambos: `feat/ma1r-reportes-preguntas`. Push manual del propietario pendiente;
-no PR/CI remoto ejecutado ni integración en main por esta entrega.
-Este registro sustituye las instrucciones anteriores de esperar para crear commits.
+Documentación guardada en Flutter `0a622e6` y backend `6a74f55`.
+Rama de entrega: `feat/ma1r-reportes-preguntas`. Push comprobado e integración
+autorizada por el propietario: [app PR #6](https://github.com/Pavel2020123/saber_plus/pull/6)
+como `21757a1`, [backend PR #9](https://github.com/Pavel2020123/SaberPlus-Backend/pull/9)
+como `eef0d40`. [CI backend del PR](https://github.com/Pavel2020123/SaberPlus-Backend/actions/runs/39321480923)
+aprobado: admin/verify, instalación, build, pruebas, controles locales y auditoría.
+[CI posterior de main](https://github.com/Pavel2020123/SaberPlus-Backend/actions/runs/39321700998)
+también aprobado para el merge backend `eef0d40`.
+No hay workflow Flutter remoto: QA-1 pendiente, conservar evidencia local sin
+presentarla como CI. Esta integración no ejecuta ni autoriza migraciones/despliegues
+remotos. Siguiente bloque recomendado: preparación local C5, archivos generales.
+Este registro sustituye las esperas para crear commits/publicar/integrar de las notas anteriores.
 
 ## Cierre local del19: remate visual confirmado
 
@@ -34,8 +42,8 @@ enviarlo, volvió con la flecha superior y reabrió la misma pregunta: «si sigu
 apareciendo». La APK instalada conserva el borrador sin botón redundante.
 Es regresión del ajuste del caso8, no caso humano13 ni repetición de12.
 **R4 cerrada localmente** con12/12 humanos,45/45 integradas repetidas tras fix y
-regresiones indicadas abajo. Siguiente: push manual de ambos repositorios y revisión
-por PR/CI. Los commits locales están registrados arriba; sin merge ni despliegue.
+regresiones indicadas abajo. Entrega Git integrada según el registro superior;
+quedan staging/operación y QA-1 separados, sin despliegue efectuado en esta tarea.
 
 ## Pruebas automáticas del19: aprobadas
 

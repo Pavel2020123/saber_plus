@@ -1,8 +1,8 @@
 # Orientación por intereses y filtros territoriales
 
-**Trabajo paralelo vigente del17:** propietario cerró instituciones locales;
-ya integradas a main por PR app #5/API #8, CI backend aprobado; sigue MA-1R
-propuesto. Compañero continúa OV-1 sin entrega
+**Trabajo paralelo vigente del19:** propietario cerró instituciones locales,
+integradas a main por PR app #5/API #8, y reportes MA-1R/R1–R4 por PR app #6/API #9.
+CI backend del PR aprobado; sigue preparación local C5. Compañero continúa OV-1 sin entrega
 verificada nueva; no se modifica su checkpoint ni se asume cierre A/B/C/D.
 Ver [responsables, ramas y entrega](TRABAJO_PARALELO.md). Este acuerdo sustituye
 la secuencia estricta de OV-1 y el trabajo individual directo en main.

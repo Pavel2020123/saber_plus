@@ -5,11 +5,15 @@ HTTP/PostgreSQL aisladas repetidas tras fix de concurrencia aprobadas; Flutter92
 opt-in omitidas, backend121 suites/1567, ADMIN109, build/TypeScript y análisis
 correctos. [Acta y límites](docs/MA1R_R4_VALIDACION_LOCAL.md).
 Retirada del botón y borrador con flecha confirmados: **R4 cerrada localmente**.
-Código guardado en app `418c291` y backend `a747c32`; documentación en commit separado.
-Push manual del propietario y PR/CI pendientes. Sesiones anteriores limpiadas; remate en otra sesión
-temporal, no asumir que sigue activa. Sin despliegue,
-sin push/merge y OV-1 separado. Las entradas anteriores inferiores son
+**Integrado en main:** [app PR #6](https://github.com/Pavel2020123/saber_plus/pull/6)
+(`21757a1`) y [backend PR #9](https://github.com/Pavel2020123/SaberPlus-Backend/pull/9)
+(`eef0d40`). CI backend del PR aprobado; no hay CI Flutter remoto todavía (QA-1).
+Siguiente bloque recomendado: C5, archivos generales. Sesiones anteriores limpiadas; remate en otra sesión
+temporal, no asumir que sigue activa. Sin despliegue.
+OV-1 separado. Las entradas anteriores inferiores son
 antecedentes, no instrucciones para repetir las12 pruebas ni reutilizar claves.
+
+[Documentación conciliada y guía para compañeros](docs/AUDITORIA_DOCUMENTAL_2026_10_19.md).
 
 **18 de octubre — MA-1R/R3 app y panel locales:** [entrega y pruebas](docs/MA1R_R3_APP_PANEL.md),
 [checkpoint de reportes](docs/MA1R_REPORTES_PREGUNTAS.md).
@@ -227,6 +231,12 @@ flutter run
 ```
 
 La aplicación inicia en modo demostración para poder revisar navegación y diseño sin enviar credenciales a un servidor.
+
+Para obtener esta entrega, guardar primero los cambios propios, ejecutar
+`git switch main` y `git pull --ff-only origin main` en ambos repositorios.
+`flutter run` permite ver la demo, pero no levanta el backend ni configura la API:
+reportes, permisos y persistencia reales requieren servicios activos y configuración
+del entorno de prueba. No copiar credenciales temporales ni usar cuentas reales en demo.
 
 La interfaz inicia con fondo blanco y permite que el estudiante elija modo claro, oscuro o automático según el dispositivo desde `Más > Preferencias`.
 

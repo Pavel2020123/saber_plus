@@ -7,7 +7,8 @@ Selector explícito, modalidad confirmada/persistida, recuperación y ranking.
 62 tests dirigidos Flutter y32 backend aprobados; HTTP/SQL local confirma victoria
 competitiva100 única y normal sin evento. Recorrido Android/API/SQL aprobado:
 recuperación/red, parcial2 estrellas/+20 y dos abandonos100→90→80; ver límites
-y pendientes operativos en el acta. Después: instituciones, no otro juego.
+y pendientes operativos en el acta. La continuación institucional ya está integrada;
+seguir el [orden actualizado](ESTADO_Y_ORDEN_2026_10_17.md), no reiniciarla.
 El texto JN-2 inferior describe el antecedente normal, que no concede XP competitivo.
 
 ## Estado: JN-2A/B/C implementadas localmente; pendiente ensayo real

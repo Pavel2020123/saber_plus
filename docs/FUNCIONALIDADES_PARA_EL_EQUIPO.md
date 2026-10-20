@@ -1,6 +1,6 @@
 # SaberPlus — funcionalidades y estado para el equipo
 
-Actualizado: 17 de octubre de 2026. Resumen documental, no auditoría integral
+Actualizado: 19 de octubre de 2026. Resumen documental, no auditoría integral
 nueva del código. Orden y estados detallados en [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md).
 
 ## Qué estamos construyendo
@@ -252,9 +252,18 @@ de aquello que todavía no tiene un contrato de sincronización.
 - Guardar contenido/pregunta válido publica directamente con autorización;
   no hay bandeja de revisión obligatoria. Archivado sin cascadas.
 - Editor de lecciones por bloques, cobertura por subtema y editor del mapa de bases.
-  Reportes académicos en cobertura aún pendientes MA-1.
+  Reportes académicos integrados con cobertura: conteo de abiertos y preguntas
+  distintas afectadas por subtema, con compatibilidad para servidores anteriores.
 - Eliminación confirmada de temas/subtemas vacíos nunca publicados ni usados.
 - Protección contra ediciones simultáneas mediante revisión y bloqueos del servidor.
+
+El estudiante puede reportar una pregunta después de responderla en los modos
+admitidos, indicar motivo/detalle y consultar sus reportes desde Más. El formulario
+conserva el borrador al volver dentro de la sesión. La bandeja ADMIN permite revisar
+y resolver cada reporte con motivo y control de versión, sin cambiar automáticamente
+la pregunta ni el XP. Reintentos y recibos evitan duplicar operaciones.
+MA-1R/R1–R4 tiene cierre local e integración a main (PR app #6/API #9);
+la validación no acredita despliegue. Ocultar reportes con Deshacer sigue pendiente UX1.
 
 No es un detector semántico/OCR de toda pregunta parecida. El panel aún no ofrece
 subida persistente de imágenes a Supabase Storage, imágenes dentro de opciones,
@@ -286,15 +295,16 @@ desplegar ese retiro en Render; las tablas históricas se conservan.
 
 **Propietario: instituciones cerradas localmente e integradas a main (PR app #5/API #8).**
 CI backend del PR/main y análisis/102 pruebas dirigidas Flutter aprobados; sin despliegue.
-Siguiente recomendado, no iniciado: MA-1R, reportes de preguntas integrados con la
-cobertura existente. **Compañero: OV-1A/B/C/D en curso según el propietario**, sin
+MA-1R/R1–R4 también cerrada localmente e integrada en main por PR app #6/API #9,
+CI backend del PR aprobado. Siguiente recomendado: preparación local C5, archivos
+generales. **Compañero: OV-1A/B/C/D en curso según el propietario**, sin
 entrega nueva verificada aquí. [Orden completo](ESTADO_Y_ORDEN_2026_10_17.md).
 Cima/Guardián/Rescate tienen validación local acotada; otras integraciones
 competitivas aplazadas. I2-5 mantiene cierre operativo/QA-1, no repetir por ello
 el recorrido aprobado. C2 específico no cierra C5 general. Ver TRABAJO_PARALELO.md.
 MA-2/3 locales no se rehacen. P5/D3 siguen pausadas. El orden vigente está en
 [ETAPAS_PENDIENTES](ETAPAS_PENDIENTES.md); no se acreditan despliegues.
-No desaparecen MA-1 reportes, C4/C5/C6, identidad/seguridad, contratos académicos,
+Se conservan los pendientes operativos de reportes, C4/C5/C6, identidad/seguridad, contratos académicos,
 ensayos de certificados/juegos, monetización, acabado azul/animaciones y publicación.
 
 El listado íntegro sigue en [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md).

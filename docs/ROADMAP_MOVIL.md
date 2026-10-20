@@ -16,10 +16,11 @@ CI backend PR/main aprobado y análisis/102 dirigidas Flutter aprobados, sin des
 OV-1 en curso con el compañero, sin entrega recibida.
 La vista actual del orden y próximo recomendado es
 [ESTADO_Y_ORDEN_2026_10_17](ESTADO_Y_ORDEN_2026_10_17.md).
-MA-1R/R1 autorizada y [R2 backend local](MA1R_REPORTES_PREGUNTAS.md) implementada/
-probada (121 suites/1.560), build correcto. [R3 UI local](MA1R_R3_APP_PANEL.md),18 de octubre:
-32 dirigidas Flutter/109 ADMIN aprobadas. Sigue R4 integración real;
-la nota del9 siguiente es histórica.
+**19 de octubre:** [MA-1R/R1–R4](MA1R_REPORTES_PREGUNTAS.md) cerrada localmente e
+integrada en main por PR app #6/API #9 (21757a1/eef0d40). CI backend del PR aprobado;
+QA-1 Flutter remoto pendiente. [Evidencia R4](MA1R_R4_VALIDACION_LOCAL.md):12/12
+humanos,45/45 HTTP/PostgreSQL y regresiones. Sigue preparación local C5.
+Sin SQL remoto/despliegue; la nota del9 siguiente es histórica.
 
 Actualizado al 9 de octubre de 2026. [Alcance de noviembre](ALCANCE_V1_NOVIEMBRE_2026.md):
 competición inicial Cima/Guardián/Rescate; después de Rescate, instituciones.
@@ -77,9 +78,10 @@ JN-1A demo, JN-1B backend y JN-1C cliente listos localmente. JN-2A demo de
 JN-2B backend implementado localmente el 23 de septiembre y JN-2C cliente remoto el 24;
 falta ensayo real. JN-4 [Escudo](ESCUDO_DEL_CONOCIMIENTO.md) tuvo entregas A/B/C,
 pero fue retirado el 27: no es juego pendiente de despliegue ni desarrollo.
-MA-1 [cobertura básica](COBERTURA_DEL_BANCO.md) implementada localmente, con reportes
-académicos y ensayo real pendientes; MA-2A/B/C y MA-3A/B/C locales listas, sigue PR-I1 según
-SABI_Y_JUEGOS_APROBADOS.md. [Duelo fantasma con Sabi](SABI_DUELO_FANTASMA.md)
+MA-1 [cobertura y reportes](COBERTURA_DEL_BANCO.md) cerrados localmente e integrados
+en main según actualización del19; quedan staging/operación. MA-2A/B/C y MA-3A/B/C
+locales listas, con ensayos reales pendientes; PR-I1 ya está integrado.
+[Duelo fantasma con Sabi](SABI_DUELO_FANTASMA.md)
 queda pausado; se conserva su prototipo sin darlo por arte final.
 
 Prioridad acordada el 12 de septiembre: cerrar el módulo del profesor **P1–P5
