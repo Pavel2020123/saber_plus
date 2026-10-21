@@ -15,7 +15,7 @@ base de trabajo y no certifica publicación remota del relevo.
 
 | Equipo | Responsabilidad | Por dónde empezar |
 |---|---|---|
-| Propietario y su asistente | Instituciones y MA-1R integradas; C5-A/B/C1 y C2-A/B/C validadas localmente | Push hasta C2-B app `c69a5e9`/backend `e1c4d18`. [C2-C automática](C5C2C_CONSUMIDORES.md) sin commit/push nuevos; sigue C2-D Android,0/8 guiones humanos. Carga apagada por defecto, opt-in solo en ensayo propio. Resto C5-C/D abierto. Rama feat/c5-archivos-base; conciliar archivos compartidos con OV-1; sin merge ni despliegue. |
+| Propietario / nuevo compañero C2 | Instituciones y MA-1R integradas; C5-A/B/C1 y C2-A/B/C validadas localmente e integradas en main local | Entrega app `e833d6b`/backend `cfba7cd`; merges `f912880`/`09c763b`. Sin push nuevo. [C2-C automática](C5C2C_CONSUMIDORES.md); sigue C2-D Android,0/8 humanos con D8a–e. [Relevo propio](RELEVO_C5_C2.md), nueva rama para correcciones. Carga apagada por defecto; resto C5 abierto, sin despliegue ni cambios OV-1. |
 | Compañero y su asistente | OV-1: test de intereses vocacionales, Flutter y backend necesarios | En curso según el propietario; sin entrega nueva verificada aquí. Seguir su checkpoint para A contenido/reglas → B persistencia → C cliente → D validación, no reiniciar trabajo ya documentado en su rama. |
 
 El compañero no tiene que esperar a que termine C2C. El propietario no asume

@@ -16,12 +16,12 @@ productivo ni vuelve a ejecutar las pruebas de las actas.
 cuentas/clave temporal, Docker/USB, auditoría y pruebas pendientes paso a paso.
 Puede corregir Flutter/API/panel de C2; quedan0/8 bloques humanos y D8a–e.
 
-El propietario trabaja en **C5 — archivos y recursos** desde la rama
-`feat/c5-archivos-base`. La entrega funcional A/B/C1 quedó guardada en los commits
-app `af73039` y backend `0bfaaba`; no está integrada en `main`. El push posterior
-app `c69a5e9` y backend `e1c4d18` ya publicó esa entrega y C2-A/B en la rama.
-C2-C está validada automáticamente, todavía sin commit/push. No hay merge ni
-despliegue. OV-1 sigue en el frente del compañero.
+**C5-A/B/C1 y C2-A/B/C integradas en main local** por autorización del propietario.
+Entrega C2-C/relevo: app `e833d6b`, backend `cfba7cd`; merges locales app `f912880`
+y backend `09c763b`. Sin push nuevo, CI remoto ni despliegue en este cierre.
+Publicar ambos main antes de pedir al nuevo compañero que actualice su PC;
+un push podría activar automatizaciones configuradas, no autoriza migraciones remotas.
+OV-1 sigue en su frente independiente.
 
 **C5-C1 completada localmente: cinco de cinco comprobaciones Android aprobadas.**
 Ya avanzó [C5-C2, imágenes en opciones](docs/C5C2_OPCIONES.md): base, panel y
@@ -201,7 +201,7 @@ aislado; no ejecutarlas contra una base real por copiar un comando histórico.
 
 ## Trabajo del equipo y etapas restantes
 
-- **Propietario:** C5-C1 cerrada, A/B/C1+C2-A/B publicadas en rama y [C2-C validada automáticamente](docs/C5C2C_CONSUMIDORES.md), sin commit/push nuevos. Sigue C2-D Android y resto C5-C/D. Sin merge ni despliegue.
+- **Propietario / nuevo compañero C2:** A/B/C1+C2-A/B/C integradas en main local; [C2-C validada automáticamente](docs/C5C2C_CONSUMIDORES.md). Sigue C2-D Android,0/8 humanos. Sin push nuevo ni despliegue. [Relevo](docs/RELEVO_C5_C2.md).
 - **Compañero:** OV-1 en su rama; revisar su checkpoint al recibir una entrega, sin asumir cambios no presentes en estos clones.
 - Cada frente puede modificar Flutter y backend cuando lo necesite. Coordinar esquema Prisma, migraciones, módulos, contratos y archivos compartidos.
 - Trabajar en ramas independientes y entregar mediante PR revisado a `main`. No descartar cambios propios para actualizar el repositorio ni hacer push, merge, migraciones o despliegues automáticos.

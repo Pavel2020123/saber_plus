@@ -6,9 +6,9 @@ romper JSON antiguo.969 Flutter aprobadas/16 opt-in omitidas,128 suites/1.675
 backend y44/44 PostgreSQL/HTTP;70 migraciones temporales, ninguna nueva de C2-C.
 **Sigue C2-D:0/8 guiones humanos propuestos**, con Docker/USB al preparar la sesión.
 Activación apagada por defecto; sin nuevo ensayo Android ni despliegue. C1 conserva5/5.
-Último push de C2-B: app `c69a5e9`, backend `e1c4d18`; C2-C aún sin commit/push.
+Entrega C2-C/relevo: app `e833d6b`, backend `cfba7cd`.
 Deuda ESLint previa:27 incidencias verificadas en HEAD, descritas en el acta.
-Rama `feat/c5-archivos-base`; sin merge a main ni cambios OV-1.
+Integrada en main local: app `f912880`/backend `09c763b`; sin push nuevo ni cambios OV-1.
 
 **20 de octubre, continuación vigente:** [C5-A/B](C5_ARCHIVOS.md) validadas localmente:
 23/23 PostgreSQL/HTTP, panel124/124, backend126/1650;69 migraciones solo temporales.
@@ -737,7 +737,7 @@ a main; compañero: OV-1A/B/C/D en paralelo, sin entrega verificada aquí**.
 Bloque actual del propietario: **[C5, archivos editoriales](C5_ARCHIVOS.md)**,
 A/backend, B/panel y C1 online validados localmente; C1 Android5/5 el21.
 Push hasta C2-B confirmado: app `c69a5e9`/backend `e1c4d18`.
-[C2-C validada automáticamente](C5C2C_CONSUMIDORES.md), sin commit/push nuevos;
+[C2-C validada automáticamente](C5C2C_CONSUMIDORES.md), guardada e integrada en main local;
 sigue C2-D Android,0/8 guiones humanos. Carga apagada por defecto;
 resto C5-C y D integración/operación abiertos. [Checkpoint de reportes](MA1R_REPORTES_PREGUNTAS.md)
 cerrado localmente e integrado, sin despliegue productivo. UX1 Ocultar/Deshacer
@@ -781,7 +781,7 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | 7F-C3-D2 — Legado | Herramientas locales; faltan revisión visual y operación de legado autorizada con respaldo. | No borrar ni reclasificar contenido usado; preparar D3. |
 | 7F-C3-D3 — Panel real | Conectar ADMIN a backend vigente y confirmar publicación/persistencia real. | **Pausada**, después de P5 y controles D2. Demo no cierra esta etapa. |
 | 7F-C4 — Catálogo | Versionado, altas/cambios/retiradas, caché y actualización en app preservando progreso/intentos. | Contrato editorial; D3 por sí sola no lo resuelve. |
-| 7F-C5 — Archivos | [A/B/C1 validadas](C5_ARCHIVOS.md), push hasta C2-B app `c69a5e9`/backend `e1c4d18`. [C2-C consumidores](C5C2C_CONSUMIDORES.md) validada automáticamente:44 integradas,70 migraciones temporales,128/1675 backend y969 Flutter/16 omitidas. Sigue C2-D Android; PDF/offline/histórico/fotos y D abiertos. | Sin merge o despliegue. Carga por opción apagada por defecto; opt-in solo en ensayo propio. Adaptador development/test; proveedor persistente requiere autorización. |
+| 7F-C5 — Archivos | [A/B/C1 y C2-A/B/C](C5_ARCHIVOS.md) integradas en main local; [C2-C](C5C2C_CONSUMIDORES.md) validada automáticamente:44 integradas,70 migraciones temporales,128/1675 backend y969 Flutter/16 omitidas. Sigue C2-D Android; PDF/offline/histórico/fotos y D abiertos. | Sin push nuevo ni despliegue. Carga por opción apagada por defecto; opt-in solo en ensayo propio. Adaptador development/test; proveedor persistente requiere autorización. |
 | 7F-C6 — Versiones | Auditoría de cambios, versiones y restauración sin reescribir preguntas ya respondidas. | Contratos editoriales y ensayo de recuperación. |
 | 7F-B3-B / 6F-P — Integración | Validar módulos móviles/juegos vigentes, Guardián/Cima/Rescate y multijugador real; diagnosticar audios en teléfono. | Migraciones/despliegue autorizado; no rehacer motores por estar sin desplegar. |
 | Bloque 7 — Identidad/seguridad | Auditar/completar sesión única, revocación/refresh, cuentas ADMIN, eliminación, SMTP/enlaces, contratos y privacidad. | Reutilizar lo existente; separar correcciones por flujo y probar permisos. |
@@ -800,7 +800,7 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 
 **Secuencia inmediata:** instituciones y MA-1R/R1–R4 integradas en main;
 continuar C2-D Android tras [C2-C validada automáticamente](C5C2C_CONSUMIDORES.md);
-A/B/C1+C2-A/B publicadas en rama, C2-C sin commit/push nuevos y
+A/B/C1+C2-A/B/C integradas en main local, sin push nuevo, y
 [C1 Android5/5](C5C_FLUTTER.md) conservada. Después resto C5-C/D. No repetir
 C2/C3/C4 por notas históricas. Compañero OV-1A → B/C/D en paralelo, sin asumir
 entregas no revisadas. Rescate y territorio ya validados localmente;
