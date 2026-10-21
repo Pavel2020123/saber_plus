@@ -8,7 +8,7 @@ instituciones. No cambia las reglas de producto ni declara etapas terminadas.
 
 | Equipo | Responsabilidad | Por dónde empezar |
 |---|---|---|
-| Propietario y su asistente | Instituciones y MA-1R integradas; C5-A/B/C1 validadas localmente | [C5-C1](C5C_FLUTTER.md) Android5/5,3 HTTP/PostgreSQL repetidas y57 dirigidas tras arreglo visual. Sigue consolidar código y C5-C2/opciones; resto C5-C/D abierto. Rama feat/c5-archivos-base. Conciliar schema/migraciones/app.module/CI con OV-1; sin merge/despliegue ni cambios en el frente del compañero. |
+| Propietario y su asistente | Instituciones y MA-1R integradas; C5-A/B/C1 y C2-A validadas localmente | A/B/C1 guardadas en af73039/0bfaaba; C2-A aún sin commit. [C2 opciones](C5C2_OPCIONES.md): base/permisos aprobados, sigue contrato/editor/panel y consumidores, sin habilitar aún carga por opción. Resto C5-C/D abierto. Rama feat/c5-archivos-base; conciliar schema/migraciones/app.module/CI con OV-1; sin push funcional, merge ni despliegue. |
 | Compañero y su asistente | OV-1: test de intereses vocacionales, Flutter y backend necesarios | En curso según el propietario; sin entrega nueva verificada aquí. Seguir su checkpoint para A contenido/reglas → B persistencia → C cliente → D validación, no reiniciar trabajo ya documentado en su rama. |
 
 El compañero no tiene que esperar a que termine C2C. El propietario no asume
