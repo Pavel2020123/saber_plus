@@ -1,5 +1,76 @@
 # C5-C1 — Lectura de imágenes editoriales en Flutter
 
+## Reanudación del 21 de octubre de 2026
+
+Preparación realizada: Docker Linux activo, PostgreSQL temporal propio nuevo con
+69 migraciones, API loopback43187 y panel4173 levantados; no se reutilizó la base
+de la sesión anterior ni se leyó un .env remoto. Fixture publicado por la API
+real: tema «Imágenes C5 - ensayo e55be94d», subtema «Rectángulos y proporciones».
+La comprobación Flutter VM/HTTP/PostgreSQL se repitió: **3/3 aprobadas**.
+
+Celular Android detectado y autorizado; reverse USB43187 configurado, APK debug
+del cierre C1 instalada con éxito y aplicación abierta. No se borraron sus datos.
+Esto actualiza el estado «no instalada» del cierre del20 inferior.
+**Ensayo humano:5/5 aprobadas; C5-C1 cerrada en su alcance local**:
+el propietario inició sesión y confirmó el caso1,
+rectángulo azul horizontal2:1, sin recorte/estiramiento y con el texto de la lección.
+Caso2 confirmado: imagen correcta durante la práctica; tras pulsar Finalizar,
+«2 veces» marcada correcta y explicación120÷60=2 visibles. No se verificó por SQL
+una concesión o persistencia adicional en este caso; no inferirla del resultado.
+Caso3: se volvió primero a la lista de subtemas; se retiró solo el reverse USB
+tcp:43187 para provocar una descarga fallida, comprobar el aviso y restaurarlo
+antes del reintento. El propietario confirmó estar en la lista de subtemas;
+se retiró el reverse tcp:43187 y se comprobó su ausencia. Docker conserva la base
+propia activa; no se apagó la API ni se cambiaron datos. La captura correcta del
+propietario muestra el aviso de imagen y Reintentar, pero la primera «I» recortada.
+Se restauró el reverse para recompilar/reinstalar sin perder acceso a la sesión;
+se repitió el corte con la APK corregida. El propietario confirmó el aviso completo
+y, tras restaurar reverse y pulsar Reintentar imagen, el rectángulo azul volvió sin
+salir ni reiniciar la app. Caso3 aprobado. Caso4 parcial: el propietario confirmó
+que Cerrar sesión lleva al login y Atrás no permite volver a la lección privada.
+El propietario inició sesión de nuevo en la cuenta ficticia y confirmó el rectángulo
+azul en la lección. Caso4 aprobado dentro del alcance de logout/reingreso humano;
+el aislamiento de tokens/caché conserva su evidencia automática, no una nueva
+inspección forense del dispositivo. DEMO_MODE=false, sin ensayo humano demo.
+Caso5 confirmado: con texto ampliado, salir y reabrir la lección conserva la figura
+horizontal y permite leer textos/botones sin recortes ni desbordes. Se indicó
+restaurar el tamaño habitual después; no se verificó un valor numérico de escala
+ni se afirma que el usuario haya restaurado ya su ajuste.
+Siguiente: consolidar los commits funcionales A/B/C1 de ambos repositorios y
+preparar C5-C2, imágenes en opciones de respuesta. Sin commit/push/merge automático.
+La confirmación es humana, no otra prueba automática. Credenciales nuevas solo
+en el archivo privado temporal; no añadir claves a esta acta ni a los defines.
+
+La entrega A/B/C1 se guarda ahora en commits funcionales locales de ambos repos.
+El commit documental móvil52a3488 anterior ya se publicó, pero no incluía el código
+funcional C5. No se hizo push funcional, merge a main ni despliegue. Las afirmaciones inferiores
+sobre ausencia de commit/push corresponden al cierre original del20.
+OV-1 sigue independiente. Conservar el límite de dos horas del ejecutor local.
+
+## Corrección visual durante el caso3 — 21 de octubre
+
+Causa verificada en código: ClipRRect de la lección envolvía AcademicImage completo,
+incluyendo el texto de error, y recortaba su esquina superior izquierda.
+La corrección traslada el borderRadius al componente compartido y aplica ClipRRect
+solo a RawImage/píxeles de la imagen pública decodificada. Los estados de carga,
+dirección inválida, error y Reintentar quedan fuera del recorte.
+Retiradas las envolturas equivalentes en lección, práctica, diagnóstico, batallas
+y Tira y afloja. No se cambiaron permisos, API, proporciones ni reglas de juego.
+
+Regresión dirigida: **57/57 aprobadas** (31 de imagen, incluidas las30 previas,
+y26 de práctica/diagnóstico/batallas/Tira). Nueva prueba320px, texto1.6× y aviso
+sin ancestro ClipRRect; la prueba de éxito exige mantener radio16 y proporción120×60.
+Flutter analyze sin incidencias. La regresión global950 inferior corresponde al20;
+no se ha repetido toda ni se infiere un nuevo total a partir de este arreglo.
+APK debug corregida compilada e instalada con adb install -r (Success), sin borrar
+datos, y aplicación abierta con am start (Status:ok). Se conserva reverse USB43187
+restaurado para recuperar la sesión. El propietario volvió a la lista sin abrir
+la lección; se retiró de nuevo reverse USB43187 y se comprobó que Docker seguía
+activo. El propietario abrió la lección y confirmó el aviso corregido, con la palabra
+«Imagen» completa y Reintentar visible. Se restauró reverse USB43187 y se verificó
+su presencia. El propietario pulsó Reintentar imagen y confirmó que reapareció
+el rectángulo azul sin salir/reiniciar. Caso3 aprobado; contador3/5.
+
 ## Checkpoint del 20 de octubre de 2026
 
 **Implementación online y controles automáticos locales aprobados; ensayo Android pendiente.**
@@ -7,8 +78,8 @@ Rama `feat/c5-archivos-base` en los dos repositorios. No se hizo commit, push,
 merge, despliegue ni SQL remoto. OV-1 del compañero no se modificó.
 Contrato global: [C5 — archivos](C5_ARCHIVOS.md). Antecedente: [panel C5-B](C5B_PANEL.md).
 
-C1 es una subdivisión de C5-C, no el cierre de toda C5. El siguiente paso
-inmediato es la revisión física descrita debajo. Después continúan imágenes
+C1 es una subdivisión de C5-C, no el cierre de toda C5. La revisión física
+posterior del21 quedó aprobada5/5 según el checkpoint superior. Continúan imágenes
 en opciones, PDF/offline, autorización histórica y fotos/evidencias con contratos
 propios; finalmente C5-D y proveedor persistente autorizado.
 
@@ -123,7 +194,7 @@ se necesita `adb reverse tcp:43187 tcp:43187` para acceder a loopback del PC.
 Instalar después de avisar al propietario; no confundir la instalación con la
 confirmación humana de los cinco casos.
 
-## Cinco comprobaciones Android pendientes
+## Guion de cinco comprobaciones Android
 
 1. Entrar con el alumno ficticio de la sesión; Estudiar → Matemáticas →
    tema «Imágenes C5 - ensayo …» → «Rectángulos y proporciones».
@@ -133,14 +204,19 @@ confirmación humana de los cinco casos.
 3. Abrir de nuevo la pantalla sin conexión al PC/API: aviso visible, sin figura
    de otra pantalla; restaurar conexión y pulsar Reintentar imagen.
    No exigir reiniciar la app. Registrar exactamente cómo se cortó y restauró.
-4. Cerrar sesión: no debe quedar la imagen privada visible. Entrar en demo
-   no debe habilitar la descarga privada. Volver a la cuenta de ensayo recupera
-   la figura desde la API, sin reutilizar un token anterior.
+4. Cerrar sesión: no debe quedar la imagen privada visible ni ser accesible
+   regresando a la pantalla anterior. Volver a iniciar sesión en la cuenta de
+   ensayo y comprobar la figura desde la API. La APK actual usa DEMO_MODE=false:
+   no se exige una entrada demo inexistente. Su bloqueo de descarga privada está
+   cubierto automáticamente; no declararlo ensayado manualmente en esta APK.
 5. Salir/volver y reabrir la lección con API activa: proporción conservada,
    controles legibles con texto grande y sin desbordes. Esto no valida un
    reinicio/despliegue remoto ni almacenamiento productivo.
 
-Estado humano actual: **0/5**, no realizados en esta entrega.
+Estado humano actual: **5/5 aprobadas**, casos1–5 confirmados por el propietario
+el21 de octubre de2026 en la sesión de ensayo e55be94d. Cierre acotado a imagen
+de lección/práctica, recuperación de conexión, logout/reingreso y reapertura con
+texto ampliado. No equivale a validar todas las pantallas, iOS o producción.
 Los juegos migrados tienen regresión automatizada, pero este guion acotado no
 los certifica uno a uno en Android. Ampliar su recorrido en integración C5-D.
 

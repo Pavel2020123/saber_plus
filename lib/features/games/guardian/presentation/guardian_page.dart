@@ -2,10 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../core/config/environment.dart';
-import '../../../../core/config/resource_url.dart';
 import '../../../../core/feedback/game_audio_feedback.dart';
 import '../../../../core/network/api_error.dart';
+import '../../../../core/widgets/academic_image.dart';
 import '../../../academic/domain/academic_models.dart';
 import '../../../auth/presentation/session_controller.dart';
 import '../../../practice/domain/practice_models.dart';
@@ -633,14 +632,7 @@ class _GuardianGameState extends ConsumerState<_GuardianGame> {
 
   Widget _image(String url, String label) => Padding(
     padding: const EdgeInsets.symmetric(vertical: 12),
-    child: Image.network(
-      resolveResourceUrl(ref.read(appConfigProvider), url),
-      semanticLabel: label,
-      fit: BoxFit.contain,
-      errorBuilder: (context, error, stack) => Text(
-        'No se pudo cargar la imagen. Revisa la conexión antes de responder. Puedes salir y retomar el desafío.',
-      ),
-    ),
+    child: AcademicImage(value: url, label: label),
   );
 
   List<Widget> _result(GuardianAttempt attempt) {

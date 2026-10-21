@@ -3,7 +3,8 @@
 ## Estado del 20 de octubre de 2026
 
 **Actualización posterior:** [C5-C1 Flutter](C5C_FLUTTER.md) ya implementa lectura
-online autenticada, validada automáticamente; sigue Android0/5 y el resto de C5-C.
+online autenticada, validada automáticamente y después en Android5/5 el21.
+Sigue consolidar código y C5-C2/opciones; el resto de C5-C/D permanece abierto.
 Las afirmaciones inferiores sobre Flutter pendiente describen el cierre de B,
 no sustituyen el checkpoint C1 más reciente.
 

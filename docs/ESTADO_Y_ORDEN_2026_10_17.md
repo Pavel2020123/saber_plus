@@ -1,5 +1,17 @@
 # Etapas después de instituciones — revisión del 17 de octubre
 
+**21 de octubre — C5-C1 cerrada localmente:** [acta5/5 Android](C5C_FLUTTER.md),
+3/3 Flutter VM/HTTP/PostgreSQL repetidas,57/57 dirigidas tras corregir el recorte,
+análisis limpio y APK instalada. La regresión global950/13 del20 no se repitió.
+Siguiente: consolidar código A/B/C1 y preparar C5-C2, imágenes en opciones.
+C5-C restante y C5-D abiertos. Rama feat/c5-archivos-base; solo la documentación
+móvil52a3488 está publicada. Sin merge/despliegue ni cambios OV-1.
+
+**20 de octubre, continuación vigente:** [C5-A/B](C5_ARCHIVOS.md) validadas localmente:
+23/23 PostgreSQL/HTTP, panel124/124 y recorrido Chromium;69 migraciones temporales. Rama `feat/c5-archivos-base`,
+sin merge/despliegue. Sigue C Flutter/consumidores
+y D integración/operación. Los antecedentes del19 inferiores conservan sus cierres.
+
 **Actualización vigente del19:** [MA-1R/R4](MA1R_R4_VALIDACION_LOCAL.md) con12/12
 humanos y45/45 PostgreSQL/HTTP, Flutter920/13 opt-in omitidas, backend121/1567 tras fix de concurrencia,
 ADMIN109 y build/análisis aprobados. Remate Android confirmado: R4 cerrada
@@ -70,7 +82,7 @@ al compañero antes de tocar schema.prisma, app.module, navegación, sesión o l
 |---|---|---|
 |0 | Entrega institucional — completada | PR app #5 y backend #8 integrados en main; CI backend del PR y de main aprobado, análisis Flutter/102 pruebas dirigidas aprobados. QA-1 Flutter remoto pendiente. Sin despliegue; no repetir C2/C3/C4. |
 |1 | MA-1R — Reportes académicos — completada en esta fase | R1–R4 cerradas localmente e integradas en main por PR app #6/API #9;12/12 humanos,45/45 HTTP/PostgreSQL y regresiones en acta R4. CI backend del PR aprobado. Sin despliegue/migración remota; staging y operación pendientes. [UX1 Ocultar/Deshacer](MA1R_UX1_OCULTAR_DESHACER.md) sigue propuesta separada, no implementada. |
-|2 | C5 — Archivos generales | Persistencia y permisos de imágenes/recursos/fotos/evidencia privada, límites, metadatos/licencias. Preparación local primero; proveedor y operación real requieren autorización. |
+|2 | C5 — Archivos generales | [C5-A/B](C5_ARCHIVOS.md) validadas:23/23 PostgreSQL/HTTP, panel124/124 y recorrido Chromium. Sigue C Flutter/opciones/PDF/fotos y D integración/operación. Proveedor persistente y evidencia privada siguen pendientes; servicio real requiere autorización. |
 |3 | Académico/profesor/ADMIN | P5→D3 cuando se autoricen; catálogo versionado C4 editorial y versiones/restauración C6. Ensayos de mapa MA-2, repaso MA-3, contratos de intentos/AM-PM/historial y seis certificados. Contenido7J se prepara durante el bloque, no solo al final. |
 |4 | PR-I3/PR-I4 — Insignias/perfiles | Concesión anual idempotente, historial/correcciones; TOP50 y todas las ganadas, sin límite3. Avatar/foto, alias, búsqueda/visita y privacidad. No conceder premios de modalidades competitivas no validadas. |
 |5 | PR-I6/6-T/7 — Instituciones sociales | Ranking nacional/departamento/municipio con pertenencia histórica y sin trasladar XP; ensayo social de dos cuentas/dispositivos y filtros. No es parte del cierre institucional local ya realizado. |
@@ -106,7 +118,7 @@ inventados ni confundir reportes de rivales con reportes de preguntas.
 
 R1–R4 completadas localmente, migración aplicada solo a bases temporales.
 [R3 app/panel](MA1R_R3_APP_PANEL.md) y [R4](MA1R_R4_VALIDACION_LOCAL.md)
-integradas en main por los PR superiores. Próximo bloque recomendado: C5.
+integradas en main por los PR superiores. C5-A comenzó el20: [base local y siguiente verificación](C5_ARCHIVOS.md).
 No requiere cambiar intereses vocacionales,
 monetización, juegos ni permisos docentes. Si comparte schema/rutas base con OV-1,
 coordinar migraciones/archivos antes de editar.

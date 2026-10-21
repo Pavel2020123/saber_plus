@@ -8,7 +8,7 @@ instituciones. No cambia las reglas de producto ni declara etapas terminadas.
 
 | Equipo | Responsabilidad | Por dónde empezar |
 |---|---|---|
-| Propietario y su asistente | Instituciones y MA-1R/R1–R4 integradas en main | [Reportes](MA1R_REPORTES_PREGUNTAS.md): cierre local12/12 humanos,45/45 HTTP/PostgreSQL y regresiones; PR app #6/API #9 integrados, CI backend del PR aprobado. Sigue preparación local C5 al autorizar implementación. SQL solo temporal, sin despliegue. No modificar OV-1. |
+| Propietario y su asistente | Instituciones y MA-1R integradas; C5-A/B/C1 validadas localmente | [C5-C1](C5C_FLUTTER.md) Android5/5,3 HTTP/PostgreSQL repetidas y57 dirigidas tras arreglo visual. Sigue consolidar código y C5-C2/opciones; resto C5-C/D abierto. Rama feat/c5-archivos-base. Conciliar schema/migraciones/app.module/CI con OV-1; sin merge/despliegue ni cambios en el frente del compañero. |
 | Compañero y su asistente | OV-1: test de intereses vocacionales, Flutter y backend necesarios | En curso según el propietario; sin entrega nueva verificada aquí. Seguir su checkpoint para A contenido/reglas → B persistencia → C cliente → D validación, no reiniciar trabajo ya documentado en su rama. |
 
 El compañero no tiene que esperar a que termine C2C. El propietario no asume

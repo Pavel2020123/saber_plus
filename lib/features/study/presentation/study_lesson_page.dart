@@ -6,9 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../core/config/environment.dart';
-import '../../../core/config/resource_url.dart';
 import '../../../core/network/api_error.dart';
+import '../../../core/widgets/academic_image.dart';
 import '../../../core/sync/drift_safe_sync_repository.dart';
 import '../../../core/sync/safe_sync_models.dart';
 import '../../../core/wellbeing/study_break_reminder.dart';
@@ -241,7 +240,6 @@ class _LessonContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final config = ref.watch(appConfigProvider);
     return ListView(
       padding: const EdgeInsets.fromLTRB(20, 10, 20, 36),
       children: [
@@ -306,7 +304,8 @@ class _LessonContent extends ConsumerWidget {
                     if (href != null) _openExternal(context, href);
                   },
                   imageBuilder: (uri, title, alt) => _LessonImage(
-                    url: resolveResourceUrl(config, uri.toString()),
+                    url: uri.toString(),
+                    label: alt ?? 'Imagen de la lección',
                   ),
                 ),
               ),
@@ -327,7 +326,7 @@ class _LessonContent extends ConsumerWidget {
           ],
           if (subtopic.imageUrl case final imageUrl?) ...[
             const SizedBox(height: 14),
-            _LessonImage(url: resolveResourceUrl(config, imageUrl)),
+            _LessonImage(url: imageUrl),
           ],
           if (subtopic.clozeActivity case final activity?) ...[
             const SizedBox(height: 18),
@@ -369,29 +368,14 @@ class _LessonContent extends ConsumerWidget {
 }
 
 class _LessonImage extends StatelessWidget {
-  const _LessonImage({required this.url});
-
+  const _LessonImage({required this.url, this.label = 'Imagen de la lección'});
   final String url;
-
+  final String label;
   @override
-  Widget build(BuildContext context) => ClipRRect(
+  Widget build(BuildContext context) => AcademicImage(
+    value: url,
+    label: label,
     borderRadius: BorderRadius.circular(16),
-    child: Image.network(
-      url,
-      fit: BoxFit.contain,
-      errorBuilder: (context, error, stackTrace) => Container(
-        padding: const EdgeInsets.all(22),
-        color: Theme.of(context).colorScheme.surfaceContainerLow,
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.broken_image_outlined),
-            SizedBox(width: 9),
-            Flexible(child: Text('La imagen no está disponible.')),
-          ],
-        ),
-      ),
-    ),
   );
 }
 

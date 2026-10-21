@@ -5,10 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/config/environment.dart';
-import '../../../core/config/resource_url.dart';
 import '../../../core/feedback/answer_streak_feedback.dart';
 import '../../../core/network/api_error.dart';
+import '../../../core/widgets/academic_image.dart';
 import '../../../core/sync/drift_safe_sync_repository.dart';
 import '../../../core/widgets/animated_streak_flame.dart';
 import '../../../core/wellbeing/study_break_reminder.dart';
@@ -1148,30 +1147,12 @@ class _CaseCard extends StatelessWidget {
   );
 }
 
-class _NetworkResourceImage extends ConsumerWidget {
+class _NetworkResourceImage extends StatelessWidget {
   const _NetworkResourceImage({required this.value});
-
   final String value;
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) => ClipRRect(
-    borderRadius: BorderRadius.circular(14),
-    child: Image.network(
-      resolveResourceUrl(ref.watch(appConfigProvider), value),
-      fit: BoxFit.contain,
-      errorBuilder: (context, error, stackTrace) => const Padding(
-        padding: EdgeInsets.all(18),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.broken_image_outlined),
-            SizedBox(width: 8),
-            Text('Imagen no disponible'),
-          ],
-        ),
-      ),
-    ),
-  );
+  Widget build(BuildContext context) =>
+      AcademicImage(value: value, borderRadius: BorderRadius.circular(14));
 }
 
 class _PracticeResultView extends StatelessWidget {

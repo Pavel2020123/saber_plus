@@ -1,6 +1,20 @@
 # C5 — Archivos y recursos persistentes
 
-## Checkpoint del 20 de octubre de 2026
+## Checkpoint vigente — 21 de octubre de 2026
+
+**C5-A/B y C5-C1 validadas localmente.** [C5-C1](C5C_FLUTTER.md) cierra5/5
+comprobaciones humanas Android,3/3 Flutter VM/HTTP/PostgreSQL repetidas y57/57
+dirigidas tras corregir el recorte del aviso. Análisis limpio y APK instalada.
+Estos contadores no se suman como una sola suite. Conservar la evidencia del20
+inferior; no atribuirle una nueva regresión global ni nuevo despliegue.
+
+Siguiente: consolidar commits funcionales en ambos repositorios y preparar
+**C5-C2, imágenes en opciones**: modelo/relaciones, DTO/panel y snapshots/clientes
+sin revelar respuestas correctas ni romper intentos guardados. Después siguen
+PDF/offline, autorización histórica, fotos/evidencias y C5-D. C1 no cierra toda C5.
+OV-1 separado; sin merge/despliegue ni escrituras remotas.
+
+## Antecedente — checkpoint del 20 de octubre de 2026
 
 **Avance posterior C5-C1:** [lectura online Flutter](C5C_FLUTTER.md) implementada,
 30/30 nuevas y3/3 con HTTP/PostgreSQL real aprobadas; regresión950/13 omitidas.
@@ -30,7 +44,7 @@ ha ejecutado CI remoto ni integrado esta rama.
 |---|---|
 | C5-A — Base backend | Cerrado en su alcance local: contrato, validación, permisos, recibos y adaptador privado. 70 pruebas nuevas dentro de la regresión 1.637; ensayo posterior PostgreSQL/HTTP 15/15 y controles del ejecutor 8/8 aprobados. Sin despliegue ni almacenamiento externo. |
 | C5-B — Panel | [Validada localmente](C5B_PANEL.md): selector, vista previa, recibo y asociación segura a preguntas/casos/lecciones. Publicación inmediata, protección de usos y lectura autenticada de recursos publicados.23/23 integradas A+B y recorrido Chromium real. |
-| C5-C — Flutter y consumidores | Referencias y permisos de descarga; imágenes en opciones de respuesta, PDFs/offline y posterior carga de fotos. Adjuntos institucionales privados requieren contrato propio. |
+| C5-C — Flutter y consumidores | C1 online validada5/5 Android. Sigue C2 imágenes en opciones; después PDF/offline, autorización histórica y fotos/evidencias con contratos propios. Ver acta C5-C1; no cerrar todo C5-C por ese ensayo. |
 | C5-D — Integración y operación | Pruebas por flujo, recuperación, permisos, proveedor persistente autorizado, respaldo/limpieza y validación final. Las pruebas de seguridad se hacen también en A/B/C. |
 
 El cierre global de C5 incluye recursos académicos, fotos y evidencia privada.

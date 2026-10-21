@@ -4,6 +4,22 @@ Documento de incorporación al proyecto. Revisión: 23 de septiembre de 2026.
 Describe la organización del código local, no certifica que todas las funciones
 estén desplegadas o aprobadas para producción.
 
+**20 de octubre — C5-C1 Flutter:** [lector compartido](C5C_FLUTTER.md) en
+`lib/core/media/` y `lib/core/widgets/academic_image.dart`. Reutiliza Dio/sesión,
+separa referencia, transporte acotado y presentación. RawImage para bytes privados,
+sin caché global/disco; autoDispose libera/cancela al dejar la pantalla o sesión.
+Consumo online C1 validado Android5/5 el21. Siguen imágenes en opciones C5-C2,
+PDF/offline, autorización histórica, fotos/evidencias y C5-D.
+
+**20 de octubre — ampliación local C5-A:** [archivos editoriales](C5_ARCHIVOS.md)
+en `backend/src/editorial-files/`: controlador/DTO, servicio, validación de imagen
+y adaptador privado `EditorialFileStore`. Prisma guarda metadatos/recibos; bytes
+en disco local solo para development/test. Sin cambiar la arquitectura existente;
+Posterior C5-B: el panel usa módulos `editorial-image-upload.mjs` y
+`editorial-file-fields.mjs`; FK e índices vinculan imagen y contenido en la
+transacción existente. PostgreSQL/HTTP23/23 y Chromium del panel aprobados.
+Pendientes integración Flutter C5-C y proveedor persistente autorizado.
+
 **Actualización del19 de octubre:** se conserva esta arquitectura. Instituciones y
 reportes académicos están integrados en main; contratos/estados vigentes en
 [etapas](ETAPAS_PENDIENTES.md) y [acta MA-1R](MA1R_R4_VALIDACION_LOCAL.md).

@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/feedback/game_audio_feedback.dart';
 import '../../../../core/network/api_error.dart';
+import '../../../../core/widgets/academic_image.dart';
 import '../../ghost_duel/domain/ghost_duel_models.dart';
 import '../../ghost_duel/presentation/ghost_duel_providers.dart';
 import '../../ghost_duel/presentation/ghost_character.dart';
@@ -661,6 +662,22 @@ class _TriviaRushPageState extends ConsumerState<TriviaRushPage> {
                   ),
                 ),
               ),
+              if (question.caseContent case final shared?) ...[
+                const SizedBox(height: 10),
+                if (shared.title.isNotEmpty)
+                  Text(
+                    shared.title,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                Text(shared.context),
+                if (shared.imageUrl case final value?)
+                  AcademicImage(value: value, label: 'Imagen del contexto'),
+              ],
+              if (question.imageUrl case final value?
+                  when value != question.caseContent?.imageUrl) ...[
+                const SizedBox(height: 10),
+                AcademicImage(value: value, label: 'Imagen de la pregunta'),
+              ],
               const SizedBox(height: 10),
               for (final option in question.options) ...[
                 _AnswerButton(

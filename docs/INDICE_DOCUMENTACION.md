@@ -1,5 +1,17 @@
 # Índice de documentación de SaberPlus
 
+**21 de octubre — C5-C1 cerrada localmente:** [acta5/5 Android](C5C_FLUTTER.md),
+3/3 Flutter VM/HTTP/PostgreSQL repetidas,57/57 dirigidas tras corregir el recorte,
+análisis limpio y APK instalada. La regresión global950/13 del20 no se repitió.
+Siguiente: consolidar código A/B/C1 y preparar C5-C2, imágenes en opciones.
+C5-C restante y C5-D abiertos. Rama feat/c5-archivos-base; solo la documentación
+móvil52a3488 está publicada. Sin merge/despliegue ni cambios OV-1.
+
+- **20 de octubre, continuación vigente:** [C5 — archivos](C5_ARCHIVOS.md).
+  A y [B panel](C5B_PANEL.md) validadas:23/23 PostgreSQL/HTTP, recorrido Chromium
+  y69 migraciones temporales. Sigue C Flutter/consumidores y D integración/operación.
+  Rama `feat/c5-archivos-base`, sin integración en main ni despliegue.
+
 - [Auditoría documental e integración del19](AUDITORIA_DOCUMENTAL_2026_10_19.md):
   fuentes vigentes, correcciones, orden restante y actualización para compañeros.
 
