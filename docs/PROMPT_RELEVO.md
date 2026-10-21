@@ -31,6 +31,10 @@ panel dentro de C2 con regresiones, sin reconstruir arquitectura ni tocar OV-1.
 Trabaja en ramas propias, conserva cambios ajenos y entrega rutas, evidencia,
 comentarios de commit y comandos de push. No push/merge/despliegue sin permiso.
 Cierra C2 local solo con los criterios de la guía; el resto de C5 sigue abierto.
+Al entregar, avisa a Pavel que debe auditar y verificar ambos repositorios,
+documentación y evidencias antes de aceptar el cierre y elegir otra etapa.
+Incluye commits, pruebas y pendientes; si faltan pruebas, declara entrega parcial.
+Espera su decisión y no interfieras con OV-1.
 ```
 
 ## Antecedentes anteriores a este relevo
