@@ -1,0 +1,464 @@
+# Archivo histórico del README principal — 21 de octubre de 2026
+
+Este documento conserva el README anterior a su reorganización del 21 de octubre.
+**No es un checkpoint vigente ni una guía de ejecución.** Contiene pendientes,
+instrucciones de Git y estados que fueron sustituidos por entregas posteriores.
+
+Consultar el [README principal](../README.md), el [checkpoint C5-C1](C5C_FLUTTER.md)
+y la [ruta vigente](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
+No repetir pruebas, operar datos, activar servicios ni elegir una etapa por
+una instrucción histórica de este archivo. No se eliminan actas ni evidencias.
+
+Se conservó el contenido anterior y se ajustaron únicamente los enlaces
+`docs/…` para que resuelvan desde esta carpeta.
+
+---
+
+# SaberPlus móvil
+
+**20 de octubre — avance C5-C1:** [lectura online Flutter](C5C_FLUTTER.md) implementada:
+30/30 pruebas nuevas y3/3 Flutter VM con HTTP/PostgreSQL real aprobadas.
+Regresión Flutter950 aprobadas/13 opt-in omitidas; los3 casos locales C1 se
+comprobaron aparte. Cinco casos Android siguen pendientes; no cerrar toda C5-C.
+Rama feat/c5-archivos-base, sin commit/push/merge ni despliegue. OV-1 separado.
+
+**20 de octubre — C5-A/B validadas localmente:** [carga de imágenes del panel](C5B_PANEL.md),
+23/23 pruebas reales PostgreSQL/HTTP, panel124/124 y backend126 suites/1650 aprobados.
+Recorrido Chromium de escritorio/adaptable aprobado;69 migraciones aplicadas
+solo en Docker temporal propio y limpiado. Ese cierre B precede al avance móvil C1 superior,
+sin integración en main ni despliegue. OV-1 continúa por separado. Esta entrada prevalece sobre
+el «siguiente C5» de las notas históricas inferiores.
+
+**19 de octubre — checkpoint vigente MA-1R/R4:**12/12 humanos y45/45 pruebas
+HTTP/PostgreSQL aisladas repetidas tras fix de concurrencia aprobadas; Flutter920/13
+opt-in omitidas, backend121 suites/1567, ADMIN109, build/TypeScript y análisis
+correctos. [Acta y límites](MA1R_R4_VALIDACION_LOCAL.md).
+Retirada del botón y borrador con flecha confirmados: **R4 cerrada localmente**.
+**Integrado en main:** [app PR #6](https://github.com/Pavel2020123/saber_plus/pull/6)
+(`21757a1`) y [backend PR #9](https://github.com/Pavel2020123/SaberPlus-Backend/pull/9)
+(`eef0d40`). CI backend del PR aprobado; no hay CI Flutter remoto todavía (QA-1).
+Siguiente bloque recomendado: C5, archivos generales. Sesiones anteriores limpiadas; remate en otra sesión
+temporal, no asumir que sigue activa. Sin despliegue.
+OV-1 separado. Las entradas anteriores inferiores son
+antecedentes, no instrucciones para repetir las12 pruebas ni reutilizar claves.
+
+[Documentación conciliada y guía para compañeros](AUDITORIA_DOCUMENTAL_2026_10_19.md).
+
+**18 de octubre — MA-1R/R3 app y panel locales:** [entrega y pruebas](MA1R_R3_APP_PANEL.md),
+[checkpoint de reportes](MA1R_REPORTES_PREGUNTAS.md).
+R1/flujo inicial autorizados; backend121 suites/1.560 aprobadas y build correcto.
+R3 incorpora formulario, Mis reportes, bandeja ADMIN y cobertura compatible.
+32 pruebas dirigidas Flutter y109 del panel aprobadas; R4 PostgreSQL/HTTP/Android pendiente.
+Regresión Flutter del18:917 aprobadas/13 opt-in omitidas y análisis sin incidencias.
+OV-1 separado, sin migración aplicada/despliegue ni cierre global de MA-1R.
+
+**17 de octubre, estado vigente:** [C4-C cubre10/10 guiones locales](PR_I5_C4_CODIGO.md)
+con Android y19 controles HTTP/SQL complementarios; no son10 pruebas solo manuales.
+APK corregida instalada, regresión final893 aprobadas/13 opt-in omitidas y análisis
+limpio. [Cierre técnico local consolidado](CIERRE_INSTITUCIONES_LOCAL.md):
+backend1.470/119 suites y panel95/95. Commits creados: app `6bab6be`, API `7ba93d7`
+y lock `bfce42e`. **Integrados en main:** [PR #5 app](https://github.com/Pavel2020123/saber_plus/pull/5)
+y [PR #8 backend](https://github.com/Pavel2020123/SaberPlus-Backend/pull/8).
+CI backend del PR y main aprobados; analyze Flutter limpio y102 pruebas dirigidas
+aprobadas en la entrega posterior. Sin workflow Flutter; QA-1 continúa pendiente.
+[Etapas ordenadas y auditoría del 17](ESTADO_Y_ORDEN_2026_10_17.md): siguiente
+recomendado MA-1R, reportes de preguntas: R1–R3 locales; sigue R4. OV-1 continúa con el
+compañero, sin entrega nueva revisada aquí. No se repitieron ensayos físicos ni se
+desplegó. Auditoría documental en `docs/estado-post-instituciones`, publicación
+manual/PR pendientes; notas inferiores históricas.
+
+**15 de octubre — C3A/B solicitudes estudiantiles implementadas localmente.**
+Backend:37 nuevas, regresión1.411/118 suites y14 HTTP/PostgreSQL aprobadas.
+Flutter:27 dirigidas aprobadas; formulario, historial y bandeja del propietario.
+**Sigue C3C: ensayo integrado Flutter/API/Android.** [Checkpoint vigente](PR_I5_C3_SOLICITUDES.md).
+Migración solo temporal, sin despliegue remoto. OV-1 sigue separado.
+Las notas C2C inferiores son antecedentes; no repetirlas por defecto.
+
+Ajuste UX durante C3C: acceso de ingreso solo con pendiente o rechazo sin consultar;
+desaparece al vincularse.86 pruebas dirigidas aprobadas y análisis limpio.
+[Detalle, lectura local y ensayo humano pendiente](PR_I5_C3_SOLICITUDES.md).
+
+Relevo del 13 de octubre: [Instituciones/C2C](PR_I5_C2_LOGO.md#checkpoint-del-propietario)
+y [OV-1A del compañero](CHECKPOINT_OV1.md), checkpoints independientes.
+[Corrección de once inconsistencias](AUDITORIA_DOCUMENTAL_2026_10_13.md).
+
+**Trabajo paralelo acordado:** propietario → entrega institucional integrada y
+próximo bloque por acordar; compañero → test vocacional OV-1A/B/C/D en paralelo.
+Ver [responsables, ramas y entrega](TRABAJO_PARALELO.md). Este acuerdo sustituye
+la secuencia estricta de OV-1 y el trabajo individual directo en main.
+
+**14 de octubre: C2C validada localmente — logo institucional.** Seis casos
+HTTP/PostgreSQL y ocho humanos Android aprobados; regresión Flutter41/41.
+Migración aplicada solo en bases temporales propias. Siguen solicitudes
+estudiantiles/avisos/código institucional. Captura original y CI pendientes
+según acta; sin despliegue remoto ni validación iOS.
+[Implementación y guion](PR_I5_C2_LOGO.md). Checkpoints inferiores históricos.
+
+**Entrega anterior: [PR-I5-C — perfil institucional](PR_I5_C_PERFIL.md).**
+C1A y C1B implementadas: API, lectura y editor del propietario Flutter.
+Preparación del12 de octubre: 15 HTTP/SQL +3
+Flutter/API aprobadas; migración aplicada solo en base temporal y APK instalada.
+**C1C completada localmente:** diez pruebas humanas aprobadas y verificaciones
+SQL de persistencia/conflicto/descarte. Siguiente: C2, logo institucional.
+Esto no acredita despliegue ni pruebas en Supabase/Render.
+
+**Entrega anterior: [PR-I5-T — territorio institucional](PR_I5_T_TERRITORIO.md).**
+T1/T2: catálogo DANE/API y persistencia/revisión implementados en backend;
+16 casos PostgreSQL T2 aprobados. T3 selectores Flutter/ADMIN implementados el
+11 de octubre; T4 filtros del directorio implementados y **T5 cerrado localmente**
+con API/PostgreSQL/panel/Android. Siguiente: perfil institucional y solicitudes
+estudiantiles de PR-I5. No acredita despliegue ni validación iOS.
+[Directorio PR-I5A/B](PR_I5_DIRECTORIO.md)
+conserva su ensayo local HTTP/PostgreSQL/Android aprobado.
+
+**IC-1C Rescate, cierre local 10 de octubre:** [acta](IC1_RESCATE.md).
+Cliente/tests/Android/API/SQL aprobados en su alcance local; saldo final80 tras
+dos abandonos distintos. Push manual/cierre operativo separados. Después: instituciones.
+
+## Acuerdo de alcance — 9 de octubre de 2026
+
+[Alcance de noviembre](ALCANCE_V1_NOVIEMBRE_2026.md): competición inicial solo Cima, Guardián y
+Rescate. Después de Rescate: instituciones. Se conservan test vocacional OV-1,
+perfiles, todas las insignias anuales, territorio y demás funciones acordadas.
+Las otras integraciones competitivas se aplazan; no se borra código ni modos
+normales. Las secuencias anteriores quedan como antecedentes. Consultar el
+roadmap vivo; la sustentación no acredita producción. Cambio documental, sin
+nuevas pruebas ni despliegue.
+
+Aplicación Flutter para la experiencia móvil de SaberPlus. El proyecto se está construyendo por etapas a partir del informe técnico de migración.
+
+El backend oficial se mantiene por separado en
+[`Pavel2020123/SaberPlus-Backend`](https://github.com/Pavel2020123/SaberPlus-Backend).
+Este repositorio móvil nunca almacena credenciales de PostgreSQL o Supabase.
+
+## Auditoría y resumen para el equipo
+
+**Compañeros que continúan las pruebas:** empezar por
+[checkpoint vigente](ETAPAS_PENDIENTES.md#checkpoint-de-relevo-de-pruebas) y
+[guía Docker/Android USB con prompt copiable](RELEVO_PRUEBAS_LOCALES.md).
+Registrar cada caso y su siguiente paso antes de avanzar; se necesitan ambos repos.
+
+**Actualización del 8 de octubre:** recorrido Android y criterios funcionales
+de I2-5 revisados; limpieza operativa y deuda QA-1 pendientes. Ensayo académico
+local confirmado: publicación, progreso y conservación de versiones anteriores.
+[IC-1A/IC-1A2 Cima](IC1_CIMA.md) validada localmente en Android/API/ledger:
+una concesión real de 100 XP, recuperación/red/reintento, OFF y normal sin XP.
+[IC-1B1 Guardián](IC1_GUARDIAN.md) implementada: modo explícito y recuperación
+cifrada de envíos; 34 pruebas dirigidas aprobadas. IC-1B2 local confirma victoria,
+100 XP únicos, recuperación/reintento/ranking y normal sin XP; derrota +30 por
+3 aciertos y abandono −10, saldo final 120. Guardián validado localmente;
+siguiente IC-1C Rescate de estrellas. IC-1 no completada. Git según autorización:
+el propietario pide un commit por juego después de sus pruebas y documentación.
+No equivale a activación productiva. Esta actualización
+prevalece sobre el relevo histórico del 7 inmediatamente siguiente.
+
+**Relevo actualizado al 7 de octubre de 2026:** PR-I1 y PR-I2 hasta I2-4
+integrados. I2-5 tiene regresión PostgreSQL e integración HTTP documentadas;
+falta recorrido Android y cierre de criterios. Después: IC-1/2/3 (clientes de
+juegos, Memoria y Batallas), PR-I3 y bloque social. Ver
+[conciliación y resultados actuales](CONCILIACION_2026_10_07.md).
+No equivale a despliegue ni activación. La ruta vigente está en
+[ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
+Leer [RELEVO_EQUIPO.md](RELEVO_EQUIPO.md) antes de cambiar código;
+[prompt para otro chat](PROMPT_RELEVO.md) e
+[índice documental](INDICE_DOCUMENTACION.md). Las entregas históricas de abajo
+no cambian ese orden ni autorizan despliegues.
+
+**Cambio de alcance (27 de septiembre):** [90 insignias integradas y juegos vigentes](INSIGNIAS_Y_JUEGOS_VIGENTES.md).
+Ocho juegos conservados; JN-4 Escudo retirado de app/backend por decisión del propietario.
+Instituciones tiene colección propia. Los diseños aún no son premios concedidos.
+
+**Compañeros que retoman el proyecto:** empezar por [RELEVO_EQUIPO.md](RELEVO_EQUIPO.md).
+Incluye auditoría inicial, ambos repositorios, alcance de cada etapa, reglas que
+conservar, coordinación por ramas/PR, pruebas y ejemplos de commits. I2-5 es un
+antecedente de esa guía; la próxima entrega se consulta en la ruta vigente superior.
+**MA-3A/B/C implementadas localmente:** [repaso diferido](REPASO_DIFERIDO.md).
+Agenda en Progreso → Flashcards → Repasos pendientes y próximos, con cuenta real.
+La demo mantiene práctica libre; falta ensayo con dispositivo/backend desplegado.
+
+**Historial desde la primera etapa:** [HISTORIAL_ETAPAS.md](HISTORIAL_ETAPAS.md).
+Incluye entregas, cambios de alcance y referencias a todos los commits registrados.
+
+**Estructura y arquitectura:** leer [ARQUITECTURA_Y_ESTRUCTURA.md](ARQUITECTURA_Y_ESTRUCTURA.md).
+Explica las capas de Flutter, el backend NestJS, el panel, la persistencia y cómo colaborar.
+
+**Trabajo de compañeros:** leer [GUIA_TRABAJO_COMPANEROS.md](GUIA_TRABAJO_COMPANEROS.md).
+Documenta seis certificados integrados localmente (cinco áreas y curso completo), reparación/verificación
+de audios y pruebas conjuntas. Sus instrucciones antiguas de ramas quedan
+sustituidas por la política vigente del [prompt](PROMPT_RELEVO.md): `main`
+por decisión del propietario, cambios coordinados y sin commit/push automático.
+Los seis certificados ya tienen implementación local; falta ensayo real. La
+reparación de audios requiere diagnóstico en dispositivo.
+
+**Prioridad actual: funciones antes que animaciones.** JN-1A añade
+**Practicar → Juegos individuales → Salto a la cima** para estudiantes demo.
+Cinco escalones, hasta doce preguntas, subir al acertar y bajar uno al fallar,
+sin explicaciones durante la partida. No concede XP ni modifica el diagnóstico.
+JN-1B añade el backend probado localmente, sin despliegue ni migración en Supabase.
+JN-1C añade el cliente Flutter remoto con recuperación segura, filtros e imágenes;
+falta ensayo real en dispositivo/staging. JN-2A añade
+[Rescate de estrellas en demo](RESCATE_DE_ESTRELLAS.md): seis estrellas,
+dos constelaciones y hasta diez preguntas, con reglas iniciales ajustables.
+**JN-2B implementada localmente:** backend seguro de Rescate de estrellas,
+sin despliegue automático. **JN-2C implementada localmente:** cliente remoto con
+recuperación segura, filtros e imágenes. Falta ensayo real.
+**JN-4 Escudo del conocimiento retirado** el 27 de septiembre. Su implementación
+anterior se conserva en el historial Git, no en el catálogo activo de juegos.
+**MA-1: cobertura básica del banco implementada localmente** en el panel y backend.
+Ver [alcance y pendientes](COBERTURA_DEL_BANCO.md).
+**MA-2A implementada localmente:** [reglas y backend del mapa](MAPA_APRENDIZAJE.md).
+**MA-2B implementada localmente:** editor del mapa en panel, demo y pruebas.
+**MA-2C implementada localmente:** mapa en las lecciones Flutter, consulta de bases
+y navegación sin bloqueos. **MA-3A/B/C también implementadas localmente; sigue I2-5**,
+manteniendo P5/D3 y las animaciones pausadas.
+Ver [SALTO_A_LA_CIMA.md](SALTO_A_LA_CIMA.md).
+El prototipo de Sabi que sigue abajo se conserva, pero sus animaciones están pausadas.
+
+Muestra de Sabi (G-SABI-1B): en modo debug, **Practicar → Juegos individuales →
+Duelo fantasma → Ver prueba de Sabi corriendo**. Animación vectorial aislada con
+pausa y revisión de poses, pendiente de aprobación del diseño. No cambia partidas
+ni récords. Detalles y pruebas en [SABI_DUELO_FANTASMA.md](SABI_DUELO_FANTASMA.md).
+
+Entrega complementaria del 9 de septiembre de 2026: correcciones de sesión,
+sincronización, validaciones del backend y accesibilidad, sin despliegue ni
+escrituras en Supabase. D2-F/D3 conservan sus comprobaciones pendientes.
+Verificación cerrada el 10 de septiembre: 422 pruebas Flutter aprobadas (4 remotas
+omitidas), análisis sin avisos y APK debug generado con firma/recursos verificados.
+
+- [Funcionalidades de la app, API y panel](FUNCIONALIDADES_PARA_EL_EQUIPO.md).
+- [Auditoría, verificaciones, riesgos y comandos de commit](AUDITORIA_PROYECTO_2026-09-09.md).
+- [Listado completo de trabajo pendiente](ETAPAS_PENDIENTES.md).
+
+## Retomar el proyecto después de la pausa
+
+Leer primero [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md), especialmente
+**Punto de reanudación** y **Cierre del módulo profesor (P1–P5)**.
+Incluye rutas, contexto, información que falta, lista de comprobación y un texto
+para iniciar una nueva sesión sin depender del historial del chat. D3 sigue
+pendiente para después del profesor; Render ya tuvo su despliegue inicial y no
+hay que rehacerlo desde cero. P1 y P2 tienen entregas locales documentadas en
+[PROFESOR_P1.md](PROFESOR_P1.md) y [PROFESOR_P2.md](PROFESOR_P2.md);
+P3-A y P3-B completan localmente las prioridades docentes, pantallas y práctica
+dirigida: [PROFESOR_P3_B.md](PROFESOR_P3_B.md). P4-A prepara la API de tiempo
+y evolución: [PROFESOR_P4_A.md](PROFESOR_P4_A.md). P4-B integra la cola de
+Pomodoro por cuenta y los informes Flutter con fuentes separadas:
+[PROFESOR_P4_B.md](PROFESOR_P4_B.md). **P4-C está implementada localmente:**
+solicitud del profesor, aprobación por ADMIN en el panel y bloqueo de acceso
+institucional mientras no se aprueba. Ver [PROFESOR_P4_C.md](PROFESOR_P4_C.md).
+**P5 permanece pausada:** cuando se autorice, comprobar los commits actuales,
+revisar migraciones, desplegar con autorización y ensayar el módulo del profesor. La revisión visual
+del panel y la prueba en dispositivos siguen pendientes.
+D3 se retoma después de P5; las entregas locales no equivalen a pruebas en teléfonos.
+Verificación P4-C: 502 pruebas Flutter aprobadas, 4 remotas omitidas y análisis
+sin avisos. No se ejecutaron operaciones sobre Supabase/Render.
+
+## Ejecutar la etapa actual
+
+```powershell
+flutter pub get
+flutter run
+```
+
+La aplicación inicia en modo demostración para poder revisar navegación y diseño sin enviar credenciales a un servidor.
+
+Para obtener esta entrega, guardar primero los cambios propios, ejecutar
+`git switch main` y `git pull --ff-only origin main` en ambos repositorios.
+`flutter run` permite ver la demo, pero no levanta el backend ni configura la API:
+reportes, permisos y persistencia reales requieren servicios activos y configuración
+del entorno de prueba. No copiar credenciales temporales ni usar cuentas reales en demo.
+
+La interfaz inicia con fondo blanco y permite que el estudiante elija modo claro, oscuro o automático según el dispositivo desde `Más > Preferencias`.
+
+### Antecedentes de entregas (no son la siguiente tarea)
+
+Las descripciones siguientes conservan el estado al entregarse. El panel actual
+guarda/publica directamente cuando está autorizado, sin revisión editorial
+obligatoria. Consultar ADMIN_PANEL y el inventario vigente antes de ejecutar pasos.
+
+Ajuste de **7F-C3-D2-F:** eliminación confirmada de temas y subtemas
+en borrador vacío, nunca publicados ni usados. Disponible localmente en el panel
+y backend; no elimina dependientes ni contenido en cascada. Sin cambios de código
+Flutter, migraciones o despliegue. Guía en `backend/EDITORIAL_DRAFT_DELETION.md`
+del repositorio backend. La revisión visual y D3 siguen pendientes.
+
+Entrega previa: **7F-C3-D2-F — pruebas editoriales en PostgreSQL temporal**.
+Ejecutor aislado para comprobar consultas, conflictos, rollback y uso histórico
+sin utilizar Supabase ni la base local habitual. D2 mantiene pendientes la
+revisión visual y la operación autorizada del legado, antes del ensayo real D3.
+Guía y comandos: [docs/ADMIN_PANEL.md](ADMIN_PANEL.md).
+
+Entrega anterior: **7F-C3-D2-E — formularios CLOZE y banco antiguo en el panel**.
+Incluye edición con vista previa, indexación por lotes, informes de coincidencias
+y destino paginado por área/tema/subtema. Demo aislada: 54 pruebas del panel
+aprobadas. No hubo cambios en Supabase/Render ni en el código Flutter.
+La comprobación PostgreSQL local se añadió en D2-F. Quedan revisión visual y
+operación del legado con autorización, antes de D3. D2 aún no se cierra.
+
+Entrega anterior: **7F-C3-D2-D — edición y revisión de completar espacios (CLOZE)**.
+Backend ADMIN con validación de marcadores/opciones/clave, guardado protegido y
+retiro confirmado en borradores sin uso. Compatible con el formato Flutter.
+No hay pantalla nueva ni cambios en Supabase/Render; publicación sigue apagada.
+La interfaz D2-E ya integra esas herramientas. Quedan concurrencia PostgreSQL,
+validación visual y ensayo editorial real. D2 todavía no está cerrada.
+
+Entrega anterior: **7F-C3-D2-C — reclasificación revisada de preguntas sin uso**.
+API ADMIN con destino elegido por el editor y confirmación, dentro de la misma
+área. Bloquea preguntas utilizadas o publicadas para conservar su historial.
+Escrituras apagadas; sin pantalla nueva ni operación sobre Supabase. D2 sigue
+abierta para verificación visual/PostgreSQL y operación autorizada del legado.
+
+Entrega anterior: **7F-C3-D2-B — indexación segura del banco antiguo por lotes**.
+API ADMIN con vista previa, confirmación y reportes de coincidencias, apagada
+para escrituras por defecto. No se ejecutó sobre Supabase, no publica ni
+reclasifica contenido y no incorpora todavía una pantalla nueva en el panel.
+
+Entrega anterior: **7F-C3-D2-A — retiro de escrituras antiguas y bloqueo editorial común**.
+No hay cambios visuales: el panel usa los servicios vigentes. Las rutas antiguas
+de escritura responden 410 al desplegar esta versión; no se desplegó automáticamente.
+D2 sigue abierta para operación del legado, revisión visual y pruebas PostgreSQL.
+
+Entrega anterior: **7F-C3-D1 — revisión y publicación editorial en demo**.
+El panel está en `admin/` del backend oficial: preguntas por subtema, opciones,
+explicaciones, casos compartidos por área y referencias de imágenes. Incluye
+control de duplicados, revisión de concurrencia y demo local aislada; conserva
+las lecciones y correcciones de nombres de C3-B.
+Apertura, límites y commits: [docs/ADMIN_PANEL.md](ADMIN_PANEL.md).
+Ya se revisa el contenido guardado y se confirman cambios de estado. Las nuevas
+escrituras de publicación real están apagadas por defecto hasta completar
+**C3-D2** (legado/CLOZE/concurrencia) y preparar **C3-D3** (ensayo real).
+Lista completa para el equipo: [docs/ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md).
+
+Entrega anterior: **7F-C2-B2 — diagnóstico por evidencia acumulada**.
+Disponible desde Progreso y el resultado del diagnóstico inicial. Diferencia un
+error aislado de una necesidad de refuerzo respaldada por preguntas distintas,
+sesiones y días de práctica. Pruebas y commits en [docs/LEARNING_EVIDENCE.md](LEARNING_EVIDENCE.md).
+
+Entrega anterior: **7F-C2-B1 — catálogo académico por área, tema y subtema**.
+La clasificación obligatoria y sus controles se implementaron en el backend;
+el panel visual y el diagnóstico por evidencia tienen sus propias entregas.
+Detalle y commits en [docs/ACADEMIC_CATALOG.md](ACADEMIC_CATALOG.md).
+
+Entrega anterior: **7F-B3-A — configuración y conexión básica de Flutter a staging**.
+El perfil listo para ejecutar, la comprobación sin credenciales y la lista de
+pruebas integrales pendientes están en [docs/FLUTTER_STAGING_CONNECTION.md](FLUTTER_STAGING_CONNECTION.md).
+
+```powershell
+flutter run --dart-define-from-file=config/staging.json
+```
+
+Este perfil usa la API real de desarrollo y no ofrece ingreso demo. No contiene
+credenciales de base de datos y no aplica migraciones.
+
+Entrega anterior: **6F-P — pulido de juegos y racha + Desafío del guardián**.
+Los cambios, cómo probarlos y el paso pendiente de migración/despliegue para el
+nuevo juego están en [docs/GAME_POLISH_GUARDIAN.md](GAME_POLISH_GUARDIAN.md).
+No se necesitan audios nuevos. Las siguientes etapas de contenido conservan su orden.
+
+El contrato auditado contra el backend existente está documentado en [docs/AUTH_CONTRACT.md](AUTH_CONTRACT.md).
+El contrato de convocatoria, diagnóstico y plan semanal está en [docs/ACADEMIC_CONTRACT.md](ACADEMIC_CONTRACT.md).
+El contrato del árbol de contenido y sus recursos está en [docs/STUDY_CONTRACT.md](STUDY_CONTRACT.md).
+El contrato de práctica protegida por subtema está en [docs/PRACTICE_CONTRACT.md](PRACTICE_CONTRACT.md).
+El contrato del panel de progreso y cuaderno de errores está en [docs/PROGRESS_CONTRACT.md](PROGRESS_CONTRACT.md).
+La fuente y actualización de fórmulas, glosario y estrategia están en [docs/REFERENCE_LIBRARY.md](REFERENCE_LIBRARY.md).
+La persistencia y gestión de contenido descargado están en [docs/OFFLINE_CONTENT.md](OFFLINE_CONTENT.md).
+La cola de operaciones seguras y sus conflictos está en [docs/OFFLINE_SYNC.md](OFFLINE_SYNC.md).
+Las preferencias persistentes y el recordatorio diario local están documentados en [docs/PREFERENCES_NOTIFICATIONS.md](PREFERENCES_NOTIFICATIONS.md).
+El contrato de XP, rachas, actividad y logros está en [docs/GAMIFICATION_CONTRACT.md](GAMIFICATION_CONTRACT.md).
+El alcance y la persistencia local de favoritos están en [docs/FAVORITES.md](FAVORITES.md).
+La búsqueda académica y la protección del banco de preguntas están documentadas en [docs/ACADEMIC_SEARCH.md](ACADEMIC_SEARCH.md).
+Las transiciones y su comportamiento de accesibilidad están en [docs/MOTION.md](MOTION.md).
+La reanudación local de la última lección está documentada en [docs/CONTINUE_LEARNING.md](CONTINUE_LEARNING.md).
+El temporizador Pomodoro compartido está documentado en [docs/POMODORO.md](POMODORO.md).
+Las flashcards académicas y su progreso local están documentados en [docs/FLASHCARDS.md](FLASHCARDS.md).
+El contador global de días para el examen está documentado en [docs/EXAM_COUNTDOWN.md](EXAM_COUNTDOWN.md).
+El feedback visual y háptico de rachas de aciertos está documentado en [docs/ANSWER_STREAK_FEEDBACK.md](ANSWER_STREAK_FEEDBACK.md).
+Las marcas locales y protegidas de preguntas difíciles están documentadas en [docs/DIFFICULT_QUESTIONS.md](DIFFICULT_QUESTIONS.md).
+El repaso de las respuestas falladas durante el día está documentado en [docs/DAILY_MISTAKE_REVIEW.md](DAILY_MISTAKE_REVIEW.md).
+El registro local del tiempo total estudiado está documentado en [docs/STUDY_TIME.md](STUDY_TIME.md).
+El simulacro de 150 preguntas dividido en jornadas AM/PM está documentado en [docs/SIMULACRO_150.md](SIMULACRO_150.md).
+La sesión por dispositivo, la integridad de simulacros y los descansos saludables están documentados en [docs/SESSION_SECURITY_WELLBEING.md](SESSION_SECURITY_WELLBEING.md).
+El catálogo protegido de simulacros por año está documentado en [docs/HISTORICAL_SIMULATIONS.md](HISTORICAL_SIMULATIONS.md).
+
+## Configuración por ambiente
+
+```powershell
+flutter run --dart-define=APP_ENV=dev --dart-define=API_BASE_URL=http://10.0.2.2:3000 --dart-define=CONTENT_BASE_URL=http://10.0.2.2:3001 --dart-define=DEMO_MODE=true
+```
+
+- `APP_ENV`: `dev`, `staging` o `prod`.
+- `API_BASE_URL`: raíz del backend NestJS, sin `/v1`.
+- `CONTENT_BASE_URL`: origen opcional que publica las imágenes legadas bajo `/imagenes`; si se omite, usa el origen de la API.
+- `DEMO_MODE`: habilita los accesos demostrativos mientras se conecta autenticación real.
+
+## Calidad
+
+```powershell
+flutter analyze
+flutter test
+```
+
+## Validación real de autenticación
+
+Con el backend, PostgreSQL y sus migraciones ejecutándose, se puede validar el flujo completo y el repositorio Dart de Flutter:
+
+```powershell
+.\tool\verify_auth_api.ps1 `
+  -ApiBaseUrl http://127.0.0.1:3000 `
+  -DatabaseUrl "postgresql://usuario:clave@127.0.0.1:5432/base?schema=public"
+```
+
+El script crea una cuenta E2E única. Debe ejecutarse solamente contra una base de desarrollo o pruebas, ya que consulta los tokens de verificación y recuperación directamente en PostgreSQL.
+
+Consulta el avance y las siguientes entregas en [docs/ROADMAP_MOVIL.md](ROADMAP_MOVIL.md).
+
+La preparación de PostgreSQL administrado, las conexiones de Prisma y el despliegue seguro de migraciones se documentan en [docs/SUPABASE_DEPLOYMENT.md](SUPABASE_DEPLOYMENT.md).
+
+El despliegue HTTPS del backend de staging y su conexión con Flutter se documentan en [docs/RENDER_STAGING_DEPLOYMENT.md](RENDER_STAGING_DEPLOYMENT.md).
+
+El comportamiento y contrato pendiente de las pruebas de velocidad se documenta en [docs/TIME_TRIALS.md](TIME_TRIALS.md).
+
+La comparación segura de resultados y el historial unificado pendiente se describen en [docs/SIMULATION_COMPARISON.md](SIMULATION_COMPARISON.md).
+
+El cálculo del temario pendiente por materia se documenta en [docs/SYLLABUS_COUNTDOWN.md](SYLLABUS_COUNTDOWN.md).
+
+El panel central del estudiante y el origen de cada indicador se documentan en [docs/ACADEMIC_PROFILE.md](ACADEMIC_PROFILE.md).
+
+El resumen semanal y el comparativo mensual se documentan en [docs/ACADEMIC_ACTIVITY_REPORT.md](ACADEMIC_ACTIVITY_REPORT.md).
+
+La estimación interna de puntaje y sus límites frente al resultado oficial se documentan en [docs/SCORE_PROJECTION.md](SCORE_PROJECTION.md).
+
+La orientación de carreras y los accesos al catálogo oficial del SNIES se documentan en [docs/CAREER_ORIENTATION.md](CAREER_ORIENTATION.md).
+
+El catálogo seguro de becas, gratuidad y fondos oficiales se documenta en [docs/OFFICIAL_OPPORTUNITIES.md](OFFICIAL_OPPORTUNITIES.md).
+
+La comparación con promedios nacionales del ICFES se documenta en [docs/NATIONAL_SCORE_COMPARISON.md](NATIONAL_SCORE_COMPARISON.md).
+
+El modelo gratuito con publicidad, planes individuales y espacios de institución se documenta en [docs/BUSINESS_MODEL.md](BUSINESS_MODEL.md).
+
+El juego individual de velocidad, su cliente conectado y sus potenciadores se documentan en [docs/TRIVIA_RUSH.md](TRIVIA_RUSH.md). El motor autoritativo y las rutas de integración se especifican en [docs/TRIVIA_RUSH_BACKEND_CONTRACT.md](TRIVIA_RUSH_BACKEND_CONTRACT.md).
+
+El juego sin conexión de parejas entre fórmulas, términos y definiciones se documenta en [docs/MEMORY_MATCH.md](MEMORY_MATCH.md).
+
+El duelo contra el récord personal, autoritativo y sincronizado entre dispositivos se documenta en [docs/GHOST_DUEL.md](GHOST_DUEL.md). Los audios, contenidos y contratos necesarios para producción están enumerados en [docs/GAMES_PRODUCTION_CHECKLIST.md](GAMES_PRODUCTION_CHECKLIST.md).
+
+El ranking global e institucional con alias seudónimos y defensa contra filtraciones de datos se documenta en [docs/RANKING_PRIVACY.md](RANKING_PRIVACY.md).
+
+Las batallas asíncronas con emparejamiento anónimo, códigos privados, bloqueo y reporte se documentan en [docs/ASYNC_BATTLES.md](ASYNC_BATTLES.md).
+
+El tablón de comunicados, los referidos protegidos, el soporte por WhatsApp y la calculadora manual se documentan en [docs/COMMUNITY_TOOLS.md](COMMUNITY_TOOLS.md).
+
+El registro personal de profesores y la base segura para crear o solicitar ingreso a una institución se documentan en [docs/TEACHER_INSTITUTION_FOUNDATION.md](TEACHER_INSTITUTION_FOUNDATION.md).
+
+Los permisos del equipo docente, las invitaciones, la auditoría y la transferencia de propiedad se documentan en [docs/INSTITUTION_ADMINISTRATION.md](INSTITUTION_ADMINISTRATION.md).
+
+Los grupos asignados, los códigos temporales protegidos y la aceptación explícita de estudiantes se documentan en [docs/GROUP_LINKING.md](GROUP_LINKING.md).
+
+Los límites del profesor gratuito, sus indicadores agregados y la política publicitaria preparada se documentan en [docs/TEACHER_FREE_PLAN.md](TEACHER_FREE_PLAN.md).
+
+El plan institucional sin anuncios, la analítica detallada, las alertas y las exportaciones seguras se documentan en [docs/TEACHER_NO_ADS_PLAN.md](TEACHER_NO_ADS_PLAN.md).
+
+El ciclo seguro de borrador, revisión, publicación y archivo del contenido académico se documenta en [docs/CONTENT_ADMINISTRATION.md](CONTENT_ADMINISTRATION.md).
+
+El formato para importar preguntas, lecciones, casos e imágenes mediante Excel o ZIP se documenta en [docs/CONTENT_IMPORT_FORMAT.md](CONTENT_IMPORT_FORMAT.md).
+
+El juego animado de preguntas Tira y afloja, tanto contra CPU como en multijugador autoritativo, se documenta en [docs/TUG_OF_WAR.md](TUG_OF_WAR.md). Su contrato HTTP, Socket.IO y de reconexión se especifica en [docs/TUG_OF_WAR_BACKEND_CONTRACT.md](TUG_OF_WAR_BACKEND_CONTRACT.md).
