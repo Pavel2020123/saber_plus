@@ -1,5 +1,11 @@
 # Relevo de pruebas locales — Docker, Android USB y juegos
 
+**21 de octubre — entrada vigente:** un nuevo compañero sustituye al propietario
+en C5-C2; NO es el responsable de OV-1. Seguir [RELEVO_C5_C2](RELEVO_C5_C2.md)
+y [acta C2-D](C5C2D_VALIDACION_LOCAL.md). Ocho bloques humanos pendientes,
+incluidos cinco subcasos D8a–e; Docker, usuarios/clave temporal, USB y pasos
+exactos en esa guía. No reutilizar las sesiones ni órdenes históricas inferiores.
+
 **19 de octubre — continuar aquí, no en los guiones históricos:** [R4 reportes](MA1R_R4_VALIDACION_LOCAL.md),
 12/12 humanos y45/45 HTTP/PostgreSQL aprobados; backend121/1567 tras fix de concurrencia, Flutter920/13 opt-in
 omitidas, ADMIN109/build/análisis. Remate Android confirmado: R4 cerrada localmente,

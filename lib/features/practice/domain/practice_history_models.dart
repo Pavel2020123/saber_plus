@@ -193,16 +193,23 @@ class AnswerHistoryItem {
 }
 
 class HistoryAnswer {
-  const HistoryAnswer({required this.id, required this.text, this.explanation});
+  const HistoryAnswer({
+    required this.id,
+    required this.text,
+    this.explanation,
+    this.imageUrl,
+  });
 
   final String id;
   final String text;
   final String? explanation;
+  final String? imageUrl;
 
   factory HistoryAnswer.fromJson(Map<String, dynamic> json) => HistoryAnswer(
     id: json['id'] as String,
     text: json['texto'] as String,
     explanation: _optionalText(json['explicacion']),
+    imageUrl: _optionalText(json['imagenUrl']),
   );
 }
 

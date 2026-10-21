@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import '../../../core/network/api_error.dart';
 import '../../../core/widgets/academic_image.dart';
+import '../../../core/widgets/academic_option_content.dart';
 import '../domain/battle_models.dart';
 import '../domain/battle_repository.dart';
 import 'battle_providers.dart';
@@ -514,7 +515,10 @@ class _QuestionCard extends StatelessWidget {
                 child: RadioListTile<String>(
                   value: option.id,
                   enabled: enabled,
-                  title: Text(option.text),
+                  title: AcademicOptionContent(
+                    text: option.text,
+                    imageUrl: option.imageUrl,
+                  ),
                 ),
               ),
           ],

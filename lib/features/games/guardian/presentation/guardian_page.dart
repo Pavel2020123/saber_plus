@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/feedback/game_audio_feedback.dart';
 import '../../../../core/network/api_error.dart';
 import '../../../../core/widgets/academic_image.dart';
+import '../../../../core/widgets/academic_option_content.dart';
 import '../../../academic/domain/academic_models.dart';
 import '../../../auth/presentation/session_controller.dart';
 import '../../../practice/domain/practice_models.dart';
@@ -606,7 +607,12 @@ class _GuardianGameState extends ConsumerState<_GuardianGame> {
                     size: 20,
                   ),
                   const SizedBox(width: 12),
-                  Expanded(child: Text(option.text)),
+                  Expanded(
+                    child: AcademicOptionContent(
+                      text: option.text,
+                      imageUrl: option.imageUrl,
+                    ),
+                  ),
                 ],
               ),
             ),

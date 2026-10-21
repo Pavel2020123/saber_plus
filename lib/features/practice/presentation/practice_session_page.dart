@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/feedback/answer_streak_feedback.dart';
 import '../../../core/network/api_error.dart';
 import '../../../core/widgets/academic_image.dart';
+import '../../../core/widgets/academic_option_content.dart';
 import '../../../core/sync/drift_safe_sync_repository.dart';
 import '../../../core/widgets/animated_streak_flame.dart';
 import '../../../core/wellbeing/study_break_reminder.dart';
@@ -1113,7 +1114,12 @@ class _AnswerOption extends StatelessWidget {
           children: [
             CircleAvatar(radius: 18, child: Text(letter)),
             const SizedBox(width: 13),
-            Expanded(child: Text(option.text)),
+            Expanded(
+              child: AcademicOptionContent(
+                text: option.text,
+                imageUrl: option.imageUrl,
+              ),
+            ),
             if (selected) const Icon(Icons.check_circle_rounded),
           ],
         ),
@@ -1452,7 +1458,12 @@ class _ReviewOption extends StatelessWidget {
             children: [
               Icon(icon, color: color),
               const SizedBox(width: 9),
-              Expanded(child: Text(option.text)),
+              Expanded(
+                child: AcademicOptionContent(
+                  text: option.text,
+                  imageUrl: option.imageUrl,
+                ),
+              ),
             ],
           ),
           if (selected || correct) ...[

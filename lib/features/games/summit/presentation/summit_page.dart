@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/network/api_error.dart';
 import '../../../../core/widgets/academic_image.dart';
+import '../../../../core/widgets/academic_option_content.dart';
 import '../../../academic/domain/academic_models.dart';
 import '../../../practice/domain/practice_models.dart';
 import '../../../ranking/domain/competitive_ranking_models.dart';
@@ -508,7 +509,12 @@ class _SummitGameState extends ConsumerState<_SummitGame> {
                         : Icons.radio_button_unchecked,
                   ),
                   const SizedBox(width: 12),
-                  Expanded(child: Text(option.text)),
+                  Expanded(
+                    child: AcademicOptionContent(
+                      text: option.text,
+                      imageUrl: option.imageUrl,
+                    ),
+                  ),
                 ],
               ),
             ),

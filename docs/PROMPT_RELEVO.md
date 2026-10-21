@@ -1,5 +1,40 @@
 # Relevo general — elegir responsable antes de continuar
 
+## Entrada vigente — 21 de octubre: nuevo compañero para terminar C5-C2
+
+El propietario delega C2 en **otro compañero**, distinto del responsable de OV-1.
+Leer primero [relevo completo de C2](RELEVO_C5_C2.md) y después el
+[acta C2-D](C5C2D_VALIDACION_LOCAL.md): C2-A/B/C implementadas y validadas
+automáticamente; C2-D sigue0/8 bloques humanos, con D8a–e pendientes.
+La guía incluye ambos repos, auditoría, Docker, cuentas ficticias/contraseña local,
+USB/APK, pruebas, correcciones Flutter/backend/panel, actas y entrega mediante PR.
+No cambiar el frente OV-1. Las órdenes inferiores fechadas son antecedentes,
+no instrucciones para reiniciar instituciones/reportes/juegos ya cerrados.
+
+Prompt para esta persona:
+
+```text
+Te corresponde terminar C5-C2 de SaberPlus en sustitución del propietario;
+NO eres el compañero de OV-1. Ten ambos repositorios actualizados y lee
+docs/RELEVO_C5_C2.md (backend: backend/docs/RELEVO_C5_C2.md), sus documentos
+de arquitectura/estado y el acta C5C2D_VALIDACION_LOCAL.md. Primero audita las
+dependencias, estado Git y código/pruebas del módulo, registra lo realmente
+revisado y continúa desde el último checkpoint, no desde un chat antiguo.
+C2-A/B/C ya están implementadas; faltan C2-D y los fallos que aparezcan.
+Prepara una sesión Docker propia, panel real local y Android USB desbloqueado.
+Usuarios y forma segura de encontrar la contraseña están en la guía; no subas
+secretos ni uses producción. Explica cada paso al compañero humano y pide su
+confirmación visual; actualiza ambas actas tras cada prueba. Ejecuta los ocho
+bloques, incluidos D8a–e; consigue segundo cliente para Tira online o deja ese
+subcaso pendiente, nunca inventes aprobación. Puedes corregir Flutter, API y
+panel dentro de C2 con regresiones, sin reconstruir arquitectura ni tocar OV-1.
+Trabaja en ramas propias, conserva cambios ajenos y entrega rutas, evidencia,
+comentarios de commit y comandos de push. No push/merge/despliegue sin permiso.
+Cierra C2 local solo con los criterios de la guía; el resto de C5 sigue abierto.
+```
+
+## Antecedentes anteriores a este relevo
+
 **19 de octubre, continuación del propietario:** leer [R4](MA1R_R4_VALIDACION_LOCAL.md)
 y [checkpoint](MA1R_REPORTES_PREGUNTAS.md).12/12 humanos y45/45 integradas aprobadas;
 regresiones backend121/1567 tras fix de concurrencia, Flutter920/13 opt-in omitidas, ADMIN109/build/análisis.

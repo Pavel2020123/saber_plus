@@ -140,13 +140,18 @@ class DiagnosticCaseContent {
 }
 
 class DiagnosticOption {
-  const DiagnosticOption({required this.id, required this.text});
+  const DiagnosticOption({required this.id, required this.text, this.imageUrl});
 
   final String id;
   final String text;
+  final String? imageUrl;
 
   factory DiagnosticOption.fromJson(Map<String, dynamic> json) =>
-      DiagnosticOption(id: json['id'] as String, text: json['texto'] as String);
+      DiagnosticOption(
+        id: json['id'] as String,
+        text: json['texto'] as String,
+        imageUrl: json['imagenUrl'] as String?,
+      );
 }
 
 class DiagnosticQuestion {

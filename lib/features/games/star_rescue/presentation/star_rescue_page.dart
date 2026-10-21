@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/network/api_error.dart';
 import '../../../../core/widgets/academic_image.dart';
+import '../../../../core/widgets/academic_option_content.dart';
 import '../../../academic/domain/academic_models.dart';
 import '../../../practice/domain/practice_models.dart';
 import '../../../study/presentation/study_providers.dart';
@@ -470,7 +471,12 @@ class _RescueGameState extends ConsumerState<_RescueGame> {
                         : Icons.radio_button_unchecked,
                   ),
                   const SizedBox(width: 12),
-                  Expanded(child: Text(option.text)),
+                  Expanded(
+                    child: AcademicOptionContent(
+                      text: option.text,
+                      imageUrl: option.imageUrl,
+                    ),
+                  ),
                 ],
               ),
             ),

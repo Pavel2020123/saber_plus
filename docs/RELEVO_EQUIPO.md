@@ -1,5 +1,10 @@
 # Relevo del equipo — empezar aquí
 
+**Entrada vigente del21:** para el nuevo compañero que terminará C5-C2, leer
+[relevo específico](RELEVO_C5_C2.md) y [acta C2-D](C5C2D_VALIDACION_LOCAL.md),
+todavía0/8 bloques humanos. No es el compañero de OV-1; no reasignar su trabajo.
+Las entradas inferiores de instituciones/reportes son antecedentes.
+
 **Checkpoint del19 que prevalece:** [R4 de reportes](MA1R_R4_VALIDACION_LOCAL.md)
 con12/12 humanos,45/45 PostgreSQL/HTTP y regresiones aprobadas. Propietario:
 R4 cerrada localmente tras remate Android confirmado e integrada en main por PR

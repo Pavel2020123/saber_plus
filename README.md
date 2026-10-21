@@ -10,17 +10,24 @@ productivo ni vuelve a ejecutar las pruebas de las actas.
 
 ## Estado actual y siguiente paso
 
+**Nuevo compañero de C2 (no OV-1):** empezar por
+[relevo operativo completo](docs/RELEVO_C5_C2.md) y
+[acta C2-D](docs/C5C2D_VALIDACION_LOCAL.md). Incluye arranque de ambos repos,
+cuentas/clave temporal, Docker/USB, auditoría y pruebas pendientes paso a paso.
+Puede corregir Flutter/API/panel de C2; quedan0/8 bloques humanos y D8a–e.
+
 El propietario trabaja en **C5 — archivos y recursos** desde la rama
 `feat/c5-archivos-base`. La entrega funcional A/B/C1 quedó guardada en los commits
 app `af73039` y backend `0bfaaba`; no está integrada en `main`. El push posterior
-app `2ee714a` y backend `7995201` ya publicó esa entrega y C2-A en la rama.
-C2-B es la entrega actual; consultar git log para su commit. No hay merge ni
+app `c69a5e9` y backend `e1c4d18` ya publicó esa entrega y C2-A/B en la rama.
+C2-C está validada automáticamente, todavía sin commit/push. No hay merge ni
 despliegue. OV-1 sigue en el frente del compañero.
 
 **C5-C1 completada localmente: cinco de cinco comprobaciones Android aprobadas.**
-Ya avanzó [C5-C2, imágenes en opciones](docs/C5C2_OPCIONES.md): base, permisos y
-contrato/panel C2-A/B validados localmente. Sigue C2-C consumidores/Flutter.
-La nueva carga está apagada por defecto hasta completar C2-C/D. No está terminada toda C5.
+Ya avanzó [C5-C2, imágenes en opciones](docs/C5C2_OPCIONES.md): base, panel y
+consumidores C2-A/B/C validados automáticamente. Sigue C2-D Android, sin
+confirmaciones humanas todavía. Carga apagada por defecto; opt-in solo en la
+sesión desechable de ensayo. No está terminada toda C5.
 Consultar el [guion y checkpoint C5-C1](docs/C5C_FLUTTER.md); no asumir que los
 servicios o las credenciales de una sesión anterior siguen activos.
 
@@ -29,7 +36,7 @@ servicios o las credenciales de una sesión anterior siguen activos.
 | Instituciones PR-I5 | Directorio, departamento/municipio, aprobación, presentación, logo, solicitudes de estudiantes y código privado; cierre técnico local e integración en `main`. | Despliegue y validación productiva, observaciones del acta y ranking institucional separado. [Cierre](docs/CIERRE_INSTITUCIONES_LOCAL.md). |
 | Cobertura y reportes MA-1/MA-1R | Cobertura del banco, formulario, Mis reportes y gestión ADMIN; R1–R4 validadas localmente e integradas en `main`. | Operación real y ensayo autorizado de staging. Ocultar/Deshacer es una propuesta separada, no está implementada por cerrar R4. [Acta](docs/MA1R_R4_VALIDACION_LOCAL.md). |
 | C5-A y C5-B | Base de imágenes editoriales privadas, carga desde el panel y asociación segura a preguntas, casos y lecciones; pruebas locales aprobadas. | Proveedor persistente y operación externa no configurados por esta entrega. [Contrato](docs/C5_ARCHIVOS.md) y [panel](docs/C5B_PANEL.md). |
-| C5-C1 / C2 | C1: **5/5 Android aprobadas** el21; arreglo del aviso,57 dirigidas/análisis aprobados y APK instalada. C2-A/B: base y editor,37/37 PostgreSQL/HTTP,130 panel y127 suites/1.670 backend. | C2-C consumidores y C2-D integrado; carga por opción apagada por defecto. PDF/offline, autorización histórica, fotos/evidencias y C5-D pendientes. [C1](docs/C5C_FLUTTER.md), [C2](docs/C5C2_OPCIONES.md). |
+| C5-C1 / C2 | C1: **5/5 Android aprobadas** el21. C2-A/B/C: base, panel y consumidores;44/44 PostgreSQL/HTTP,128 suites/1.675 backend y969 Flutter aprobadas/16 omitidas. | C2-D Android pendiente; carga por opción apagada por defecto. PDF/offline, autorización histórica, fotos/evidencias y C5-D pendientes. [C1](docs/C5C_FLUTTER.md), [C2-C](docs/C5C2C_CONSUMIDORES.md). |
 | Cima, Guardián y Rescate | Bloque competitivo inicial validado localmente en Android/API/SQL según sus actas. | Activación productiva y cierres operativos separados; no repetir su implementación. [Cima](docs/IC1_CIMA.md), [Guardián](docs/IC1_GUARDIAN.md), [Rescate](docs/IC1_RESCATE.md). |
 | Mapa y repaso diferido MA-2/MA-3 | API, persistencia, panel/agenda y consumidores Flutter implementados localmente. | Ensayos integrados y físicos pendientes según cada contrato. [Mapa](docs/MAPA_APRENDIZAJE.md), [repaso](docs/REPASO_DIFERIDO.md). |
 | Certificados | Seis tipos con implementación local HTML/PDF: cinco áreas y curso completo. | Prueba real, nombres largos y áreas incompletas/vacías. No hay certificados por juego o logro. [Guía](docs/GUIA_TRABAJO_COMPANEROS.md). |
@@ -178,7 +185,10 @@ Ejecutar `flutter pub get` antes si faltan las dependencias.
 No se repitió la regresión global950 ni la suite backend completa por ese arreglo.
 Después, C2-A sí ejecutó backend completo:126 suites/1.657 aprobadas,31/31
 PostgreSQL/HTTP y70 migraciones temporales. C2-B amplió esa evidencia a127 suites/
-1.670 backend,130/130 panel y37/37 PostgreSQL/HTTP. No hay prueba Android de C2.
+1.670 backend,130/130 panel y37/37 PostgreSQL/HTTP. C2-C amplía a128 suites/
+1.675 backend,44/44 PostgreSQL/HTTP y969 Flutter aprobadas/16 opt-in omitidas.
+Análisis Flutter y compilación backend aprobados. El acta C2-C distingue27
+incidencias ESLint preexistentes del control dirigido aprobado. C2-D Android pendiente.
 
 No sumar los contadores como si fueran pruebas diferentes ni considerar aprobadas
 las omitidas. Compilar una APK no acredita instalación, prueba física, firma de
@@ -191,7 +201,7 @@ aislado; no ejecutarlas contra una base real por copiar un comando histórico.
 
 ## Trabajo del equipo y etapas restantes
 
-- **Propietario:** C5-C1 cerrada, A/B/C1+C2-A publicadas en rama y [C2-B validada](docs/C5C2_OPCIONES.md). Sigue C2-C contratos/Flutter, después C2-D y resto C5-C/D. Sin merge ni despliegue.
+- **Propietario:** C5-C1 cerrada, A/B/C1+C2-A/B publicadas en rama y [C2-C validada automáticamente](docs/C5C2C_CONSUMIDORES.md), sin commit/push nuevos. Sigue C2-D Android y resto C5-C/D. Sin merge ni despliegue.
 - **Compañero:** OV-1 en su rama; revisar su checkpoint al recibir una entrega, sin asumir cambios no presentes en estos clones.
 - Cada frente puede modificar Flutter y backend cuando lo necesite. Coordinar esquema Prisma, migraciones, módulos, contratos y archivos compartidos.
 - Trabajar en ramas independientes y entregar mediante PR revisado a `main`. No descartar cambios propios para actualizar el repositorio ni hacer push, merge, migraciones o despliegues automáticos.

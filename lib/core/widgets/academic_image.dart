@@ -69,11 +69,14 @@ class AcademicImage extends ConsumerStatefulWidget {
     required this.value,
     this.label = 'Imagen del contenido',
     this.borderRadius = BorderRadius.zero,
+    this.maxImageHeight,
   });
 
   final String value;
   final String label;
   final BorderRadius borderRadius;
+  // Bound decoded pixels only: error/retry text must remain unconstrained.
+  final double? maxImageHeight;
 
   @override
   ConsumerState<AcademicImage> createState() => _AcademicImageState();
@@ -94,10 +97,7 @@ class _AcademicImageState extends ConsumerState<AcademicImage> {
             data: (image) => Semantics(
               image: true,
               label: widget.label,
-              child: ClipRRect(
-                borderRadius: widget.borderRadius,
-                child: RawImage(image: image, fit: BoxFit.contain),
-              ),
+              child: _pixels(RawImage(image: image, fit: BoxFit.contain)),
             ),
             loading: () => const Text('Cargando imagen…'),
             error: (_, _) => _failure(() {
@@ -127,8 +127,7 @@ class _AcademicImageState extends ConsumerState<AcademicImage> {
       semanticLabel: widget.label,
       fit: BoxFit.contain,
       // Round only decoded image pixels, not loading/error messages.
-      frameBuilder: (_, child, _, _) =>
-          ClipRRect(borderRadius: widget.borderRadius, child: child),
+      frameBuilder: (_, child, _, _) => _pixels(child),
       loadingBuilder: (_, child, progress) =>
           progress == null ? child : const Text('Cargando imagen…'),
       errorBuilder: (_, _, _) => _failure(() async {
@@ -136,6 +135,16 @@ class _AcademicImageState extends ConsumerState<AcademicImage> {
         if (mounted) setState(() => _retry++);
       }),
     );
+  }
+
+  Widget _pixels(Widget child) {
+    final rounded = ClipRRect(borderRadius: widget.borderRadius, child: child);
+    return widget.maxImageHeight == null
+        ? rounded
+        : ConstrainedBox(
+            constraints: BoxConstraints(maxHeight: widget.maxImageHeight!),
+            child: rounded,
+          );
   }
 
   Widget _failure(VoidCallback onRetry) => Column(

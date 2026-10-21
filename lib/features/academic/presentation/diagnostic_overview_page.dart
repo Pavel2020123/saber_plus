@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/network/api_error.dart';
 import '../../../core/widgets/academic_image.dart';
+import '../../../core/widgets/academic_option_content.dart';
 import '../../auth/presentation/session_controller.dart';
 import '../../exam_countdown/presentation/exam_countdown_banner.dart';
 import '../../study_time/domain/study_time_models.dart';
@@ -548,7 +549,12 @@ class _AnswerOption extends StatelessWidget {
                   child: Text(letter),
                 ),
                 const SizedBox(width: 14),
-                Expanded(child: Text(option.text)),
+                Expanded(
+                  child: AcademicOptionContent(
+                    text: option.text,
+                    imageUrl: option.imageUrl,
+                  ),
+                ),
                 if (selected)
                   Icon(Icons.check_circle_rounded, color: colors.primary),
               ],

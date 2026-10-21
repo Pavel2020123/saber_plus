@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/feedback/game_audio_feedback.dart';
 import '../../../../core/network/api_error.dart';
 import '../../../../core/widgets/academic_image.dart';
+import '../../../../core/widgets/academic_option_content.dart';
 import '../../ghost_duel/domain/ghost_duel_models.dart';
 import '../../ghost_duel/presentation/ghost_duel_providers.dart';
 import '../../ghost_duel/presentation/ghost_character.dart';
@@ -813,7 +814,12 @@ class _AnswerButton extends StatelessWidget {
     ),
     child: Row(
       children: [
-        Expanded(child: Text(option.text)),
+        Expanded(
+          child: AcademicOptionContent(
+            text: option.text,
+            imageUrl: option.imageUrl,
+          ),
+        ),
         if (failed) const Icon(Icons.close_rounded),
       ],
     ),

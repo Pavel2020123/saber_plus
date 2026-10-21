@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../app/theme.dart';
 import '../../../core/network/api_error.dart';
+import '../../../core/widgets/academic_option_content.dart';
 import '../../../core/sync/drift_safe_sync_repository.dart';
 import '../../../core/sync/safe_sync_models.dart';
 import '../../academic/domain/academic_models.dart';
@@ -640,12 +641,14 @@ class _NotebookEntryCardState extends State<_NotebookEntryCard> {
         _AnswerBox(
           title: 'Tu respuesta',
           text: widget.item.selectedAnswer?.text ?? 'No disponible',
+          imageUrl: widget.item.selectedAnswer?.imageUrl,
           color: Theme.of(context).colorScheme.errorContainer,
         ),
         const SizedBox(height: 8),
         _AnswerBox(
           title: 'Respuesta correcta',
           text: widget.item.correctAnswer?.text ?? 'No disponible',
+          imageUrl: widget.item.correctAnswer?.imageUrl,
           color: SaberPlusColors.success.withValues(alpha: 0.12),
         ),
         if (widget.item.explanation case final explanation?) ...[
@@ -707,11 +710,13 @@ class _AnswerBox extends StatelessWidget {
     required this.title,
     required this.text,
     required this.color,
+    this.imageUrl,
   });
 
   final String title;
   final String text;
   final Color color;
+  final String? imageUrl;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -726,7 +731,7 @@ class _AnswerBox extends StatelessWidget {
       children: [
         Text(title, style: Theme.of(context).textTheme.labelLarge),
         const SizedBox(height: 3),
-        Text(text),
+        AcademicOptionContent(text: text, imageUrl: imageUrl),
       ],
     ),
   );
