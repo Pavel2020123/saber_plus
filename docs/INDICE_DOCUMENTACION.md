@@ -1,5 +1,23 @@
 # Índice de documentación de SaberPlus
 
+- **Entrada del21 para el nuevo compañero de C2:** [relevo operativo completo](RELEVO_C5_C2.md)
+  y [acta de pruebas C2-D](C5C2D_VALIDACION_LOCAL.md). No es el frente OV-1.
+
+**21 de octubre — [C5-C2-C validada automáticamente](C5C2C_CONSUMIDORES.md):**
+contratos/snapshots y Flutter incorporan imágenes opcionales sin cambiar XP ni
+romper JSON antiguo.969 Flutter aprobadas/16 opt-in omitidas,128 suites/1.675
+backend y44/44 PostgreSQL/HTTP;70 migraciones temporales, ninguna nueva de C2-C.
+**Sigue C2-D:0/8 guiones humanos propuestos**, con Docker/USB al preparar la sesión.
+Activación apagada por defecto; sin nuevo ensayo Android ni despliegue. C1 conserva5/5.
+Último push de C2-B: app `c69a5e9`, backend `e1c4d18`; C2-C aún sin commit/push.
+Deuda ESLint previa:27 incidencias verificadas en HEAD, descritas en el acta.
+Rama `feat/c5-archivos-base`; sin merge a main ni cambios OV-1.
+
+- **20 de octubre, continuación vigente:** [C5 — archivos](C5_ARCHIVOS.md).
+  A y [B panel](C5B_PANEL.md) validadas:23/23 PostgreSQL/HTTP, recorrido Chromium
+  y69 migraciones temporales. Sigue C Flutter/consumidores y D integración/operación.
+  Rama `feat/c5-archivos-base`, sin integración en main ni despliegue.
+
 - [Auditoría documental e integración del19](AUDITORIA_DOCUMENTAL_2026_10_19.md):
   fuentes vigentes, correcciones, orden restante y actualización para compañeros.
 

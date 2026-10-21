@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import '../../../../core/widgets/academic_image.dart';
+import '../../../../core/widgets/academic_option_content.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/config/environment.dart';
-import '../../../../core/config/resource_url.dart';
 import '../../../../core/feedback/game_audio_feedback.dart';
 import '../domain/tug_online_models.dart';
 import '../domain/tug_of_war_models.dart';
@@ -175,18 +175,9 @@ class _TugOnlinePageState extends ConsumerState<TugOnlinePage> {
                     ),
                     if (question.imageUrl case final imageUrl?) ...[
                       const SizedBox(height: 14),
-                      ClipRRect(
+                      AcademicImage(
+                        value: imageUrl,
                         borderRadius: BorderRadius.circular(14),
-                        child: Image.network(
-                          resolveResourceUrl(
-                            ref.watch(appConfigProvider),
-                            imageUrl,
-                          ),
-                          fit: BoxFit.contain,
-                          errorBuilder: (_, _, _) => const Text(
-                            'La imagen de esta pregunta no está disponible.',
-                          ),
-                        ),
                       ),
                     ],
                   ],
@@ -213,7 +204,10 @@ class _TugOnlinePageState extends ConsumerState<TugOnlinePage> {
                       ? Theme.of(context).colorScheme.primaryContainer
                       : null,
                 ),
-                child: Text(option.text),
+                child: AcademicOptionContent(
+                  text: option.text,
+                  imageUrl: option.imageUrl,
+                ),
               ),
               const SizedBox(height: 8),
             ],

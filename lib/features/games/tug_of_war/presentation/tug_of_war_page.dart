@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/feedback/game_audio_feedback.dart';
 import '../../../../core/network/api_error.dart';
+import '../../../../core/widgets/academic_option_content.dart';
 import '../../../practice/domain/practice_models.dart';
 import '../../trivia_rush/domain/trivia_rush_models.dart';
 import '../../trivia_rush/presentation/trivia_rush_providers.dart';
@@ -535,7 +536,10 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage>
                           ? Theme.of(context).colorScheme.primaryContainer
                           : null,
                     ),
-                    child: Text(option.text),
+                    child: AcademicOptionContent(
+                      text: option.text,
+                      imageUrl: option.imageUrl,
+                    ),
                   ),
                   const SizedBox(height: 8),
                 ],

@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
 
 import '../../../core/network/api_error.dart';
+import '../../../core/widgets/academic_image.dart';
+import '../../../core/widgets/academic_option_content.dart';
 import '../domain/battle_models.dart';
 import '../domain/battle_repository.dart';
 import 'battle_providers.dart';
@@ -492,12 +494,9 @@ class _QuestionCard extends StatelessWidget {
       Text(question.statement, style: Theme.of(context).textTheme.titleLarge),
       if (question.imageUrl?.isNotEmpty == true) ...[
         const SizedBox(height: 12),
-        ClipRRect(
+        AcademicImage(
+          value: question.imageUrl!,
           borderRadius: BorderRadius.circular(12),
-          child: Image.network(
-            question.imageUrl!,
-            errorBuilder: (_, _, _) => const SizedBox.shrink(),
-          ),
         ),
       ],
       const SizedBox(height: 14),
@@ -516,7 +515,10 @@ class _QuestionCard extends StatelessWidget {
                 child: RadioListTile<String>(
                   value: option.id,
                   enabled: enabled,
-                  title: Text(option.text),
+                  title: AcademicOptionContent(
+                    text: option.text,
+                    imageUrl: option.imageUrl,
+                  ),
                 ),
               ),
           ],

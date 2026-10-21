@@ -10,15 +10,24 @@ productivo ni vuelve a ejecutar las pruebas de las actas.
 
 ## Estado actual y siguiente paso
 
-El propietario trabaja en **C5 — archivos y recursos** desde la rama
-`feat/c5-archivos-base`. El código funcional local C5 todavía no tiene commit ni está
-integrado en `main`. Publicar este README y sus actas no publica ese código:
-para reproducir C5 en otro PC faltará entregar sus cambios funcionales en ambos
-repositorios. El compañero mantiene el frente de orientación OV-1 por separado.
+**Nuevo compañero de C2 (no OV-1):** empezar por
+[relevo operativo completo](docs/RELEVO_C5_C2.md) y
+[acta C2-D](docs/C5C2D_VALIDACION_LOCAL.md). Incluye arranque de ambos repos,
+cuentas/clave temporal, Docker/USB, auditoría y pruebas pendientes paso a paso.
+Puede corregir Flutter/API/panel de C2; quedan0/8 bloques humanos y D8a–e.
 
-**Siguiente paso inmediato: cinco comprobaciones en Android de C5-C1**, con
-la APK de ensayo ya compilada, API local y PostgreSQL temporal de Docker.
-Son cinco casos de este bloque, no todas las pruebas pendientes del proyecto.
+El propietario trabaja en **C5 — archivos y recursos** desde la rama
+`feat/c5-archivos-base`. La entrega funcional A/B/C1 quedó guardada en los commits
+app `af73039` y backend `0bfaaba`; no está integrada en `main`. El push posterior
+app `c69a5e9` y backend `e1c4d18` ya publicó esa entrega y C2-A/B en la rama.
+C2-C está validada automáticamente, todavía sin commit/push. No hay merge ni
+despliegue. OV-1 sigue en el frente del compañero.
+
+**C5-C1 completada localmente: cinco de cinco comprobaciones Android aprobadas.**
+Ya avanzó [C5-C2, imágenes en opciones](docs/C5C2_OPCIONES.md): base, panel y
+consumidores C2-A/B/C validados automáticamente. Sigue C2-D Android, sin
+confirmaciones humanas todavía. Carga apagada por defecto; opt-in solo en la
+sesión desechable de ensayo. No está terminada toda C5.
 Consultar el [guion y checkpoint C5-C1](docs/C5C_FLUTTER.md); no asumir que los
 servicios o las credenciales de una sesión anterior siguen activos.
 
@@ -27,7 +36,7 @@ servicios o las credenciales de una sesión anterior siguen activos.
 | Instituciones PR-I5 | Directorio, departamento/municipio, aprobación, presentación, logo, solicitudes de estudiantes y código privado; cierre técnico local e integración en `main`. | Despliegue y validación productiva, observaciones del acta y ranking institucional separado. [Cierre](docs/CIERRE_INSTITUCIONES_LOCAL.md). |
 | Cobertura y reportes MA-1/MA-1R | Cobertura del banco, formulario, Mis reportes y gestión ADMIN; R1–R4 validadas localmente e integradas en `main`. | Operación real y ensayo autorizado de staging. Ocultar/Deshacer es una propuesta separada, no está implementada por cerrar R4. [Acta](docs/MA1R_R4_VALIDACION_LOCAL.md). |
 | C5-A y C5-B | Base de imágenes editoriales privadas, carga desde el panel y asociación segura a preguntas, casos y lecciones; pruebas locales aprobadas. | Proveedor persistente y operación externa no configurados por esta entrega. [Contrato](docs/C5_ARCHIVOS.md) y [panel](docs/C5B_PANEL.md). |
-| C5-C1 | Lectura online autenticada en Flutter, errores/reintento y protección al cambiar de sesión; pruebas automáticas aprobadas y APK debug compilada. | **0/5 comprobaciones Android realizadas**. Opciones con imágenes, PDF/offline, autorización histórica, fotos/evidencias y C5-D continúan pendientes. [Acta](docs/C5C_FLUTTER.md). |
+| C5-C1 / C2 | C1: **5/5 Android aprobadas** el21. C2-A/B/C: base, panel y consumidores;44/44 PostgreSQL/HTTP,128 suites/1.675 backend y969 Flutter aprobadas/16 omitidas. | C2-D Android pendiente; carga por opción apagada por defecto. PDF/offline, autorización histórica, fotos/evidencias y C5-D pendientes. [C1](docs/C5C_FLUTTER.md), [C2-C](docs/C5C2C_CONSUMIDORES.md). |
 | Cima, Guardián y Rescate | Bloque competitivo inicial validado localmente en Android/API/SQL según sus actas. | Activación productiva y cierres operativos separados; no repetir su implementación. [Cima](docs/IC1_CIMA.md), [Guardián](docs/IC1_GUARDIAN.md), [Rescate](docs/IC1_RESCATE.md). |
 | Mapa y repaso diferido MA-2/MA-3 | API, persistencia, panel/agenda y consumidores Flutter implementados localmente. | Ensayos integrados y físicos pendientes según cada contrato. [Mapa](docs/MAPA_APRENDIZAJE.md), [repaso](docs/REPASO_DIFERIDO.md). |
 | Certificados | Seis tipos con implementación local HTML/PDF: cinco áreas y curso completo. | Prueba real, nombres largos y áreas incompletas/vacías. No hay certificados por juego o logro. [Guía](docs/GUIA_TRABAJO_COMPANEROS.md). |
@@ -41,7 +50,7 @@ GitHub para afirmar un estado remoto nuevo.
 
 El inventario completo y sus dependencias están en
 [ETAPAS_PENDIENTES](docs/ETAPAS_PENDIENTES.md#ruta-vigente-del-equipo).
-El checkpoint C5-C1 concreta la continuación actual dentro de C5.
+El checkpoint C5-C2 concreta la continuación actual dentro de C5; C1 conserva su acta.
 
 ## Funcionalidades y alcance
 
@@ -169,7 +178,17 @@ Ejecutar `flutter pub get` antes si faltan las dependencias.
 - C5-C1: **30 pruebas nuevas**, incluidas en esa regresión; comprobación final dirigida **32 aprobadas/3 omitidas**.
 - C5-C1 con API y PostgreSQL reales: **3/3 aprobadas**, ejecutadas por separado. La suite nueva se añadió durante el recorrido general; sin el entorno local sus tres casos se omiten expresamente.
 - C5-A/B: **23/23 PostgreSQL/HTTP**, **124/124 del panel** y **126 suites/1.650 pruebas backend**, según sus actas.
-- Análisis Flutter y compilación debug aprobados. **Las cinco comprobaciones humanas C5-C1 siguen pendientes.**
+- Análisis Flutter y compilación debug aprobados. Las cinco comprobaciones humanas estaban pendientes al cerrar el20; el21 se confirmaron5/5, según la actualización siguiente.
+
+**Cierre local del21:** C5-C1 Android5/5,3/3 Flutter VM/API/PostgreSQL repetidas,
+57/57 dirigidas tras el arreglo visual, análisis limpio y APK reinstalada.
+No se repitió la regresión global950 ni la suite backend completa por ese arreglo.
+Después, C2-A sí ejecutó backend completo:126 suites/1.657 aprobadas,31/31
+PostgreSQL/HTTP y70 migraciones temporales. C2-B amplió esa evidencia a127 suites/
+1.670 backend,130/130 panel y37/37 PostgreSQL/HTTP. C2-C amplía a128 suites/
+1.675 backend,44/44 PostgreSQL/HTTP y969 Flutter aprobadas/16 opt-in omitidas.
+Análisis Flutter y compilación backend aprobados. El acta C2-C distingue27
+incidencias ESLint preexistentes del control dirigido aprobado. C2-D Android pendiente.
 
 No sumar los contadores como si fueran pruebas diferentes ni considerar aprobadas
 las omitidas. Compilar una APK no acredita instalación, prueba física, firma de
@@ -182,7 +201,7 @@ aislado; no ejecutarlas contra una base real por copiar un comando histórico.
 
 ## Trabajo del equipo y etapas restantes
 
-- **Propietario:** C5; siguiente revisión Android C5-C1 y después los consumidores/contratos restantes de C5-C y la operación C5-D.
+- **Propietario:** C5-C1 cerrada, A/B/C1+C2-A/B publicadas en rama y [C2-C validada automáticamente](docs/C5C2C_CONSUMIDORES.md), sin commit/push nuevos. Sigue C2-D Android y resto C5-C/D. Sin merge ni despliegue.
 - **Compañero:** OV-1 en su rama; revisar su checkpoint al recibir una entrega, sin asumir cambios no presentes en estos clones.
 - Cada frente puede modificar Flutter y backend cuando lo necesite. Coordinar esquema Prisma, migraciones, módulos, contratos y archivos compartidos.
 - Trabajar en ramas independientes y entregar mediante PR revisado a `main`. No descartar cambios propios para actualizar el repositorio ni hacer push, merge, migraciones o despliegues automáticos.
@@ -202,7 +221,7 @@ que diga «siguiente». No activar pagos, publicidad o servicios remotos por est
 
 - [Índice documental](docs/INDICE_DOCUMENTACION.md): entrada al resto de contratos y actas.
 - [Etapas pendientes](docs/ETAPAS_PENDIENTES.md): inventario y dependencias.
-- [C5-C1](docs/C5C_FLUTTER.md): siguiente comprobación del propietario.
+- [C5-C1](docs/C5C_FLUTTER.md): cierre local5/5. [C5-C2](docs/C5C2_OPCIONES.md): continuación del propietario.
 - [Trabajo paralelo](docs/TRABAJO_PARALELO.md): responsabilidades, ramas y entregas.
 - [Checkpoint OV-1](docs/CHECKPOINT_OV1.md): estado del frente del compañero.
 - [Historial de etapas](docs/HISTORIAL_ETAPAS.md): decisiones y entregas previas.

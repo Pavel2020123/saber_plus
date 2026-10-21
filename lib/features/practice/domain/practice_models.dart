@@ -472,15 +472,23 @@ class PracticeCase {
 }
 
 class PracticeOption {
-  const PracticeOption({required this.id, required this.text});
+  const PracticeOption({required this.id, required this.text, this.imageUrl});
 
   final String id;
   final String text;
+  final String? imageUrl;
 
-  factory PracticeOption.fromJson(Map<String, dynamic> json) =>
-      PracticeOption(id: json['id'] as String, text: json['texto'] as String);
+  factory PracticeOption.fromJson(Map<String, dynamic> json) => PracticeOption(
+    id: json['id'] as String,
+    text: json['texto'] as String,
+    imageUrl: _optionalText(json['imagenUrl']),
+  );
 
-  Map<String, dynamic> toJson() => {'id': id, 'texto': text};
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'texto': text,
+    if (imageUrl != null) 'imagenUrl': imageUrl,
+  };
 }
 
 class PracticeAnswer {
@@ -602,12 +610,14 @@ class PracticeReviewOption {
     required this.text,
     required this.isCorrect,
     this.explanation,
+    this.imageUrl,
   });
 
   final String id;
   final String text;
   final bool isCorrect;
   final String? explanation;
+  final String? imageUrl;
 
   factory PracticeReviewOption.fromJson(Map<String, dynamic> json) =>
       PracticeReviewOption(
@@ -615,6 +625,7 @@ class PracticeReviewOption {
         text: json['texto'] as String,
         isCorrect: json['esCorrecta'] as bool? ?? false,
         explanation: _optionalText(json['explicacion']),
+        imageUrl: _optionalText(json['imagenUrl']),
       );
 }
 

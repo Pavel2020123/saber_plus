@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/network/api_error.dart';
+import '../../../core/widgets/academic_option_content.dart';
 import '../domain/daily_mistake_review.dart';
 import '../domain/practice_history_models.dart';
 import 'practice_providers.dart';
@@ -183,10 +184,16 @@ class _DailyMistakeCard extends StatelessWidget {
       children: [
         Text(answer.statement),
         const SizedBox(height: 12),
-        Text('Tu respuesta: ${answer.selectedAnswer?.text ?? 'No disponible'}'),
+        AcademicOptionContent(
+          text:
+              'Tu respuesta: ${answer.selectedAnswer?.text ?? 'No disponible'}',
+          imageUrl: answer.selectedAnswer?.imageUrl,
+        ),
         const SizedBox(height: 4),
-        Text(
-          'Respuesta correcta: ${answer.correctAnswer?.text ?? 'No disponible'}',
+        AcademicOptionContent(
+          text:
+              'Respuesta correcta: ${answer.correctAnswer?.text ?? 'No disponible'}',
+          imageUrl: answer.correctAnswer?.imageUrl,
         ),
         if (answer.explanation case final explanation?) ...[
           const SizedBox(height: 12),

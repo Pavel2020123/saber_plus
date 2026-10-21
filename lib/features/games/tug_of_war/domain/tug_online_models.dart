@@ -36,13 +36,18 @@ class TugOnlinePlayer {
 }
 
 class TugOnlineOption {
-  const TugOnlineOption({required this.id, required this.text});
+  const TugOnlineOption({required this.id, required this.text, this.imageUrl});
 
   final String id;
   final String text;
+  final String? imageUrl;
 
   factory TugOnlineOption.fromJson(Map<String, dynamic> json) =>
-      TugOnlineOption(id: json['id'] as String, text: json['texto'] as String);
+      TugOnlineOption(
+        id: json['id'] as String,
+        text: json['texto'] as String,
+        imageUrl: json['imagenUrl'] as String?,
+      );
 }
 
 class TugOnlineQuestion {
@@ -66,23 +71,23 @@ class TugOnlineQuestion {
   final int timeLimitSeconds;
   final String? imageUrl;
 
-  factory TugOnlineQuestion.fromJson(
-    Map<String, dynamic> json,
-  ) => TugOnlineQuestion(
-    id: json['id'] as String,
-    statement: json['enunciado'] as String,
-    imageUrl: json['imagenUrl'] as String?,
-    area: AcademicArea.fromBackend(json['area'] as String),
-    theme: json['tema'] as String,
-    subtopic: json['subtema'] as String,
-    options: (json['opciones'] as List<dynamic>? ?? const [])
-        .map(
-          (item) =>
-              TugOnlineOption.fromJson(Map<String, dynamic>.from(item as Map)),
-        )
-        .toList(growable: false),
-    timeLimitSeconds: json['tiempoLimiteSegundos'] as int? ?? 10,
-  );
+  factory TugOnlineQuestion.fromJson(Map<String, dynamic> json) =>
+      TugOnlineQuestion(
+        id: json['id'] as String,
+        statement: json['enunciado'] as String,
+        imageUrl: json['imagenUrl'] as String?,
+        area: AcademicArea.fromBackend(json['area'] as String),
+        theme: json['tema'] as String,
+        subtopic: json['subtema'] as String,
+        options: (json['opciones'] as List<dynamic>? ?? const [])
+            .map(
+              (item) => TugOnlineOption.fromJson(
+                Map<String, dynamic>.from(item as Map),
+              ),
+            )
+            .toList(growable: false),
+        timeLimitSeconds: json['tiempoLimiteSegundos'] as int? ?? 10,
+      );
 }
 
 class TugOnlineEvent {

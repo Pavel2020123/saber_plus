@@ -1,5 +1,22 @@
 # SaberPlus — etapas pendientes y ruta vigente del equipo
 
+**21 de octubre — [C5-C2-C validada automáticamente](C5C2C_CONSUMIDORES.md):**
+contratos/snapshots y Flutter incorporan imágenes opcionales sin cambiar XP ni
+romper JSON antiguo.969 Flutter aprobadas/16 opt-in omitidas,128 suites/1.675
+backend y44/44 PostgreSQL/HTTP;70 migraciones temporales, ninguna nueva de C2-C.
+**Sigue C2-D:0/8 guiones humanos propuestos**, con Docker/USB al preparar la sesión.
+Activación apagada por defecto; sin nuevo ensayo Android ni despliegue. C1 conserva5/5.
+Último push de C2-B: app `c69a5e9`, backend `e1c4d18`; C2-C aún sin commit/push.
+Deuda ESLint previa:27 incidencias verificadas en HEAD, descritas en el acta.
+Rama `feat/c5-archivos-base`; sin merge a main ni cambios OV-1.
+
+**20 de octubre, continuación vigente:** [C5-A/B](C5_ARCHIVOS.md) validadas localmente:
+23/23 PostgreSQL/HTTP, panel124/124, backend126/1650;69 migraciones solo temporales.
+[Recorrido Chromium del panel aprobado](C5B_PANEL.md). Sigue C5-C Flutter/consumidores
+y C5-D integración/operación. El celular se necesita al tener lista la APK de C.
+Rama `feat/c5-archivos-base`; no integrado a main, sin despliegue ni cambios OV-1.
+Los cierres del19 inferiores conservan su evidencia; su «siguiente C5» ya comenzó.
+
 **19 de octubre, checkpoint vigente:** MA-1R/R4 cerrada localmente;12/12 humanos,
 45/45 integradas repetidas tras fix de concurrencia, regresiones y remate Android
 confirmados. [Acta R4](MA1R_R4_VALIDACION_LOCAL.md). **Integrados en main:**
@@ -709,10 +726,20 @@ que deba volver a imponerse al administrador. D3 verifica el flujo simplificado.
 
 ## Ruta vigente del equipo
 
+**Relevo del21:** otro compañero termina C5-C2 en sustitución del propietario,
+sin reasignar OV-1. Leer [guía completa](RELEVO_C5_C2.md) y [acta C2-D](C5C2D_VALIDACION_LOCAL.md).
+Pendientes ocho bloques humanos, con cinco subcasos en D8; no aprobar por tener
+solo tests automáticos. Después continúan los pendientes de C5, no producción
+ni otra etapa por autorización implícita. Estado Git publicado: comprobar README.
+
 Orden vigente por frentes: **propietario: instituciones y MA-1R/R1–R4 integradas
 a main; compañero: OV-1A/B/C/D en paralelo, sin entrega verificada aquí**.
-Siguiente bloque recomendado del propietario: **C5, archivos generales**, preparación
-local y permisos antes de elegir/activar almacenamiento real. [Checkpoint de reportes](MA1R_REPORTES_PREGUNTAS.md)
+Bloque actual del propietario: **[C5, archivos editoriales](C5_ARCHIVOS.md)**,
+A/backend, B/panel y C1 online validados localmente; C1 Android5/5 el21.
+Push hasta C2-B confirmado: app `c69a5e9`/backend `e1c4d18`.
+[C2-C validada automáticamente](C5C2C_CONSUMIDORES.md), sin commit/push nuevos;
+sigue C2-D Android,0/8 guiones humanos. Carga apagada por defecto;
+resto C5-C y D integración/operación abiertos. [Checkpoint de reportes](MA1R_REPORTES_PREGUNTAS.md)
 cerrado localmente e integrado, sin despliegue productivo. UX1 Ocultar/Deshacer
 sigue como entrega opcional separada, no se implementa por cerrar R4.
 [Orden completo y límites](ESTADO_Y_ORDEN_2026_10_17.md).
@@ -754,7 +781,7 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | 7F-C3-D2 — Legado | Herramientas locales; faltan revisión visual y operación de legado autorizada con respaldo. | No borrar ni reclasificar contenido usado; preparar D3. |
 | 7F-C3-D3 — Panel real | Conectar ADMIN a backend vigente y confirmar publicación/persistencia real. | **Pausada**, después de P5 y controles D2. Demo no cierra esta etapa. |
 | 7F-C4 — Catálogo | Versionado, altas/cambios/retiradas, caché y actualización en app preservando progreso/intentos. | Contrato editorial; D3 por sí sola no lo resuelve. |
-| 7F-C5 — Archivos | Storage persistente, permisos, tamaño/tipo, metadatos/licencias y fotos; evidencia institucional privada separada. | Puede prepararse localmente antes de PR-I4/5; servicio real requiere autorización. |
+| 7F-C5 — Archivos | [A/B/C1 validadas](C5_ARCHIVOS.md), push hasta C2-B app `c69a5e9`/backend `e1c4d18`. [C2-C consumidores](C5C2C_CONSUMIDORES.md) validada automáticamente:44 integradas,70 migraciones temporales,128/1675 backend y969 Flutter/16 omitidas. Sigue C2-D Android; PDF/offline/histórico/fotos y D abiertos. | Sin merge o despliegue. Carga por opción apagada por defecto; opt-in solo en ensayo propio. Adaptador development/test; proveedor persistente requiere autorización. |
 | 7F-C6 — Versiones | Auditoría de cambios, versiones y restauración sin reescribir preguntas ya respondidas. | Contratos editoriales y ensayo de recuperación. |
 | 7F-B3-B / 6F-P — Integración | Validar módulos móviles/juegos vigentes, Guardián/Cima/Rescate y multijugador real; diagnosticar audios en teléfono. | Migraciones/despliegue autorizado; no rehacer motores por estar sin desplegar. |
 | Bloque 7 — Identidad/seguridad | Auditar/completar sesión única, revocación/refresh, cuentas ADMIN, eliminación, SMTP/enlaces, contratos y privacidad. | Reutilizar lo existente; separar correcciones por flujo y probar permisos. |
@@ -772,7 +799,9 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | 9A — Mantenimiento | Responsables, soporte, monitoreo, contenido, costos, seguridad y actualizaciones. | Preparar operación antes de publicar; ejecución continua después. |
 
 **Secuencia inmediata:** instituciones y MA-1R/R1–R4 integradas en main;
-continuar con preparación local C5 (archivos generales) al autorizar implementación. No repetir
+continuar C2-D Android tras [C2-C validada automáticamente](C5C2C_CONSUMIDORES.md);
+A/B/C1+C2-A/B publicadas en rama, C2-C sin commit/push nuevos y
+[C1 Android5/5](C5C_FLUTTER.md) conservada. Después resto C5-C/D. No repetir
 C2/C3/C4 por notas históricas. Compañero OV-1A → B/C/D en paralelo, sin asumir
 entregas no revisadas. Rescate y territorio ya validados localmente;
 conservar cierre operativo pendiente de I2-5 y demás bloques del orden vigente. IC-2/3 y los restantes
@@ -1131,6 +1160,10 @@ conectar el panel por sí solo no garantiza que lo nuevo aparezca ya en la app.
 - Probar actualizaciones con conectividad intermitente y contenido previamente descargado.
 
 ## 4. 7F-C5 — Imágenes y archivos persistentes
+
+**20 de octubre:** C5-A/B validadas localmente en rama propia,23/23 PostgreSQL/HTTP.
+[Contrato, límites, siguientes bloques y evidencia](C5_ARCHIVOS.md). Sigue C Flutter.
+La lista inferior conserva el alcance completo; el adaptador local de A no lo cierra.
 
 - Supabase Storage con permisos, límites, tipos de archivo y referencias estables.
 - Carga desde el panel, metadatos, texto alternativo, derechos y recursos faltantes.

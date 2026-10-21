@@ -6,9 +6,16 @@ instituciones. No cambia las reglas de producto ni declara etapas terminadas.
 
 ## Responsables y siguiente paso
 
+**Reasignación del21:** un segundo compañero ayuda al propietario a terminar
+C5-C2, según [su relevo específico](RELEVO_C5_C2.md). No es la persona de OV-1:
+esta conserva orientación vocacional y su checkpoint. C2-D está0/8 humanos;
+el nuevo responsable puede corregir Flutter/backend/panel de C2 en sus ramas.
+Consultar el cierre de integración en README; la tabla inferior conserva la
+base de trabajo y no certifica publicación remota del relevo.
+
 | Equipo | Responsabilidad | Por dónde empezar |
 |---|---|---|
-| Propietario y su asistente | Instituciones y MA-1R/R1–R4 integradas en main | [Reportes](MA1R_REPORTES_PREGUNTAS.md): cierre local12/12 humanos,45/45 HTTP/PostgreSQL y regresiones; PR app #6/API #9 integrados, CI backend del PR aprobado. Sigue preparación local C5 al autorizar implementación. SQL solo temporal, sin despliegue. No modificar OV-1. |
+| Propietario y su asistente | Instituciones y MA-1R integradas; C5-A/B/C1 y C2-A/B/C validadas localmente | Push hasta C2-B app `c69a5e9`/backend `e1c4d18`. [C2-C automática](C5C2C_CONSUMIDORES.md) sin commit/push nuevos; sigue C2-D Android,0/8 guiones humanos. Carga apagada por defecto, opt-in solo en ensayo propio. Resto C5-C/D abierto. Rama feat/c5-archivos-base; conciliar archivos compartidos con OV-1; sin merge ni despliegue. |
 | Compañero y su asistente | OV-1: test de intereses vocacionales, Flutter y backend necesarios | En curso según el propietario; sin entrega nueva verificada aquí. Seguir su checkpoint para A contenido/reglas → B persistencia → C cliente → D validación, no reiniciar trabajo ya documentado en su rama. |
 
 El compañero no tiene que esperar a que termine C2C. El propietario no asume

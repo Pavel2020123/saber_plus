@@ -3,12 +3,19 @@
 ## Estado del 20 de octubre de 2026
 
 **Actualización posterior:** [C5-C1 Flutter](C5C_FLUTTER.md) ya implementa lectura
-online autenticada, validada automáticamente; sigue Android0/5 y el resto de C5-C.
+online autenticada, validada automáticamente y después en Android5/5 el21.
+Continuación vigente: [C5-C2-C](C5C2C_CONSUMIDORES.md) contratos y consumidores
+validados automáticamente; sigue C2-D Android, todavía sin confirmaciones humanas.
+Activación apagada por defecto; opt-in solo en la API desechable propia.
+Push C2-B confirmado en app `c69a5e9`/backend `e1c4d18`; C2-C sin commit/push.
+Sin merge ni despliegue.
+El resto de C5-C/D permanece abierto.
 Las afirmaciones inferiores sobre Flutter pendiente describen el cierre de B,
 no sustituyen el checkpoint C1 más reciente.
 
 **Implementado y validado localmente.** Rama `feat/c5-archivos-base` en ambos
-repositorios. C5-A y B siguen sin commit/PR/merge; no dar por publicado este trabajo.
+repositorios. Al cerrar el20, C5-A y B estaban sin commit/PR/merge; ese estado
+histórico fue superado por los commits y push registrados arriba.
 Fuente del alcance global y de la continuación: [C5_ARCHIVOS](C5_ARCHIVOS.md).
 El propietario mantiene este bloque; OV-1 del compañero no se modificó.
 
