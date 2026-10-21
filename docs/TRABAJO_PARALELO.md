@@ -8,7 +8,7 @@ instituciones. No cambia las reglas de producto ni declara etapas terminadas.
 
 | Equipo | Responsabilidad | Por dónde empezar |
 |---|---|---|
-| Propietario y su asistente | Instituciones y MA-1R integradas; C5-A/B/C1 y C2-A validadas localmente | A/B/C1 guardadas en af73039/0bfaaba; C2-A aún sin commit. [C2 opciones](C5C2_OPCIONES.md): base/permisos aprobados, sigue contrato/editor/panel y consumidores, sin habilitar aún carga por opción. Resto C5-C/D abierto. Rama feat/c5-archivos-base; conciliar schema/migraciones/app.module/CI con OV-1; sin push funcional, merge ni despliegue. |
+| Propietario y su asistente | Instituciones y MA-1R integradas; C5-A/B/C1 y C2-A/B validadas localmente | Push A/B/C1+C2-A confirmado app2ee714a/backend7995201. [C2 opciones](C5C2_OPCIONES.md): base/editor aprobados, sigue C2-C contratos/Flutter; nueva carga apagada hasta cerrar consumidores/C2-D. Resto C5-C/D abierto. Rama feat/c5-archivos-base; conciliar esquema/migraciones/app.module/CI con OV-1; sin merge ni despliegue. |
 | Compañero y su asistente | OV-1: test de intereses vocacionales, Flutter y backend necesarios | En curso según el propietario; sin entrega nueva verificada aquí. Seguir su checkpoint para A contenido/reglas → B persistencia → C cliente → D validación, no reiniciar trabajo ya documentado en su rama. |
 
 El compañero no tiene que esperar a que termine C2C. El propietario no asume

@@ -1,13 +1,14 @@
 # SaberPlus — etapas pendientes y ruta vigente del equipo
 
-**21 de octubre — [C5-C2-A validada localmente](C5C2_OPCIONES.md):** base y permisos
-para imágenes en opciones;31/31 PostgreSQL/HTTP,70 migraciones temporales y
-126 suites/1.657 pruebas backend aprobadas. C5-C1 conserva su cierre Android5/5.
-Entrega A/B/C1 guardada: app `af73039`, backend `0bfaaba`, sin push funcional.
-Siguiente: C2-B contrato/editor/panel y C2-C consumidores/Flutter, con activación
-coordinada; todavía no se cargan imágenes en opciones desde el editor. C2-D,
-resto C5-C y C5-D abiertos. C2-A aún sin commit. Rama feat/c5-archivos-base,
-sin merge/despliegue ni cambios OV-1. El push52a3488 anterior era documental.
+**21 de octubre — [C5-C2-A/B validadas localmente](C5C2_OPCIONES.md):** base, contrato
+y selector por opción;37/37 PostgreSQL/HTTP,130/130 panel y127 suites/1.670 backend
+aprobadas.70 migraciones temporales; navegador escritorio/390px sin desbordes.
+La nueva carga está desactivada por defecto y solo se ensaya en desarrollo/test.
+**Sigue C2-C: contratos/snapshots y Flutter.** No activar para estudiantes antes
+de cerrar consumidores y C2-D. C1 conserva su cierre Android5/5.
+Push A/B/C1+C2-A confirmado: app `2ee714a`, backend `7995201`; C2-B es la
+entrega actual de esta rama, consultar git log para su commit. Sin merge a main,
+despliegue ni cambios OV-1. Rama `feat/c5-archivos-base`.
 
 **20 de octubre, continuación vigente:** [C5-A/B](C5_ARCHIVOS.md) validadas localmente:
 23/23 PostgreSQL/HTTP, panel124/124, backend126/1650;69 migraciones solo temporales.
@@ -729,8 +730,8 @@ Orden vigente por frentes: **propietario: instituciones y MA-1R/R1–R4 integrad
 a main; compañero: OV-1A/B/C/D en paralelo, sin entrega verificada aquí**.
 Bloque actual del propietario: **[C5, archivos editoriales](C5_ARCHIVOS.md)**,
 A/backend, B/panel y C1 online validados localmente; C1 Android5/5 el21.
-Commits A/B/C1 guardados: af73039/0bfaaba. [C2-A base/permisos](C5C2_OPCIONES.md)
-validada; sigue C2-B editor/panel y C2-C consumidores, sin habilitar aún la carga;
+Push A/B/C1+C2-A confirmado: app2ee714a/backend7995201. [C2-A/B](C5C2_OPCIONES.md)
+validadas; sigue C2-C consumidores/Flutter y C2-D, sin habilitar aún la carga;
 resto C5-C y D integración/operación abiertos. [Checkpoint de reportes](MA1R_REPORTES_PREGUNTAS.md)
 cerrado localmente e integrado, sin despliegue productivo. UX1 Ocultar/Deshacer
 sigue como entrega opcional separada, no se implementa por cerrar R4.
@@ -773,7 +774,7 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | 7F-C3-D2 — Legado | Herramientas locales; faltan revisión visual y operación de legado autorizada con respaldo. | No borrar ni reclasificar contenido usado; preparar D3. |
 | 7F-C3-D3 — Panel real | Conectar ADMIN a backend vigente y confirmar publicación/persistencia real. | **Pausada**, después de P5 y controles D2. Demo no cierra esta etapa. |
 | 7F-C4 — Catálogo | Versionado, altas/cambios/retiradas, caché y actualización en app preservando progreso/intentos. | Contrato editorial; D3 por sí sola no lo resuelve. |
-| 7F-C5 — Archivos | [A/B/C1 validadas](C5_ARCHIVOS.md), guardadas af73039/0bfaaba. [C2-A base/permisos](C5C2_OPCIONES.md) validada:31 integradas,70 migraciones temporales y126/1657 backend. Sigue C2-B editor/panel y C2-C consumidores; PDF/offline/histórico/fotos y D abiertos. | C2-A sin commit; sin push funcional, merge o despliegue. Carga por opción aún no habilitada. Adaptador development/test; proveedor persistente requiere autorización. |
+| 7F-C5 — Archivos | [A/B/C1 validadas](C5_ARCHIVOS.md), push hasta app2ee714a/backend7995201. [C2-A/B base/editor](C5C2_OPCIONES.md) validadas:37 integradas,130 panel,70 migraciones temporales y127/1670 backend. Sigue C2-C consumidores y C2-D; PDF/offline/histórico/fotos y D abiertos. | Sin merge o despliegue. Carga por opción apagada por defecto. Adaptador development/test; proveedor persistente requiere autorización. |
 | 7F-C6 — Versiones | Auditoría de cambios, versiones y restauración sin reescribir preguntas ya respondidas. | Contratos editoriales y ensayo de recuperación. |
 | 7F-B3-B / 6F-P — Integración | Validar módulos móviles/juegos vigentes, Guardián/Cima/Rescate y multijugador real; diagnosticar audios en teléfono. | Migraciones/despliegue autorizado; no rehacer motores por estar sin desplegar. |
 | Bloque 7 — Identidad/seguridad | Auditar/completar sesión única, revocación/refresh, cuentas ADMIN, eliminación, SMTP/enlaces, contratos y privacidad. | Reutilizar lo existente; separar correcciones por flujo y probar permisos. |
@@ -791,8 +792,8 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | 9A — Mantenimiento | Responsables, soporte, monitoreo, contenido, costos, seguridad y actualizaciones. | Preparar operación antes de publicar; ejecución continua después. |
 
 **Secuencia inmediata:** instituciones y MA-1R/R1–R4 integradas en main;
-continuar C2-B editor/panel y C2-C consumidores tras [C2-A validada](C5C2_OPCIONES.md);
-A/B/C1 guardadas af73039/0bfaaba y [C1 Android5/5](C5C_FLUTTER.md) conservada.
+continuar C2-C consumidores/Flutter tras [C2-A/B validadas](C5C2_OPCIONES.md);
+A/B/C1+C2-A publicadas en rama y [C1 Android5/5](C5C_FLUTTER.md) conservada.
 Después ensayos C2 y resto C5-C/D. No repetir
 C2/C3/C4 por notas históricas. Compañero OV-1A → B/C/D en paralelo, sin asumir
 entregas no revisadas. Rescate y territorio ya validados localmente;
