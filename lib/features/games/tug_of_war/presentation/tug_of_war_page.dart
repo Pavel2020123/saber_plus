@@ -262,6 +262,22 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage>
           );
       if (!mounted || _playerFinished || roundIndex != _questionIndex) return;
       setState(() {
+        final server = evaluation.serverState;
+        if (server != null) {
+          final next = server.isTerminal ? null : server.currentQuestion;
+          // Remote sessions expose one question at a time. Keep this round's
+          // content until its feedback ends and queue the next confirmed one.
+          _session = TriviaRushSession(
+            attemptId: session.attemptId,
+            questions: [
+              ...session.questions,
+              if (next != null &&
+                  !session.questions.any((item) => item.id == next.id))
+                next,
+            ],
+            serverState: server,
+          );
+        }
         _playerCorrect = evaluation.isCorrect;
         _playerResponseMilliseconds = elapsedMilliseconds;
         _playerFinished = true;

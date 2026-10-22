@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:saber_plus/core/feedback/game_audio_feedback.dart';
+import 'package:saber_plus/core/widgets/academic_option_content.dart';
 import 'package:saber_plus/features/academic/domain/academic_models.dart';
 import 'package:saber_plus/features/games/trivia_rush/domain/trivia_rush_models.dart';
 import 'package:saber_plus/features/games/trivia_rush/domain/trivia_rush_repository.dart';
@@ -188,6 +189,110 @@ void main() {
     await tester.pumpWidget(const SizedBox());
   });
 
+  for (final authoritative in [false, true]) {
+    testWidgets(
+      'avanza imágenes entre rondas con banco ${authoritative ? 'remoto' : 'antiguo'}',
+      (tester) async {
+        await tester.binding.setSurfaceSize(const Size(800, 1400));
+        addTearDown(() => tester.binding.setSurfaceSize(null));
+        final repository = _PagedTugQuestionRepository(authoritative);
+        await tester.pumpWidget(
+          ProviderScope(
+            overrides: [
+              triviaRushRepositoryProvider.overrideWithValue(repository),
+              tugCpuPlannerProvider.overrideWithValue(
+                (_) => const TugCpuTurn(
+                  isCorrect: false,
+                  responseMilliseconds: 100,
+                ),
+              ),
+              gameAudioFeedbackProvider.overrideWithValue(
+                _RecordingGameAudioFeedback(),
+              ),
+            ],
+            child: const MaterialApp(
+              home: MediaQuery(
+                data: MediaQueryData(disableAnimations: true),
+                child: TugOfWarPage(
+                  config: TugOfWarConfig(
+                    areas: [AcademicArea.mathematics],
+                    cpuDifficulty: TugCpuDifficulty.training,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+        await tester.pump();
+        await tester.pump();
+        await _pumpUntil(
+          tester,
+          () => find.byKey(const Key('tug-arena-preparing')).evaluate().isEmpty,
+        );
+        final first = find.byKey(const Key('tug-answer-first-blue'));
+        await tester.scrollUntilVisible(
+          first,
+          120,
+          scrollable: find.byType(Scrollable).first,
+        );
+        await tester.ensureVisible(first);
+        await tester.pump();
+        expect(
+          tester
+              .widget<AcademicOptionContent>(
+                find.descendant(
+                  of: first,
+                  matching: find.byType(AcademicOptionContent),
+                ),
+              )
+              .imageUrl,
+          _PagedTugQuestionRepository.firstImage,
+        );
+        await tester.tap(first);
+        await tester.pump();
+        await _pumpUntil(
+          tester,
+          () =>
+              find.byKey(const Key('continue-tug-round')).evaluate().isNotEmpty,
+        );
+        final next = find.byKey(const Key('continue-tug-round'));
+        await tester.ensureVisible(next);
+        await tester.pump();
+        await tester.tap(next);
+        await tester.pump();
+        await _pumpUntil(
+          tester,
+          () => find.byKey(const Key('tug-arena-preparing')).evaluate().isEmpty,
+        );
+        final second = find.byKey(const Key('tug-answer-second-blue'));
+        await tester.scrollUntilVisible(
+          second,
+          120,
+          scrollable: find.byType(Scrollable).first,
+        );
+        await tester.ensureVisible(second);
+        await tester.pump();
+        expect(find.byKey(const Key('tug-answer-first-blue')), findsNothing);
+        expect(
+          tester
+              .widget<AcademicOptionContent>(
+                find.descendant(
+                  of: second,
+                  matching: find.byType(AcademicOptionContent),
+                ),
+              )
+              .imageUrl,
+          _PagedTugQuestionRepository.secondImage,
+        );
+        expect(repository.answers, ['first']);
+        await tester.tap(second);
+        await tester.pump();
+        expect(repository.answers, ['first', 'second']);
+        await tester.pumpWidget(const SizedBox());
+      },
+    );
+  }
+
   testWidgets('el diálogo de salida pausa el reloj y la respuesta de la CPU', (
     tester,
   ) async {
@@ -274,6 +379,84 @@ class _RecordingGameAudioFeedback implements GameAudioFeedback {
 
   @override
   Future<void> play(GameSound sound) async => played.add(sound);
+}
+
+class _PagedTugQuestionRepository extends _FakeTugQuestionRepository {
+  _PagedTugQuestionRepository(this.authoritative);
+  final bool authoritative;
+  final answers = <String>[];
+  static const firstImage =
+      '/recursos/editoriales/11111111-1111-4111-8111-111111111111';
+  static const secondImage =
+      '/recursos/editoriales/22222222-2222-4222-8222-222222222222';
+  PracticeQuestion question(String id, String image) => PracticeQuestion(
+    id: id,
+    statement: 'Figura $id',
+    difficulty: 'BASICO',
+    options: [
+      PracticeOption(id: '$id-blue', text: 'Azul $id', imageUrl: image),
+      PracticeOption(id: '$id-text', text: 'Solo texto $id'),
+    ],
+    subtopicId: 'figures',
+    subtopicName: 'Figuras',
+    themeName: 'Opciones',
+    area: AcademicArea.mathematics,
+  );
+  TriviaRushServerState state(PracticeQuestion? question, int index) =>
+      TriviaRushServerState(
+        attemptId: 'paged-tug',
+        status: question == null
+            ? TriviaRushAttemptStatus.finished
+            : TriviaRushAttemptStatus.active,
+        ruleVersion: 1,
+        areas: [AcademicArea.mathematics],
+        baseDurationSeconds: 60,
+        extraTimeSeconds: 0,
+        serverNow: DateTime(2026),
+        receivedAt: DateTime(2026),
+        startedAt: DateTime(2026),
+        expiresAt: DateTime(2026, 1, 1, 0, 1),
+        score: const TriviaRushScore(),
+        currentIndex: index,
+        totalQuestions: 2,
+        assisted: false,
+        comboShieldActive: false,
+        secondChanceActive: false,
+        eliminatedAnswerIds: {},
+        weaknesses: [],
+        currentQuestion: question,
+      );
+  @override
+  Future<TriviaRushSession> start(TriviaRushConfig config) async {
+    final first = question('first', firstImage);
+    return TriviaRushSession(
+      attemptId: 'paged-tug',
+      questions: [first, if (!authoritative) question('second', secondImage)],
+      serverState: authoritative ? state(first, 0) : null,
+    );
+  }
+
+  @override
+  Future<TriviaRushAnswerEvaluation> answer({
+    required String attemptId,
+    required String questionId,
+    required String answerId,
+    required int responseTimeSeconds,
+  }) async {
+    answers.add(questionId);
+    return TriviaRushAnswerEvaluation(
+      questionId: questionId,
+      isCorrect: true,
+      correctAnswerId: answerId,
+      explanation: 'Figura azul',
+      serverState: authoritative
+          ? state(
+              questionId == 'first' ? question('second', secondImage) : null,
+              answers.length,
+            )
+          : null,
+    );
+  }
 }
 
 class _FakeTugQuestionRepository implements TriviaRushRepository {
