@@ -1,10 +1,12 @@
 import 'dart:math';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:saber_plus/core/feedback/game_audio_feedback.dart';
 import 'package:saber_plus/core/widgets/academic_option_content.dart';
+import 'package:saber_plus/core/widgets/academic_image.dart';
 import 'package:saber_plus/features/academic/domain/academic_models.dart';
 import 'package:saber_plus/features/games/trivia_rush/domain/trivia_rush_models.dart';
 import 'package:saber_plus/features/games/trivia_rush/domain/trivia_rush_repository.dart';
@@ -188,6 +190,127 @@ void main() {
 
     await tester.pumpWidget(const SizedBox());
   });
+
+  for (final width in [320.0, 412.0]) {
+    for (final scale in [1.0, 2.0]) {
+      testWidgets(
+        'botones ilustrados contienen texto y píxeles a ${width}px texto $scale',
+        (tester) async {
+          await tester.binding.setSurfaceSize(Size(width, 2000));
+          addTearDown(() => tester.binding.setSurfaceSize(null));
+          final images = (await tester.runAsync(() async {
+            final result = <ui.Image>[];
+            for (final size in [const Size(160, 80), const Size(80, 160)]) {
+              final recorder = ui.PictureRecorder();
+              Canvas(
+                recorder,
+              ).drawRect(Offset.zero & size, Paint()..color = Colors.blue);
+              final picture = recorder.endRecording();
+              result.add(
+                await picture.toImage(size.width.toInt(), size.height.toInt()),
+              );
+              picture.dispose();
+            }
+            return result;
+          }))!;
+          addTearDown(() {
+            for (final image in images) {
+              image.dispose();
+            }
+          });
+          await tester.pumpWidget(
+            ProviderScope(
+              overrides: [
+                triviaRushRepositoryProvider.overrideWithValue(
+                  const _IllustratedTugQuestionRepository(),
+                ),
+                editorialImageProvider(
+                  _PagedTugQuestionRepository.firstImage,
+                ).overrideWith((ref) async => images[0]),
+                editorialImageProvider(
+                  _PagedTugQuestionRepository.secondImage,
+                ).overrideWith((ref) async => images[1]),
+                tugCpuPlannerProvider.overrideWithValue(
+                  (_) => const TugCpuTurn(
+                    isCorrect: false,
+                    responseMilliseconds: 7000,
+                  ),
+                ),
+                gameAudioFeedbackProvider.overrideWithValue(
+                  _RecordingGameAudioFeedback(),
+                ),
+              ],
+              child: MaterialApp(
+                builder: (context, child) => MediaQuery(
+                  data: MediaQuery.of(
+                    context,
+                  ).copyWith(textScaler: TextScaler.linear(scale)),
+                  child: child!,
+                ),
+                home: const TugOfWarPage(
+                  config: TugOfWarConfig(
+                    areas: [AcademicArea.mathematics],
+                    cpuDifficulty: TugCpuDifficulty.training,
+                  ),
+                ),
+              ),
+            ),
+          );
+          await tester.pump();
+          await tester.pump();
+          await _pumpUntil(
+            tester,
+            () =>
+                find
+                    .descendant(
+                      of: find.byType(AcademicOptionContent),
+                      matching: find.byType(RawImage),
+                    )
+                    .evaluate()
+                    .length ==
+                2,
+          );
+          for (final id in ['blue', 'orange']) {
+            final button = find.byKey(Key('tug-answer-$id'));
+            final material = find
+                .descendant(of: button, matching: find.byType(Material))
+                .first;
+            final border = tester.widget<Material>(material).shape!;
+            final bounds = tester.getRect(material);
+            final outline = border.getOuterPath(Offset.zero & bounds.size);
+            final content = find.descendant(
+              of: button,
+              matching: find.byType(AcademicOptionContent),
+            );
+            for (final part in [
+              find.descendant(of: content, matching: find.byType(Text)),
+              find.descendant(of: content, matching: find.byType(RawImage)),
+            ]) {
+              final rect = tester
+                  .getRect(part)
+                  .shift(-bounds.topLeft)
+                  .deflate(1);
+              for (final point in [
+                rect.topLeft,
+                rect.topRight,
+                rect.bottomLeft,
+                rect.bottomRight,
+              ]) {
+                expect(
+                  outline.contains(point),
+                  isTrue,
+                  reason:
+                      '$id: contenido $rect fuera del borde $border a $width/$scale',
+                );
+              }
+            }
+          }
+          expect(tester.takeException(), isNull);
+          await tester.pumpWidget(const SizedBox());
+        },
+      );
+    }
+  }
 
   for (final authoritative in [false, true]) {
     testWidgets(
@@ -457,6 +580,37 @@ class _PagedTugQuestionRepository extends _FakeTugQuestionRepository {
           : null,
     );
   }
+}
+
+class _IllustratedTugQuestionRepository extends _FakeTugQuestionRepository {
+  const _IllustratedTugQuestionRepository();
+  @override
+  Future<TriviaRushSession> start(TriviaRushConfig config) async =>
+      const TriviaRushSession(
+        attemptId: 'layout-tug',
+        questions: [
+          PracticeQuestion(
+            id: 'figures',
+            statement: '¿Qué figura tiene el ancho doble de su altura?',
+            difficulty: 'BASICO',
+            options: [
+              PracticeOption(
+                id: 'blue',
+                text: 'Rectángulo azul horizontal',
+                imageUrl: _PagedTugQuestionRepository.firstImage,
+              ),
+              PracticeOption(
+                id: 'orange',
+                text: 'Rectángulo naranja vertical',
+                imageUrl: _PagedTugQuestionRepository.secondImage,
+              ),
+            ],
+            subtopicName: 'Opciones con imágenes',
+            themeName: 'Geometría',
+            area: AcademicArea.mathematics,
+          ),
+        ],
+      );
 }
 
 class _FakeTugQuestionRepository implements TriviaRushRepository {
