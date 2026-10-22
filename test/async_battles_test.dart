@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:saber_plus/app/theme.dart';
+import 'package:saber_plus/core/widgets/academic_image.dart';
+import 'package:saber_plus/core/widgets/academic_option_content.dart';
 import 'package:saber_plus/features/academic/domain/academic_models.dart';
 import 'package:saber_plus/features/battles/data/demo_battle_repository.dart';
 import 'package:saber_plus/features/battles/data/remote_battle_repository.dart';
@@ -257,6 +259,97 @@ void main() {
         }
       },
     );
+  }
+
+  for (final illustrated in [false, true]) {
+    for (final correct in [false, true]) {
+      testWidgets(
+        'revisión ${correct ? 'correcta' : 'incorrecta'} conserva opciones ${illustrated ? 'ilustradas' : 'antiguas'}',
+        (tester) async {
+          const blueImage =
+              '/recursos/editoriales/11111111-1111-4111-8111-111111111111';
+          const orangeImage =
+              '/recursos/editoriales/22222222-2222-4222-8222-222222222222';
+          final detail = BattleDetail(
+            summary: BattleSummary.fromJson({
+              ..._summary(),
+              'estado': 'FINALIZADA',
+              'resultado': correct ? 'VICTORIA' : 'DERROTA',
+            }),
+            totalQuestions: 1,
+            startedAt: DateTime(2026),
+            finishedAt: DateTime(2026, 1, 2),
+            badges: const [],
+            questions: [
+              BattleQuestion(
+                id: 'figures',
+                statement: 'Compara los rectángulos',
+                ownAnswerId: correct ? 'blue' : 'orange',
+                correctAnswerId: 'blue',
+                isCorrect: correct,
+                explanation: 'El ancho azul es el doble de su altura.',
+                options: [
+                  BattleAnswerOption(
+                    id: 'blue',
+                    text: 'Rectángulo azul horizontal',
+                    imageUrl: illustrated ? blueImage : null,
+                  ),
+                  BattleAnswerOption(
+                    id: 'orange',
+                    text: 'Rectángulo naranja vertical',
+                    imageUrl: illustrated ? orangeImage : null,
+                  ),
+                ],
+              ),
+            ],
+          );
+          await tester.pumpWidget(
+            ProviderScope(
+              overrides: [
+                battleDetailProvider(
+                  'review',
+                ).overrideWith((ref) async => detail),
+              ],
+              child: const MaterialApp(
+                home: BattleDetailPage(battleId: 'review'),
+              ),
+            ),
+          );
+          await tester.pumpAndSettle();
+          expect(
+            find.text(
+              'Tu respuesta: ${correct ? 'Rectángulo azul horizontal' : 'Rectángulo naranja vertical'}',
+            ),
+            findsOneWidget,
+          );
+          expect(
+            find.text('El ancho azul es el doble de su altura.'),
+            findsOneWidget,
+          );
+          if (!correct) {
+            expect(
+              find.text('Respuesta correcta: Rectángulo azul horizontal'),
+              findsOneWidget,
+            );
+          }
+          if (illustrated) {
+            final contents = tester
+                .widgetList<AcademicOptionContent>(
+                  find.byType(AcademicOptionContent),
+                )
+                .toList();
+            expect(
+              contents.map((c) => c.imageUrl),
+              correct ? [blueImage] : [orangeImage, blueImage],
+            );
+          } else {
+            expect(find.byType(AcademicImage), findsNothing);
+          }
+          expect(tester.takeException(), isNull);
+          await tester.pumpWidget(const SizedBox());
+        },
+      );
+    }
   }
 
   testWidgets('responde una batalla y solo entonces muestra la revisión', (
