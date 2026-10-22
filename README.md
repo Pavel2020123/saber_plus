@@ -4,7 +4,7 @@ Aplicación móvil de preparación para las pruebas Saber 11, con estudio por á
 práctica, seguimiento del aprendizaje y juegos educativos. Incluye herramientas
 para profesores e instituciones y un panel web para administrar contenido.
 
-**Última revisión documental: 21 de octubre de 2026.**
+**Última revisión documental de C5-C2: 22 de octubre de 2026.**
 Este README resume el estado de la copia local revisada; no certifica despliegue
 productivo ni vuelve a ejecutar las pruebas de las actas.
 
@@ -14,19 +14,22 @@ productivo ni vuelve a ejecutar las pruebas de las actas.
 [relevo operativo completo](docs/RELEVO_C5_C2.md) y
 [acta C2-D](docs/C5C2D_VALIDACION_LOCAL.md). Incluye arranque de ambos repos,
 cuentas/clave temporal, Docker/USB, auditoría y pruebas pendientes paso a paso.
-Puede corregir Flutter/API/panel de C2; quedan0/8 bloques humanos y D8a–e.
+**ENTREGA PARCIAL:** D1–D7 aprobados (7/8), D8a/c/d/e aprobados;
+falta D8b Tira online por segundo cliente. [Entrega y comandos](docs/C5C2_ENTREGA_PARCIAL.md).
+Ambos repos en fix/c5-c2-validacion; esperar auditoría de Pavel sin avanzar etapas.
 
 **C5-A/B/C1 y C2-A/B/C integradas en main local** por autorización del propietario.
 Entrega C2-C/relevo: app `e833d6b`, backend `cfba7cd`; merges locales app `f912880`
 y backend `09c763b`. Sin push nuevo, CI remoto ni despliegue en este cierre.
-Publicar ambos main antes de pedir al nuevo compañero que actualice su PC;
-un push podría activar automatizaciones configuradas, no autoriza migraciones remotas.
+Las referencias publicadas al iniciar esta continuación fueron Flutter3513b44 y
+backend8444b9a. Esta entrega posterior está en sus ramas, sin push/merge/despliegue;
+publicar por PR separado solo cuando Pavel lo autorice.
 OV-1 sigue en su frente independiente.
 
 **C5-C1 completada localmente: cinco de cinco comprobaciones Android aprobadas.**
 Ya avanzó [C5-C2, imágenes en opciones](docs/C5C2_OPCIONES.md): base, panel y
-consumidores C2-A/B/C validados automáticamente. Sigue C2-D Android, sin
-confirmaciones humanas todavía. Carga apagada por defecto; opt-in solo en la
+consumidores C2-A/B/C validados automáticamente. C2-D tiene7/8 bloques humanos
+aprobados; falta D8b. Carga apagada por defecto; opt-in solo en la
 sesión desechable de ensayo. No está terminada toda C5.
 Consultar el [guion y checkpoint C5-C1](docs/C5C_FLUTTER.md); no asumir que los
 servicios o las credenciales de una sesión anterior siguen activos.
@@ -36,7 +39,7 @@ servicios o las credenciales de una sesión anterior siguen activos.
 | Instituciones PR-I5 | Directorio, departamento/municipio, aprobación, presentación, logo, solicitudes de estudiantes y código privado; cierre técnico local e integración en `main`. | Despliegue y validación productiva, observaciones del acta y ranking institucional separado. [Cierre](docs/CIERRE_INSTITUCIONES_LOCAL.md). |
 | Cobertura y reportes MA-1/MA-1R | Cobertura del banco, formulario, Mis reportes y gestión ADMIN; R1–R4 validadas localmente e integradas en `main`. | Operación real y ensayo autorizado de staging. Ocultar/Deshacer es una propuesta separada, no está implementada por cerrar R4. [Acta](docs/MA1R_R4_VALIDACION_LOCAL.md). |
 | C5-A y C5-B | Base de imágenes editoriales privadas, carga desde el panel y asociación segura a preguntas, casos y lecciones; pruebas locales aprobadas. | Proveedor persistente y operación externa no configurados por esta entrega. [Contrato](docs/C5_ARCHIVOS.md) y [panel](docs/C5B_PANEL.md). |
-| C5-C1 / C2 | C1: **5/5 Android aprobadas** el21. C2-A/B/C: base, panel y consumidores;44/44 PostgreSQL/HTTP,128 suites/1.675 backend y969 Flutter aprobadas/16 omitidas. | C2-D Android pendiente; carga por opción apagada por defecto. PDF/offline, autorización histórica, fotos/evidencias y C5-D pendientes. [C1](docs/C5C_FLUTTER.md), [C2-C](docs/C5C2C_CONSUMIDORES.md). |
+| C5-C1 / C2 | C1: **5/5 Android aprobadas** el21. C2-A/B/C validadas automáticamente; C2-D:7/8 humanos, D8a/c/d/e aprobados. | **Entrega parcial:** falta D8b/segundo cliente y auditoría de Pavel. Carga por opción apagada por defecto. Resto de C5 fuera de este encargo. [C1](docs/C5C_FLUTTER.md), [entrega C2](docs/C5C2_ENTREGA_PARCIAL.md). |
 | Cima, Guardián y Rescate | Bloque competitivo inicial validado localmente en Android/API/SQL según sus actas. | Activación productiva y cierres operativos separados; no repetir su implementación. [Cima](docs/IC1_CIMA.md), [Guardián](docs/IC1_GUARDIAN.md), [Rescate](docs/IC1_RESCATE.md). |
 | Mapa y repaso diferido MA-2/MA-3 | API, persistencia, panel/agenda y consumidores Flutter implementados localmente. | Ensayos integrados y físicos pendientes según cada contrato. [Mapa](docs/MAPA_APRENDIZAJE.md), [repaso](docs/REPASO_DIFERIDO.md). |
 | Certificados | Seis tipos con implementación local HTML/PDF: cinco áreas y curso completo. | Prueba real, nombres largos y áreas incompletas/vacías. No hay certificados por juego o logro. [Guía](docs/GUIA_TRABAJO_COMPANEROS.md). |
@@ -188,7 +191,7 @@ PostgreSQL/HTTP y70 migraciones temporales. C2-B amplió esa evidencia a127 suit
 1.670 backend,130/130 panel y37/37 PostgreSQL/HTTP. C2-C amplía a128 suites/
 1.675 backend,44/44 PostgreSQL/HTTP y969 Flutter aprobadas/16 opt-in omitidas.
 Análisis Flutter y compilación backend aprobados. El acta C2-C distingue27
-incidencias ESLint preexistentes del control dirigido aprobado. C2-D Android pendiente.
+incidencias ESLint preexistentes del control dirigido aprobado. C2-D:7/8; falta D8b.
 
 No sumar los contadores como si fueran pruebas diferentes ni considerar aprobadas
 las omitidas. Compilar una APK no acredita instalación, prueba física, firma de
@@ -201,7 +204,7 @@ aislado; no ejecutarlas contra una base real por copiar un comando histórico.
 
 ## Trabajo del equipo y etapas restantes
 
-- **Propietario / nuevo compañero C2:** A/B/C1+C2-A/B/C integradas en main local; [C2-C validada automáticamente](docs/C5C2C_CONSUMIDORES.md). Sigue C2-D Android,0/8 humanos. Sin push nuevo ni despliegue. [Relevo](docs/RELEVO_C5_C2.md).
+- **Propietario / nuevo compañero C2:** C2-D entrega parcial,7/8 humanos y D8a/c/d/e aprobados; falta D8b/segundo cliente. Correcciones en fix/c5-c2-validacion, sin push/merge/despliegue. [Entrega](docs/C5C2_ENTREGA_PARCIAL.md).
 - **Compañero:** OV-1 en su rama; revisar su checkpoint al recibir una entrega, sin asumir cambios no presentes en estos clones.
 - Cada frente puede modificar Flutter y backend cuando lo necesite. Coordinar esquema Prisma, migraciones, módulos, contratos y archivos compartidos.
 - Trabajar en ramas independientes y entregar mediante PR revisado a `main`. No descartar cambios propios para actualizar el repositorio ni hacer push, merge, migraciones o despliegues automáticos.

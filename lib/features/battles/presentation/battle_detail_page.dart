@@ -665,9 +665,15 @@ class _CorrectionCard extends StatelessWidget {
             const SizedBox(height: 8),
             Text(question.statement),
             const SizedBox(height: 8),
-            Text('Tu respuesta: ${own?.text ?? 'Sin respuesta'}'),
+            AcademicOptionContent(
+              text: 'Tu respuesta: ${own?.text ?? 'Sin respuesta'}',
+              imageUrl: own?.imageUrl,
+            ),
             if (question.isCorrect != true)
-              Text('Respuesta correcta: ${correct?.text ?? 'No disponible'}'),
+              AcademicOptionContent(
+                text: 'Respuesta correcta: ${correct?.text ?? 'No disponible'}',
+                imageUrl: correct?.imageUrl,
+              ),
             if (question.explanation?.isNotEmpty == true) ...[
               const SizedBox(height: 6),
               Text(question.explanation!),

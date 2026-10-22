@@ -1,5 +1,12 @@
 # SaberPlus — etapas pendientes y ruta vigente del equipo
 
+**22 de octubre — C5-C2: ENTREGA PARCIAL.** D1–D7 aprobados (7/8), D8a/c/d/e
+aprobados; falta Tira online D8b por segundo cliente. Correcciones locales en
+panel y Flutter, sin cambios de arquitectura, dependencias, migraciones o XP.
+[Entrega y siguiente paso](C5C2_ENTREGA_PARCIAL.md), [evidencia humana/automática](C5C2D_VALIDACION_LOCAL.md).
+Esperar auditoría de Pavel; no avanzar a otras etapas ni intervenir OV-1.
+Los checkpoints fechados inferiores conservan sus antecedentes.
+
 **21 de octubre — [C5-C2-C validada automáticamente](C5C2C_CONSUMIDORES.md):**
 contratos/snapshots y Flutter incorporan imágenes opcionales sin cambiar XP ni
 romper JSON antiguo.969 Flutter aprobadas/16 opt-in omitidas,128 suites/1.675

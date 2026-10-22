@@ -811,6 +811,7 @@ class _AnswerButton extends StatelessWidget {
     style: OutlinedButton.styleFrom(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
       alignment: Alignment.centerLeft,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     ),
     child: Row(
       children: [
