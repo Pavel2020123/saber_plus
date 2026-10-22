@@ -16,14 +16,17 @@ productivo ni vuelve a ejecutar las pruebas de las actas.
 cuentas/clave temporal, Docker/USB, auditoría y pruebas pendientes paso a paso.
 **ENTREGA PARCIAL:** D1–D7 aprobados (7/8), D8a/c/d/e aprobados;
 falta D8b Tira online por segundo cliente. [Entrega y comandos](docs/C5C2_ENTREGA_PARCIAL.md).
-Ambos repos en fix/c5-c2-validacion; esperar auditoría de Pavel sin avanzar etapas.
+Pavel auditó la entrega parcial y los PR están integrados: Flutter#9/b8253e2 y
+backend#11/3eb3f59. Revisión actual en fix/c5-c2-timeout-d8b desde main actualizado:
+reproducir/corregir timeout de Tira local y completar D8b con teléfono/emulador.
+No repetir bloques aprobados sin regresión concreta ni avanzar al resto de C5.
 
 **C5-A/B/C1 y C2-A/B/C integradas en main local** por autorización del propietario.
 Entrega C2-C/relevo: app `e833d6b`, backend `cfba7cd`; merges locales app `f912880`
 y backend `09c763b`. Sin push nuevo, CI remoto ni despliegue en este cierre.
 Las referencias publicadas al iniciar esta continuación fueron Flutter3513b44 y
-backend8444b9a. Esta entrega posterior está en sus ramas, sin push/merge/despliegue;
-publicar por PR separado solo cuando Pavel lo autorice.
+backend8444b9a. La entrega parcial posterior ya se integró por los PR#9/#11.
+Los nuevos cambios requieren PR separado solo cuando Pavel autorice publicarlos.
 OV-1 sigue en su frente independiente.
 
 **C5-C1 completada localmente: cinco de cinco comprobaciones Android aprobadas.**
@@ -204,7 +207,7 @@ aislado; no ejecutarlas contra una base real por copiar un comando histórico.
 
 ## Trabajo del equipo y etapas restantes
 
-- **Propietario / nuevo compañero C2:** C2-D entrega parcial,7/8 humanos y D8a/c/d/e aprobados; falta D8b/segundo cliente. Correcciones en fix/c5-c2-validacion, sin push/merge/despliegue. [Entrega](docs/C5C2_ENTREGA_PARCIAL.md).
+- **Propietario / nuevo compañero C2:** entrega parcial integrada por PR#9/#11 y auditada por Pavel. En fix/c5-c2-timeout-d8b se revisa solo timeout de D8a y D8b con dos clientes. C2 abierta. [Acta](docs/C5C2D_VALIDACION_LOCAL.md).
 - **Compañero:** OV-1 en su rama; revisar su checkpoint al recibir una entrega, sin asumir cambios no presentes en estos clones.
 - Cada frente puede modificar Flutter y backend cuando lo necesite. Coordinar esquema Prisma, migraciones, módulos, contratos y archivos compartidos.
 - Trabajar en ramas independientes y entregar mediante PR revisado a `main`. No descartar cambios propios para actualizar el repositorio ni hacer push, merge, migraciones o despliegues automáticos.
