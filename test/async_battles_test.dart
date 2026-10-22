@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:saber_plus/app/theme.dart';
 import 'package:saber_plus/features/academic/domain/academic_models.dart';
 import 'package:saber_plus/features/battles/data/demo_battle_repository.dart';
@@ -199,6 +200,65 @@ void main() {
     );
   }
 
+  for (final submit in [false, true]) {
+    testWidgets(
+      'cierra ingreso de código sin errores al ${submit ? 'unirse' : 'cancelar'}',
+      (tester) async {
+        final repository = _JoinableBattleRepository();
+        final router = GoRouter(
+          routes: [
+            GoRoute(path: '/', builder: (_, _) => const AsyncBattlesPage()),
+            GoRoute(
+              path: '/student/practice/battles/:id',
+              builder: (_, state) =>
+                  BattleDetailPage(battleId: state.pathParameters['id']!),
+            ),
+          ],
+        );
+        addTearDown(router.dispose);
+        await tester.pumpWidget(
+          ProviderScope(
+            overrides: [battleRepositoryProvider.overrideWithValue(repository)],
+            child: MaterialApp.router(
+              routerConfig: router,
+              theme: SaberPlusTheme.light,
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+        final join = find.byKey(const Key('join-private-invitation'));
+        await tester.ensureVisible(join);
+        await tester.tap(join);
+        await tester.pumpAndSettle();
+        await tester.enterText(
+          find.byKey(const Key('battle-invitation-code')),
+          'SABER234',
+        );
+        if (submit) {
+          await tester.tap(find.byKey(const Key('confirm-join-battle')));
+        } else {
+          await tester.tap(find.widgetWithText(TextButton, 'Cancelar'));
+        }
+        // Exercise the closing animation while the TextField is still mounted.
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 50));
+        expect(tester.takeException(), isNull);
+        await tester.pumpAndSettle();
+        expect(tester.takeException(), isNull);
+        expect(find.byType(AlertDialog), findsNothing);
+        expect(repository.joinedCode, submit ? 'SABER234' : null);
+        if (submit) {
+          expect(find.text('Tu rival ya está listo'), findsOneWidget);
+        } else {
+          expect(
+            find.byKey(const Key('join-private-invitation')),
+            findsOneWidget,
+          );
+        }
+      },
+    );
+  }
+
   testWidgets('responde una batalla y solo entonces muestra la revisión', (
     tester,
   ) async {
@@ -303,6 +363,15 @@ Map<String, dynamic> _detail() => {
   'preguntas': <Map<String, dynamic>>[],
   'insigniasDesbloqueadas': <Map<String, dynamic>>[],
 };
+
+class _JoinableBattleRepository extends DemoBattleRepository {
+  String? joinedCode;
+  @override
+  Future<BattleDetail> joinInvitation(String code) async {
+    joinedCode = code;
+    return create(mode: BattleMode.ghostRace);
+  }
+}
 
 const _privacy = {
   'identidadesProtegidas': true,

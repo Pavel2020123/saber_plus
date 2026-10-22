@@ -144,14 +144,14 @@ class AsyncBattlesPage extends ConsumerWidget {
   }
 
   Future<void> _joinInvitation(BuildContext context, WidgetRef ref) async {
-    final controller = TextEditingController();
+    var enteredCode = '';
     final code = await showDialog<String>(
       context: context,
       builder: (dialogContext) => AlertDialog(
         title: const Text('Unirse con código'),
         content: TextField(
           key: const Key('battle-invitation-code'),
-          controller: controller,
+          onChanged: (value) => enteredCode = value,
           autofocus: true,
           maxLength: 8,
           textCapitalization: TextCapitalization.characters,
@@ -172,7 +172,7 @@ class AsyncBattlesPage extends ConsumerWidget {
           FilledButton(
             key: const Key('confirm-join-battle'),
             onPressed: () {
-              final value = controller.text.trim().toUpperCase();
+              final value = enteredCode.trim().toUpperCase();
               if (value.length == 8) Navigator.pop(dialogContext, value);
             },
             child: const Text('Unirme'),
@@ -180,7 +180,6 @@ class AsyncBattlesPage extends ConsumerWidget {
         ],
       ),
     );
-    controller.dispose();
     if (code == null || !context.mounted) return;
     _showWorking(context, 'Validando invitación…');
     try {
