@@ -222,6 +222,7 @@ class _BattleConfigDialogState extends State<_BattleConfigDialog> {
           DropdownButtonFormField<BattleMode>(
             key: const Key('battle-mode-selector'),
             initialValue: _mode,
+            isExpanded: true,
             decoration: const InputDecoration(labelText: 'Modo'),
             items: BattleMode.values
                 .map(
@@ -235,6 +236,7 @@ class _BattleConfigDialogState extends State<_BattleConfigDialog> {
           DropdownButtonFormField<AcademicArea?>(
             key: const Key('battle-area-selector'),
             initialValue: _area,
+            isExpanded: true,
             decoration: const InputDecoration(labelText: 'Área'),
             items: [
               const DropdownMenuItem<AcademicArea?>(
@@ -329,12 +331,13 @@ class _StatsCard extends StatelessWidget {
             ],
           ),
           const Divider(height: 24),
-          Row(
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            spacing: 8,
+            runSpacing: 8,
             children: [
               const Icon(Icons.local_fire_department_outlined),
-              const SizedBox(width: 8),
               Text('Racha actual: ${stats.currentStreak}'),
-              const Spacer(),
               Text('Mejor: ${stats.bestStreak}'),
             ],
           ),

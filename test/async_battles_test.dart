@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:saber_plus/app/theme.dart';
 import 'package:saber_plus/features/academic/domain/academic_models.dart';
 import 'package:saber_plus/features/battles/data/demo_battle_repository.dart';
 import 'package:saber_plus/features/battles/data/remote_battle_repository.dart';
@@ -144,6 +145,59 @@ void main() {
     expect(find.byKey(const Key('join-private-invitation')), findsOneWidget);
     expect(find.text('No has jugado'), findsNothing);
   });
+
+  for (final width in [320.0, 360.0, 412.0]) {
+    testWidgets(
+      'configura invitación sin desbordar a ${width}px con tema real',
+      (tester) async {
+        await tester.binding.setSurfaceSize(Size(width, 900));
+        addTearDown(() => tester.binding.setSurfaceSize(null));
+        await tester.pumpWidget(
+          ProviderScope(
+            overrides: [
+              battleRepositoryProvider.overrideWithValue(
+                DemoBattleRepository(),
+              ),
+            ],
+            child: MaterialApp(
+              theme: SaberPlusTheme.light,
+              home: const AsyncBattlesPage(),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+        final create = find.byKey(const Key('create-private-invitation'));
+        await tester.ensureVisible(create);
+        await tester.tap(create);
+        await tester.pumpAndSettle();
+        expect(find.text('Crear invitación'), findsOneWidget);
+        expect(tester.takeException(), isNull);
+        final mode = find.byKey(const Key('battle-mode-selector'));
+        await tester.tap(mode);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Duelo relámpago').last);
+        await tester.pumpAndSettle();
+        expect(
+          tester.state<FormFieldState<BattleMode>>(mode).value,
+          BattleMode.lightningDuel,
+        );
+        expect(tester.takeException(), isNull);
+        final area = find.byKey(const Key('battle-area-selector'));
+        await tester.tap(area);
+        await tester.pumpAndSettle();
+        final social = AcademicArea.values.firstWhere(
+          (a) => a.backendValue == 'SOCIALES_CIUDADANAS',
+        );
+        await tester.tap(find.text(social.label).last);
+        await tester.pumpAndSettle();
+        expect(tester.state<FormFieldState<AcademicArea?>>(area).value, social);
+        expect(tester.takeException(), isNull);
+        await tester.tap(find.widgetWithText(TextButton, 'Cancelar'));
+        await tester.pumpAndSettle();
+        expect(find.byType(AlertDialog), findsNothing);
+      },
+    );
+  }
 
   testWidgets('responde una batalla y solo entonces muestra la revisión', (
     tester,
