@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -13,6 +16,94 @@ import 'package:saber_plus/features/games/tug_of_war/presentation/tug_online_pag
 import 'package:saber_plus/features/games/tug_of_war/presentation/animation/tug_arena.dart';
 
 void main() {
+  test('transporte Socket.IO recibe estado con offset de recuperación', () async {
+    final server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
+    final connections = <WebSocket>[];
+    final payload = _snapshotJson(status: 'PREPARANDO', rival: true);
+    final requests = server.listen((request) async {
+      final socket = await WebSocketTransformer.upgrade(request);
+      connections.add(socket);
+      socket.add(
+        '0${jsonEncode({'sid': 'test-engine', 'upgrades': <String>[], 'pingInterval': 25000, 'pingTimeout': 20000})}',
+      );
+      socket.listen((packet) {
+        if (packet is String && packet.startsWith('40/tira-afloja,')) {
+          socket.add(
+            '40/tira-afloja,${jsonEncode({'sid': 'test-socket', 'pid': 'test-recovery'})}',
+          );
+          socket.add(
+            '42/tira-afloja,${jsonEncode(['tira:estado', payload, 'recovery-offset'])}',
+          );
+        }
+      });
+    });
+    final dio = Dio();
+    final client = SocketTugRealtimeClient(
+      dio,
+      apiBaseUrl: 'http://127.0.0.1:${server.port}',
+      accessToken: 'test-only',
+    );
+    try {
+      final result = client.events.firstWhere(
+        (event) => event is TugRealtimeState || event is TugRealtimeFailure,
+      );
+      client.connect();
+      final event = await result.timeout(const Duration(seconds: 5));
+      expect(event, isA<TugRealtimeState>());
+      expect((event as TugRealtimeState).snapshot.id, 'match-1');
+      expect(event.snapshot.rival?.id, 'rival');
+    } finally {
+      client.dispose();
+      dio.close();
+      for (final socket in connections) {
+        await socket.close();
+      }
+      await requests.cancel();
+      await server.close(force: true);
+    }
+  });
+
+  test(
+    'lee eventos con offset de recuperación sin perder reloj ni referencias',
+    () {
+      final payload = _snapshotJson(status: 'PREPARANDO', rival: true);
+      for (final event in <Object>[
+        payload,
+        [payload, 'recovery-offset'],
+      ]) {
+        final snapshot = TugOnlineSnapshot.fromJson(
+          tugRealtimeEventObject(event),
+        );
+        expect(snapshot.status, TugOnlineMatchStatus.preparing);
+        expect(snapshot.id, 'match-1');
+        expect(snapshot.rival?.id, 'rival');
+        expect(snapshot.serverOffset.inSeconds.abs(), lessThan(2));
+      }
+      final update = {'partidaId': 'match-1'};
+      expect(tugRealtimeEventObject([update, 'offset']), update);
+      final presence = {'usuarioId': 'B', 'conectado': false};
+      expect(tugRealtimeEventObject([presence, 'offset']), presence);
+      for (final invalid in <Object?>[
+        null,
+        [],
+        [payload],
+        [payload, 1],
+        [payload, 'offset', 'extra'],
+      ]) {
+        expect(tugRealtimeEventObject(invalid), isEmpty);
+      }
+      expect(
+        () => TugOnlineSnapshot.fromJson(
+          tugRealtimeEventObject([
+            {'partida': {}},
+            'offset',
+          ]),
+        ),
+        throwsA(isA<TypeError>()),
+      );
+    },
+  );
+
   test(
     'referencias A/B permiten ganador y presencia sin identidad privada',
     () async {

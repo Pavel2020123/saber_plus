@@ -320,5 +320,17 @@ String createTugIdempotencyKey([Random? source]) {
       '${hex.substring(20)}';
 }
 
-Map<String, dynamic> _map(Object? value) =>
-    value is Map ? Map<String, dynamic>.from(value) : const {};
+Map<String, dynamic> _map(Object? value) => tugRealtimeEventObject(value);
+
+/// Socket.IO recovery appends a string offset to the event payload. The Dart
+/// client delivers both arguments as a list; the offset belongs to the transport.
+Map<String, dynamic> tugRealtimeEventObject(Object? value) {
+  final payload =
+      value is List &&
+          value.length == 2 &&
+          value.first is Map &&
+          value.last is String
+      ? value.first
+      : value;
+  return payload is Map ? Map<String, dynamic>.from(payload) : const {};
+}

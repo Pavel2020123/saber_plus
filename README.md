@@ -14,12 +14,16 @@ productivo ni vuelve a ejecutar las pruebas de las actas.
 [relevo operativo completo](docs/RELEVO_C5_C2.md) y
 [acta C2-D](docs/C5C2D_VALIDACION_LOCAL.md). Incluye arranque de ambos repos,
 cuentas/clave temporal, Docker/USB, auditoría y pruebas pendientes paso a paso.
-**ENTREGA PARCIAL:** D1–D7 aprobados (7/8), D8a/c/d/e aprobados;
-falta D8b Tira online por segundo cliente. [Entrega y comandos](docs/C5C2_ENTREGA_PARCIAL.md).
+**ENTREGA PARCIAL:** D1–D7 y D8c/d/e conservan aprobación; D8a reabierto
+solo por timeout. D8b en curso con teléfono y emulador, sin aprobación todavía.
+[Entrega histórica y comandos](docs/C5C2_ENTREGA_PARCIAL.md).
 Pavel auditó la entrega parcial y los PR están integrados: Flutter#9/b8253e2 y
 backend#11/3eb3f59. Revisión actual en fix/c5-c2-timeout-d8b desde main actualizado:
 reproducir/corregir timeout de Tira local y completar D8b con teléfono/emulador.
 No repetir bloques aprobados sin regresión concreta ni avanzar al resto de C5.
+Se corrigió la lectura de eventos Socket.IO con offset de recuperación (9/9
+pruebas de Tira online); falta validación humana en ambos clientes. El contrato
+específico de timeout local autorizado está en desarrollo, aún sin integrar en Flutter.
 
 **C5-A/B/C1 y C2-A/B/C integradas en main local** por autorización del propietario.
 Entrega C2-C/relevo: app `e833d6b`, backend `cfba7cd`; merges locales app `f912880`
