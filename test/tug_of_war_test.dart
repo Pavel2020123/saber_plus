@@ -1,17 +1,20 @@
 import 'dart:math';
+import 'dart:async';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:saber_plus/core/feedback/game_audio_feedback.dart';
+import 'package:saber_plus/core/network/api_error.dart';
 import 'package:saber_plus/core/widgets/academic_option_content.dart';
 import 'package:saber_plus/core/widgets/academic_image.dart';
 import 'package:saber_plus/features/academic/domain/academic_models.dart';
 import 'package:saber_plus/features/games/trivia_rush/domain/trivia_rush_models.dart';
 import 'package:saber_plus/features/games/trivia_rush/domain/trivia_rush_repository.dart';
-import 'package:saber_plus/features/games/trivia_rush/presentation/trivia_rush_providers.dart';
+import 'package:saber_plus/features/games/tug_of_war/presentation/tug_local_providers.dart';
 import 'package:saber_plus/features/games/tug_of_war/domain/tug_of_war_models.dart';
+import 'package:saber_plus/features/games/tug_of_war/domain/tug_local_repository.dart';
 import 'package:saber_plus/features/games/tug_of_war/presentation/tug_of_war_page.dart';
 import 'package:saber_plus/features/games/tug_of_war/presentation/tug_of_war_providers.dart';
 import 'package:saber_plus/features/practice/domain/practice_models.dart';
@@ -130,7 +133,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          triviaRushRepositoryProvider.overrideWithValue(
+          tugLocalRepositoryProvider.overrideWithValue(
             const _FakeTugQuestionRepository(),
           ),
           tugCpuPlannerProvider.overrideWithValue(
@@ -221,7 +224,7 @@ void main() {
           await tester.pumpWidget(
             ProviderScope(
               overrides: [
-                triviaRushRepositoryProvider.overrideWithValue(
+                tugLocalRepositoryProvider.overrideWithValue(
                   const _IllustratedTugQuestionRepository(),
                 ),
                 editorialImageProvider(
@@ -322,7 +325,7 @@ void main() {
         await tester.pumpWidget(
           ProviderScope(
             overrides: [
-              triviaRushRepositoryProvider.overrideWithValue(repository),
+              tugLocalRepositoryProvider.overrideWithValue(repository),
               tugCpuPlannerProvider.overrideWithValue(
                 (_) => const TugCpuTurn(
                   isCorrect: false,
@@ -416,13 +419,294 @@ void main() {
     );
   }
 
+  testWidgets('vencer una ronda remota no agota el banco sin responder', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(800, 1400));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    final repository = _TimeoutTugQuestionRepository();
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          tugLocalRepositoryProvider.overrideWithValue(repository),
+          tugCpuPlannerProvider.overrideWithValue(
+            (_) =>
+                const TugCpuTurn(isCorrect: null, responseMilliseconds: 10000),
+          ),
+          gameAudioFeedbackProvider.overrideWithValue(
+            _RecordingGameAudioFeedback(),
+          ),
+        ],
+        child: const MaterialApp(
+          home: MediaQuery(
+            data: MediaQueryData(disableAnimations: true),
+            child: TugOfWarPage(
+              config: TugOfWarConfig(
+                areas: [AcademicArea.mathematics],
+                cpuDifficulty: TugCpuDifficulty.training,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pump();
+    await tester.pump();
+    await _pumpUntil(
+      tester,
+      () => find.byKey(const Key('tug-arena-preparing')).evaluate().isEmpty,
+    );
+    // The local deadline uses DateTime.now, not the widget scheduler's clock.
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(seconds: 10)),
+    );
+    await tester.pump(const Duration(seconds: 10));
+    await _pumpUntil(
+      tester,
+      () => find.byKey(const Key('continue-tug-round')).evaluate().isNotEmpty,
+    );
+    expect(repository.answers, isEmpty);
+    expect(repository.timeouts, ['first']);
+    final next = find.byKey(const Key('continue-tug-round'));
+    await tester.ensureVisible(next);
+    await tester.pump();
+    await tester.tap(next);
+    await tester.pump();
+    expect(repository.answers, isEmpty);
+    expect(
+      find.byKey(const Key('tug-result-view')),
+      findsNothing,
+      reason: 'El servidor conserva dos preguntas y ninguna respuesta.',
+    );
+    await tester.pumpWidget(const SizedBox());
+  });
+
+  testWidgets(
+    'timeout remoto espera confirmación y reintenta sin elegir una respuesta',
+    (tester) async {
+      final repository = _TimeoutTugQuestionRepository(
+        remainingMilliseconds: 0,
+        loseTimeoutAck: true,
+      );
+      await _mountLocalRemote(tester, repository);
+      await _pumpUntil(
+        tester,
+        () => find.byKey(const Key('tug-retry-round')).evaluate().isNotEmpty,
+      );
+      expect(repository.answers, isEmpty);
+      expect(repository.timeouts, ['first']);
+      expect(find.byKey(const Key('continue-tug-round')), findsNothing);
+      expect(find.byKey(const Key('tug-result-view')), findsNothing);
+      final answer = find.byKey(const Key('tug-answer-first-blue'));
+      await tester.ensureVisible(answer);
+      expect(tester.widget<OutlinedButton>(answer).onPressed, isNull);
+      final retry = find.byKey(const Key('tug-retry-round'));
+      await tester.ensureVisible(retry);
+      await tester.tap(retry);
+      await tester.pump();
+      await _pumpUntil(
+        tester,
+        () => find.byKey(const Key('continue-tug-round')).evaluate().isNotEmpty,
+      );
+      expect(repository.timeouts, ['first', 'first']);
+      expect(repository.answers, isEmpty);
+      final next = find.byKey(const Key('continue-tug-round'));
+      await tester.ensureVisible(next);
+      await tester.tap(next);
+      await tester.pump();
+      expect(find.text('Figura second'), findsOneWidget);
+      expect(find.byKey(const Key('tug-result-view')), findsNothing);
+      await tester.pumpWidget(const SizedBox());
+    },
+  );
+
+  testWidgets(
+    'timeout de última pregunta muestra resultado solo tras el feedback',
+    (tester) async {
+      final repository = _TimeoutTugQuestionRepository(
+        remainingMilliseconds: 0,
+        lastQuestion: true,
+      );
+      await _mountLocalRemote(tester, repository);
+      await _pumpUntil(
+        tester,
+        () => find.byKey(const Key('continue-tug-round')).evaluate().isNotEmpty,
+      );
+      expect(find.byKey(const Key('tug-result-view')), findsNothing);
+      final next = find.byKey(const Key('continue-tug-round'));
+      await tester.ensureVisible(next);
+      await tester.tap(next);
+      await tester.pump();
+      expect(find.byKey(const Key('tug-result-view')), findsOneWidget);
+      expect(repository.timeouts, ['first']);
+      expect(repository.answers, isEmpty);
+      expect(repository.abandonCalls, 0);
+      await tester.pumpWidget(const SizedBox());
+    },
+  );
+
+  for (final lostAck in [false, true]) {
+    testWidgets(
+      'respuesta ${lostAck ? 'con ACK perdido' : 'en vuelo'} conserva su envío al vencer',
+      (tester) async {
+        final repository = _TimeoutTugQuestionRepository(
+          remainingMilliseconds: 300,
+          loseAnswerAck: lostAck,
+        );
+        if (!lostAck) {
+          repository.pendingAnswer = Completer<TriviaRushAnswerEvaluation>();
+        }
+        await _mountLocalRemote(tester, repository);
+        final answer = find.byKey(const Key('tug-answer-first-blue'));
+        await tester.ensureVisible(answer);
+        await tester.tap(answer);
+        await tester.pump();
+        await tester.runAsync(
+          () => Future<void>.delayed(const Duration(milliseconds: 350)),
+        );
+        await tester.pump(const Duration(milliseconds: 400));
+        expect(repository.timeouts, isEmpty);
+        expect(find.byKey(const Key('continue-tug-round')), findsNothing);
+        if (lostAck) {
+          final retry = find.byKey(const Key('tug-retry-round'));
+          await tester.ensureVisible(retry);
+          await tester.tap(retry);
+        } else {
+          repository.pendingAnswer!.complete(
+            TriviaRushAnswerEvaluation(
+              questionId: 'first',
+              isCorrect: true,
+              correctAnswerId: 'first-blue',
+              explanation: 'Figura azul',
+              serverState: repository.state(
+                repository.question(
+                  'second',
+                  _PagedTugQuestionRepository.secondImage,
+                ),
+                1,
+              ),
+            ),
+          );
+        }
+        await tester.pump();
+        await _pumpUntil(
+          tester,
+          () =>
+              find.byKey(const Key('continue-tug-round')).evaluate().isNotEmpty,
+        );
+        expect(repository.answers, lostAck ? ['first', 'first'] : ['first']);
+        expect(repository.timeouts, isEmpty);
+        final next = find.byKey(const Key('continue-tug-round'));
+        await tester.ensureVisible(next);
+        await tester.tap(next);
+        await tester.pump();
+        expect(find.text('Figura second'), findsOneWidget);
+        await tester.pumpWidget(const SizedBox());
+      },
+    );
+  }
+
+  testWidgets(
+    'pausa local remota conserva el reloj y confirma pausa y reanudación',
+    (tester) async {
+      final repository = _TimeoutTugQuestionRepository();
+      await _mountLocalRemote(tester, repository);
+      await tester.tap(find.byIcon(Icons.close_rounded));
+      await tester.pump();
+      expect(repository.pauseChanges, [true]);
+      await tester.pump(const Duration(seconds: 5));
+      expect(repository.timeouts, isEmpty);
+      expect(find.text('10 s'), findsOneWidget);
+      await tester.tap(find.widgetWithText(TextButton, 'Continuar'));
+      await tester.pump();
+      expect(repository.pauseChanges, [true, false]);
+      expect(repository.version, 3);
+      final answer = find.byKey(const Key('tug-answer-first-blue'));
+      await tester.ensureVisible(answer);
+      expect(tester.widget<OutlinedButton>(answer).onPressed, isNotNull);
+      expect(repository.answers, isEmpty);
+      await tester.pumpWidget(const SizedBox());
+    },
+  );
+
+  testWidgets(
+    'reanudar tras perder ACK de pausa concilia la misma versión antes de continuar',
+    (tester) async {
+      final repository = _TimeoutTugQuestionRepository(losePauseAck: true);
+      await _mountLocalRemote(tester, repository);
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+      await tester.pump();
+      expect(repository.pauseChanges, [true]);
+      expect(find.byKey(const Key('tug-retry-round')), findsOneWidget);
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      await tester.pump();
+      await tester.pump();
+      expect(repository.pauseChanges, [true, true, false]);
+      expect(repository.pauseVersions, [1, 1, 2]);
+      expect(repository.version, 3);
+      expect(find.byKey(const Key('tug-retry-round')), findsNothing);
+      expect(repository.timeouts, isEmpty);
+      await tester.pumpWidget(const SizedBox());
+    },
+  );
+
+  testWidgets(
+    'respuesta confirmada en segundo plano permite terminar la ronda CPU al volver',
+    (tester) async {
+      final repository = _TimeoutTugQuestionRepository();
+      repository.pendingAnswer = Completer<TriviaRushAnswerEvaluation>();
+      await _mountLocalRemote(
+        tester,
+        repository,
+        cpuTurn: const TugCpuTurn(isCorrect: false, responseMilliseconds: 100),
+      );
+      final answer = find.byKey(const Key('tug-answer-first-blue'));
+      await tester.ensureVisible(answer);
+      await tester.tap(answer);
+      await tester.pump();
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+      await tester.pump();
+      repository.pendingAnswer!.complete(
+        TriviaRushAnswerEvaluation(
+          questionId: 'first',
+          isCorrect: true,
+          correctAnswerId: 'first-blue',
+          explanation: 'Azul',
+          serverState: repository.state(
+            repository.question(
+              'second',
+              _PagedTugQuestionRepository.secondImage,
+            ),
+            1,
+          ),
+        ),
+      );
+      await tester.pump();
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 120));
+      await _pumpUntil(
+        tester,
+        () => find.byKey(const Key('continue-tug-round')).evaluate().isNotEmpty,
+      );
+      expect(
+        repository.pauseChanges,
+        isEmpty,
+        reason: 'El servidor ya avanzó: no pausar la pregunta anterior.',
+      );
+      expect(repository.timeouts, isEmpty);
+      expect(repository.answers, ['first']);
+      await tester.pumpWidget(const SizedBox());
+    },
+  );
+
   testWidgets('el diálogo de salida pausa el reloj y la respuesta de la CPU', (
     tester,
   ) async {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          triviaRushRepositoryProvider.overrideWithValue(
+          tugLocalRepositoryProvider.overrideWithValue(
             const _FakeTugQuestionRepository(),
           ),
           tugCpuPlannerProvider.overrideWithValue(
@@ -495,6 +779,46 @@ Future<void> _pumpUntil(
     await tester.pump(const Duration(milliseconds: 100));
   }
   fail('La condición esperada no ocurrió durante la animación.');
+}
+
+Future<void> _mountLocalRemote(
+  WidgetTester tester,
+  _TimeoutTugQuestionRepository repository, {
+  TugCpuTurn cpuTurn = const TugCpuTurn(
+    isCorrect: null,
+    responseMilliseconds: 10000,
+  ),
+}) async {
+  await tester.binding.setSurfaceSize(const Size(800, 1400));
+  addTearDown(() => tester.binding.setSurfaceSize(null));
+  await tester.pumpWidget(
+    ProviderScope(
+      overrides: [
+        tugLocalRepositoryProvider.overrideWithValue(repository),
+        tugCpuPlannerProvider.overrideWithValue((_) => cpuTurn),
+        gameAudioFeedbackProvider.overrideWithValue(
+          _RecordingGameAudioFeedback(),
+        ),
+      ],
+      child: const MaterialApp(
+        home: MediaQuery(
+          data: MediaQueryData(disableAnimations: true),
+          child: TugOfWarPage(
+            config: TugOfWarConfig(
+              areas: [AcademicArea.mathematics],
+              cpuDifficulty: TugCpuDifficulty.training,
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+  await tester.pump();
+  await tester.pump();
+  await _pumpUntil(
+    tester,
+    () => find.byKey(const Key('tug-arena-preparing')).evaluate().isEmpty,
+  );
 }
 
 class _RecordingGameAudioFeedback implements GameAudioFeedback {
@@ -579,6 +903,141 @@ class _PagedTugQuestionRepository extends _FakeTugQuestionRepository {
             )
           : null,
     );
+  }
+}
+
+class _TimeoutTugQuestionRepository extends _PagedTugQuestionRepository
+    implements TugLocalRepository {
+  _TimeoutTugQuestionRepository({
+    this.remainingMilliseconds = 10000,
+    this.lastQuestion = false,
+    this.loseTimeoutAck = false,
+    this.loseAnswerAck = false,
+    this.losePauseAck = false,
+  }) : super(true);
+
+  final int remainingMilliseconds;
+  final bool lastQuestion;
+  bool loseTimeoutAck;
+  bool loseAnswerAck;
+  bool losePauseAck;
+  final timeouts = <String>[];
+  final started = <String>[];
+  final pauseChanges = <bool>[];
+  final pauseVersions = <int>[];
+  int abandonCalls = 0;
+  Completer<TriviaRushAnswerEvaluation>? pendingAnswer;
+  TriviaRushAnswerEvaluation? savedAnswer;
+  int version = 1;
+  bool paused = false;
+
+  TriviaRushSession sessionFor(PracticeQuestion? current, int index) =>
+      TriviaRushSession(
+        attemptId: 'paged-tug',
+        questions: [?current],
+        serverState: state(current, index),
+      );
+
+  @override
+  Future<TugLocalRound> beginRound(String attemptId, String questionId) async {
+    started.add(questionId);
+    return TugLocalRound(
+      session: sessionFor(
+        question(questionId, _PagedTugQuestionRepository.firstImage),
+        questionId == 'first' ? 0 : 1,
+      ),
+      version: version,
+      paused: paused,
+      remainingMilliseconds: questionId == 'first'
+          ? remainingMilliseconds
+          : 10000,
+    );
+  }
+
+  @override
+  Future<TugLocalRound> setPaused({
+    required String attemptId,
+    required String questionId,
+    required int version,
+    required bool paused,
+  }) async {
+    pauseChanges.add(paused);
+    pauseVersions.add(version);
+    if (version == this.version && this.paused != paused) {
+      this.version++;
+      this.paused = paused;
+    }
+    if (losePauseAck) {
+      losePauseAck = false;
+      throw const ApiError(
+        code: 'network_timeout',
+        message: 'Confirmación pendiente.',
+      );
+    }
+    return TugLocalRound(
+      session: sessionFor(
+        question(questionId, _PagedTugQuestionRepository.firstImage),
+        0,
+      ),
+      version: this.version,
+      paused: this.paused,
+      remainingMilliseconds: remainingMilliseconds,
+    );
+  }
+
+  @override
+  Future<TriviaRushSession> expireRound(
+    String attemptId,
+    String questionId,
+  ) async {
+    timeouts.add(questionId);
+    if (loseTimeoutAck) {
+      loseTimeoutAck = false;
+      throw const ApiError(
+        code: 'network_unavailable',
+        message: 'Sin conexión.',
+      );
+    }
+    return sessionFor(
+      lastQuestion
+          ? null
+          : question('second', _PagedTugQuestionRepository.secondImage),
+      lastQuestion ? 2 : 1,
+    );
+  }
+
+  @override
+  Future<TriviaRushAnswerEvaluation> answer({
+    required String attemptId,
+    required String questionId,
+    required String answerId,
+    required int responseTimeSeconds,
+  }) async {
+    answers.add(questionId);
+    if (pendingAnswer != null) return pendingAnswer!.future;
+    savedAnswer ??= TriviaRushAnswerEvaluation(
+      questionId: questionId,
+      isCorrect: true,
+      correctAnswerId: answerId,
+      explanation: 'Figura azul',
+      serverState: state(
+        question('second', _PagedTugQuestionRepository.secondImage),
+        1,
+      ),
+    );
+    if (loseAnswerAck) {
+      loseAnswerAck = false;
+      throw const ApiError(
+        code: 'network_timeout',
+        message: 'Confirmación pendiente.',
+      );
+    }
+    return savedAnswer!;
+  }
+
+  @override
+  Future<void> abandon(String attemptId) async {
+    abandonCalls++;
   }
 }
 

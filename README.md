@@ -25,7 +25,9 @@ Se corrigió la lectura de eventos Socket.IO con offset de recuperación (9/9
 pruebas); el humano confirmó sala en ambos clientes. El segundo Listo detectó
 rechazo SQL del snapshot con imágenes: migración corregida y48/48 HTTP/SQL,
 pendiente completar validación humana. Contrato exclusivo de timeout local
-validado en backend, aún pendiente de integración Flutter y conservación de pausa.
+validado en backend; Flutter ya integrado con pausa de servidor y reintentos:
+25 dirigidas y50/50 HTTP/SQL con73 migraciones. Falta regresión Android D8a.
+[Contrato de timeout local](docs/C5C2_TIMEOUT_LOCAL.md).
 D8b ya inició en ambos clientes y confirmó preguntas/figuras coincidentes, pero
 detectó contenido fuera del borde del botón. Corrección localizada y13/13 pruebas
 online más análisis dirigidos aprobados; el humano confirma contención correcta
@@ -57,7 +59,7 @@ servicios o las credenciales de una sesión anterior siguen activos.
 | Instituciones PR-I5 | Directorio, departamento/municipio, aprobación, presentación, logo, solicitudes de estudiantes y código privado; cierre técnico local e integración en `main`. | Despliegue y validación productiva, observaciones del acta y ranking institucional separado. [Cierre](docs/CIERRE_INSTITUCIONES_LOCAL.md). |
 | Cobertura y reportes MA-1/MA-1R | Cobertura del banco, formulario, Mis reportes y gestión ADMIN; R1–R4 validadas localmente e integradas en `main`. | Operación real y ensayo autorizado de staging. Ocultar/Deshacer es una propuesta separada, no está implementada por cerrar R4. [Acta](docs/MA1R_R4_VALIDACION_LOCAL.md). |
 | C5-A y C5-B | Base de imágenes editoriales privadas, carga desde el panel y asociación segura a preguntas, casos y lecciones; pruebas locales aprobadas. | Proveedor persistente y operación externa no configurados por esta entrega. [Contrato](docs/C5_ARCHIVOS.md) y [panel](docs/C5B_PANEL.md). |
-| C5-C1 / C2 | C1: **5/5 Android aprobadas** el21. C2-A/B/C validadas automáticamente; C2-D: D1–D7 y D8b/c/d/e aprobados. | **Entrega parcial:** timeout D8a pendiente de Flutter/pausa, regresión humana y nueva revisión de Pavel. Carga por opción apagada por defecto. Resto de C5 fuera de este encargo. [C1](docs/C5C_FLUTTER.md), [entrega histórica C2](docs/C5C2_ENTREGA_PARCIAL.md). |
+| C5-C1 / C2 | C1: **5/5 Android aprobadas** el21. C2-A/B/C validadas automáticamente; C2-D: D1–D7 y D8b/c/d/e aprobados. | **Entrega parcial:** timeout D8a integrado con pausa; falta regresión humana y nueva revisión de Pavel. Carga por opción apagada por defecto. Resto de C5 fuera de este encargo. [C1](docs/C5C_FLUTTER.md), [entrega histórica C2](docs/C5C2_ENTREGA_PARCIAL.md). |
 | Cima, Guardián y Rescate | Bloque competitivo inicial validado localmente en Android/API/SQL según sus actas. | Activación productiva y cierres operativos separados; no repetir su implementación. [Cima](docs/IC1_CIMA.md), [Guardián](docs/IC1_GUARDIAN.md), [Rescate](docs/IC1_RESCATE.md). |
 | Mapa y repaso diferido MA-2/MA-3 | API, persistencia, panel/agenda y consumidores Flutter implementados localmente. | Ensayos integrados y físicos pendientes según cada contrato. [Mapa](docs/MAPA_APRENDIZAJE.md), [repaso](docs/REPASO_DIFERIDO.md). |
 | Certificados | Seis tipos con implementación local HTML/PDF: cinco áreas y curso completo. | Prueba real, nombres largos y áreas incompletas/vacías. No hay certificados por juego o logro. [Guía](docs/GUIA_TRABAJO_COMPANEROS.md). |
@@ -209,7 +211,8 @@ PostgreSQL/HTTP y70 migraciones temporales. C2-B amplió esa evidencia a127 suit
 1.670 backend,130/130 panel y37/37 PostgreSQL/HTTP. C2-C amplía a128 suites/
 1.675 backend,44/44 PostgreSQL/HTTP y969 Flutter aprobadas/16 opt-in omitidas.
 Análisis Flutter y compilación backend aprobados. El acta C2-C distingue27
-incidencias ESLint preexistentes del control dirigido aprobado. C2-D:7/8; falta D8b.
+incidencias ESLint preexistentes del control dirigido aprobado. Estado histórico
+del22: C2-D7/8 por D8b. El23 se aprueba D8b y queda regresión de timeout D8a.
 
 No sumar los contadores como si fueran pruebas diferentes ni considerar aprobadas
 las omitidas. Compilar una APK no acredita instalación, prueba física, firma de
