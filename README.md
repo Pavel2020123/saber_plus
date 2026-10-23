@@ -22,8 +22,10 @@ backend#11/3eb3f59. Revisión actual en fix/c5-c2-timeout-d8b desde main actuali
 reproducir/corregir timeout de Tira local y completar D8b con teléfono/emulador.
 No repetir bloques aprobados sin regresión concreta ni avanzar al resto de C5.
 Se corrigió la lectura de eventos Socket.IO con offset de recuperación (9/9
-pruebas de Tira online); falta validación humana en ambos clientes. El contrato
-específico de timeout local autorizado está en desarrollo, aún sin integrar en Flutter.
+pruebas); el humano confirmó sala en ambos clientes. El segundo Listo detectó
+rechazo SQL del snapshot con imágenes: migración corregida y48/48 HTTP/SQL,
+pendiente confirmación humana del inicio. Contrato exclusivo de timeout local
+validado en backend, aún pendiente de integración Flutter y conservación de pausa.
 
 **C5-A/B/C1 y C2-A/B/C integradas en main local** por autorización del propietario.
 Entrega C2-C/relevo: app `e833d6b`, backend `cfba7cd`; merges locales app `f912880`
