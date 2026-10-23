@@ -4,7 +4,7 @@ Aplicación móvil de preparación para las pruebas Saber 11, con estudio por á
 práctica, seguimiento del aprendizaje y juegos educativos. Incluye herramientas
 para profesores e instituciones y un panel web para administrar contenido.
 
-**Última revisión documental de C5-C2: 22 de octubre de 2026.**
+**Última revisión documental de C5-C2: 23 de octubre de 2026.**
 Este README resume el estado de la copia local revisada; no certifica despliegue
 productivo ni vuelve a ejecutar las pruebas de las actas.
 
@@ -15,7 +15,7 @@ productivo ni vuelve a ejecutar las pruebas de las actas.
 [acta C2-D](docs/C5C2D_VALIDACION_LOCAL.md). Incluye arranque de ambos repos,
 cuentas/clave temporal, Docker/USB, auditoría y pruebas pendientes paso a paso.
 **ENTREGA PARCIAL:** D1–D7 y D8c/d/e conservan aprobación; D8a reabierto
-solo por timeout. D8b en curso con teléfono y emulador, sin aprobación todavía.
+solo por timeout. D8b aprobado con teléfono y emulador dentro de los límites del acta.
 [Entrega histórica y comandos](docs/C5C2_ENTREGA_PARCIAL.md).
 Pavel auditó la entrega parcial y los PR están integrados: Flutter#9/b8253e2 y
 backend#11/3eb3f59. Revisión actual en fix/c5-c2-timeout-d8b desde main actualizado:
@@ -31,7 +31,10 @@ detectó contenido fuera del borde del botón. Corrección localizada y13/13 pru
 online más análisis dirigidos aprobados; el humano confirma contención correcta
 en ambos con APK4003 y selección propia. Aclara después fallo al volver al teléfono
 cuando la partida ya terminó: conserva la última ronda. Corrección de recuperación
-HTTP/lifecycle con19/19 pruebas, pendiente observación con APK nueva. D8b sigue abierto.
+HTTP/lifecycle con19/19 pruebas. Con APK4004 el humano confirma victoria en
+emulador y el mismo ganador en teléfono al volver después del final; SQL concuerda,
+dos respuestas únicas del emulador y ninguna del teléfono. D8b aprobado, sin
+acreditar cierre forzado, ACK perdido o competición; C2 sigue abierta por D8a.
 
 **C5-A/B/C1 y C2-A/B/C integradas en main local** por autorización del propietario.
 Entrega C2-C/relevo: app `e833d6b`, backend `cfba7cd`; merges locales app `f912880`
@@ -43,8 +46,8 @@ OV-1 sigue en su frente independiente.
 
 **C5-C1 completada localmente: cinco de cinco comprobaciones Android aprobadas.**
 Ya avanzó [C5-C2, imágenes en opciones](docs/C5C2_OPCIONES.md): base, panel y
-consumidores C2-A/B/C validados automáticamente. C2-D tiene7/8 bloques humanos
-aprobados; falta D8b. Carga apagada por defecto; opt-in solo en la
+consumidores C2-A/B/C validados automáticamente. C2-D conserva D1–D7 y
+D8b/c/d/e aprobados; D8a reabierto solo por timeout. Carga apagada por defecto; opt-in solo en la
 sesión desechable de ensayo. No está terminada toda C5.
 Consultar el [guion y checkpoint C5-C1](docs/C5C_FLUTTER.md); no asumir que los
 servicios o las credenciales de una sesión anterior siguen activos.
@@ -54,7 +57,7 @@ servicios o las credenciales de una sesión anterior siguen activos.
 | Instituciones PR-I5 | Directorio, departamento/municipio, aprobación, presentación, logo, solicitudes de estudiantes y código privado; cierre técnico local e integración en `main`. | Despliegue y validación productiva, observaciones del acta y ranking institucional separado. [Cierre](docs/CIERRE_INSTITUCIONES_LOCAL.md). |
 | Cobertura y reportes MA-1/MA-1R | Cobertura del banco, formulario, Mis reportes y gestión ADMIN; R1–R4 validadas localmente e integradas en `main`. | Operación real y ensayo autorizado de staging. Ocultar/Deshacer es una propuesta separada, no está implementada por cerrar R4. [Acta](docs/MA1R_R4_VALIDACION_LOCAL.md). |
 | C5-A y C5-B | Base de imágenes editoriales privadas, carga desde el panel y asociación segura a preguntas, casos y lecciones; pruebas locales aprobadas. | Proveedor persistente y operación externa no configurados por esta entrega. [Contrato](docs/C5_ARCHIVOS.md) y [panel](docs/C5B_PANEL.md). |
-| C5-C1 / C2 | C1: **5/5 Android aprobadas** el21. C2-A/B/C validadas automáticamente; C2-D:7/8 humanos, D8a/c/d/e aprobados. | **Entrega parcial:** falta D8b/segundo cliente y auditoría de Pavel. Carga por opción apagada por defecto. Resto de C5 fuera de este encargo. [C1](docs/C5C_FLUTTER.md), [entrega C2](docs/C5C2_ENTREGA_PARCIAL.md). |
+| C5-C1 / C2 | C1: **5/5 Android aprobadas** el21. C2-A/B/C validadas automáticamente; C2-D: D1–D7 y D8b/c/d/e aprobados. | **Entrega parcial:** timeout D8a pendiente de Flutter/pausa, regresión humana y nueva revisión de Pavel. Carga por opción apagada por defecto. Resto de C5 fuera de este encargo. [C1](docs/C5C_FLUTTER.md), [entrega histórica C2](docs/C5C2_ENTREGA_PARCIAL.md). |
 | Cima, Guardián y Rescate | Bloque competitivo inicial validado localmente en Android/API/SQL según sus actas. | Activación productiva y cierres operativos separados; no repetir su implementación. [Cima](docs/IC1_CIMA.md), [Guardián](docs/IC1_GUARDIAN.md), [Rescate](docs/IC1_RESCATE.md). |
 | Mapa y repaso diferido MA-2/MA-3 | API, persistencia, panel/agenda y consumidores Flutter implementados localmente. | Ensayos integrados y físicos pendientes según cada contrato. [Mapa](docs/MAPA_APRENDIZAJE.md), [repaso](docs/REPASO_DIFERIDO.md). |
 | Certificados | Seis tipos con implementación local HTML/PDF: cinco áreas y curso completo. | Prueba real, nombres largos y áreas incompletas/vacías. No hay certificados por juego o logro. [Guía](docs/GUIA_TRABAJO_COMPANEROS.md). |
