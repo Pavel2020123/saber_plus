@@ -22,7 +22,8 @@ class TugOnlinePage extends ConsumerStatefulWidget {
   ConsumerState<TugOnlinePage> createState() => _TugOnlinePageState();
 }
 
-class _TugOnlinePageState extends ConsumerState<TugOnlinePage> {
+class _TugOnlinePageState extends ConsumerState<TugOnlinePage>
+    with WidgetsBindingObserver {
   Timer? _clock;
   Timer? _feedbackTimer;
   var _showFeedback = false;
@@ -32,6 +33,7 @@ class _TugOnlinePageState extends ConsumerState<TugOnlinePage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _clock = Timer.periodic(const Duration(milliseconds: 250), (_) {
       if (mounted) setState(() {});
     });
@@ -39,9 +41,21 @@ class _TugOnlinePageState extends ConsumerState<TugOnlinePage> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _clock?.cancel();
     _feedbackTimer?.cancel();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      unawaited(
+        ref
+            .read(tugOnlineControllerProvider(widget.config.area).notifier)
+            .resume(),
+      );
+    }
   }
 
   @override
@@ -200,6 +214,10 @@ class _TugOnlinePageState extends ConsumerState<TugOnlinePage> {
                 style: OutlinedButton.styleFrom(
                   alignment: Alignment.centerLeft,
                   minimumSize: const Size.fromHeight(52),
+                  padding: const EdgeInsets.all(16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                   backgroundColor: state.selectedAnswerId == option.id
                       ? Theme.of(context).colorScheme.primaryContainer
                       : null,
@@ -539,7 +557,7 @@ class _ConnectionBanner extends StatelessWidget {
               size: 18,
             ),
             const SizedBox(width: 8),
-            Expanded(child: Text(text)),
+            Expanded(child: Text(state.errorMessage ?? text)),
           ],
         ),
       ),

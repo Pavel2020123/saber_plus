@@ -58,6 +58,9 @@ abstract interface class TugRealtimeClient {
 
   Future<void> synchronize(String matchId, {int? sinceVersion});
 
+  /// Read the authoritative state independently of a possibly stale socket.
+  Future<TugOnlineSnapshot> recover(String matchId);
+
   Future<void> ready(String matchId);
 
   Future<void> answer({
@@ -150,6 +153,18 @@ class SocketTugRealtimeClient implements TugRealtimeClient {
       data,
       () => _dio.post<Object>('/tira-afloja/$matchId/listo'),
     );
+  }
+
+  @override
+  Future<TugOnlineSnapshot> recover(String matchId) async {
+    try {
+      final response = await _dio.get<Object>(
+        '/tira-afloja/${Uri.encodeComponent(matchId)}',
+      );
+      return TugOnlineSnapshot.fromJson(_map(response.data));
+    } on DioException catch (error) {
+      throw ApiError.fromDioException(error);
+    }
   }
 
   @override
@@ -320,5 +335,17 @@ String createTugIdempotencyKey([Random? source]) {
       '${hex.substring(20)}';
 }
 
-Map<String, dynamic> _map(Object? value) =>
-    value is Map ? Map<String, dynamic>.from(value) : const {};
+Map<String, dynamic> _map(Object? value) => tugRealtimeEventObject(value);
+
+/// Socket.IO recovery appends a string offset to the event payload. The Dart
+/// client delivers both arguments as a list; the offset belongs to the transport.
+Map<String, dynamic> tugRealtimeEventObject(Object? value) {
+  final payload =
+      value is List &&
+          value.length == 2 &&
+          value.first is Map &&
+          value.last is String
+      ? value.first
+      : value;
+  return payload is Map ? Map<String, dynamic>.from(payload) : const {};
+}
