@@ -14,19 +14,23 @@ productivo ni vuelve a ejecutar las pruebas de las actas.
 [relevo operativo completo](docs/RELEVO_C5_C2.md) y
 [acta C2-D](docs/C5C2D_VALIDACION_LOCAL.md). Incluye arranque de ambos repos,
 cuentas/clave temporal, Docker/USB, auditoría y pruebas pendientes paso a paso.
-**ENTREGA PARCIAL:** D1–D7 y D8c/d/e conservan aprobación; D8a reabierto
-solo por timeout. D8b aprobado con teléfono y emulador dentro de los límites del acta.
-[Entrega histórica y comandos](docs/C5C2_ENTREGA_PARCIAL.md).
+**Entrega para nueva revisión:** regresión D8a y D8b aprobadas dentro del alcance
+del acta; D1–D7 y D8c/d/e conservan aprobación. **C2 sigue abierta hasta auditoría
+de Pavel.** [Entrega actual y comandos](docs/C5C2_REVISION_TIMEOUT_D8B.md),
+[entrega parcial histórica](docs/C5C2_ENTREGA_PARCIAL.md).
 Pavel auditó la entrega parcial y los PR están integrados: Flutter#9/b8253e2 y
 backend#11/3eb3f59. Revisión actual en fix/c5-c2-timeout-d8b desde main actualizado:
-reproducir/corregir timeout de Tira local y completar D8b con teléfono/emulador.
+timeout de Tira local corregido y D8b observado con teléfono/emulador.
 No repetir bloques aprobados sin regresión concreta ni avanzar al resto de C5.
 Se corrigió la lectura de eventos Socket.IO con offset de recuperación (9/9
 pruebas); el humano confirmó sala en ambos clientes. El segundo Listo detectó
 rechazo SQL del snapshot con imágenes: migración corregida y48/48 HTTP/SQL,
-pendiente completar validación humana. Contrato exclusivo de timeout local
+validación humana D8b aprobada. Contrato exclusivo de timeout local
 validado en backend; Flutter ya integrado con pausa de servidor y reintentos:
-25 dirigidas y50/50 HTTP/SQL con73 migraciones. Falta regresión Android D8a.
+25 dirigidas y50/50 HTTP/SQL con73 migraciones. Android/4005 confirma avance,
+pausa activa8s, reanudación, figuras/textos contenidos y acierto. Regresión final:
+1.016 Flutter aprobadas/16 opt-in omitidas, backend128 suites/1.675, análisis
+dirigido y build backend aprobados. Recibos sanitizados enlazados en la entrega.
 [Contrato de timeout local](docs/C5C2_TIMEOUT_LOCAL.md).
 D8b ya inició en ambos clientes y confirmó preguntas/figuras coincidentes, pero
 detectó contenido fuera del borde del botón. Corrección localizada y13/13 pruebas
@@ -36,7 +40,7 @@ cuando la partida ya terminó: conserva la última ronda. Corrección de recuper
 HTTP/lifecycle con19/19 pruebas. Con APK4004 el humano confirma victoria en
 emulador y el mismo ganador en teléfono al volver después del final; SQL concuerda,
 dos respuestas únicas del emulador y ninguna del teléfono. D8b aprobado, sin
-acreditar cierre forzado, ACK perdido o competición; C2 sigue abierta por D8a.
+acreditar cierre forzado, ACK perdido real o competición; C2 espera revisión de Pavel.
 
 **C5-A/B/C1 y C2-A/B/C integradas en main local** por autorización del propietario.
 Entrega C2-C/relevo: app `e833d6b`, backend `cfba7cd`; merges locales app `f912880`
@@ -49,7 +53,8 @@ OV-1 sigue en su frente independiente.
 **C5-C1 completada localmente: cinco de cinco comprobaciones Android aprobadas.**
 Ya avanzó [C5-C2, imágenes en opciones](docs/C5C2_OPCIONES.md): base, panel y
 consumidores C2-A/B/C validados automáticamente. C2-D conserva D1–D7 y
-D8b/c/d/e aprobados; D8a reabierto solo por timeout. Carga apagada por defecto; opt-in solo en la
+D8c/d/e aprobados; regresión D8a y D8b aprobadas con límites explícitos.
+C2 no se declara terminada. Carga apagada por defecto; opt-in solo en la
 sesión desechable de ensayo. No está terminada toda C5.
 Consultar el [guion y checkpoint C5-C1](docs/C5C_FLUTTER.md); no asumir que los
 servicios o las credenciales de una sesión anterior siguen activos.
@@ -59,7 +64,7 @@ servicios o las credenciales de una sesión anterior siguen activos.
 | Instituciones PR-I5 | Directorio, departamento/municipio, aprobación, presentación, logo, solicitudes de estudiantes y código privado; cierre técnico local e integración en `main`. | Despliegue y validación productiva, observaciones del acta y ranking institucional separado. [Cierre](docs/CIERRE_INSTITUCIONES_LOCAL.md). |
 | Cobertura y reportes MA-1/MA-1R | Cobertura del banco, formulario, Mis reportes y gestión ADMIN; R1–R4 validadas localmente e integradas en `main`. | Operación real y ensayo autorizado de staging. Ocultar/Deshacer es una propuesta separada, no está implementada por cerrar R4. [Acta](docs/MA1R_R4_VALIDACION_LOCAL.md). |
 | C5-A y C5-B | Base de imágenes editoriales privadas, carga desde el panel y asociación segura a preguntas, casos y lecciones; pruebas locales aprobadas. | Proveedor persistente y operación externa no configurados por esta entrega. [Contrato](docs/C5_ARCHIVOS.md) y [panel](docs/C5B_PANEL.md). |
-| C5-C1 / C2 | C1: **5/5 Android aprobadas** el21. C2-A/B/C validadas automáticamente; C2-D: D1–D7 y D8b/c/d/e aprobados. | **Entrega parcial:** timeout D8a integrado con pausa; falta regresión humana y nueva revisión de Pavel. Carga por opción apagada por defecto. Resto de C5 fuera de este encargo. [C1](docs/C5C_FLUTTER.md), [entrega histórica C2](docs/C5C2_ENTREGA_PARCIAL.md). |
+| C5-C1 / C2 | C1: **5/5 Android aprobadas** el21. C2-A/B/C automáticas; D1–D7 y D8c/d/e conservados; regresión D8a y D8b aprobadas en acta. | **C2 abierta a revisión de Pavel.** Carga por opción apagada por defecto. Resto de C5 fuera de este encargo. [C1](docs/C5C_FLUTTER.md), [entrega actual C2](docs/C5C2_REVISION_TIMEOUT_D8B.md). |
 | Cima, Guardián y Rescate | Bloque competitivo inicial validado localmente en Android/API/SQL según sus actas. | Activación productiva y cierres operativos separados; no repetir su implementación. [Cima](docs/IC1_CIMA.md), [Guardián](docs/IC1_GUARDIAN.md), [Rescate](docs/IC1_RESCATE.md). |
 | Mapa y repaso diferido MA-2/MA-3 | API, persistencia, panel/agenda y consumidores Flutter implementados localmente. | Ensayos integrados y físicos pendientes según cada contrato. [Mapa](docs/MAPA_APRENDIZAJE.md), [repaso](docs/REPASO_DIFERIDO.md). |
 | Certificados | Seis tipos con implementación local HTML/PDF: cinco áreas y curso completo. | Prueba real, nombres largos y áreas incompletas/vacías. No hay certificados por juego o logro. [Guía](docs/GUIA_TRABAJO_COMPANEROS.md). |
@@ -212,7 +217,8 @@ PostgreSQL/HTTP y70 migraciones temporales. C2-B amplió esa evidencia a127 suit
 1.675 backend,44/44 PostgreSQL/HTTP y969 Flutter aprobadas/16 opt-in omitidas.
 Análisis Flutter y compilación backend aprobados. El acta C2-C distingue27
 incidencias ESLint preexistentes del control dirigido aprobado. Estado histórico
-del22: C2-D7/8 por D8b. El23 se aprueba D8b y queda regresión de timeout D8a.
+del22: C2-D7/8 por D8b. El23 se aprueban D8b y la regresión de timeout D8a;
+C2 continúa abierta para auditoría, sin avance al resto de C5.
 
 No sumar los contadores como si fueran pruebas diferentes ni considerar aprobadas
 las omitidas. Compilar una APK no acredita instalación, prueba física, firma de
