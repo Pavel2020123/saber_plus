@@ -28,7 +28,8 @@ pendiente completar validación humana. Contrato exclusivo de timeout local
 validado en backend, aún pendiente de integración Flutter y conservación de pausa.
 D8b ya inició en ambos clientes y confirmó preguntas/figuras coincidentes, pero
 detectó contenido fuera del borde del botón. Corrección localizada y13/13 pruebas
-online más análisis dirigidos aprobados; falta nueva observación Android.
+online más análisis dirigidos aprobados; el humano confirma contención correcta
+en ambos con APK4003. Pendientes selección independiente y reanudación D8b.
 
 **C5-A/B/C1 y C2-A/B/C integradas en main local** por autorización del propietario.
 Entrega C2-C/relevo: app `e833d6b`, backend `cfba7cd`; merges locales app `f912880`
