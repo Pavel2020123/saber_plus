@@ -200,6 +200,10 @@ class _TugOnlinePageState extends ConsumerState<TugOnlinePage> {
                 style: OutlinedButton.styleFrom(
                   alignment: Alignment.centerLeft,
                   minimumSize: const Size.fromHeight(52),
+                  padding: const EdgeInsets.all(16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                   backgroundColor: state.selectedAnswerId == option.id
                       ? Theme.of(context).colorScheme.primaryContainer
                       : null,

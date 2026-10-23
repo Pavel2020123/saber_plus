@@ -24,8 +24,11 @@ No repetir bloques aprobados sin regresión concreta ni avanzar al resto de C5.
 Se corrigió la lectura de eventos Socket.IO con offset de recuperación (9/9
 pruebas); el humano confirmó sala en ambos clientes. El segundo Listo detectó
 rechazo SQL del snapshot con imágenes: migración corregida y48/48 HTTP/SQL,
-pendiente confirmación humana del inicio. Contrato exclusivo de timeout local
+pendiente completar validación humana. Contrato exclusivo de timeout local
 validado en backend, aún pendiente de integración Flutter y conservación de pausa.
+D8b ya inició en ambos clientes y confirmó preguntas/figuras coincidentes, pero
+detectó contenido fuera del borde del botón. Corrección localizada y13/13 pruebas
+online más análisis dirigidos aprobados; falta nueva observación Android.
 
 **C5-A/B/C1 y C2-A/B/C integradas en main local** por autorización del propietario.
 Entrega C2-C/relevo: app `e833d6b`, backend `cfba7cd`; merges locales app `f912880`

@@ -2,11 +2,14 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+import 'dart:ui' as ui;
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:saber_plus/core/widgets/academic_image.dart';
+import 'package:saber_plus/core/widgets/academic_option_content.dart';
 import 'package:saber_plus/features/academic/domain/academic_models.dart';
 import 'package:saber_plus/features/games/tug_of_war/data/tug_realtime_client.dart';
 import 'package:saber_plus/features/games/tug_of_war/domain/tug_online_models.dart';
@@ -16,6 +19,130 @@ import 'package:saber_plus/features/games/tug_of_war/presentation/tug_online_pag
 import 'package:saber_plus/features/games/tug_of_war/presentation/animation/tug_arena.dart';
 
 void main() {
+  for (final width in [320.0, 412.0]) {
+    for (final scale in [1.0, 2.0]) {
+      testWidgets(
+        'opciones online ilustradas caben en su borde $width/$scale',
+        (tester) async {
+          await tester.binding.setSurfaceSize(Size(width, 2000));
+          addTearDown(() => tester.binding.setSurfaceSize(null));
+          const paths = [
+            '/recursos/editoriales/11111111-1111-4111-8111-111111111111',
+            '/recursos/editoriales/22222222-2222-4222-8222-222222222222',
+          ];
+          final images = (await tester.runAsync(() async {
+            final result = <ui.Image>[];
+            for (final size in [const Size(160, 80), const Size(80, 160)]) {
+              final recorder = ui.PictureRecorder();
+              Canvas(
+                recorder,
+              ).drawRect(Offset.zero & size, Paint()..color = Colors.blue);
+              final picture = recorder.endRecording();
+              result.add(
+                await picture.toImage(size.width.toInt(), size.height.toInt()),
+              );
+              picture.dispose();
+            }
+            return result;
+          }))!;
+          addTearDown(() {
+            for (final image in images) {
+              image.dispose();
+            }
+          });
+          final payload = _snapshotJson(status: 'ACTIVA', round: 1, version: 1);
+          final question = (payload['partida'] as Map)['pregunta'] as Map;
+          question['enunciado'] =
+              '¿Qué figura tiene el ancho doble de su altura?';
+          question['opciones'] = [
+            {
+              'id': 'blue',
+              'texto': 'Rectángulo azul horizontal',
+              'imagenUrl': paths[0],
+            },
+            {
+              'id': 'orange',
+              'texto': 'Rectángulo naranja vertical',
+              'imagenUrl': paths[1],
+            },
+          ];
+          final client = _FakeRealtimeClient(onMatchmake: () => payload);
+          await tester.pumpWidget(
+            ProviderScope(
+              overrides: [
+                tugRealtimeClientFactoryProvider.overrideWithValue(
+                  () => client,
+                ),
+                editorialImageProvider(
+                  paths[0],
+                ).overrideWith((ref) async => images[0]),
+                editorialImageProvider(
+                  paths[1],
+                ).overrideWith((ref) async => images[1]),
+              ],
+              child: MaterialApp(
+                builder: (context, child) => MediaQuery(
+                  data: MediaQuery.of(
+                    context,
+                  ).copyWith(textScaler: TextScaler.linear(scale)),
+                  child: child!,
+                ),
+                home: const TugOnlinePage(config: TugOnlineConfig()),
+              ),
+            ),
+          );
+          client.add(const TugRealtimeConnected());
+          for (var frame = 0; frame < 8; frame++) {
+            await tester.pump();
+          }
+          expect(
+            find.descendant(
+              of: find.byType(AcademicOptionContent),
+              matching: find.byType(RawImage),
+            ),
+            findsNWidgets(2),
+          );
+          for (final id in ['blue', 'orange']) {
+            final button = find.byKey(Key('tug-online-answer-$id'));
+            final material = find
+                .descendant(of: button, matching: find.byType(Material))
+                .first;
+            final border = tester.widget<Material>(material).shape!;
+            final bounds = tester.getRect(material);
+            final outline = border.getOuterPath(Offset.zero & bounds.size);
+            final content = find.descendant(
+              of: button,
+              matching: find.byType(AcademicOptionContent),
+            );
+            for (final part in [
+              find.descendant(of: content, matching: find.byType(Text)),
+              find.descendant(of: content, matching: find.byType(RawImage)),
+            ]) {
+              final rect = tester
+                  .getRect(part)
+                  .shift(-bounds.topLeft)
+                  .deflate(1);
+              for (final point in [
+                rect.topLeft,
+                rect.topRight,
+                rect.bottomLeft,
+                rect.bottomRight,
+              ]) {
+                expect(
+                  outline.contains(point),
+                  isTrue,
+                  reason: '$id: $rect fuera de $border a $width/$scale',
+                );
+              }
+            }
+          }
+          expect(tester.takeException(), isNull);
+          await tester.pumpWidget(const SizedBox());
+        },
+      );
+    }
+  }
+
   test('transporte Socket.IO recibe estado con offset de recuperación', () async {
     final server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
     final connections = <WebSocket>[];
