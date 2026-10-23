@@ -112,12 +112,42 @@ class TugOnlineController extends StateNotifier<TugOnlineUiState> {
   Timer? _fallbackTimer;
   var _matchmakingRequested = false;
   var _syncing = false;
+  var _recovering = false;
   var _lastVersion = -1;
 
   Future<void> ready() => _run(() async {
     final match = state.snapshot;
     if (match != null) await _client.ready(match.id);
   });
+
+  Future<void> resume() async {
+    if (_recovering) return;
+    final match = state.snapshot;
+    if (match == null) {
+      retry();
+      return;
+    }
+    _recovering = true;
+    // A confirmed terminal snapshot must not wait for a suspended animation.
+    state = state.copyWith(clearEffect: true);
+    try {
+      final latest = await _client.recover(match.id);
+      if (!mounted || state.snapshot?.id != match.id) return;
+      _applySnapshot(latest, recovering: true);
+      if (state.connectionStatus == TugOnlineConnectionStatus.connected ||
+          latest.status == TugOnlineMatchStatus.finished ||
+          latest.status == TugOnlineMatchStatus.cancelled ||
+          latest.status == TugOnlineMatchStatus.expired) {
+        _fallbackTimer?.cancel();
+      }
+    } on Object catch (error) {
+      if (!mounted) return;
+      state = state.copyWith(errorMessage: _message(error));
+      _startFallbackSync(recover: true);
+    } finally {
+      _recovering = false;
+    }
+  }
 
   Future<void> answer(String answerId) => _run(() async {
     final match = state.snapshot;
@@ -206,10 +236,13 @@ class TugOnlineController extends StateNotifier<TugOnlineUiState> {
     }
   }
 
-  void _applySnapshot(TugOnlineSnapshot snapshot) {
+  void _applySnapshot(TugOnlineSnapshot snapshot, {bool recovering = false}) {
+    if (snapshot.id == state.snapshot?.id && snapshot.version < _lastVersion) {
+      return;
+    }
     final firstState = state.snapshot == null;
     TugOnlineRoundEffect? effect;
-    if (!firstState) {
+    if (!firstState && !recovering) {
       final resolved = snapshot.events
           .where(
             (event) =>
@@ -284,9 +317,13 @@ class TugOnlineController extends StateNotifier<TugOnlineUiState> {
     );
   }
 
-  void _startFallbackSync() {
+  void _startFallbackSync({bool recover = false}) {
     _fallbackTimer?.cancel();
     _fallbackTimer = Timer.periodic(const Duration(seconds: 2), (_) {
+      if (recover) {
+        unawaited(resume());
+        return;
+      }
       final snapshot = state.snapshot;
       if (snapshot == null || _syncing) return;
       _syncing = true;

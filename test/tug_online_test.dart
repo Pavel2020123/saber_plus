@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:saber_plus/core/network/api_error.dart';
 import 'package:saber_plus/core/widgets/academic_image.dart';
 import 'package:saber_plus/core/widgets/academic_option_content.dart';
 import 'package:saber_plus/features/academic/domain/academic_models.dart';
@@ -19,6 +20,231 @@ import 'package:saber_plus/features/games/tug_of_war/presentation/tug_online_pag
 import 'package:saber_plus/features/games/tug_of_war/presentation/animation/tug_arena.dart';
 
 void main() {
+  test(
+    'recuperar consulta HTTP sin emitir respuestas ni depender del socket',
+    () async {
+      final dio = Dio(BaseOptions(baseUrl: 'http://127.0.0.1:43187'));
+      final requests = <RequestOptions>[];
+      dio.interceptors.add(
+        InterceptorsWrapper(
+          onRequest: (options, handler) {
+            requests.add(options);
+            handler.resolve(
+              Response(
+                requestOptions: options,
+                data: _snapshotJson(
+                  status: 'FINALIZADA',
+                  result: 'EMPATE',
+                  version: 42,
+                ),
+              ),
+            );
+          },
+        ),
+      );
+      final client = SocketTugRealtimeClient(
+        dio,
+        apiBaseUrl: dio.options.baseUrl,
+        accessToken: 'test-only',
+      );
+      try {
+        final snapshot = await client.recover('match-1');
+        expect(snapshot.status, TugOnlineMatchStatus.finished);
+        expect(requests.single.method, 'GET');
+        expect(requests.single.path, '/tira-afloja/match-1');
+        expect(requests.single.data, isNull);
+        expect(requests.single.queryParameters, isEmpty);
+      } finally {
+        client.dispose();
+        dio.close();
+      }
+    },
+  );
+
+  test(
+    'recuperar conserva rechazo HTTP del servidor sin inventar resultado',
+    () async {
+      final dio = Dio(BaseOptions(baseUrl: 'http://127.0.0.1:43187'));
+      dio.interceptors.add(
+        InterceptorsWrapper(
+          onRequest: (options, handler) {
+            handler.reject(
+              DioException(
+                requestOptions: options,
+                type: DioExceptionType.badResponse,
+                response: Response(
+                  requestOptions: options,
+                  statusCode: 403,
+                  data: {'statusCode': 403, 'message': 'Partida ajena'},
+                ),
+              ),
+            );
+          },
+        ),
+      );
+      final client = SocketTugRealtimeClient(
+        dio,
+        apiBaseUrl: dio.options.baseUrl,
+        accessToken: 'test-only',
+      );
+      try {
+        await expectLater(
+          client.recover('match-1'),
+          throwsA(isA<ApiError>().having((e) => e.code, 'code', '403')),
+        );
+      } finally {
+        client.dispose();
+        dio.close();
+      }
+    },
+  );
+
+  test(
+    'un evento atrasado no sustituye resultado recuperado por una ronda anterior',
+    () async {
+      final client = _FakeRealtimeClient(
+        onRecover: () =>
+            _snapshotJson(status: 'FINALIZADA', result: 'EMPATE', version: 42),
+      );
+      final controller = TugOnlineController(client);
+      client.add(
+        TugRealtimeState(
+          TugOnlineSnapshot.fromJson(
+            _snapshotJson(status: 'ACTIVA', round: 1, version: 2),
+          ),
+        ),
+      );
+      await _flush();
+      await controller.resume();
+      client.add(
+        TugRealtimeState(
+          TugOnlineSnapshot.fromJson(
+            _snapshotJson(status: 'ACTIVA', round: 2, version: 4),
+          ),
+        ),
+      );
+      await _flush();
+      expect(controller.state.snapshot?.version, 42);
+      expect(controller.state.snapshot?.status, TugOnlineMatchStatus.finished);
+      expect(controller.state.effect, isNull);
+      expect(client.answerCalls, 0);
+      controller.dispose();
+    },
+  );
+
+  testWidgets(
+    'reintenta lectura fallida al volver sin responder ni fabricar final',
+    (tester) async {
+      await tester.binding.setSurfaceSize(const Size(412, 1100));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      var attempts = 0;
+      final client = _FakeRealtimeClient(
+        onMatchmake: () =>
+            _snapshotJson(status: 'ACTIVA', round: 1, version: 2),
+        onRecover: () {
+          if (attempts++ == 0) {
+            throw const ApiError(
+              code: 'network_unavailable',
+              message: 'No se pudo actualizar la partida',
+            );
+          }
+          return _snapshotJson(
+            status: 'FINALIZADA',
+            result: 'EMPATE',
+            version: 42,
+          );
+        },
+      );
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            tugRealtimeClientFactoryProvider.overrideWithValue(() => client),
+          ],
+          child: const MaterialApp(
+            home: TugOnlinePage(config: TugOnlineConfig()),
+          ),
+        ),
+      );
+      client.add(const TugRealtimeConnected());
+      await tester.pump();
+      await tester.pump();
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      await tester.pump();
+      await tester.pump();
+      expect(find.text('No se pudo actualizar la partida'), findsOneWidget);
+      expect(find.byKey(const Key('tug-online-result')), findsNothing);
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pump();
+      await tester.pump();
+      expect(find.byKey(const Key('tug-online-result')), findsOneWidget);
+      expect(client.recoveryCount, 2);
+      expect(client.answerCalls, 0);
+      await tester.pumpWidget(const SizedBox());
+    },
+  );
+
+  for (final finalEventWhilePaused in [false, true]) {
+    testWidgets(
+      'recupera resultado al volver del fondo sin nueva conexión $finalEventWhilePaused',
+      (tester) async {
+        await tester.binding.setSurfaceSize(const Size(412, 1100));
+        addTearDown(() => tester.binding.setSurfaceSize(null));
+        final terminal = _snapshotJson(
+          status: 'FINALIZADA',
+          result: 'EMPATE',
+          round: 20,
+          version: 42,
+          events: [
+            {
+              'version': 41,
+              'tipo': 'RONDA_RESUELTA',
+              'datos': {'movimiento': 0, 'posicionCuerda': 0},
+              'fecha': DateTime.now().toUtc().toIso8601String(),
+            },
+          ],
+        );
+        final client = _FakeRealtimeClient(
+          onMatchmake: () =>
+              _snapshotJson(status: 'ACTIVA', round: 1, version: 2),
+          onRecover: () => terminal,
+        );
+        await tester.pumpWidget(
+          ProviderScope(
+            overrides: [
+              tugRealtimeClientFactoryProvider.overrideWithValue(() => client),
+            ],
+            child: const MaterialApp(
+              home: TugOnlinePage(config: TugOnlineConfig()),
+            ),
+          ),
+        );
+        client.add(const TugRealtimeConnected());
+        await tester.pump();
+        await tester.pump();
+        expect(find.byKey(const Key('tug-online-arena')), findsOneWidget);
+        tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+        if (finalEventWhilePaused) {
+          client.add(TugRealtimeState(TugOnlineSnapshot.fromJson(terminal)));
+          await tester.pump();
+        }
+        tester.binding.handleAppLifecycleStateChanged(
+          AppLifecycleState.resumed,
+        );
+        await tester.pump();
+        await tester.pump();
+        await tester.pump();
+        expect(find.byKey(const Key('tug-online-result')), findsOneWidget);
+        expect(find.text('Partida empatada'), findsOneWidget);
+        expect(client.recoveryCount, 1);
+        expect(client.recoveredMatchId, 'match-1');
+        expect(client.answerCalls, 0);
+        expect(client.matchmakeCalls, 1);
+        await tester.pumpWidget(const SizedBox());
+      },
+    );
+  }
+
   for (final width in [320.0, 412.0]) {
     for (final scale in [1.0, 2.0]) {
       testWidgets(
@@ -489,12 +715,24 @@ void main() {
 }
 
 class _FakeRealtimeClient implements TugRealtimeClient {
-  _FakeRealtimeClient({this.onMatchmake});
+  _FakeRealtimeClient({this.onMatchmake, this.onRecover});
 
   final Map<String, dynamic> Function()? onMatchmake;
+  final Map<String, dynamic> Function()? onRecover;
   final _events = StreamController<TugRealtimeEvent>.broadcast();
   AcademicArea? matchedArea;
   int? synchronizedVersion;
+  int recoveryCount = 0;
+  int answerCalls = 0;
+  int matchmakeCalls = 0;
+  String? recoveredMatchId;
+
+  @override
+  Future<TugOnlineSnapshot> recover(String matchId) async {
+    recoveryCount++;
+    recoveredMatchId = matchId;
+    return TugOnlineSnapshot.fromJson(onRecover!());
+  }
 
   void add(TugRealtimeEvent event) => _events.add(event);
 
@@ -506,6 +744,7 @@ class _FakeRealtimeClient implements TugRealtimeClient {
 
   @override
   Future<void> matchmake(AcademicArea? area) async {
+    matchmakeCalls++;
     matchedArea = area;
     final json = onMatchmake?.call();
     if (json != null) add(TugRealtimeState(TugOnlineSnapshot.fromJson(json)));
@@ -526,7 +765,9 @@ class _FakeRealtimeClient implements TugRealtimeClient {
     required String questionId,
     required String answerId,
     required String idempotencyKey,
-  }) async {}
+  }) async {
+    answerCalls++;
+  }
 
   @override
   Future<void> abandon(String matchId) async {}

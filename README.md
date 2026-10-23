@@ -29,7 +29,9 @@ validado en backend, aún pendiente de integración Flutter y conservación de p
 D8b ya inició en ambos clientes y confirmó preguntas/figuras coincidentes, pero
 detectó contenido fuera del borde del botón. Corrección localizada y13/13 pruebas
 online más análisis dirigidos aprobados; el humano confirma contención correcta
-en ambos con APK4003. Pendientes selección independiente y reanudación D8b.
+en ambos con APK4003 y selección propia. Aclara después fallo al volver al teléfono
+cuando la partida ya terminó: conserva la última ronda. Corrección de recuperación
+HTTP/lifecycle con19/19 pruebas, pendiente observación con APK nueva. D8b sigue abierto.
 
 **C5-A/B/C1 y C2-A/B/C integradas en main local** por autorización del propietario.
 Entrega C2-C/relevo: app `e833d6b`, backend `cfba7cd`; merges locales app `f912880`
