@@ -1415,6 +1415,31 @@ void main() {
     await tester.pageBack();
     await tester.pumpAndSettle();
     await tester.scrollUntilVisible(
+      find.byKey(const Key('profile-open-vocational-orientation')),
+      220,
+      scrollable: find
+          .descendant(
+            of: find.byKey(const Key('academic-profile-list')),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
+    expect(
+      find.byKey(const Key('profile-open-career-orientation')),
+      findsWidgets,
+    );
+    await tester.tap(
+      find.byKey(const Key('profile-open-vocational-orientation')),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('Explora tus intereses'), findsOneWidget);
+    expect(
+      find.byKey(const Key('vocational-demo-unavailable')),
+      findsOneWidget,
+    );
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
       find.byKey(const Key('profile-open-official-opportunities')),
       220,
       scrollable: find

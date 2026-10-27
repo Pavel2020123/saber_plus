@@ -83,6 +83,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/characters/sabi/reference/sabi_front.png
     - assets/characters/sabi/insignias/Trivia Rush/
     - assets/characters/sabi/insignias/Duelo fantasma/
     - assets/characters/sabi/insignias/Salto a la cima/

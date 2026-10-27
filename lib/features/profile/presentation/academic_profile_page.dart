@@ -141,6 +141,17 @@ class AcademicProfilePage extends ConsumerWidget {
                   ),
                   const Divider(height: 1, indent: 64),
                   _ProfileLink(
+                    key: const Key('profile-open-vocational-orientation'),
+                    icon: Icons.psychology_alt_outlined,
+                    title: 'Explora tus intereses',
+                    subtitle:
+                        'Cuestionario privado sobre intereses, no sobre rendimiento académico',
+                    onTap: () => context.push(
+                      '/student/more/profile/vocational-orientation',
+                    ),
+                  ),
+                  const Divider(height: 1, indent: 64),
+                  _ProfileLink(
                     key: const Key('profile-open-official-opportunities'),
                     icon: Icons.volunteer_activism_outlined,
                     title: 'Becas y oportunidades',
