@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/config/environment.dart';
-import '../../../core/config/resource_url.dart';
 import '../../../core/feedback/answer_streak_feedback.dart';
 import '../../../core/network/api_error.dart';
+import '../../../core/widgets/academic_image.dart';
+import '../../../core/widgets/academic_option_content.dart';
 import '../../../core/sync/drift_safe_sync_repository.dart';
 import '../../../core/widgets/animated_streak_flame.dart';
 import '../../../core/wellbeing/study_break_reminder.dart';
@@ -21,6 +21,7 @@ import '../../difficult_questions/presentation/difficult_question_providers.dart
 import '../../focus/presentation/pomodoro_card.dart';
 import '../../historical_simulations/presentation/historical_simulation_providers.dart';
 import '../../progress/presentation/progress_providers.dart';
+import '../../question_reports/presentation/question_report_page.dart';
 import '../../study/presentation/study_providers.dart';
 import '../../study_time/domain/study_time_models.dart';
 import '../../study_time/presentation/study_time_providers.dart';
@@ -855,6 +856,12 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
             session: session,
             focusLossCount: _tracksIntegrity ? _focusLossCount : 0,
             isPriority: widget.priorityId != null,
+            reportsEnabled:
+                widget.priorityId == null &&
+                !_isAdaptive &&
+                !_isHistorical &&
+                !_isOfficial &&
+                !_isTimeTrial,
             onRetry: _loadPractice,
             onExit: () => context.pop(),
             exitLabel: widget.priorityId != null
@@ -1107,7 +1114,12 @@ class _AnswerOption extends StatelessWidget {
           children: [
             CircleAvatar(radius: 18, child: Text(letter)),
             const SizedBox(width: 13),
-            Expanded(child: Text(option.text)),
+            Expanded(
+              child: AcademicOptionContent(
+                text: option.text,
+                imageUrl: option.imageUrl,
+              ),
+            ),
             if (selected) const Icon(Icons.check_circle_rounded),
           ],
         ),
@@ -1141,30 +1153,12 @@ class _CaseCard extends StatelessWidget {
   );
 }
 
-class _NetworkResourceImage extends ConsumerWidget {
+class _NetworkResourceImage extends StatelessWidget {
   const _NetworkResourceImage({required this.value});
-
   final String value;
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) => ClipRRect(
-    borderRadius: BorderRadius.circular(14),
-    child: Image.network(
-      resolveResourceUrl(ref.watch(appConfigProvider), value),
-      fit: BoxFit.contain,
-      errorBuilder: (context, error, stackTrace) => const Padding(
-        padding: EdgeInsets.all(18),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.broken_image_outlined),
-            SizedBox(width: 8),
-            Text('Imagen no disponible'),
-          ],
-        ),
-      ),
-    ),
-  );
+  Widget build(BuildContext context) =>
+      AcademicImage(value: value, borderRadius: BorderRadius.circular(14));
 }
 
 class _PracticeResultView extends StatelessWidget {
@@ -1176,6 +1170,7 @@ class _PracticeResultView extends StatelessWidget {
     required this.exitLabel,
     this.focusLossCount = 0,
     this.isPriority = false,
+    this.reportsEnabled = false,
   });
 
   final PracticeResult result;
@@ -1185,6 +1180,7 @@ class _PracticeResultView extends StatelessWidget {
   final String exitLabel;
   final int focusLossCount;
   final bool isPriority;
+  final bool reportsEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -1247,6 +1243,7 @@ class _PracticeResultView extends StatelessWidget {
             question: result.review[index],
             sourceQuestion: sourceQuestions[result.review[index].id],
             fallbackSubtopicId: session.subtopicId,
+            reportsEnabled: reportsEnabled,
           ),
           const SizedBox(height: 10),
         ],
@@ -1274,12 +1271,14 @@ class _ReviewCard extends StatelessWidget {
     required this.question,
     required this.sourceQuestion,
     required this.fallbackSubtopicId,
+    required this.reportsEnabled,
   });
 
   final int index;
   final PracticeReviewQuestion question;
   final PracticeQuestion? sourceQuestion;
   final String fallbackSubtopicId;
+  final bool reportsEnabled;
 
   @override
   Widget build(BuildContext context) => Card(
@@ -1320,6 +1319,7 @@ class _ReviewCard extends StatelessWidget {
           const SizedBox(height: 5),
           Text(explanation),
         ],
+        if (reportsEnabled) QuestionReportButton(questionId: question.id),
       ],
     ),
   );
@@ -1458,7 +1458,12 @@ class _ReviewOption extends StatelessWidget {
             children: [
               Icon(icon, color: color),
               const SizedBox(width: 9),
-              Expanded(child: Text(option.text)),
+              Expanded(
+                child: AcademicOptionContent(
+                  text: option.text,
+                  imageUrl: option.imageUrl,
+                ),
+              ),
             ],
           ),
           if (selected || correct) ...[

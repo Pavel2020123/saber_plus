@@ -271,10 +271,15 @@ class BattleDashboard {
 }
 
 class BattleAnswerOption {
-  const BattleAnswerOption({required this.id, required this.text});
+  const BattleAnswerOption({
+    required this.id,
+    required this.text,
+    this.imageUrl,
+  });
 
   final String id;
   final String text;
+  final String? imageUrl;
 
   factory BattleAnswerOption.fromJson(Map<String, dynamic> json) {
     final id = json['id'] as String? ?? '';
@@ -282,7 +287,11 @@ class BattleAnswerOption {
     if (id.isEmpty || text.isEmpty) {
       throw const FormatException('Opción de batalla inválida.');
     }
-    return BattleAnswerOption(id: id, text: text);
+    return BattleAnswerOption(
+      id: id,
+      text: text,
+      imageUrl: json['imagenUrl'] as String?,
+    );
   }
 }
 

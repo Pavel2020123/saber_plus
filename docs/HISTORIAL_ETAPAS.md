@@ -1,5 +1,81 @@
 # Historial completo de etapas de SaberPlus
 
+**19 de octubre — MA-1R integrada en main:** [app PR #6](https://github.com/Pavel2020123/saber_plus/pull/6)
+como `21757a1` y [backend PR #9](https://github.com/Pavel2020123/SaberPlus-Backend/pull/9)
+como `eef0d40`. Commits funcionales418c291/a747c32 y documentales0a622e6/6a74f55.
+CI backend del PR aprobado (admin/verify); QA-1 Flutter remoto pendiente.
+Siguiente bloque recomendado: preparación local C5. No se repitieron pruebas físicas
+ni se aplicaron migraciones/despliegues remotos. OV-1 sigue separado.
+Las entradas anteriores en el tiempo conservan su alcance, no son órdenes vigentes.
+
+**19 de octubre — MA-1R/R4 validación local:**12/12 casos humanos aprobados,
+45/45 PostgreSQL/HTTP aislados con67 migraciones temporales y limpieza propia.
+Regresiones: Flutter920/13 opt-in omitidas/análisis limpio; backend121/1567 tras fix P2010/40001,
+ADMIN109/sintaxis26, controles12 y build/TypeScript correctos. Incidencias de build
+EPERM/timeout inicial y recuperación documentadas en [acta R4](MA1R_R4_VALIDACION_LOCAL.md).
+Se añadió acceso permanente a Mis reportes y se retiró botón inferior redundante
+de volver. APK nueva reinstalada: propietario confirmó ausencia del botón y detalle
+conservado con flecha/reapertura. R4 cerrada localmente; siguen commits/PR/CI.
+Sin despliegue, commit/push/merge ni cambios OV-1. No repetir12 por defecto.
+
+**18 de octubre — MA-1R/R3 app/panel local:** formulario posterior a calificar,
+Mis reportes, bandeja ADMIN, demo y cobertura opt-in/legacy.32 dirigidas Flutter
+y109 ADMIN aprobadas; [acta y límites](MA1R_R3_APP_PANEL.md).
+Regresión posterior Flutter del18:917 aprobadas/13 opt-in omitidas y análisis limpio.
+R2 del17 conserva121 suites/1.560 y build/TS. Sin SQL aplicado, APK, commit/push/merge/despliegue
+de R1–R3; sigue R4 PostgreSQL/Nest/Android. OV-1 separado. Las menciones inferiores
+a MA-1R propuesto describen el estado histórico antes de R1, no el paso actual.
+
+**17 de octubre — instituciones integradas a main:** PR app #5 y backend #8
+fusionados como e679c50/388bb18. CI backend PR y main aprobado; Flutter analyze
+limpio y102 dirigidas aprobadas. [Evidencia](ESTADO_Y_ORDEN_2026_10_17.md).
+Sin OV-1, despliegue ni migraciones remotas. Auditoría documental aún sin commit.
+
+**17 de octubre — auditoría documental posterior al cierre:** commits creados
+app6bab6be/API7ba93d7/lockbfce42e; PR/CI/main no comprobados en GitHub aquí.
+[Orden posterior](ESTADO_Y_ORDEN_2026_10_17.md): MA-1R propuesto, no iniciado;
+OV-1 continúa separado con el compañero. No se ejecutaron nuevas pruebas
+funcionales ni operaciones remotas. Las entradas siguientes conservan su cronología.
+
+**17 de octubre — cierre técnico institucional local consolidado:** Flutter893/13
+opt-in omitidas, backend119 suites/1.470 y panel95/95, TypeScript/análisis correctos.
+[Alcance, observaciones y propuesta de commits](CIERRE_INSTITUCIONES_LOCAL.md).
+Revisión/autorización Git pendiente, sin despliegue. P5/D3 y OV-1 conservan sus límites.
+
+**17 de octubre — C4-C10/10 guiones locales cubiertos:** evidencia mixta Android y
+19 HTTP/SQL finales, no10 manuales independientes. Dos fallos UX corregidos al
+volver/abrir solicitudes durante ingreso incierto;93 dirigidas y análisis aprobados,
+APK nueva instalada. Regresión final893 aprobadas/13 opt-in omitidas. [Acta y límites](PR_I5_C4_CODIGO.md).
+Sigue consolidación integrada/decisión de commits; sin despliegue ni commit aún.
+Entradas inferiores conservan estados históricos, no son la siguiente tarea.
+
+**16 de octubre — C4-B pantallas implementadas:** código privado del propietario,
+consulta/confirmación estudiantil, reintento con UUID estable, doble pulsación y
+cuentas protegidas. Copiar para compartir manualmente, sin dependencia nueva.
+Resultados finales en [acta C4](PR_I5_C4_CODIGO.md); C4-C humano0/10 pendiente y APK
+no instalada. El bloque C4-A inferior es antecedente backend, no siguiente entrega.
+
+**16 de octubre — C3C cerrado y C4-A backend:**10/10 humanos C3 locales con límites
+en [acta C3](PR_I5_C3_SOLICITUDES.md). Código estudiantil privado separado de código
+docente/grupo, renovación optimista, ingreso idempotente/cupo y permisos implementados.
+59 unitarias nuevas,119 suites/1.470 regresión,16 HTTP/SQL C4 y14 C3 posteriores;
+66 migraciones solo temporales. Sigue [C4-B Flutter](PR_I5_C4_CODIGO.md), C4-C humano
+pendiente0/10. Sin despliegue ni commit de instituciones; OV-1 independiente.
+
+**15 de octubre — C3A/B implementadas localmente:** solicitud estudiantil, historial,
+cancelación, aceptación/rechazo por propietario y envío incierto con UUID estable.
+Backend37 nuevas, regresión1.411/118 suites y14 HTTP/SQL; Flutter27 dirigidas
+aprobadas. [Checkpoint](PR_I5_C3_SOLICITUDES.md).65 migraciones solo temporales;
+pendientes integración Flutter/API, Android C3C y despliegue remoto.
+El compañero conserva OV-1. Sin commit institucional todavía.
+
+**14 de octubre — C2C validada localmente:**6/6 HTTP/PostgreSQL y8/8 casos humanos
+Android. Correcciones de miniatura, mensajes y marco cuadrado; regresión Flutter
+41/41 y análisis correcto. Caso8/SQL sin publicación al salir. Migración solo en
+bases temporales propias. [Cierre y observaciones](PR_I5_C2_LOGO.md): captura
+original y CI Linux sin reconfirmar, sin despliegue remoto/iOS. Siguiente:
+solicitudes estudiantiles, avisos y código institucional; OV-1 sigue separado.
+
 **12 de octubre — C2A/C2B implementadas:** editor de logo, permisos, validación,
 optimización y almacenamiento transaccional PostgreSQL. Sigue C2C integrado;
 migración C2 no aplicada. [Acta](PR_I5_C2_LOGO.md).

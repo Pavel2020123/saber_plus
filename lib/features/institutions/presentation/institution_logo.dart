@@ -54,12 +54,18 @@ class InstitutionLogo extends ConsumerWidget {
                 ),
                 loading: () => fallback,
               );
-    return Semantics(
-      label: 'Logo institucional',
-      image: true,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: SizedBox(width: size, height: size, child: image),
+    // ListView impone su ancho al hijo directo. Align permite que el cuadro
+    // conserve el tamaño del logo en vez de convertirse en una franja horizontal.
+    return Align(
+      widthFactor: 1,
+      heightFactor: 1,
+      child: Semantics(
+        label: 'Logo institucional',
+        image: true,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: SizedBox.square(dimension: size, child: image),
+        ),
       ),
     );
   }

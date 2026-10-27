@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/config/environment.dart';
 import '../../../core/network/api_error.dart';
+import '../../../core/widgets/academic_image.dart';
+import '../../../core/widgets/academic_option_content.dart';
 import '../../auth/presentation/session_controller.dart';
 import '../../exam_countdown/presentation/exam_countdown_banner.dart';
 import '../../study_time/domain/study_time_models.dart';
@@ -548,7 +549,12 @@ class _AnswerOption extends StatelessWidget {
                   child: Text(letter),
                 ),
                 const SizedBox(width: 14),
-                Expanded(child: Text(option.text)),
+                Expanded(
+                  child: AcademicOptionContent(
+                    text: option.text,
+                    imageUrl: option.imageUrl,
+                  ),
+                ),
                 if (selected)
                   Icon(Icons.check_circle_rounded, color: colors.primary),
               ],
@@ -560,26 +566,12 @@ class _AnswerOption extends StatelessWidget {
   }
 }
 
-class _RemoteQuestionImage extends ConsumerWidget {
+class _RemoteQuestionImage extends StatelessWidget {
   const _RemoteQuestionImage({required this.url});
-
   final String url;
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final parsed = Uri.tryParse(url);
-    final resolved = parsed?.hasScheme ?? false
-        ? url
-        : '${ref.watch(appConfigProvider).apiBaseUrl}/${url.replaceFirst(RegExp(r'^/+'), '')}';
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(14),
-      child: Image.network(
-        resolved,
-        fit: BoxFit.contain,
-        errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
-      ),
-    );
-  }
+  Widget build(BuildContext context) =>
+      AcademicImage(value: url, borderRadius: BorderRadius.circular(14));
 }
 
 class _DiagnosticResults extends ConsumerWidget {

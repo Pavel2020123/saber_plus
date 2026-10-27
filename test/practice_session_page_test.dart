@@ -119,6 +119,93 @@ const _streakSession = PracticeSession(
 
 void main() {
   testWidgets(
+    'MA-1R solo muestra reportar después de calificar una práctica real',
+    (tester) async {
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            sessionControllerProvider.overrideWith(_RealReportSession.new),
+            practiceRepositoryProvider.overrideWithValue(
+              _FakePracticeRepository(),
+            ),
+            practiceDraftStoreProvider.overrideWithValue(
+              _MemoryPracticeDraftStore(),
+            ),
+            difficultQuestionRepositoryProvider.overrideWithValue(
+              _MemoryDifficultQuestionRepository(),
+            ),
+            studyTimeRepositoryProvider.overrideWithValue(
+              _MemoryStudyTimeRepository(),
+            ),
+          ],
+          child: const MaterialApp(
+            home: PracticeSessionPage(
+              area: AcademicArea.mathematics,
+              subtopicId: 'subtopic-1',
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('report-question-question-1')), findsNothing);
+      await tester.tap(find.byKey(const Key('practice-answer-answer-b')));
+      await tester.pump();
+      await tester.tap(find.byKey(const Key('submit-practice-button')));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('report-question-question-1')), findsNothing);
+      await tester.tap(find.byKey(const Key('confirm-submit-practice-button')));
+      await tester.pumpAndSettle();
+      await tester.scrollUntilVisible(
+        find.byKey(const Key('report-question-question-1')),
+        180,
+      );
+      expect(
+        find.byKey(const Key('report-question-question-1')),
+        findsOneWidget,
+      );
+    },
+  );
+  testWidgets(
+    'MA-1R no habilita reportes en prioridades aunque el estudiante sea real',
+    (tester) async {
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            sessionControllerProvider.overrideWith(_RealReportSession.new),
+            teacherPriorityRepositoryProvider.overrideWithValue(
+              _PriorityPracticeRepository(),
+            ),
+            practiceDraftStoreProvider.overrideWithValue(
+              _ForbiddenPriorityDraftStore(),
+            ),
+            difficultQuestionRepositoryProvider.overrideWithValue(
+              _MemoryDifficultQuestionRepository(),
+            ),
+            studyTimeRepositoryProvider.overrideWithValue(
+              _MemoryStudyTimeRepository(),
+            ),
+          ],
+          child: const MaterialApp(
+            home: PracticeSessionPage(
+              area: AcademicArea.mathematics,
+              subtopicId: 'priority:demo-priority',
+              priorityId: 'demo-priority',
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('practice-answer-answer-b')));
+      await tester.pump();
+      await tester.tap(find.byKey(const Key('submit-practice-button')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('confirm-submit-practice-button')));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('practice-result-view')), findsOneWidget);
+      expect(find.text('Reportar un problema'), findsNothing);
+    },
+  );
+  testWidgets(
     'P3-B usa práctica dirigida sin borrador local y vuelve a prioridades',
     (tester) async {
       final repository = _PriorityPracticeRepository();
@@ -808,6 +895,13 @@ class _AuthenticatedSessionController extends SessionController {
       role: AppRole.student,
       isDemo: true,
     ),
+  );
+}
+
+class _RealReportSession extends SessionController {
+  @override
+  SessionState build() => const SessionState.authenticated(
+    UserSession(id: 'user-1', firstName: 'Ana', role: AppRole.student),
   );
 }
 

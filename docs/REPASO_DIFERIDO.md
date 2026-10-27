@@ -137,4 +137,6 @@ Trabajar en rama; revisar `git status` y no incluir secretos ni cambios ajenos.
 Mensaje MA-3A: `feat: definir reglas de repaso diferido`.
 Mensaje MA-3C: `feat: integrar agenda de repasos y flashcards`.
 MA-3 está implementada localmente; no marcar el ensayo real como terminado.
-Después sigue PR-I1. UI final azul, animaciones, anuncios y P5/D3 no se adelantan.
+PR-I1 ya está integrado; el siguiente bloque general se consulta en
+[orden vigente](ESTADO_Y_ORDEN_2026_10_17.md). UI final azul, animaciones, anuncios
+y P5/D3 conservan sus etapas separadas.

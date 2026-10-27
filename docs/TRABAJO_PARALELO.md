@@ -6,10 +6,17 @@ instituciones. No cambia las reglas de producto ni declara etapas terminadas.
 
 ## Responsables y siguiente paso
 
+**Reasignación del21:** un segundo compañero ayuda al propietario a terminar
+C5-C2, según [su relevo específico](RELEVO_C5_C2.md). No es la persona de OV-1:
+esta conserva orientación vocacional y su checkpoint. C2-D está0/8 humanos;
+el nuevo responsable puede corregir Flutter/backend/panel de C2 en sus ramas.
+Consultar el cierre de integración en README; la tabla inferior conserva la
+base de trabajo y no certifica publicación remota del relevo.
+
 | Equipo | Responsabilidad | Por dónde empezar |
 |---|---|---|
-| Propietario y su asistente | Instituciones: Flutter, API y ADMIN necesarios | C2C: seis casos HTTP/PostgreSQL y ocho comprobaciones Android del logo. Después solicitudes de ingreso, aceptación/rechazo, avisos y código institucional privado según contrato. |
-| Compañero y su asistente | OV-1: test de intereses vocacionales, Flutter y backend necesarios | Auditar orientación existente y preparar OV-1A: preguntas propias, familias, reglas versionadas y criterios de resultado. Después OV-1B, C y D. |
+| Propietario / nuevo compañero C2 | Instituciones y MA-1R integradas; C5-A/B/C1 y C2-A/B/C validadas localmente e integradas en main local | Entrega app `e833d6b`/backend `cfba7cd`; merges `f912880`/`09c763b`. Sin push nuevo. [C2-C automática](C5C2C_CONSUMIDORES.md); sigue C2-D Android,0/8 humanos con D8a–e. [Relevo propio](RELEVO_C5_C2.md), nueva rama para correcciones. Carga apagada por defecto; resto C5 abierto, sin despliegue ni cambios OV-1. |
+| Compañero y su asistente | OV-1: test de intereses vocacionales, Flutter y backend necesarios | En curso según el propietario; sin entrega nueva verificada aquí. Seguir su checkpoint para A contenido/reglas → B persistencia → C cliente → D validación, no reiniciar trabajo ya documentado en su rama. |
 
 El compañero no tiene que esperar a que termine C2C. El propietario no asume
 que OV-1 avanzó hasta recibir cambios y evidencia. Cada frente conserva su acta.
@@ -154,8 +161,9 @@ realmente completado. En la entrega indicar ruta del repo y archivos exactos par
 
 ### Un checkpoint por frente
 
-- Instituciones: el propietario actualiza PR_I5_C2_LOGO.md, sección «Checkpoint
-  del propietario», después de cada prueba; al cerrar C2C identifica el acta siguiente.
+- Instituciones: el propietario mantiene las actas C2/C3/C4 y el
+  [cierre consolidado](CIERRE_INSTITUCIONES_LOCAL.md). Ya no queda una prueba C2C
+  obligatoria; cualquier corrección nueva se documenta en su acta concreta.
 - OV-1: el compañero actualiza [CHECKPOINT_OV1](CHECKPOINT_OV1.md) después de cada
   prueba/avance y su acta detallada cuando exista.
 - Roadmap general: solo el propietario consolida al recibir un bloque, integrar
@@ -175,14 +183,16 @@ Cada equipo entrega: archivos, contratos/migraciones, pruebas ejecutadas y
 resultados, límites, pendientes, hash/PR de ambos repositorios y siguiente paso.
 El compañero mantiene `docs/OV1_ORIENTACION.md` y un acta equivalente en backend
 cuando comience la implementación. No existen por quedar nombradas aquí.
-Nosotros mantenemos [acta C2](PR_I5_C2_LOGO.md). El propietario consolida roadmap,
+Nosotros mantenemos [cierre institucional](CIERRE_INSTITUCIONES_LOCAL.md). El propietario consolida roadmap,
 README e historial al integrar para evitar dos ediciones simultáneas de la ruta.
 
 ## Prompt para el compañero
 
 ```text
-Tu frente es OV-1, orientación vocacional de SaberPlus. El propietario trabaja
-en instituciones en paralelo: no continúes C2C ni cambies ese módulo.
+Tu frente es OV-1, orientación vocacional de SaberPlus. Instituciones ya tiene
+cierre local; su integración y próximos bloques corresponden al propietario.
+No repitas C2C ni cambies módulos ajenos. Retoma tu checkpoint y rama vigente;
+las instrucciones de primera sesión no obligan a reiniciar avances con evidencia.
 Sigue la sección «Primera sesión del compañero» y los criterios de entrega de
 TRABAJO_PARALELO.md. Confirma que recibiste la documentación publicada; no asumas
 que los últimos cambios del propietario ya están en GitHub.

@@ -1,15 +1,120 @@
 # SaberPlus — etapas pendientes y ruta vigente del equipo
 
-**Trabajo paralelo acordado:** propietario → instituciones (sigue C2C);
-compañero → test vocacional OV-1 (comienza A, después B/C/D), sin esperar C2C.
+**22 de octubre — C5-C2: ENTREGA PARCIAL.** D1–D7 aprobados (7/8), D8a/c/d/e
+aprobados; falta Tira online D8b por segundo cliente. Correcciones locales en
+panel y Flutter, sin cambios de arquitectura, dependencias, migraciones o XP.
+[Entrega y siguiente paso](C5C2_ENTREGA_PARCIAL.md), [evidencia humana/automática](C5C2D_VALIDACION_LOCAL.md).
+Esperar auditoría de Pavel; no avanzar a otras etapas ni intervenir OV-1.
+Los checkpoints fechados inferiores conservan sus antecedentes.
+
+**21 de octubre — [C5-C2-C validada automáticamente](C5C2C_CONSUMIDORES.md):**
+contratos/snapshots y Flutter incorporan imágenes opcionales sin cambiar XP ni
+romper JSON antiguo.969 Flutter aprobadas/16 opt-in omitidas,128 suites/1.675
+backend y44/44 PostgreSQL/HTTP;70 migraciones temporales, ninguna nueva de C2-C.
+**Sigue C2-D:0/8 guiones humanos propuestos**, con Docker/USB al preparar la sesión.
+Activación apagada por defecto; sin nuevo ensayo Android ni despliegue. C1 conserva5/5.
+Entrega C2-C/relevo: app `e833d6b`, backend `cfba7cd`.
+Deuda ESLint previa:27 incidencias verificadas en HEAD, descritas en el acta.
+Integrada en main local: app `f912880`/backend `09c763b`; sin push nuevo ni cambios OV-1.
+
+**20 de octubre, continuación vigente:** [C5-A/B](C5_ARCHIVOS.md) validadas localmente:
+23/23 PostgreSQL/HTTP, panel124/124, backend126/1650;69 migraciones solo temporales.
+[Recorrido Chromium del panel aprobado](C5B_PANEL.md). Sigue C5-C Flutter/consumidores
+y C5-D integración/operación. El celular se necesita al tener lista la APK de C.
+Rama `feat/c5-archivos-base`; no integrado a main, sin despliegue ni cambios OV-1.
+Los cierres del19 inferiores conservan su evidencia; su «siguiente C5» ya comenzó.
+
+**19 de octubre, checkpoint vigente:** MA-1R/R4 cerrada localmente;12/12 humanos,
+45/45 integradas repetidas tras fix de concurrencia, regresiones y remate Android
+confirmados. [Acta R4](MA1R_R4_VALIDACION_LOCAL.md). **Integrados en main:**
+[app PR #6](https://github.com/Pavel2020123/saber_plus/pull/6), merge `21757a1`,
+y [backend PR #9](https://github.com/Pavel2020123/SaberPlus-Backend/pull/9), merge `eef0d40`.
+CI backend del PR aprobado. Sigue C5, archivos generales, con preparación local;
+QA-1 Flutter remoto sigue pendiente. No repetir las pruebas aprobadas por estas notas.
+Sin despliegue, SQL remoto ni cambios OV-1.
+Los estados del18 e inferiores son antecedentes superados como continuación.
+
+**MA-1R/R3, actualización del18:** R1/flujo inicial autorizados;
+[backend local implementado](MA1R_REPORTES_PREGUNTAS.md),121 suites/1.560 aprobadas,
+build/TypeScript correctos. [R3 app/panel local](MA1R_R3_APP_PANEL.md):32 dirigidas
+Flutter/109 ADMIN aprobadas. SQL sin aplicar; sigue R4 PostgreSQL/Nest/Android.
+
+**Trabajo paralelo acordado:** propietario → entrega institucional cerrada localmente,
+integrada a main por PR #5/#8 y MA-1R/R1–R4 por PR #6/#9; compañero → OV-1A/B/C/D en curso
+según el propietario, sin entrega nueva verificada en estos clones.
 Ver [responsables, ramas y entrega](TRABAJO_PARALELO.md). Este acuerdo sustituye
 la secuencia estricta de OV-1 y el trabajo individual directo en main.
 
-## Estado vigente — 12 de octubre de 2026
+## Estado vigente — 17 de octubre de 2026
 
-**PR-I5-C2A/C2B implementadas:** logo con selección/vista previa, validación real,
-almacenamiento PostgreSQL, propietario exclusivo y revisión. **Sigue C2C**:
-seis casos reales HTTP/SQL y ocho comprobaciones Android. Migración C2 pendiente.
+**C4-C cubre10/10 guiones integrados locales**, combinando Android con19 controles
+HTTP/SQL finales para permisos/códigos/repetición/traslado. No son10 pruebas
+exclusivamente manuales. APK corregida instalada,93 dirigidas y análisis aprobados.
+Regresión Flutter global final893 aprobadas/13 opt-in omitidas. Cierre técnico local
+consolidado: backend1.470/119 suites, panel95/95 y TypeScript correctos.
+Commits creados: app `6bab6be`, backend `7ba93d7` y `bfce42e`.
+Entrega posterior: PR app #5/backend #8 integrados en main como e679c50/388bb18.
+CI backend del PR y main aprobados; Flutter analyze limpio y102 pruebas dirigidas
+aprobadas, sin workflow Flutter remoto. [Entrega](CIERRE_INSTITUCIONES_LOCAL.md),
+sin despliegue ni nuevos ensayos físicos. [Evidencias/límites C4](PR_I5_C4_CODIGO.md).
+Ver [orden posterior y auditoría del 17](ESTADO_Y_ORDEN_2026_10_17.md): MA-1R,
+reportes de preguntas, es el bloque independiente de OV-1. R1 aprobada para flujo
+inicial, R2 backend y R3 interfaz locales listas; falta R4 PostgreSQL/HTTP/Android.
+No hay suspensión/cupo reducido ni corteUSB activos. OV-1 independiente.
+
+### Antecedente C4-B — antes del ensayo Android
+
+**C4-B Flutter implementado:** pantalla del propietario (consultar, generar/renovar,
+copiar para compartir manualmente) y alumno (código→institución→confirmación),
+separados de grupos. UUID/snapshot estables, consulta antes de reintento, secretos
+solo en memoria y cambio de cuenta protegido. Validación final:42 pruebas C4,
+88 dirigidas del grupo, regresión888 aprobadas/13 opt-in omitidas y análisis limpio.
+[Acta C4](PR_I5_C4_CODIGO.md). Al cerrar ese bloque seguía C4-C0/10 humano y no había
+APK nueva instalada; el cierre vigente superior sustituye ese estado. Sin producción.
+OV-1 independiente. La nota de C4-A inferior es el antecedente de backend.
+
+### Antecedente C4-A — antes de las pantallas
+
+**C4-A código institucional estudiantil listo localmente:** backend59 pruebas nuevas,
+regresión119 suites/1.470,16 HTTP/SQL C4 y14 HTTP/SQL C3 aprobadas;66 migraciones
+solo en base temporal propia. [Acta C4](PR_I5_C4_CODIGO.md).
+**Sigue C4-B Flutter**, luego C4-C10 guiones humanos (0/10 ejecutados) y cierre
+integrado de instituciones. Código separado de docente/grupo; solicitud pendiente
+requiere cancelación explícita antes de entrar por código. Sin despliegue ni commit.
+El cierre C3 inferior se conserva como antecedente; no repetir sus10 casos.
+
+**PR-I5-C3C:10/10 casos humanos locales completados**, con contraste API/SQL y
+límites en [acta C3](PR_I5_C3_SOLICITUDES.md). Último bloque: conflicto obsoleto,
+cupo/suspensión, filtros/paginación, borrador/salida/reapertura/cambio de cuenta
+y lectura con texto ampliado. No es producción, iOS ni regresión global nueva;
+fallo de red cubre desconexión previa a escritura, no pérdida de respuesta posterior.
+**Siguiente: C4 — código institucional privado/revocable**, separado del código
+de grupo; después cierre integrado de instituciones. OV-1 sigue independiente.
+Commits de instituciones pendientes por decisión del propietario. Sin push/merge/despliegue.
+
+### Antecedente — preparación C3 del15 de octubre
+
+**PR-I5-C3A/B implementadas localmente:** solicitud estudiantil, historial privado,
+cancelación y bandeja exclusiva del propietario, sin promover alumnos a profesores.
+Backend:37 nuevas; regresión118 suites/1.411 y14/14 HTTP/SQL aprobadas.
+Flutter:27 pruebas dirigidas aprobadas. Migración solo en base temporal (65).
+**Sigue C3C: integración Flutter/API y prueba humana Android; después C4 código
+institucional privado/revocable y cierre integrado.** [Acta](PR_I5_C3_SOLICITUDES.md).
+Sin prueba física C3 ni despliegue remoto. C2C conserva su cierre/observaciones.
+No hacer commit todavía: se mantiene la decisión del propietario de esperar.
+Las notas fechadas inferiores describen etapas anteriores, no el siguiente paso.
+
+Durante C3C: caso1 aprobado, caso2 en curso. Ajuste UX pedido: acceso contextual
+en Más, retiro al vincularse y rechazo hasta consultar (lectura local por cuenta).
+86 pruebas dirigidas aprobadas, análisis limpio y APK nueva compilada. Falta
+confirmación humana del menú actualizado; ver acta C3, no contar como cierre C3C.
+
+### Antecedente — 14 de octubre
+
+**PR-I5-C2C validada localmente:**6/6 HTTP/PostgreSQL y8/8 casos humanos Android,
+regresión Flutter41/41 y análisis correcto. Migración solo en bases temporales.
+**Siguen solicitudes estudiantiles/avisos/código institucional.** Pendientes de
+revisión: captura pequeña original y CI Linux del lockfile, según acta.
 [Acta y pasos exactos](PR_I5_C2_LOGO.md). Notas C1/T5 inferiores históricas.
 
 **PR-I5-C1C completada localmente:** 15 HTTP/PostgreSQL reales y 3 Flutter/API aprobadas,
@@ -187,6 +292,19 @@ limpieza/cierre operativo y deuda QA-1 siguen separados y pendientes.
 
 ## Checkpoint de relevo de pruebas
 
+**Actualización final del14:** C2C6/6 HTTP/SQL y8/8 humanos aprobados; caso8 y SQL
+confirman salida sin publicar. Continuar solicitudes estudiantiles, no repetir
+logo. Leer cierre/observaciones en PR_I5_C2_LOGO.md. Notas de ensayo inferiores
+son estados históricos; OV-1 continúa en su checkpoint independiente.
+
+**Relevo del14 de octubre, instituciones:** C2C automático6/6 HTTP/PostgreSQL
+aprobado y casos humanos1–5 confirmados. **Faltan6–8:** conflicto entre sesiones,
+eliminación y salida con selección pendiente. Usuario interrumpe; no arrancar
+servicios hasta aviso. APK corregida instalada; validar sesión/USB/Docker al volver.
+Estado exacto y límites en PR_I5_C2_LOGO.md, sección «Estado para retomar».
+El compañero mantiene su checkpoint OV-1 de forma independiente. Las notas de
+preparación y conteos inferiores son antecedentes, no orden de repetir1–5.
+
 - Instituciones, propietario: [checkpoint C2C](PR_I5_C2_LOGO.md#checkpoint-del-propietario).
 - Orientación, compañero: [checkpoint OV-1](CHECKPOINT_OV1.md).
 - Cada frente actualiza el suyo por prueba; propietario consolida este resumen
@@ -216,7 +334,7 @@ un bloque; registrar fecha/HEAD y límites. Ver TRABAJO_PARALELO.md.
 Preparación, guion, credenciales ficticias, USB/Docker y prompt para el compañero:
 [RELEVO_PRUEBAS_LOCALES](RELEVO_PRUEBAS_LOCALES.md).
 
-- **Último ensayo físico aprobado:** PR-I5-C1C, presentación institucional (10/10).
+- **Último recorrido institucional local:** C4-C10/10 guiones cubiertos con Android y HTTP/SQL; C1C conserva su evidencia histórica de presentación. Ver acta C4 para límites.
 - **Antecedente territorial:** PR-I5-T1/T2/T3/T4 implementadas;
   T5 cerrada localmente; seguir con perfil institucional y solicitudes. 16 casos
   SQL reales T2 aprobados y ensayo nuevo de 62 migraciones/API/panel/Android.
@@ -615,8 +733,23 @@ que deba volver a imponerse al administrador. D3 verifica el flujo simplificado.
 
 ## Ruta vigente del equipo
 
-Orden vigente por frentes: **propietario: instituciones (C2C y solicitudes);
-compañero: OV-1A/B/C/D en paralelo, sin esperar al bloque social**.
+**Relevo del21:** otro compañero termina C5-C2 en sustitución del propietario,
+sin reasignar OV-1. Leer [guía completa](RELEVO_C5_C2.md) y [acta C2-D](C5C2D_VALIDACION_LOCAL.md).
+Pendientes ocho bloques humanos, con cinco subcasos en D8; no aprobar por tener
+solo tests automáticos. Después continúan los pendientes de C5, no producción
+ni otra etapa por autorización implícita. Estado Git publicado: comprobar README.
+
+Orden vigente por frentes: **propietario: instituciones y MA-1R/R1–R4 integradas
+a main; compañero: OV-1A/B/C/D en paralelo, sin entrega verificada aquí**.
+Bloque actual del propietario: **[C5, archivos editoriales](C5_ARCHIVOS.md)**,
+A/backend, B/panel y C1 online validados localmente; C1 Android5/5 el21.
+Push hasta C2-B confirmado: app `c69a5e9`/backend `e1c4d18`.
+[C2-C validada automáticamente](C5C2C_CONSUMIDORES.md), guardada e integrada en main local;
+sigue C2-D Android,0/8 guiones humanos. Carga apagada por defecto;
+resto C5-C y D integración/operación abiertos. [Checkpoint de reportes](MA1R_REPORTES_PREGUNTAS.md)
+cerrado localmente e integrado, sin despliegue productivo. UX1 Ocultar/Deshacer
+sigue como entrega opcional separada, no se implementa por cerrar R4.
+[Orden completo y límites](ESTADO_Y_ORDEN_2026_10_17.md).
 Después se coordinan los bloques restantes: académico/profesor/panel,
 insignias/perfiles, ranking institucional/ensayo social y cierre funcional/comercial;
 UI-F → validación/sustentación → lanzamiento/operación. Rescate y territorio
@@ -633,28 +766,29 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 
 | Etapa/bloque | Estado y trabajo que falta | Dependencia / cuándo retomarlo |
 |---|---|---|
-| MA-1 — Cobertura | Base local; faltan reportes académicos de preguntas, revisión visual y ensayo real. No confundirlos con reportes de jugadores. | Entrega acotada coordinada; no pierde su pendiente al avanzar a PR-I. |
+| MA-1 / MA-1R — Cobertura y reportes | R1–R4 cerradas localmente e integradas en main por PR app #6/API #9 (21757a1/eef0d40).67 migraciones temporales,12/12 humanos,45/45 HTTP/PostgreSQL repetidas tras fix P2010/40001; backend121/1567, Flutter920/13 opt-in omitidas, análisis/build, ADMIN109, controles12 y remate Android confirmados. CI backend del PR aprobado. | No repetir R1–R4. Cobertura opt-in/legacy compatible. Sin SQL remoto/despliegue; staging, retención/operación antes de publicar. QA-1 Flutter remoto pendiente; OV-1 separado. |
+| MA-1R-UX1 — Ocultar y Deshacer | [Propuesta del18](MA1R_UX1_OCULTAR_DESHACER.md), pendiente de implementación: X quita de lista personal, Snackbar/progreso cinco segundos y Deshacer; proponer Ocultos/Restaurar. No borra el reporte de ADMIN ni cambia evidencia/estado/cuotas. | Después de R4, entrega funcional separada con contrato/persistencia por cuenta y pruebas. Apariencia/accesibilidad en UI-F. Otros módulos solo tras revisar reglas; no eliminación global automática. |
 | MA-2A/B/C — Mapa | API, panel y Flutter locales. Falta recorrido real panel → API → app. | Infraestructura autorizada, junto a D3/C4. |
 | MA-3A/B/C — Repaso diferido | Reglas, persistencia, API, agenda y flashcards locales. Falta ensayo físico/reconexión/reinstalación. | Infraestructura autorizada. No repetir implementación. |
 | **PR-I1 — Antecedente integrado/cerrado para esta ruta** | Infraestructura e integración competitiva local de seis juegos, según el estado documental confirmado. No es la siguiente etapa activa. | Despliegue/activación y requisitos operativos B1/B2 siguen separados y pendientes; no reabrir salvo defecto concreto demostrado. |
 | **PR-I2 — Ranking por juego** | Backend I2-1/2/3 y Flutter I2-4 fusionados. I2-5 cuenta con regresión PostgreSQL, integración HTTP y recorrido Android funcional revisado documentados. | Faltan cierre operativo/limpieza y deuda QA-1; no repetir el recorrido aprobado por una orden histórica. No implica despliegue ni admisión productiva de juegos. |
-| **IC-1 — Clientes competitivos de seis juegos** | Bloque V1 local aprobado: Cima, Guardián y Rescate en alcance Android/API/SQL documentado. Rescate: 62 dirigidas/32 backend, global754/10 opt-in anterior; victoria100 única, normal sin evento, recuperación/red/reintento, parcial2 estrellas/+20 y abandono−10 por intento. Supervisor12 tests/CI y runtime; contraste final100→90→80 aprobado. Commits/cierre operativo pendientes; después instituciones. Trivia, Duelo y Tira competitivos aplazados, conservar motores/modos normales. | No equivale a producción ni cierra toda IC-1. Límites/ensayos no realizados en IC1_CIMA, IC1_GUARDIAN e IC1_RESCATE. Sin modificar fórmulas ni refresco automático del ranking. |
+| **IC-1 — Clientes competitivos de seis juegos** | Bloque V1 local aprobado: Cima, Guardián y Rescate en alcance Android/API/SQL documentado. Rescate: 62 dirigidas/32 backend, global754/10 opt-in anterior; victoria100 única, normal sin evento, recuperación/red/reintento, parcial2 estrellas/+20 y abandono−10 por intento. Supervisor12 tests/CI y runtime; contraste final100→90→80 aprobado. Guardado autorizado registrado en su acta el10 de octubre; «después instituciones» es secuencia histórica ya recorrida. Trivia, Duelo y Tira competitivos aplazados, conservar motores/modos normales. | No equivale a producción ni cierra toda IC-1. Cierre operativo I2-5/QA-1 separado. Límites/ensayos no realizados en IC1_CIMA, IC1_GUARDIAN e IC1_RESCATE. Sin modificar fórmulas ni refresco automático del ranking. |
 | **IC-2 — Memoria competitiva** | Aplazado fuera del bloque inicial V1: definir contrato autoritativo compatible con reglas aprobadas, integrar resultado verificable al ledger/ranking y cliente móvil. No rehacer el juego normal. | Retomar después, con nueva priorización; no es requisito para instituciones/OV-1. Resolver explícitamente cualquier regla faltante; pruebas de permisos, repetición, fraude, desconexión, XP y ranking. Mantener NO_DISPONIBLE hasta integrar y validar, sin activación productiva automática. |
 | **IC-3 — Batallas competitivas** | Aplazado fuera del bloque inicial V1: integrar al sistema competitivo las batallas asíncronas existentes, conservando permisos, vencimientos y reglas aprobadas. | Reutilizar IC-1/infraestructura y contrato de Batallas. Probar ambos participantes, empates/vencimientos, resultados concurrentes y liquidación única; cliente/API/ranking coherentes. No inventar fórmulas; NO_DISPONIBLE hasta validar. |
 | **QA-1 — CI Flutter y deuda de validación** | Pendiente: workflow de dependencias con lock, analyze y test; identificar suites opt-in y no confundirlas con pruebas reales. Clasificar lint backend y fallos intermitentes del panel. | Antes de beta; puede avanzar tras I2-5 o en una entrega de apoyo acordada. Versiones reproducibles, sin secretos, sin desactivar pruebas para poner checks en verde; baseline solo explícita y revisada. |
 | **DOC-1 — Higiene y acceso de repositorios** | Pendiente: clasificar archivo accidental/temporales, conservar entregables deliberados y revisar reglas de ignore. Verificar con el propietario visibilidad/protección de GitHub. | Limpieza acotada con diff y aprobación para borrar; sin cambiar acceso ni reescribir historial automáticamente. El pitch PDF no se considera basura por su extensión. |
 | PR-I3 — Insignias anuales | PR-I3A gráfico ya tiene 90 imágenes. Faltan concesión real, cierre idempotente, historial permanente y correcciones auditadas. | PR-I1/2; premios de cada juego requieren integración IC validada. Puede prepararse el contrato común antes de terminar todos los juegos. Todas las ganadas, sin límite de tres; años anteriores permanecen. |
 | PR-I4 — Perfil/personas | Perfil sobrio, identidad pública y búsqueda; todas las insignias por juego/año, detalle al tocar, visibilidad y protección de datos. | PR-I1–3; C5 antes de fotos reales. Avatar existente mientras tanto, sin fingir carga persistente. |
-| PR-I5 — Instituciones | Directorio, territorio y presentación C1 probados localmente. Logo C2A/B implementado; sigue C2C (6 HTTP/SQL y 8 Android). Después solicitudes estudiantiles/avisos y código institucional privado. | Reutilizar P4-C y grupos. Logo C2 acotado en PostgreSQL; C5 general sigue pendiente. No sustituir código de grupo silenciosamente. |
+| PR-I5 — Instituciones | Cierre técnico local consolidado T/C1–C4; C4-C10/10 integrados (Android+19 HTTP/SQL, no10 solo manuales). Integrados a main por PR app #5/API #8 (e679c50/388bb18). CI backend PR/main aprobado; análisis Flutter limpio y102 dirigidas aprobadas. Regresión global893/13 y panel95/95 conservados del cierre previo. | Observación JPEG original pendiente; CI Linux/Node/npm fijados comprobado. QA-1 Flutter remoto, C5 general y despliegue abiertos; no equivale a ranking institucional ni P5. |
 | PR-I6 — Ranking institucional | Aportes mientras se pertenece a institución, sin traslado/doble conteo del XP histórico; agregados públicos. | PR-I1/2/5 y reglas confirmadas. |
 | PR-I7 — Ensayo social | Dos cuentas/dispositivos, privacidad, fotos, solicitudes, ayudas/empates y cierre anual conservando años anteriores. | Despliegue autorizado; coordinar con P5/D3, sin alterar reloj de producción. |
 | PR-I5-T / PR-I6-T — Territorio | T1–T4 implementadas y T5 ensayo integrado cerrado localmente; 16 casos SQL reales T2 aprobados. Ranking territorial posterior, sin cambiar XP ni premios nacionales. | Extensiones de PR-I5/6; sin despliegue; una sede representada por registro, multisede e histórico pendientes. Ver PR_I5_T_TERRITORIO y ORIENTACION_Y_TERRITORIO. |
-| OV-1A/B/C/D — Orientación por intereses | Cuestionario propio revisado, resultado privado y explicable, carreras para explorar y Sabi por profesión. Complementa orientación académica, no test psicológico validado. | En paralelo a instituciones por acuerdo del 12 de octubre; antes de UI-F/beta; fuentes oficiales, privacidad y revisión de contenido. |
+| OV-1A/B/C/D — Orientación por intereses | Frente del compañero en curso; entrega nueva no verificada aquí. Debe completar cuestionario revisado, resultado privado/explicable y carreras para explorar. Sabi por seis familias, requisito visual pendiente, no por cada carrera. No es diagnóstico profesional. | En paralelo por acuerdo del 12 de octubre; antes de UI-F/beta; fuentes oficiales, privacidad y revisión de contenido. Sin XP, ranking ni certificados. |
 | P1–P4-C / P5 — Profesor | P1–P4-C locales; P5 es despliegue y ensayo real docente, aprobación institucional, roles, grupos, prioridades y tiempo. | **P5 pausada**. Pedir URL/cuentas/entorno autorizado, nunca contraseñas. Antes de D3. |
 | 7F-C3-D2 — Legado | Herramientas locales; faltan revisión visual y operación de legado autorizada con respaldo. | No borrar ni reclasificar contenido usado; preparar D3. |
 | 7F-C3-D3 — Panel real | Conectar ADMIN a backend vigente y confirmar publicación/persistencia real. | **Pausada**, después de P5 y controles D2. Demo no cierra esta etapa. |
 | 7F-C4 — Catálogo | Versionado, altas/cambios/retiradas, caché y actualización en app preservando progreso/intentos. | Contrato editorial; D3 por sí sola no lo resuelve. |
-| 7F-C5 — Archivos | Storage persistente, permisos, tamaño/tipo, metadatos/licencias y fotos; evidencia institucional privada separada. | Puede prepararse localmente antes de PR-I4/5; servicio real requiere autorización. |
+| 7F-C5 — Archivos | [A/B/C1 y C2-A/B/C](C5_ARCHIVOS.md) integradas en main local; [C2-C](C5C2C_CONSUMIDORES.md) validada automáticamente:44 integradas,70 migraciones temporales,128/1675 backend y969 Flutter/16 omitidas. Sigue C2-D Android; PDF/offline/histórico/fotos y D abiertos. | Sin push nuevo ni despliegue. Carga por opción apagada por defecto; opt-in solo en ensayo propio. Adaptador development/test; proveedor persistente requiere autorización. |
 | 7F-C6 — Versiones | Auditoría de cambios, versiones y restauración sin reescribir preguntas ya respondidas. | Contratos editoriales y ensayo de recuperación. |
 | 7F-B3-B / 6F-P — Integración | Validar módulos móviles/juegos vigentes, Guardián/Cima/Rescate y multijugador real; diagnosticar audios en teléfono. | Migraciones/despliegue autorizado; no rehacer motores por estar sin desplegar. |
 | Bloque 7 — Identidad/seguridad | Auditar/completar sesión única, revocación/refresh, cuentas ADMIN, eliminación, SMTP/enlaces, contratos y privacidad. | Reutilizar lo existente; separar correcciones por flujo y probar permisos. |
@@ -665,14 +799,18 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | 7J — Contenido | Carga autorizada desde ADMIN, cobertura/calidad, fuentes oficiales, soporte y licencias. | Equipo de contenido; piloto y cierre antes de publicar. No exigir Excel. |
 | 8E — Privacidad/licencias | Políticas públicas, datos/SDK/audiencia real y evidencia de derechos. | Antes de activar servicios comerciales y publicar. |
 | 8F — Producción/seguridad | Entornos, respaldo/restauración, observabilidad, seguridad, carga y rendimiento. | Operaciones reales solo coordinadas; pruebas locales continúan en cada entrega. |
-| UI-F / Sabi — Acabado final | Sistema azul S+, botones/componentes y claro/oscuro; animaciones profesionales aprobadas, accesibilidad. | Después de funciones e integraciones, **antes de 8G y capturas de tienda**. No rediseñar ADMIN. |
+| UI-F / Sabi — Acabado final | Sistema azul S+, botones/componentes y claro/oscuro; animaciones, accesibilidad y recorrido general de bienvenida al primer uso. | Después de funciones e integraciones, **antes de 8G y capturas de tienda**. Recorrido por rol, omitir/repetir; no rediseñar ADMIN. |
 | 8G — Integral/beta | E2E, celulares, red/cierres/cuentas, compras/anuncios de prueba, PDF/audio y regresiones. | Funciones integradas, UI-F y staging autorizado. |
 | 8H — iOS | Compilar/probar en macOS/Xcode y dispositivo; conservar compatibilidad. | No publicar App Store ni activar cobros reales iOS en este alcance. |
 | 8I — Google Play | Firma/AAB, ficha, declaraciones, revisión y lanzamiento gradual. | Beta, privacidad y autorización; comprobar requisitos de la cuenta al ejecutar. |
 | 9A — Mantenimiento | Responsables, soporte, monitoreo, contenido, costos, seguridad y actualizaciones. | Preparar operación antes de publicar; ejecución continua después. |
 
-**Secuencia inmediata:** propietario PR-I5-C2C → solicitudes institucionales;
-compañero OV-1A → B/C/D en paralelo. Rescate y territorio ya validados localmente;
+**Secuencia inmediata:** instituciones y MA-1R/R1–R4 integradas en main;
+continuar C2-D Android tras [C2-C validada automáticamente](C5C2C_CONSUMIDORES.md);
+A/B/C1+C2-A/B/C integradas en main local, sin push nuevo, y
+[C1 Android5/5](C5C_FLUTTER.md) conservada. Después resto C5-C/D. No repetir
+C2/C3/C4 por notas históricas. Compañero OV-1A → B/C/D en paralelo, sin asumir
+entregas no revisadas. Rescate y territorio ya validados localmente;
 conservar cierre operativo pendiente de I2-5 y demás bloques del orden vigente. IC-2/3 y los restantes
 clientes competitivos IC-1 quedan aplazados. QA-1/DOC-1 son apoyo
 planificado, no autorizan cambios automáticos ni bloquean por sí solos toda entrega.
@@ -697,14 +835,14 @@ Alcance, diferencias con
 lo existente, reglas propuestas, dependencias y prompts identificados en
 [PERFILES_RANKINGS_INSIGNIAS.md](PERFILES_RANKINGS_INSIGNIAS.md).
 Son siete entregas adicionales, con PR-I1 integrado, Backend I2-1/I2-2/I2-3
-completados, Flutter I2-4 local validado y PR-I3A visual implementada; los demás
+completados, Flutter I2-4 integrado, recorrido I2-5 local y PR-I5 institucional
+cerrados en su alcance documentado, y PR-I3A visual implementada; los demás
 pendientes conservan su estado. No se cuentan como parte de los 13 bloques
 históricos ni sustituyen P5/D3. JN-2B/C ya tienen backend y cliente locales.
 JN-4 se retiró del alcance.
-MA-1 cobertura básica
-implementada localmente; reportes académicos pendientes. MA-2A backend local listo;
-MA-2B panel, MA-2C Flutter y MA-3A/B/C locales listos; sigue el cierre de I2-4
-y posteriormente I2-5, con autorización.
+MA-1 cobertura y reportes MA-1R/R1–R4 cerrados localmente e integrados en main.
+MA-2A backend, MA-2B panel, MA-2C Flutter y MA-3A/B/C locales listos;
+sus ensayos reales, cierre operativo I2-5 y QA-1 siguen pendientes.
 
 Guía para compañeros: [GUIA_TRABAJO_COMPANEROS.md](GUIA_TRABAJO_COMPANEROS.md).
 Certificados: **cinco por área y uno final por las cinco**, integrados localmente
@@ -724,12 +862,11 @@ con protagonista compartido. Escudo fue retirado; Taller de inventos sigue cance
 También seleccionó mapa de aprendizaje, repaso diferido y cobertura del banco.
 Reglas acordadas y decisiones pendientes en [SABI_Y_JUEGOS_APROBADOS.md](SABI_Y_JUEGOS_APROBADOS.md).
 **Nuevo orden: funcionalidad primero, animaciones al final.** JN-1A tiene
-[Salto a la cima en demo local](SALTO_A_LA_CIMA.md); JN-1B backend está implementado
-y probado localmente, sin despliegue. JN-1C cliente Flutter remoto implementado;
-la prueba real queda pendiente de infraestructura. JN-2A
-[Rescate de estrellas](RESCATE_DE_ESTRELLAS.md) tiene reglas/demo implementadas.
-JN-2B tiene backend/migración locales y JN-2C cliente remoto con recuperación,
-sin despliegue ni ensayo real. JN-4 Escudo ya no es un juego activo ni pendiente.
+[Salto a la cima](SALTO_A_LA_CIMA.md) y [Rescate de estrellas](RESCATE_DE_ESTRELLAS.md)
+tienen motores, backend y clientes remotos locales, además de ensayos integrados
+Android/API/PostgreSQL registrados en [IC1_CIMA](IC1_CIMA.md) e
+[IC1_RESCATE](IC1_RESCATE.md). No acreditan despliegue productivo; no repetirlos
+por el antiguo pendiente de infraestructura. JN-4 Escudo ya no es activo ni pendiente.
 MA-1 [cobertura básica](COBERTURA_DEL_BANCO.md) implementada localmente; reportes
 académicos, revisión visual y ensayo real pendientes. MA-2A backend implementado
 localmente; MA-2B/C y MA-3A/B/C listas localmente; la ruta competitiva actual
@@ -771,8 +908,10 @@ P1, P2 y **P3-A/P3-B (prioridades, pantallas y práctica dirigida)** tienen entr
 locales. **P4-A/P4-B preparan API, persistencia, sincronización y pantallas de
 tiempo/evolución**. La implementación P4 es local; su despliegue y comprobación
 real no están cerrados. **P4-C tiene implementación local de aprobación institucional**:
-Flutter, API, migración y bandeja ADMIN. Faltan revisión visual, despliegue y ensayo
-real. **P5 permanece pausada**, con los preparativos de commits, migraciones y despliegue
+Flutter, API, migración y bandeja ADMIN. Territorio/aprobación/perfil y acceso
+estudiantil ya tienen ensayo integrado local en el cierre del17 de octubre;
+falta despliegue y ensayo en staging, no repetir ese recorrido por este texto.
+**P5 permanece pausada**, con los preparativos de commits, migraciones y despliegue
 indicados abajo; no rehacer P4-C desde cero.
 D3 sigue pendiente, no cancelada ni terminada.
 Los 13 bloques se conservan como inventario; el cierre docente se detalla como
@@ -1029,6 +1168,10 @@ conectar el panel por sí solo no garantiza que lo nuevo aparezca ya en la app.
 
 ## 4. 7F-C5 — Imágenes y archivos persistentes
 
+**20 de octubre:** C5-A/B validadas localmente en rama propia,23/23 PostgreSQL/HTTP.
+[Contrato, límites, siguientes bloques y evidencia](C5_ARCHIVOS.md). Sigue C Flutter.
+La lista inferior conserva el alcance completo; el adaptador local de A no lo cierra.
+
 - Supabase Storage con permisos, límites, tipos de archivo y referencias estables.
 - Carga desde el panel, metadatos, texto alternativo, derechos y recursos faltantes.
 - Ampliar el modelo Respuesta, contrato y Flutter para **imágenes dentro de opciones**.
@@ -1254,8 +1397,22 @@ un rediseño del panel ADMIN ni una etapa opcional posterior a la publicación.
   juegos y ajustes, respetando lo ya implementado y sin modificar reglas académicas.
 - Integrar el arte final de Sabi y las animaciones acordadas dentro de esta fase
   de acabado; mantener reducción de movimiento y no distraer durante preguntas.
+- **Recorrido de bienvenida general, acordado el14 de octubre:** implementar al
+  finalizar funciones/integraciones, durante UI-F. Explicar brevemente navegación,
+  estudio/práctica/progreso y, para profesores, institución y herramientas docentes.
+  Enseñar solo opciones disponibles para el rol; las indicaciones del logo se
+  muestran en su contexto al propietario, no a todos los estudiantes.
+  Ofrecer Omitir y volver a verlo desde Ayuda/Ajustes; registrar por cuenta/rol
+  si terminó u omitió para no repetirlo en cada apertura o nuevo login.
+  Acordar pantallas/textos sobre la UI final antes de implementarlo. Probar
+  cambio de cuenta, omisión/repetición, texto grande y lectores de pantalla en8G.
+  Estado planificado: no hay recorrido nuevo implementado ni validado hoy.
 - Verificar controles táctiles, texto ampliado, lectores de pantalla, pantallas
   pequeñas y adaptación Android/iOS; ajustar pruebas de widgets afectadas.
+- Unificar el patrón X/Ocultar + Snackbar/Deshacer/progreso cinco segundos de
+  [MA-1R-UX1](MA1R_UX1_OCULTAR_DESHACER.md), si ya se implementó/probó su contrato
+  personal después de R4. No usar el acabado visual para borrar incidencias ADMIN
+  ni aplicar una acción genérica a datos que no son reversibles.
 
 Orden: funciones e integraciones → UI-F y acabado de animaciones → 8G pruebas
 integrales/beta → comprobación final iOS y capturas/publicación Google Play.

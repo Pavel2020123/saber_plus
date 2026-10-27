@@ -1,8 +1,12 @@
 # SaberPlus — guía de trabajo para compañeros
 
-Actualizado: 13 de octubre de 2026. Leer antes de modificar código.
+Actualizado: 19 de octubre de 2026. Leer antes de modificar código.
 
-**Reparto vigente:** propietario en instituciones/C2C; compañero en OV-1A.
+**Reparto vigente:** propietario integró instituciones a main (PR app #5/API #8,
+CI backend aprobado); MA-1R/R1–R4 integradas por PR app #6/API #9, CI backend del PR aprobado.
+[Acta actual R4](MA1R_R4_VALIDACION_LOCAL.md). Siguiente recomendado: preparación local C5.
+Compañero continúa OV-1, sin entrega verificada nueva; QA-1 Flutter remoto pendiente.
+Ver [estado y orden](ESTADO_Y_ORDEN_2026_10_17.md); no editar su checkpoint.
 Leer [trabajo paralelo](TRABAJO_PARALELO.md). Certificados y audios inferiores son
 guías de referencia, no tareas adicionales asignadas al compañero de OV-1.
 Leer primero [RELEVO_EQUIPO.md](RELEVO_EQUIPO.md): auditoría y ruta completa de etapas.

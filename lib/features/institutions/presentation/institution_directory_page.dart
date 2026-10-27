@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../auth/domain/session.dart';
+import '../../auth/presentation/session_controller.dart';
 import '../data/institution_directory_repository.dart';
 import 'institution_directory_providers.dart';
 import 'institution_directory_filters.dart';
 import 'institution_logo.dart';
+import 'student_institution_requests_page.dart';
 
 class InstitutionDirectoryPage extends ConsumerStatefulWidget {
   const InstitutionDirectoryPage({super.key});
@@ -232,6 +235,7 @@ class InstitutionDirectoryDetailPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(institutionDirectoryDetailProvider(id));
+    final user = ref.watch(sessionControllerProvider.select((s) => s.user));
     return Scaffold(
       appBar: AppBar(title: const Text('Institución')),
       body: SafeArea(
@@ -278,8 +282,27 @@ class InstitutionDirectoryDetailPage extends ConsumerWidget {
                   ),
                   const SizedBox(height: 24),
                   const Text(
-                    'Consultar esta ficha no te vincula a la institución. Las solicitudes de ingreso desde el directorio estarán disponibles en una próxima actualización.',
+                    'Consultar esta ficha no te vincula a la institución.',
                   ),
+                  if (user?.role == AppRole.student &&
+                      user?.isDemo == false) ...[
+                    const SizedBox(height: 12),
+                    if (user?.institutionId == null)
+                      FilledButton.icon(
+                        icon: const Icon(Icons.person_add_alt_1_outlined),
+                        label: const Text('Solicitar ingreso'),
+                        onPressed: () => Navigator.of(context).push<void>(
+                          MaterialPageRoute(
+                            builder: (_) =>
+                                StudentInstitutionRequestsPage(target: item),
+                          ),
+                        ),
+                      )
+                    else
+                      const Text(
+                        'Ya perteneces a una institución. Las solicitudes no realizan traslados automáticos.',
+                      ),
+                  ],
                 ],
               ),
             ),

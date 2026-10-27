@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -28,7 +29,9 @@ class InstitutionLogoPage extends ConsumerWidget {
         );
         if (file == null) return null;
         if (await file.length() > 3 * 1024 * 1024) {
-          throw const FormatException('La imagen supera 3 MB.');
+          throw const InstitutionLogoSelectionException(
+            'La imagen supera 3 MiB. Elige una imagen más pequeña.',
+          );
         }
         return file.readAsBytes();
       },
@@ -58,7 +61,7 @@ class InstitutionLogoEditor extends StatefulWidget {
 
 class _InstitutionLogoEditorState extends State<InstitutionLogoEditor> {
   InstitutionProfile? _profile;
-  Uint8List? _draft;
+  Uint8List? _draft, _preview;
   bool _busy = true, _mustReload = false, _allowExit = false;
   String? _message;
 
@@ -77,7 +80,10 @@ class _InstitutionLogoEditorState extends State<InstitutionLogoEditor> {
       final profile = await widget.profiles.load();
       if (!mounted) return;
       setState(() {
-        if (_profile?.id != profile.id || !profile.canEdit) _draft = null;
+        if (_profile?.id != profile.id || !profile.canEdit) {
+          _draft = null;
+          _preview = null;
+        }
         _profile = profile;
         _mustReload = false;
         _message = _draft == null
@@ -105,15 +111,25 @@ class _InstitutionLogoEditorState extends State<InstitutionLogoEditor> {
       final bytes = await widget.pick();
       if (!mounted || bytes == null) return;
       if (bytes.isEmpty || bytes.length > 3 * 1024 * 1024) {
-        throw const FormatException('Tamaño no válido');
+        throw const InstitutionLogoSelectionException(
+          'Elige una imagen de hasta 3 MiB.',
+        );
       }
-      // La vista previa no sustituye la decodificación y validación del servidor.
-      setState(() => _draft = bytes);
-    } catch (_) {
+      // Decodificar antes de aceptar la selección evita guardar archivos cuya
+      // vista previa falló. El PNG pequeño es solo para mostrar; el servidor
+      // recibe los bytes originales y mantiene su validación independiente.
+      final preview = await createInstitutionLogoPreview(bytes);
+      if (!mounted) return;
+      setState(() {
+        _draft = bytes;
+        _preview = preview;
+      });
+    } catch (error) {
       if (mounted) {
         setState(
-          () => _message =
-              'No pudimos abrir esa imagen. Revisa el permiso de fotos y elige un PNG, JPG o WEBP de hasta 3 MB.',
+          () => _message = error is InstitutionLogoSelectionException
+              ? error.message.toString()
+              : 'No pudimos leer o preparar esa imagen. Prueba otro PNG, JPG o WEBP estático de hasta 3 MiB y 16 megapíxeles.',
         );
       }
     } finally {
@@ -162,6 +178,7 @@ class _InstitutionLogoEditorState extends State<InstitutionLogoEditor> {
       setState(() {
         _profile = result;
         _draft = null;
+        _preview = null;
         _message = remove ? 'Logo eliminado.' : 'Logo institucional guardado.';
       });
       widget.onSaved(result.id);
@@ -240,7 +257,7 @@ class _InstitutionLogoEditorState extends State<InstitutionLogoEditor> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: Image.memory(
-                        _draft!,
+                        _preview!,
                         width: 200,
                         height: 200,
                         fit: BoxFit.cover,
@@ -258,7 +275,7 @@ class _InstitutionLogoEditorState extends State<InstitutionLogoEditor> {
                 const SizedBox(height: 16),
                 if (profile.canEdit) ...[
                   const Text(
-                    'PNG, JPG o WEBP estático. Máximo 3 MB y 16 megapíxeles. Comprueba que el logo completo quede dentro del recorte.',
+                    'PNG, JPG o WEBP estático, hasta 3 MB y 16 megapíxeles. Recorte cuadrado centrado; revisa la vista previa antes de guardar.',
                   ),
                   OutlinedButton.icon(
                     onPressed: _busy ? null : _pick,
@@ -273,7 +290,10 @@ class _InstitutionLogoEditorState extends State<InstitutionLogoEditor> {
                     TextButton(
                       onPressed: _busy
                           ? null
-                          : () => setState(() => _draft = null),
+                          : () => setState(() {
+                              _draft = null;
+                              _preview = null;
+                            }),
                       child: const Text('Descartar selección'),
                     ),
                   ],
@@ -298,5 +318,84 @@ class _InstitutionLogoEditorState extends State<InstitutionLogoEditor> {
         ),
       ),
     );
+  }
+}
+
+/// Motivo de rechazo local que se puede explicar al usuario.
+class InstitutionLogoSelectionException extends FormatException {
+  const InstitutionLogoSelectionException(super.message);
+}
+
+/// Prepara una miniatura decodificable sin alterar el archivo que se subirá.
+Future<Uint8List> createInstitutionLogoPreview(Uint8List bytes) async {
+  if (bytes.isEmpty || bytes.length > 3 * 1024 * 1024) {
+    throw const InstitutionLogoSelectionException(
+      'Elige una imagen de hasta 3 MiB.',
+    );
+  }
+  final png =
+      bytes.length >= 8 &&
+      bytes[0] == 137 &&
+      bytes[1] == 80 &&
+      bytes[2] == 78 &&
+      bytes[3] == 71 &&
+      bytes[4] == 13 &&
+      bytes[5] == 10 &&
+      bytes[6] == 26 &&
+      bytes[7] == 10;
+  final jpeg =
+      bytes.length >= 3 &&
+      bytes[0] == 255 &&
+      bytes[1] == 216 &&
+      bytes[2] == 255;
+  final webp =
+      bytes.length >= 12 &&
+      String.fromCharCodes(bytes.sublist(0, 4)) == 'RIFF' &&
+      String.fromCharCodes(bytes.sublist(8, 12)) == 'WEBP';
+  if (!png && !jpeg && !webp) {
+    throw const InstitutionLogoSelectionException(
+      'Formato no admitido. Elige un PNG, JPG o WEBP estático.',
+    );
+  }
+  final buffer = await ui.ImmutableBuffer.fromUint8List(bytes);
+  ui.ImageDescriptor? descriptor;
+  ui.Codec? codec;
+  ui.Image? image;
+  try {
+    descriptor = await ui.ImageDescriptor.encoded(buffer);
+    if (descriptor.width * descriptor.height > 16000000) {
+      throw const InstitutionLogoSelectionException(
+        'La imagen supera 16 megapíxeles. Elige una de menor resolución.',
+      );
+    }
+    final scale =
+        512 /
+        (descriptor.width > descriptor.height
+            ? descriptor.width
+            : descriptor.height);
+    codec = await descriptor.instantiateCodec(
+      targetWidth: scale < 1
+          ? (descriptor.width * scale).round().clamp(1, 512)
+          : descriptor.width,
+      targetHeight: scale < 1
+          ? (descriptor.height * scale).round().clamp(1, 512)
+          : descriptor.height,
+    );
+    if (codec.frameCount != 1) {
+      throw const InstitutionLogoSelectionException(
+        'Selecciona una imagen estática, sin animación.',
+      );
+    }
+    image = (await codec.getNextFrame()).image;
+    final data = await image.toByteData(format: ui.ImageByteFormat.png);
+    if (data == null) {
+      throw const FormatException('No se pudo preparar la imagen');
+    }
+    return data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+  } finally {
+    image?.dispose();
+    codec?.dispose();
+    descriptor?.dispose();
+    buffer.dispose();
   }
 }

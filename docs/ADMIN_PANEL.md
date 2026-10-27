@@ -1,5 +1,13 @@
 # 7F-C3-D2-F — Verificación PostgreSQL local
 
+**Estado vigente del19 de octubre:** las entregas D2 siguientes son antecedentes
+del legado editorial. El panel actual incluye instituciones y reportes académicos
+con cobertura, integrados en main (PR backend #8/#9; app #5/#6). El recorrido local
+de reportar, revisar y resolver está validado en [MA-1R/R4](MA1R_R4_VALIDACION_LOCAL.md).
+Guardar preguntas conserva el flujo simple de publicación autorizada.
+P5/D3 desplegados, operación del legado, almacenamiento general C5 y versiones C6
+siguen separados y pendientes según [etapas](ETAPAS_PENDIENTES.md).
+
 Última entrega local (8 de septiembre de 2026): ejecutor PostgreSQL desechable
 con pruebas de consultas, bloqueos, rollback y uso histórico. Se aplicó el SQL
 de 40 migraciones de HEAD solo a instancias nuevas de ensayo que se detuvieron

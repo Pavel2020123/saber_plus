@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/config/environment.dart';
-import '../../../../core/config/resource_url.dart';
 import '../../../../core/network/api_error.dart';
+import '../../../../core/widgets/academic_image.dart';
+import '../../../../core/widgets/academic_option_content.dart';
 import '../../../academic/domain/academic_models.dart';
 import '../../../practice/domain/practice_models.dart';
 import '../../../ranking/domain/competitive_ranking_models.dart';
@@ -509,7 +509,12 @@ class _SummitGameState extends ConsumerState<_SummitGame> {
                         : Icons.radio_button_unchecked,
                   ),
                   const SizedBox(width: 12),
-                  Expanded(child: Text(option.text)),
+                  Expanded(
+                    child: AcademicOptionContent(
+                      text: option.text,
+                      imageUrl: option.imageUrl,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -529,11 +534,13 @@ class _SummitGameState extends ConsumerState<_SummitGame> {
     ];
   }
 
-  Widget _image(String url, String label) => _SummitImage(
-    key: ValueKey('$label-$url'),
-    url: resolveResourceUrl(ref.read(appConfigProvider), url),
-    label: label,
-    allowHttp: ref.read(appConfigProvider).environment == AppEnvironment.dev,
+  Widget _image(String url, String label) => Padding(
+    padding: const EdgeInsets.symmetric(vertical: 12),
+    child: AcademicImage(
+      key: ValueKey('$label-$url'),
+      value: url,
+      label: label,
+    ),
   );
 
   List<Widget> _result(SummitAttempt attempt) => [
@@ -601,62 +608,6 @@ class _SummitGameState extends ConsumerState<_SummitGame> {
       child: const Text('Preparar otra partida'),
     ),
   ];
-}
-
-class _SummitImage extends StatefulWidget {
-  const _SummitImage({
-    super.key,
-    required this.url,
-    required this.label,
-    required this.allowHttp,
-  });
-  final String url;
-  final String label;
-  final bool allowHttp;
-  @override
-  State<_SummitImage> createState() => _SummitImageState();
-}
-
-class _SummitImageState extends State<_SummitImage> {
-  int _retry = 0;
-  @override
-  Widget build(BuildContext context) {
-    final uri = Uri.tryParse(widget.url);
-    if (uri == null ||
-        !(uri.scheme == 'https' ||
-            (widget.allowHttp && uri.scheme == 'http')) ||
-        uri.host.isEmpty ||
-        uri.userInfo.isNotEmpty) {
-      return const Text(
-        'La imagen no tiene una dirección válida. No respondas sin su contexto.',
-      );
-    }
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      child: Image.network(
-        widget.url,
-        key: ValueKey(_retry),
-        fit: BoxFit.contain,
-        semanticLabel: widget.label,
-        loadingBuilder: (context, child, progress) =>
-            progress == null ? child : const Text('Cargando imagen…'),
-        errorBuilder: (context, error, stack) => Column(
-          children: [
-            Text(
-              '${widget.label}: no se pudo cargar. Reintenta antes de responder; puedes salir y retomar la partida.',
-            ),
-            TextButton(
-              onPressed: () async {
-                await NetworkImage(widget.url).evict();
-                if (mounted) setState(() => _retry++);
-              },
-              child: const Text('Reintentar imagen'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
 
 class _SummitSteps extends StatelessWidget {

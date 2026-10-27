@@ -173,16 +173,19 @@ class NotebookAnswer {
     required this.id,
     required this.text,
     this.explanation,
+    this.imageUrl,
   });
 
   final String id;
   final String text;
   final String? explanation;
+  final String? imageUrl;
 
   factory NotebookAnswer.fromJson(Map<String, dynamic> json) => NotebookAnswer(
     id: json['id'] as String,
     text: json['texto'] as String? ?? '',
     explanation: _optionalText(json['explicacion']),
+    imageUrl: _optionalText(json['imagenUrl']),
   );
 }
 

@@ -1,9 +1,16 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
+import 'dart:ui' as ui;
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:saber_plus/core/network/api_error.dart';
+import 'package:saber_plus/core/widgets/academic_image.dart';
+import 'package:saber_plus/core/widgets/academic_option_content.dart';
 import 'package:saber_plus/features/academic/domain/academic_models.dart';
 import 'package:saber_plus/features/games/tug_of_war/data/tug_realtime_client.dart';
 import 'package:saber_plus/features/games/tug_of_war/domain/tug_online_models.dart';
@@ -13,6 +20,443 @@ import 'package:saber_plus/features/games/tug_of_war/presentation/tug_online_pag
 import 'package:saber_plus/features/games/tug_of_war/presentation/animation/tug_arena.dart';
 
 void main() {
+  test(
+    'recuperar consulta HTTP sin emitir respuestas ni depender del socket',
+    () async {
+      final dio = Dio(BaseOptions(baseUrl: 'http://127.0.0.1:43187'));
+      final requests = <RequestOptions>[];
+      dio.interceptors.add(
+        InterceptorsWrapper(
+          onRequest: (options, handler) {
+            requests.add(options);
+            handler.resolve(
+              Response(
+                requestOptions: options,
+                data: _snapshotJson(
+                  status: 'FINALIZADA',
+                  result: 'EMPATE',
+                  version: 42,
+                ),
+              ),
+            );
+          },
+        ),
+      );
+      final client = SocketTugRealtimeClient(
+        dio,
+        apiBaseUrl: dio.options.baseUrl,
+        accessToken: 'test-only',
+      );
+      try {
+        final snapshot = await client.recover('match-1');
+        expect(snapshot.status, TugOnlineMatchStatus.finished);
+        expect(requests.single.method, 'GET');
+        expect(requests.single.path, '/tira-afloja/match-1');
+        expect(requests.single.data, isNull);
+        expect(requests.single.queryParameters, isEmpty);
+      } finally {
+        client.dispose();
+        dio.close();
+      }
+    },
+  );
+
+  test(
+    'recuperar conserva rechazo HTTP del servidor sin inventar resultado',
+    () async {
+      final dio = Dio(BaseOptions(baseUrl: 'http://127.0.0.1:43187'));
+      dio.interceptors.add(
+        InterceptorsWrapper(
+          onRequest: (options, handler) {
+            handler.reject(
+              DioException(
+                requestOptions: options,
+                type: DioExceptionType.badResponse,
+                response: Response(
+                  requestOptions: options,
+                  statusCode: 403,
+                  data: {'statusCode': 403, 'message': 'Partida ajena'},
+                ),
+              ),
+            );
+          },
+        ),
+      );
+      final client = SocketTugRealtimeClient(
+        dio,
+        apiBaseUrl: dio.options.baseUrl,
+        accessToken: 'test-only',
+      );
+      try {
+        await expectLater(
+          client.recover('match-1'),
+          throwsA(isA<ApiError>().having((e) => e.code, 'code', '403')),
+        );
+      } finally {
+        client.dispose();
+        dio.close();
+      }
+    },
+  );
+
+  test(
+    'un evento atrasado no sustituye resultado recuperado por una ronda anterior',
+    () async {
+      final client = _FakeRealtimeClient(
+        onRecover: () =>
+            _snapshotJson(status: 'FINALIZADA', result: 'EMPATE', version: 42),
+      );
+      final controller = TugOnlineController(client);
+      client.add(
+        TugRealtimeState(
+          TugOnlineSnapshot.fromJson(
+            _snapshotJson(status: 'ACTIVA', round: 1, version: 2),
+          ),
+        ),
+      );
+      await _flush();
+      await controller.resume();
+      client.add(
+        TugRealtimeState(
+          TugOnlineSnapshot.fromJson(
+            _snapshotJson(status: 'ACTIVA', round: 2, version: 4),
+          ),
+        ),
+      );
+      await _flush();
+      expect(controller.state.snapshot?.version, 42);
+      expect(controller.state.snapshot?.status, TugOnlineMatchStatus.finished);
+      expect(controller.state.effect, isNull);
+      expect(client.answerCalls, 0);
+      controller.dispose();
+    },
+  );
+
+  testWidgets(
+    'reintenta lectura fallida al volver sin responder ni fabricar final',
+    (tester) async {
+      await tester.binding.setSurfaceSize(const Size(412, 1100));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      var attempts = 0;
+      final client = _FakeRealtimeClient(
+        onMatchmake: () =>
+            _snapshotJson(status: 'ACTIVA', round: 1, version: 2),
+        onRecover: () {
+          if (attempts++ == 0) {
+            throw const ApiError(
+              code: 'network_unavailable',
+              message: 'No se pudo actualizar la partida',
+            );
+          }
+          return _snapshotJson(
+            status: 'FINALIZADA',
+            result: 'EMPATE',
+            version: 42,
+          );
+        },
+      );
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            tugRealtimeClientFactoryProvider.overrideWithValue(() => client),
+          ],
+          child: const MaterialApp(
+            home: TugOnlinePage(config: TugOnlineConfig()),
+          ),
+        ),
+      );
+      client.add(const TugRealtimeConnected());
+      await tester.pump();
+      await tester.pump();
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      await tester.pump();
+      await tester.pump();
+      expect(find.text('No se pudo actualizar la partida'), findsOneWidget);
+      expect(find.byKey(const Key('tug-online-result')), findsNothing);
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pump();
+      await tester.pump();
+      expect(find.byKey(const Key('tug-online-result')), findsOneWidget);
+      expect(client.recoveryCount, 2);
+      expect(client.answerCalls, 0);
+      await tester.pumpWidget(const SizedBox());
+    },
+  );
+
+  for (final finalEventWhilePaused in [false, true]) {
+    testWidgets(
+      'recupera resultado al volver del fondo sin nueva conexión $finalEventWhilePaused',
+      (tester) async {
+        await tester.binding.setSurfaceSize(const Size(412, 1100));
+        addTearDown(() => tester.binding.setSurfaceSize(null));
+        final terminal = _snapshotJson(
+          status: 'FINALIZADA',
+          result: 'EMPATE',
+          round: 20,
+          version: 42,
+          events: [
+            {
+              'version': 41,
+              'tipo': 'RONDA_RESUELTA',
+              'datos': {'movimiento': 0, 'posicionCuerda': 0},
+              'fecha': DateTime.now().toUtc().toIso8601String(),
+            },
+          ],
+        );
+        final client = _FakeRealtimeClient(
+          onMatchmake: () =>
+              _snapshotJson(status: 'ACTIVA', round: 1, version: 2),
+          onRecover: () => terminal,
+        );
+        await tester.pumpWidget(
+          ProviderScope(
+            overrides: [
+              tugRealtimeClientFactoryProvider.overrideWithValue(() => client),
+            ],
+            child: const MaterialApp(
+              home: TugOnlinePage(config: TugOnlineConfig()),
+            ),
+          ),
+        );
+        client.add(const TugRealtimeConnected());
+        await tester.pump();
+        await tester.pump();
+        expect(find.byKey(const Key('tug-online-arena')), findsOneWidget);
+        tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+        if (finalEventWhilePaused) {
+          client.add(TugRealtimeState(TugOnlineSnapshot.fromJson(terminal)));
+          await tester.pump();
+        }
+        tester.binding.handleAppLifecycleStateChanged(
+          AppLifecycleState.resumed,
+        );
+        await tester.pump();
+        await tester.pump();
+        await tester.pump();
+        expect(find.byKey(const Key('tug-online-result')), findsOneWidget);
+        expect(find.text('Partida empatada'), findsOneWidget);
+        expect(client.recoveryCount, 1);
+        expect(client.recoveredMatchId, 'match-1');
+        expect(client.answerCalls, 0);
+        expect(client.matchmakeCalls, 1);
+        await tester.pumpWidget(const SizedBox());
+      },
+    );
+  }
+
+  for (final width in [320.0, 412.0]) {
+    for (final scale in [1.0, 2.0]) {
+      testWidgets(
+        'opciones online ilustradas caben en su borde $width/$scale',
+        (tester) async {
+          await tester.binding.setSurfaceSize(Size(width, 2000));
+          addTearDown(() => tester.binding.setSurfaceSize(null));
+          const paths = [
+            '/recursos/editoriales/11111111-1111-4111-8111-111111111111',
+            '/recursos/editoriales/22222222-2222-4222-8222-222222222222',
+          ];
+          final images = (await tester.runAsync(() async {
+            final result = <ui.Image>[];
+            for (final size in [const Size(160, 80), const Size(80, 160)]) {
+              final recorder = ui.PictureRecorder();
+              Canvas(
+                recorder,
+              ).drawRect(Offset.zero & size, Paint()..color = Colors.blue);
+              final picture = recorder.endRecording();
+              result.add(
+                await picture.toImage(size.width.toInt(), size.height.toInt()),
+              );
+              picture.dispose();
+            }
+            return result;
+          }))!;
+          addTearDown(() {
+            for (final image in images) {
+              image.dispose();
+            }
+          });
+          final payload = _snapshotJson(status: 'ACTIVA', round: 1, version: 1);
+          final question = (payload['partida'] as Map)['pregunta'] as Map;
+          question['enunciado'] =
+              '¿Qué figura tiene el ancho doble de su altura?';
+          question['opciones'] = [
+            {
+              'id': 'blue',
+              'texto': 'Rectángulo azul horizontal',
+              'imagenUrl': paths[0],
+            },
+            {
+              'id': 'orange',
+              'texto': 'Rectángulo naranja vertical',
+              'imagenUrl': paths[1],
+            },
+          ];
+          final client = _FakeRealtimeClient(onMatchmake: () => payload);
+          await tester.pumpWidget(
+            ProviderScope(
+              overrides: [
+                tugRealtimeClientFactoryProvider.overrideWithValue(
+                  () => client,
+                ),
+                editorialImageProvider(
+                  paths[0],
+                ).overrideWith((ref) async => images[0]),
+                editorialImageProvider(
+                  paths[1],
+                ).overrideWith((ref) async => images[1]),
+              ],
+              child: MaterialApp(
+                builder: (context, child) => MediaQuery(
+                  data: MediaQuery.of(
+                    context,
+                  ).copyWith(textScaler: TextScaler.linear(scale)),
+                  child: child!,
+                ),
+                home: const TugOnlinePage(config: TugOnlineConfig()),
+              ),
+            ),
+          );
+          client.add(const TugRealtimeConnected());
+          for (var frame = 0; frame < 8; frame++) {
+            await tester.pump();
+          }
+          expect(
+            find.descendant(
+              of: find.byType(AcademicOptionContent),
+              matching: find.byType(RawImage),
+            ),
+            findsNWidgets(2),
+          );
+          for (final id in ['blue', 'orange']) {
+            final button = find.byKey(Key('tug-online-answer-$id'));
+            final material = find
+                .descendant(of: button, matching: find.byType(Material))
+                .first;
+            final border = tester.widget<Material>(material).shape!;
+            final bounds = tester.getRect(material);
+            final outline = border.getOuterPath(Offset.zero & bounds.size);
+            final content = find.descendant(
+              of: button,
+              matching: find.byType(AcademicOptionContent),
+            );
+            for (final part in [
+              find.descendant(of: content, matching: find.byType(Text)),
+              find.descendant(of: content, matching: find.byType(RawImage)),
+            ]) {
+              final rect = tester
+                  .getRect(part)
+                  .shift(-bounds.topLeft)
+                  .deflate(1);
+              for (final point in [
+                rect.topLeft,
+                rect.topRight,
+                rect.bottomLeft,
+                rect.bottomRight,
+              ]) {
+                expect(
+                  outline.contains(point),
+                  isTrue,
+                  reason: '$id: $rect fuera de $border a $width/$scale',
+                );
+              }
+            }
+          }
+          expect(tester.takeException(), isNull);
+          await tester.pumpWidget(const SizedBox());
+        },
+      );
+    }
+  }
+
+  test('transporte Socket.IO recibe estado con offset de recuperación', () async {
+    final server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
+    final connections = <WebSocket>[];
+    final payload = _snapshotJson(status: 'PREPARANDO', rival: true);
+    final requests = server.listen((request) async {
+      final socket = await WebSocketTransformer.upgrade(request);
+      connections.add(socket);
+      socket.add(
+        '0${jsonEncode({'sid': 'test-engine', 'upgrades': <String>[], 'pingInterval': 25000, 'pingTimeout': 20000})}',
+      );
+      socket.listen((packet) {
+        if (packet is String && packet.startsWith('40/tira-afloja,')) {
+          socket.add(
+            '40/tira-afloja,${jsonEncode({'sid': 'test-socket', 'pid': 'test-recovery'})}',
+          );
+          socket.add(
+            '42/tira-afloja,${jsonEncode(['tira:estado', payload, 'recovery-offset'])}',
+          );
+        }
+      });
+    });
+    final dio = Dio();
+    final client = SocketTugRealtimeClient(
+      dio,
+      apiBaseUrl: 'http://127.0.0.1:${server.port}',
+      accessToken: 'test-only',
+    );
+    try {
+      final result = client.events.firstWhere(
+        (event) => event is TugRealtimeState || event is TugRealtimeFailure,
+      );
+      client.connect();
+      final event = await result.timeout(const Duration(seconds: 5));
+      expect(event, isA<TugRealtimeState>());
+      expect((event as TugRealtimeState).snapshot.id, 'match-1');
+      expect(event.snapshot.rival?.id, 'rival');
+    } finally {
+      client.dispose();
+      dio.close();
+      for (final socket in connections) {
+        await socket.close();
+      }
+      await requests.cancel();
+      await server.close(force: true);
+    }
+  });
+
+  test(
+    'lee eventos con offset de recuperación sin perder reloj ni referencias',
+    () {
+      final payload = _snapshotJson(status: 'PREPARANDO', rival: true);
+      for (final event in <Object>[
+        payload,
+        [payload, 'recovery-offset'],
+      ]) {
+        final snapshot = TugOnlineSnapshot.fromJson(
+          tugRealtimeEventObject(event),
+        );
+        expect(snapshot.status, TugOnlineMatchStatus.preparing);
+        expect(snapshot.id, 'match-1');
+        expect(snapshot.rival?.id, 'rival');
+        expect(snapshot.serverOffset.inSeconds.abs(), lessThan(2));
+      }
+      final update = {'partidaId': 'match-1'};
+      expect(tugRealtimeEventObject([update, 'offset']), update);
+      final presence = {'usuarioId': 'B', 'conectado': false};
+      expect(tugRealtimeEventObject([presence, 'offset']), presence);
+      for (final invalid in <Object?>[
+        null,
+        [],
+        [payload],
+        [payload, 1],
+        [payload, 'offset', 'extra'],
+      ]) {
+        expect(tugRealtimeEventObject(invalid), isEmpty);
+      }
+      expect(
+        () => TugOnlineSnapshot.fromJson(
+          tugRealtimeEventObject([
+            {'partida': {}},
+            'offset',
+          ]),
+        ),
+        throwsA(isA<TypeError>()),
+      );
+    },
+  );
+
   test(
     'referencias A/B permiten ganador y presencia sin identidad privada',
     () async {
@@ -271,12 +715,24 @@ void main() {
 }
 
 class _FakeRealtimeClient implements TugRealtimeClient {
-  _FakeRealtimeClient({this.onMatchmake});
+  _FakeRealtimeClient({this.onMatchmake, this.onRecover});
 
   final Map<String, dynamic> Function()? onMatchmake;
+  final Map<String, dynamic> Function()? onRecover;
   final _events = StreamController<TugRealtimeEvent>.broadcast();
   AcademicArea? matchedArea;
   int? synchronizedVersion;
+  int recoveryCount = 0;
+  int answerCalls = 0;
+  int matchmakeCalls = 0;
+  String? recoveredMatchId;
+
+  @override
+  Future<TugOnlineSnapshot> recover(String matchId) async {
+    recoveryCount++;
+    recoveredMatchId = matchId;
+    return TugOnlineSnapshot.fromJson(onRecover!());
+  }
 
   void add(TugRealtimeEvent event) => _events.add(event);
 
@@ -288,6 +744,7 @@ class _FakeRealtimeClient implements TugRealtimeClient {
 
   @override
   Future<void> matchmake(AcademicArea? area) async {
+    matchmakeCalls++;
     matchedArea = area;
     final json = onMatchmake?.call();
     if (json != null) add(TugRealtimeState(TugOnlineSnapshot.fromJson(json)));
@@ -308,7 +765,9 @@ class _FakeRealtimeClient implements TugRealtimeClient {
     required String questionId,
     required String answerId,
     required String idempotencyKey,
-  }) async {}
+  }) async {
+    answerCalls++;
+  }
 
   @override
   Future<void> abandon(String matchId) async {}

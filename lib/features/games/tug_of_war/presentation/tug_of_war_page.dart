@@ -6,13 +6,16 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/feedback/game_audio_feedback.dart';
 import '../../../../core/network/api_error.dart';
+import '../../../../core/widgets/academic_option_content.dart';
 import '../../../practice/domain/practice_models.dart';
 import '../../trivia_rush/domain/trivia_rush_models.dart';
-import '../../trivia_rush/presentation/trivia_rush_providers.dart';
+import '../../trivia_rush/domain/trivia_rush_repository.dart';
+import '../domain/tug_local_repository.dart';
 import '../domain/tug_of_war_models.dart';
 import 'animation/tug_animation_cue.dart';
 import 'animation/tug_arena.dart';
 import 'tug_of_war_providers.dart';
+import 'tug_local_providers.dart';
 
 class TugOfWarPage extends ConsumerStatefulWidget {
   const TugOfWarPage({required this.config, super.key});
@@ -58,6 +61,16 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage>
   int _animationCueId = 0;
   int _questionIndex = 0;
   int _secondsRemaining = _questionSeconds;
+  TugLocalRound? _localRound;
+  bool _serverSyncing = false;
+  bool _deadlineReached = false;
+  int _elapsedAtClockSync = 0;
+  int? _pendingResponseMilliseconds;
+  ({int version, bool paused})? _pendingPause;
+  Future<void> Function()? _retryRoundAction;
+  String? _roundActionError;
+
+  TriviaRushRepository get _repository => ref.read(tugLocalRepositoryProvider);
 
   bool get _shouldPauseCompetition => _appPaused || _dialogOpen;
 
@@ -93,7 +106,7 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage>
     _cancelRoundTimers();
     try {
       final session = await ref
-          .read(triviaRushRepositoryProvider)
+          .read(tugLocalRepositoryProvider)
           .start(
             TriviaRushConfig(
               areas: widget.config.areas,
@@ -142,15 +155,56 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage>
       _animationInProgress = false;
       _showRoundFeedback = false;
       _secondsRemaining = _questionSeconds;
+      _localRound = null;
+      _serverSyncing = false;
+      _deadlineReached = false;
+      _elapsedAtClockSync = 0;
+      _pendingResponseMilliseconds = null;
+      _pendingPause = null;
+      _retryRoundAction = null;
+      _roundActionError = null;
     });
   }
 
-  void _handleArenaReady(int roundId) {
+  Future<void> _handleArenaReady(int roundId) async {
     if (!mounted ||
         roundId != _questionIndex ||
         _roundReady ||
+        _serverSyncing ||
         _roundResolution != null ||
         _finished) {
+      return;
+    }
+    final repository = _repository;
+    if (repository is TugLocalRepository) {
+      setState(() {
+        _serverSyncing = true;
+        _retryRoundAction = null;
+        _roundActionError = null;
+      });
+      try {
+        final round = await repository.beginRound(
+          _session!.attemptId,
+          _question!.id,
+        );
+        if (!mounted || roundId != _questionIndex) return;
+        if (round.session.serverState!.isTerminal) {
+          throw const ApiError(
+            code: 'tug_local_expired',
+            message: 'El duelo local caducó. Inicia otra partida.',
+          );
+        }
+        setState(() {
+          _localRound = round;
+          _roundReady = true;
+          _serverSyncing = false;
+        });
+        _applyServerClock(round);
+        await _syncRemotePause();
+      } on Object catch (error) {
+        if (!mounted || roundId != _questionIndex) return;
+        _failRoundAction(error, () => _handleArenaReady(roundId));
+      }
       return;
     }
     final now = DateTime.now();
@@ -168,6 +222,52 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage>
     }
     _questionStopwatch!.start();
     _scheduleRoundTimers();
+  }
+
+  void _applyServerClock(TugLocalRound round) {
+    final now = DateTime.now();
+    final remaining = round.remainingAt(now);
+    _questionStopwatch?.stop();
+    _questionStopwatch = Stopwatch();
+    _elapsedAtClockSync = _questionSeconds * 1000 - remaining;
+    _roundDeadline = now.add(Duration(milliseconds: remaining));
+    _cpuDeadline = _cpuTurn?.isCorrect == null
+        ? null
+        : now.add(
+            Duration(
+              milliseconds:
+                  _cpuTurn!.responseMilliseconds - _elapsedAtClockSync,
+            ),
+          );
+    setState(() => _secondsRemaining = (remaining / 1000).ceil());
+    if (!_competitionPaused && !_shouldPauseCompetition) {
+      _questionStopwatch!.start();
+    }
+  }
+
+  void _failRoundAction(Object error, Future<void> Function() retry) {
+    setState(() {
+      _serverSyncing = false;
+      _submitting = false;
+      _retryRoundAction = retry;
+      _roundActionError = _errorMessage(error);
+    });
+  }
+
+  void _queueServerState(TriviaRushServerState? server) {
+    if (server == null) return;
+    final session = _session!;
+    final next = server.isTerminal ? null : server.currentQuestion;
+    _session = TriviaRushSession(
+      attemptId: session.attemptId,
+      questions: [
+        ...session.questions,
+        if (next != null &&
+            !session.questions.any((item) => item.id == next.id))
+          next,
+      ],
+      serverState: server,
+    );
   }
 
   void _scheduleRoundTimers() {
@@ -229,12 +329,14 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage>
     _tryResolveRound();
   }
 
-  Future<void> _answer(String answerId) async {
+  Future<void> _answer(String answerId, {bool retry = false}) async {
     final session = _session;
     final question = _question;
     if (session == null ||
         question == null ||
         _submitting ||
+        _serverSyncing ||
+        (!retry && _retryRoundAction != null) ||
         !_roundReady ||
         _competitionPaused ||
         _animationInProgress ||
@@ -244,15 +346,20 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage>
       return;
     }
     final roundIndex = _questionIndex;
-    final elapsedMilliseconds = (_questionStopwatch?.elapsedMilliseconds ?? 0)
-        .clamp(1, _questionSeconds * 1000);
+    final elapsedMilliseconds =
+        _pendingResponseMilliseconds ??
+        (_elapsedAtClockSync + (_questionStopwatch?.elapsedMilliseconds ?? 0))
+            .clamp(1, _questionSeconds * 1000);
     setState(() {
       _submitting = true;
       _selectedAnswerId = answerId;
+      _pendingResponseMilliseconds = elapsedMilliseconds;
+      _retryRoundAction = null;
+      _roundActionError = null;
     });
     try {
       final evaluation = await ref
-          .read(triviaRushRepositoryProvider)
+          .read(tugLocalRepositoryProvider)
           .answer(
             attemptId: session.attemptId,
             questionId: question.id,
@@ -261,6 +368,7 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage>
           );
       if (!mounted || _playerFinished || roundIndex != _questionIndex) return;
       setState(() {
+        _queueServerState(evaluation.serverState);
         _playerCorrect = evaluation.isCorrect;
         _playerResponseMilliseconds = elapsedMilliseconds;
         _playerFinished = true;
@@ -269,6 +377,19 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage>
       _tryResolveRound();
     } on Object catch (error) {
       if (!mounted || _playerFinished || roundIndex != _questionIndex) return;
+      if (_repository is TugLocalRepository) {
+        if (error is ApiError && error.code == 'TUG_LOCAL_ROUND_EXPIRED') {
+          setState(() {
+            _submitting = false;
+            _selectedAnswerId = null;
+          });
+          _finishDeadline();
+        } else {
+          // A lost ACK must retry the same answer/key, even after the deadline.
+          _failRoundAction(error, () => _answer(answerId, retry: true));
+        }
+        return;
+      }
       setState(() {
         _selectedAnswerId = null;
         _submitting = false;
@@ -280,6 +401,15 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage>
   void _finishDeadline() {
     if (_roundResolution != null || _finished) return;
     _cpuTimer?.cancel();
+    _countdownTimer?.cancel();
+    _deadlineReached = true;
+    if (_repository is TugLocalRepository && !_playerFinished) {
+      setState(() => _cpuAnswered = true);
+      if (!_submitting && !_serverSyncing && _retryRoundAction == null) {
+        unawaited(_recordTimeout());
+      }
+      return;
+    }
     setState(() {
       if (!_playerFinished) {
         _playerFinished = true;
@@ -289,6 +419,38 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage>
       _cpuAnswered = true;
     });
     _tryResolveRound();
+  }
+
+  Future<void> _recordTimeout() async {
+    final repository = _repository;
+    if (repository is! TugLocalRepository || _submitting || _playerFinished) {
+      return;
+    }
+    final roundIndex = _questionIndex;
+    setState(() {
+      _submitting = true;
+      _retryRoundAction = null;
+      _roundActionError = null;
+    });
+    try {
+      final state = await repository.expireRound(
+        _session!.attemptId,
+        _question!.id,
+      );
+      if (!mounted || roundIndex != _questionIndex) return;
+      setState(() {
+        _queueServerState(state.serverState);
+        _playerCorrect = null;
+        _playerResponseMilliseconds = null;
+        _playerFinished = true;
+        _cpuAnswered = true;
+        _submitting = false;
+      });
+      _tryResolveRound();
+    } on Object catch (error) {
+      if (!mounted || roundIndex != _questionIndex) return;
+      _failRoundAction(error, _recordTimeout);
+    }
   }
 
   void _tryResolveRound() {
@@ -360,7 +522,24 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage>
     _finishMatch(_progress.winnerWhenQuestionsEnd());
   }
 
-  void _finishMatch(TugWinner winner) {
+  Future<void> _finishMatch(TugWinner winner) async {
+    final repository = _repository;
+    if (repository is TugLocalRepository &&
+        _session?.serverState?.isTerminal == false) {
+      if (_submitting) return;
+      setState(() {
+        _submitting = true;
+        _retryRoundAction = null;
+        _roundActionError = null;
+      });
+      try {
+        await repository.abandon(_session!.attemptId);
+      } on Object catch (error) {
+        if (mounted) _failRoundAction(error, () => _finishMatch(winner));
+        return;
+      }
+      if (!mounted) return;
+    }
     _cancelRoundTimers();
     setState(() {
       _winner = winner;
@@ -390,6 +569,21 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage>
   }
 
   void _syncCompetitionPause() {
+    if (_repository is TugLocalRepository &&
+        _roundReady &&
+        _roundResolution == null &&
+        !_finished &&
+        !_playerFinished &&
+        _pendingResponseMilliseconds == null) {
+      if (_shouldPauseCompetition) {
+        _competitionPaused = true;
+        _pauseBeganAt ??= DateTime.now();
+        _questionStopwatch?.stop();
+        _cancelTimerHandles();
+      }
+      unawaited(_syncRemotePause());
+      return;
+    }
     final shouldPause = _shouldPauseCompetition;
     if (shouldPause == _competitionPaused) return;
     final now = DateTime.now();
@@ -414,6 +608,72 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage>
     }
     _questionStopwatch?.start();
     _scheduleRoundTimers();
+  }
+
+  Future<void> _syncRemotePause() async {
+    final repository = _repository;
+    if (repository is! TugLocalRepository ||
+        _localRound == null ||
+        _serverSyncing ||
+        _submitting ||
+        _playerFinished ||
+        _finished) {
+      return;
+    }
+    final roundIndex = _questionIndex;
+    setState(() => _serverSyncing = true);
+    try {
+      while (_pendingPause != null ||
+          _localRound!.paused != _shouldPauseCompetition) {
+        final operation = _pendingPause ??= (
+          version: _localRound!.version,
+          paused: _shouldPauseCompetition,
+        );
+        final round = await repository.setPaused(
+          attemptId: _session!.attemptId,
+          questionId: _question!.id,
+          version: operation.version,
+          paused: operation.paused,
+        );
+        if (!mounted || roundIndex != _questionIndex) return;
+        _pendingPause = null;
+        _localRound = round;
+        if (round.session.serverState!.isTerminal) {
+          throw const ApiError(
+            code: 'tug_local_expired',
+            message: 'El duelo local caducó. Inicia otra partida.',
+          );
+        }
+      }
+      if (!mounted) return;
+      setState(() {
+        _serverSyncing = false;
+        _competitionPaused = _shouldPauseCompetition;
+        _retryRoundAction = null;
+        _roundActionError = null;
+      });
+      _applyServerClock(_localRound!);
+      if (!_competitionPaused) {
+        if (_deadlineReached) {
+          _finishDeadline();
+        } else {
+          _scheduleRoundTimers();
+        }
+      }
+    } on Object catch (error) {
+      if (!mounted || roundIndex != _questionIndex) return;
+      if (error is ApiError && error.code == 'TUG_LOCAL_ROUND_EXPIRED') {
+        _pendingPause = null;
+        setState(() {
+          _serverSyncing = false;
+          _competitionPaused = _shouldPauseCompetition;
+          _deadlineReached = true;
+        });
+        if (!_competitionPaused) _finishDeadline();
+      } else {
+        _failRoundAction(error, _syncRemotePause);
+      }
+    }
   }
 
   void _showMessage(String message) => ScaffoldMessenger.of(
@@ -487,6 +747,30 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage>
                 onSoundCue: _handleArenaSound,
               ),
               const SizedBox(height: 16),
+              if (_roundActionError != null)
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          _roundActionError!,
+                          key: const Key('tug-round-error'),
+                        ),
+                        TextButton(
+                          key: const Key('tug-retry-round'),
+                          onPressed: _submitting || _serverSyncing
+                              ? null
+                              : _retryRoundAction,
+                          child: const Text('Reintentar guardado'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              if (_serverSyncing || _submitting)
+                const LinearProgressIndicator(key: Key('tug-round-saving')),
               if (_animationInProgress)
                 _ResolvingRoundCard(resolution: _roundResolution!)
               else if (_showRoundFeedback)
@@ -496,7 +780,9 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage>
                   playerResponseMilliseconds: _playerResponseMilliseconds,
                   cpuTurn: _cpuTurn!,
                   isMatchPoint: _pendingWinner != null,
-                  onContinue: _continueAfterRound,
+                  onContinue: _submitting || _retryRoundAction != null
+                      ? null
+                      : _continueAfterRound,
                 )
               else ...[
                 if (!_roundReady) ...[
@@ -525,17 +811,27 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage>
                         !_roundReady ||
                             _competitionPaused ||
                             _playerFinished ||
-                            _submitting
+                            _submitting ||
+                            _serverSyncing ||
+                            _retryRoundAction != null ||
+                            _deadlineReached
                         ? null
                         : () => _answer(option.id),
                     style: OutlinedButton.styleFrom(
                       alignment: Alignment.centerLeft,
                       minimumSize: const Size.fromHeight(52),
+                      padding: const EdgeInsets.all(16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
                       backgroundColor: _selectedAnswerId == option.id
                           ? Theme.of(context).colorScheme.primaryContainer
                           : null,
                     ),
-                    child: Text(option.text),
+                    child: AcademicOptionContent(
+                      text: option.text,
+                      imageUrl: option.imageUrl,
+                    ),
                   ),
                   const SizedBox(height: 8),
                 ],
@@ -594,10 +890,23 @@ class _TugOfWarPageState extends ConsumerState<TugOfWarPage>
     } finally {
       if (mounted) {
         setState(() => _dialogOpen = false);
-        _syncCompetitionPause();
+        if (leave != true) _syncCompetitionPause();
       }
     }
-    if (leave == true && mounted) context.pop();
+    if (leave == true && mounted) {
+      try {
+        final repository = _repository;
+        if (repository is TugLocalRepository) {
+          await repository.abandon(_session!.attemptId);
+        }
+        if (mounted) context.pop();
+      } on Object catch (error) {
+        if (mounted) {
+          _showMessage(_errorMessage(error));
+          _syncCompetitionPause();
+        }
+      }
+    }
   }
 }
 
@@ -773,7 +1082,7 @@ class _RoundFeedback extends StatelessWidget {
   final int? playerResponseMilliseconds;
   final TugCpuTurn cpuTurn;
   final bool isMatchPoint;
-  final VoidCallback onContinue;
+  final VoidCallback? onContinue;
 
   @override
   Widget build(BuildContext context) => Semantics(

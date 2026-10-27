@@ -1,15 +1,74 @@
 # Índice de documentación de SaberPlus
 
+- **Entrada del21 para el nuevo compañero de C2:** [relevo operativo completo](RELEVO_C5_C2.md)
+  y [acta de pruebas C2-D](C5C2D_VALIDACION_LOCAL.md). No es el frente OV-1.
+
+**21 de octubre — [C5-C2-C validada automáticamente](C5C2C_CONSUMIDORES.md):**
+contratos/snapshots y Flutter incorporan imágenes opcionales sin cambiar XP ni
+romper JSON antiguo.969 Flutter aprobadas/16 opt-in omitidas,128 suites/1.675
+backend y44/44 PostgreSQL/HTTP;70 migraciones temporales, ninguna nueva de C2-C.
+**Sigue C2-D:0/8 guiones humanos propuestos**, con Docker/USB al preparar la sesión.
+Activación apagada por defecto; sin nuevo ensayo Android ni despliegue. C1 conserva5/5.
+Entrega C2-C/relevo: app `e833d6b`, backend `cfba7cd`.
+Deuda ESLint previa:27 incidencias verificadas en HEAD, descritas en el acta.
+Integrada en main local: app `f912880`/backend `09c763b`; sin push nuevo ni cambios OV-1.
+
+- **20 de octubre, continuación vigente:** [C5 — archivos](C5_ARCHIVOS.md).
+  A y [B panel](C5B_PANEL.md) validadas:23/23 PostgreSQL/HTTP, recorrido Chromium
+  y69 migraciones temporales. Sigue C Flutter/consumidores y D integración/operación.
+  Rama `feat/c5-archivos-base`, sin integración en main ni despliegue.
+
+- [Auditoría documental e integración del19](AUDITORIA_DOCUMENTAL_2026_10_19.md):
+  fuentes vigentes, correcciones, orden restante y actualización para compañeros.
+
+- **19 de octubre, entrada vigente:** [R4 integrada y regresiones](MA1R_R4_VALIDACION_LOCAL.md),
+  [checkpoint de reportes](MA1R_REPORTES_PREGUNTAS.md).12/12 humanos y45/45 HTTP/SQL;
+  Flutter920/13 opt-in omitidas, backend121/1567 tras fix de concurrencia, ADMIN109 y build/análisis aprobados.
+  Remate Android confirmado y R4 cerrada localmente, integrada en main por PR app #6/API #9
+  (21757a1/eef0d40), CI backend del PR aprobado. Sigue preparación C5; QA-1 Flutter remoto pendiente,
+  sin producción.
+  Entradas anteriores inferiores históricas; no repetir pruebas ya documentadas.
+
+- [MA-1R-UX1 — Ocultar de mi lista y Deshacer cinco segundos](MA1R_UX1_OCULTAR_DESHACER.md):
+  propuesta posterior a R4, sin implementación ni eliminación del reporte ADMIN.
+
+- **18 de octubre, MA-1R/R3:** [App/panel y pruebas](MA1R_R3_APP_PANEL.md),
+  [reportes académicos: checkpoint y siguiente R4](MA1R_REPORTES_PREGUNTAS.md).
+  R1/flujo autorizados; backend local121 suites/1.560 aprobadas y build correcto.
+  R3 local:32 dirigidas Flutter/109 ADMIN aprobadas. SQL sin aplicar; R4 integración pendiente.
+
+**17 de octubre, entrada vigente:** [C4 código institucional](PR_I5_C4_CODIGO.md):
+10/10 guiones integrados locales cubiertos, Android+19 HTTP/SQL (no10 solo manuales).
+APK corregida instalada; regresión893 aprobadas/13 opt-in omitidas.
+[Cierre institucional local consolidado](CIERRE_INSTITUCIONES_LOCAL.md): evidencia,
+observaciones y commits app6bab6be/API7ba93d7/lockbfce42e integrados a main
+por PR app #5/API #8; CI backend PR/main y análisis/102 dirigidas Flutter aprobados,
+sin despliegue. [Etapas ordenadas y auditoría del 17](ESTADO_Y_ORDEN_2026_10_17.md):
+MA-1R/R2 local implementada/probada; OV-1 en curso con el compañero, sin entrega nueva
+verificada aquí. La auditoría inicial fue documental; la entrega posterior ejecutó
+las comprobaciones indicadas. No se repitieron ensayos físicos/SQL ni893 globales.
+[C3C10/10 humanos locales cerrado](PR_I5_C3_SOLICITUDES.md). Notas inferiores del15
+son antecedentes; no acreditan despliegue ni ordenan repetir C3.
+
+**15 de octubre:** [C3 solicitudes: contrato, estado y siguiente prueba C3C](PR_I5_C3_SOLICITUDES.md).
+C3A/B implementadas; backend37 nuevas/1.411 regresión/14 HTTP/SQL y Flutter27
+dirigidas aprobadas. Sin validación Android C3 ni despliegue remoto.
+
+**14 de octubre:** [C2C validada localmente:6/6 HTTP/SQL y8/8 humanos](PR_I5_C2_LOGO.md).
+Siguiente del propietario: solicitudes estudiantiles/avisos/código institucional.
+Observaciones de captura original/CI y límites en acta; no acredita producción.
+Las notas inferiores del12 y13 describen estados anteriores.
+
 - [Auditoría documental del 13 de octubre](AUDITORIA_DOCUMENTAL_2026_10_13.md).
 - [Checkpoint OV-1 del compañero](CHECKPOINT_OV1.md).
 - [Checkpoint C2C del propietario](PR_I5_C2_LOGO.md#checkpoint-del-propietario).
 
-**Trabajo paralelo acordado:** propietario → instituciones (sigue C2C);
+**Trabajo paralelo acordado:** propietario → instituciones (siguen solicitudes tras C2C local);
 compañero → test vocacional OV-1 (comienza A, después B/C/D), sin esperar C2C.
 Ver [responsables, ramas y entrega](TRABAJO_PARALELO.md). Este acuerdo sustituye
 la secuencia estricta de OV-1 y el trabajo individual directo en main.
 
-## Continuación vigente — 12 de octubre de 2026
+## Antecedente — 12 de octubre de 2026
 
 **Siguiente: PR-I5-C2C, ensayo integrado del logo institucional.**
 C2A/backend y C2B/Flutter implementadas: 79 pruebas backend y 45 Flutter

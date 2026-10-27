@@ -2,6 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
+import 'package:saber_plus/app/theme.dart';
+import 'package:saber_plus/core/widgets/academic_image.dart';
+import 'package:saber_plus/core/widgets/academic_option_content.dart';
 import 'package:saber_plus/features/academic/domain/academic_models.dart';
 import 'package:saber_plus/features/battles/data/demo_battle_repository.dart';
 import 'package:saber_plus/features/battles/data/remote_battle_repository.dart';
@@ -145,6 +149,209 @@ void main() {
     expect(find.text('No has jugado'), findsNothing);
   });
 
+  for (final width in [320.0, 360.0, 412.0]) {
+    testWidgets(
+      'configura invitación sin desbordar a ${width}px con tema real',
+      (tester) async {
+        await tester.binding.setSurfaceSize(Size(width, 900));
+        addTearDown(() => tester.binding.setSurfaceSize(null));
+        await tester.pumpWidget(
+          ProviderScope(
+            overrides: [
+              battleRepositoryProvider.overrideWithValue(
+                DemoBattleRepository(),
+              ),
+            ],
+            child: MaterialApp(
+              theme: SaberPlusTheme.light,
+              home: const AsyncBattlesPage(),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+        final create = find.byKey(const Key('create-private-invitation'));
+        await tester.ensureVisible(create);
+        await tester.tap(create);
+        await tester.pumpAndSettle();
+        expect(find.text('Crear invitación'), findsOneWidget);
+        expect(tester.takeException(), isNull);
+        final mode = find.byKey(const Key('battle-mode-selector'));
+        await tester.tap(mode);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Duelo relámpago').last);
+        await tester.pumpAndSettle();
+        expect(
+          tester.state<FormFieldState<BattleMode>>(mode).value,
+          BattleMode.lightningDuel,
+        );
+        expect(tester.takeException(), isNull);
+        final area = find.byKey(const Key('battle-area-selector'));
+        await tester.tap(area);
+        await tester.pumpAndSettle();
+        final social = AcademicArea.values.firstWhere(
+          (a) => a.backendValue == 'SOCIALES_CIUDADANAS',
+        );
+        await tester.tap(find.text(social.label).last);
+        await tester.pumpAndSettle();
+        expect(tester.state<FormFieldState<AcademicArea?>>(area).value, social);
+        expect(tester.takeException(), isNull);
+        await tester.tap(find.widgetWithText(TextButton, 'Cancelar'));
+        await tester.pumpAndSettle();
+        expect(find.byType(AlertDialog), findsNothing);
+      },
+    );
+  }
+
+  for (final submit in [false, true]) {
+    testWidgets(
+      'cierra ingreso de código sin errores al ${submit ? 'unirse' : 'cancelar'}',
+      (tester) async {
+        final repository = _JoinableBattleRepository();
+        final router = GoRouter(
+          routes: [
+            GoRoute(path: '/', builder: (_, _) => const AsyncBattlesPage()),
+            GoRoute(
+              path: '/student/practice/battles/:id',
+              builder: (_, state) =>
+                  BattleDetailPage(battleId: state.pathParameters['id']!),
+            ),
+          ],
+        );
+        addTearDown(router.dispose);
+        await tester.pumpWidget(
+          ProviderScope(
+            overrides: [battleRepositoryProvider.overrideWithValue(repository)],
+            child: MaterialApp.router(
+              routerConfig: router,
+              theme: SaberPlusTheme.light,
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+        final join = find.byKey(const Key('join-private-invitation'));
+        await tester.ensureVisible(join);
+        await tester.tap(join);
+        await tester.pumpAndSettle();
+        await tester.enterText(
+          find.byKey(const Key('battle-invitation-code')),
+          'SABER234',
+        );
+        if (submit) {
+          await tester.tap(find.byKey(const Key('confirm-join-battle')));
+        } else {
+          await tester.tap(find.widgetWithText(TextButton, 'Cancelar'));
+        }
+        // Exercise the closing animation while the TextField is still mounted.
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 50));
+        expect(tester.takeException(), isNull);
+        await tester.pumpAndSettle();
+        expect(tester.takeException(), isNull);
+        expect(find.byType(AlertDialog), findsNothing);
+        expect(repository.joinedCode, submit ? 'SABER234' : null);
+        if (submit) {
+          expect(find.text('Tu rival ya está listo'), findsOneWidget);
+        } else {
+          expect(
+            find.byKey(const Key('join-private-invitation')),
+            findsOneWidget,
+          );
+        }
+      },
+    );
+  }
+
+  for (final illustrated in [false, true]) {
+    for (final correct in [false, true]) {
+      testWidgets(
+        'revisión ${correct ? 'correcta' : 'incorrecta'} conserva opciones ${illustrated ? 'ilustradas' : 'antiguas'}',
+        (tester) async {
+          const blueImage =
+              '/recursos/editoriales/11111111-1111-4111-8111-111111111111';
+          const orangeImage =
+              '/recursos/editoriales/22222222-2222-4222-8222-222222222222';
+          final detail = BattleDetail(
+            summary: BattleSummary.fromJson({
+              ..._summary(),
+              'estado': 'FINALIZADA',
+              'resultado': correct ? 'VICTORIA' : 'DERROTA',
+            }),
+            totalQuestions: 1,
+            startedAt: DateTime(2026),
+            finishedAt: DateTime(2026, 1, 2),
+            badges: const [],
+            questions: [
+              BattleQuestion(
+                id: 'figures',
+                statement: 'Compara los rectángulos',
+                ownAnswerId: correct ? 'blue' : 'orange',
+                correctAnswerId: 'blue',
+                isCorrect: correct,
+                explanation: 'El ancho azul es el doble de su altura.',
+                options: [
+                  BattleAnswerOption(
+                    id: 'blue',
+                    text: 'Rectángulo azul horizontal',
+                    imageUrl: illustrated ? blueImage : null,
+                  ),
+                  BattleAnswerOption(
+                    id: 'orange',
+                    text: 'Rectángulo naranja vertical',
+                    imageUrl: illustrated ? orangeImage : null,
+                  ),
+                ],
+              ),
+            ],
+          );
+          await tester.pumpWidget(
+            ProviderScope(
+              overrides: [
+                battleDetailProvider(
+                  'review',
+                ).overrideWith((ref) async => detail),
+              ],
+              child: const MaterialApp(
+                home: BattleDetailPage(battleId: 'review'),
+              ),
+            ),
+          );
+          await tester.pumpAndSettle();
+          expect(
+            find.text(
+              'Tu respuesta: ${correct ? 'Rectángulo azul horizontal' : 'Rectángulo naranja vertical'}',
+            ),
+            findsOneWidget,
+          );
+          expect(
+            find.text('El ancho azul es el doble de su altura.'),
+            findsOneWidget,
+          );
+          if (!correct) {
+            expect(
+              find.text('Respuesta correcta: Rectángulo azul horizontal'),
+              findsOneWidget,
+            );
+          }
+          if (illustrated) {
+            final contents = tester
+                .widgetList<AcademicOptionContent>(
+                  find.byType(AcademicOptionContent),
+                )
+                .toList();
+            expect(
+              contents.map((c) => c.imageUrl),
+              correct ? [blueImage] : [orangeImage, blueImage],
+            );
+          } else {
+            expect(find.byType(AcademicImage), findsNothing);
+          }
+          expect(tester.takeException(), isNull);
+          await tester.pumpWidget(const SizedBox());
+        },
+      );
+    }
+  }
+
   testWidgets('responde una batalla y solo entonces muestra la revisión', (
     tester,
   ) async {
@@ -249,6 +456,15 @@ Map<String, dynamic> _detail() => {
   'preguntas': <Map<String, dynamic>>[],
   'insigniasDesbloqueadas': <Map<String, dynamic>>[],
 };
+
+class _JoinableBattleRepository extends DemoBattleRepository {
+  String? joinedCode;
+  @override
+  Future<BattleDetail> joinInvitation(String code) async {
+    joinedCode = code;
+    return create(mode: BattleMode.ghostRace);
+  }
+}
 
 const _privacy = {
   'identidadesProtegidas': true,

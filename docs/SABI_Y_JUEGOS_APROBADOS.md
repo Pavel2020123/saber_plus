@@ -13,11 +13,13 @@ Sabi ni interpretar la pausa como cancelación de su diseño.
 de Salto a la cima, sin despliegue; JN-1C cliente remoto ya está implementado.
 JN-2A reglas/demo de Rescate de estrellas implementada el 19 de septiembre;
 JN-2B backend implementado localmente el 23 de septiembre y JN-2C Flutter remoto el 24.
-Falta despliegue/ensayo real de los juegos vigentes. Las entregas históricas JN-4A/B/C
+Los ensayos locales de Cima/Guardián/Rescate están registrados en sus actas IC1;
+faltan despliegue/ensayo de staging según sus límites. Las entregas históricas JN-4A/B/C
 de Escudo fueron retiradas; no queda su motor por desplegar.
-MA-1 cobertura básica implementada localmente; reportes académicos pendientes.
-MA-2A/B/C y MA-3A/B/C implementadas localmente; sigue PR-I1.
-MA-1 conserva pendientes de reportes; MA-2/3 esperan ensayo real. G-SABI-1B conserva
+MA-1 cobertura y reportes MA-1R/R1–R4 cerrados localmente e integrados en main
+por PR app #6/API #9; falta staging/operación. PR-I1 ya está integrado.
+MA-2A/B/C y MA-3A/B/C implementadas localmente, esperan ensayo real.
+Ruta actual: [preparación local C5](ESTADO_Y_ORDEN_2026_10_17.md). G-SABI-1B conserva
 su muestra vectorial, sin aprobación artística ni integración en partidas reales.
 P5 y la conexión real D3 quedan pendientes y pausadas por decisión del usuario;
 estas ampliaciones no las sustituyen. [Duelo fantasma animado](SABI_DUELO_FANTASMA.md)
@@ -36,11 +38,11 @@ Integrar PR-I1–6 antes del arte final; su ensayo real se coordina con P5/D3.
    listos. Migración/despliegue y ensayo real pendientes. Arte al final.
 3. **JN-4 — Escudo del conocimiento:** retirado el 27 de septiembre; no desarrollar ni animar.
 4. **MA-1 — Cobertura del banco:** [base local implementada](COBERTURA_DEL_BANCO.md);
-   faltan reportes académicos y revisión visual/ensayo real.
+   reportes y recorrido visual local completados e integrados; falta staging/operación.
 5. **MA-2 — Mapa de aprendizaje:** [MA-2A reglas/backend local listo](MAPA_APRENDIZAJE.md);
-   MA-2B/C y MA-3 implementadas localmente; sigue PR-I1. Orientación sin bloqueos.
+   MA-2B/C y MA-3 implementadas localmente; ensayo real pendiente. Orientación sin bloqueos.
 6. **MA-3 — Repaso diferido:** reglas, agenda y sincronización locales listas;
-   falta ensayo real. Sigue PR-I1 según la ruta de ETAPAS_PENDIENTES.
+   falta ensayo real. PR-I1 ya integrado; seguir la ruta vigente de ETAPAS_PENDIENTES.
 7. **Arte/animación final:** Sabi compartido, Fantasma, Tira y afloja, Guardián y
    juegos nuevos; revisar accesibilidad, movimiento reducido y rendimiento.
 

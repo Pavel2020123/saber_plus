@@ -66,6 +66,7 @@ class DemoPracticeRepository implements PracticeRepository {
                   (option) => PracticeReviewOption(
                     id: option.id,
                     text: option.text,
+                    imageUrl: option.imageUrl,
                     isCorrect: option.id == correctId,
                   ),
                 )

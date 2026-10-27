@@ -1,6 +1,128 @@
 # Relevo de pruebas locales — Docker, Android USB y juegos
 
-**Trabajo paralelo acordado:** propietario → instituciones (sigue C2C);
+**21 de octubre — entrada vigente:** un nuevo compañero sustituye al propietario
+en C5-C2; NO es el responsable de OV-1. Seguir [RELEVO_C5_C2](RELEVO_C5_C2.md)
+y [acta C2-D](C5C2D_VALIDACION_LOCAL.md). Ocho bloques humanos pendientes,
+incluidos cinco subcasos D8a–e; Docker, usuarios/clave temporal, USB y pasos
+exactos en esa guía. No reutilizar las sesiones ni órdenes históricas inferiores.
+
+**19 de octubre — continuar aquí, no en los guiones históricos:** [R4 reportes](MA1R_R4_VALIDACION_LOCAL.md),
+12/12 humanos y45/45 HTTP/PostgreSQL aprobados; backend121/1567 tras fix de concurrencia, Flutter920/13 opt-in
+omitidas, ADMIN109/build/análisis. Remate Android confirmado: R4 cerrada localmente,
+integrada en main por PR app #6/API #9 (21757a1/eef0d40); CI backend del PR aprobado,
+QA-1 Flutter remoto pendiente. Sigue preparación local C5.
+No repetir12 ni juegos/instituciones por defecto. Sesiones
+anteriores/bases automáticas limpiadas, remate en otra temporal; no asumir claves
+válidas ni servicios activos. Comando
+técnico independiente en backend: `npm run test:question-reports:postgres` (Docker
+local, sin celular/URL externa). OV-1 separado; sin despliegue/migraciones remotas.
+
+**Consolidación posterior completada:** [cierre técnico local](CIERRE_INSTITUCIONES_LOCAL.md)
+con Flutter893/13 opt-in omitidas, backend119 suites/1.470, panel95/95 y TypeScript/
+análisis correctos. Commits app6bab6be/API7ba93d7/lockbfce42e integrados a main por
+PR app #5/API #8. CI backend PR/main aprobado; Flutter analyze/102 dirigidas aprobados.
+Sin nuevos ensayos físicos/SQL. [Orden posterior](ESTADO_Y_ORDEN_2026_10_17.md):
+MA-1R/R1–R3 locales; [acta app/panel](MA1R_R3_APP_PANEL.md), sigue R4;
+OV-1 sigue con el compañero. Sin push automático ni
+nuevos gestos Android obligatorios.
+No usar los siguientes pasos de notas históricas para repetir ensayos. Observaciones
+JPEG original y CI Linux/Node/npm fijados siguen abiertas, sin operación remota.
+
+**Checkpoint vigente:** C4-C10/10 guiones integrados cubiertos, Android+19 HTTP/SQL
+finales, no10 pruebas solo manuales. Permisos/códigos/replay/traslado finales aprobados,
+snapshot sin cambios y código alternativo sintético retirado. Regresión global Flutter
+final893 aprobadas/13 opt-in omitidas, análisis limpio; consolidación y commits ya creados.
+No hay siguiente gesto Android obligatorio de C4 ahora. No repetir fixtures.
+USB/API restaurados, institución APROBADA/límite original null. Sesión6fFUQb.
+Código del archivo privado inicial ya era antiguo al cerrar. No asumir que la
+contraseña, servicios o sesión siguen válidos al retomar.
+Notas cronológicas inferiores conservan estados anteriores; no son el paso vigente.
+
+**Histórico de guion7 (cerrado arriba):** propietario confirmó fallo de renovación y controles bloqueados.
+**ReverseUSB43187 restaurado/API200**. Verificador `unchanged`: revisión1/misma
+operación/auditoría1; intento offline no renovó. Sigue Consultar código vigente
+y después mismo reintento. Baseline en tmp; no generar nueva operación ni contar
+corte como ack perdido. Falta comprobar incremento único tras reintento humano.
+
+**Último checkpoint del17:** en sesión6fFUQb, zero confirmó ingreso tras cancelar:
+vínculo visible, sin grupo automático. Cotejo SQL solo lectura aprobado: ESTUDIANTE,
+institución esperada, una solicitud CANCELADA/revisión1, un recibo/auditoría coincidente,
+cero grupos/membresías docentes. C4-C:5/10 completos (1,3,4,5,8). Usuario confirmó
+cupo agotado y consulta suspendida; ambos cotejos sin ingreso de absent. Cierre/reapertura con vínculo conservado y sin
+entrada institucional por código; persistencia de guion10 aprobada parcialmente.
+Usuario confirmó perfil público sin código privado ni copiar/generar/renovar:
+guion3 completo. Absent confirmó rechazo de formato grupo y UUID de ejemplo.
+**Restauración completada:** institución APROBADA, límite original null, ocupado1;
+absent sin vínculo/recibos/auditoría. No quedan suspensión ni cupo reducido activos.
+Usuario confirmó vista previa recuperada y fallo de red: reenvío bloqueado,
+ambos botones de consulta habilitados. **ReverseUSB43187 restaurado**, API200;
+SQL aprobó absent sin vínculo/recibos/auditoría. Sigue pulsar Consultar mi vínculo
+antes de reintentar. Corte antes de POST, no ack perdido. Guion10 parcial.
+No generar nuevos códigos ni solicitudes.
+
+**Actualización posterior de red:** usuario confirmó consulta de vínculo, reintento
+y vínculo/sin grupo. SQL posterior: absent ESTUDIANTE, cero solicitudes, un recibo/
+evento de ingreso, cero grupos/membresías docentes. No hay duplicados observados.
+Sigue cerrar sesión y entrar con student sin vínculo: no debe heredar institución,
+código ni intento. Guion9 parcial (faltan replay/traslado), guion10 parcial (cuentas/
+texto). Controles de cupo para absent sin vínculo ya no aplican; no reejecutarlos.
+No repetir preparación ni generar códigos sobre esta sesión ya utilizada.
+
+**Reanudación posterior del17:** sesión actual `saberplus-i2-local-6fFUQb`,66
+migraciones; API43187/panel4173 responden200 y enlace USB activo. APK del segundo
+fix confirmada instalada (lastUpdateTime17 de octubre00:16:19), sin reinstalar.
+Sesión mR98b6 ya retirada. Fixtures sintéticos reconstruidos: zero sin vínculo,
+solicitud PENDIENTE y código nuevo; datos privados en `c4-return-private.json` de
+la sesión actual. No se conserva el intento en memoria de la app anterior.
+Sigue iniciar sesión nueva y reproducir rechazo→solicitudes→cancelar→volver→
+reintentar; la recuperación de acciones ya fue aprobada en sesión anterior,
+pero el ingreso posterior a cancelación aún no. No registrar preparación como prueba.
+
+**17 de octubre — sesión acotada:** `saberplus-i2-local-mR98b6`,66 migraciones,
+APK corregida ya instalada (confirmado paquete Android). Zero tiene solicitud
+inicialmente PENDIENTE sintética y código nuevo; datos privados en
+`c4-return-private.json` de esa sesión, no reutilizar los del16 ni sesiones caducadas.
+Tras cancelar/volver, usuario confirmó actualización y Reintentar mismo ingreso:
+comprobación puntual aprobada. No pulsó el reintento; guion8 sigue parcial.
+Trabajo finalizado por hoy. Retomar servicios y reintento tras cancelación mañana;
+si caduca base, reconstruir fixtures sin atribuir preparación como prueba humana.
+Ver acta C4 para alcance y pendientes. No iniciar otros guiones en este cierre.
+
+**Hallazgo posterior del17:** usuario confirmó bloqueo del botón de solicitudes
+tras rechazo por pendiente. Segundo fix Flutter permite abrir solicitudes aun
+cuando falta reconciliar ingreso, manteniendo bloqueo de reenvío y consulta al
+retornar.93/93 dirigidas y analyze limpio. Nueva APK compilada e instalada por USB
+(`Success`,17 de octubre); usuario confirmó recuperación de acciones al volver.
+No confundir primera APK del16 con este segundo fix.
+
+**16 de octubre:** C4-A/B implementados, resultados finales en [acta C4](PR_I5_C4_CODIGO.md).
+Preparación C4-C completada: sesión temporal `saberplus-i2-local-gJ5KOg`,66 migraciones,
+fixtures sintéticos y APK C4-B aislada instalada por USB (`Success`). Casos humanos2/10
+completos (1 y4),2,3,5,6,7 y8 parciales. Ingreso visible confirmado y conservado al actualizar;
+renovación rechaza código anterior y acepta consulta del nuevo. Faltan cotejos y escenarios
+descritos en acta. `zero@example.invalid` canceló su solicitud; al volver reportó
+ayuda confusa de pendiente. Fix Flutter validado46 C4+46 regresiones y analyze limpio;
+sigue instalar APK corregida y repetir vuelta desde solicitudes canceladas sin ingreso
+automático. No crear otra solicitud ni cerrar guion8 sin confirmación humana.
+Detalle y límites de evidencia en acta C4.
+No usar APK C3 para acreditar C4. La base temporal C4-A fue retirada tras16 HTTP/SQL y14 C3 posteriores;
+no reutilizar credenciales. No repetir C3C10/10 ni juegos por prompts inferiores.
+OV-1 sigue independiente, commits institucionales aún pendientes.
+
+**15 de octubre: siguiente ensayo del propietario C3C — solicitudes estudiantiles.**
+Ver [acta C3](PR_I5_C3_SOLICITUDES.md). Backend y pantallas implementados;
+no hay confirmación humana C3 todavía. Validar sesión temporal nueva/65 migraciones,
+preparar propietario/lector/alumnos ficticios y APK actual antes de pedir pruebas USB.
+No usar contraseñas caducadas ni repetir juegos/C2C por prompts antiguos.
+OV-1 continúa independiente. No hacer commit hasta nueva indicación del propietario.
+
+**Actualización del14 de octubre:** C2C validada localmente (6/6 HTTP/SQL y8/8
+humanos). Próximo trabajo del propietario: solicitudes estudiantiles/avisos/código
+institucional. Leer cierre y observaciones en [acta C2](PR_I5_C2_LOGO.md).
+Las instrucciones específicas C2C inferiores se conservan como guion histórico;
+no repetirlo por defecto. El compañero mantiene su frente OV-1.
+
+**Trabajo paralelo acordado:** propietario → instituciones (sigue C3C);
 compañero → test vocacional OV-1 (comienza A, después B/C/D), sin esperar C2C.
 Ver [responsables, ramas y entrega](TRABAJO_PARALELO.md). Este acuerdo sustituye
 la secuencia estricta de OV-1 y el trabajo individual directo en main.
@@ -88,7 +210,7 @@ separados, no repetir batería.
 |---|---|---|
 | Cima, IC-1A/A2 | [Acta](IC1_CIMA.md): victoria real local +100, OFF, recuperación, red/reintento, no duplicación y normal sin XP | No repetir salvo cambio relacionado/regresión concreta |
 | Guardián, IC-1B1/B2 | [Acta](IC1_GUARDIAN.md): victoria +100, derrota con 3 aciertos +30, abandono −10, balance final120; normal sin evento, recuperación/red/ranking | No repetir salvo cambio relacionado; evidencia pertenece a aquella sesión |
-| Rescate, IC-1C | 62 tests Flutter/32 backend; Android/API/SQL aprobados: victoria100 única, recuperación/red/reintento, normal sin evento, agotamiento2 estrellas/+20, abandono−10 por intento y contraste100→90→80. Supervisor12 tests/CI y runtime | [Acta](IC1_RESCATE.md); commits/cierre operativo y después instituciones; no repetir batería |
+| Rescate, IC-1C | 62 tests Flutter/32 backend; Android/API/SQL aprobados: victoria100 única, recuperación/red/reintento, normal sin evento, agotamiento2 estrellas/+20, abandono−10 por intento y contraste100→90→80. Supervisor12 tests/CI y runtime | [Acta](IC1_RESCATE.md); guardado autorizado el10 de octubre. Instituciones posterior ya tiene cierre local; I2-5/QA-1 operativo separado. No repetir batería |
 | Trivia | Competición aplazada fuera del bloque inicial V1 | [Contrato](TRIVIA_RUSH_BACKEND_CONTRACT.md); conservar modo normal |
 | Duelo fantasma | Competición aplazada fuera del bloque inicial V1 | [Base](GHOST_DUEL.md); conservar modo normal |
 | Tira y afloja | Competición aplazada fuera del bloque inicial V1 | [Contrato](TUG_OF_WAR_BACKEND_CONTRACT.md); al retomarlo probar dos participantes reales |
@@ -328,25 +450,37 @@ solo reverse `43187`. Confirmar limpieza; si supervisor fue matado, no asumirla.
 No `docker system prune`, no borrar repos/carpetas amplias. No cerrar el entorno
 antes de guardar evidencia ni tocar el del compañero. El siguiente PC crea otro.
 
-## 8. Prompt del propietario — instituciones
+## 8. Prompt vigente del propietario — después de instituciones y reportes
 
 El compañero de OV-1 usa el prompt de TRABAJO_PARALELO.md, no este.
 
 ```text
-Soy el propietario. Continúa instituciones, PR-I5-C2C, desde
-docs/PR_I5_C2_LOGO.md, checkpoint del propietario. Mi compañero hace OV-1;
-no edites su módulo ni CHECKPOINT_OV1.md. Lee TRABAJO_PARALELO.md y AGENTS.
-Verifica ambos repositorios, cambios y rama feat/instituciones-c2c.
-Código C2A/B listo; seis casos SQL/HTTP y ocho Android siguen pendientes.
-No declarar migración aplicada ni APK instalada sin comprobarlo.
-Prepara sesión local nueva según el acta: Docker Linux, backend compilado,
-fixtures C1 y script del logo. No usar .env/Supabase/Render ni secretos anteriores.
-Para Android pide USB de datos, depuración/autorización y pantalla desbloqueada.
-Verifica dispositivo, reverse y APK de ensayo .i2validation sin reemplazar la habitual.
-Prueba un caso cada vez y registra resultado automático/HTTP/SQL/humano por separado
-en el acta del logo, incluso si se interrumpe. No cambiar juegos/XP/flags para C2C.
-Consolida roadmap general al entregar un bloque; no después de cada caso.
-Preserva permisos, presentación, concurrencia, privacidad y evidencias anteriores.
-No push/merge/despliegue automático. Al finalizar entrega rutas, cambios, pruebas,
-límites y siguiente paso; coordina archivos compartidos con el compañero.
+Soy el propietario. Instituciones T/C1-C4 y reportes MA-1R/R1–R4 tienen cierre
+local y están integrados en main. Lee CIERRE_INSTITUCIONES_LOCAL.md,
+ESTADO_Y_ORDEN_2026_10_17.md, ETAPAS_PENDIENTES.md y los AGENTS aplicables.
+Verifica ambos repositorios, status/rama/HEAD; no fuerces pull ni descartes cambios.
+Instituciones: PR app #5/API #8 (e679c50/388bb18). Reportes: PR app #6/API #9
+(21757a1/eef0d40), CI backend aprobado. Verifica el HEAD actual y crea una rama
+para el siguiente bloque desde main actualizado, preservando cambios locales.
+No hagas push/merge adicional ni despliegue sin autorización.
+No repitas C2/C3/C4 ni reportes R1–R4 por las instrucciones históricas.
+Mi compañero continúa OV-1: no edites su módulo ni CHECKPOINT_OV1.md.
+Lee las actas MA1R_R4_VALIDACION_LOCAL.md de ambos repositorios:12/12 humanos,
+45/45 HTTP/PostgreSQL,121 suites/1567 backend,920 Flutter/13 opt-in omitidas,
+109 ADMIN y build/análisis aprobados. SQL solo en bases temporales.
+El siguiente bloque recomendado es C5: auditar los recursos/fotos/archivos existentes,
+definir permisos, límites, metadatos y persistencia; no reconstruir el logo C2.
+Antes de implementar, confirmar el alcance de C5 con el propietario. Proveedor,
+credenciales y operaciones remotas requieren autorización; no inventar carga real.
+UX1 Ocultar/Deshacer sigue propuesta separada. P5/D3 y QA-1 conservan sus pendientes.
+Coordina schema/migraciones/app.module/navegación/locks antes de tocar archivos
+compartidos. Documentar cada resultado real del nuevo bloque en su acta.
+No necesitas servicios para auditar documentos/contratos; avisar antes de ejecutar
+la integración con DB o pedir el celular para el recorrido físico.
+Cuando toque un ensayo real usa base local desechable y cuentas ficticias;
+verifica servicios, USB de datos/depuración/pantalla desbloqueada y APK aislada.
+No reutilices secretos/sesiones viejas ni operes Supabase/Render por este prompt.
+Registra pruebas automáticas, HTTP/SQL y gestos humanos por separado.
+Consolida roadmap al entregar el bloque, conserva actas históricas y entrega
+rutas, resultados, límites, pendientes y comandos Git solo según autorización.
 ```

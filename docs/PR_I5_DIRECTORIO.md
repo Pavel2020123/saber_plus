@@ -1,8 +1,12 @@
 # PR-I5 — Instituciones: checkpoint de implementación
 
-Actualizado: 11 de octubre de 2026. **Contrato vigente T4:** filtros por nombre,
+Actualizado: 17 de octubre de 2026. **Contrato vigente T4:** filtros por nombre,
 departamento y municipio; lista/detalle incluyen ubicación oficial opcional.
-T5 ya fue validado localmente; sigue [C2C, logo institucional](PR_I5_C2_LOGO.md). Los apartados PR-I5A/B
+T5, C1/C2/C3 y C4-C ya tienen cobertura local y consolidación integrada a main
+por PR app #5/API #8. [Acta C4 y evidencia mixta](PR_I5_C4_CODIGO.md).
+Actualización del19: MA-1R posterior también integrada (PR app #6/API #9);
+sigue preparación C5 según [orden vigente](ESTADO_Y_ORDEN_2026_10_17.md), sin despliegue.
+Los apartados PR-I5A/B
 conservan su alcance histórico anterior a T4, no limitan el contrato actual.
 
 Rescate IC-1C quedó validado localmente; commits `df53768` (app) y `3fdf699`
@@ -116,4 +120,5 @@ Leer primero [ETAPAS_PENDIENTES](ETAPAS_PENDIENTES.md) y descargar ambos repos.
 No reiniciar la batería de Rescate ni asumir servicios vivos desde su acta.
 Las pruebas Jest usan dobles de base de datos; el script local posterior usa
 PostgreSQL real y el recorrido físico tiene confirmación del usuario. Mantener
-esas evidencias separadas. Siguiente del propietario: PR-I5-C2C. Compañero: OV-1A en paralelo.
+esas evidencias separadas. En ese checkpoint seguía C2C; ya fue cerrada después,
+según consolidación superior. Compañero OV-1 continúa en paralelo.
