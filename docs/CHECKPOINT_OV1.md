@@ -544,3 +544,260 @@ Esta aprobación no acredita iOS, producción, validación científica ni revisi
 editorial especializada completa. TalkBack completo, orientación horizontal y
 pérdida de red no se comprobaron en esta revisión y permanecen pendientes.
 OV-1D3 completo continúa abierto.
+
+## OV-1D3C — preparación de cierre técnico y validación Android
+
+26 de octubre de 2026. **Preparación técnica automatizada completada en local;
+OV-1D3 y OV-1D permanecen abiertos a validación humana/externa.**
+Flutter: `feat/orientacion-vocacional`, HEAD inicial y final
+`7409129fad1fe386f3a4fa7e2429f686a4934243`, igual al remoto propio observado.
+Backend, solo inspección Git: misma rama, HEAD
+`7a97a9dae25cabca8015459a1d82cbfb422cfbad`. Ambos árboles estaban limpios.
+No se levantaron Backend, PostgreSQL ni el runner de demo.
+
+### Auditoría e inventario antes de modificar
+
+Se inspeccionaron las actas OV-1, TRABAJO_PARALELO, la página y sus métodos
+`_load`, `_save`, `_finish`, `_openHistory`, `_moreHistory`, `_openAttempt`,
+`_delete`; providers, contrato/modelos/repositorio remoto, ApiClient y
+AuthInterceptor; overview, galería, ilustración y sus pruebas OV-1/Sabi.
+La orientación académica y el prototipo Sabi de juegos no se mezclan con OV-1.
+
+A = cobertura automática existente; B = parcial; C = sin cobertura pero
+automatizable; D = requiere comprobación humana real. La tabla siguiente resume
+el inventario de los 37 puntos. Existe además evidencia local no versionada de
+la ejecución D3C; no forma parte de los archivos disponibles en el repositorio.
+
+| Clasificación inicial | Puntos y evidencia | Resultado D3C |
+| --- | --- | --- |
+| A | Introducción, inicio/reanudación, confirmación, fallo de guardado/reintento, última confirmada, carga/reintento, cobertura insuficiente, finalización, resultados/empates/seis índices, historial/completados/eliminación, demo, texto 200 %, pantalla pequeña, temas, semántica, UUID no visibles, targets, scroll, autoridad Backend y payloads. Pruebas existentes conservadas. | Se volvieron a ejecutar, sin duplicar su cobertura exacta. |
+| B | Puntos 4/5: petición realmente pendiente y bloqueo; 9: errores y recuperación; 18: activo abierto desde historial; 20: respuesta tardía tras cambiar cuenta; 24: landscape del flujo completo; 35: Dio y timeouts de las operaciones. | Once pruebas nuevas: nueve en orientación y dos de rotación; cobertura automática A para los casos definidos. |
+| C | No se identificó un punto completamente descubierto: los huecos eran parciales B. | No se añadió funcionalidad ni un motor nuevo. |
+| D | Dispositivo Android/TalkBack, foco/gestos reales, rotación y pérdida de red reales; iOS/editorial/piloto. | Sin ejecución humana nueva en D3C. |
+
+No se demostró un defecto de runtime que requiriera modificarlo. Solo cambiaron
+los dos archivos de pruebas y estas dos actas. Se conservaron reglas,
+autoridad servidor, scoring, HTTP, persistencia, navegación y arte Sabi.
+
+### Automático ejecutado
+
+SDK utilizado: Flutter 3.47.0 y Dart correspondiente al mismo SDK.
+Comandos sin rutas personales, ejecutados desde la raíz del repositorio:
+
+```text
+flutter.bat test --no-pub test/vocational_orientation_test.dart test/vocational_orientation_accessibility_test.dart test/vocational_result_test.dart test/sabi_profession_gallery_test.dart test/sabi_vocational_prototypes_test.dart --reporter expanded
+dart.bat format test/vocational_orientation_test.dart test/vocational_orientation_accessibility_test.dart
+flutter.bat analyze --no-pub test/vocational_orientation_test.dart test/vocational_orientation_accessibility_test.dart
+flutter.bat test --no-pub --reporter expanded
+git diff --check
+```
+
+| Suite dirigida | PASS | FAIL | SKIP |
+| --- | ---: | ---: | ---: |
+| `vocational_orientation_test.dart` | 27 | 0 | 0 |
+| `vocational_orientation_accessibility_test.dart` | 8 | 0 | 0 |
+| `vocational_result_test.dart` | 9 | 0 | 1 |
+| `sabi_profession_gallery_test.dart` | 4 | 0 | 1 |
+| `sabi_vocational_prototypes_test.dart` | 27 | 0 | 1 |
+| **Dirigidas, ~11 s** | **75** | **0** | **3** |
+| **Global, ~110 s** | **877** | **0** | **16** |
+
+Los tres SKIP dirigidos son capturas opt-in, no ejecutadas. Los 16 SKIP globales
+incluyen esos tres y trece pruebas que requieren variables/harness explícitos
+(AUTH_E2E, ranking local I2-5, instituciones C1, staging y Rescate local).
+No acreditan integración real ni se cuentan como PASS. No se regeneraron
+capturas. Analyze final: sin incidencias (~7,4 s). Formato aplicado a los dos
+Dart; diff check PASS. Los conteos globales y dirigidos son ejecuciones separadas,
+no deben sumarse como pruebas únicas.
+
+Las pruebas nuevas usan `Completer` para mantener el guardado sin resolver y
+verificar el bloqueo, sin esperas reales; comprueban respuesta tardía tras cambio
+de cuenta, timeout al consultar el intento, finalización fallida con respuestas
+intactas, paginación sin saltar página tras fallo, apertura activa y error/reintento
+de apertura/borrado. Tres interceptores Dio prueban connectionError,
+connectionTimeout y receiveTimeout en las ocho operaciones, sin red real.
+Dos widget tests rotan 320×640 a 640×320 con texto 200 %, claro/oscuro,
+conservan respuesta/progreso y recorren resultado, puntajes, historial y galería
+con controles utilizables y sin excepciones de overflow. No equivalen a TalkBack
+ni a rotación física. El repositorio en memoria no demuestra persistencia real.
+
+Fallos intermedios: primera ejecución ampliada, 25 PASS / 2 FAIL / 0 SKIP.
+Ambos fallos eran búsquedas del harness (encabezado del historial fuera del
+viewport construido y clave inexistente del botón de historial en resultado).
+Se corrigieron las búsquedas, manteniendo las aserciones; reintento: 35 PASS /
+0 FAIL / 0 SKIP en las dos suites afectadas. Analyze inicial señaló cinco avisos
+de llaves en el doble de prueba; se corrigieron exclusivamente con
+`dart.bat fix --apply --code=curly_braces_in_flow_control_structures test/vocational_orientation_test.dart`.
+La suite global validó después el código final formateado. Logs locales en
+`build/ov1-d3c-{first-tests,retry-tests,directed,analyze,global}.log`, ignorados.
+
+### Humano ejecutado y pendiente
+
+**Ninguna prueba humana nueva ejecutada en D3C.** Se conserva la aprobación
+histórica D3B de capturas/Android para la demo; no acredita los casos nuevos.
+Checklist pendiente en Samsung físico con cuenta/entorno de prueba autorizados:
+
+- [ ] Entrar en «Explora tus intereses» e iniciar/continuar con TalkBack.
+- [ ] Escuchar «Pregunta X de 30», recorrer opciones y «Respuesta confirmada».
+- [ ] Observar pendiente si el entorno lo permite; comprobar bloqueo, aviso,
+  error/reintento y conservación de la última confirmada.
+- [ ] Comprobar pérdida de red y recuperación reales sin falsa confirmación.
+- [ ] Finalizar y recorrer familias, índices, cobertura, explicaciones y Sabi.
+- [ ] Abrir historial, abrir un intento y eliminar un intento de prueba.
+- [ ] Recorrer galería y anterior/siguiente; comprobar imagen anunciada una vez.
+- [ ] Confirmar ausencia de UUID anunciados y orden lógico de foco/gestos.
+- [ ] Rotar físicamente durante cuestionario/resultado/historial y comprobar
+  texto grande, scroll, controles y conservación del estado.
+
+Pendiente externo: iOS real en entorno Apple; revisión editorial especializada;
+piloto previo a publicación. No se atribuyen validación científica, producción,
+publicación ni cierre global OV-1. La integración real Flutter/Backend/PostgreSQL
+se reserva al checkpoint posterior autorizado. No se modificaron dependencias,
+configuración, router, assets, Backend, instituciones ni competición. Sin git add,
+commit, push, merge, rebase, deploy ni acceso a base remota.
+
+
+## OV-1D3D — validación humana Android y PostgreSQL local real
+
+Acta documental del 27 de octubre de 2026, basada en la evidencia de ejecución
+aportada por el propietario para la sesión D3D. Esta edición no repite pruebas
+ni inicia servicios. Rama `feat/orientacion-vocacional`, HEAD base
+`7409129fad1fe386f3a4fa7e2429f686a4934243`.
+Las secciones D3C anteriores conservan su estado histórico: sus pendientes
+Android y de integración local se actualizan mediante la evidencia D3D siguiente,
+sin atribuir pruebas humanas a la ejecución automatizada D3C.
+
+### Evidencia automatizada y PostgreSQL real
+
+D3C conserva sus resultados: dirigidas **75 PASS / 0 FAIL / 3 SKIP**;
+global **877 PASS / 0 FAIL / 16 SKIP**; analyze limpio, formato y diff check
+sin errores funcionales. Los avisos LF/CRLF no son fallos. Sus pruebas de
+Completer, bloqueo, confirmación/pendiente, retry, cambio de cuenta, errores Dio
+en ocho operaciones, paginación, rotación simulada, texto 200 %, temas,
+semántica, privacidad, targets y Sabi no equivalen por sí mismas a prueba física.
+
+D3D utilizó PostgreSQL 17 en Docker temporal, aislado y limitado a loopback.
+No utilizó `postgres-local`, Supabase, Render, bases remotas ni producción.
+Desde el backend local se ejecutaron:
+
+```text
+npx prisma migrate deploy
+node --test --test-concurrency=1 test/orientacion-vocacional-postgres.test.cjs
+```
+
+Se encontraron/aplicaron **65 migraciones**, incluida
+`20261014120000_vocational_orientation_v1`. Suite: **9 tests / 9 PASS /
+0 FAIL / 0 SKIP; exit 0**. Cobertura real documentada:
+
+- Aislamiento: B no puede leer, editar, finalizar ni eliminar A, ni verlo en historial;
+  JWT reales teacher/admin no obtienen acceso mediante claim de estudiante.
+- Inicios simultáneos producen un único intento persistido; `NO_SE` persiste;
+  snapshot conserva su contenido tras retry/reinicio y el historial completado es inmutable.
+- Cobertura rechaza 23 respuestas o familia deficiente; corregir permite finalizar
+  con 24 cuando se cumple el mínimo; save/finalize concurrentes no alteran el snapshot final.
+- DB rechaza preguntas desconocidas, valores inválidos y cambios de identidad;
+  HTTP excluye puntajes, versión y propietario enviados por cliente.
+- RLS habilitado y roles públicos sin acceso a las tablas privadas, en esta DB local.
+
+Esto no verifica roles ni RLS productivos. Los fixtures competitivos del harness
+no son evidencia OV-1 ni partidas reales.
+
+### Prueba humana Android real
+
+Samsung SM-A556E, Android 16/API 36; Flutter 3.47.0 y Dart del mismo SDK;
+build debug local. `APP_ENV=dev`, `DEMO_MODE=false`, API y contenido en
+`http://127.0.0.1:43187`, mediante `adb reverse tcp:43187 tcp:43187` hacia
+NestJS real y PostgreSQL temporal. Se utilizó una cuenta sintética local,
+sin registrar contraseñas en esta documentación.
+
+- Flujo normal: login, entrada «Explora tus intereses», introducción, inicio,
+  guardado y cambio de respuesta; salir/reingresar reanuda el mismo intento.
+  Sin overflow funcional observado.
+- Conectividad real: se retiró el bridge con `adb reverse --remove tcp:43187`.
+  La respuesta anterior siguió confirmada; la nueva quedó «Pendiente de guardar»,
+  con error y «Reintentar guardado». No hubo falsa confirmación y navegación/
+  finalización quedaron bloqueadas cuando correspondía. Al restaurar el bridge,
+  retry confirmó la nueva respuesta, comprobada al volver a la pregunta.
+- Cobertura insuficiente: el backend rechazó finalizar con pocas respuestas con
+  «Aún faltan respuestas numéricas suficientes. Puedes volver, completar o
+  corregir y finalizar de nuevo.». No hubo falso resultado; el intento siguió
+  editable y conservó la respuesta confirmada.
+- Finalización válida: **27 respuestas válidas de 30**. Principales, en orden:
+  Negocios, organización y emprendimiento; Salud y ciencias de la vida;
+  Tecnología e ingeniería.
+
+| Familia | Índice observado | Cobertura |
+| --- | ---: | ---: |
+| Tecnología e ingeniería | 70/100 | 5/5 |
+| Salud y ciencias de la vida | 75/100 | 4/5 |
+| Sociedad, derecho y comunicación | 55/100 | 5/5 |
+| Negocios, organización y emprendimiento | 80/100 | 5/5 |
+| Educación, humanidades e idiomas | 45/100 | 5/5 |
+| Creatividad, diseño y entorno | 50/100 | 3/5 |
+
+Se verificaron encabezado, seis familias, índices 0..100 y advertencias:
+intereses declarados, no probabilidad, diagnóstico, aptitud, predicción de éxito
+ni admisión, ni decisión profesional definitiva. Sabi aparece bajo «Un ámbito
+que puedes explorar», con «No es una recomendación de carrera» y controles
+anterior/siguiente funcionales. Sin XP, ranking, recompensas o certificados,
+ni overflow funcional observado. Este caso no prueba empate en el corte del
+tercer lugar: esa regla conserva respaldo automatizado.
+
+Historial: el completado aparece, abre y conserva el resultado final; eliminación
+real con confirmación explícita y actualización del historial. También se creó/
+reanudó un intento activo desde historial.
+
+Rotación física portrait → landscape → portrait: scroll, opciones, controles
+Anterior/Siguiente/Ver resultado y avance entre preguntas utilizables; respuesta
+confirmada conservada, sin overflow funcional observado. Con `font_scale=2.0`
+se comprobaron encabezado, enunciado, opciones, controles, scroll, confirmación
+y navegación. **La barra inferior se vio muy comprimida, pero siguió utilizable
+y accesible.** Se restauró `font_scale=1.0`.
+
+TalkBack real: anuncia Pregunta X de 30 y enunciado, recorre opciones por separado,
+distingue selección, permite cambiarla con doble toque y confirmar; controles
+accesibles y sin UUID internos. Con pérdida real del bridge anuncia pendiente y
+error, permite retry, conserva la respuesta anterior y mantiene foco utilizable;
+restaurar conexión confirma la nueva respuesta. Resultado completo, principales,
+seis familias/puntajes y advertencias recorribles; Sabi se anuncia como una sola
+imagen, controles accesibles y sin nombres internos de assets. Historial,
+apertura del completado y diálogo Cancelar/Eliminar accesibles.
+
+### D3D-F1 — fecha local del historial
+
+La prueba física detectó que el historial podía mostrar el día UTC:
+`2026-10-27T04:05:00Z` corresponde a `2026-10-26 23:05:00 -05:00` en Colombia.
+El fix existente en `lib/features/profile/domain/vocational_orientation.dart`
+cambia únicamente `DateTime.parse(_string(value))` por
+`DateTime.parse(_string(value)).toLocal()`. Conserva el instante y presenta en
+zona local `startedAt`, `updatedAt` y `completedAt` del intento y del resultado.
+
+Regresiones en `test/vocational_orientation_test.dart`, grupo
+`OV-1D3D-F1 local API dates`: conversión UTC a local (`isUtc == false`), mismo
+instante y microsegundos, equivalencia UTC/-05:00, rechazo de diferencia de
+un microsegundo, intento activo sin finalización fabricada y texto/Semantics
+locales del historial. Validación final F1 aportada: **29/29 PASS, exit 0**;
+analyze de dominio y test **0 issues**; diff check **exit 0**.
+No se modificó el fix en esta edición documental. Esta evidencia no afirma una
+revalidación física posterior del límite UTC/local: el cierre específico del
+defecto requiere repetir ese caso en Android o evidencia controlada equivalente.
+La suite global D3C no se presenta como una ejecución posterior a F1.
+
+### Limpieza y límites del cierre
+
+Según la evidencia de cierre del laboratorio: API 43187 sin escucha, ADB reverse
+vacío, `font_scale=1.0`, flutter run y harness terminados, contenedores temporales
+D3D y del harness eliminados. Se preservaron sin tocar
+`saberplus-ov1b-suite-postgres`, `saberplus-ov1b-postgres-test` y `postgres-local`.
+Backend quedó limpio. Esta edición no ejecutó ninguna limpieza adicional.
+
+Queda registrada la validación Android y PostgreSQL local descrita, sin declarar
+cierre global de OV-1D3, OV-1D ni OV-1 para producción. Siguen pendientes:
+
+- iOS físico/entorno Apple real; no se infiere desde Android.
+- Revisión editorial especializada del cuestionario, obligatoria antes de publicar.
+- Piloto con usuarios, obligatorio antes de publicar.
+
+Los índices expresan intereses declarados: no son probabilidad, aptitud ni
+diagnóstico; no predicen éxito, no garantizan admisión y no sustituyen
+orientación profesional. Sin staging, commit, push, merge/rebase ni deploy.

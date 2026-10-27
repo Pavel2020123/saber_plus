@@ -65,7 +65,7 @@ int _integer(Object? value) {
 
 DateTime _date(Object? value) {
   try {
-    return DateTime.parse(_string(value));
+    return DateTime.parse(_string(value)).toLocal();
   } on FormatException {
     throw const FormatException('Fecha OV-1 incompatible.');
   }

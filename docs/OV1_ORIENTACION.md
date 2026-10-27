@@ -471,3 +471,81 @@ demo. iOS, revisión editorial especializada previa a publicación y comprobacio
 Android adicionales (TalkBack completo, orientación horizontal y pérdida de red)
 siguen pendientes. No acredita producción ni validación científica.
 Sin commit, push, merge, rebase ni deploy.
+
+## OV-1D3C — preparación de cierre técnico y validación Android
+
+26 de octubre de 2026. Preparación automática local sobre Flutter HEAD
+`7409129fad1fe386f3a4fa7e2429f686a4934243`, rama
+`feat/orientacion-vocacional`. La auditoría no demostró un defecto que exigiera
+cambiar runtime. Solo se añadieron pruebas y documentación: once pruebas nuevas
+cubren guardado realmente pendiente/bloqueo, completado tardío tras cambiar
+cuenta, errores de carga/finalización/historial/apertura/borrado y reintento,
+Dio sin red y rotación portrait→landscape 640×320 al 200 % en claro/oscuro.
+No cambian reglas, scoring, modelos, HTTP, persistencia, navegación ni Sabi.
+
+**Automático ejecutado:** cinco suites dirigidas, 75 PASS / 0 FAIL / 3 SKIP;
+regresión Flutter global, 877 PASS / 0 FAIL / 16 SKIP. SKIP no son aprobaciones:
+son capturas opt-in y pruebas condicionadas a variables/harness no habilitados.
+Formato aplicado; analyze dirigido sin incidencias; `git diff --check` PASS.
+Los comandos exactos, inventario A/B/C/D, fallos intermedios y evidencia están en
+[el checkpoint D3C](CHECKPOINT_OV1.md#ov-1d3c--preparación-de-cierre-técnico-y-validación-android).
+Existe además evidencia local no versionada de la ejecución D3C, que no forma
+parte de los archivos disponibles en el repositorio.
+
+**Humano ejecutado en D3C: ninguno.** La aprobación histórica D3B de capturas
+y Android para demo se conserva; no acredita TalkBack completo, rotación o
+pérdida de red real. Siguen pendientes Android físico para los casos D3C y su
+checklist TalkBack/foco/errores. Los widget tests no sustituyen esas pruebas.
+No se inició Backend, PostgreSQL ni una nueva integración real; se reserva al
+checkpoint posterior autorizado. iOS real, revisión editorial especializada y
+piloto previo a publicación siguen pendientes externos. **OV-1D3 y OV-1D siguen
+abiertos**: no se declara publicación, producción ni validez científica.
+Sin staging, commit, push, merge, rebase, deploy ni base remota.
+
+
+## OV-1D3D — evidencia Android y PostgreSQL local
+
+Actualización documental del 27 de octubre de 2026 a partir de la ejecución
+aportada por el propietario. El estado D3C anterior se conserva como histórico;
+D3D aporta la prueba humana y la integración local que entonces estaban pendientes.
+No se repitieron pruebas ni se modificaron runtime/tests en esta edición.
+
+- D3C automático: dirigidas **75 PASS / 0 FAIL / 3 SKIP**, global **877 PASS /
+  0 FAIL / 16 SKIP**, analyze limpio. Simulaciones no equivalen a prueba física.
+- PostgreSQL 17 temporal Docker en loopback: **65 migraciones** aplicadas,
+  incluida `20261014120000_vocational_orientation_v1`; suite OV-1 real
+  **9/9 PASS, 0 FAIL, 0 SKIP, exit 0**. Verifica aislamiento/autorización,
+  concurrencia, persistencia/snapshot, cobertura, contratos HTTP y RLS local;
+  no acredita infraestructura productiva ni fixtures competitivos como OV-1.
+- Android Samsung SM-A556E, Android 16/API 36, Flutter 3.47.0, debug dev sin demo,
+  NestJS real por bridge ADB local: login, inicio/reanudación, cambio/guardado,
+  cobertura insuficiente editable, finalización válida, resultado, historial,
+  reapertura y eliminación con confirmación comprobados físicamente.
+- Pérdida/restauración real del bridge: respuesta anterior confirmada, nueva
+  pendiente, error/retry accesible, bloqueo oportuno y recuperación sin falsa
+  confirmación. También probado con TalkBack real y foco utilizable.
+- Rotación física y texto 200 % utilizables, conservando respuestas y sin overflow
+  funcional observado. Barra inferior muy comprimida a 200 %, pero accesible;
+  escala restaurada a 1.0. TalkBack recorrió cuestionario, resultado, familias/
+  puntajes, advertencias, Sabi como imagen única, historial y diálogo de borrado,
+  sin UUID ni nombres internos de assets.
+- Caso finalizado: 27/30 válidas; principales Negocios, Salud y Tecnología.
+  No acredita empate en corte de tercer lugar, respaldado por tests automáticos.
+- D3D-F1: defecto de día UTC detectado físicamente; parser OV-1 convertido con
+  `.toLocal()` sin alterar instantes. Regresiones finales aportadas **29/29 PASS**,
+  analyze dominio/test **0 issues**, diff check **exit 0**. No se declara aún
+  revalidación física posterior del fix en el límite UTC/local.
+
+El [acta D3D](CHECKPOINT_OV1.md#ov-1d3d--validación-humana-android-y-postgresql-local-real)
+conserva comandos, resultados, seis índices/coberturas, detalle humano y limpieza:
+API/harness detenidos, bridge vacío, contenedores temporales eliminados y
+contenedores ajenos preservados; Backend limpio según la evidencia aportada.
+Sin uso de Supabase, Render, bases remotas ni producción.
+
+**OV-1D3, OV-1D y OV-1 no se declaran cerrados globalmente para producción.**
+iOS físico real, revisión editorial especializada y piloto con usuarios siguen
+pendientes; los dos últimos son obligatorios antes de publicación. Los índices
+son intereses declarados, no probabilidad, aptitud ni diagnóstico; no predicen
+éxito, no garantizan admisión ni sustituyen orientación profesional. No se
+incorporan XP, ranking, recompensas o certificados. Sin staging, commit, push,
+merge/rebase ni deploy.

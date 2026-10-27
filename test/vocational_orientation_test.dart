@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -114,6 +116,13 @@ class _MemoryVocationalRepository implements VocationalOrientationRepository {
   bool failNextSave = false;
   bool insufficient = false;
   bool failLoad = false;
+  bool failCurrent = false;
+  bool failFinish = false;
+  bool failOpen = false;
+  bool failDelete = false;
+  int? failHistoryPage;
+  final historyPages = <int>[];
+  Completer<void>? saveGate;
 
   @override
   Future<VocationalQuestionnaire> questionnaire() async {
@@ -130,6 +139,12 @@ class _MemoryVocationalRepository implements VocationalOrientationRepository {
   @override
   Future<VocationalAttempt?> current() async {
     currentCalls++;
+    if (failCurrent) {
+      throw const ApiError(
+        code: 'network_timeout',
+        message: 'Tiempo de espera agotado.',
+      );
+    }
     return active;
   }
 
@@ -152,6 +167,7 @@ class _MemoryVocationalRepository implements VocationalOrientationRepository {
     VocationalAnswer answer,
   ) async {
     saveCalls++;
+    await saveGate?.future;
     if (failNextSave) {
       failNextSave = false;
       throw const ApiError(
@@ -181,6 +197,12 @@ class _MemoryVocationalRepository implements VocationalOrientationRepository {
   @override
   Future<VocationalAttempt> finish(String attemptId) async {
     finishCalls++;
+    if (failFinish) {
+      throw const ApiError(
+        code: 'network_unavailable',
+        message: 'Red no disponible.',
+      );
+    }
     if (insufficient) {
       throw const ApiError(
         code: 'COBERTURA_INSUFICIENTE',
@@ -204,12 +226,19 @@ class _MemoryVocationalRepository implements VocationalOrientationRepository {
 
   @override
   Future<VocationalHistory> history(int page) async {
+    historyPages.add(page);
+    if (failHistoryPage == page) {
+      throw const ApiError(
+        code: 'network_timeout',
+        message: 'Tiempo de espera agotado.',
+      );
+    }
     return VocationalHistory.parse({
       'pagina': page,
       'porPagina': 20,
       'total': stored.length,
       'intentos': [
-        for (final entry in stored.values)
+        for (final entry in stored.values.skip((page - 1) * 20).take(20))
           _attempt(
             id: entry.id,
             completed: entry.completed,
@@ -223,11 +252,24 @@ class _MemoryVocationalRepository implements VocationalOrientationRepository {
   }
 
   @override
-  Future<VocationalAttempt> getAttempt(String attemptId) async =>
-      stored[attemptId]!;
+  Future<VocationalAttempt> getAttempt(String attemptId) async {
+    if (failOpen) {
+      throw const ApiError(
+        code: 'network_unavailable',
+        message: 'Red no disponible.',
+      );
+    }
+    return stored[attemptId]!;
+  }
 
   @override
   Future<void> deleteAttempt(String attemptId) async {
+    if (failDelete) {
+      throw const ApiError(
+        code: 'network_unavailable',
+        message: 'Red no disponible.',
+      );
+    }
     stored.remove(attemptId);
     if (active?.id == attemptId) active = null;
   }
@@ -253,7 +295,7 @@ Future<void> _tapVisible(WidgetTester tester, String key) async {
     await tester.scrollUntilVisible(
       finder,
       250,
-      scrollable: find.byType(Scrollable).last,
+      scrollable: find.byType(Scrollable).first,
     );
   }
   await tester.ensureVisible(finder);
@@ -263,6 +305,92 @@ Future<void> _tapVisible(WidgetTester tester, String key) async {
 }
 
 void main() {
+  group('OV-1D3D-F1 local API dates', () {
+    test(
+      'UTC dates become local without changing instants or terminal validation',
+      () {
+        const started = '2026-10-27T04:00:00.123456Z';
+        const updated = '2026-10-27T04:04:21.654321Z';
+        const completed = '2026-10-27T04:05:00.987654Z';
+        final payload = {
+          ..._attempt(completed: true),
+          'iniciadoEn': started,
+          'actualizadoEn': updated,
+          'completadoEn': completed,
+          'resultado': {..._result(), 'completadoEn': completed},
+        };
+        final attempt = VocationalAttempt.parse(payload);
+        void expectLocalInstant(DateTime actual, String original) {
+          final utc = DateTime.parse(original).toUtc();
+          expect(actual.isUtc, isFalse);
+          expect(actual.isAtSameMomentAs(utc), isTrue);
+          expect(actual.toUtc(), utc);
+          expect(actual.microsecondsSinceEpoch, utc.microsecondsSinceEpoch);
+          expect(actual, utc.toLocal());
+        }
+
+        expectLocalInstant(attempt.startedAt, started);
+        expectLocalInstant(attempt.updatedAt, updated);
+        expectLocalInstant(attempt.completedAt!, completed);
+        expectLocalInstant(attempt.result!.completedAt, completed);
+        expect(attempt.result!.completedAt, attempt.completedAt);
+        final equivalent = VocationalAttempt.parse({
+          ...payload,
+          'resultado': {
+            ..._result(),
+            'completadoEn': '2026-10-26T23:05:00.987654-05:00',
+          },
+        });
+        expect(equivalent.result!.completedAt, equivalent.completedAt);
+        expect(
+          () => VocationalAttempt.parse({
+            ...payload,
+            'resultado': {
+              ..._result(),
+              'completadoEn': '2026-10-27T04:05:00.987655Z',
+            },
+          }),
+          throwsFormatException,
+        );
+        final active = VocationalAttempt.parse({
+          ..._attempt(),
+          'iniciadoEn': started,
+          'actualizadoEn': updated,
+        });
+        expectLocalInstant(active.startedAt, started);
+        expectLocalInstant(active.updatedAt, updated);
+        expect(active.completedAt, isNull);
+        expect(active.result, isNull);
+      },
+    );
+
+    testWidgets('history text and semantics use the local model date', (
+      tester,
+    ) async {
+      final semantics = tester.ensureSemantics();
+      try {
+        final repo = _MemoryVocationalRepository();
+        repo.stored[_id1] = VocationalAttempt.parse(_attempt(completed: true));
+        await tester.pumpWidget(_app(repo));
+        await tester.pumpAndSettle();
+        await _tapVisible(tester, 'vocational-open-history');
+        final local = DateTime.parse(_time).toLocal();
+        final date = '${local.day}/${local.month}/${local.year}';
+        expect(find.text(date), findsOneWidget);
+        expect(
+          find.bySemanticsLabel('Abrir exploración completada del $date'),
+          findsOneWidget,
+        );
+        expect(
+          find.bySemanticsLabel('Eliminar exploración completada del $date'),
+          findsOneWidget,
+        );
+      } finally {
+        semantics.dispose();
+      }
+    });
+  });
+
   group('OV-1B strict contract', () {
     test(
       'questionnaire parses 30 server questions and the exact 0..4 + NO_SE scale',
@@ -926,5 +1054,294 @@ void main() {
       expect(find.byKey(const Key('vocational-intro')), findsOneWidget);
       expect(find.text('Comenzar'), findsOneWidget);
     });
+  });
+  group('OV-1D3C controlled pending requests and recovery', () {
+    testWidgets(
+      'pending save blocks navigation, finish and exit until acknowledged; failure stays unconfirmed',
+      (tester) async {
+        final repo = _MemoryVocationalRepository();
+        await tester.pumpWidget(_app(repo));
+        await tester.pumpAndSettle();
+        await _tapVisible(tester, 'vocational-start');
+        await _tapVisible(tester, 'vocational-answer-little');
+        await _tapVisible(tester, 'vocational-next');
+        final gate = Completer<void>();
+        repo.saveGate = gate;
+        repo.failNextSave = true;
+        final target = find.byKey(const Key('vocational-answer-much'));
+        await tester.ensureVisible(target);
+        await tester.tap(target);
+        await tester
+            .pump(); // Deliberately not pumpAndSettle: the request is outstanding.
+        expect(gate.isCompleted, isFalse);
+        expect(repo.active!.answers, {'T1': VocationalAnswer.little});
+        expect(tester.widget<ListTile>(target).selected, isFalse);
+        for (final key in [
+          'vocational-previous',
+          'vocational-next',
+          'vocational-finish',
+          'vocational-exit',
+        ]) {
+          final button = find.byKey(Key(key));
+          // These controls follow all answer options, so build them without waiting for the spinner.
+          final scrollable = find.byType(Scrollable).first;
+          tester
+              .state<ScrollableState>(scrollable)
+              .position
+              .jumpTo(
+                tester
+                    .state<ScrollableState>(scrollable)
+                    .position
+                    .maxScrollExtent,
+              );
+          await tester.pump();
+          expect(tester.widget<ButtonStyleButton>(button).onPressed, isNull);
+        }
+        expect(repo.finishCalls, 0);
+        gate.complete();
+        await tester.pumpAndSettle();
+        expect(
+          find.textContaining('No se guardó esta respuesta'),
+          findsOneWidget,
+        );
+        expect(repo.active!.answers.containsKey('T2'), isFalse);
+        expect(
+          tester
+              .widget<ButtonStyleButton>(
+                find.byKey(const Key('vocational-finish')),
+              )
+              .onPressed,
+          isNull,
+        );
+        repo.saveGate = null;
+        await _tapVisible(tester, 'vocational-retry-save');
+        expect(repo.active!.answers, {
+          'T1': VocationalAnswer.little,
+          'T2': VocationalAnswer.much,
+        });
+        expect(
+          tester
+              .widget<ButtonStyleButton>(
+                find.byKey(const Key('vocational-finish')),
+              )
+              .onPressed,
+          isNotNull,
+        );
+        expect(repo.finishCalls, 0);
+        expect(tester.takeException(), isNull);
+      },
+    );
+
+    testWidgets(
+      'an old save completion cannot repopulate the UI after account switch',
+      (tester) async {
+        final repo = _MemoryVocationalRepository();
+        await tester.pumpWidget(_app(repo));
+        await tester.pumpAndSettle();
+        await _tapVisible(tester, 'vocational-start');
+        final gate = Completer<void>();
+        repo.saveGate = gate;
+        await tester.tap(find.byKey(const Key('vocational-answer-much')));
+        await tester.pump();
+        final container = ProviderScope.containerOf(
+          tester.element(find.byType(VocationalOrientationPage)),
+        );
+        repo.active = null; // The new account has no active attempt.
+        (container.read(sessionControllerProvider.notifier) as _StudentSession)
+            .switchStudent();
+        await tester.pumpAndSettle();
+        expect(find.byKey(const Key('vocational-intro')), findsOneWidget);
+        gate.complete();
+        await tester.pumpAndSettle();
+        expect(find.byKey(const Key('vocational-questionnaire')), findsNothing);
+        expect(find.byKey(const Key('vocational-result')), findsNothing);
+        expect(
+          find.byKey(const Key('vocational-pending-announcement')),
+          findsNothing,
+        );
+        expect(find.text('Comenzar'), findsOneWidget);
+        expect(tester.takeException(), isNull);
+      },
+    );
+
+    testWidgets(
+      'current-attempt timeout retries the whole load without fabricating an attempt',
+      (tester) async {
+        final repo = _MemoryVocationalRepository()..failCurrent = true;
+        await tester.pumpWidget(_app(repo));
+        await tester.pumpAndSettle();
+        expect(find.text('Tiempo de espera agotado.'), findsOneWidget);
+        expect(repo.startCalls, 0);
+        expect(repo.active, isNull);
+        repo.failCurrent = false;
+        await tester.tap(find.text('Reintentar'));
+        await tester.pumpAndSettle();
+        expect(repo.currentCalls, 2);
+        expect(find.byKey(const Key('vocational-intro')), findsOneWidget);
+        expect(repo.startCalls, 0);
+      },
+    );
+
+    testWidgets(
+      'finish network error preserves confirmed answers and permits an explicit retry',
+      (tester) async {
+        final repo = _MemoryVocationalRepository()..failFinish = true;
+        await tester.pumpWidget(_app(repo));
+        await tester.pumpAndSettle();
+        await _tapVisible(tester, 'vocational-start');
+        await _tapVisible(tester, 'vocational-answer-little');
+        final confirmed = repo.active;
+        await _tapVisible(tester, 'vocational-finish');
+        expect(find.text('Red no disponible.'), findsOneWidget);
+        expect(find.byKey(const Key('vocational-result')), findsNothing);
+        expect(repo.active, same(confirmed));
+        expect(repo.active!.answers['T1'], VocationalAnswer.little);
+        repo.failFinish = false;
+        await _tapVisible(tester, 'vocational-finish');
+        expect(find.byKey(const Key('vocational-result')), findsOneWidget);
+        expect(repo.finishCalls, 2);
+      },
+    );
+
+    testWidgets(
+      'history page timeout preserves page one and retries page two without skipping or duplicates',
+      (tester) async {
+        final repo = _MemoryVocationalRepository()..failHistoryPage = 2;
+        for (var n = 1; n <= 21; n++) {
+          final id = '00000000-0000-4000-8000-${n.toString().padLeft(12, '0')}';
+          repo.stored[id] = VocationalAttempt.parse(_attempt(id: id));
+        }
+        await tester.pumpWidget(_app(repo));
+        await tester.pumpAndSettle();
+        await _tapVisible(tester, 'vocational-open-history');
+        await tester.scrollUntilVisible(
+          find.text('Ver más exploraciones'),
+          400,
+        );
+        await tester.tap(find.text('Ver más exploraciones'));
+        await tester.pumpAndSettle();
+        expect(repo.historyPages, [1, 2]);
+        tester
+            .state<ScrollableState>(find.byType(Scrollable).first)
+            .position
+            .jumpTo(0);
+        await tester.pumpAndSettle();
+        expect(
+          find.text('21 intentos guardados solo para tu cuenta.'),
+          findsOneWidget,
+        );
+        await tester.scrollUntilVisible(
+          find.text('Tiempo de espera agotado.'),
+          400,
+          scrollable: find.byType(Scrollable).first,
+        );
+        expect(find.text('Tiempo de espera agotado.'), findsOneWidget);
+        repo.failHistoryPage = null;
+        await tester.tap(find.text('Ver más exploraciones'));
+        await tester.pumpAndSettle();
+        expect(repo.historyPages, [1, 2, 2]);
+        expect(find.text('Ver más exploraciones'), findsNothing);
+        await _tapVisible(
+          tester,
+          'vocational-history-00000000-0000-4000-8000-000000000021',
+        );
+        expect(
+          find.byKey(const Key('vocational-questionnaire')),
+          findsOneWidget,
+        );
+        expect(find.text('Pregunta 1 de 30'), findsWidgets);
+        expect(repo.startCalls, 0);
+        expect(tester.takeException(), isNull);
+      },
+    );
+
+    testWidgets(
+      'failed opening and deleting a historical attempt do not fabricate success; both retry',
+      (tester) async {
+        final repo = _MemoryVocationalRepository()..failOpen = true;
+        final terminal = VocationalAttempt.parse(_attempt(completed: true));
+        repo.stored[_id1] = terminal;
+        await tester.pumpWidget(_app(repo));
+        await tester.pumpAndSettle();
+        await _tapVisible(tester, 'vocational-open-history');
+        await _tapVisible(tester, 'vocational-history-$_id1');
+        expect(find.byKey(const Key('vocational-history')), findsOneWidget);
+        expect(find.byKey(const Key('vocational-result')), findsNothing);
+        repo.failOpen = false;
+        await _tapVisible(tester, 'vocational-history-$_id1');
+        expect(find.byKey(const Key('vocational-result')), findsOneWidget);
+        expect(repo.stored[_id1], same(terminal));
+        await tester.scrollUntilVisible(
+          find.text('Ver mi historial'),
+          400,
+          scrollable: find.byType(Scrollable).first,
+        );
+        await tester.tap(find.text('Ver mi historial'));
+        await tester.pumpAndSettle();
+        repo.failDelete = true;
+        await _tapVisible(tester, 'vocational-delete-$_id1');
+        await tester.tap(find.text('Eliminar'));
+        await tester.pumpAndSettle();
+        expect(find.text('Red no disponible.'), findsOneWidget);
+        expect(repo.stored[_id1], same(terminal));
+        expect(
+          find.byKey(const Key('vocational-history-$_id1')),
+          findsOneWidget,
+        );
+        repo.failDelete = false;
+        await _tapVisible(tester, 'vocational-delete-$_id1');
+        await tester.tap(find.text('Eliminar'));
+        await tester.pumpAndSettle();
+        expect(repo.stored, isEmpty);
+        expect(find.byKey(const Key('vocational-history-$_id1')), findsNothing);
+      },
+    );
+
+    for (final type in [
+      DioExceptionType.connectionError,
+      DioExceptionType.connectionTimeout,
+      DioExceptionType.receiveTimeout,
+    ]) {
+      test(
+        'repository maps $type for every operation without using a real network',
+        () async {
+          final dio = Dio(BaseOptions(baseUrl: 'https://example.invalid'));
+          addTearDown(() => dio.close(force: true));
+          dio.interceptors.add(
+            InterceptorsWrapper(
+              onRequest: (options, handler) {
+                handler.reject(
+                  DioException(requestOptions: options, type: type),
+                );
+              },
+            ),
+          );
+          final repo = RemoteVocationalOrientationRepository(dio);
+          for (final operation in <Future<Object?> Function()>[
+            repo.questionnaire,
+            repo.current,
+            repo.start,
+            () => repo.saveAnswer(_id1, 'T1', VocationalAnswer.much),
+            () => repo.finish(_id1),
+            () => repo.history(1),
+            () => repo.getAttempt(_id1),
+            () => repo.deleteAttempt(_id1),
+          ]) {
+            await expectLater(
+              operation(),
+              throwsA(
+                isA<ApiError>().having(
+                  (e) => e.code,
+                  'code',
+                  type == DioExceptionType.connectionError
+                      ? 'network_unavailable'
+                      : 'network_timeout',
+                ),
+              ),
+            );
+          }
+        },
+      );
+    }
   });
 }

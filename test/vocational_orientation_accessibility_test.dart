@@ -11,6 +11,7 @@ import 'package:saber_plus/features/auth/presentation/session_controller.dart';
 import 'package:saber_plus/features/profile/domain/vocational_orientation.dart';
 import 'package:saber_plus/features/profile/domain/vocational_orientation_repository.dart';
 import 'package:saber_plus/features/profile/presentation/vocational_orientation_page.dart';
+import 'package:saber_plus/features/profile/presentation/sabi_profession_illustration.dart';
 import 'package:saber_plus/features/profile/presentation/vocational_orientation_providers.dart';
 
 const _id = '00000000-0000-4000-8000-000000000001';
@@ -543,4 +544,93 @@ void main() {
       greaterThanOrEqualTo(48),
     );
   });
+  for (final dark in [false, true]) {
+    testWidgets(
+      'OV-1D3C rotation preserves answers and functional landscape at 200%, dark=$dark',
+      (tester) async {
+        _smallScreen(tester);
+        final semantics = tester.ensureSemantics();
+        try {
+          final repo = _Repository();
+          await tester.pumpWidget(_app(repo, dark: dark));
+          await tester.pumpAndSettle();
+          await _tap(tester, 'vocational-start');
+          await _tap(tester, 'vocational-answer-little');
+          await _tap(tester, 'vocational-next');
+          tester.view.physicalSize = const Size(640, 320);
+          await tester.pumpAndSettle();
+          await _reveal(tester, find.byKey(const Key('vocational-progress')));
+          expect(
+            tester
+                .getSemantics(find.byKey(const Key('vocational-progress')))
+                .label,
+            'Pregunta 2 de 30',
+          );
+          expect(repo.active!.answers['T1'], VocationalAnswer.little);
+          await _tap(tester, 'vocational-answer-unsure');
+          await _tap(tester, 'vocational-finish');
+          expect(find.byKey(const Key('vocational-result')), findsOneWidget);
+          for (final family in vocationalFamilyNames.keys) {
+            await _reveal(tester, find.byKey(Key('vocational-score-$family')));
+            expect(
+              tester
+                  .getSemantics(find.byKey(Key('vocational-score-$family')))
+                  .label,
+              contains(vocationalFamilyNames[family]!),
+            );
+            expect(tester.takeException(), isNull);
+          }
+          await _tap(tester, 'vocational-featured-next');
+          await _tap(tester, 'vocational-featured-previous');
+          await _reveal(tester, find.text('Ver mi historial'));
+          await tester.tap(find.text('Ver mi historial'));
+          await tester.pumpAndSettle();
+          await _reveal(
+            tester,
+            find.byKey(const Key('vocational-history-semantics-$_id')),
+          );
+          final label = tester
+              .getSemantics(
+                find.byKey(const Key('vocational-history-semantics-$_id')),
+              )
+              .label;
+          expect(label, contains('Abrir exploración completada'));
+          expect(label, isNot(contains(_id)));
+          await _tap(tester, 'vocational-history-$_id');
+          expect(find.byKey(const Key('vocational-result')), findsOneWidget);
+          await _tap(tester, 'vocational-repeat');
+          await _tap(tester, 'vocational-exit');
+          await _tap(tester, 'sabi-gallery-toggle');
+          await _tap(tester, 'sabi-gallery-next');
+          final image = find.byType(SabiProfessionIllustration);
+          await _reveal(tester, image);
+          expect(
+            tester
+                .getSemantics(image)
+                .getSemanticsData()
+                .flagsCollection
+                .isImage,
+            isTrue,
+          );
+          expect(tester.getSemantics(image).childrenCount, 0);
+          for (final key in ['sabi-gallery-next', 'sabi-gallery-previous']) {
+            await _reveal(tester, find.byKey(Key(key)));
+            expect(
+              tester.getSize(find.byKey(Key(key))).height,
+              greaterThanOrEqualTo(48),
+            );
+            expect(
+              tester.getSize(find.byKey(Key(key))).width,
+              greaterThanOrEqualTo(48),
+            );
+          }
+          await _tap(tester, 'sabi-gallery-previous');
+          expect(find.text('Ámbito 1 de 12'), findsOneWidget);
+          expect(tester.takeException(), isNull);
+        } finally {
+          semantics.dispose();
+        }
+      },
+    );
+  }
 }
