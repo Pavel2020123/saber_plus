@@ -117,4 +117,3 @@ No copiar a esos módulos el prefijo por longitud de los tres juegos de H2A.
 Mantener flags apagados y avisar antes de necesitar Docker/USB. Al cerrar H2A
 quedaban7 entregas C5 y H2 solo había avanzado parcialmente. El checkpoint
 superior y el acta H2B4 registran el cierre posterior de H2; H3 sigue pendiente.
-

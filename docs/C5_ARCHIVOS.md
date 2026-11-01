@@ -1,5 +1,7 @@
 # C5 — Archivos y recursos persistentes
 
+**31/oct, continuación vigente:** H3 verificada localmente y guardada en Git; [sigue PDF/offline P1](C5_PDF_OFFLINE.md), separando PDF exportable de caché privada. No reiniciar H3 por los checkpoints históricos inferiores. Sin despliegue ni push.
+
 ## Checkpoint vigente — 21 de octubre de 2026
 
 **C5-A/B y C5-C1 validadas localmente.** [C5-C1](C5C_FLUTTER.md) cierra5/5

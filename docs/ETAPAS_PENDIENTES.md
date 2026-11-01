@@ -1,5 +1,7 @@
 # SaberPlus — etapas pendientes y ruta vigente del equipo
 
+**31/oct, continuación pedida por el propietario:** H3 guardada en Git local; [sigue C5 PDF/offline](C5_PDF_OFFLINE.md). P1 backend preparado con pruebas; pendientes P2 integrado/Android y P3 caché privada. Sin push ni despliegue. Esta secuencia posterior prevalece sobre las órdenes históricas de retomar H3 o LIC-0 primero.
+
 **22 de octubre — C5-C2: ENTREGA PARCIAL.** D1–D7 aprobados (7/8), D8a/c/d/e
 aprobados; falta Tira online D8b por segundo cliente. Correcciones locales en
 panel y Flutter, sin cambios de arquitectura, dependencias, migraciones o XP.

@@ -153,4 +153,3 @@ humanos propuestos; avisar antes de necesitar USB. No cerrar toda C5 al pasar H1
 Antes de validar H1 eran8 entregas abiertas; entonces quedaban7. Es un desglose de
 entregas, no siete pruebas ni siete módulos nuevos.
 Conservar el trabajo académico/institucional ya validado. OV-1 no pertenece a C5.
-
