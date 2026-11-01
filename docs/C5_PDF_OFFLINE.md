@@ -1,5 +1,7 @@
 # C5 PDF/offline — continuación después de H3
 
+**Continuación posterior de la jornada:** [P2 integrado y Android USB verificados](C5_PDF_OFFLINE_P2.md):95/95 HTTP/PostgreSQL y14/14 Flutter. Sigue contrato de caché privada P3-A; no repetir P2 por los pendientes iniciales de abajo. Sin despliegue.
+
 31/oct/2026. H3 verificada localmente y guardada en commit `10c965f` de `fix/c5-h3-usb-cierre`. No implica merge a main, push o despliegue. Se aislaron cambios de presentación preexistentes: permanecen en el worktree, sin descartarlos ni incluirlos por accidente.
 
 ## Validación del commit aislado

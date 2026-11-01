@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:saber_plus/core/database/app_database.dart';
+import 'package:saber_plus/core/network/api_error.dart';
 import 'package:saber_plus/features/academic/domain/academic_models.dart';
 import 'package:saber_plus/features/study/data/local_offline_content_repository.dart';
 import 'package:saber_plus/features/study/domain/offline_content_models.dart';
@@ -119,6 +120,52 @@ void main() {
     expect(await repository.findDownload('student-1', theme.id), isNull);
     expect(await repository.watchDownloads('student-1').first, isEmpty);
   });
+
+  test(
+    'una descarga denegada conserva la copia previa y sus metadatos',
+    () async {
+      final download = await repository.downloadTheme(
+        userId: 'student-1',
+        area: AcademicArea.mathematics,
+        theme: theme,
+      );
+      final original = await File(download.localPath).readAsBytes();
+      dio.interceptors.clear();
+      dio.interceptors.add(
+        InterceptorsWrapper(
+          onRequest: (options, handler) {
+            handler.reject(
+              DioException(
+                requestOptions: options,
+                type: DioExceptionType.badResponse,
+                response: Response<List<int>>(
+                  requestOptions: options,
+                  statusCode: 404,
+                  data: 'internal'.codeUnits,
+                ),
+              ),
+            );
+          },
+        ),
+      );
+      await expectLater(
+        repository.downloadTheme(
+          userId: 'student-1',
+          area: AcademicArea.mathematics,
+          theme: theme,
+        ),
+        throwsA(
+          isA<ApiError>().having(
+            (error) => error.code,
+            'code',
+            'pdf_unavailable',
+          ),
+        ),
+      );
+      expect(await File(download.localPath).readAsBytes(), original);
+      expect(await repository.watchDownloads('student-1').first, hasLength(1));
+    },
+  );
 
   test('formatea el espacio usado con unidades legibles', () {
     expect(formatStorageSize(900), '900 B');

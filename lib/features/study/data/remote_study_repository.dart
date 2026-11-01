@@ -8,6 +8,7 @@ import '../../../core/network/api_error.dart';
 import '../../academic/domain/academic_models.dart';
 import '../domain/study_models.dart';
 import '../domain/study_repository.dart';
+import 'study_pdf_error.dart';
 
 typedef DownloadDirectoryProvider = Future<Directory> Function();
 
@@ -82,7 +83,7 @@ class RemoteStudyRepository implements StudyRepository {
       await file.writeAsBytes(bytes, flush: true);
       return DownloadedThemePdf(path: file.path, fileName: fileName);
     } on DioException catch (error) {
-      throw ApiError.fromDioException(error);
+      throw studyPdfError(error);
     } on FileSystemException {
       throw const ApiError(
         code: 'local_storage_error',

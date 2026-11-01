@@ -11,6 +11,7 @@ import '../../academic/domain/academic_models.dart';
 import '../domain/offline_content_models.dart';
 import '../domain/offline_content_repository.dart';
 import '../domain/study_models.dart';
+import 'study_pdf_error.dart';
 
 typedef OfflineDirectoryProvider = Future<Directory> Function();
 
@@ -97,7 +98,7 @@ class LocalOfflineContentRepository implements OfflineContentRepository {
         downloadedAt: downloadedAt,
       );
     } on DioException catch (error) {
-      throw ApiError.fromDioException(error);
+      throw studyPdfError(error);
     } on ApiError {
       rethrow;
     } on FileSystemException {
