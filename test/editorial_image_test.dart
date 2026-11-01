@@ -286,15 +286,25 @@ void main() {
   }
 
   Future<void> finishDecode(WidgetTester tester) async {
-    // Engine codec work completes outside FakeAsync; pump queued Dio/provider
-    // microtasks before allowing the real engine completion to reach the UI.
-    for (var i = 0; i < 10; i++) {
+    // Codec work runs outside FakeAsync. Wait for provider completion, not a
+    // fixed 100 ms window that flakes when the full suite competes for CPU.
+    final container = ProviderScope.containerOf(
+      tester.element(find.byType(AcademicImage)),
+    );
+    final deadline = Stopwatch()..start();
+    while (container.read(editorialImageProvider(path)).isLoading &&
+        deadline.elapsed < const Duration(seconds: 10)) {
       await tester.pump(const Duration(milliseconds: 10));
       await tester.runAsync(
         () => Future<void>.delayed(const Duration(milliseconds: 10)),
       );
     }
     await tester.pumpAndSettle();
+    expect(
+      container.read(editorialImageProvider(path)).isLoading,
+      isFalse,
+      reason: 'La descarga/decodificación no terminó dentro de 10 segundos.',
+    );
   }
 
   testWidgets('imagen privada conserva proporción y no entra en ImageCache', (
@@ -344,6 +354,48 @@ void main() {
     expect(adapter.requests, hasLength(2));
     await tester.pumpWidget(const SizedBox());
   });
+  for (final status in [403, 404, 410]) {
+    testWidgets(
+      'imagen no disponible $status permite volver a consultar sin revelar el motivo',
+      (tester) async {
+        var unavailable = true;
+        final adapter = _Adapter(
+          (_) async => unavailable ? body(status: status) : body(),
+        );
+        await showImage(tester, adapter);
+        await tester.pumpAndSettle();
+        expect(find.byType(RawImage), findsNothing);
+        expect(find.textContaining('no está disponible.'), findsOneWidget);
+        expect(find.text('Consultar imagen de nuevo'), findsOneWidget);
+        unavailable = false;
+        await tester.tap(find.text('Consultar imagen de nuevo'));
+        await finishDecode(tester);
+        expect(find.byType(RawImage), findsOneWidget);
+        expect(adapter.requests, hasLength(2));
+        await tester.pumpWidget(const SizedBox());
+      },
+    );
+  }
+  testWidgets(
+    'revalidar una imagen ya decodificada retira sus píxeles cuando el servidor deniega la lectura',
+    (tester) async {
+      var revoked = false;
+      final adapter = _Adapter(
+        (_) async => revoked ? body(status: 404) : body(),
+      );
+      final container = await showImage(tester, adapter);
+      await finishDecode(tester);
+      expect(find.byType(RawImage), findsOneWidget);
+      revoked = true;
+      container.invalidate(editorialImageProvider);
+      await finishDecode(tester);
+      expect(find.byType(RawImage), findsNothing);
+      expect(find.textContaining('no está disponible.'), findsOneWidget);
+      expect(adapter.requests, hasLength(2));
+      await tester.pumpWidget(const SizedBox());
+    },
+  );
+
   testWidgets('aviso sin recorte cabe en 320 px con texto ampliado', (
     tester,
   ) async {

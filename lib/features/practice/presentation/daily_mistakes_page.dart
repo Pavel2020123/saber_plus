@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/network/api_error.dart';
 import '../../../core/widgets/academic_option_content.dart';
+import '../../../core/widgets/academic_image.dart';
 import '../domain/daily_mistake_review.dart';
 import '../domain/practice_history_models.dart';
 import 'practice_providers.dart';
@@ -42,8 +43,11 @@ class _DailyMistakesPageState extends ConsumerState<DailyMistakesPage> {
   }
 
   Future<void> _refresh() async {
+    ref.invalidate(editorialImageProvider);
     final next = _load();
-    setState(() => _review = next);
+    setState(() {
+      _review = next;
+    });
     final result = await next;
     if (!mounted) return;
     final available = result.mistakes.map((item) => item.questionId).toSet();

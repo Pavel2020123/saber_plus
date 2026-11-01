@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/network/api_error.dart';
 import '../../../core/widgets/academic_option_content.dart';
+import '../../../core/widgets/academic_image.dart';
 import '../../academic/domain/academic_models.dart';
 import '../domain/practice_history_models.dart';
 import 'practice_providers.dart';
@@ -39,10 +40,14 @@ class _PracticeHistoryPageState extends ConsumerState<PracticeHistoryPage> {
       );
 
   void _reloadAnswers() {
-    setState(() => _answerHistory = _loadAnswers());
+    ref.invalidate(editorialImageProvider);
+    setState(() {
+      _answerHistory = _loadAnswers();
+    });
   }
 
   Future<void> _refresh() async {
+    ref.invalidate(editorialImageProvider);
     setState(() {
       _simulationHistory = _loadSimulations();
       _answerHistory = _loadAnswers();

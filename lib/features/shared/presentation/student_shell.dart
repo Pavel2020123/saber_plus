@@ -46,40 +46,59 @@ class _StudentShellState extends ConsumerState<StudentShell>
       mainAxisSize: MainAxisSize.min,
       children: [
         const ExamCountdownBanner(),
-        NavigationBar(
+        StudentNavigationBar(
           selectedIndex: widget.navigationShell.currentIndex,
           onDestinationSelected: (index) => widget.navigationShell.goBranch(
             index,
             initialLocation: index == widget.navigationShell.currentIndex,
           ),
-          destinations: const [
-            NavigationDestination(
-              icon: Icon(Icons.home_outlined),
-              selectedIcon: Icon(Icons.home_rounded),
-              label: 'Inicio',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.menu_book_outlined),
-              selectedIcon: Icon(Icons.menu_book_rounded),
-              label: 'Estudiar',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.quiz_outlined),
-              selectedIcon: Icon(Icons.quiz_rounded),
-              label: 'Practicar',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.insights_outlined),
-              selectedIcon: Icon(Icons.insights_rounded),
-              label: 'Progreso',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.more_horiz_rounded),
-              label: 'Más',
-            ),
-          ],
         ),
       ],
     ),
+  );
+}
+
+class StudentNavigationBar extends StatelessWidget {
+  const StudentNavigationBar({
+    required this.selectedIndex,
+    required this.onDestinationSelected,
+    super.key,
+  });
+
+  final int selectedIndex;
+  final ValueChanged<int> onDestinationSelected;
+
+  @override
+  Widget build(BuildContext context) => NavigationBar(
+    selectedIndex: selectedIndex,
+    onDestinationSelected: onDestinationSelected,
+    // Keep the active name readable without adjacent labels colliding. Hidden
+    // labels retain NavigationDestination semantics and tooltips.
+    labelBehavior: MediaQuery.textScalerOf(context).scale(14) > 16.1
+        ? NavigationDestinationLabelBehavior.onlyShowSelected
+        : NavigationDestinationLabelBehavior.alwaysShow,
+    destinations: const [
+      NavigationDestination(
+        icon: Icon(Icons.home_outlined),
+        selectedIcon: Icon(Icons.home_rounded),
+        label: 'Inicio',
+      ),
+      NavigationDestination(
+        icon: Icon(Icons.menu_book_outlined),
+        selectedIcon: Icon(Icons.menu_book_rounded),
+        label: 'Estudiar',
+      ),
+      NavigationDestination(
+        icon: Icon(Icons.quiz_outlined),
+        selectedIcon: Icon(Icons.quiz_rounded),
+        label: 'Practicar',
+      ),
+      NavigationDestination(
+        icon: Icon(Icons.insights_outlined),
+        selectedIcon: Icon(Icons.insights_rounded),
+        label: 'Progreso',
+      ),
+      NavigationDestination(icon: Icon(Icons.more_horiz_rounded), label: 'Más'),
+    ],
   );
 }

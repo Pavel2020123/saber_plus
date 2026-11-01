@@ -100,9 +100,12 @@ class _AcademicImageState extends ConsumerState<AcademicImage> {
               child: _pixels(RawImage(image: image, fit: BoxFit.contain)),
             ),
             loading: () => const Text('Cargando imagen…'),
-            error: (_, _) => _failure(() {
-              ref.invalidate(editorialImageProvider(reference.path));
-            }),
+            error: (error, _) => _failure(
+              () => ref.invalidate(editorialImageProvider(reference.path)),
+              unavailable:
+                  error is DioException &&
+                  [403, 404, 410].contains(error.response?.statusCode),
+            ),
           );
     }
     final config = ref.watch(appConfigProvider);
@@ -147,13 +150,20 @@ class _AcademicImageState extends ConsumerState<AcademicImage> {
           );
   }
 
-  Widget _failure(VoidCallback onRetry) => Column(
+  Widget _failure(VoidCallback onRetry, {bool unavailable = false}) => Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
-        '${widget.label}: no se pudo cargar. Reintenta antes de responder; puedes salir y retomar la actividad.',
+        unavailable
+            ? '${widget.label}: no está disponible. Si la necesitas para comprender la pregunta, no respondas todavía; puedes salir y retomar la actividad.'
+            : '${widget.label}: no se pudo cargar. Reintenta antes de responder; puedes salir y retomar la actividad.',
       ),
-      TextButton(onPressed: onRetry, child: const Text('Reintentar imagen')),
+      TextButton(
+        onPressed: onRetry,
+        child: Text(
+          unavailable ? 'Consultar imagen de nuevo' : 'Reintentar imagen',
+        ),
+      ),
     ],
   );
 }

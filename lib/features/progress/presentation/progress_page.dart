@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/widgets/academic_image.dart';
 
 import '../../../app/theme.dart';
 import '../../../core/network/api_error.dart';
@@ -42,13 +43,19 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
       .loadNotebook(NotebookFilter(area: _area, status: _status));
 
   void _reloadAll() {
+    ref.invalidate(editorialImageProvider);
     setState(() {
       _dashboard = _loadDashboard();
       _notebook = _loadNotebook();
     });
   }
 
-  void _reloadNotebook() => setState(() => _notebook = _loadNotebook());
+  void _reloadNotebook() {
+    ref.invalidate(editorialImageProvider);
+    setState(() {
+      _notebook = _loadNotebook();
+    });
+  }
 
   @override
   Widget build(BuildContext context) => DefaultTabController(
