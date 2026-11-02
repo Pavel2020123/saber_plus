@@ -37,7 +37,15 @@ Resultados confirmados: **98/98 SQL/HTTP/PostgreSQL** (incluido navegador Chromi
 
 **Android USB: cinco escenarios aprobados**, no seis: el contador adicional del runner corresponde a `tearDownAll`. Validación HTTP real con JWT, imagen gestionada, fallo real de conexión a puerto local sin listener, lectura cifrada aún válida, revocación ADMIN por API y retirada del texto/paquete; inspección de ciphertext sin texto claro, alteración del archivo, copia a otro contexto, aislamiento de cuenta/contexto, rechazo de arranque ajeno/ancla futura, borrado por contexto/cuenta y nueva clave después del borrado. No se modificó la hora del celular ni se esperaron72h: las fronteras temporales y reinicio simulado se prueban con muestras controladas; no equivalen a un reinicio físico cronometrado.
 
-La APK de integración contiene únicamente credenciales sintéticas temporales: no se distribuye ni se confunde con el APK normal. Al finalizar se recompila el entrypoint normal con configuración pública y se reinstala solo `com.example.saber_plus.i2validation`; la app normal permanece intacta. Quedan por registrar las unidades Kotlin y la reinstalación final.
+**Kotlin nativo:7/7** (`PrivateOfflineLeaseTest`), XML con cero errores/fallos y Gradle `BUILD SUCCESSFUL`: límite exacto72h, último milisegundo, arranque distinto, retroceso, ancla negativa y uptime extremo. `JAVA_HOME` se configuró solo para ese comando con el JBR ya instalado. Las advertencias de plugins/Kotlin existentes no se corrigieron fuera de alcance.
+
+Commit de implementación app `72a8a5f`, backend `931f3ad` y opt-in del runner `4de83aa`, solo locales. La misma selección44/44 Flutter se repitió en worktree limpio de `72a8a5f`, sin cambios de presentación ajenos. El build y los ensayos USB corresponden al worktree de desarrollo, no se presentan como APK de un checkout limpio.
+
+La APK de integración contiene únicamente credenciales sintéticas temporales: no se distribuye ni se confunde con el APK normal. **Cierre confirmado:** recompilado el entrypoint normal con configuración pública, build debug226s, identificador/etiqueta comprobados con `aapt`, kernel inspeccionado sin contraseña sintética ni marcador del test, `adb install -r` Success solo en `com.example.saber_plus.i2validation`. La app normal permanece intacta. Attach/hot reload aprobados y DTD sin errores de runtime. Se cerró solo la API auxiliar43188 y se retiró ese reverse; continúa43187→43187 con el servicio original de la sesión y su caducidad propia.
+
+Para probar nuevamente el incremento con la app normal de pruebas hay que montar el backend actual con el opt-in P3: la API original de esta sesión se inició antes de este código y no se actualizó en caliente. El runner ya admite `SABERPLUS_C5_PRIVATE_OFFLINE_LOCAL=true` para una sesión nueva; no confundir reinstalar Flutter con actualizar Nest. No queda un backend de producción activado.
+
+**Objetivo C5-P3 cerrado localmente** con estas evidencias. No equivale al cierre completo de C5 ni a habilitación comercial. Los logs de compilación/tests están en `.tmp` y el acta versionada registra resultados sin contraseñas, JWT ni bases externas.
 
 ## Límites de esta entrega
 
