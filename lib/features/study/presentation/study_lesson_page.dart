@@ -21,6 +21,8 @@ import '../../resume/data/drift_learning_resume_repository.dart';
 import '../../resume/domain/learning_resume_models.dart';
 import '../domain/study_models.dart';
 import 'study_providers.dart';
+import '../../../core/media/private_lesson_cache.dart';
+import 'private_lesson_page.dart';
 import 'learning_map_card.dart';
 
 class StudyLessonPage extends ConsumerStatefulWidget {
@@ -179,7 +181,22 @@ class _StudyLessonPageState extends ConsumerState<StudyLessonPage> {
             .valueOrNull ??
         false;
     return Scaffold(
-      appBar: AppBar(title: const Text('Lección')),
+      appBar: AppBar(
+        title: const Text('Lección'),
+        actions: [
+          if (ref.watch(privateOfflineEnabledProvider))
+            IconButton(
+              tooltip: 'Leer copia privada de 72 horas',
+              icon: const Icon(Icons.offline_pin_outlined),
+              onPressed: () => Navigator.of(context).push<void>(
+                MaterialPageRoute(
+                  builder: (_) =>
+                      PrivateLessonPage(contextId: widget.subtopicId),
+                ),
+              ),
+            ),
+        ],
+      ),
       body: catalog.when(
         data: (value) {
           final theme = value.findTheme(widget.themeId);

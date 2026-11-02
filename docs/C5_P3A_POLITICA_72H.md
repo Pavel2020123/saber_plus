@@ -1,5 +1,7 @@
 # C5-P3-A — política de acceso privado de 72 horas
 
+**Continuación:** [implementación C5-P3 y validación integrada](C5_P3_CACHE_PRIVADA.md). El estado sin caché descrito abajo corresponde a la base P3-A, no a la implementación posterior.
+
 1/nov/2026. Decisión explícita del propietario:72 horas desde validación exitosa con backend; al vencer, revalidar; revocación/suspensión confirmada bloquea inmediatamente. PDF exportados excluidos. Reloj manual no puede extender el plazo y contenido local debe protegerse.
 
 ## Implementación acotada de esta entrega
