@@ -1,5 +1,13 @@
 # C5-D — integración y operación de archivos editoriales
 
+## Actualización vigente · 2/nov/2026
+
+El texto de auditoría que sigue describe la base del 1/nov, no el estado final. El adaptador Supabase privado ya está implementado y se ensayó con Storage oficial ejecutado localmente: los logs anteriores registran 99/99 casos integrados y cinco escenarios Android. Hay recuperación de bytes con identidad/hash exactos, respaldo local, auditoría paginada de metadatos y limpieza restringida a retirados sin revocación. No se añadieron endpoints públicos ni se activó producción.
+
+Se retomaron API y panel con una base temporal nueva el 2/nov: login sintético HTTP201, panel HTTP200, USB autorizada y reverse43187. La batería repetida incluyendo copia local → Supabase pasó 99/99; regresión editorial 242/242 y CLI7/7. La reinstalación del APK normal de pruebas terminó con `Success` y se lanzó sin modificar la app principal. El espacio disponible ya no es el bloqueo de 1,4GB registrado abajo. Los cinco escenarios Android sobre Supabase corresponden al 1/nov y no se atribuyen al reinicio del 2/nov.
+
+La política privada de 72 horas y los PDF exportados siguen separados. [Operación, límites e instrucciones de recuperación](<../../../SaberPlus-Backend/backend/docs/C5_D_OPERACION_LOCAL.md>). El inventario se basa en PostgreSQL, no lista objetos huérfanos del bucket, y no los elimina. Implementación y evidencia locales consolidadas en backend `5c2d58e` y `fbdbb6d`; [entrega preparada para revisión por PR](<../../../SaberPlus-Backend/backend/docs/C5_D_ENTREGA_PR.md>). Esto cierra el objetivo local editorial, no producción ni C5 global. No se hizo push, merge ni despliegue.
+
 1/nov/2026. Objetivo activo solicitado por el propietario después del cierre local de [C5-P3](C5_P3_CACHE_PRIVADA.md). Este documento no acredita implementación, pruebas ni activación del proveedor persistente.
 
 ## Auditoría inicial confirmada
