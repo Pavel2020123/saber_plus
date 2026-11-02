@@ -20,10 +20,12 @@
 
 ## Fronteras y decisiones
 
-Pendiente de respuesta: confirmar Supabase Storage privado como proveedor de implementación o indicar el proveedor elegido. La elección afecta el adaptador, protocolo y ensayo integrado; no sustituirla por una implementación distinta sin confirmación.
+Proveedor confirmado por el propietario el1/nov/2026: **Supabase Storage privado**, con implementación y pruebas locales. La confirmación resuelve la dependencia anterior, pero no autoriza buckets remotos, gastos, credenciales reales ni despliegue. Se retoma el objetivo completo, no se considera terminado por resolver esta elección.
 
 Autorización de este objetivo: implementación y pruebas locales; no despliegues, migraciones remotas, gastos, contratación, buckets en cuentas reales, push o merge a main. Las fotos de perfil y evidencias institucionales requieren reglas propias y siguen fuera de este alcance editorial: este objetivo no cierra por sí solo todo C5 global.
 
 Regresión previa al adaptador:13 suites/192 pruebas backend editoriales aprobadas, ninguna omitida. [Auditoría y contratos existentes](<../../../SaberPlus-Backend/backend/docs/C5_D_AUDITORIA_INICIAL.md>). No son pruebas de Supabase ni de persistencia remota.
 
-El objetivo permanece activo, no completado. No hay pruebas nuevas del proveedor ni credenciales remotas verificadas en esta auditoría.
+La elección del proveedor ya está resuelta. [Adaptador Supabase en desarrollo y evidencia local](<../../../SaberPlus-Backend/backend/docs/C5_D_SUPABASE_STORAGE.md>): regresión14 suites/222 pruebas y30 casos dirigidos del adaptador con un doble de API. No equivalen a Supabase real ni a un ensayo Android sobre ese proveedor.
+
+El objetivo no está completado. Para el siguiente ensayo real desechable se solicitó liberar espacio en C:, que quedó cerca de1,4GB tras descargar la imagen oficial. No se borraron archivos personales ni PDFs, no se accedió a credenciales remotas y todavía faltan recuperación/operación y el flujo integrado sobre el nuevo proveedor.
