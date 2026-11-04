@@ -1,6 +1,81 @@
 # SaberPlus — etapas pendientes y ruta vigente del equipo
 
+**3/nov, prevalece:** [LIC-4 cuenta y privacidad](LIC_4_CUENTA_Y_PRIVACIDAD.md),
+sobre LIC-0/1/2/3 locales. Cierre local verificado. Las secuencias
+inferiores se conservan como antecedentes; no adelantar billing ni despliegue.
+Validación Android LIC aprobada: [acta y límites](LIC_ANDROID_VALIDACION.md).
+Siguiente entrega técnica: revisar/guardar en Git cuando el propietario lo solicite.
+
 **31/oct, continuación pedida por el propietario:** H3 guardada en Git local; [sigue C5 PDF/offline](C5_PDF_OFFLINE.md). P1 backend preparado con pruebas; pendientes P2 integrado/Android y P3 caché privada. Sin push ni despliegue. Esta secuencia posterior prevalece sobre las órdenes históricas de retomar H3 o LIC-0 primero.
+
+**Retoma inicial del 31/oct:** [retoma y propuesta #14](RETOMA_DESARROLLO_2026_10_31.md), seguida de [H3 Android USB automatizado](H3_PRUEBAS_USB_2026_10_31.md). Aceptación humana, ESLint, licencias y P5/D3 separados.
+
+**Prioridad vigente desde 26/oct hasta la presentación del 28/oct:**
+[recorrido y alcance para el cliente](PRESENTACION_CLIENTE_2026_10_28.md). Pavel pausó la limpieza
+ESLint y el recorrido técnico de etapas para preparar la experiencia educativa.
+Conservar sus cambios y evidencias; no declararlos terminados. OV-1 sigue con
+su responsable. Las notas técnicas inferiores son antecedentes durante esta pausa.
+
+**Trabajo vigente del 25/oct:** [limpieza de ESLint backend por bloques](LIMPIEZA_ESLINT_BACKEND.md),
+autorizada por Pavel. H3 queda en espera con 1/4 guiones aprobado; H3-2 pendiente
+de regresar a la primera cuenta. No dar H3 ni la limpieza global por terminadas.
+OV-1 continúa independiente; conservar todos los cambios locales anteriores.
+Actualización 26/oct: bloque competitivo L2-B/L3 verificado con 103 pruebas
+dirigidas y ambos proyectos TypeScript aprobados.
+Limpieza parcial: quedan 229 errores/116 advertencias de lint; sigue L2-B/L3.
+
+**Checkpoint vigente — 25/oct:** [H3 preparada y pausa antes de USB](C5_H3_INTEGRACION.md).
+Panel 144/144, sintaxis 29 módulos y Flutter dirigido 39/39. Integración H3
+PostgreSQL/HTTP/Chromium aprobada: 92/92, 78 migraciones solo temporales.
+Sesión humana y APK debug preparadas; Flutter completo: 1.020 aprobadas,
+16 omitidas, cero fallos. APK de pruebas instalada; H3-1 aprobada en Android:
+originales en historial/cuaderno tras edición y archivo, sin XP adicional.
+Humanos 1/4: sigue H3-2, cambio de cuenta. H3 abierta; quedan 6 entregas C5.
+Las entradas fechadas anteriores son antecedentes; OV-1 continúa independiente.
+
+**Siguiente paso del24/oct: H3, preparación visual antes de USB**, tras
+[H2B4 y H2 cerradas localmente](C5_H2B4_FUENTES_MUTABLES.md):92/92 SQL/HTTP,
+78 migraciones solo temporales,178 unitarias editoriales y build. Denegación
+explícita para fuentes sin prueba, sin versionado ficticio. H3 conserva4 guiones
+humanos pendientes; quedan6 entregas C5, sin Android/despliegue nuevos ni cambios OV-1.
+
+**Antecedente H2B3 del24/oct**, tras
+[H2B3 validada localmente](C5_H2B3_BATALLAS.md):87/87 SQL/HTTP,78 migraciones
+temporales y133 suites/1.755 unitarias backend. Entonces quedaba1 parte H2;7 entregas C5.
+Sin Android/despliegue; OV-1 mantiene su frente independiente.
+
+**Antecedente H2B2 del24/oct**, tras
+[H2B2 validada localmente](C5_H2B2_TIRA_ONLINE.md):80/80 SQL/HTTP,77 migraciones
+solo temporales y132 suites/1.744 unitarias backend. Entonces quedaban2 partes H2: Batallas
+y fuentes mutables;7 entregas C5. Sin Android/despliegue; OV-1 independiente.
+
+**Antecedente H2B1 del24/oct**, tras
+[H2B1 validada localmente](C5_H2B1_TRIVIA_LOCAL.md):75/75 SQL/HTTP,76 migraciones
+solo temporales,131 suites/1.735 unitarias backend. Entonces quedaban3 partes H2: Tira online,
+Batallas y fuentes mutables;7 entregas C5. Sin Android, despliegue ni cambios OV-1.
+
+**Antecedente H2A del24/oct**, [validada localmente](C5_H2_SNAPSHOTS.md)
+para Cima/Guardián/Rescate:68/68 SQL/HTTP,75 migraciones únicamente temporales y159
+dirigidas/build. Pendientes otros formatos y fuentes; H2 completa sigue abierta.
+No hay Android/producción nuevos. El total de C5 sigue en7 entregas pendientes.
+
+**24/oct: [C5-H1 cerrada localmente](C5_H1_HISTORIAL_REVOCACION.md).**
+58/58 PostgreSQL/HTTP y74 migraciones únicamente temporales con Docker;150 dirigidas,
+build y Chromium escritorio/390px aprobados. Sin Android ni migración remota.
+C5 conserva7 entregas abiertas, enumeradas en el acta H1; sigue H2, después H3.
+El propietario continúa este bloque y OV-1 mantiene su frente independiente.
+
+**Estado vigente del23/oct: [C5-C2 cerrada localmente y auditada](C5C2_CIERRE_LOCAL.md).**
+D1–D8 y D8a–e cubiertos según actas y límites. Entrega funcional integrada y
+publicada: app PR #10/`44635ae`, backend PR #12/`9c225cb`.
+Los estados/órdenes de ejecución fechados antes de este cierre se conservan como
+antecedentes; no reiniciar C2 ni D8b por esas notas. Sin nuevo ensayo físico,
+Docker o despliegue en los remates C2.
+**Continuación del24/oct:** [H1 cerrada localmente](C5_H1_HISTORIAL_REVOCACION.md),
+58/58 SQL/HTTP con Docker y74 migraciones solo temporales. Sigue H2, luego H3
+y PDF/offline; resto C5 abierto, sin Android/despliegue y OV-1 separado.
+
+## Antecedentes de checkpoints (consultar la ruta vigente más abajo)
 
 **22 de octubre — C5-C2: ENTREGA PARCIAL.** D1–D7 aprobados (7/8), D8a/c/d/e
 aprobados; falta Tira online D8b por segundo cliente. Correcciones locales en
@@ -735,19 +810,22 @@ que deba volver a imponerse al administrador. D3 verifica el flujo simplificado.
 
 ## Ruta vigente del equipo
 
-**Relevo del21:** otro compañero termina C5-C2 en sustitución del propietario,
-sin reasignar OV-1. Leer [guía completa](RELEVO_C5_C2.md) y [acta C2-D](C5C2D_VALIDACION_LOCAL.md).
-Pendientes ocho bloques humanos, con cinco subcasos en D8; no aprobar por tener
-solo tests automáticos. Después continúan los pendientes de C5, no producción
-ni otra etapa por autorización implícita. Estado Git publicado: comprobar README.
+**C5-H1 cerrada localmente24/oct:** [acta y continuación](C5_H1_HISTORIAL_REVOCACION.md).
+Pavel aprobó conservar la imagen original propia salvo revocación;58/58 PostgreSQL/HTTP
+con74 migraciones temporales con Docker,150 dirigidas/build y Chromium aprobados.
+Recursos temporales eliminados; no hubo USB ni SQL remoto. Siguen H2/H3.
+
+**23 de octubre:** propietario retoma C5 tras [cerrar C2 localmente](C5C2_CIERRE_LOCAL.md).
+No reasignar OV-1 ni repetir los ocho bloques/D8a–e por instrucciones antiguas.
+Continuar H2 antes de H3 y PDF/offline; mantener capacidades apagadas
+por defecto y no operar producción por esta implementación local.
 
 Orden vigente por frentes: **propietario: instituciones y MA-1R/R1–R4 integradas
 a main; compañero: OV-1A/B/C/D en paralelo, sin entrega verificada aquí**.
-Bloque actual del propietario: **[C5, archivos editoriales](C5_ARCHIVOS.md)**,
-A/backend, B/panel y C1 online validados localmente; C1 Android5/5 el21.
-Push hasta C2-B confirmado: app `c69a5e9`/backend `e1c4d18`.
-[C2-C validada automáticamente](C5C2C_CONSUMIDORES.md), guardada e integrada en main local;
-sigue C2-D Android,0/8 guiones humanos. Carga apagada por defecto;
+Bloque actual del propietario: **[resto de C5](C5_ARCHIVOS.md)** tras C2 local
+auditada. Entrega funcional publicada en main: app PR#10/`44635ae` y backend
+PR#12/`9c225cb`; remates en fix/c5-c2-cierre-local sin commit/push nuevos.
+Ocho bloques C2 cubiertos dentro del alcance del acta; carga apagada por defecto;
 resto C5-C y D integración/operación abiertos. [Checkpoint de reportes](MA1R_REPORTES_PREGUNTAS.md)
 cerrado localmente e integrado, sin despliegue productivo. UX1 Ocultar/Deshacer
 sigue como entrega opcional separada, no se implementa por cerrar R4.
@@ -790,7 +868,7 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | 7F-C3-D2 — Legado | Herramientas locales; faltan revisión visual y operación de legado autorizada con respaldo. | No borrar ni reclasificar contenido usado; preparar D3. |
 | 7F-C3-D3 — Panel real | Conectar ADMIN a backend vigente y confirmar publicación/persistencia real. | **Pausada**, después de P5 y controles D2. Demo no cierra esta etapa. |
 | 7F-C4 — Catálogo | Versionado, altas/cambios/retiradas, caché y actualización en app preservando progreso/intentos. | Contrato editorial; D3 por sí sola no lo resuelve. |
-| 7F-C5 — Archivos | [A/B/C1 y C2-A/B/C](C5_ARCHIVOS.md) integradas en main local; [C2-C](C5C2C_CONSUMIDORES.md) validada automáticamente:44 integradas,70 migraciones temporales,128/1675 backend y969 Flutter/16 omitidas. Sigue C2-D Android; PDF/offline/histórico/fotos y D abiertos. | Sin push nuevo ni despliegue. Carga por opción apagada por defecto; opt-in solo en ensayo propio. Adaptador development/test; proveedor persistente requiere autorización. |
+| 7F-C5 — Archivos | A/B/C1/C2 y H1/H2 cerradas localmente. [H2B4/cierre H2](C5_H2B4_FUENTES_MUTABLES.md):92/92 SQL/HTTP,78 migraciones temporales,178 unitarias editoriales/build. Funcional C2 en main app44635ae/backend9c225cb; H local sin commit/push nuevos. | Sigue preparar H3 y sus4 guiones humanos, luego PDF/offline. Fotos/evidencias, proveedor persistente y C5-D abiertos;6 entregas abiertas, sin despliegue ni migración remota. |
 | 7F-C6 — Versiones | Auditoría de cambios, versiones y restauración sin reescribir preguntas ya respondidas. | Contratos editoriales y ensayo de recuperación. |
 | 7F-B3-B / 6F-P — Integración | Validar módulos móviles/juegos vigentes, Guardián/Cima/Rescate y multijugador real; diagnosticar audios en teléfono. | Migraciones/despliegue autorizado; no rehacer motores por estar sin desplegar. |
 | Bloque 7 — Identidad/seguridad | Auditar/completar sesión única, revocación/refresh, cuentas ADMIN, eliminación, SMTP/enlaces, contratos y privacidad. | Reutilizar lo existente; separar correcciones por flujo y probar permisos. |
@@ -808,9 +886,10 @@ los 13 bloques históricos contienen subentregas y cierres, y PR-I amplía ese p
 | 9A — Mantenimiento | Responsables, soporte, monitoreo, contenido, costos, seguridad y actualizaciones. | Preparar operación antes de publicar; ejecución continua después. |
 
 **Secuencia inmediata:** instituciones y MA-1R/R1–R4 integradas en main;
-continuar C2-D Android tras [C2-C validada automáticamente](C5C2C_CONSUMIDORES.md);
-A/B/C1+C2-A/B/C integradas en main local, sin push nuevo, y
-[C1 Android5/5](C5C_FLUTTER.md) conservada. Después resto C5-C/D. No repetir
+preparar H3 tras [cierre local H2/H2B4](C5_H2B4_FUENTES_MUTABLES.md) y
+[cierre local C2](C5C2_CIERRE_LOCAL.md). Después4 guiones humanos; avisar antes de requerir Docker/USB.
+Entrega funcional C2 publicada e integrada en ambos main; remates actuales en
+fix/c5-c2-cierre-local, sin commit/push nuevos. Después PDF/offline y resto C5-C/D. No repetir
 C2/C3/C4 por notas históricas. Compañero OV-1A → B/C/D en paralelo, sin asumir
 entregas no revisadas. Rescate y territorio ya validados localmente;
 conservar cierre operativo pendiente de I2-5 y demás bloques del orden vigente. IC-2/3 y los restantes

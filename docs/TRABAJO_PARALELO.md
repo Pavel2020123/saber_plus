@@ -6,19 +6,26 @@ instituciones. No cambia las reglas de producto ni declara etapas terminadas.
 
 ## Responsables y siguiente paso
 
-**Reasignación del21:** un segundo compañero ayuda al propietario a terminar
-C5-C2, según [su relevo específico](RELEVO_C5_C2.md). No es la persona de OV-1:
-esta conserva orientación vocacional y su checkpoint. C2-D está0/8 humanos;
-el nuevo responsable puede corregir Flutter/backend/panel de C2 en sus ramas.
-Consultar el cierre de integración en README; la tabla inferior conserva la
-base de trabajo y no certifica publicación remota del relevo.
+**Continuación vigente24/oct:** [H2B4 y H2 cerradas localmente](C5_H2B4_FUENTES_MUTABLES.md).
+Propietario prepara H3 y después4 guiones humanos con USB;6 entregas C5 pendientes.
+Sin reasignación ni cambios del frente OV-1. Los checkpoints inferiores son antecedentes.
+
+**Continuación24/oct:** [H2A validada localmente](C5_H2_SNAPSHOTS.md) para
+Cima/Guardián/Rescate. Sigue H2B del propietario;68/68 SQL/HTTP y159 dirigidas/build.
+75 migraciones temporales, sin Android/remoto ni cambios del frente OV-1.
+
+**23 de octubre:** segundo compañero entregó C2; propietario auditó y
+[cierra el bloque local](C5C2_CIERRE_LOCAL.md). El propietario retoma el resto
+de C5: [H1 cerrada localmente24/oct](C5_H1_HISTORIAL_REVOCACION.md),58/58 SQL/HTTP,
+74 migraciones solo temporales con Docker y150 dirigidas/build. Sigue H2; sin USB/remoto.
+OV-1 mantiene su responsable, ramas y checkpoint; no reasignarlo.
 
 | Equipo | Responsabilidad | Por dónde empezar |
 |---|---|---|
-| Propietario / nuevo compañero C2 | Instituciones y MA-1R integradas; C5-A/B/C1 y C2-A/B/C validadas localmente e integradas en main local | Entrega app `e833d6b`/backend `cfba7cd`; merges `f912880`/`09c763b`. Sin push nuevo. [C2-C automática](C5C2C_CONSUMIDORES.md); sigue C2-D Android,0/8 humanos con D8a–e. [Relevo propio](RELEVO_C5_C2.md), nueva rama para correcciones. Carga apagada por defecto; resto C5 abierto, sin despliegue ni cambios OV-1. |
+| Propietario | C2/H1/H2 cerradas localmente; preparar H3 | [Cierre H2/H2B4](C5_H2B4_FUENTES_MUTABLES.md) y [contrato histórico](C5_HISTORICOS.md): preparar integración antes de los4 guiones humanos USB pendientes. Funcional C2 en main app44635ae/backend9c225cb; H/remates sin commit/push nuevos. No repetir cierres sin regresión, tocar OV-1 ni habilitar producción. |
 | Compañero y su asistente | OV-1: test de intereses vocacionales, Flutter y backend necesarios | En curso según el propietario; sin entrega nueva verificada aquí. Seguir su checkpoint para A contenido/reglas → B persistencia → C cliente → D validación, no reiniciar trabajo ya documentado en su rama. |
 
-El compañero no tiene que esperar a que termine C2C. El propietario no asume
+El compañero de OV-1 no tiene que esperar al resto de C5. El propietario no asume
 que OV-1 avanzó hasta recibir cambios y evidencia. Cada frente conserva su acta.
 
 ## Alcance del compañero: OV-1

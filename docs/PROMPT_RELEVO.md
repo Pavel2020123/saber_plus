@@ -1,40 +1,97 @@
 # Relevo general — elegir responsable antes de continuar
 
-## Entrada vigente — 21 de octubre: nuevo compañero para terminar C5-C2
+**Antes de ejecutar las instrucciones históricas inferiores:** leer [retoma 31/oct](RETOMA_DESARROLLO_2026_10_31.md) y [acta H3 USB](H3_PRUEBAS_USB_2026_10_31.md). Se completaron los escenarios locales automatizados Android; no repetirlos por interpretar el antiguo 1/4 humano como ausencia de pruebas USB. Aceptación humana y despliegue separados. Conciliar cambios y ESLint; licencias #14 siguen documentales, primero LIC-0.
 
-El propietario delega C2 en **otro compañero**, distinto del responsable de OV-1.
-Leer primero [relevo completo de C2](RELEVO_C5_C2.md) y después el
-[acta C2-D](C5C2D_VALIDACION_LOCAL.md): C2-A/B/C implementadas y validadas
-automáticamente; C2-D sigue0/8 bloques humanos, con D8a–e pendientes.
-La guía incluye ambos repos, auditoría, Docker, cuentas ficticias/contraseña local,
-USB/APK, pruebas, correcciones Flutter/backend/panel, actas y entrega mediante PR.
-No cambiar el frente OV-1. Las órdenes inferiores fechadas son antecedentes,
-no instrucciones para reiniciar instituciones/reportes/juegos ya cerrados.
+**Prioridad vigente desde 26/oct hasta la presentación del 28/oct:**
+[recorrido y alcance para el cliente](PRESENTACION_CLIENTE_2026_10_28.md). Pavel pausó la limpieza
+ESLint y el recorrido técnico de etapas para preparar la experiencia educativa.
+Conservar sus cambios y evidencias; no declararlos terminados. OV-1 sigue con
+su responsable. Las notas técnicas inferiores son antecedentes durante esta pausa.
 
-Prompt para esta persona:
+**Trabajo vigente del 25/oct:** [limpieza de ESLint backend por bloques](LIMPIEZA_ESLINT_BACKEND.md),
+autorizada por Pavel. H3 queda en espera con 1/4 guiones aprobado; H3-2 pendiente
+de regresar a la primera cuenta. No dar H3 ni la limpieza global por terminadas.
+OV-1 continúa independiente; conservar todos los cambios locales anteriores.
+Actualización 26/oct: bloque competitivo L2-B/L3 verificado con 103 pruebas
+dirigidas y ambos proyectos TypeScript aprobados.
+Limpieza parcial: quedan 229 errores/116 advertencias de lint; sigue L2-B/L3.
+
+**Checkpoint vigente — 25/oct:** [H3 preparada y pausa antes de USB](C5_H3_INTEGRACION.md).
+Panel 144/144, sintaxis 29 módulos y Flutter dirigido 39/39. Integración H3
+PostgreSQL/HTTP/Chromium aprobada: 92/92, 78 migraciones solo temporales.
+Sesión humana y APK debug preparadas; Flutter completo: 1.020 aprobadas,
+16 omitidas, cero fallos. APK de pruebas instalada; H3-1 aprobada en Android:
+originales en historial/cuaderno tras edición y archivo, sin XP adicional.
+Humanos 1/4: sigue H3-2, cambio de cuenta. H3 abierta; quedan 6 entregas C5.
+Las entradas fechadas anteriores son antecedentes; OV-1 continúa independiente.
+
+## Entrada vigente — 24 de octubre: H2 cerrada localmente, sigue preparar H3
+
+[H2B4 y cierre H2](C5_H2B4_FUENTES_MUTABLES.md):92/92 SQL/HTTP,78 migraciones
+temporales,178 unitarias editoriales. No se implementó versionado general de
+lecciones/casos: se comprobó denegación sin prueba. Quedan6 entregas C5.
+
+[H2B3 — Batallas](C5_H2B3_BATALLAS.md):87/87 SQL/HTTP,78 migraciones temporales
+y133 suites/1.755 unitarias backend. Ese antecedente continuó en H2B4.
+
+[H2B2 — Tira online](C5_H2B2_TIRA_ONLINE.md):80/80 SQL/HTTP,77 migraciones
+temporales y132 suites/1.744 unitarias backend. Ese antecedente continuó en H2B3.
+
+[H2B1 — Trivia/Fantasma y CPU](C5_H2B1_TRIVIA_LOCAL.md):75/75 SQL/HTTP,
+76 migraciones solo temporales y131 suites/1.735 unitarias backend aprobadas.
+Ese antecedente continuó en H2B2. H3/Android posterior, sin despliegue.
+
+Leer [cierre auditado](C5C2_CIERRE_LOCAL.md), [contrato histórico H0](C5_HISTORICOS.md)
+y roadmap. H0 conserva la regla aprobada; [H1 está cerrada localmente](C5_H1_HISTORIAL_REVOCACION.md):
+58/58 SQL/HTTP con74 migraciones temporales,150 dirigidas y build. Sin Android.
+Después se validó [H2A](C5_H2_SNAPSHOTS.md):Cima/Guardián/Rescate,68/68 SQL/HTTP,
+75 migraciones temporales y159 dirigidas/build. Entonces H2 completa seguía abierta.
+No asignar otra vez C2 al compañero ni reiniciar D8b: las actas conservan las
+pruebas y sus límites. OV-1 mantiene responsable/ramas/checkpoint independientes.
 
 ```text
-Te corresponde terminar C5-C2 de SaberPlus en sustitución del propietario;
-NO eres el compañero de OV-1. Ten ambos repositorios actualizados y lee
-docs/RELEVO_C5_C2.md (backend: backend/docs/RELEVO_C5_C2.md), sus documentos
-de arquitectura/estado y el acta C5C2D_VALIDACION_LOCAL.md. Primero audita las
-dependencias, estado Git y código/pruebas del módulo, registra lo realmente
-revisado y continúa desde el último checkpoint, no desde un chat antiguo.
-C2-A/B/C ya están implementadas; faltan C2-D y los fallos que aparezcan.
-Prepara una sesión Docker propia, panel real local y Android USB desbloqueado.
-Usuarios y forma segura de encontrar la contraseña están en la guía; no subas
-secretos ni uses producción. Explica cada paso al compañero humano y pide su
-confirmación visual; actualiza ambas actas tras cada prueba. Ejecuta los ocho
-bloques, incluidos D8a–e; consigue segundo cliente para Tira online o deja ese
-subcaso pendiente, nunca inventes aprobación. Puedes corregir Flutter, API y
-panel dentro de C2 con regresiones, sin reconstruir arquitectura ni tocar OV-1.
-Trabaja en ramas propias, conserva cambios ajenos y entrega rutas, evidencia,
-comentarios de commit y comandos de push. No push/merge/despliegue sin permiso.
-Cierra C2 local solo con los criterios de la guía; el resto de C5 sigue abierto.
-Al entregar, avisa a Pavel que debe auditar y verificar ambos repositorios,
-documentación y evidencias antes de aceptar el cierre y elegir otra etapa.
-Incluye commits, pruebas y pendientes; si faltan pruebas, declara entrega parcial.
-Espera su decisión y no interfieras con OV-1.
+Continúa SaberPlus en el frente del propietario. Primero revisa AGENTS aplicables,
+status/rama/HEAD de ambos repos, README, arquitectura, ETAPAS_PENDIENTES y
+C5C2_CIERRE_LOCAL.md (backend: backend/docs/C5C2_CIERRE_LOCAL.md).
+C5-C2 está cerrada en su alcance local, no toda C5. Su código funcional ya está
+publicado/integrado en main: app44635ae/backend9c225cb. Los remates documentales
+y de TypeScript están en fix/c5-c2-cierre-local; verifica si ya tienen commit/PR
+antes de crear otra entrega. No descartar cambios ni implementar en main.
+
+El contrato C5_HISTORICOS.md (backend: backend/docs/C5_HISTORICOS.md) está preparado.
+Pavel aprobó conservar la imagen original en historial propio tras archivar la
+pregunta, salvo revocación por seguridad/derechos. H1 cerró su backend local el24:
+58/58 SQL/HTTP y74 migraciones temporales,150 dirigidas y build; Chromium escritorio
+y390px. Base/contenedor propios eliminados, sin migración remota o pruebas USB.
+Lee C5_H1_HISTORIAL_REVOCACION.md en ambos repositorios antes de editar.
+Siguiente tarea H3: leer C5_H2B4_FUENTES_MUTABLES.md (backend: backend/docs/) y
+C5_HISTORICOS.md. Preparar integración panel/Flutter antes de pedir Android:
+pantalla ADMIN completa de revocación, estado visual de imagen no disponible,
+recarga y aislamiento por cuenta. Después ejecutar los4 guiones humanos previstos
+con Docker local y USB, avisando antes de necesitarlos. Ninguno está aprobado aún.
+H2 ya cubre adaptadores y deniega lecciones/casos sin versión suficiente; no abrir
+permisos por progreso/ID ni inventar snapshots pasados para evitar un404.
+Batallas nuevas ya usan copia privada, corrección/historial/cuaderno originales,
+avance propio y tablas privadas con RLS; legado null no se rellena. No repetir
+H2B3/H2B2 ni H2B4 salvo regresión concreta. No pasar todavía a PDF/offline.
+Tira online exige presentación propia/pareja coherente y certificado R cuando
+corresponde; una imagen de contexto interno o pertenecer a la partida no bastan.
+Trivia/Fantasma V1 y nuevas CPU con snapshotLocal ya están validadas localmente;
+no reconstruir legado ni cambiar evidencia/presencia/XP de Tira local.
+Cima/Guardián/Rescate ya están cubiertos por H2A; no reiniciar ni extender su regla
+por longitud a los otros formatos. Definir prueba exacta por origen y conservar contratos.
+No extender permisos desde JSON arbitrario, futuros o intentos ajenos. No repetir
+H1 sin cambio/falla concreta. Coordina schema con OV-1 sin tocar su módulo.
+No abrir recursos para evitar404 ni cachear bytes privados o hacer PDF/offline aún.
+Avanza con código/pruebas unitarias locales de H3 y avisa ANTES de necesitar Docker
+para PostgreSQL/HTTP o celular USB para validación física. No repetir C2 sin regresión.
+
+No tocar OV-1 ni reasignar a su compañero. Mantener arquitectura y contratos,
+registrar archivos revisados/evidencia real y distinguir pruebas de este turno
+de confirmaciones anteriores. No desplegar, migrar remotamente, contratar un
+proveedor, hacer merge/push o habilitar flags productivos sin autorización.
+Entrega rutas de archivos, decisiones, pruebas, límites, siguiente paso y
+comentario/comandos de commit/push; conserva las actas históricas.
 ```
 
 ## Antecedentes anteriores a este relevo

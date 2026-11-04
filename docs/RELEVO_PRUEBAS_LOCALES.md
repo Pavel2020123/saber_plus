@@ -1,5 +1,11 @@
 # Relevo de pruebas locales — Docker, Android USB y juegos
 
+**Entrada vigente23/oct:** [C2 cerrada en su alcance local](C5C2_CIERRE_LOCAL.md).
+No remontar servicios ni repetir D8b por los guiones antiguos. El propietario
+continúa H2 tras [H1 cerrada localmente24/oct](C5_H1_HISTORIAL_REVOCACION.md):
+58/58 SQL/HTTP con74 migraciones solo temporales. Sin Android; H3 posterior.
+OV-1 separado; restos de C5 abiertos.
+
 **21 de octubre — entrada vigente:** un nuevo compañero sustituye al propietario
 en C5-C2; NO es el responsable de OV-1. Seguir [RELEVO_C5_C2](RELEVO_C5_C2.md)
 y [acta C2-D](C5C2D_VALIDACION_LOCAL.md). Ocho bloques humanos pendientes,

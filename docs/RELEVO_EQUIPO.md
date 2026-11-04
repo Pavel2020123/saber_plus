@@ -1,5 +1,12 @@
 # Relevo del equipo — empezar aquí
 
+**Entrada vigente23/oct:** [C2 cerrada localmente tras auditoría](C5C2_CIERRE_LOCAL.md).
+Propietario retoma resto C5: contrato de autorización de imágenes históricas antes
+de PDF/offline. [H1 cerrada localmente24/oct](C5_H1_HISTORIAL_REVOCACION.md):58/58
+SQL/HTTP,74 migraciones temporales y150 dirigidas/build. Sigue H2; USB después,
+OV-1 independiente. No repetir H1 sin cambio o falla concreta.
+Los relevos fechados inferiores son antecedentes, no órdenes de repetir C2/D8b.
+
 **Entrada vigente del21:** para el nuevo compañero que terminará C5-C2, leer
 [relevo específico](RELEVO_C5_C2.md) y [acta C2-D](C5C2D_VALIDACION_LOCAL.md),
 todavía0/8 bloques humanos. No es el compañero de OV-1; no reasignar su trabajo.

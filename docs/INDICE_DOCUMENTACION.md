@@ -1,5 +1,43 @@
 # Índice de documentación de SaberPlus
 
+- **Trabajo actual 3/nov:** [LIC-4: cuenta y privacidad](LIC_4_CUENTA_Y_PRIVACIDAD.md).
+  Las prioridades fechadas inferiores son antecedentes; sin despliegue nuevo.
+- [LIC: validación física Android aprobada](LIC_ANDROID_VALIDACION.md), con capturas
+  y verificación SQL; no implica release ni producción.
+
+- **Retoma 31/oct:** [estado actual, pendientes y viabilidad de licencias #14](RETOMA_DESARROLLO_2026_10_31.md). Entrada más reciente; la prioridad de presentación inferior queda como antecedente.
+
+- **Requisito pedagógico 28/oct:** [competencias, afirmaciones, evidencias y niveles](COMPETENCIAS_ICFES_2025_2026.md). Análisis de las guías y reportes aportados; cambios de analítica en la app todavía pendientes. El prototipo de clasificación de cuadernillos está en un proyecto independiente y no implica integración terminada.
+
+**Prioridad vigente desde 26/oct hasta la presentación del 28/oct:**
+[recorrido y alcance para el cliente](PRESENTACION_CLIENTE_2026_10_28.md). Pavel pausó la limpieza
+ESLint y el recorrido técnico de etapas para preparar la experiencia educativa.
+Conservar sus cambios y evidencias; no declararlos terminados. OV-1 sigue con
+su responsable. Las notas técnicas inferiores son antecedentes durante esta pausa.
+
+**Checkpoint nuevo — 31/oct:** [acta H3 automatizada en Android USB](H3_PRUEBAS_USB_2026_10_31.md), con capturas, correcciones y límites. Los checkpoints siguientes son antecedentes.
+
+**Antecedente — 25/oct:** [H3 preparada y pausa antes de USB](C5_H3_INTEGRACION.md).
+Panel 144/144, sintaxis 29 módulos y Flutter dirigido 39/39. Integración H3
+PostgreSQL/HTTP/Chromium aprobada: 92/92, 78 migraciones solo temporales.
+Sesión humana y APK debug preparadas; Flutter completo: 1.020 aprobadas,
+16 omitidas, cero fallos. APK de pruebas instalada; H3-1 aprobada en Android:
+originales en historial/cuaderno tras edición y archivo, sin XP adicional.
+Humanos 1/4: sigue H3-2, cambio de cuenta. H3 abierta; quedan 6 entregas C5.
+Las entradas fechadas anteriores son antecedentes; OV-1 continúa independiente.
+
+- **Continuación24/oct:** [H2A — snapshots propios](C5_H2_SNAPSHOTS.md), validada para
+  Cima/Guardián/Rescate.68/68 SQL/HTTP y159 dirigidas/build;75 migraciones temporales.
+  Sigue H2B; H2 completa y H3 todavía pendientes. Sin Android ni despliegue.
+
+- **Entrada vigente del23:** [cierre local auditado de C2](C5C2_CIERRE_LOCAL.md).
+  D1–D8/D8a–e cubiertos. [C5-H0 histórico preparado](C5_HISTORICOS.md), regla de
+  producto confirmada. [H1 cerrada localmente24/oct](C5_H1_HISTORIAL_REVOCACION.md):
+  58/58 PostgreSQL/HTTP,74 migraciones temporales,150 dirigidas/build; sigue H2.
+  [Prompt actual](PROMPT_RELEVO.md). OV-1 sigue independiente.
+
+## Entradas fechadas anteriores (evidencia, no instrucciones de reinicio)
+
 - **Entrada del21 para el nuevo compañero de C2:** [relevo operativo completo](RELEVO_C5_C2.md)
   y [acta de pruebas C2-D](C5C2D_VALIDACION_LOCAL.md). No es el frente OV-1.
 
