@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:saber_plus/app/theme.dart';
 import 'package:saber_plus/features/institutions/data/demo_institution_group_repository.dart';
 import 'package:saber_plus/features/institutions/data/demo_teacher_institution_repository.dart';
 import 'package:saber_plus/features/institutions/data/remote_institution_group_repository.dart';
@@ -12,6 +13,54 @@ import 'package:saber_plus/features/institutions/presentation/student_group_join
 import 'package:saber_plus/features/institutions/presentation/teacher_institution_providers.dart';
 
 void main() {
+  testWidgets(
+    'renders two server-shaped groups with owner and no access codes',
+    (tester) async {
+      tester.view.physicalSize = const Size(393, 873);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+      final institution = DemoTeacherInstitutionRepository();
+      await institution.createInstitution(name: 'Local presentation');
+      final groups = RemoteInstitutionGroupRepository(
+        _dio(
+          (options) => [
+            {
+              ..._teacherGroupJson(),
+              'id': 'local-empty',
+              'nombre': '11A',
+              '_count': {'ClaseEstudiante': 0},
+              'codigos': [],
+            },
+            {
+              ..._teacherGroupJson(),
+              'id': 'local-student',
+              'nombre': '11 A · Demostración',
+              '_count': {'ClaseEstudiante': 1},
+              'codigos': [],
+            },
+          ],
+        ),
+      );
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            institutionGroupRepositoryProvider.overrideWithValue(groups),
+            teacherInstitutionRepositoryProvider.overrideWithValue(institution),
+          ],
+          child: MaterialApp(
+            theme: SaberPlusTheme.light,
+            home: const InstitutionGroupsPage(),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('Acceso por códigos temporales'), findsOneWidget);
+      expect(find.text('11A'), findsOneWidget);
+      await tester.scrollUntilVisible(find.text('11 A · Demostración'), 200);
+      expect(find.text('11 A · Demostración'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    },
+  );
   test('interpreta grupos sin recibir el código temporal completo', () {
     final group = InstitutionGroup.fromJson(_teacherGroupJson());
 
@@ -145,7 +194,10 @@ void main() {
           institutionGroupRepositoryProvider.overrideWithValue(groups),
           teacherInstitutionRepositoryProvider.overrideWithValue(institution),
         ],
-        child: const MaterialApp(home: InstitutionGroupsPage()),
+        child: MaterialApp(
+          theme: SaberPlusTheme.light,
+          home: const InstitutionGroupsPage(),
+        ),
       ),
     );
     await tester.pumpAndSettle();

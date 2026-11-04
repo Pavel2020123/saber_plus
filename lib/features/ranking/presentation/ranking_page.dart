@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/network/api_error.dart';
@@ -75,7 +76,7 @@ class _RankingPageState extends ConsumerState<RankingPage> {
                     value: RankingScope.institution,
                     enabled: data.institutionAvailable,
                     label: const Text('Institución'),
-                    icon: const Icon(Icons.school_outlined),
+                    icon: const Icon(LucideIcons.school),
                   ),
                 ],
                 selected: {_scope},
@@ -186,7 +187,7 @@ class _MyPositionCard extends StatelessWidget {
       leading: CircleAvatar(child: Text('#${entry.position}')),
       title: const Text('Tu posición'),
       subtitle: Text('${_formatXp(entry.xp)} XP en este período'),
-      trailing: const Icon(Icons.person_rounded),
+      trailing: const Icon(LucideIcons.userRound),
     ),
   );
 }
@@ -237,7 +238,7 @@ class _EmptyRanking extends StatelessWidget {
       padding: EdgeInsets.all(24),
       child: Column(
         children: [
-          Icon(Icons.leaderboard_outlined, size: 42),
+          Icon(LucideIcons.crown, size: 42),
           SizedBox(height: 12),
           Text('Todavía no hay XP confirmado en este período.'),
         ],

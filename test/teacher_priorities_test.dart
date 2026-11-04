@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+import 'package:saber_plus/app/theme.dart';
 import 'package:saber_plus/core/network/api_error.dart';
 import 'package:saber_plus/features/academic/domain/academic_models.dart';
 import 'package:saber_plus/features/auth/domain/session.dart';
@@ -69,6 +70,53 @@ Map<String, dynamic> bundleFixture({bool student = false}) => {
 };
 
 void main() {
+  for (final scale in [1.0, 1.5]) {
+    testWidgets(
+      'priority confirmation respects Android inset at text scale $scale',
+      (tester) async {
+        tester.view.physicalSize = const Size(360, 800);
+        tester.view.devicePixelRatio = 1;
+        tester.view.padding = const FakeViewPadding(bottom: 32);
+        tester.view.viewPadding = const FakeViewPadding(bottom: 32);
+        addTearDown(tester.view.reset);
+        await tester.pumpWidget(
+          ProviderScope(
+            overrides: [
+              sessionControllerProvider.overrideWith(_TeacherSession.new),
+              teacherPriorityRepositoryProvider.overrideWithValue(
+                DemoTeacherPriorityRepository(),
+              ),
+            ],
+            child: MaterialApp(
+              theme: SaberPlusTheme.light,
+              builder: (context, child) => MediaQuery(
+                data: MediaQuery.of(
+                  context,
+                ).copyWith(textScaler: TextScaler.linear(scale)),
+                child: child!,
+              ),
+              home: const CreateTeacherPriorityPage(groupId: group),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+        await tester.tap(
+          find.byKey(const Key('priority-catalog-demo-subtopic')),
+        );
+        await tester.pumpAndSettle();
+        final scrollable = find.byType(Scrollable).first;
+        await tester.drag(scrollable, const Offset(0, -2000));
+        await tester.pumpAndSettle();
+        final button = find.byKey(const Key('confirm-create-priority'));
+        expect(tester.getRect(button).bottom, lessThanOrEqualTo(768));
+        expect(tester.getRect(button).top, greaterThan(100));
+        expect(tester.widget<FilledButton>(button).onPressed, isNotNull);
+        expect(find.byKey(const Key('priority-deadline')), findsOneWidget);
+        expect(find.text('Página 1'), findsNothing);
+        expect(tester.takeException(), isNull);
+      },
+    );
+  }
   test(
     'creación remota normaliza milisegundos y valida la confirmación del servidor',
     () async {

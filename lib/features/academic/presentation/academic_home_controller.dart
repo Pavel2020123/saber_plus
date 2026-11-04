@@ -14,6 +14,10 @@ class AcademicHomeController
   }
 
   Future<void> reload() async {
+    if (ref.read(sessionControllerProvider).user?.isDemo ?? false) {
+      state = AsyncData(state.valueOrNull ?? AcademicHomeData.demo);
+      return;
+    }
     state = const AsyncLoading<AcademicHomeData>().copyWithPrevious(state);
     state = await AsyncValue.guard(
       () => ref.read(academicRepositoryProvider).loadHome(),

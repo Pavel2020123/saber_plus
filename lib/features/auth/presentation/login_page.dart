@@ -99,15 +99,17 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               controller: _emailController,
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
-              autofillHints: const [AutofillHints.email],
+              autofillHints: const [AutofillHints.username],
               decoration: const InputDecoration(
-                labelText: 'Correo',
-                prefixIcon: Icon(Icons.mail_outline_rounded),
+                labelText: 'Correo o usuario institucional',
+                helperText: 'El usuario del colegio no es un buzón de correo.',
+                helperMaxLines: 3,
+                prefixIcon: Icon(Icons.person_outline_rounded),
               ),
               validator: (value) {
                 final email = value?.trim() ?? '';
                 if (email.isEmpty || !email.contains('@')) {
-                  return 'Escribe un correo válido';
+                  return 'Escribe tu correo o usuario institucional completo';
                 }
                 return null;
               },

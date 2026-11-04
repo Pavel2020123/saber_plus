@@ -9,6 +9,7 @@ import '../../../core/feedback/answer_streak_feedback.dart';
 import '../../../core/network/api_error.dart';
 import '../../../core/widgets/academic_image.dart';
 import '../../../core/widgets/academic_option_content.dart';
+import '../../../core/widgets/collapsible_practice_context.dart';
 import '../../../core/sync/drift_safe_sync_repository.dart';
 import '../../../core/widgets/animated_streak_flame.dart';
 import '../../../core/wellbeing/study_break_reminder.dart';
@@ -956,7 +957,9 @@ class _PracticeSessionPageState extends ConsumerState<PracticeSessionPage>
                 ],
               ),
               const SizedBox(height: 6),
-              Text('${question.themeName} · ${question.subtopicName}'),
+              CollapsiblePracticeContext(
+                label: '${question.themeName} · ${question.subtopicName}',
+              ),
               if (question.caseContent case final caseContent?) ...[
                 const SizedBox(height: 16),
                 _CaseCard(content: caseContent),

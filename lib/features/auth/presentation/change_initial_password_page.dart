@@ -49,6 +49,13 @@ class _ChangeInitialPasswordPageState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            if (session.user?.institutionalUsername case final username?) ...[
+              Text('Usuario institucional: $username'),
+              const Text(
+                'La clave temporal ya se usó al entrar. Si cierras antes de cambiarla, solicita una nueva a tu responsable.',
+              ),
+              const SizedBox(height: 16),
+            ],
             if (session.errorMessage case final message?) ...[
               AuthErrorBanner(message: message),
               const SizedBox(height: 18),

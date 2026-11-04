@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../feedback/answer_streak_feedback.dart';
@@ -93,7 +94,7 @@ class PreferencesPage extends ConsumerWidget {
                   ListTile(
                     key: const Key('daily-reminder-time'),
                     enabled: value.reminderEnabled,
-                    leading: const Icon(Icons.schedule_rounded),
+                    leading: const Icon(LucideIcons.timer),
                     title: const Text('Hora del recordatorio'),
                     subtitle: Text(
                       MaterialLocalizations.of(context).formatTimeOfDay(

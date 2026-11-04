@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:saber_plus/core/network/api_error.dart';
 import 'package:saber_plus/features/academic/domain/academic_models.dart';
 import 'package:saber_plus/features/auth/domain/session.dart';
 import 'package:saber_plus/features/auth/presentation/session_controller.dart';
@@ -355,6 +356,65 @@ void main() {
     expect(studyTime.records.single.durationSeconds, greaterThanOrEqualTo(21));
   });
 
+  testWidgets(
+    'rechazo institucional al entregar conserva respuestas y borrador',
+    (tester) async {
+      final repository = _FakePracticeRepository()
+        ..gradeError = const ApiError(
+          code: 'LICENCIA_INSTITUCIONAL_RESTRINGIDA',
+          message: 'La institución debe habilitar tu acceso.',
+        );
+      final now = DateTime.now();
+      final drafts = _MemoryPracticeDraftStore(
+        initial: PracticeDraft(
+          session: _practiceSession,
+          selectedAnswers: const {'question-1': 'answer-b'},
+          responseTimesSeconds: const {'question-1': 12},
+          currentIndex: 0,
+          startedAt: now.subtract(const Duration(minutes: 2)),
+          expiresAt: now.add(const Duration(minutes: 30)),
+        ),
+      );
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            sessionControllerProvider.overrideWith(
+              _AuthenticatedSessionController.new,
+            ),
+            practiceRepositoryProvider.overrideWithValue(repository),
+            practiceDraftStoreProvider.overrideWithValue(drafts),
+            difficultQuestionRepositoryProvider.overrideWithValue(
+              _MemoryDifficultQuestionRepository(),
+            ),
+          ],
+          child: const MaterialApp(
+            home: PracticeSessionPage(
+              area: AcademicArea.mathematics,
+              subtopicId: 'subtopic-1',
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      ScaffoldMessenger.of(
+        tester.element(find.byType(Scaffold)),
+      ).removeCurrentSnackBar();
+      await tester.pump();
+      await tester.tap(find.byKey(const Key('submit-practice-button')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('confirm-submit-practice-button')));
+      await tester.pumpAndSettle();
+      expect(repository.startCalls, 0);
+      expect(repository.gradeCalls, 1);
+      expect(drafts._draft?.selectedAnswers, {'question-1': 'answer-b'});
+      expect(
+        find.text('La institución debe habilitar tu acceso.'),
+        findsOneWidget,
+      );
+      expect(find.byKey(const Key('practice-result-view')), findsNothing);
+    },
+  );
+
   testWidgets('marca una pregunta difícil sin copiar su contenido', (
     tester,
   ) async {
@@ -602,6 +662,7 @@ class _ForbiddenPriorityDraftStore extends PracticeDraftStore {
 class _FakePracticeRepository implements PracticeRepository {
   var gradeCalls = 0;
   var startCalls = 0;
+  Object? gradeError;
 
   @override
   Future<PracticeSession> startSubtopicPractice({
@@ -619,6 +680,7 @@ class _FakePracticeRepository implements PracticeRepository {
     required List<PracticeAnswer> answers,
   }) async {
     gradeCalls++;
+    if (gradeError case final error?) throw error;
     expect(answers.single.answerId, 'answer-b');
     return const PracticeResult(
       summary: PracticeResultSummary(

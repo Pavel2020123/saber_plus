@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import '../../../core/widgets/academic_image.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../app/theme.dart';
 import '../../../core/network/api_error.dart';
@@ -72,7 +73,7 @@ class _ProgressPageState extends ConsumerState<ProgressPage> {
         ],
         bottom: const TabBar(
           tabs: [
-            Tab(text: 'Resumen', icon: Icon(Icons.insights_rounded)),
+            Tab(text: 'Resumen', icon: Icon(LucideIcons.chartArea)),
             Tab(text: 'Cuaderno', icon: Icon(Icons.book_outlined)),
           ],
         ),
@@ -199,7 +200,7 @@ class _DashboardContent extends StatelessWidget {
       OutlinedButton.icon(
         key: const Key('open-learning-evidence'),
         onPressed: () => context.push('/student/progress/evidence'),
-        icon: const Icon(Icons.fact_check_outlined),
+        icon: const Icon(LucideIcons.clipboardCheck),
         label: const Text('Ver diagnóstico por temas'),
       ),
       const SizedBox(height: 14),
@@ -227,7 +228,7 @@ class _DashboardContent extends StatelessWidget {
               FilledButton.tonalIcon(
                 key: const Key('open-adaptive-review'),
                 onPressed: () => context.push('/student/progress/adaptive'),
-                icon: const Icon(Icons.play_arrow_rounded),
+                icon: const Icon(LucideIcons.play),
                 label: const Text('Preparar mi repaso'),
               ),
             ],
@@ -259,7 +260,7 @@ class _DashboardContent extends StatelessWidget {
               FilledButton.tonalIcon(
                 key: const Key('open-reference-library'),
                 onPressed: () => context.push('/student/progress/library'),
-                icon: const Icon(Icons.arrow_forward_rounded),
+                icon: const Icon(LucideIcons.arrowRight),
                 label: const Text('Abrir biblioteca'),
               ),
             ],
@@ -291,7 +292,7 @@ class _DashboardContent extends StatelessWidget {
               FilledButton.tonalIcon(
                 key: const Key('open-flashcards'),
                 onPressed: () => context.push('/student/progress/flashcards'),
-                icon: const Icon(Icons.play_arrow_rounded),
+                icon: const Icon(LucideIcons.play),
                 label: const Text('Estudiar flashcards'),
               ),
             ],
@@ -308,7 +309,7 @@ class _DashboardContent extends StatelessWidget {
         childAspectRatio: 1.55,
         children: [
           _MetricCard(
-            icon: Icons.bolt_rounded,
+            icon: LucideIcons.zap,
             label: 'XP acumulados',
             value: '$xp',
           ),
@@ -323,7 +324,7 @@ class _DashboardContent extends StatelessWidget {
             value: '${data.answers.successPercentage.round()}%',
           ),
           _MetricCard(
-            icon: Icons.menu_book_rounded,
+            icon: LucideIcons.bookOpenText,
             label: 'Lecciones listas',
             value:
                 '${data.study.completedSubtopics}/${data.study.totalSubtopics}',

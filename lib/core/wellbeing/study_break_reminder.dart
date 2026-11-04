@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class StudyBreakReminder extends StatefulWidget {
   const StudyBreakReminder({
@@ -163,7 +164,7 @@ class _StudyBreakDialogState extends State<StudyBreakDialog> {
             FilledButton.icon(
               key: const Key('start-study-break'),
               onPressed: _startBreak,
-              icon: const Icon(Icons.timer_outlined),
+              icon: const Icon(LucideIcons.timer),
               label: const Text('Descansar 3 minutos'),
             ),
           ],

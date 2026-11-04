@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:saber_plus/app/theme.dart';
 import 'package:saber_plus/features/dashboard/presentation/teacher_dashboard_page.dart';
 import 'package:saber_plus/features/institutions/data/demo_teacher_institution_repository.dart';
 import 'package:saber_plus/features/institutions/data/remote_teacher_institution_repository.dart';
@@ -208,7 +209,10 @@ void main() {
         overrides: [
           teacherInstitutionRepositoryProvider.overrideWithValue(repository),
         ],
-        child: const MaterialApp(home: InstitutionAdministrationPage()),
+        child: MaterialApp(
+          theme: SaberPlusTheme.light,
+          home: const InstitutionAdministrationPage(),
+        ),
       ),
     );
     await tester.pumpAndSettle();

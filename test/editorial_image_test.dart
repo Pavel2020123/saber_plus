@@ -246,6 +246,7 @@ void main() {
     WidgetTester tester,
     _Adapter adapter, {
     bool demo = false,
+    VoidCallback? onParentTap,
   }) async {
     dio.httpClientAdapter = adapter;
     final container = ProviderContainer(
@@ -272,11 +273,14 @@ void main() {
     await tester.pumpWidget(
       UncontrolledProviderScope(
         container: container,
-        child: const MaterialApp(
+        child: MaterialApp(
           home: Scaffold(
-            body: AcademicImage(
-              value: path,
-              borderRadius: BorderRadius.all(Radius.circular(16)),
+            body: InkWell(
+              onTap: onParentTap,
+              child: const AcademicImage(
+                value: path,
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+              ),
             ),
           ),
         ),
@@ -352,6 +356,62 @@ void main() {
     await finishDecode(tester);
     expect(find.byType(RawImage), findsOneWidget);
     expect(adapter.requests, hasLength(2));
+    await tester.pumpWidget(const SizedBox());
+  });
+  testWidgets('tocar imagen abre visor sin nueva descarga y permite zoom', (
+    tester,
+  ) async {
+    final adapter = _Adapter((_) async => body());
+    var parentTaps = 0;
+    await showImage(tester, adapter, onParentTap: () => parentTaps++);
+    await finishDecode(tester);
+    await tester.tap(find.byTooltip('Toca para ampliar'));
+    await tester.pumpAndSettle();
+    expect(parentTaps, 0);
+    final viewer = tester.widget<InteractiveViewer>(
+      find.byKey(const Key('academic-image-zoom')),
+    );
+    expect(viewer.maxScale, 8);
+    expect(adapter.requests, hasLength(1));
+    await tester.tap(find.byKey(const Key('academic-image-zoom')));
+    await tester.pump(const Duration(milliseconds: 50));
+    await tester.tap(find.byKey(const Key('academic-image-zoom')));
+    await tester.pumpAndSettle();
+    expect(
+      viewer.transformationController!.value.getMaxScaleOnAxis(),
+      greaterThan(1),
+    );
+    await tester.tap(find.text('Restablecer'));
+    await tester.tap(find.byTooltip('Ampliar imagen'));
+    await tester.pumpAndSettle();
+    expect(
+      viewer.transformationController!.value.getMaxScaleOnAxis(),
+      greaterThan(1),
+    );
+    await tester.tap(find.text('Restablecer'));
+    expect(viewer.transformationController!.value.getMaxScaleOnAxis(), 1);
+    await tester.tap(find.byKey(const Key('close-image-viewer')));
+    await tester.pumpAndSettle();
+    expect(find.byType(InteractiveViewer), findsNothing);
+    expect(tester.takeException(), isNull);
+    await tester.pumpWidget(const SizedBox());
+  });
+  testWidgets('cerrar sesión también oculta los píxeles del visor ampliado', (
+    tester,
+  ) async {
+    final adapter = _Adapter((_) async => body());
+    final container = await showImage(tester, adapter);
+    await finishDecode(tester);
+    await tester.tap(find.byTooltip('Toca para ampliar'));
+    await tester.pumpAndSettle();
+    expect(find.byType(RawImage), findsWidgets);
+    tokens.clear();
+    (container.read(sessionControllerProvider.notifier) as _Session).change(
+      null,
+    );
+    await tester.pumpAndSettle();
+    expect(find.byType(RawImage), findsNothing);
+    expect(tester.takeException(), isNull);
     await tester.pumpWidget(const SizedBox());
   });
   for (final status in [403, 404, 410]) {

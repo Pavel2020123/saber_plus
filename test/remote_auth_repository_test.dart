@@ -4,6 +4,32 @@ import 'package:saber_plus/features/auth/data/remote_auth_repository.dart';
 import 'package:saber_plus/features/auth/domain/auth_models.dart';
 
 void main() {
+  for (final token in ['fresh-token', null, '', 42]) {
+    test('cambio inicial valida token renovado: $token', () async {
+      late RequestOptions captured;
+      final dio = _respondingDio(
+        onRequest: (options) => captured = options,
+        response: token == null
+            ? {'mensaje': 'Actualizada'}
+            : {
+                'data': {'accessToken': token},
+              },
+      );
+      final pending = RemoteAuthRepository(
+        dio,
+        dio,
+      ).changeInitialPassword('Password1');
+      if (token == '' || token == 42) {
+        await expectLater(pending, throwsFormatException);
+      } else {
+        expect((await pending)?.accessToken, token);
+      }
+      expect(captured.method, 'PATCH');
+      expect(captured.path, '/auth/cambiar-contrasena-inicial');
+      expect(captured.data, {'nuevaContrasena': 'Password1'});
+    });
+  }
+
   test('login usa la ruta y el DTO en español del backend', () async {
     late RequestOptions captured;
     final dio = _respondingDio(

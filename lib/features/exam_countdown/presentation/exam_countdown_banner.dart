@@ -6,13 +6,21 @@ import '../../academic/presentation/academic_home_controller.dart';
 import '../domain/exam_countdown_models.dart';
 import 'exam_countdown_clock.dart';
 
-class ExamCountdownBanner extends ConsumerWidget {
+class ExamCountdownBanner extends ConsumerStatefulWidget {
   const ExamCountdownBanner({this.includeBottomSafeArea = false, super.key});
 
   final bool includeBottomSafeArea;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ExamCountdownBanner> createState() =>
+      _ExamCountdownBannerState();
+}
+
+class _ExamCountdownBannerState extends ConsumerState<ExamCountdownBanner> {
+  bool _docked = false;
+
+  @override
+  Widget build(BuildContext context) {
     final exam = ref
         .watch(academicHomeControllerProvider)
         .valueOrNull
@@ -27,34 +35,88 @@ class ExamCountdownBanner extends ConsumerWidget {
 
     return SafeArea(
       top: false,
-      bottom: includeBottomSafeArea,
-      child: Material(
-        key: const Key('exam-countdown-banner'),
-        color: Theme.of(context).colorScheme.primaryContainer,
-        child: AnimatedSize(
-          duration: reduceMotion
-              ? Duration.zero
-              : const Duration(milliseconds: 180),
-          curve: Curves.easeOutCubic,
-          child: minimized
-              ? _MinimizedCountdown(
-                  countdown: countdown,
-                  onExpand: preferences == null
-                      ? null
-                      : () => _setMinimized(context, ref, false),
-                )
-              : _ExpandedCountdown(
-                  countdown: countdown,
-                  onMinimize: preferences == null
-                      ? null
-                      : () => _setMinimized(context, ref, true),
-                ),
+      bottom: widget.includeBottomSafeArea,
+      child: AnimatedSwitcher(
+        duration: reduceMotion
+            ? Duration.zero
+            : const Duration(milliseconds: 220),
+        transitionBuilder: (child, animation) => SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(-1, 0),
+            end: Offset.zero,
+          ).animate(animation),
+          child: FadeTransition(opacity: animation, child: child),
         ),
+        child: _docked
+            ? Align(
+                key: const Key('docked-exam-countdown'),
+                alignment: Alignment.centerLeft,
+                child: Semantics(
+                  button: true,
+                  label: 'Restaurar calendario ICFES',
+                  hint: 'Toca dos veces para devolver la barra abajo',
+                  onTap: () => setState(() => _docked = false),
+                  child: Tooltip(
+                    message: 'Doble toque para restaurar el calendario ICFES',
+                    child: Material(
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      borderRadius: const BorderRadius.horizontal(
+                        right: Radius.circular(16),
+                      ),
+                      child: InkWell(
+                        key: const Key('restore-exam-countdown'),
+                        excludeFromSemantics: true,
+                        onDoubleTap: () => setState(() => _docked = false),
+                        child: const SizedBox(
+                          width: 56,
+                          height: 48,
+                          child: Icon(Icons.event_outlined),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            : Material(
+                key: const Key('exam-countdown-banner'),
+                color: Theme.of(context).colorScheme.primaryContainer,
+                child: AnimatedSize(
+                  duration: reduceMotion
+                      ? Duration.zero
+                      : const Duration(milliseconds: 180),
+                  curve: Curves.easeOutCubic,
+                  child: minimized
+                      ? _MinimizedCountdown(
+                          countdown: countdown,
+                          onExpand: preferences == null
+                              ? null
+                              : () => _setMinimized(context, ref, false),
+                        )
+                      : _ExpandedCountdown(
+                          countdown: countdown,
+                          onClose: preferences == null
+                              ? null
+                              : () async {
+                                  final saved = await _setMinimized(
+                                    context,
+                                    ref,
+                                    true,
+                                  );
+                                  if (mounted && saved) {
+                                    setState(() => _docked = true);
+                                  }
+                                },
+                          onMinimize: preferences == null
+                              ? null
+                              : () => _setMinimized(context, ref, true),
+                        ),
+                ),
+              ),
       ),
     );
   }
 
-  Future<void> _setMinimized(
+  Future<bool> _setMinimized(
     BuildContext context,
     WidgetRef ref,
     bool value,
@@ -63,20 +125,27 @@ class ExamCountdownBanner extends ConsumerWidget {
       await ref
           .read(appPreferencesControllerProvider.notifier)
           .setExamCountdownMinimized(value);
+      return true;
     } on Object {
-      if (!context.mounted) return;
+      if (!context.mounted) return false;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('No pudimos guardar esta preferencia.')),
       );
+      return false;
     }
   }
 }
 
 class _ExpandedCountdown extends StatelessWidget {
-  const _ExpandedCountdown({required this.countdown, required this.onMinimize});
+  const _ExpandedCountdown({
+    required this.countdown,
+    required this.onMinimize,
+    required this.onClose,
+  });
 
   final ExamCountdown countdown;
   final VoidCallback? onMinimize;
+  final VoidCallback? onClose;
 
   @override
   Widget build(BuildContext context) {
@@ -111,14 +180,25 @@ class _ExpandedCountdown extends StatelessWidget {
                   const SizedBox(height: 2),
                   Text(
                     countdown.detail,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: colors.onPrimaryContainer,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Consulta tu citación para conocer el horario.',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: colors.onPrimaryContainer,
                     ),
                   ),
                 ],
               ),
+            ),
+            IconButton(
+              key: const Key('close-exam-countdown'),
+              tooltip: 'Recoger calendario a la izquierda',
+              onPressed: onClose,
+              icon: const Icon(Icons.close_rounded),
             ),
             IconButton(
               key: const Key('minimize-exam-countdown'),

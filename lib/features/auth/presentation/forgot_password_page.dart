@@ -37,7 +37,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
       title: _sent ? 'Revisa tu correo' : 'Recupera tu cuenta',
       subtitle: _sent
           ? 'Si existe una cuenta asociada, enviaremos un enlace para crear una contraseña nueva.'
-          : 'Escribe el correo con el que te registraste.',
+          : 'Escribe tu correo real. Si usas un usuario institucional sin buzón, pide a tu docente o responsable que genere otra clave temporal.',
       child: _sent
           ? const _SentMessage()
           : Form(

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -23,7 +22,8 @@ import '../domain/study_models.dart';
 import 'study_providers.dart';
 import '../../../core/media/private_lesson_cache.dart';
 import 'private_lesson_page.dart';
-import 'learning_map_card.dart';
+import 'lesson_card_reader.dart';
+import '../../practice/presentation/booklet_section.dart';
 
 class StudyLessonPage extends ConsumerStatefulWidget {
   const StudyLessonPage({
@@ -258,6 +258,7 @@ class _LessonContent extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ListView(
+      key: const Key('study-lesson-scroll'),
       padding: const EdgeInsets.fromLTRB(20, 10, 20, 36),
       children: [
         Wrap(
@@ -300,94 +301,92 @@ class _LessonContent extends ConsumerWidget {
           ],
         ),
         const SizedBox(height: 8),
-        Text(
-          '${subtopic.totalQuestions} preguntas de práctica disponibles',
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
-        const SizedBox(height: 22),
-        LearningMapCard(request: (area: area, subtopicId: subtopic.id)),
-        if (!subtopic.hasLearningResource)
-          const _NoResources()
-        else ...[
-          if (subtopic.content case final content?)
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: MarkdownBody(
-                  data: content,
-                  selectable: true,
-                  styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)),
-                  onTapLink: (text, href, title) {
-                    if (href != null) _openExternal(context, href);
-                  },
-                  imageBuilder: (uri, title, alt) => _LessonImage(
-                    url: uri.toString(),
-                    label: alt ?? 'Imagen de la lección',
+        LessonCardReader(
+          key: ValueKey(
+            'lesson-reader-${ref.watch(sessionControllerProvider).user?.id}-${subtopic.id}',
+          ),
+          userId: ref.watch(sessionControllerProvider).user?.id,
+          subtopicId: subtopic.id,
+          title: subtopic.name,
+          markdown: subtopic.content ?? '',
+          questionCount: subtopic.totalQuestions,
+          onOpenLink: (url) => _openExternal(context, url),
+          footer: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              if (!subtopic.hasLearningResource)
+                const _NoResources()
+              else ...[
+                if (subtopic.videoUrl case final videoUrl?) ...[
+                  const SizedBox(height: 14),
+                  Card(
+                    child: ListTile(
+                      leading: const CircleAvatar(
+                        child: Icon(Icons.play_arrow_rounded),
+                      ),
+                      title: const Text('Video de la lección'),
+                      subtitle: const Text(
+                        'Se abrirá en el reproductor disponible.',
+                      ),
+                      trailing: const Icon(Icons.open_in_new_rounded),
+                      onTap: () => _openExternal(context, videoUrl),
+                    ),
                   ),
+                ],
+                if (subtopic.imageUrl case final imageUrl?) ...[
+                  const SizedBox(height: 14),
+                  _LessonImage(url: imageUrl),
+                ],
+                if (subtopic.clozeActivity case final activity?) ...[
+                  const SizedBox(height: 18),
+                  _ClozeExercise(activity: activity),
+                ],
+              ],
+              const SizedBox(height: 22),
+              if (area == AcademicArea.english) ...[
+                BookletSection(subtopicId: subtopic.id),
+                const SizedBox(height: 16),
+              ],
+              FilledButton.icon(
+                key: const Key('complete-study-lesson-button'),
+                onPressed: completed || saving ? null : onMarkComplete,
+                icon: saving
+                    ? const SizedBox.square(
+                        dimension: 20,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : Icon(
+                        completed
+                            ? Icons.check_circle_rounded
+                            : Icons.task_alt_rounded,
+                      ),
+                label: Text(
+                  completed ? 'Lección completada' : 'Marcar como completada',
                 ),
               ),
-            ),
-          if (subtopic.videoUrl case final videoUrl?) ...[
-            const SizedBox(height: 14),
-            Card(
-              child: ListTile(
-                leading: const CircleAvatar(
-                  child: Icon(Icons.play_arrow_rounded),
+              if (subtopic.totalQuestions > 0) ...[
+                const SizedBox(height: 12),
+                FilledButton.tonalIcon(
+                  key: const Key('start-subtopic-practice-button'),
+                  onPressed: () => context.push(
+                    '/student/practice/subtopic/${area.slug}/${subtopic.id}',
+                  ),
+                  icon: const Icon(Icons.quiz_rounded),
+                  label: Text('Practicar ${subtopic.totalQuestions} preguntas'),
                 ),
-                title: const Text('Video de la lección'),
-                subtitle: const Text('Se abrirá en el reproductor disponible.'),
-                trailing: const Icon(Icons.open_in_new_rounded),
-                onTap: () => _openExternal(context, videoUrl),
-              ),
-            ),
-          ],
-          if (subtopic.imageUrl case final imageUrl?) ...[
-            const SizedBox(height: 14),
-            _LessonImage(url: imageUrl),
-          ],
-          if (subtopic.clozeActivity case final activity?) ...[
-            const SizedBox(height: 18),
-            _ClozeExercise(activity: activity),
-          ],
-        ],
-        const SizedBox(height: 22),
-        FilledButton.icon(
-          key: const Key('complete-study-lesson-button'),
-          onPressed: completed || saving ? null : onMarkComplete,
-          icon: saving
-              ? const SizedBox.square(
-                  dimension: 20,
-                  child: CircularProgressIndicator(strokeWidth: 2),
-                )
-              : Icon(
-                  completed
-                      ? Icons.check_circle_rounded
-                      : Icons.task_alt_rounded,
-                ),
-          label: Text(
-            completed ? 'Lección completada' : 'Marcar como completada',
+              ],
+            ],
           ),
         ),
-        if (subtopic.totalQuestions > 0) ...[
-          const SizedBox(height: 12),
-          FilledButton.tonalIcon(
-            key: const Key('start-subtopic-practice-button'),
-            onPressed: () => context.push(
-              '/student/practice/subtopic/${area.slug}/${subtopic.id}',
-            ),
-            icon: const Icon(Icons.quiz_rounded),
-            label: Text('Practicar ${subtopic.totalQuestions} preguntas'),
-          ),
-        ],
       ],
     );
   }
 }
 
 class _LessonImage extends StatelessWidget {
-  const _LessonImage({required this.url, this.label = 'Imagen de la lección'});
+  const _LessonImage({required this.url});
   final String url;
-  final String label;
+  final String label = 'Imagen de la lección';
   @override
   Widget build(BuildContext context) => AcademicImage(
     value: url,

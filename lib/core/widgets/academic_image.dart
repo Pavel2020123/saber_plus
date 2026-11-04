@@ -11,6 +11,7 @@ import '../media/editorial_image_reference.dart';
 import '../media/remote_editorial_image_repository.dart';
 import '../network/access_token_store.dart';
 import '../network/api_client.dart';
+import 'academic_image_viewer.dart';
 
 final editorialImageProvider = FutureProvider.autoDispose
     .family<ui.Image, String>((ref, path) async {
@@ -70,6 +71,7 @@ class AcademicImage extends ConsumerStatefulWidget {
     this.label = 'Imagen del contenido',
     this.borderRadius = BorderRadius.zero,
     this.maxImageHeight,
+    this.enableZoom = true,
   });
 
   final String value;
@@ -77,6 +79,7 @@ class AcademicImage extends ConsumerStatefulWidget {
   final BorderRadius borderRadius;
   // Bound decoded pixels only: error/retry text must remain unconstrained.
   final double? maxImageHeight;
+  final bool enableZoom;
 
   @override
   ConsumerState<AcademicImage> createState() => _AcademicImageState();
@@ -130,7 +133,8 @@ class _AcademicImageState extends ConsumerState<AcademicImage> {
       semanticLabel: widget.label,
       fit: BoxFit.contain,
       // Round only decoded image pixels, not loading/error messages.
-      frameBuilder: (_, child, _, _) => _pixels(child),
+      frameBuilder: (_, child, frame, loaded) =>
+          frame == null && !loaded ? child : _pixels(child),
       loadingBuilder: (_, child, progress) =>
           progress == null ? child : const Text('Cargando imagen…'),
       errorBuilder: (_, _, _) => _failure(() async {
@@ -142,12 +146,38 @@ class _AcademicImageState extends ConsumerState<AcademicImage> {
 
   Widget _pixels(Widget child) {
     final rounded = ClipRRect(borderRadius: widget.borderRadius, child: child);
-    return widget.maxImageHeight == null
+    final bounded = widget.maxImageHeight == null
         ? rounded
         : ConstrainedBox(
             constraints: BoxConstraints(maxHeight: widget.maxImageHeight!),
             child: rounded,
           );
+    if (!widget.enableZoom) return bounded;
+    return Tooltip(
+      message: 'Toca para ampliar',
+      child: Semantics(
+        button: true,
+        label: 'Ampliar ${widget.label}',
+        child: InkWell(
+          onTap: () => showDialog<void>(
+            context: context,
+            useSafeArea: false,
+            builder: (_) => AcademicImageViewer(
+              label: widget.label,
+              // Keep the authenticated provider live: logout/revocation must
+              // remove private pixels in the viewer as well as the thumbnail.
+              child: AcademicImage(
+                value: widget.value,
+                label: widget.label,
+                enableZoom: false,
+              ),
+            ),
+          ),
+          borderRadius: widget.borderRadius,
+          child: bounded,
+        ),
+      ),
+    );
   }
 
   Widget _failure(VoidCallback onRetry, {bool unavailable = false}) => Column(

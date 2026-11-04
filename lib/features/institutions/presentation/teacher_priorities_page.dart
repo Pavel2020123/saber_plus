@@ -364,127 +364,140 @@ class _CreateTeacherPriorityPageState
     final locked = _pending != null || _working;
     return Scaffold(
       appBar: AppBar(title: const Text('Asignar prioridad')),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          const Text(
-            'Selecciona área → tema → subtema. También puedes asignar el tema completo. La meta siempre será practicar cinco preguntas distintas.',
-          ),
-          const SizedBox(height: 16),
-          DropdownButtonFormField<AcademicArea>(
-            key: const Key('priority-area'),
-            initialValue: _area,
-            isExpanded: true,
-            decoration: const InputDecoration(labelText: 'Área'),
-            items: [
-              for (final a in AcademicArea.values)
-                DropdownMenuItem(value: a, child: Text(a.label)),
-            ],
-            onChanged: locked
-                ? null
-                : (v) => setState(() {
-                    _area = v!;
-                    _page = 1;
-                    _entry = null;
-                  }),
-          ),
-          const SizedBox(height: 12),
-          state.when(
-            skipLoadingOnRefresh: false,
-            skipLoadingOnReload: false,
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (e, _) => PriorityErrorView(
-              error: e,
-              retry: () => ref.invalidate(teacherPriorityProvider(query)),
-            ),
-            data: (data) => Column(
-              children: [
-                if (data.catalog.isEmpty)
-                  const Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Text(
-                      'No hay subtemas en esta página. Prueba otra área o continúa si hay más páginas.',
-                    ),
-                  ),
-                for (final e in data.catalog)
-                  Card(
-                    child: ListTile(
-                      key: Key('priority-catalog-${e.id}'),
-                      title: Text(e.name),
-                      subtitle: Text(
-                        '${e.topicName} · ${e.count} preguntas publicadas${e.assignable ? '' : ' · no asignable como subtema'}',
-                      ),
-                      leading: Icon(
-                        _entry?.id == e.id
-                            ? Icons.radio_button_checked
-                            : Icons.radio_button_off,
-                      ),
-                      selected: _entry?.id == e.id,
-                      onTap: locked ? null : () => setState(() => _entry = e),
-                    ),
-                  ),
-                PriorityPagination(
-                  page: _page,
-                  hasMore: data.hasMore,
-                  busy: locked,
-                  onPage: (p) => setState(() {
-                    _page = p;
-                    _entry = null;
-                  }),
-                ),
-              ],
-            ),
-          ),
-          if (_entry case final entry?) ...[
-            SwitchListTile(
-              contentPadding: EdgeInsets.zero,
-              title: Text('Tema completo: ${entry.topicName}'),
-              subtitle: const Text(
-                'Si lo desactivas, solo se asignará el subtema seleccionado.',
-              ),
-              value: _wholeTopic,
-              onChanged: locked ? null : (v) => setState(() => _wholeTopic = v),
-            ),
-            DropdownButtonFormField<int>(
-              initialValue: _days,
-              decoration: const InputDecoration(
-                labelText: 'Plazo desde la confirmación',
-              ),
-              items: [
-                for (final d in [1, 3, 7, 14, 30])
-                  DropdownMenuItem(value: d, child: Text('$d días')),
-              ],
-              onChanged: locked ? null : (v) => setState(() => _days = v!),
+      body: SafeArea(
+        top: false,
+        child: ListView(
+          padding: const EdgeInsets.all(16),
+          children: [
+            const Text(
+              'Selecciona área → tema → subtema. También puedes asignar el tema completo. La meta siempre será practicar cinco preguntas distintas.',
             ),
             const SizedBox(height: 16),
-            if (_pending != null)
-              Text('Vence: ${priorityDateLabel(_pending!.dueAt)}'),
-            if (_error != null)
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                child: Text(
-                  '${priorityError(_error!)}\nLa operación podría haberse guardado. Reintentar conserva la misma solicitud; si vuelves atrás, consulta el listado antes de crear otra.',
-                ),
-              ),
-            FilledButton(
-              key: const Key('confirm-create-priority'),
-              onPressed:
-                  _working ||
-                      (!_wholeTopic && !entry.assignable) ||
-                      state.hasError ||
-                      state.isLoading
+            DropdownButtonFormField<AcademicArea>(
+              key: const Key('priority-area'),
+              initialValue: _area,
+              isExpanded: true,
+              decoration: const InputDecoration(labelText: 'Área'),
+              items: [
+                for (final a in AcademicArea.values)
+                  DropdownMenuItem(value: a, child: Text(a.label)),
+              ],
+              onChanged: locked
                   ? null
-                  : _create,
-              child: Text(
-                _working
-                    ? 'Guardando…'
-                    : _pending == null
-                    ? 'Confirmar prioridad'
-                    : 'Reintentar misma solicitud',
+                  : (v) => setState(() {
+                      _area = v!;
+                      _page = 1;
+                      _entry = null;
+                    }),
+            ),
+            const SizedBox(height: 12),
+            state.when(
+              skipLoadingOnRefresh: false,
+              skipLoadingOnReload: false,
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (e, _) => PriorityErrorView(
+                error: e,
+                retry: () => ref.invalidate(teacherPriorityProvider(query)),
+              ),
+              data: (data) => Column(
+                children: [
+                  if (data.catalog.isEmpty)
+                    const Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Text(
+                        'No hay subtemas en esta página. Prueba otra área o continúa si hay más páginas.',
+                      ),
+                    ),
+                  for (final e in data.catalog)
+                    Card(
+                      margin: const EdgeInsets.only(bottom: 8),
+                      child: ListTile(
+                        key: Key('priority-catalog-${e.id}'),
+                        title: Text(e.name),
+                        subtitle: Text(
+                          '${e.topicName} · ${e.count} preguntas publicadas${e.assignable ? '' : ' · no asignable como subtema'}',
+                        ),
+                        leading: Icon(
+                          _entry?.id == e.id
+                              ? Icons.radio_button_checked
+                              : Icons.radio_button_off,
+                        ),
+                        selected: _entry?.id == e.id,
+                        onTap: locked ? null : () => setState(() => _entry = e),
+                      ),
+                    ),
+                  if (_page > 1 || data.hasMore)
+                    PriorityPagination(
+                      page: _page,
+                      hasMore: data.hasMore,
+                      busy: locked,
+                      onPage: (p) => setState(() {
+                        _page = p;
+                        _entry = null;
+                      }),
+                    ),
+                ],
               ),
             ),
+            if (_entry case final entry?) ...[
+              const SizedBox(height: 12),
+              SwitchListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Text('Tema completo: ${entry.topicName}'),
+                subtitle: const Text(
+                  'Si lo desactivas, solo se asignará el subtema seleccionado.',
+                ),
+                value: _wholeTopic,
+                onChanged: locked
+                    ? null
+                    : (v) => setState(() => _wholeTopic = v),
+              ),
+              const SizedBox(height: 16),
+              DropdownButtonFormField<int>(
+                key: const Key('priority-deadline'),
+                initialValue: _days,
+                decoration: const InputDecoration(
+                  labelText: 'Plazo desde la confirmación',
+                ),
+                items: [
+                  for (final d in [1, 3, 7, 14, 30])
+                    DropdownMenuItem(
+                      value: d,
+                      child: Text(d == 1 ? '1 día' : '$d días'),
+                    ),
+                ],
+                onChanged: locked ? null : (v) => setState(() => _days = v!),
+              ),
+              const SizedBox(height: 16),
+              if (_pending != null)
+                Text('Vence: ${priorityDateLabel(_pending!.dueAt)}'),
+              if (_error != null)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  child: Text(
+                    '${priorityError(_error!)}\nLa operación podría haberse guardado. Reintentar conserva la misma solicitud; si vuelves atrás, consulta el listado antes de crear otra.',
+                  ),
+                ),
+              FilledButton(
+                key: const Key('confirm-create-priority'),
+                onPressed:
+                    _working ||
+                        (!_wholeTopic && !entry.assignable) ||
+                        state.hasError ||
+                        state.isLoading
+                    ? null
+                    : _create,
+                child: Text(
+                  _working
+                      ? 'Guardando…'
+                      : _pending == null
+                      ? 'Confirmar prioridad'
+                      : 'Reintentar misma solicitud',
+                ),
+              ),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }

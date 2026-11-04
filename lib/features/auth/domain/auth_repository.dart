@@ -14,7 +14,7 @@ abstract interface class AuthRepository {
 
   Future<void> resetPassword({required String token, required String password});
 
-  Future<void> changeInitialPassword(String password);
+  Future<AuthTokens?> changeInitialPassword(String password);
 
   Future<UserSession> profile();
 }

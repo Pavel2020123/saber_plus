@@ -24,7 +24,10 @@ bool canReportQuestions(UserSession? user) =>
     user != null &&
     user.role == AppRole.student &&
     !user.isDemo &&
-    user.emailVerified &&
+    (user.emailVerified ||
+        (user.institutionalUsername != null &&
+            user.institutionalAccess?.managedAccount == true &&
+            user.institutionalAccess?.canStartPractice == true)) &&
     !user.requiresEmailVerification &&
     !user.mustChangePassword;
 

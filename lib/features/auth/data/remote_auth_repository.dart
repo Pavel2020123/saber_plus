@@ -62,11 +62,20 @@ class RemoteAuthRepository implements AuthRepository {
   );
 
   @override
-  Future<void> changeInitialPassword(String password) => _patch(
-    _authenticatedDio,
-    '/auth/cambiar-contrasena-inicial',
-    body: {'nuevaContrasena': password},
-  );
+  Future<AuthTokens?> changeInitialPassword(String password) async {
+    final data = await _patch(
+      _authenticatedDio,
+      '/auth/cambiar-contrasena-inicial',
+      body: {'nuevaContrasena': password},
+    );
+    // Las cuentas personales antiguas no renuevan el token en esta ruta.
+    if (!data.containsKey('accessToken')) return null;
+    final token = data['accessToken'];
+    if (token is! String || token.trim().isEmpty) {
+      throw const FormatException('Invalid renewed session token');
+    }
+    return AuthTokens(accessToken: token);
+  }
 
   @override
   Future<UserSession> profile() async {

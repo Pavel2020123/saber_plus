@@ -1,3 +1,5 @@
+import 'institutional_access.dart';
+
 enum AppRole { student, teacher, admin }
 
 enum SessionStatus { restoring, unauthenticated, authenticated }
@@ -14,6 +16,8 @@ class UserSession {
     this.mustChangePassword = false,
     this.isDemo = false,
     this.institutionId,
+    this.institutionalUsername,
+    this.institutionalAccess,
   });
 
   final String id;
@@ -26,6 +30,8 @@ class UserSession {
   final bool mustChangePassword;
   final bool isDemo;
   final String? institutionId;
+  final String? institutionalUsername;
+  final InstitutionalAccess? institutionalAccess;
 
   UserSession copyWith({int? xpTotal}) => UserSession(
     id: id,
@@ -38,6 +44,8 @@ class UserSession {
     mustChangePassword: mustChangePassword,
     isDemo: isDemo,
     institutionId: institutionId,
+    institutionalUsername: institutionalUsername,
+    institutionalAccess: institutionalAccess,
   );
 
   factory UserSession.fromBackendJson(Map<String, dynamic> json) => UserSession(
@@ -51,6 +59,12 @@ class UserSession {
         json['requiereVerificacionCorreo'] as bool? ?? false,
     mustChangePassword: json['debeCambiarContrasena'] as bool? ?? false,
     institutionId: json['institucionId'] as String?,
+    institutionalUsername: json['identificadorInstitucional'] as String?,
+    institutionalAccess: json['accesoInstitucional'] == null
+        ? null
+        : InstitutionalAccess.fromJson(
+            json['accesoInstitucional'] as Map<String, dynamic>,
+          ),
   );
 
   static AppRole _roleFromBackend(String role) => switch (role.toUpperCase()) {

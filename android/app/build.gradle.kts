@@ -18,6 +18,7 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.saber_plus"
+        manifestPlaceholders["saberplusAppLabel"] = "SaberPlus"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
@@ -29,9 +30,14 @@ android {
 
     buildTypes {
         debug {
+            if (providers.gradleProperty("saberplusDemoApk").orNull == "true") {
+                applicationIdSuffix = ".demo"
+                manifestPlaceholders["saberplusAppLabel"] = "SaberPlus Demo"
+            }
             // Opt-in local validation APK: never replace the normal installation.
-            if (providers.gradleProperty("saberplusValidationApk").orNull == "true") {
+            else if (providers.gradleProperty("saberplusValidationApk").orNull == "true") {
                 applicationIdSuffix = ".i2validation"
+                manifestPlaceholders["saberplusAppLabel"] = "SaberPlus Pruebas"
             }
         }
         release {

@@ -21,6 +21,55 @@ const _question = DiagnosticQuestion(
 );
 
 void main() {
+  for (final bottomInset in [0.0, 24.0, 48.0]) {
+    testWidgets(
+      'navigation stays above Android inset $bottomInset without an exam',
+      (tester) async {
+        tester.view.devicePixelRatio = 1;
+        tester.view.physicalSize = const Size(360, 800);
+        tester.view.padding = FakeViewPadding(bottom: bottomInset);
+        tester.view.viewPadding = FakeViewPadding(bottom: bottomInset);
+        addTearDown(tester.view.reset);
+        await tester.pumpWidget(
+          ProviderScope(
+            overrides: [
+              academicHomeControllerProvider.overrideWith(
+                _LayoutAcademicController.new,
+              ),
+              diagnosticDraftStoreProvider.overrideWithValue(
+                _MemoryDraftStore(),
+              ),
+            ],
+            child: const MaterialApp(home: DiagnosticOverviewPage()),
+          ),
+        );
+        await tester.pumpAndSettle();
+        final next = find.byKey(const Key('next-diagnostic-question-button'));
+        final previous = find.widgetWithText(OutlinedButton, 'Anterior');
+        expect(
+          tester.getRect(next).bottom,
+          lessThanOrEqualTo(800 - bottomInset),
+        );
+        expect(
+          tester.getRect(previous).bottom,
+          lessThanOrEqualTo(800 - bottomInset),
+        );
+        await tester.tap(next);
+        await tester.pumpAndSettle();
+        expect(find.text('Pregunta 2 de 2'), findsOneWidget);
+        expect(
+          tester
+              .getRect(find.byKey(const Key('finish-diagnostic-button')))
+              .bottom,
+          lessThanOrEqualTo(800 - bottomInset),
+        );
+        await tester.tap(previous);
+        await tester.pumpAndSettle();
+        expect(find.text('Pregunta 1 de 2'), findsOneWidget);
+        expect(tester.takeException(), isNull);
+      },
+    );
+  }
   testWidgets('inicia y muestra la primera pregunta del diagnóstico', (
     tester,
   ) async {
@@ -110,6 +159,33 @@ void main() {
       expect(find.textContaining('Razones y proporciones'), findsOneWidget);
       expect(store.wasCleared, isTrue);
     },
+  );
+}
+
+class _LayoutAcademicController extends AcademicHomeController {
+  @override
+  Future<AcademicHomeData> build() async => const AcademicHomeData(
+    diagnostic: DiagnosticSummary(
+      status: DiagnosticStatus.inProgress,
+      id: 'diagnostic-layout',
+      totalQuestions: 2,
+      questions: [
+        _question,
+        DiagnosticQuestion(
+          id: 'question-2',
+          statement: 'Second question',
+          difficulty: 'MEDIA',
+          options: [
+            DiagnosticOption(id: 'second-a', text: 'A'),
+            DiagnosticOption(id: 'second-b', text: 'B'),
+          ],
+          subtopicName: 'Regla de tres',
+          themeName: 'Razones',
+          area: AcademicArea.mathematics,
+        ),
+      ],
+    ),
+    plan: StudyPlanSummary(status: StudyPlanStatus.diagnosticPending),
   );
 }
 

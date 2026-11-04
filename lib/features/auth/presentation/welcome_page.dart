@@ -22,11 +22,10 @@ class WelcomePage extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      _BrandMark(color: colors.primary),
-                      const SizedBox(width: 10),
-                      Text(
-                        'SaberPlus',
-                        style: Theme.of(context).textTheme.titleLarge,
+                      Semantics(
+                        label: 'SaberPlus',
+                        image: true,
+                        child: _BrandMark(color: colors.primary),
                       ),
                     ],
                   ),

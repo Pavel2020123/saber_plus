@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -8,6 +9,7 @@ import '../../auth/presentation/session_controller.dart';
 import '../../gamification/presentation/gamification_providers.dart';
 import '../../institutions/presentation/student_request_shortcut.dart';
 import '../../question_reports/presentation/question_report_page.dart';
+import '../../institutions/presentation/account_privacy_page.dart';
 
 class MorePage extends ConsumerWidget {
   const MorePage({super.key});
@@ -29,15 +31,16 @@ class MorePage extends ConsumerWidget {
         children: [
           _MenuTile(
             key: const Key('open-academic-profile'),
-            icon: Icons.person_outline_rounded,
+            icon: LucideIcons.userRound,
             title: 'Mi perfil',
             subtitle: 'Tu panorama académico en un solo lugar',
             onTap: () => context.push('/student/more/profile'),
           ),
           const MyQuestionReportsShortcut(),
+          const AccountPrivacyShortcut(),
           _MenuTile(
             key: const Key('open-student-institution'),
-            icon: Icons.account_balance_outlined,
+            icon: LucideIcons.school,
             title: 'Mi institución y grupos',
             subtitle: 'Tu institución y los códigos de ingreso a grupos',
             onTap: () => context.push('/student/more/institution'),
@@ -76,14 +79,14 @@ class MorePage extends ConsumerWidget {
           ),
           _MenuTile(
             key: const Key('open-study-time'),
-            icon: Icons.schedule_rounded,
+            icon: LucideIcons.timer,
             title: 'Tiempo estudiado',
             subtitle: 'Evaluaciones, Pomodoro y sincronización',
             onTap: () => context.push('/student/more/study-time'),
           ),
           _MenuTile(
             key: const Key('open-ranking'),
-            icon: Icons.leaderboard_outlined,
+            icon: LucideIcons.crown,
             title: 'Ranking',
             subtitle: 'Posiciones con identidades protegidas',
             onTap: () => context.push('/student/more/ranking'),
@@ -122,7 +125,7 @@ class MorePage extends ConsumerWidget {
           ),
           _MenuTile(
             key: const Key('open-preferences'),
-            icon: Icons.tune_rounded,
+            icon: LucideIcons.slidersHorizontal,
             title: 'Preferencias',
             subtitle: 'Apariencia y recordatorio diario',
             onTap: () => context.push('/student/more/preferences'),

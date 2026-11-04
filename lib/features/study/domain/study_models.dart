@@ -59,9 +59,8 @@ class StudyCatalog {
             StudySubtopic(
               id: 'demo-${area.name}-subtopic',
               name: data.$2,
-              totalQuestions: 5,
-              content:
-                  '# ${data.$2}\n\nEsta es una lección demostrativa de **${area.label}**.\n\n- Revisa el concepto principal.\n- Observa el ejemplo.\n- Marca la lección cuando termines.',
+              totalQuestions: 2,
+              content: _demoLesson(area),
             ),
           ],
         ),
@@ -69,6 +68,78 @@ class StudyCatalog {
     );
   }
 }
+
+String _demoLesson(AcademicArea area) => switch (area) {
+  AcademicArea.mathematics =>
+    '''# Regla de tres directa
+
+Dos cantidades son directamente proporcionales cuando mantienen una razón constante.
+
+## Ejemplo resuelto
+Si 3 cuadernos cuestan 12.000 pesos, cada uno cuesta 12.000 ÷ 3 = **4.000 pesos**.
+Entonces 5 cuadernos cuestan 5 × 4.000 = **20.000 pesos**.
+
+## Comprueba
+Si 4 lápices cuestan 8.000 pesos, 7 lápices cuestan **14.000 pesos**.
+Mantén siempre las mismas unidades y comprueba el precio por unidad.
+''',
+  AcademicArea.criticalReading =>
+    '''# La idea principal
+
+La idea principal reúne la información central de un texto. Los detalles la explican o la apoyan.
+
+## Ejemplo
+«Cerrar la llave mientras nos cepillamos y reparar las fugas ayuda a reducir el consumo de agua en casa».
+
+La idea principal es **presentar acciones para ahorrar agua**, no describir todos los ríos.
+
+## Estrategia
+- Identifica el tema común de las oraciones.
+- Distingue la idea general de un ejemplo particular.
+- Elige la opción que resuma todo el texto sin añadir información.
+''',
+  AcademicArea.naturalSciences =>
+    '''# Ecosistemas y cadenas alimentarias
+
+Un ecosistema incluye seres vivos y componentes físicos, como agua, luz y suelo.
+
+## Productores y consumidores
+Las plantas producen materia orgánica mediante la fotosíntesis. Los consumidores obtienen alimento de otros seres vivos.
+
+## Ejemplo
+**Pasto → conejo → zorro**. Las flechas representan la transferencia de materia y energía desde el alimento hacia quien lo consume.
+
+Si disminuye el pasto, los conejos disponen de menos alimento. La energía no se recicla igual que la materia: parte se disipa como calor.
+''',
+  AcademicArea.socialSciences =>
+    '''# Constitución y ciudadanía
+
+La convivencia democrática se construye mediante derechos, responsabilidades y participación informada.
+
+## Ejemplo
+Un grupo escolar debe elegir cómo usar un espacio común. Escuchar propuestas y debatir con respeto permite tomar una decisión colectiva.
+
+## Participar responsablemente
+- Verifica la información antes de compartirla.
+- Respeta el derecho de los demás a expresarse.
+- Argumenta tus propuestas sin amenazas ni discriminación.
+
+La libertad de expresión no significa impedir que otras personas participen.
+''',
+  AcademicArea.english =>
+    '''# Main idea
+
+The main idea summarizes the central message of a paragraph. Details provide examples or supporting information.
+
+## Example
+“Plan your study time, take short breaks and review your notes. These habits help you learn effectively.”
+
+The main idea is **strategies for effective studying**.
+
+## Reading tip
+Ask: “What are all these sentences mainly about?” Do not choose an answer that describes only one small detail.
+''',
+};
 
 class StudyTheme {
   const StudyTheme({

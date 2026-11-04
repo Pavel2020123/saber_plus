@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/sync/sync_providers.dart';
+import '../../auth/presentation/session_controller.dart';
 import '../../exam_countdown/presentation/exam_countdown_banner.dart';
 
 class StudentShell extends ConsumerStatefulWidget {
@@ -36,6 +38,9 @@ class _StudentShellState extends ConsumerState<StudentShell>
 
   void _synchronize() {
     if (!mounted) return;
+    ref
+        .read(sessionControllerProvider.notifier)
+        .revalidateInstitutionalAccess();
     ref.read(safeSyncControllerProvider.notifier).synchronize();
   }
 
@@ -79,26 +84,26 @@ class StudentNavigationBar extends StatelessWidget {
         : NavigationDestinationLabelBehavior.alwaysShow,
     destinations: const [
       NavigationDestination(
-        icon: Icon(Icons.home_outlined),
-        selectedIcon: Icon(Icons.home_rounded),
+        icon: Icon(LucideIcons.house),
+        selectedIcon: Icon(LucideIcons.house),
         label: 'Inicio',
       ),
       NavigationDestination(
-        icon: Icon(Icons.menu_book_outlined),
-        selectedIcon: Icon(Icons.menu_book_rounded),
+        icon: Icon(LucideIcons.bookOpenText),
+        selectedIcon: Icon(LucideIcons.bookOpenText),
         label: 'Estudiar',
       ),
       NavigationDestination(
-        icon: Icon(Icons.quiz_outlined),
-        selectedIcon: Icon(Icons.quiz_rounded),
+        icon: Icon(LucideIcons.gamepad2),
+        selectedIcon: Icon(LucideIcons.gamepad2),
         label: 'Practicar',
       ),
       NavigationDestination(
-        icon: Icon(Icons.insights_outlined),
-        selectedIcon: Icon(Icons.insights_rounded),
+        icon: Icon(LucideIcons.chartArea),
+        selectedIcon: Icon(LucideIcons.chartArea),
         label: 'Progreso',
       ),
-      NavigationDestination(icon: Icon(Icons.more_horiz_rounded), label: 'Más'),
+      NavigationDestination(icon: Icon(LucideIcons.menu), label: 'Más'),
     ],
   );
 }

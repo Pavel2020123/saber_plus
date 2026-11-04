@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -6,8 +7,11 @@ import '../../../core/network/api_error.dart';
 import '../../academic/domain/academic_models.dart';
 import '../../academic/presentation/academic_home_controller.dart';
 import '../../auth/presentation/session_controller.dart';
+import '../../auth/presentation/institutional_access_notice.dart';
 import '../../resume/domain/learning_resume_models.dart';
 import '../../resume/presentation/learning_resume_providers.dart';
+import 'widgets/electric_xp_icon.dart';
+import 'widgets/home_design.dart';
 
 class StudentDashboardPage extends ConsumerWidget {
   const StudentDashboardPage({super.key});
@@ -19,24 +23,37 @@ class StudentDashboardPage extends ConsumerWidget {
     final resume = ref.watch(learningResumeProvider).valueOrNull;
 
     return Scaffold(
+      backgroundColor: Theme.of(context).brightness == Brightness.light
+          ? HomeDesign.canvas
+          : Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: RefreshIndicator(
-          onRefresh: () =>
-              ref.read(academicHomeControllerProvider.notifier).reload(),
+          onRefresh: () async {
+            await ref
+                .read(sessionControllerProvider.notifier)
+                .revalidateInstitutionalAccess();
+            if (context.mounted) {
+              await ref.read(academicHomeControllerProvider.notifier).reload();
+            }
+          },
           child: CustomScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             slivers: [
               SliverPadding(
-                padding: const EdgeInsets.fromLTRB(20, 18, 20, 32),
+                padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
                 sliver: SliverList.list(
                   children: [
-                    _Header(name: user?.firstName ?? 'estudiante'),
-                    const SizedBox(height: 22),
+                    _Header(
+                      name: user?.firstName ?? 'estudiante',
+                      xpTotal: user?.xpTotal ?? 0,
+                    ),
+                    const SizedBox(height: 16),
+                    const InstitutionalAccessNotice(),
                     academic.when(
                       data: (data) => _AcademicDashboard(
                         data: data,
-                        xpTotal: user?.xpTotal ?? 0,
                         resume: resume,
+                        isDemo: user?.isDemo ?? false,
                       ),
                       loading: () => const _LoadingDashboard(),
                       error: (error, _) => _ErrorDashboard(
@@ -60,35 +77,102 @@ class StudentDashboardPage extends ConsumerWidget {
 }
 
 class _Header extends StatelessWidget {
-  const _Header({required this.name});
-
+  const _Header({required this.name, required this.xpTotal});
   final String name;
+  final int xpTotal;
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
-    return Row(
+    final brand = Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Hola, $name 👋',
-                style: Theme.of(context).textTheme.titleLarge,
+        ExcludeSemantics(
+          child: Container(
+            width: 32,
+            height: 32,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: HomeDesign.primary,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: const Text(
+              'S+',
+              textScaler: TextScaler.noScaling,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w800,
               ),
-              const SizedBox(height: 3),
-              Text(
-                'Tu preparación empieza con una acción clara.',
-                style: TextStyle(color: colors.onSurfaceVariant),
-              ),
-            ],
+            ),
           ),
         ),
-        IconButton.filledTonal(
-          onPressed: () => context.push('/student/more/preferences'),
-          tooltip: 'Notificaciones',
-          icon: const Icon(Icons.notifications_none_rounded),
+        const SizedBox(width: 8),
+        Flexible(
+          child: Text(
+            'SaberPlus',
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              color: HomeDesign.action(context),
+            ),
+          ),
+        ),
+      ],
+    );
+    final xp = TextButton.icon(
+      key: const Key('open-gamification-from-home'),
+      onPressed: () => context.push('/student/more/gamification'),
+      icon: ElectricXpIcon(xp: xpTotal, size: 18),
+      label: Text('${_formatInteger(xpTotal)} XP'),
+      style: TextButton.styleFrom(
+        foregroundColor: HomeDesign.foreground(context),
+        minimumSize: const Size(48, 48),
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        textStyle: Theme.of(context).textTheme.labelMedium,
+      ),
+    );
+    final preferences = IconButton(
+      key: const Key('home-preferences'),
+      onPressed: () => context.push('/student/more/preferences'),
+      tooltip: 'Preferencias',
+      color: HomeDesign.action(context),
+      icon: const Icon(LucideIcons.slidersHorizontal),
+    );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        LayoutBuilder(
+          builder: (context, constraints) {
+            final stacked =
+                constraints.maxWidth < 330 ||
+                MediaQuery.textScalerOf(context).scale(1) > 1.15;
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(child: brand),
+                    if (!stacked) xp,
+                    preferences,
+                  ],
+                ),
+                if (stacked) xp,
+              ],
+            );
+          },
+        ),
+        const SizedBox(height: 12),
+        Text(
+          'Hola, $name',
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+            color: HomeDesign.foreground(context),
+            fontSize: 24,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          'Un paso a la vez. Sigamos aprendiendo.',
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: HomeDesign.secondaryText(context),
+          ),
         ),
       ],
     );
@@ -98,69 +182,27 @@ class _Header extends StatelessWidget {
 class _AcademicDashboard extends StatelessWidget {
   const _AcademicDashboard({
     required this.data,
-    required this.xpTotal,
     required this.resume,
+    required this.isDemo,
   });
 
   final AcademicHomeData data;
-  final int xpTotal;
   final LearningResume? resume;
+  final bool isDemo;
 
   @override
   Widget build(BuildContext context) {
-    final days = data.activeExam?.daysRemaining(DateTime.now());
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _PrimaryActionCard(data: data),
         if (resume case final entry?) ...[
-          const SizedBox(height: 12),
           _ContinueCard(entry: entry),
-        ],
-        const SizedBox(height: 18),
-        LayoutBuilder(
-          builder: (context, constraints) {
-            final metrics = [
-              _MetricCard(
-                icon: Icons.event_available_rounded,
-                value: days == null ? 'Sin fecha' : '$days días',
-                label: data.activeExam == null
-                    ? 'Convocatoria'
-                    : 'Calendario ${data.activeExam!.calendar}',
-              ),
-              _MetricCard(
-                key: const Key('open-gamification-from-home'),
-                icon: Icons.bolt_rounded,
-                value: _formatInteger(xpTotal),
-                label: 'XP total',
-                onTap: () => context.push('/student/more/gamification'),
-              ),
-            ];
-            // Preserve readable type instead of squeezing two metric labels
-            // between their icons on small screens or with large system text.
-            if (constraints.maxWidth <
-                320 * MediaQuery.textScalerOf(context).scale(1)) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [metrics[0], const SizedBox(height: 12), metrics[1]],
-              );
-            }
-            return Row(
-              children: [
-                Expanded(child: metrics[0]),
-                const SizedBox(width: 12),
-                Expanded(child: metrics[1]),
-              ],
-            );
-          },
-        ),
-        if (data.activeExam case final exam?) ...[
           const SizedBox(height: 12),
-          _ExamDateCard(exam: exam),
         ],
-        const SizedBox(height: 26),
-        Text('Tu semana', style: Theme.of(context).textTheme.titleLarge),
-        const SizedBox(height: 12),
+        _PrimaryActionCard(data: data),
+        const SizedBox(height: 16),
+        const _LearningShortcuts(),
+        const SizedBox(height: 16),
         _WeeklyPlanCard(plan: data.plan),
         if (data.diagnostic.status == DiagnosticStatus.completed) ...[
           const SizedBox(height: 26),
@@ -168,7 +210,115 @@ class _AcademicDashboard extends StatelessWidget {
           const SizedBox(height: 12),
           _DiagnosticResultCard(diagnostic: data.diagnostic),
         ],
+        if (isDemo) ...[
+          const SizedBox(height: 20),
+          Text(
+            'Datos de demostración',
+            key: const Key('home-demo-label'),
+            style: Theme.of(context).textTheme.labelMedium?.copyWith(
+              color: HomeDesign.secondaryText(context),
+            ),
+          ),
+        ],
       ],
+    );
+  }
+}
+
+class _LearningShortcuts extends StatelessWidget {
+  const _LearningShortcuts();
+
+  @override
+  Widget build(BuildContext context) => LayoutBuilder(
+    builder: (context, constraints) {
+      final items = [
+        _LearningShortcut(
+          key: const Key('home-study-shortcut'),
+          icon: LucideIcons.bookOpenText,
+          title: 'Estudiar por temas',
+          detail: 'Explicaciones y ejemplos',
+          onTap: () => context.go('/student/study'),
+        ),
+        _LearningShortcut(
+          key: const Key('home-practice-shortcut'),
+          icon: LucideIcons.gamepad2,
+          title: 'Ponerme a prueba',
+          detail: 'Preguntas y retos',
+          onTap: () => context.go('/student/practice'),
+        ),
+      ];
+      if (constraints.maxWidth < 330 ||
+          MediaQuery.textScalerOf(context).scale(1) > 1.3) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [items[0], const SizedBox(height: 10), items[1]],
+        );
+      }
+      return IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(child: items[0]),
+            const SizedBox(width: 16),
+            Expanded(child: items[1]),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+class _LearningShortcut extends StatelessWidget {
+  const _LearningShortcut({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.detail,
+    required this.onTap,
+  });
+  final IconData icon;
+  final String title;
+  final String detail;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    return Card(
+      color: HomeDesign.dark(context)
+          ? colors.surfaceContainerLow
+          : Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(HomeDesign.radius),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(icon, color: HomeDesign.action(context), size: 24),
+              const SizedBox(height: 8),
+              Text(
+                title,
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: HomeDesign.foreground(context),
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                detail,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: HomeDesign.secondaryText(context),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -194,7 +344,7 @@ class _ContinueCard extends StatelessWidget {
               CircleAvatar(
                 backgroundColor: colors.secondaryContainer,
                 foregroundColor: colors.onSecondaryContainer,
-                child: const Icon(Icons.play_arrow_rounded),
+                child: const Icon(LucideIcons.play),
               ),
               const SizedBox(width: 14),
               Expanded(
@@ -235,7 +385,6 @@ class _PrimaryActionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
     final diagnostic = data.diagnostic;
     final activity = data.plan.nextActivity;
     final title = switch (diagnostic.status) {
@@ -262,56 +411,93 @@ class _PrimaryActionCard extends StatelessWidget {
             : 'Ir a estudiar',
     };
 
+    final description = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          diagnostic.status == DiagnosticStatus.completed
+              ? 'SIGUIENTE ACTIVIDAD'
+              : 'PRIMER PASO',
+          style: TextStyle(color: HomeDesign.action(context), fontSize: 12),
+        ),
+        const SizedBox(height: 5),
+        Text(
+          title,
+          key: const Key('home-primary-title'),
+          style: TextStyle(
+            color: HomeDesign.foreground(context),
+            fontSize: 24,
+            height: 1.2,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        const SizedBox(height: 5),
+        Text(
+          detail,
+          style: TextStyle(
+            color: HomeDesign.secondaryText(context),
+            fontSize: 14,
+            height: 1.5,
+          ),
+        ),
+      ],
+    );
+    Widget mascot(double size) => Image.asset(
+      'assets/images/Sabi_Inicio_Refuerzo.png',
+      key: const Key('home-sabi'),
+      width: size,
+      height: size * 1.06,
+      fit: BoxFit.contain,
+      excludeFromSemantics: true,
+      cacheWidth: 360,
+    );
     return Container(
       key: const Key('home-primary-action-card'),
-      padding: const EdgeInsets.all(22),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: colors.primary,
-        borderRadius: BorderRadius.circular(26),
+        color: HomeDesign.hero(context),
+        borderRadius: BorderRadius.circular(HomeDesign.radius),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Icon(
-                Icons.auto_awesome_rounded,
-                color: colors.onPrimary,
-                size: 19,
-              ),
-              const SizedBox(width: 7),
-              Expanded(
-                child: Text(
-                  diagnostic.status == DiagnosticStatus.completed
-                      ? 'SIGUIENTE ACTIVIDAD'
-                      : 'PRIMER PASO',
-                  style: TextStyle(
-                    color: colors.onPrimary,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 0.7,
-                  ),
-                ),
-              ),
-            ],
+          LayoutBuilder(
+            builder: (context, constraints) {
+              if (constraints.maxWidth >= 270 &&
+                  MediaQuery.textScalerOf(context).scale(1) <= 1.3) {
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(child: description),
+                    const SizedBox(width: 12),
+                    mascot(constraints.maxWidth >= 310 ? 132 : 110),
+                  ],
+                );
+              }
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  description,
+                  const SizedBox(height: 12),
+                  Align(alignment: Alignment.centerRight, child: mascot(110)),
+                ],
+              );
+            },
           ),
-          const SizedBox(height: 16),
-          Text(
-            title,
-            style: TextStyle(
-              color: colors.onPrimary,
-              fontSize: 22,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-          const SizedBox(height: 7),
-          Text(detail, style: TextStyle(color: colors.onPrimary, fontSize: 15)),
-          const SizedBox(height: 20),
+          const SizedBox(height: 12),
           FilledButton.icon(
+            iconAlignment: IconAlignment.end,
             style: FilledButton.styleFrom(
-              backgroundColor: colors.onPrimary,
-              foregroundColor: colors.primary,
-              minimumSize: const Size(0, 48),
+              backgroundColor: HomeDesign.primary,
+              foregroundColor: Colors.white,
+              textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+                fontSize: 14,
+                fontWeight: FontWeight.w700,
+              ),
+              minimumSize: const Size(double.infinity, 48),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(HomeDesign.radius),
+              ),
               padding: const EdgeInsets.symmetric(horizontal: 18),
             ),
             onPressed: () {
@@ -324,76 +510,17 @@ class _PrimaryActionCard extends StatelessWidget {
                 context.go('/student/study');
               }
             },
-            icon: const Icon(Icons.arrow_forward_rounded),
+            icon: Icon(
+              diagnostic.status == DiagnosticStatus.completed
+                  ? LucideIcons.arrowRight
+                  : LucideIcons.clipboardCheck,
+            ),
             label: Text(label),
           ),
         ],
       ),
     );
   }
-}
-
-class _MetricCard extends StatelessWidget {
-  const _MetricCard({
-    super.key,
-    required this.icon,
-    required this.value,
-    required this.label,
-    this.onTap,
-  });
-
-  final IconData icon;
-  final String value;
-  final String label;
-  final VoidCallback? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            children: [
-              CircleAvatar(
-                backgroundColor: colors.primaryContainer,
-                foregroundColor: colors.primary,
-                child: Icon(icon),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(value, style: Theme.of(context).textTheme.titleMedium),
-                    Text(label, style: Theme.of(context).textTheme.bodySmall),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _ExamDateCard extends StatelessWidget {
-  const _ExamDateCard({required this.exam});
-
-  final ActiveExam exam;
-
-  @override
-  Widget build(BuildContext context) => Card(
-    child: ListTile(
-      leading: const Icon(Icons.calendar_month_outlined),
-      title: Text('ICFES ${exam.year} · Calendario ${exam.calendar}'),
-      subtitle: Text('Fecha del examen: ${_formatDate(exam.examDate)}'),
-    ),
-  );
 }
 
 class _WeeklyPlanCard extends StatelessWidget {
@@ -431,36 +558,54 @@ class _WeeklyPlanCard extends StatelessWidget {
     }
 
     return Card(
+      color: HomeDesign.dark(context)
+          ? Theme.of(context).colorScheme.surfaceContainerLow
+          : Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(HomeDesign.radius),
+      ),
       child: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    '${plan.completedSessions} de ${plan.targetSessions} sesiones',
+            SizedBox(
+              width: double.infinity,
+              child: Wrap(
+                spacing: 12,
+                runSpacing: 8,
+                alignment: WrapAlignment.spaceBetween,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  Text(
+                    'Tu semana',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                ),
-                Text(
-                  '${plan.percentage}%',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.w800,
+                  Text(
+                    '${plan.completedSessions} de ${plan.targetSessions} sesiones · ${plan.percentage}%',
+                    style: TextStyle(
+                      color: HomeDesign.action(context),
+                      fontSize: 12,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             const SizedBox(height: 12),
             LinearProgressIndicator(
               value: plan.percentage / 100,
-              minHeight: 9,
+              color: HomeDesign.action(context),
+              backgroundColor: HomeDesign.hero(context),
+              minHeight: 6,
               borderRadius: BorderRadius.circular(9),
             ),
             const SizedBox(height: 10),
-            Text('${plan.targetMinutes} minutos planeados esta semana'),
+            Text(
+              '${plan.targetMinutes} minutos planeados esta semana',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: HomeDesign.secondaryText(context),
+              ),
+            ),
           ],
         ),
       ),
@@ -543,24 +688,6 @@ class _ErrorDashboard extends StatelessWidget {
       ),
     ),
   );
-}
-
-String _formatDate(DateTime date) {
-  const months = [
-    'enero',
-    'febrero',
-    'marzo',
-    'abril',
-    'mayo',
-    'junio',
-    'julio',
-    'agosto',
-    'septiembre',
-    'octubre',
-    'noviembre',
-    'diciembre',
-  ];
-  return '${date.day} de ${months[date.month - 1]} de ${date.year}';
 }
 
 String _formatInteger(int value) {

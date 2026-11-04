@@ -109,6 +109,14 @@ void main() {
       );
       await tester.pumpAndSettle();
       expect(tester.takeException(), isNull);
+      // The enlarged greeting can push the next card below the first viewport.
+      // Reach it through the actual scroll instead of requiring clipped text.
+      await tester.scrollUntilVisible(
+        find.byKey(const Key('home-primary-action-card')),
+        250,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.pumpAndSettle();
       expect(find.text('SIGUIENTE ACTIVIDAD'), findsOneWidget);
       // Check the lazily laid out content below the first viewport, too.
       for (var scroll = 0; scroll < 5; scroll++) {

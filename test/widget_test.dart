@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:saber_plus/app/app.dart';
@@ -30,6 +31,14 @@ import 'package:saber_plus/features/favorites/domain/favorite_repository.dart';
 import 'package:saber_plus/features/resume/data/drift_learning_resume_repository.dart';
 import 'package:saber_plus/features/resume/domain/learning_resume_models.dart';
 import 'package:saber_plus/features/resume/domain/learning_resume_repository.dart';
+
+Future<void> _openPracticeFolder(WidgetTester tester, String id) async {
+  final folder = find.byKey(Key('practice-folder-$id'));
+  await tester.ensureVisible(folder);
+  await tester.pumpAndSettle();
+  await tester.tap(folder);
+  await tester.pumpAndSettle();
+}
 
 class _FakeSecureSessionStore extends SecureSessionStore {
   _FakeSecureSessionStore() : super(const FlutterSecureStorage());
@@ -125,7 +134,7 @@ void main() {
     final app = tester.widget<MaterialApp>(find.byType(MaterialApp));
     expect(app.themeMode, ThemeMode.light);
     expect(app.theme?.scaffoldBackgroundColor, Colors.white);
-    expect(find.text('SaberPlus'), findsOneWidget);
+    expect(find.text('SaberPlus'), findsNothing);
     expect(find.text('Comenzar'), findsOneWidget);
     expect(find.textContaining('Tu preparación ICFES'), findsOneWidget);
   });
@@ -146,6 +155,21 @@ void main() {
     expect(find.textContaining('Hola, Santiago'), findsOneWidget);
     expect(find.text('Refuerzo de matemáticas'), findsOneWidget);
     expect(find.text('Inicio'), findsOneWidget);
+    final navigation = tester.widget<NavigationBar>(find.byType(NavigationBar));
+    final destinations = navigation.destinations.cast<NavigationDestination>();
+    expect(navigation.selectedIndex, 0);
+    expect(destinations.map((destination) => (destination.icon as Icon).icon), [
+      LucideIcons.house,
+      LucideIcons.bookOpenText,
+      LucideIcons.gamepad2,
+      LucideIcons.chartArea,
+      LucideIcons.menu,
+    ]);
+    for (final destination in destinations) {
+      if (destination.selectedIcon case final Icon selected) {
+        expect(selected.icon, (destination.icon as Icon).icon);
+      }
+    }
     expect(find.byKey(const Key('exam-countdown-banner')), findsOneWidget);
     expect(find.byKey(const Key('expand-exam-countdown')), findsOneWidget);
 
@@ -157,8 +181,33 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('expand-exam-countdown')), findsOneWidget);
 
+    await tester.tap(find.byKey(const Key('expand-exam-countdown')));
+    await tester.pumpAndSettle();
+    expect(
+      find.text('Consulta tu citación para conocer el horario.'),
+      findsOneWidget,
+    );
+    await tester.tap(find.byKey(const Key('close-exam-countdown')));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('docked-exam-countdown')), findsOneWidget);
+    expect(find.byKey(const Key('expand-exam-countdown')), findsNothing);
+    final restore = find.byKey(const Key('restore-exam-countdown'));
+    await tester.tap(restore);
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('docked-exam-countdown')), findsOneWidget);
+    await tester.tap(restore);
+    await tester.pump(const Duration(milliseconds: 100));
+    await tester.tap(restore);
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('docked-exam-countdown')), findsNothing);
+    expect(find.byKey(const Key('expand-exam-countdown')), findsOneWidget);
+
     await tester.tap(find.text('Estudiar'));
     await tester.pumpAndSettle();
+    expect(
+      tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
+      1,
+    );
     expect(find.byKey(const Key('exam-countdown-banner')), findsOneWidget);
     expect(find.byKey(const Key('expand-exam-countdown')), findsOneWidget);
   });
@@ -219,7 +268,27 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Regla de tres'), findsWidgets);
 
-    await tester.drag(find.byType(ListView).last, const Offset(0, -500));
+    // The lesson exposes completion and practice after its final reading card.
+    for (var index = 0; index < 10; index++) {
+      final next = find.byKey(const Key('lesson-card-next'));
+      await tester.ensureVisible(next);
+      await tester.pumpAndSettle();
+      if (tester.widget<IconButton>(next).onPressed == null) break;
+      await tester.ensureVisible(next);
+      await tester.pumpAndSettle();
+      await tester.tap(next);
+      await tester.pumpAndSettle();
+    }
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('complete-study-lesson-button')),
+      250,
+      scrollable: find
+          .descendant(
+            of: find.byKey(const Key('study-lesson-scroll')),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
     await tester.pumpAndSettle();
     expect(find.text('Marcar como completada'), findsOneWidget);
     await tester.tap(find.byKey(const Key('complete-study-lesson-button')));
@@ -277,6 +346,7 @@ void main() {
 
     await tester.tap(find.text('Practicar'));
     await tester.pumpAndSettle();
+    await _openPracticeFolder(tester, 'practice');
     await tester.scrollUntilVisible(
       find.byKey(const Key('open-random-practice')),
       200,
@@ -317,6 +387,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Practicar'));
     await tester.pumpAndSettle();
+    await _openPracticeFolder(tester, 'games');
     final tile = find.byKey(const Key('open-star-rescue'));
     await tester.scrollUntilVisible(
       tile,
@@ -349,6 +420,7 @@ void main() {
 
     await tester.tap(find.text('Practicar'));
     await tester.pumpAndSettle();
+    await _openPracticeFolder(tester, 'games');
     await tester.scrollUntilVisible(
       find.byKey(const Key('open-trivia-rush')),
       300,
@@ -373,7 +445,9 @@ void main() {
     expect(find.byKey(const Key('start-trivia-rush')), findsOneWidget);
   });
 
-  testWidgets('abre el juego de memoria desde practicar', (tester) async {
+  testWidgets('no ofrece memoria local en el catálogo de juegos conectados', (
+    tester,
+  ) async {
     await tester.pumpWidget(_testApp());
     await tester.pumpAndSettle();
 
@@ -386,27 +460,19 @@ void main() {
 
     await tester.tap(find.text('Practicar'));
     await tester.pumpAndSettle();
+    await _openPracticeFolder(tester, 'games');
     await tester.scrollUntilVisible(
-      find.byKey(const Key('open-memory-match')),
+      find.byKey(const Key('open-tug-of-war')),
       300,
       scrollable: find.byType(Scrollable).last,
     );
     await Scrollable.ensureVisible(
-      tester.element(find.byKey(const Key('open-memory-match'))),
+      tester.element(find.byKey(const Key('open-tug-of-war'))),
       alignment: 0.5,
     );
     await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const Key('open-memory-match')));
-    await tester.pumpAndSettle();
-
-    expect(find.text('Encuentra cada concepto y su pareja'), findsOneWidget);
-    expect(find.byKey(const Key('memory-kind-mixed')), findsOneWidget);
-    await tester.scrollUntilVisible(
-      find.byKey(const Key('start-memory-match')),
-      300,
-      scrollable: find.byType(Scrollable).last,
-    );
-    expect(find.byKey(const Key('start-memory-match')), findsOneWidget);
+    expect(find.byKey(const Key('open-memory-match')), findsNothing);
+    expect(find.byKey(const Key('open-tug-of-war')), findsOneWidget);
   });
 
   testWidgets('abre el duelo fantasma desde practicar', (tester) async {
@@ -422,6 +488,7 @@ void main() {
 
     await tester.tap(find.text('Practicar'));
     await tester.pumpAndSettle();
+    await _openPracticeFolder(tester, 'games');
     await tester.scrollUntilVisible(
       find.byKey(const Key('open-ghost-duel')),
       300,
@@ -465,6 +532,7 @@ void main() {
 
     await tester.tap(find.text('Practicar'));
     await tester.pumpAndSettle();
+    await _openPracticeFolder(tester, 'games');
     await tester.scrollUntilVisible(
       find.byKey(const Key('open-tug-of-war')),
       300,
@@ -505,6 +573,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Practicar'));
     await tester.pumpAndSettle();
+    await _openPracticeFolder(tester, 'simulations');
     await tester.scrollUntilVisible(
       find.byKey(const Key('open-time-trial')),
       200,
@@ -548,6 +617,7 @@ void main() {
 
     await tester.tap(find.text('Practicar'));
     await tester.pumpAndSettle();
+    await _openPracticeFolder(tester, 'simulations');
     await tester.tap(find.byKey(const Key('open-official-simulation')));
     await tester.pumpAndSettle();
 
@@ -590,6 +660,7 @@ void main() {
 
       await tester.tap(find.text('Practicar'));
       await tester.pumpAndSettle();
+      await _openPracticeFolder(tester, 'simulations');
       await tester.tap(find.byKey(const Key('open-historical-simulations')));
       await tester.pumpAndSettle();
 
@@ -624,6 +695,7 @@ void main() {
 
     await tester.tap(find.text('Practicar'));
     await tester.pumpAndSettle();
+    await _openPracticeFolder(tester, 'simulations');
     await tester.tap(find.byKey(const Key('open-area-simulation')));
     await tester.pumpAndSettle();
     expect(find.text('Elige un área'), findsOneWidget);
@@ -669,8 +741,7 @@ void main() {
 
     await tester.tap(find.text('Practicar'));
     await tester.pumpAndSettle();
-    await tester.drag(find.byType(ListView).last, const Offset(0, -300));
-    await tester.pumpAndSettle();
+    await _openPracticeFolder(tester, 'results');
     await tester.tap(find.byKey(const Key('open-practice-history')));
     await tester.pumpAndSettle();
 
@@ -704,8 +775,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Practicar'));
     await tester.pumpAndSettle();
-    await tester.drag(find.byType(ListView).last, const Offset(0, -300));
-    await tester.pumpAndSettle();
+    await _openPracticeFolder(tester, 'results');
     await tester.tap(find.byKey(const Key('open-practice-history')));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('open-simulation-comparison')));
@@ -741,8 +811,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Practicar'));
     await tester.pumpAndSettle();
-    await tester.drag(find.byType(ListView).last, const Offset(0, -250));
-    await tester.pumpAndSettle();
+    await _openPracticeFolder(tester, 'results');
     await tester.tap(find.byKey(const Key('open-daily-mistakes')));
     await tester.pumpAndSettle();
 
@@ -1570,13 +1639,29 @@ void main() {
     expect(find.byKey(const Key('pomodoro-card')), findsOneWidget);
     expect(find.text('25:00'), findsOneWidget);
     await tester.tap(find.byKey(const Key('pomodoro-toggle')));
-    await tester.pump();
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('pomodoro-collapsed')), findsOneWidget);
+    await tester.tap(find.byKey(const Key('pomodoro-expand')));
+    await tester.pumpAndSettle();
     expect(find.byTooltip('Pausar Pomodoro'), findsOneWidget);
     await tester.tap(find.byKey(const Key('pomodoro-toggle')));
     await tester.pump();
     expect(find.byTooltip('Continuar Pomodoro'), findsOneWidget);
 
-    await tester.drag(find.byType(ListView).last, const Offset(0, -650));
+    // Completing the reading sequence reveals practice; moving cards never
+    // completes the lesson or changes the shared Pomodoro.
+    for (var card = 0; card < 20; card++) {
+      final next = find.byKey(const Key('lesson-card-next'));
+      if (next.evaluate().isEmpty) break;
+      await tester.ensureVisible(next);
+      await tester.pumpAndSettle();
+      if (tester.widget<IconButton>(next).onPressed == null) break;
+      await tester.tap(next);
+      await tester.pumpAndSettle();
+    }
+    await tester.ensureVisible(
+      find.byKey(const Key('start-subtopic-practice-button')),
+    );
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('start-subtopic-practice-button')));
     await tester.pumpAndSettle();

@@ -41,10 +41,10 @@ class DemoPracticeRepository implements PracticeRepository {
     required AcademicArea area,
     required List<PracticeAnswer> answers,
   }) async {
-    final content = _contentFor(area);
     final review = answers
         .map((answer) {
           final variant = answer.questionId.endsWith('-2') ? 2 : 1;
+          final content = _questionContent(area, variant);
           final correctId = variant == 1 ? 'answer-a' : 'answer-e';
           final question = _demoQuestion(
             area: area,
@@ -58,9 +58,7 @@ class DemoPracticeRepository implements PracticeRepository {
             isCorrect: answer.answerId == correctId,
             selectedAnswerId: answer.answerId,
             correctAnswerId: correctId,
-            explanation: variant == 1
-                ? content.explanation
-                : 'Comprobar significa volver a usar los datos originales con el resultado obtenido.',
+            explanation: content.explanation,
             options: question.options
                 .map(
                   (option) => PracticeReviewOption(
@@ -318,31 +316,19 @@ PracticeQuestion _demoQuestion({
   required String id,
   required int variant,
 }) {
-  final content = _contentFor(area);
+  final content = _questionContent(area, variant);
   final isConceptQuestion = variant == 1;
   return PracticeQuestion(
     id: id,
-    statement: isConceptQuestion
-        ? content.statement
-        : '¿Cuál es la mejor estrategia para comprobar la respuesta?',
+    statement: content.statement,
     difficulty: 'MEDIA',
-    options: isConceptQuestion
-        ? [
-            for (var index = 0; index < content.options.length; index++)
-              PracticeOption(
-                id: 'answer-${String.fromCharCode(97 + index)}',
-                text: content.options[index],
-              ),
-          ]
-        : const [
-            PracticeOption(
-              id: 'answer-e',
-              text: 'Revisar los datos y sustituir el resultado',
-            ),
-            PracticeOption(id: 'answer-f', text: 'Elegir la opción más larga'),
-            PracticeOption(id: 'answer-g', text: 'Ignorar las unidades'),
-            PracticeOption(id: 'answer-h', text: 'Responder sin verificar'),
-          ],
+    options: [
+      for (var index = 0; index < content.options.length; index++)
+        PracticeOption(
+          id: 'answer-${String.fromCharCode((isConceptQuestion ? 97 : 101) + index)}',
+          text: content.options[index],
+        ),
+    ],
     subtopicId: subtopicId,
     subtopicName: content.subtopic,
     themeName: content.theme,
@@ -357,6 +343,65 @@ typedef _DemoContent = ({
   List<String> options,
   String explanation,
 });
+
+_DemoContent _questionContent(AcademicArea area, int variant) {
+  final first = _contentFor(area);
+  if (variant == 1) return first;
+  final (statement, options, explanation) = switch (area) {
+    AcademicArea.mathematics => (
+      'Si 4 lápices cuestan 8.000 pesos, ¿cuánto cuestan 7 lápices?',
+      ['14.000 pesos', '11.000 pesos', '16.000 pesos', '7.000 pesos'],
+      'Cada lápiz cuesta 8.000 ÷ 4 = 2.000 pesos. Siete cuestan 7 × 2.000 = 14.000 pesos.',
+    ),
+    AcademicArea.criticalReading => (
+      '«Leer cada día amplía el vocabulario y permite conocer otras perspectivas». ¿Qué idea resume el texto?',
+      [
+        'La lectura aporta beneficios al aprendizaje',
+        'Leer solo sirve para memorizar',
+        'El texto describe una biblioteca',
+        'Las perspectivas impiden aprender',
+      ],
+      'El vocabulario y las perspectivas son ejemplos que apoyan la idea general: los beneficios de leer.',
+    ),
+    AcademicArea.naturalSciences => (
+      'En la cadena pasto → conejo → zorro, ¿qué ocurriría inicialmente si disminuye el pasto?',
+      [
+        'Los conejos dispondrían de menos alimento',
+        'Los conejos producirían más pasto',
+        'Los zorros harían fotosíntesis',
+        'La energía disponible aumentaría siempre',
+      ],
+      'El pasto alimenta a los conejos. Si disminuye, se reduce el alimento disponible para ellos.',
+    ),
+    AcademicArea.socialSciences => (
+      'En una asamblea escolar hay opiniones distintas. ¿Cuál acción respeta la participación democrática?',
+      [
+        'Escuchar propuestas y debatir con respeto',
+        'Silenciar a quienes piensan distinto',
+        'Amenazar para imponer una propuesta',
+        'Inventar información para ganar apoyo',
+      ],
+      'Escuchar y argumentar permite deliberar respetando el derecho de todos a participar.',
+    ),
+    AcademicArea.english => (
+      '“Laura takes the bus to school because it is cheaper than a taxi.” Why does Laura take the bus?',
+      [
+        'Because it costs less than a taxi',
+        'Because she dislikes school',
+        'Because taxis are free',
+        'Because she walks every day',
+      ],
+      '“Cheaper than a taxi” means that the bus costs less. The word “because” introduces the reason.',
+    ),
+  };
+  return (
+    theme: first.theme,
+    subtopic: first.subtopic,
+    statement: statement,
+    options: options,
+    explanation: explanation,
+  );
+}
 
 _DemoContent _contentFor(AcademicArea area) => switch (area) {
   AcademicArea.mathematics => (

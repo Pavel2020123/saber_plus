@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -8,6 +9,7 @@ import '../../../core/network/api_error.dart';
 import '../../../core/widgets/academic_image.dart';
 import '../../../core/widgets/academic_option_content.dart';
 import '../../auth/presentation/session_controller.dart';
+import '../../practice/presentation/booklet_exercise.dart';
 import '../../exam_countdown/presentation/exam_countdown_banner.dart';
 import '../../study_time/domain/study_time_models.dart';
 import '../../study_time/presentation/study_time_providers.dart';
@@ -35,8 +37,11 @@ class DiagnosticOverviewPage extends ConsumerWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const ExamCountdownBanner(
-        includeBottomSafeArea: true,
+      // Scaffold removes the body's bottom inset whenever this slot is set,
+      // even if the countdown itself is empty (no configured exam).
+      bottomNavigationBar: const SafeArea(
+        top: false,
+        child: ExamCountdownBanner(),
       ),
     );
   }
@@ -71,7 +76,7 @@ class _DiagnosticIntroduction extends StatelessWidget {
     padding: const EdgeInsets.fromLTRB(24, 20, 24, 36),
     children: [
       Icon(
-        Icons.explore_rounded,
+        LucideIcons.clipboardCheck,
         size: 88,
         color: Theme.of(context).colorScheme.primary,
       ),
@@ -137,7 +142,7 @@ class _DiagnosticIntroduction extends StatelessWidget {
             );
           }
         },
-        icon: const Icon(Icons.play_arrow_rounded),
+        icon: const Icon(LucideIcons.play),
         label: const Text('Preparar diagnóstico'),
       ),
     ],
@@ -409,54 +414,70 @@ class _DiagnosticSessionState extends ConsumerState<_DiagnosticSession>
                   Chip(label: Text(question.subtopicName)),
                 ],
               ),
-              if (question.caseContent case final caseContent?) ...[
-                const SizedBox(height: 12),
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(18),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (caseContent.title.isNotEmpty)
-                          Text(
-                            caseContent.title,
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                        if (caseContent.title.isNotEmpty &&
-                            caseContent.context.isNotEmpty)
-                          const SizedBox(height: 10),
-                        if (caseContent.context.isNotEmpty)
-                          Text(caseContent.context),
-                        if (caseContent.imageUrl case final url?) ...[
-                          const SizedBox(height: 14),
-                          _RemoteQuestionImage(url: url),
+              if (question.booklet case final booklet?)
+                BookletExercise(
+                  key: ValueKey(question.id),
+                  activity: booklet,
+                  selections: selected == null
+                      ? const {}
+                      : {booklet.items.single.id: selected},
+                  onSelect: (_, choiceId) => _selectAnswer(choiceId),
+                  locked: _submitting,
+                ),
+              if (question.booklet == null) ...[
+                if (question.caseContent case final caseContent?) ...[
+                  const SizedBox(height: 12),
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(18),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (caseContent.title.isNotEmpty)
+                            Text(
+                              caseContent.title,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                          if (caseContent.title.isNotEmpty &&
+                              caseContent.context.isNotEmpty)
+                            const SizedBox(height: 10),
+                          if (caseContent.context.isNotEmpty)
+                            Text(caseContent.context),
+                          if (caseContent.imageUrl case final url?) ...[
+                            const SizedBox(height: 14),
+                            _RemoteQuestionImage(url: url),
+                          ],
                         ],
-                      ],
+                      ),
                     ),
                   ),
+                ],
+                const SizedBox(height: 18),
+                Text(
+                  question.statement,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(height: 1.35),
                 ),
-              ],
-              const SizedBox(height: 18),
-              Text(
-                question.statement,
-                style: Theme.of(
-                  context,
-                ).textTheme.titleLarge?.copyWith(height: 1.35),
-              ),
-              if (question.imageUrl case final url?) ...[
-                const SizedBox(height: 14),
-                _RemoteQuestionImage(url: url),
-              ],
-              const SizedBox(height: 20),
-              for (var index = 0; index < question.options.length; index++) ...[
-                _AnswerOption(
-                  key: Key('diagnostic-option-${question.options[index].id}'),
-                  letter: String.fromCharCode(65 + index),
-                  option: question.options[index],
-                  selected: selected == question.options[index].id,
-                  onTap: () => _selectAnswer(question.options[index].id),
-                ),
-                const SizedBox(height: 10),
+                if (question.imageUrl case final url?) ...[
+                  const SizedBox(height: 14),
+                  _RemoteQuestionImage(url: url),
+                ],
+                const SizedBox(height: 20),
+                for (
+                  var index = 0;
+                  index < question.options.length;
+                  index++
+                ) ...[
+                  _AnswerOption(
+                    key: Key('diagnostic-option-${question.options[index].id}'),
+                    letter: String.fromCharCode(65 + index),
+                    option: question.options[index],
+                    selected: selected == question.options[index].id,
+                    onTap: () => _selectAnswer(question.options[index].id),
+                  ),
+                  const SizedBox(height: 10),
+                ],
               ],
             ],
           ),
@@ -687,7 +708,7 @@ class _DiagnosticResults extends ConsumerWidget {
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Card(
                           child: ListTile(
-                            leading: const Icon(Icons.school_outlined),
+                            leading: const Icon(LucideIcons.school),
                             title: Text(topic.subtopic),
                             subtitle: Text(
                               '${topic.theme} · ${topic.area.label}',

@@ -12,6 +12,7 @@ import '../domain/session.dart';
 enum SignInResult { authenticated, verificationRequired, failed }
 
 class SessionController extends Notifier<SessionState> {
+  int _profileReadRevision = 0;
   var _disposed = false;
   var _generation = 0;
   Future<void> _storageWrites = Future<void>.value();
@@ -163,8 +164,14 @@ class SessionController extends Notifier<SessionState> {
     final generation = ++_generation;
     state = state.copyWith(isLoading: true, clearError: true);
     try {
-      await ref.read(authRepositoryProvider).changeInitialPassword(password);
+      final tokens = await ref
+          .read(authRepositoryProvider)
+          .changeInitialPassword(password);
       if (!_isCurrent(generation)) return false;
+      if (tokens != null) {
+        await _persistTokens(tokens);
+        if (!_isCurrent(generation)) return false;
+      }
       final refreshedUser = await ref.read(authRepositoryProvider).profile();
       if (!_isCurrent(generation)) return false;
       state = SessionState.authenticated(refreshedUser);
@@ -204,17 +211,41 @@ class SessionController extends Notifier<SessionState> {
   Future<void> refreshProfile() async {
     if (_disposed) return;
     final generation = _generation;
+    final revision = ++_profileReadRevision;
     final current = state.user;
     if (current == null || current.isDemo) return;
     try {
       final user = await ref.read(authRepositoryProvider).profile();
       if (_isCurrent(generation) &&
+          revision == _profileReadRevision &&
           state.user?.id == current.id &&
           user.id == current.id) {
         state = SessionState.authenticated(user);
       }
     } on Object {
       // La gamificación sigue disponible aunque falle esta actualización de XP.
+    }
+  }
+
+  Future<bool> revalidateInstitutionalAccess() async {
+    if (_disposed) return false;
+    final current = state.user;
+    if (current == null || current.isDemo) return false;
+    final generation = _generation;
+    final revision = ++_profileReadRevision;
+    try {
+      final user = await ref.read(authRepositoryProvider).profile();
+      if (!_isCurrent(generation) ||
+          revision != _profileReadRevision ||
+          state.user?.id != current.id ||
+          user.id != current.id) {
+        return false;
+      }
+      state = SessionState.authenticated(user);
+      return true;
+    } on Object {
+      // A failed read never extends a grant or discards an educational draft.
+      return false;
     }
   }
 
@@ -287,12 +318,12 @@ class SessionController extends Notifier<SessionState> {
     }
   }
 
-  Future<void> _persist(LoginResult result) async {
-    ref.read(accessTokenStoreProvider).set(result.tokens.accessToken);
+  Future<void> _persist(LoginResult result) => _persistTokens(result.tokens);
+
+  Future<void> _persistTokens(AuthTokens tokens) async {
+    ref.read(accessTokenStoreProvider).set(tokens.accessToken);
     final store = ref.read(secureSessionStoreProvider);
-    await _enqueueStorage(
-      () => store.saveAccessToken(result.tokens.accessToken),
-    );
+    await _enqueueStorage(() => store.saveAccessToken(tokens.accessToken));
   }
 
   Future<bool> _clearTokens() async {

@@ -38,6 +38,113 @@ void main() {
       return container.read(sessionControllerProvider.notifier);
     }
 
+    for (final renew in [true, false]) {
+      test(
+        'cambio inicial conserva contrato de token: renovar=$renew',
+        () async {
+          secureStore.token = 'saved-token';
+          final session = await controller();
+          repository.profileResult.complete(_ControlledAuthRepository.user);
+          await Future<void>.delayed(Duration.zero);
+          repository.profileResult = Completer<UserSession>();
+          final change = session.changeInitialPassword('unused');
+          repository.passwordResult.complete(
+            renew ? const AuthTokens(accessToken: 'fresh-token') : null,
+          );
+          await Future<void>.delayed(Duration.zero);
+          expect(repository.profileCalls, 2);
+          expect(tokenStore.accessToken, renew ? 'fresh-token' : 'saved-token');
+          expect(secureStore.token, renew ? 'fresh-token' : 'saved-token');
+          repository.profileResult.complete(_ControlledAuthRepository.user);
+          expect(await change, isTrue);
+        },
+      );
+    }
+
+    for (final duringWrite in [false, true]) {
+      test('logout invalida cambio inicial: escritura=$duringWrite', () async {
+        final session = await controller();
+        if (duringWrite) secureStore.writeGate = Completer<void>();
+        final change = session.changeInitialPassword('unused');
+        if (duringWrite) {
+          repository.passwordResult.complete(
+            const AuthTokens(accessToken: 'fresh-token'),
+          );
+          await Future<void>.delayed(Duration.zero);
+          expect(tokenStore.accessToken, 'fresh-token');
+        }
+        final logout = session.signOut();
+        if (duringWrite) {
+          secureStore.writeGate!.complete();
+        } else {
+          repository.passwordResult.complete(
+            const AuthTokens(accessToken: 'fresh-token'),
+          );
+        }
+        await logout;
+        expect(await change, isFalse);
+        expect(repository.profileCalls, 0);
+        expect(tokenStore.accessToken, isNull);
+        expect(secureStore.token, isNull);
+        expect(container.read(sessionControllerProvider).user, isNull);
+      });
+    }
+
+    test('revalidación fallida conserva sesión sin afirmar éxito', () async {
+      secureStore.token = 'saved-token';
+      final session = await controller();
+      repository.profileResult.complete(_ControlledAuthRepository.user);
+      await Future<void>.delayed(Duration.zero);
+      repository.profileResult = Completer<UserSession>();
+      final refresh = session.revalidateInstitutionalAccess();
+      repository.profileResult.completeError(StateError('offline'));
+      expect(await refresh, isFalse);
+      expect(container.read(sessionControllerProvider).user?.id, 'user-1');
+      expect(tokenStore.accessToken, 'saved-token');
+    });
+
+    test(
+      'solo la lectura de perfil más reciente puede aplicar su resultado',
+      () async {
+        secureStore.token = 'saved-token';
+        final session = await controller();
+        repository.profileResult.complete(_ControlledAuthRepository.user);
+        await Future<void>.delayed(Duration.zero);
+        final older = Completer<UserSession>();
+        repository.profileResult = older;
+        final first = session.revalidateInstitutionalAccess();
+        repository.profileResult = Completer<UserSession>();
+        final second = session.revalidateInstitutionalAccess();
+        repository.profileResult.complete(
+          const UserSession(
+            id: 'user-1',
+            firstName: 'Nuevo estado',
+            role: AppRole.student,
+          ),
+        );
+        expect(await second, isTrue);
+        older.complete(_ControlledAuthRepository.user);
+        expect(await first, isFalse);
+        expect(
+          container.read(sessionControllerProvider).user?.firstName,
+          'Nuevo estado',
+        );
+      },
+    );
+
+    test('revalidación tardía no abre sesión cerrada', () async {
+      secureStore.token = 'saved-token';
+      final session = await controller();
+      repository.profileResult.complete(_ControlledAuthRepository.user);
+      await Future<void>.delayed(Duration.zero);
+      repository.profileResult = Completer<UserSession>();
+      final refresh = session.revalidateInstitutionalAccess();
+      await session.signOut();
+      repository.profileResult.complete(_ControlledAuthRepository.user);
+      expect(await refresh, isFalse);
+      expect(container.read(sessionControllerProvider).user, isNull);
+    });
+
     test('un login pendiente no vuelve a entrar después de logout', () async {
       final session = await controller();
       final login = session.signIn(email: 'a@example.com', password: 'unused');
@@ -278,6 +385,11 @@ class _ControlledAuthRepository extends _UnverifiedAuthRepository {
   var loginResult = Completer<LoginResult>();
   var profileResult = Completer<UserSession>();
   var profileCalls = 0;
+  var passwordResult = Completer<AuthTokens?>();
+
+  @override
+  Future<AuthTokens?> changeInitialPassword(String password) =>
+      passwordResult.future;
 
   @override
   Future<LoginResult> login({
@@ -334,6 +446,6 @@ class _UnverifiedAuthRepository implements AuthRepository {
   }) => throw UnimplementedError();
 
   @override
-  Future<void> changeInitialPassword(String password) =>
+  Future<AuthTokens?> changeInitialPassword(String password) =>
       throw UnimplementedError();
 }

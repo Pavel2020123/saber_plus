@@ -1,3 +1,5 @@
+import '../../practice/domain/booklet_activity.dart';
+
 enum AcademicArea {
   criticalReading,
   mathematics,
@@ -165,6 +167,7 @@ class DiagnosticQuestion {
     required this.area,
     this.imageUrl,
     this.caseContent,
+    this.booklet,
   });
 
   final String id;
@@ -172,6 +175,7 @@ class DiagnosticQuestion {
   final String difficulty;
   final String? imageUrl;
   final DiagnosticCaseContent? caseContent;
+  final BookletActivity? booklet;
   final List<DiagnosticOption> options;
   final String subtopicName;
   final String themeName;
@@ -181,9 +185,16 @@ class DiagnosticQuestion {
     final subtopic = Map<String, dynamic>.from(json['subtema'] as Map);
     final theme = Map<String, dynamic>.from(subtopic['tema'] as Map);
     final caseJson = json['caso'];
+    final bookletJson = json['cuadernillo'];
     return DiagnosticQuestion(
       id: json['id'] as String,
       statement: json['enunciado'] as String,
+      booklet: bookletJson is Map
+          ? BookletActivity.fromJson(
+              json['id'] as String,
+              Map<String, dynamic>.from(bookletJson['contenido'] as Map),
+            )
+          : null,
       difficulty: json['dificultad'] as String? ?? '',
       imageUrl: json['imagenUrl'] as String?,
       caseContent: caseJson is Map
@@ -471,42 +482,46 @@ class AcademicHomeData {
     plan: plan ?? this.plan,
   );
 
-  static AcademicHomeData get demo => AcademicHomeData(
-    activeExam: ActiveExam(
-      id: 'demo-calendar',
-      year: 2026,
-      calendar: 'A',
-      examDate: DateTime.now().add(const Duration(days: 84)),
-    ),
-    diagnostic: const DiagnosticSummary(
-      status: DiagnosticStatus.completed,
-      id: 'demo-diagnostic',
-      totalQuestions: 15,
-      correctAnswers: 9,
-      percentage: 60,
-      level: DiagnosticLevel.inProgress,
-      priorityArea: AcademicArea.mathematics,
-    ),
-    plan: StudyPlanSummary(
-      status: StudyPlanStatus.ready,
-      targetSessions: 5,
-      completedSessions: 3,
-      targetMinutes: 200,
-      percentage: 60,
-      activities: [
-        StudyActivity(
-          id: 'demo-activity',
-          date: DateTime.now(),
-          type: StudyActivityType.study,
-          title: 'Refuerzo de matemáticas',
-          detail: 'Funciones lineales · sesión recomendada',
-          minutes: 40,
-          completed: false,
-          area: AcademicArea.mathematics,
-        ),
-      ],
-    ),
-  );
+  static AcademicHomeData get demo {
+    final now = DateTime.now();
+    final examDate = now.add(const Duration(days: 84));
+    return AcademicHomeData(
+      activeExam: ActiveExam(
+        id: 'demo-calendar',
+        year: examDate.year,
+        calendar: 'A',
+        examDate: examDate,
+      ),
+      diagnostic: const DiagnosticSummary(
+        status: DiagnosticStatus.completed,
+        id: 'demo-diagnostic',
+        totalQuestions: 15,
+        correctAnswers: 9,
+        percentage: 60,
+        level: DiagnosticLevel.inProgress,
+        priorityArea: AcademicArea.mathematics,
+      ),
+      plan: StudyPlanSummary(
+        status: StudyPlanStatus.ready,
+        targetSessions: 5,
+        completedSessions: 3,
+        targetMinutes: 200,
+        percentage: 60,
+        activities: [
+          StudyActivity(
+            id: 'demo-activity',
+            date: now,
+            type: StudyActivityType.study,
+            title: 'Refuerzo de matemáticas',
+            detail: 'Regla de tres · sesión recomendada',
+            minutes: 40,
+            completed: false,
+            area: AcademicArea.mathematics,
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 DateTime? _optionalDate(Object? value) =>

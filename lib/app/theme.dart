@@ -89,7 +89,9 @@ abstract final class SaberPlusTheme {
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          minimumSize: const Size.fromHeight(54),
+          // A global infinite width breaks buttons inside Row/Wrap/Dialog.
+          // Full-width actions must use their parent's finite constraints.
+          minimumSize: const Size(64, 54),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),

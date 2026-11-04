@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/network/api_error.dart';
 import '../../auth/presentation/session_controller.dart';
+import '../../auth/presentation/institutional_access_notice.dart';
 import '../../institutions/domain/teacher_institution_models.dart';
 import '../../institutions/presentation/teacher_institution_providers.dart';
 import '../../institutions/presentation/teacher_metrics_layout.dart';
@@ -12,6 +14,7 @@ import '../../institutions/presentation/institution_approval_page.dart';
 import '../../institutions/presentation/institution_profile_page.dart';
 import '../../institutions/presentation/student_institution_requests_page.dart';
 import '../../institutions/presentation/student_institution_code_page.dart';
+import '../../institutions/presentation/account_privacy_page.dart';
 
 class TeacherDashboardPage extends ConsumerStatefulWidget {
   const TeacherDashboardPage({super.key});
@@ -24,6 +27,15 @@ class TeacherDashboardPage extends ConsumerStatefulWidget {
 class _TeacherDashboardPageState extends ConsumerState<TeacherDashboardPage> {
   var _working = false;
 
+  Future<void> _reload() async {
+    await ref
+        .read(sessionControllerProvider.notifier)
+        .revalidateInstitutionalAccess();
+    if (mounted) {
+      await ref.read(teacherInstitutionControllerProvider.notifier).reload();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(sessionControllerProvider).user;
@@ -33,12 +45,15 @@ class _TeacherDashboardPageState extends ConsumerState<TeacherDashboardPage> {
         title: const Text('Espacio del profesor'),
         actions: [
           IconButton(
+            tooltip: 'Privacidad de mi cuenta',
+            onPressed: () => Navigator.of(context).push<void>(
+              MaterialPageRoute(builder: (_) => const AccountPrivacyPageView()),
+            ),
+            icon: const Icon(Icons.privacy_tip_outlined),
+          ),
+          IconButton(
             tooltip: 'Actualizar',
-            onPressed: _working
-                ? null
-                : () => ref
-                      .read(teacherInstitutionControllerProvider.notifier)
-                      .reload(),
+            onPressed: _working ? null : _reload,
             icon: const Icon(Icons.refresh_rounded),
           ),
           IconButton(
@@ -63,8 +78,7 @@ class _TeacherDashboardPageState extends ConsumerState<TeacherDashboardPage> {
               ref.read(teacherInstitutionControllerProvider.notifier).reload(),
         ),
         data: (data) => RefreshIndicator(
-          onRefresh: () =>
-              ref.read(teacherInstitutionControllerProvider.notifier).reload(),
+          onRefresh: _reload,
           child: ListView(
             key: const Key('teacher-institution-list'),
             physics: const AlwaysScrollableScrollPhysics(),
@@ -79,6 +93,7 @@ class _TeacherDashboardPageState extends ConsumerState<TeacherDashboardPage> {
                 'Tu cuenta es personal. No compartas la contraseña con otros docentes ni con la institución.',
               ),
               const SizedBox(height: 20),
+              const InstitutionalAccessNotice(),
               if (data.institution?.verificationState == 'LEGADO_EN_REVISION')
                 const Card(
                   child: Padding(
@@ -176,7 +191,7 @@ class _TeacherDashboardPageState extends ConsumerState<TeacherDashboardPage> {
               if (data.status == TeacherInstitutionStatus.linked &&
                   data.institution?.verificationState == 'APROBADA')
                 OutlinedButton.icon(
-                  icon: const Icon(Icons.school_outlined),
+                  icon: const Icon(LucideIcons.school),
                   label: const Text('Perfil institucional'),
                   onPressed: () => Navigator.of(context).push(
                     MaterialPageRoute<void>(
@@ -325,7 +340,7 @@ class _NoInstitution extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(Icons.school_outlined, size: 38),
+              const Icon(LucideIcons.school, size: 38),
               const SizedBox(height: 12),
               Text(
                 'Configura tu espacio institucional',
@@ -456,7 +471,7 @@ class _LinkedInstitution extends StatelessWidget {
                 runSpacing: 8,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
-                  const Icon(Icons.account_balance_outlined, size: 34),
+                  const Icon(LucideIcons.school, size: 34),
                   Chip(label: Text(role.label)),
                   Chip(label: Text('Plan ${institution.plan.toLowerCase()}')),
                 ],
@@ -669,7 +684,7 @@ class _LinkedInstitution extends StatelessWidget {
                     FilledButton.tonalIcon(
                       key: const Key('open-institution-groups'),
                       onPressed: onGroups,
-                      icon: const Icon(Icons.arrow_forward_rounded),
+                      icon: const Icon(LucideIcons.arrowRight),
                       label: const Text('Abrir grupos'),
                     ),
                   ],

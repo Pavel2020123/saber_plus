@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -169,7 +170,7 @@ class AcademicProfilePage extends ConsumerWidget {
                   const Divider(height: 1, indent: 64),
                   _ProfileLink(
                     key: const Key('profile-open-study-time'),
-                    icon: Icons.schedule_rounded,
+                    icon: LucideIcons.timer,
                     title: 'Tiempo estudiado',
                     subtitle: 'Mira el detalle por día, semana y actividad',
                     onTap: () => context.push('/student/more/study-time'),
@@ -350,13 +351,13 @@ class _MetricGrid extends StatelessWidget {
         children: [
           _MetricCard(
             key: const Key('academic-profile-xp'),
-            icon: Icons.bolt_rounded,
+            icon: LucideIcons.zap,
             label: 'XP acumulado',
             value: _formatInteger(xp),
           ),
           _MetricCard(
             key: const Key('academic-profile-progress'),
-            icon: Icons.menu_book_rounded,
+            icon: LucideIcons.bookOpenText,
             label: 'Avance',
             value: progress == null
                 ? '—'
@@ -425,7 +426,7 @@ class _StudyTimeCard extends StatelessWidget {
     key: const Key('academic-profile-study-time'),
     child: ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-      leading: const Icon(Icons.timer_outlined),
+      leading: const Icon(LucideIcons.timer),
       title: const Text('Tiempo registrado'),
       subtitle: Text(
         summary == null
@@ -610,7 +611,7 @@ class _AreaInsightsCard extends StatelessWidget {
             child: TextButton.icon(
               key: const Key('profile-open-diagnostic'),
               onPressed: onOpenDiagnostic,
-              icon: const Icon(Icons.fact_check_outlined),
+              icon: const Icon(LucideIcons.clipboardCheck),
               label: const Text('Ver diagnóstico'),
             ),
           ),
