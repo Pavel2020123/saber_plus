@@ -1,5 +1,10 @@
 # Índice de documentación de SaberPlus
 
+- **Trabajo actual 5/nov:** [integración local OV-1 con LIC/C5 y regresión conjunta](OV1_LIC_C5_INTEGRACION_2026_11_05.md).
+  Código combinado y pruebas automatizadas aprobadas; publicación Git y
+  aceptación física del frontend combinado separadas. Las prioridades inferiores
+  son históricas y no reinician bloques ya cerrados.
+
 - **Trabajo actual 3/nov:** [LIC-4: cuenta y privacidad](LIC_4_CUENTA_Y_PRIVACIDAD.md).
   Las prioridades fechadas inferiores son antecedentes; sin despliegue nuevo.
 - [LIC: validación física Android aprobada](LIC_ANDROID_VALIDACION.md), con capturas

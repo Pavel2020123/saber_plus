@@ -1,5 +1,23 @@
 # SaberPlus — etapas pendientes y ruta vigente del equipo
 
+## Estado vigente — integración local del 5 de noviembre
+
+OV-1 ya está combinado con LIC/C5 en el frontend
+`feat/ov1-lic-c5-integracion`, worktree
+`C:\Users\LENOVO 14ALC6\AppData\Local\Temp\saberplus-ov1-c5-integracion-front-20261105`.
+Backend combinado: `fix/ov1-lic-integration`, sobre C5.
+Flutter completo: 1.388 aprobadas, 0 fallos, 29 omitidas.
+Jest completo: 2.187 aprobadas en 164 suites. Análisis lib/test sin incidencias.
+SQL/HTTP/Chromium privado final: 50/50 aprobadas, 0 omitidas, 89 migraciones
+desechables. Primera repetición 49/50 por descarga de PDF no recibida;
+segunda completa aprobada sin cambiar aserciones. No ocultar ese antecedente.
+Historial con licencia vencida y supresión propia están implementados y probados.
+Acta: `docs/OV1_LIC_C5_INTEGRACION_2026_11_05.md` en el worktree integrado.
+No se modificaron los cuadernillos ni se hizo commit/push o despliegue.
+Android previo aprobó OV-1 aislado, no se cuenta como nueva aceptación del
+frontend combinado. Confirmación Git y aceptación física conjunta separadas.
+
+
 ## Estado vigente C5 — 4/nov, cerrado en alcance local autorizado
 
 Servicio técnico y CLI local integrados en backend, sin endpoint público.
