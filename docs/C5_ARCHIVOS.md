@@ -1,5 +1,15 @@
 # C5 — Archivos y recursos persistentes
 
+## Ruta vigente — 4 de noviembre de 2026
+
+Consultar primero [ETAPAS_PENDIENTES.md](ETAPAS_PENDIENTES.md), estado vigente C5.
+El incremento privado y las operaciones técnicas se documentan en el backend:
+`backend/docs/C5_CIERRE_PENDIENTES_2026_11_03.md` y
+`backend/docs/C5_OPERACION_PRIVADA_LOCAL.md`.
+C5 está cerrado en alcance local autorizado según la matriz backend
+`backend/docs/C5_MATRIZ_CIERRE_LOCAL.md`. Los checkpoints inferiores son
+antecedentes; no reinician bloques verificados ni acreditan despliegue remoto.
+
 **31/oct, continuación vigente:** H3 verificada localmente y guardada en Git; [sigue PDF/offline P1](C5_PDF_OFFLINE.md), separando PDF exportable de caché privada. No reiniciar H3 por los checkpoints históricos inferiores. Sin despliegue ni push.
 
 **Continuación24/oct: [H2B4 y H2 cerradas en backend local](C5_H2B4_FUENTES_MUTABLES.md).**

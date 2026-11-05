@@ -1,5 +1,190 @@
 # SaberPlus — etapas pendientes y ruta vigente del equipo
 
+## Estado vigente C5 — 4/nov, cerrado en alcance local autorizado
+
+Servicio técnico y CLI local integrados en backend, sin endpoint público.
+Respaldo/restauración solo para ADMIN global verificado en fixture propio;
+no docentes ni propietarios institucionales. Conserva identidad/revisión,
+rechaza archivos retirados/vencidos y originales diferentes. La carrera de
+vencimiento durante IO rechaza la recuperación y retira originales/claves.
+
+Evidencia actual:48/48 SQL/HTTP/Chromium privados,53/53 unitarias privadas,
+9/9 pruebas de CLI,83/83 Flutter dirigidas y análisis de10 implementaciones
+Flutter sin incidencias. Regresión integrada con Storage real local:150/150
+aprobadas,0 fallos/omisiones, incluido el vencimiento durante recuperación.
+Incluye también escritura tardía tras timeout/fallo compensatorio y conservación
+de la primera confirmación de borrado. Última regresión editorial/privada
+unitaria:301/301 aprobadas; no sumar con los otros subconjuntos.
+No sumar contadores de ejecuciones distintas como una única suite.
+
+Fuente operativa: `SaberPlus-Backend/backend/docs/C5_CIERRE_PENDIENTES_2026_11_03.md`
+y `C5_OPERACION_PRIVADA_LOCAL.md`. Matriz de requisitos/evidencias:
+`backend/docs/C5_MATRIZ_CIERRE_LOCAL.md`. El flujo HTTP privado sobre Storage
+también quedó aprobado en la selección2/2 posterior, con recuperación exacta
+de foto/PDF y control de permisos. Matriz y revisión de entrega consolidadas.
+C5 queda cerrado en implementación/pruebas/documentación locales autorizadas.
+El propietario autorizó commits/push tras el cierre:implementación Flutter
+`b98d65e`, backend/panel `11bbaa3`, documentación en commits separados en
+`feat/c5-cierre-pendientes`. La publicación se verifica contra origin.
+No despliegue, migración remota ni merge; implantación real con autorización separada.
+Los checkpoints inferiores son históricos: sus pendientes no reinician bloques
+ya cubiertos por este estado, ni equivalen al cierre global.
+
+Contrato separado editorial/privado Storage aprobado con persistencia tras
+reinicio. Prisma Client5.22.0 regenerado
+correctamente tras cerrar los2 ejecutores propios; Nest compila. Puente JVM
+Android11/11 aprobado con Gradle offline. Revisión visual UI/UX Pro Max:se
+ajustó el título de adjuntos con texto250%,10 pruebas render/widget aprobadas
+y análisis limpio. Estos bloques ya no están pendientes.
+
+## Checkpoints anteriores de C5
+
+**4/nov, borrado de respaldos integrado localmente:** trabajador opt-in
+registrado, periódico60s, tandas20, sin solapamiento y con cierre esperado.
+Confirma clave/copia eliminadas antes de marcar el recibo. `vaultId` inmutable
+impide confirmar borrado desde otra carpeta.42/42 SQL/HTTP/Chromium privados y
+53/53 unitarios privados aprobados; Nest compila/Prisma valida. Incluye copia
+real, fallos, supresión y vencimiento. Apagado por defecto; sin endpoints nuevos
+ni despliegue. Falta servicio de operador y recuperación completa; C5 abierto.
+
+**4/nov, registro de borrado de respaldos:** tabla técnica/trigger preparados;
+la retirada del archivo marca la copia pendiente también por supresión LIC-4
+y vencimiento. Evidencia vencida no admite registro nuevo.40/40 pruebas
+SQL/HTTP/Chromium privadas aprobadas con88 migraciones solo temporales.
+Prisma valida; no migración de instancias existentes/remotas. Falta servicio
+de operador y borrado real de clave/copia coordinado con el registro.
+
+**4/nov, transporte de respaldo privado:** almacenamiento local cifrado con
+clave individual separada, replay sin sobrescritura y retirada que elimina
+clave/copia y bloquea resurrección, probado con temporales reales.56 pruebas
+Jest dirigidas aprobadas en siete suites; Nest compila. Falta conectar el
+servicio de operador, PostgreSQL y borrado por ciclo de vida. No está expuesto
+ni habilitado como respaldo real; C5 sigue abierto.
+
+**4/nov, foto privada Android/API aprobada:**
+`integration_test/private_photo_android_test.dart`, un flujo físico aprobado
+en1m34s con API local43188 y APK `.i2validation` verificado por AAPT. Imagen
+sintética normalizada aWEBP, selección real solo imágenes, carga explícita
+desde el componente de foto, contenido propio, rechazo de otra cuenta, ausencia
+de URL pública en perfil y retirada confirmada con descarga posterior denegada.
+Android usa ahora el puente acotado sin copia de `image_picker` a caché; el
+fallback de otras plataformas permanece sin cambios y no se acredita aquí.
+Once pruebas de fachada nativa Dart aprobadas; análisis del guion/página limpio.
+No es prueba de login/rutas completas, grandes imágenes, dispositivos distintos
+ni recuperación privada. Sigue cierre operativo, respaldo y auditoría final C5.
+
+**4/nov, evidencia privada Android/API aprobada:**
+`integration_test/private_evidence_android_test.dart` ejecutado mediante
+`flutter drive` con binario `.i2validation` verificado por AAPT. Un flujo
+aprobado en1m44s: exportación sintética inicial por DocumentsUI, selección
+nativa de esa copia, carga explícita desde la pantalla real al AppModule de
+loopback43188/PostgreSQL temporal, descarga exacta, consentimiento/exportación
+de copia y retirada confirmada con descarga posterior denegada. SHA-256 de las
+dos copias del teléfono idéntico tras la retirada, coherente con copias no
+revocables. Solo esos dos fixtures se retiraron después por su ruta/hash
+verificados. La app normal permanece; el driver retiró la instalación de test.
+No son credenciales reales ni prueba de rutas/login UI, fotos de perfil,
+offline72h, proveedor remoto ni recuperación privada. Análisis de los guiones
+Android y visual sin avisos. Siguen fotos Android y cierre operativo/respaldo.
+
+**4/nov, cancelación Android real aprobada:** APK compilado y verificado con
+AAPT (`com.example.saber_plus.i2validation`, SaberPlus Pruebas); no reemplaza
+la instalación normal. `flutter drive` con binario verificado ejecutó
+`integration_test/private_documents_android_test.dart`: selección cancelada,
+exportación cancelada y nueva selección cancelada, con DocumentsUI real y
+BACK solo tras observar su actividad. Un test de flujo aprobado en44s
+(el contador adicional corresponde a teardown). Sin archivos personales,
+cuentas ni backend en este escenario. Faltan lectura/escritura efectiva de
+copia sintética, flujo UI/API y respaldo/recuperación privados. No cerrar C5.
+
+**4/nov, preparación Android de adjuntos (antecedente):** dispositivo USB autorizado.
+Creado guion `integration_test/private_documents_android_test.dart` para abrir
+y cancelar selectores reales; compilación separada con selector
+`saberplusValidationApk=true` en curso, todavía sin instalar ni ejecutar.
+No contar como prueba Android aprobada. Pantalla: seis pruebas dirigidas
+aprobadas tras mínimo táctil48dp; cuatro renderizados opt-in generados antes
+del ajuste, inspección parcial, pendiente regeneración y revisión completa.
+
+**4/nov, preparación de respaldo privado:** sobre cifrado autenticado para
+ensayos locales en memoria, siete pruebas aprobadas; no guarda claves ni
+archivos y no modifica permisos/plazos. Falta integrar autorización, bloqueo,
+vencimiento, retención de copias y ensayo con proveedor/PostgreSQL. No declarar
+respaldo completo ni recuperación ante desastre por esta primitiva.
+
+**4/nov, auditoría de operación privada:** detectado que la recuperación
+editorial no restaura `ArchivoPrivado`; pendiente separado documentado en la
+fuente backend. Lectura local privada endurecida a5MiB antes de asignar memoria,
+incluido replay inmutable.43 pruebas Jest dirigidas aprobadas; Nest compila.
+No equivale a respaldo privado ensayado ni a cierre global C5.
+
+**4/nov, conciliación de envíos C5:** cancelación de reservas preparada con
+consulta previa; un recibo desconocido no descarta el envío, y uno ya activo no
+se borra silenciosamente. UI conserva y permite reintentar limpieza física
+pendiente de archivos retirados durante la pantalla actual. Regresión dirigida:
+82 pruebas Flutter aprobadas (fotos, repositorios, puente nativo simulado,
+controlador y pantalla de evidencias), análisis dirigido sin avisos.
+Incluye consentimiento previo a descarga/exportación y retirada. No demuestra
+operación Android real, persistencia de recibos entre reinicios ni recuperación
+del proveedor privado. No hay dispositivo USB conectado en esta comprobación.
+
+**4/nov, pantalla de adjuntos C5:** UI vinculada a la solicitud institucional
+solo con `PRIVATE_INSTITUTION_EVIDENCE_ENABLED`; selección y envío separados,
+confirmación de retirada/exportación, advertencia de copias no revocables y
+salida con operación pendiente. Cuatro pruebas de componentes aprobadas:
+375x812/844x390, claro/oscuro, texto200% y animaciones deshabilitadas.
+No prueba Android físico ni inspección visual de capturas. Siguen cancelación
+de reservas, pruebas ampliadas de UI, exportación real y cierre operativo.
+
+**4/nov, estado de pantalla C5 (antecedente):** controlador de adjuntos preparado con cinco
+pruebas aprobadas: selección sin envío automático, confirmación perdida/replay,
+doble toque, retirada incierta y cambio de sesión. Aún no vinculado a la UI:
+faltan pantalla, integración con solicitud, cancelación de reservas y Android.
+
+**4/nov, puente Android C5:** selector/exportación privados implementados detrás
+de flag de pruebas. Reporte JVM:11 pruebas nativas aprobadas; fachada Dart:10
+pruebas aprobadas, incluidos cancelación, cambio de sesión y exportación incierta.
+Estos resultados no prueban el selector físico ni la pantalla del solicitante:
+ambos siguen pendientes. Hot reload intentado, sin app conectada a DTD.
+No declarar C5 completo ni habilitar este flujo en producción.
+
+**4/nov, cliente privado C5:** contrato Flutter de adjuntos implementado y26
+pruebas nuevas aprobadas; combinado de fotos/adjuntos57 aprobadas.2 escenarios
+Flutter VM/HTTP contra AppModule/PostgreSQL temporal también aprobados: PDF y
+foto privada, aislamiento y confirmación perdida/replay. No implica selector ni
+pantalla de evidencias terminados: siguen integración nativa, Android y operación
+privada. No nuevas dependencias ni servicios remotos. Fuente backend indicada abajo.
+
+**4/nov, panel ADMIN C5:** listado/descarga privada de adjuntos integrado al
+detalle de solicitud, detrás de flag local.187 pruebas del panel y38 privadas
+SQL/HTTP/Chromium aprobadas; capturas escritorio/390 inspeccionadas. La carga del
+solicitante en Flutter y el cierre móvil/operativo siguen pendientes. Regresión
+completa C5 tras integrar panel:139 aprobadas/1 omitida (Storage opt-in), sin
+fallos; también comprobados texto200% y horizontal. Fuente:
+backend `docs/C5_CIERRE_PENDIENTES_2026_11_03.md`. No declarar C5 completo.
+
+**4/nov, último incremento C5:** backend de evidencias institucionales con
+consulta solicitante/ADMIN, descarga privada, bloqueo90d y limpieza automática
+local;37/37 SQL/HTTP privados y137 aprobadas/1 omitida en la regresión C5
+(el caso adicional de supresión LIC-4 se repitió en el subconjunto privado).
+Falta UI de adjuntos y cierre integrado/móvil.
+No implica producción ni migración remota. Fuente backend indicada abajo.
+
+**4/nov, avance anterior C5:** foto propia privada implementada detrás de flag local,
+31 pruebas Flutter aprobadas y cuatro renderizados QA; aún sin galería Android
+ni integración móvil/API. Backend:124 pruebas C5 aprobadas,1 Storage opt-in
+omitida,87 migraciones solo temporales. Reloj inmutable de resolución de
+evidencias preparado; siguen carga/descarga, aplicación de los90d, panel y limpieza
+física. No declarar C5 terminado. Detalle en la fuente backend indicada abajo.
+
+**3/nov, continuación C5 posterior a LIC:** objetivo global activo en
+`feat/c5-cierre-pendientes`. LIC-0..4 y su validación Android ya tienen commits y
+push en ambos repositorios; no merge/despliegue. El proveedor Supabase editorial
+y su recuperación ya tenían cierre local antes de LIC; no son implementación
+desde cero. Siguen fotos propias privadas y adjuntos de verificación institucional
+(imágenes/PDF, solo solicitante y ADMIN), más operación/instalación remota separada.
+Fuente de esta continuación: backend `docs/C5_CIERRE_PENDIENTES_2026_11_03.md`.
+No repetir H3, PDF/offline ni C5-D editorial por los antecedentes inferiores.
+
 **3/nov, prevalece:** [LIC-4 cuenta y privacidad](LIC_4_CUENTA_Y_PRIVACIDAD.md),
 sobre LIC-0/1/2/3 locales. Cierre local verificado. Las secuencias
 inferiores se conservan como antecedentes; no adelantar billing ni despliegue.
