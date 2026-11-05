@@ -15,6 +15,7 @@ import '../../institutions/presentation/institution_profile_page.dart';
 import '../../institutions/presentation/student_institution_requests_page.dart';
 import '../../institutions/presentation/student_institution_code_page.dart';
 import '../../institutions/presentation/account_privacy_page.dart';
+import '../../profile/presentation/private_profile_photo_page.dart';
 
 class TeacherDashboardPage extends ConsumerStatefulWidget {
   const TeacherDashboardPage({super.key});
@@ -94,6 +95,7 @@ class _TeacherDashboardPageState extends ConsumerState<TeacherDashboardPage> {
               ),
               const SizedBox(height: 20),
               const InstitutionalAccessNotice(),
+              const PrivateProfilePhotoShortcut(),
               if (data.institution?.verificationState == 'LEGADO_EN_REVISION')
                 const Card(
                   child: Padding(

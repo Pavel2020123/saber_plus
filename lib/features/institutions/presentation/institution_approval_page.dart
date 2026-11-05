@@ -8,6 +8,8 @@ import '../data/institution_approval_repository.dart';
 import 'teacher_institution_providers.dart';
 import 'institution_territory_field.dart';
 import '../data/institution_territory_repository.dart';
+import '../data/private_document_access.dart';
+import 'private_evidence_page.dart';
 
 final institutionApprovalRepositoryProvider =
     Provider<InstitutionApprovalRepository>((ref) {
@@ -185,6 +187,28 @@ class _InstitutionApprovalPageState
                           ],
                         ),
                       ),
+                    ),
+                  if (row != null &&
+                      privateInstitutionEvidenceEnabled &&
+                      ref.watch(sessionControllerProvider).user?.isDemo ==
+                          false)
+                    OutlinedButton.icon(
+                      onPressed: _working
+                          ? null
+                          : () async {
+                              await Navigator.of(context).push<void>(
+                                MaterialPageRoute(
+                                  builder: (_) => PrivateEvidencePage(
+                                    requestId: row.field('id'),
+                                  ),
+                                ),
+                              );
+                              if (mounted) {
+                                ref.invalidate(institutionApplicationProvider);
+                              }
+                            },
+                      icon: const Icon(Icons.attach_file),
+                      label: const Text('Adjuntos privados de verificación'),
                     ),
                   if (data.canEdit) ...[
                     _field('nombre', 'Nombre de la institución', min: 3),

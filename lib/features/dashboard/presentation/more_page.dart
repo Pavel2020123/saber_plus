@@ -10,6 +10,7 @@ import '../../gamification/presentation/gamification_providers.dart';
 import '../../institutions/presentation/student_request_shortcut.dart';
 import '../../question_reports/presentation/question_report_page.dart';
 import '../../institutions/presentation/account_privacy_page.dart';
+import '../../profile/presentation/private_profile_photo_page.dart';
 
 class MorePage extends ConsumerWidget {
   const MorePage({super.key});
@@ -38,6 +39,7 @@ class MorePage extends ConsumerWidget {
           ),
           const MyQuestionReportsShortcut(),
           const AccountPrivacyShortcut(),
+          const PrivateProfilePhotoShortcut(),
           _MenuTile(
             key: const Key('open-student-institution'),
             icon: LucideIcons.school,

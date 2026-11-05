@@ -8,6 +8,9 @@ class MainActivity : FlutterActivity() {
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+        if (!flutterEngine.plugins.has(PrivateDocumentsPlugin::class.java)) {
+            flutterEngine.plugins.add(PrivateDocumentsPlugin())
+        }
         privateOfflineVault = PrivateOfflineVault(this, flutterEngine.dartExecutor.binaryMessenger)
     }
 
